@@ -482,17 +482,77 @@ img {
   max-width: 640px;
 }
 
+/* Body block (general idea + anchors + meta + plan B) */
+.day-body {
+  padding: 0 1.4rem 1.4rem;
+}
+@media (min-width: 720px) {
+  .day-body {
+    padding: 0 2rem 1.8rem;
+  }
+}
+.day-idea {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0 0 1.2rem;
+  max-width: var(--max-prose);
+}
+
+/* Anchors — the few times that matter */
+.anchors-block {
+  background: var(--green-mist);
+  border: 1px solid rgba(46, 93, 79, 0.18);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem 1rem;
+  margin-bottom: 1.2rem;
+}
+.anchors-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--green-deep);
+  margin-bottom: 0.5rem;
+}
+.anchors-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+.anchor-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 0.6rem;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  align-items: baseline;
+}
+@media (min-width: 720px) {
+  .anchor-row {
+    grid-template-columns: 130px 1fr;
+  }
+}
+.anchor-time {
+  font-family: 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--green-deep);
+  letter-spacing: 0.02em;
+}
+.anchor-label {
+  color: var(--ink);
+}
+
 /* Meta chips strip */
 .day-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  padding: 0.4rem 1.4rem 1.2rem;
-}
-@media (min-width: 720px) {
-  .day-meta {
-    padding: 0.4rem 2rem 1.4rem;
-  }
+  margin-bottom: 1.1rem;
 }
 .chip {
   display: inline-flex;
@@ -519,142 +579,68 @@ img {
   color: var(--green-deep);
 }
 
-/* Plan A — primary, always expanded */
-.plan-block {
-  padding: 0 1.4rem 1.4rem;
-}
-@media (min-width: 720px) {
-  .plan-block {
-    padding: 0 2rem 1.8rem;
-  }
-}
-.plan-head {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.7rem;
-  border-bottom: 1px dashed var(--line-strong);
-}
-.plan-badge {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 0.25rem 0.7rem;
-  border-radius: 999px;
-  background: var(--green-deep);
-  color: white;
-  border-bottom: none;
-  display: inline-block;
-}
-.plan-b-block .plan-badge {
-  background: var(--blue-lake);
-}
-.plan-headline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin: 0;
-  flex: 1 1 auto;
-  color: var(--ink);
-}
-.plan-energy {
-  font-size: 0.82rem;
-  color: var(--ink-soft);
-  font-style: italic;
-}
-
-/* Hour-by-hour blocks */
-.blocks {
-  display: grid;
-  gap: 0;
-}
-.block {
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 0.9rem;
-  padding: 0.55rem 0;
-  font-size: 0.97rem;
-  line-height: 1.55;
-  border-bottom: 1px dotted var(--line);
-}
-.block:last-child {
-  border-bottom: none;
-}
-.block-time {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  color: var(--ink-soft);
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  padding-top: 0.05rem;
-}
-.plan-a-block .block-time {
-  color: var(--green-deep);
-}
-.plan-b-block .block-time {
-  color: var(--blue-lake);
-}
-.block-what {
-  color: var(--ink);
-}
-.block-what a {
-  color: var(--blue-lake);
-}
-
-/* Plan B — collapsed details element */
-.plan-b-toggle {
-  margin: 0 1.4rem 1.4rem;
+/* Plan B — collapsed one-liner */
+.planb-toggle {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--cream);
   overflow: hidden;
+  margin-bottom: 0.4rem;
 }
-@media (min-width: 720px) {
-  .plan-b-toggle {
-    margin: 0 2rem 1.8rem;
-  }
-}
-.plan-b-toggle > summary {
+.planb-toggle > summary {
   cursor: pointer;
   list-style: none;
-  padding: 0.85rem 1.1rem;
+  padding: 0.7rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.6rem;
   font-size: 0.92rem;
-  font-weight: 600;
   color: var(--blue-lake);
   user-select: none;
   transition: background 0.15s ease;
 }
-.plan-b-toggle > summary::-webkit-details-marker {
+.planb-toggle > summary::-webkit-details-marker {
   display: none;
 }
-.plan-b-toggle > summary::after {
+.planb-toggle > summary::after {
   content: '+';
   margin-left: auto;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   line-height: 1;
   color: var(--blue-lake);
-  transition: transform 0.2s ease;
 }
-.plan-b-toggle[open] > summary::after {
+.planb-toggle[open] > summary::after {
   content: '−';
 }
-.plan-b-toggle > summary:hover {
+.planb-toggle > summary:hover {
   background: var(--blue-mist);
 }
-.plan-b-toggle .plan-b-inner {
-  padding: 0.4rem 1.1rem 1.2rem;
+.planb-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  background: var(--blue-lake);
+  color: white;
+  border-bottom: none;
+  display: inline-block;
+}
+.planb-hint {
+  color: var(--ink-soft);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+.planb-body {
+  margin: 0;
+  padding: 0.4rem 1rem 1rem;
   border-top: 1px solid var(--line);
   background: var(--paper);
-}
-.plan-b-toggle .plan-head {
-  padding-top: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
 }
 
 /* Sunset block — sacred treatment */

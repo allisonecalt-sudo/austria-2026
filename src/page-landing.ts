@@ -34,7 +34,7 @@ function bindLanding(): void {
     glance.innerHTML = TRIP.days
       .map(
         (d) =>
-          `<li><a href="itinerary.html#${escapeHtml(d.id)}"><strong>${escapeHtml(d.dateLabel)}</strong> — ${escapeHtml(d.title)} <span class="dot">·</span> <span class="muted">sunset ${escapeHtml(d.sunsetTime)}</span></a></li>`,
+          `<li><a href="itinerary.html#${escapeHtml(d.id)}"><strong>${escapeHtml(d.dateLabel)}</strong> — ${escapeHtml(d.headline)} <span class="dot">·</span> <span class="muted">sunset ${escapeHtml(d.sunset.time)}</span></a></li>`,
       )
       .join('');
   }
