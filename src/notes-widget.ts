@@ -1,21 +1,16 @@
 // Floating "leave a note" button + modal. Posted to austria_notes.
-// Imported on every page; reads `data-option` from <body> to default scope.
+// v2 (2026-05-15) — single-spine, no A/B options. Day picker only.
 
-import { insertNote, type NoteOption } from './supabase.js';
+import { insertNote } from './supabase.js';
 
 interface ModalConfig {
-  defaultOption: NoteOption;
   defaultDayId: string | null;
   defaultActivityId: string | null;
 }
 
 function getConfigFromBody(): ModalConfig {
   const body = document.body;
-  const opt = body.dataset.option;
-  const validOpt: NoteOption =
-    opt === 'A' || opt === 'B' || opt === 'general' ? (opt as NoteOption) : 'general';
   return {
-    defaultOption: validOpt,
     defaultDayId: body.dataset.dayId ?? null,
     defaultActivityId: body.dataset.activityId ?? null,
   };
@@ -38,16 +33,11 @@ function buildModal(): HTMLDivElement {
   wrap.innerHTML = `
     <div class="modal">
       <h3>Leave Claude a note</h3>
-      <p class="sub">Type anything — agreement, disagreement, swap ideas, dealbreakers. Allison's Claude reads these and iterates.</p>
-      <textarea id="note-text" placeholder="e.g. 'Skip the Grossglockner — too long. Push more lakes.'"></textarea>
+      <p class="sub">Type anything — agreement, disagreement, swap ideas, "I won't get up at 7am for Königssee," dealbreakers. Allison's Claude reads these and iterates.</p>
+      <textarea id="note-text" placeholder="e.g. 'Skip the ice cave — I don't want to do 1400 stairs.'"></textarea>
       <div class="modal-row">
-        <label>About <select id="note-option">
-          <option value="general">whole trip</option>
-          <option value="A">Option A</option>
-          <option value="B">Option B</option>
-        </select></label>
         <label>Day (optional) <select id="note-day">
-          <option value="">— any —</option>
+          <option value="">— whole trip —</option>
         </select></label>
       </div>
       <div class="modal-actions">
@@ -61,12 +51,12 @@ function buildModal(): HTMLDivElement {
 
 const DAY_OPTIONS: { id: string; label: string }[] = [
   { id: 'fri-jul-24', label: 'Fri Jul 24 — arrival + Shabbat' },
-  { id: 'sat-jul-25', label: 'Sat Jul 25 — Shabbat' },
-  { id: 'sun-jul-26', label: 'Sun Jul 26' },
-  { id: 'mon-jul-27', label: 'Mon Jul 27' },
-  { id: 'tue-jul-28', label: 'Tue Jul 28' },
-  { id: 'wed-jul-29', label: 'Wed Jul 29' },
-  { id: 'thu-jul-30', label: 'Thu Jul 30' },
+  { id: 'sat-jul-25', label: 'Sat Jul 25 — Shabbat in Salzburg' },
+  { id: 'sun-jul-26', label: 'Sun Jul 26 — move to Hallstatt + Gosausee' },
+  { id: 'mon-jul-27', label: 'Mon Jul 27 — Dachstein 5fingers + Hallstatt' },
+  { id: 'tue-jul-28', label: 'Tue Jul 28 — Königssee (peak day)' },
+  { id: 'wed-jul-29', label: 'Wed Jul 29 — Wolfgangsee + Schafberg' },
+  { id: 'thu-jul-30', label: 'Thu Jul 30 — Werfen ice cave + transit' },
   { id: 'fri-jul-31', label: 'Fri Jul 31 — fly home' },
 ];
 
@@ -90,16 +80,14 @@ export function initNotesWidget(): void {
   document.body.appendChild(modal);
 
   const textarea = modal.querySelector<HTMLTextAreaElement>('#note-text');
-  const optionSelect = modal.querySelector<HTMLSelectElement>('#note-option');
   const daySelect = modal.querySelector<HTMLSelectElement>('#note-day');
   const cancelBtn = modal.querySelector<HTMLButtonElement>('#note-cancel');
   const submitBtn = modal.querySelector<HTMLButtonElement>('#note-submit');
 
-  if (!textarea || !optionSelect || !daySelect || !cancelBtn || !submitBtn) {
+  if (!textarea || !daySelect || !cancelBtn || !submitBtn) {
     return;
   }
 
-  // Populate day options
   for (const d of DAY_OPTIONS) {
     const opt = document.createElement('option');
     opt.value = d.id;
@@ -109,7 +97,6 @@ export function initNotesWidget(): void {
   if (cfg.defaultDayId) {
     daySelect.value = cfg.defaultDayId;
   }
-  optionSelect.value = cfg.defaultOption;
 
   const open = (): void => {
     modal.classList.add('open');
@@ -138,7 +125,7 @@ export function initNotesWidget(): void {
     submitBtn.textContent = 'Sending…';
     try {
       await insertNote({
-        option: optionSelect.value as NoteOption,
+        option: 'general', // v2 single-spine — column kept for back-compat
         day_id: daySelect.value || null,
         activity_id: cfg.defaultActivityId,
         note_text: text,

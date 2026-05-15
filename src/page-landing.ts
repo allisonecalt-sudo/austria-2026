@@ -1,30 +1,53 @@
-import { OPTIONS, SKIP_LIST } from './trip-data.js';
+import { TRIP } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 
-function bindLanding(): void {
-  // Option cards
-  const aCost = document.querySelector<HTMLSpanElement>('[data-bind="a-cost"]');
-  if (aCost) aCost.textContent = `€${OPTIONS.A.costSummaryEur.toLocaleString('en-US')}`;
-  const bCost = document.querySelector<HTMLSpanElement>('[data-bind="b-cost"]');
-  if (bCost) bCost.textContent = `€${OPTIONS.B.costSummaryEur.toLocaleString('en-US')}`;
-
-  const aTagline = document.querySelector<HTMLParagraphElement>('[data-bind="a-tagline"]');
-  if (aTagline) aTagline.textContent = OPTIONS.A.tagline;
-  const bTagline = document.querySelector<HTMLParagraphElement>('[data-bind="b-tagline"]');
-  if (bTagline) bTagline.textContent = OPTIONS.B.tagline;
-
-  // Skip list
-  const skipList = document.querySelector<HTMLUListElement>('#skip-list');
-  if (skipList) {
-    skipList.innerHTML = SKIP_LIST.map(
-      (s) =>
-        `<li><strong>${escapeHtml(s.item)}</strong> — ${escapeHtml(s.reason)}</li>`,
-    ).join('');
-  }
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
-function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+function bindLanding(): void {
+  const intro = document.querySelector<HTMLParagraphElement>('[data-bind="intro"]');
+  if (intro) intro.textContent = TRIP.intro;
+
+  const anchor = document.querySelector<HTMLParagraphElement>('[data-bind="anchor"]');
+  if (anchor) anchor.textContent = TRIP.natureAnchor;
+
+  const totalEur = document.querySelector<HTMLSpanElement>('[data-bind="total-eur"]');
+  if (totalEur) totalEur.textContent = `€${TRIP.totalCostEur.toLocaleString('en-US')}`;
+  const totalNis = document.querySelector<HTMLSpanElement>('[data-bind="total-nis"]');
+  if (totalNis) totalNis.textContent = `₪${TRIP.totalCostNis.toLocaleString('en-US')}`;
+  const ceiling = document.querySelector<HTMLSpanElement>('[data-bind="ceiling"]');
+  if (ceiling) ceiling.textContent = `€${TRIP.ceilingEur.toLocaleString('en-US')}`;
+
+  const peakSpot = document.querySelector<HTMLHeadingElement>('[data-bind="peak-spot"]');
+  if (peakSpot) peakSpot.textContent = TRIP.peakMoment.spot;
+  const peakDesc = document.querySelector<HTMLParagraphElement>('[data-bind="peak-desc"]');
+  if (peakDesc) peakDesc.textContent = TRIP.peakMoment.description;
+
+  // Day-at-a-glance list
+  const glance = document.querySelector<HTMLOListElement>('#day-glance');
+  if (glance) {
+    glance.innerHTML = TRIP.days
+      .map(
+        (d) =>
+          `<li><a href="itinerary.html#${escapeHtml(d.id)}"><strong>${escapeHtml(d.dateLabel)}</strong> — ${escapeHtml(d.title)} <span class="dot">·</span> <span class="muted">sunset ${escapeHtml(d.sunsetTime)}</span></a></li>`,
+      )
+      .join('');
+  }
+
+  const skipList = document.querySelector<HTMLUListElement>('#skip-list');
+  if (skipList) {
+    skipList.innerHTML = TRIP.skipList
+      .map(
+        (s) =>
+          `<li><strong>${escapeHtml(s.item)}</strong> — ${escapeHtml(s.reason)}</li>`,
+      )
+      .join('');
+  }
 }
 
 bindLanding();

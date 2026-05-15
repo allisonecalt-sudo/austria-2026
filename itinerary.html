@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Itinerary · Austria 2026</title>
+    <meta
+      name="description"
+      content="Hour-by-hour 7-day itinerary. Plan A and Plan B for each day — both real schedules, no mood menus."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="itinerary.html" class="active">Itinerary</a>
+          <a href="stay.html">Where we sleep</a>
+          <a href="shabbat.html">Shabbat</a>
+          <a href="packing.html">Packing</a>
+          <a href="costs.html">Costs</a>
+          <a href="map.html">Map</a>
+          <a href="notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header style="margin-bottom:1.4rem;">
+        <p
+          style="color:#4b5a62; font-size:0.9rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.3rem;"
+        >
+          The whole week, hour by hour
+        </p>
+        <h1>One trip · one spine · two real plans per day</h1>
+        <p class="lead-block" data-bind="why"></p>
+      </header>
+
+      <div class="knockout">
+        <div class="label">The Tara Bridge moment · <span data-bind="peak-day"></span></div>
+        <h3 data-bind="peak-spot"></h3>
+        <p data-bind="peak-desc"></p>
+      </div>
+
+      <section style="margin-top:2rem;">
+        <p style="color:#4b5a62; margin-bottom:1rem;">
+          Each day shows <strong>Plan A</strong> (primary) and <strong>Plan B</strong> (lighter or
+          tired-day version). Both are scheduled. Pick on the morning of based on energy — neither
+          is a mood, both are a plan.
+        </p>
+        <div id="days"></div>
+      </section>
+    </main>
+
+    <footer>
+      v2 (concrete-itinerary) · Sunset times: timeanddate.com (Salzburg/Hallstatt 47.5°N late July) · Drive times: Google Maps consensus
+    </footer>
+
+    <script type="module" src="/src/page-itinerary.ts"></script>
+  </body>
+</html>

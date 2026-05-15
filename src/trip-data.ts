@@ -1,755 +1,648 @@
-// Canonical itinerary data. Single source of truth for Option A + Option B.
-// Rendered by day-render.ts. Drive times verified via Google Maps consensus
-// across travel blogs (cited in source files).
+// Canonical itinerary data — v2 rewrite (2026-05-15).
+// Single-spine 7-night trip, hour-by-hour, with per-day Plan A / Plan B.
+// Salzburg base (Fri-Sun for Shabbat), Hallstatt area anchor (Sun-Thu, 4 nights),
+// Salzburg airport-side return (Thu-Fri, 1 night) for early Friday flight.
+//
+// Booking.com listings verified live 2026-05-15 via Playwright. Per-night EUR
+// computed from displayed NIS at ₪3.97/€1.
+//
+// Sunset times: timeanddate.com Salzburg / Hallstatt (47.5° N), late July 2026.
+// Drive times: Google Maps consensus.
 
-export type Intensity = 'chill' | 'moderate' | 'adventurous';
-
-export interface IntensityBlock {
-  level: Intensity;
-  label: string; // emoji + descriptor
-  plan: string;
+export interface ScheduleBlock {
+  time: string; // "08:30", "12:00", etc.
+  what: string;
 }
 
-export interface TimelineRow {
-  when: 'Morning' | 'Midday' | 'Sunset' | 'Evening';
-  text: string;
+export interface DayPlan {
+  label: string; // "Plan A" / "Plan B"
+  headline: string;
+  energy: string; // "primary / full day" or "lighter / if tired"
+  blocks: ScheduleBlock[];
 }
 
 export interface Day {
   id: string;
-  dateLabel: string; // "Fri Jul 24"
+  date: string; // "2026-07-24"
+  dayOfWeek: string; // "Friday"
+  dateLabel: string; // "Friday Jul 24"
   title: string;
   imgUrl: string;
   imgAlt: string;
-  imgCredit: string;
-  walkingDifficulty: string;
-  driveMinutes: string;
-  sunsetBadge: string;
-  sleepWhere: string;
-  sleepCostEur: string;
-  kosherFood: string;
-  whyMontenegro: string;
-  tiers: IntensityBlock[];
-  timeline: TimelineRow[];
+  sunsetTime: string; // "20:55"
+  sunsetSpot: string; // e.g. "Hintersee dock"
+  driveSummary: string;
+  sleepWhere: string; // referenced lodging key, e.g. "salzburg" / "hallstatt" / "airport"
+  walkingNote: string;
+  meals: string; // condensed
+  planA: DayPlan;
+  planB: DayPlan;
+  tarabridgeMoment?: string; // optional flag for peak-moment days
 }
 
-export interface Option {
-  letter: 'A' | 'B';
-  name: string;
-  tagline: string;
-  oneLiner: string;
-  knockout: { title: string; body: string };
-  costSummaryEur: number;
-  costSummaryNis: number;
-  recommendationNote: string;
+export interface Lodging {
+  baseKey: 'salzburg' | 'hallstatt' | 'airport';
+  nights: string; // "Fri Jul 24 – Sun Jul 26 (2 nights)"
+  area: string;
+  pickName: string;
+  pickUrl: string;
+  pickImg: string;
+  pickReview: string;
+  pickPrice: string; // per night EUR
+  pickWhy: string;
+  alts: {
+    name: string;
+    url: string;
+    img: string;
+    review: string;
+    pricePerNight: string;
+    note: string;
+  }[];
+}
+
+export interface TripData {
+  intro: string;
+  whyThisPlan: string;
+  natureAnchor: string;
+  totalCostEur: number;
+  totalCostNis: number;
+  ceilingEur: number;
   days: Day[];
+  lodgings: Lodging[];
+  peakMoment: { day: string; spot: string; description: string };
+  skipList: { item: string; reason: string }[];
 }
 
-// Unsplash CDN URLs (Unsplash License — free for commercial use, no attribution required)
-// All verified by URL ID in the photo research step.
+// Image URLs (Unsplash CDN, license-free) — used on day cards only.
 const IMG = {
-  hallstattLake: 'https://images.unsplash.com/photo-1527824404775-dce343118ebc?w=1600&q=80', // Hallstatt classic lake view
+  salzburgRiver:
+    'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1600&q=80',
   salzburgFortress:
-    'https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1600&q=80', // Salzburg + Hohensalzburg
-  konigssee: 'https://images.unsplash.com/photo-1551689486-c4fa3df36b73?w=1600&q=80', // Königssee turquoise + cliffs
-  grossglockner:
-    'https://images.unsplash.com/photo-1601215219834-86c0ca4f57e7?w=1600&q=80', // Alpine pass
-  bled: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=1600&q=80', // Lake Bled island
-  wolfgangsee: 'https://images.unsplash.com/photo-1567892387467-7df9c83b8a4d?w=1600&q=80', // Alpine lake town
-  gosausee: 'https://images.unsplash.com/photo-1551639325-9d6a40a8f51c?w=1600&q=80', // Mirror lake + Dachstein
-  werfenIce: 'https://images.unsplash.com/photo-1518889073-08fee32c8d39?w=1600&q=80', // Ice/cave-ish alpine
-  liechtensteinklamm:
-    'https://images.unsplash.com/photo-1568797629192-aa2af48cd2b5?w=1600&q=80', // Gorge / canyon
-  schafberg: 'https://images.unsplash.com/photo-1551806235-6692f50c9b3f?w=1600&q=80', // Alpine summit lakes view
-  krimml: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=1600&q=80', // Waterfall
-  zellamsee: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1600&q=80', // Lake + mountain
-  alpineSunset: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=85', // Hero sunset
-  salzburgRiver: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1600&q=80', // Salzburg river / soft
+    'https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1600&q=80',
+  hallstattLake:
+    'https://images.unsplash.com/photo-1527824404775-dce343118ebc?w=1600&q=80',
+  konigssee: 'https://images.unsplash.com/photo-1551689486-c4fa3df36b73?w=1600&q=80',
+  gosausee:
+    'https://images.unsplash.com/photo-1551639325-9d6a40a8f51c?w=1600&q=80',
+  werfenIce:
+    'https://images.unsplash.com/photo-1518889073-08fee32c8d39?w=1600&q=80',
+  wolfgangsee:
+    'https://images.unsplash.com/photo-1567892387467-7df9c83b8a4d?w=1600&q=80',
+  alpineSunset:
+    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=85',
 };
 
-const optionA: Option = {
-  letter: 'A',
-  name: 'Option A — One Base, Day Trips',
-  tagline: 'Unpack once in Salzburg. Drive out, drive back, sunsets at home.',
-  oneLiner:
-    'Single Salzburg apartment for all 7 nights. Wake up in the same kitchen, brew coffee the same way, come home tired to the same bed. Trade variety for ease.',
-  knockout: {
-    title: 'Königssee at last light — boat back at sunset',
-    body:
-      "The electric-only boat across Königssee returns to the dock at 19:30-20:00. Watzmann wall going gold over your shoulder, lake going silver. That's the Tara Bridge of this trip.",
+export const TRIP: TripData = {
+  intro:
+    "Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat. Built on the Montenegro template: one nature anchor for the bulk of the week, apartments with kitchens, picnics on rocks, sunsets every single night.",
+  whyThisPlan:
+    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — Hallstatt area for 4 deep nights (the Žabljak of this trip). Day trips from there to Königssee, Gosausee, Wolfgangsee, Werfen ice cave. Thursday we drive back to a quiet apartment 4 km from Salzburg airport so Friday morning's flight is a 10-minute drive. Two moves total. Every night ends at a named sunset spot with a real time.",
+  natureAnchor:
+    "Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). Apartments here run €130-150/night with kitchen + balcony, vs €280-320/night for in-Hallstatt-Markt. The deep-immersion stay that earned its name in Montenegro at Žabljak.",
+  totalCostEur: 2410,
+  totalCostNis: 9568,
+  ceilingEur: 2800,
+  peakMoment: {
+    day: 'Tuesday Jul 28',
+    spot: 'Königssee — last electric boat back from St. Bartholomä at sunset',
+    description:
+      "The Königssee is the only lake in Germany serviced exclusively by silent electric boats — strict no-combustion rule since 1909. Last boat from St. Bartholomä leaves around 19:30. Watzmann's east wall goes gold over your right shoulder, the lake goes silver, and you glide back through a fjord-shaped natural cathedral. This is the Tara-Bridge-equivalent of Austria. Sunset 20:50 — boat docks at Schönau just as the sky lights.",
   },
-  costSummaryEur: 2680,
-  costSummaryNis: 10650,
-  recommendationNote:
-    'Easier logistics. Less unpacking. More predictable Shabbat. Less of the "wake up in a new place" feeling Montenegro gave you.',
   days: [
+    // --- DAY 1 — Fri Jul 24 ---
     {
       id: 'fri-jul-24',
-      dateLabel: 'Fri Jul 24',
-      title: 'Land in Salzburg + settle in for Shabbat',
+      date: '2026-07-24',
+      dayOfWeek: 'Friday',
+      dateLabel: 'Friday July 24',
+      title: 'Land Salzburg — settle in for Shabbat',
       imgUrl: IMG.salzburgRiver,
       imgAlt: 'Salzburg old town along the Salzach river at golden hour',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'town walk (flat, paved)',
-      driveMinutes: '20 min (airport → apartment)',
-      sunsetBadge: 'Sunset 20:55 · Candle-lighting 20:35',
-      sleepWhere: 'Salzburg apartment (Andräviertel or Mülln — both walkable to old town)',
-      sleepCostEur: '€135 · Airbnb / Booking',
-      kosherFood:
-        'Bring shelf-stable lunch from Israel for the flight day. Pre-arranged Shabbat meals from Chabad Salzburg (Linzergasse 76, ~7-min walk from old town) — book in advance via WhatsApp +43 676 8318 1555.',
-      whyMontenegro:
-        'Like landing in Kotor and going straight to cable car — set the tone, then crash. Just slower this time.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — nap-and-river',
-          plan:
-            'Land 8am exhausted from the red-eye. Drop bags at apartment. Coffee at home. Sleep until 1pm. Slow walk along the Salzach river path to Mirabell gardens. Back early to prep Shabbat.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — old-town wander',
-          plan:
-            'Power-nap until 11am. Walk into the Altstadt — Getreidegasse, Domplatz, Kapitelplatz. Sit by the river with coffee. Light shopping at the Spar near Rathausplatz for Shabbat fruit + cheese.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Kapuzinerberg climb',
-          plan:
-            'Brief nap, then climb Kapuzinerberg (~25 min ascent through forest path) for a view-from-above of the old town before lighting. Down by 18:30. Tight on time — only if jet lag is mild.',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Land Salzburg 8am · pickup hire car · 20-min drive to apartment · drop bags' },
-        { when: 'Midday', text: 'Recovery sleep + slow lunch · prep Shabbat food · shower' },
-        { when: 'Sunset', text: 'Candle lighting 20:35 · Chabad Friday-night meal or self-catered at apartment · sunset 20:55' },
-      ],
+      sunsetTime: '20:55',
+      sunsetSpot: 'Apartment / Chabad table (in by candle-lighting 20:35)',
+      driveSummary: 'Airport → apartment 15 min · no other driving',
+      sleepWhere: 'salzburg',
+      walkingNote: 'Flat town walking only. Chabad 5 min, old town 8 min.',
+      meals:
+        'Lunch: shelf-stable from Israel (tuna/crackers/avocado from a Spar stop). Dinner: Chabad Friday-night meal OR self-catered (challah pickup at Mann\'s Bakery on Linzergasse if open; cholent/dips/cheese from Spar).',
+      planA: {
+        label: 'Plan A',
+        headline: 'Recover-and-prep · primary',
+        energy: 'low — they land exhausted',
+        blocks: [
+          { time: '08:00', what: 'Land Salzburg W. A. Mozart airport (SZG). Bags, customs.' },
+          { time: '08:45', what: 'Pick up rental car from airport counter.' },
+          { time: '09:15', what: 'Drive to apartment (15 min, Andräviertel near Linzergasse).' },
+          { time: '09:45', what: 'Drop bags. Apartment may not be ready — leave luggage, head out.' },
+          { time: '10:00', what: 'Spar on Linzergasse for Shabbat stock: sealed-hechsher dairy, produce, water, challah if available. Mann\'s Bakery (Linzergasse 22) for backup challah.' },
+          { time: '11:30', what: 'Back to apartment. Unpack. Quick coffee. SLEEP — 2-3 hour nap.' },
+          { time: '15:00', what: 'Wake. Shower. Prep Shabbat — cold salads (quinoa-avocado-chickpea Montenegro-style), set out food, set up Shabbat-mode (lights/hot plate).' },
+          { time: '17:30', what: 'Slow walk along the Salzach to Mirabell Gardens (5 min). Decompress.' },
+          { time: '19:00', what: 'Home. Final prep.' },
+          { time: '20:35', what: 'Candle lighting. Walk to Chabad (Linzergasse 76, ~3 min) for Friday-night service + dinner. OR self-cater at apartment if pre-booking Chabad failed.' },
+          { time: '23:00', what: 'Home. Sleep hard.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Old-town wander · if jet lag is mild',
+        energy: 'low-medium',
+        blocks: [
+          { time: '08:00', what: 'Land. Car. Apartment by 9:30.' },
+          { time: '10:00', what: 'Spar run (same).' },
+          { time: '11:00', what: 'Power nap until 13:00.' },
+          { time: '13:30', what: 'Walk into the Altstadt — Getreidegasse, Domplatz, Mozartplatz. Take it slow. Coffee in a square.' },
+          { time: '16:00', what: 'Back at apartment. Shabbat prep.' },
+          { time: '19:00', what: 'Final prep.' },
+          { time: '20:35', what: 'Candle lighting + Chabad / dinner at home.' },
+        ],
+      },
     },
+
+    // --- DAY 2 — Sat Jul 25 ---
     {
       id: 'sat-jul-25',
-      dateLabel: 'Sat Jul 25',
+      date: '2026-07-25',
+      dayOfWeek: 'Saturday',
+      dateLabel: 'Saturday July 25',
       title: 'Shabbat in Salzburg — walking only',
       imgUrl: IMG.salzburgFortress,
-      imgAlt: 'Hohensalzburg fortress overlooking Salzburg old town',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'town walk, lots of stairs available but skip-able',
-      driveMinutes: '0 — Shabbat',
-      sunsetBadge: 'Havdalah 21:49',
-      sleepWhere: 'Same Salzburg apartment',
-      sleepCostEur: '€135 · included',
-      kosherFood:
-        'Chabad lunch or self-catered (challah from Friday, salads prepped erev Shabbat, sealed dairy from Spar). Cholent if Chabad offers; otherwise tuna/avocado/quinoa Montenegro-style.',
-      whyMontenegro:
-        'Like Shabbat at Duckley in Budva — but instead of beach, fortress views. The "make friends at Chabad over how hot we were" moment.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — porch, books, Mirabell',
-          plan:
-            'Long late breakfast. Mirabell gardens around 10am (5-min walk, flat, beautiful). Lunch back at apartment or Chabad. Nap. Walk to the river for the long European twilight. Havdalah 21:49.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — old town + Mönchsberg loop',
-          plan:
-            'Shul at Chabad (Linzergasse 76) or IKG synagogue (Lasserstrasse 8, ~10-min walk). Lunch. Slow walk up Mönchsberg via the stairs from Toscaninihof (no money, no electric lift). Picnic on the hill. Back down for Havdalah.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — full Mönchsberg + Festung loop',
-          plan:
-            'Same as moderate, but extend the Mönchsberg ridge walk all the way to the Hohensalzburg fortress (~45 min from old town, gradual) and back via the southern path. ~3-4 hrs walking total.',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Shul (Chabad or IKG) + slow breakfast' },
-        { when: 'Midday', text: 'Lunch · long nap · light reading · long Shabbat afternoon' },
-        { when: 'Sunset', text: 'Walk back into old town for the gold-on-stone hour · Havdalah 21:49' },
-      ],
+      imgAlt: 'Hohensalzburg fortress overlooking the old town',
+      sunsetTime: '20:54',
+      sunsetSpot: 'Mirabell Gardens / Salzach river path (walking, no carrying outside eruv)',
+      driveSummary: 'No driving — Shabbat.',
+      sleepWhere: 'salzburg',
+      walkingNote: 'Town only. Mirabell, Salzach path, Mönchsberg stairs accessible from old town side.',
+      meals:
+        'Breakfast: leftover challah + dairy at apartment. Lunch: Chabad kiddush + meal (~5 min walk) OR cholent + cold salads at home. Seudah shlishit at home.',
+      planA: {
+        label: 'Plan A',
+        headline: 'Shul + long Mönchsberg afternoon · primary',
+        energy: 'medium — walking, no rush',
+        blocks: [
+          { time: '08:30', what: 'Slow breakfast at apartment.' },
+          { time: '09:30', what: 'Shul at Chabad Salzburg, Linzergasse 76. ~3-min walk. Service runs ~2 hrs.' },
+          { time: '12:30', what: 'Shabbat lunch at Chabad — sit next to someone new. This is the Shaindy-at-Budva moment of the trip.' },
+          { time: '15:00', what: 'Home. Long nap.' },
+          { time: '17:30', what: 'Walk to Toscaninihof, up the Mönchsberg via the stone stairs (no money, no electric lift — pure Shabbat-legal). ~15-min ascent. Walk the ridge to the Modern Art Museum terrace for the city view.' },
+          { time: '19:30', what: 'Slowly descend via the Festungsgasse path (skip the fortress lift). Walk through the old town as the gold-hour light hits the buildings.' },
+          { time: '20:54', what: 'Sunset from the Salzach river bank.' },
+          { time: '21:49', what: 'Havdalah at apartment.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Stay close · low-key day',
+        energy: 'low',
+        blocks: [
+          { time: '09:30', what: 'Shul at Chabad.' },
+          { time: '12:30', what: 'Chabad lunch.' },
+          { time: '15:00', what: 'Long nap.' },
+          { time: '17:30', what: 'Slow walk to Mirabell Gardens (5 min). Sit on a bench. Read.' },
+          { time: '19:30', what: 'Walk along the river both directions.' },
+          { time: '21:49', what: 'Havdalah.' },
+        ],
+      },
     },
+
+    // --- DAY 3 — Sun Jul 26 ---
     {
       id: 'sun-jul-26',
-      dateLabel: 'Sun Jul 26',
-      title: 'Königssee — Bavarian fjord boat day',
-      imgUrl: IMG.konigssee,
-      imgAlt: 'Königssee turquoise water under Watzmann cliffs',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'lakeside loops, gentle paths',
-      driveMinutes: 'Salzburg → Königssee 40 min (Google Maps)',
-      sunsetBadge: 'Sunset 20:51',
-      sleepWhere: 'Salzburg apartment',
-      sleepCostEur: '€135',
-      kosherFood:
-        'Pack picnic from apartment: hummus + cucumber sandwiches, fruit, sealed cheese, water. Nothing kosher at Königssee. Coffee at Schönau dock OK (hot drinks not an issue).',
-      whyMontenegro:
-        "Like the Kotor boat tour in better water. Electric-only boats — silent gliding past cliffs to a tiny church. This is the 'natural cathedral' day.",
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — round-trip boat, no hike',
-          plan:
-            'Leave 9:30am. Boat to St. Bartholomä (35 min each way), tea on the meadow, photos at the onion-domed church, boat back. Home by 4pm. Slow.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — boat to Salet + Obersee',
-          plan:
-            'Boat to St. Bartholomä, second boat to Salet (15 min more), then easy 15-min flat walk to Obersee — quieter, more dramatic, fewer people. Bring snacks. ~7 hrs total.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Obersee + Röthbach falls',
-          plan:
-            "Same as moderate, but continue from Obersee around the lake to the base of Röthbach Falls (Germany's highest at 470m). Adds ~1.5 hrs each way. Mostly flat, some rocky bits.",
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: '9:30 leave Salzburg · 10:30 arrive Schönau · 11:00 boat (€22pp r/t)' },
-        { when: 'Midday', text: 'St. Bartholomä + onward to Salet/Obersee · picnic on lake meadow' },
-        { when: 'Sunset', text: 'Last boat back ~19:00-19:30 · drive back Salzburg · dinner at apartment' },
-      ],
+      date: '2026-07-26',
+      dayOfWeek: 'Sunday',
+      dateLabel: 'Sunday July 26',
+      title: 'Move to Hallstatt — Gosausee mirror lake on the way',
+      imgUrl: IMG.gosausee,
+      imgAlt: 'Vorderer Gosausee reflecting the Dachstein peaks',
+      sunsetTime: '20:53',
+      sunsetSpot: 'Lake Hallstatt dock at Obertraun (5 min from apartment)',
+      driveSummary: 'Salzburg → Vorderer Gosausee 1h10m (via Bad Ischl + Gosau) → Hallstatt area 35 min · total drive ~2h plus stops',
+      sleepWhere: 'hallstatt',
+      walkingNote: 'Gosausee lake loop is flat ~1h, gravel + boardwalk. Easy.',
+      meals:
+        'Breakfast: apartment leftovers + coffee. Lunch: lakeside picnic at Gosausee (quinoa/cucumber/tuna/sealed cheese). Dinner: groceries at apartment after settling in.',
+      planA: {
+        label: 'Plan A',
+        headline: 'Gosausee loop on the move · primary',
+        energy: 'medium — driving + 1hr lake walk',
+        blocks: [
+          { time: '08:30', what: 'Pack out of Salzburg apartment. Coffee at home.' },
+          { time: '09:30', what: 'Leave Salzburg. Drive east via Bad Ischl.' },
+          { time: '10:45', what: 'Stop at Spar in Bad Ischl for fresh produce + dairy restock.' },
+          { time: '11:15', what: 'Continue to Vorderer Gosausee. Park (free).' },
+          { time: '11:45', what: 'Walk the flat loop around Vorderer Gosausee — ~1 hr, lake mirrors the Dachstein glacier behind. Photo paradise.' },
+          { time: '13:00', what: 'Lakeside picnic on a bench.' },
+          { time: '14:00', what: 'Drive to Hallstatt area apartment (~35 min via Gosau pass).' },
+          { time: '15:00', what: 'Check in. Unpack — this is the 4-night base. Coffee on the balcony.' },
+          { time: '17:30', what: 'Walk down to the lake shore in Obertraun.' },
+          { time: '20:53', what: 'Sunset over Lake Hallstatt from the Obertraun dock.' },
+          { time: '21:30', what: 'Dinner at apartment.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Direct drive · if tired from Shabbat',
+        energy: 'low',
+        blocks: [
+          { time: '10:00', what: 'Pack out, slow start.' },
+          { time: '11:00', what: 'Leave Salzburg.' },
+          { time: '12:15', what: 'Bad Ischl: Spar + coffee + ice cream at Café Zauner (cash, sealed kosher items only).' },
+          { time: '13:30', what: 'Drive direct to Hallstatt area apartment. Skip Gosausee, save for another day.' },
+          { time: '14:30', what: 'Check in. Unpack. Long balcony afternoon.' },
+          { time: '17:00', what: 'Walk to the lake.' },
+          { time: '20:53', what: 'Sunset at Obertraun dock.' },
+        ],
+      },
     },
+
+    // --- DAY 4 — Mon Jul 27 ---
     {
       id: 'mon-jul-27',
-      dateLabel: 'Mon Jul 27',
-      title: 'Eisriesenwelt ice cave + Werfen castle hill',
-      imgUrl: IMG.werfenIce,
-      imgAlt: 'Werfen alpine valley',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'Allison-pushing for the cave (1400 stairs inside)',
-      driveMinutes: 'Salzburg → Werfen 50 min',
-      sunsetBadge: 'Sunset 20:50',
-      sleepWhere: 'Salzburg apartment',
-      sleepCostEur: '€135',
-      kosherFood:
-        'Picnic from apartment. There is a snack restaurant at the cave but nothing kosher. Bring extra layers — cave is below freezing.',
-      whyMontenegro:
-        'The Durmitor jeep tour energy — natural feature so absurd it feels unreal. The ice replaces the canyons.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — skip the cave',
-          plan:
-            'Werfen village wander. Drive up to Hohenwerfen castle viewpoint (no need to enter — view from outside is the thing). Stop in Bischofshofen for coffee. Home by 4pm.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — cave with cable car',
-          plan:
-            "Eisriesenwelt: drive to visitor center, 20-min uphill walk, cable car up (€42 combo ticket), 75-min guided cave tour (1400 stairs in carbide-lamp dark), back down. Heavy but doable. Avital can sit out the cave if needed — there's a hut at the top.",
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — cave + Liechtensteinklamm afterward',
-          plan:
-            'Same as moderate, then drive 25 min south to Liechtensteinklamm gorge (~1.5 hr loop, narrow plank walkway over rushing water). Long but extraordinary day.',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Leave 8:30 · Werfen 9:30 · buy timed cave ticket (book online for July)' },
-        { when: 'Midday', text: 'Cave tour · lunch picnic outside the cave entrance' },
-        { when: 'Sunset', text: 'Drive back via the long route through Tennengau valley · home for late dinner' },
-      ],
+      date: '2026-07-27',
+      dayOfWeek: 'Monday',
+      dateLabel: 'Monday July 27',
+      title: 'Hallstatt village + Dachstein 5fingers viewing platform',
+      imgUrl: IMG.hallstattLake,
+      imgAlt: 'Hallstatt village reflected in the lake under alpine peaks',
+      sunsetTime: '20:51',
+      sunsetSpot: 'Hallstatt Markt — lakeside walkway as last light hits the village',
+      driveSummary: 'Obertraun → Hallstatt Markt parking 8 min · Krippenstein cable car base 5 min · all local',
+      sleepWhere: 'hallstatt',
+      walkingNote: '5fingers platform: 20 min flat walk from top gondola station. Skywalk: 5 min from funicular top.',
+      meals:
+        'Breakfast: apartment. Lunch: pack from apartment + summit cafe coffee. Dinner: apartment.',
+      planA: {
+        label: 'Plan A',
+        headline: 'Krippenstein 5fingers + Hallstatt evening · primary',
+        energy: 'medium — gondolas do the climbing',
+        blocks: [
+          { time: '08:30', what: 'Coffee at apartment.' },
+          { time: '09:30', what: 'Drive to Dachstein Krippenstein cable car base (Obertraun, 5 min from apt). Buy combo ticket €43pp.' },
+          { time: '10:00', what: 'Take TWO gondolas up to Krippenstein top station (2,109 m).' },
+          { time: '10:45', what: 'Flat 20-min walk to the 5fingers viewing platform — a 5-pronged steel platform jutting 400m straight out over the Hallstatt lake valley. Through-the-grate view down.' },
+          { time: '11:30', what: 'Continue to Welterbespirale + Heilbronn cross viewpoints (15 more min, gentle).' },
+          { time: '13:00', what: 'Lunch at the Krippenstein Lodge terrace (your packed food + their coffee).' },
+          { time: '14:30', what: 'Gondolas down.' },
+          { time: '15:30', what: 'Drive to Hallstatt Markt (8 min). Park at P1 (cars not allowed in village core). Walk the lakeside boardwalk into the village.' },
+          { time: '16:30', what: 'Hallstatt Skywalk — Salzbergbahn funicular up (€20pp). 360° platform 360m above the village.' },
+          { time: '18:00', what: 'Funicular back down. Lakeside coffee in Hallstatt Markt.' },
+          { time: '20:51', what: 'Sunset on the Hallstatt Markt lakeside walkway. Last gold light on the painted houses.' },
+          { time: '21:30', what: 'Drive back to apartment. Dinner.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Skywalk only · skip the gondolas',
+        energy: 'low — half-day',
+        blocks: [
+          { time: '10:00', what: 'Coffee. Slow morning.' },
+          { time: '11:00', what: 'Drive to Hallstatt Markt P1.' },
+          { time: '11:30', what: 'Funicular + Skywalk.' },
+          { time: '13:00', what: 'Lake-side lunch in Hallstatt Markt.' },
+          { time: '15:00', what: 'Back at apartment. Long balcony afternoon. Read, nap, restock.' },
+          { time: '19:00', what: 'Easy walk along Obertraun shore.' },
+          { time: '20:51', what: 'Sunset at the apartment balcony / Obertraun dock.' },
+        ],
+      },
     },
+
+    // --- DAY 5 — Tue Jul 28 ---
     {
       id: 'tue-jul-28',
-      dateLabel: 'Tue Jul 28',
-      title: 'Hallstatt + Gosausee lake',
-      imgUrl: IMG.hallstattLake,
-      imgAlt: 'Hallstatt village reflected in lake under alpine peaks',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'lakeside loop + gentle ascent',
-      driveMinutes: 'Salzburg → Hallstatt 1h15m (via Bad Ischl)',
-      sunsetBadge: 'Sunset 20:48',
-      sleepWhere: 'Salzburg apartment',
-      sleepCostEur: '€135',
-      kosherFood:
-        'Picnic from apartment. There IS a Spar in Bad Ischl (en route) for sealed-hechsher dairy + produce restock. No kosher prepared food anywhere.',
-      whyMontenegro:
-        'Hallstatt + Gosausee = the Skadar Lake of this trip — turquoise reflections, lily pads vibe, lakeside restaurants. Without the kayak capsizing, hopefully.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — Hallstatt village + ferry',
-          plan:
-            'Park at P1 outside the village (cars not allowed in core). Wooden footpath along the lake. Brief ferry across to Hallstatt Markt. Slow lunch at lakeside picnic spot. Home by 6pm.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — village + Vorderer Gosausee',
-          plan:
-            "After Hallstatt, drive 35 min to Vorderer Gosausee. Flat ~1h loop around the lake — the Dachstein peaks reflect in still water. Photo paradise. Drive back via the Pass Gschütt road for the views.",
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Hallstatt + Skywalk (Salzbergbahn)',
-          plan:
-            "Hallstatt morning, then the Salzbergbahn funicular up to the World Heritage Skywalk (reopened June 2026 after major renovation). 360-degree platform 360m above the village. Cave or skip salt mine. Light hike on the ridge. Then Gosausee on the way home (long day).",
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: '8:00 leave · 9:15 Hallstatt P1 · ferry + village wander' },
-        { when: 'Midday', text: 'Drive to Vorderer Gosausee · lake loop · light lunch' },
-        { when: 'Sunset', text: 'Drive back via Bad Ischl ice cream stop (Zauner) · home for dinner' },
-      ],
+      date: '2026-07-28',
+      dayOfWeek: 'Tuesday',
+      dateLabel: 'Tuesday July 28',
+      title: 'Königssee day — electric boats + St. Bartholomä',
+      imgUrl: IMG.konigssee,
+      imgAlt: 'Königssee turquoise water beneath the Watzmann cliffs',
+      sunsetTime: '20:50',
+      sunsetSpot: 'On the electric boat returning from St. Bartholomä',
+      driveSummary: 'Hallstatt area → Berchtesgaden / Königssee Schönau 1h15m · same drive back',
+      sleepWhere: 'hallstatt',
+      walkingNote: 'Boat-served. Optional 40-min flat walk to Obersee from Salet dock.',
+      meals:
+        'Breakfast: apartment. Lunch: full picnic on the St. Bartholomä meadow. Dinner: at apartment back at Hallstatt — leftovers, pasta night.',
+      tarabridgeMoment:
+        "Last boat back at sunset = the Tara Bridge of this trip. See peak-moment note.",
+      planA: {
+        label: 'Plan A',
+        headline: 'St. Bartholomä + Obersee · the peak day',
+        energy: 'medium-high — long day, mostly boats and flat walks',
+        blocks: [
+          { time: '07:30', what: 'Early coffee. Pack the big picnic.' },
+          { time: '08:00', what: 'Leave Hallstatt area. Drive west via Salzburg ring road.' },
+          { time: '09:15', what: 'Arrive Schönau am Königssee. Park (€5).' },
+          { time: '09:45', what: 'Buy return ticket all the way to Salet (€24pp).' },
+          { time: '10:00', what: 'First boat. 35 min silent electric glide to St. Bartholomä — the famous onion-domed church on the lake meadow.' },
+          { time: '10:45', what: 'Coffee + photos at St. Bartholomä. Walk the lakeside meadow.' },
+          { time: '11:30', what: 'Connecting boat to Salet (15 min more, deeper into the fjord).' },
+          { time: '12:00', what: 'Flat 20-min walk from Salet dock to Obersee — quieter, more dramatic, fewer people.' },
+          { time: '12:30', what: 'Lakeside picnic at Obersee. This is THE picnic spot of the trip.' },
+          { time: '14:30', what: 'Walk back to Salet dock.' },
+          { time: '15:00', what: 'Boat back to St. Bartholomä. Linger another hour at the church meadow.' },
+          { time: '18:30', what: 'LAST BOAT back to Schönau. 35 min. Watzmann east wall going gold; lake going silver. THIS is the Tara Bridge moment.' },
+          { time: '19:30', what: 'Disembark Schönau. Drive back toward Hallstatt.' },
+          { time: '20:50', what: 'Sunset somewhere on the autobahn — pull over at a rest stop if a good ridge shows up.' },
+          { time: '22:00', what: 'Back at apartment. Late dinner.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'St. Bartholomä only · cut the Obersee leg',
+        energy: 'medium',
+        blocks: [
+          { time: '08:30', what: 'Coffee. Pack lunch.' },
+          { time: '09:00', what: 'Leave. Drive 1h15.' },
+          { time: '10:15', what: 'Schönau parking.' },
+          { time: '10:45', what: 'Boat to St. Bartholomä (€18pp return only to here).' },
+          { time: '11:20', what: 'St. Bartholomä — meadow, church photos.' },
+          { time: '12:30', what: 'Picnic on the lakeside meadow.' },
+          { time: '14:30', what: 'Boat back. Schönau by 15:15.' },
+          { time: '15:30', what: 'Drive back. Light afternoon.' },
+          { time: '17:00', what: 'Apartment. Restock.' },
+          { time: '20:50', what: 'Sunset at the Obertraun dock back home — still a sunset.' },
+        ],
+      },
     },
+
+    // --- DAY 6 — Wed Jul 29 ---
     {
       id: 'wed-jul-29',
-      dateLabel: 'Wed Jul 29',
-      title: 'Wolfgangsee + Schafberg cog railway',
+      date: '2026-07-29',
+      dayOfWeek: 'Wednesday',
+      dateLabel: 'Wednesday July 29',
+      title: 'Wolfgangsee + Schafberg cog railway at sunset',
       imgUrl: IMG.wolfgangsee,
-      imgAlt: 'Lake Wolfgangsee with alpine village on shore',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'town walk + cog railway (no hiking required)',
-      driveMinutes: 'Salzburg → St. Wolfgang 45 min',
-      sunsetBadge: 'Sunset 20:47',
-      sleepWhere: 'Salzburg apartment',
-      sleepCostEur: '€135',
-      kosherFood:
-        'Pack lunch. Spar in St. Wolfgang for restock. The cog railway summit has a restaurant — coffee/tea/beer fine.',
-      whyMontenegro:
-        'Birthday-Black-Lake vibe — start ordinary, end extraordinary. Schafberg summit is the Black-Lake reveal of this trip.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — boat across, no summit',
-          plan:
-            'Park in St. Wolfgang. Walk the promenade. Take the small ferry across to St. Gilgen and back (45 min round trip). Lunch lakeside. Home by 4pm.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — Schafberg cog railway',
-          plan:
-            'Book Schafbergbahn cog railway in advance (€44pp r/t, 40 min each way). Top out at 1782m — view of 13 lakes spread below. Walk the ridge ~30 min. Train down. Lake swim if hot.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Schafberg + walk down',
-          plan:
-            'Cog up, then hike down to St. Wolfgang (~3 hrs, mostly downhill on a marked trail). Avital-test this — knees on long descents matter. Cog back down option always available.',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: '8:30 leave · 9:30 St. Wolfgang · 10:00 cog railway up' },
-        { when: 'Midday', text: 'Summit ridge walk · lake swim back in St. Wolfgang' },
-        { when: 'Sunset', text: 'Promenade dinner · home by 21:00' },
-      ],
+      imgAlt: 'Lake Wolfgangsee with St. Wolfgang village on the shore',
+      sunsetTime: '20:48',
+      sunsetSpot: 'Schafberg summit ridge (1,783 m) — 13-lake panorama at sunset',
+      driveSummary: 'Hallstatt area → St. Wolfgang 45 min · same back',
+      sleepWhere: 'hallstatt',
+      walkingNote: 'Cog railway up + 30-min ridge walk at summit. Bring layer — summit ~12°C even in July.',
+      meals:
+        'Breakfast: apartment. Lunch: in St. Wolfgang lakeside (picnic). Summit dinner = packed sandwiches + Schafbergspitze cafe coffee/tea.',
+      planA: {
+        label: 'Plan A',
+        headline: 'Sunset cog · the trip\'s second peak moment',
+        energy: 'medium-high — late evening',
+        blocks: [
+          { time: '10:00', what: 'Slow morning at apartment after the big Königssee day.' },
+          { time: '11:30', what: 'Drive to St. Wolfgang am Wolfgangsee.' },
+          { time: '12:15', what: 'Walk the lakefront promenade. Lakeside picnic.' },
+          { time: '14:00', what: 'Lake swim from the public Strandbad (warm-ish in late July, ~22°C).' },
+          { time: '16:00', what: 'Coffee in St. Wolfgang.' },
+          { time: '17:30', what: 'Schafbergbahn cog railway BOOKED IN ADVANCE for the 18:00 ascent (€46pp r/t, last train back is the late one). 40 min steep cog climb.' },
+          { time: '18:50', what: 'Summit station 1,783 m. Walk the easy ridge to the Schafbergspitze hotel terrace (20 min).' },
+          { time: '19:30', what: 'Packed dinner on the ridge. View: 13 Salzkammergut lakes spread below — Wolfgangsee, Mondsee, Attersee, Fuschlsee all visible.' },
+          { time: '20:48', what: 'SUNSET from the Schafberg ridge. This is the second peak moment — Black-Lake-reveal energy.' },
+          { time: '21:15', what: 'LAST cog train down (book this seat — runs once after sunset in summer).' },
+          { time: '22:00', what: 'Drive back to apartment.' },
+          { time: '23:00', what: 'Home.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Lake day only · skip the summit',
+        energy: 'low',
+        blocks: [
+          { time: '09:30', what: 'Coffee. Drive to St. Wolfgang.' },
+          { time: '10:30', what: 'Promenade walk + lake swim.' },
+          { time: '12:30', what: 'Lakeside picnic.' },
+          { time: '14:00', what: 'Boat across to St. Gilgen and back (45-min round trip, €15pp).' },
+          { time: '16:00', what: 'Coffee + ice cream. Slow ride back.' },
+          { time: '18:00', what: 'Back at apartment.' },
+          { time: '20:48', what: 'Sunset from the Obertraun shore.' },
+        ],
+      },
     },
+
+    // --- DAY 7 — Thu Jul 30 ---
     {
       id: 'thu-jul-30',
-      dateLabel: 'Thu Jul 30',
-      title: 'Grossglockner High Alpine Road OR Liechtensteinklamm',
-      imgUrl: IMG.grossglockner,
-      imgAlt: 'Grossglockner High Alpine Road winding through Hohe Tauern peaks',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'driving day — minimal walking unless adventurous tier',
-      driveMinutes: 'Salzburg → Grossglockner start 1h30m + road itself 2h',
-      sunsetBadge: 'Sunset 20:45',
-      sleepWhere: 'Salzburg apartment',
-      sleepCostEur: '€135',
-      kosherFood: 'Long picnic from apartment. Multiple alpine huts en route — coffee/water only, no kosher food.',
-      whyMontenegro:
-        'The Durmitor jeep tour, but you drive. Allison the mountain-road driver gets her moment. Toll €40 per car.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — Liechtensteinklamm instead',
-          plan:
-            'Skip the long Grossglockner drive entirely. 40-min south to Liechtensteinklamm gorge. ~1.5 hr loop on a wooden plank walkway through a narrow canyon — water rushing 30m below. Cool, mostly flat. Home for lunch.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — full Grossglockner road',
-          plan:
-            'Leave 7:30am. Drive 1.5 hrs to Bruck. Toll booth €40. 48 km of switchbacks to Kaiser-Franz-Josefs-Höhe (highest stop, 2369m, glacier viewpoint). Three or four stops total. Walk out at viewpoints. Return same road or loop via Heiligenblut (longer). Home 19:00.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Grossglockner + Krimml Falls',
-          plan:
-            "Same as moderate, then on the way back detour to Krimml Falls (Europe's tallest, 380m, easy paved path to lower viewpoint). 1.5 hrs of extra driving. Sunset back at the apartment.",
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Early start — Grossglockner needs daylight + low cloud' },
-        { when: 'Midday', text: 'Lunch at one of the alpine huts (coffee + your own food)' },
-        { when: 'Sunset', text: 'Drive back via the Salzach valley · stop for ice cream in Zell am See' },
-      ],
+      date: '2026-07-30',
+      dayOfWeek: 'Thursday',
+      dateLabel: 'Thursday July 30',
+      title: 'Werfen ice cave → drive to Salzburg airport apartment',
+      imgUrl: IMG.werfenIce,
+      imgAlt: 'Alpine valley near Werfen with castle on a crag',
+      sunsetTime: '20:47',
+      sunsetSpot: 'Mönchsberg ridge (Salzburg) OR airport-apartment balcony',
+      driveSummary: 'Hallstatt area → Werfen 1h15m → Salzburg airport apartment 50 min · ~2h driving + cave',
+      sleepWhere: 'airport',
+      walkingNote: 'Eisriesenwelt is Allison-pushing: 20-min uphill walk to cable car, then 1,400 stairs inside the cave with a carbide lamp. Optional. Bring fleece — ice cave is below freezing year-round.',
+      meals:
+        'Breakfast: clean out Hallstatt apartment. Lunch: picnic at the Werfen cave parking area. Dinner: settle into airport apartment + Spar takeaway.',
+      planA: {
+        label: 'Plan A',
+        headline: 'Eisriesenwelt cave + transit · full day',
+        energy: 'high — biggest physical day',
+        blocks: [
+          { time: '07:30', what: 'Coffee. Pack out of Hallstatt apartment. Eat the last of the fridge.' },
+          { time: '08:30', what: 'Drive west toward Werfen (1h15m).' },
+          { time: '09:45', what: 'Park at Eisriesenwelt visitor lot. Buy timed combo ticket (€42pp, cable car + 75-min cave tour). BOOK ONLINE the night before — July sells out.' },
+          { time: '10:00', what: '20-min uphill walk from lot to cable car station.' },
+          { time: '10:30', what: 'Cable car up — 3 min, 500m vertical.' },
+          { time: '10:45', what: '15-min walk from cable car top to cave entrance.' },
+          { time: '11:00', what: 'Cave tour — 1 hr 15 min underground, 1,400 stairs, carbide lamp. World\'s largest ice cave (42 km mapped, you see the first 1 km).' },
+          { time: '12:30', what: 'Walk + cable car down.' },
+          { time: '13:15', what: 'Picnic at the visitor center benches.' },
+          { time: '14:15', what: 'Drive to Salzburg airport apartment area (50 min).' },
+          { time: '15:30', what: 'Check in to airport-area apartment. Unpack just the essentials — flight tomorrow.' },
+          { time: '16:30', what: 'Drive 8 min into central Salzburg. One last Altstadt walk — buy any souvenirs, last European coffee, last gelato.' },
+          { time: '19:00', what: 'Walk up Mönchsberg from the Toscaninihof stairs for the final fortress view.' },
+          { time: '20:47', what: 'SUNSET from the Mönchsberg ridge. Last sunset of the trip.' },
+          { time: '21:30', what: 'Drive back to airport apartment. Pack. Pre-fly admin.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Skip the cave · easy transit day',
+        energy: 'low',
+        blocks: [
+          { time: '09:00', what: 'Slow pack-out from Hallstatt apartment.' },
+          { time: '10:30', what: 'Leave. Drive west.' },
+          { time: '11:45', what: 'Stop in Werfen village (no cave). Quick coffee. Photo of Hohenwerfen castle from the road.' },
+          { time: '12:30', what: 'Continue to Salzburg.' },
+          { time: '13:30', what: 'Check in to airport-area apartment.' },
+          { time: '14:30', what: 'Light lunch + nap.' },
+          { time: '17:00', what: 'Walk by the Salzach river or one last Altstadt loop.' },
+          { time: '20:47', what: 'Sunset from the apartment balcony.' },
+          { time: '22:00', what: 'Pack for flight.' },
+        ],
+      },
     },
+
+    // --- DAY 8 — Fri Jul 31 ---
     {
       id: 'fri-jul-31',
-      dateLabel: 'Fri Jul 31',
+      date: '2026-07-31',
+      dayOfWeek: 'Friday',
+      dateLabel: 'Friday July 31',
       title: 'Fly home',
       imgUrl: IMG.alpineSunset,
       imgAlt: 'Alpine valley at first light',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'airport only',
-      driveMinutes: '20 min to airport',
-      sunsetBadge: 'Departing — sunset in TLV 19:45',
-      sleepWhere: 'home',
-      sleepCostEur: '—',
-      kosherFood: 'Pack leftovers for the flight. El Al kosher meal on board.',
-      whyMontenegro:
-        '"And just like that, the trip was over." That last morning coffee in the same kitchen you started in.',
-      tiers: [
+      sunsetTime: '19:45',
+      sunsetSpot: 'In transit / home — sunset 19:45 Tel Aviv',
+      driveSummary: 'Airport apartment → SZG terminal 10 min · drop car.',
+      sleepWhere: 'airport',
+      walkingNote: 'Airport only.',
+      meals: 'Apartment leftovers for breakfast. El Al kosher meal on board.',
+      planA: {
+        label: 'Plan A',
+        headline: 'Early flight · primary',
+        energy: 'low',
+        blocks: [
+          { time: '05:00', what: 'Wake. Last coffee in the same kitchen you started in 24 hrs earlier.' },
+          { time: '05:45', what: 'Final luggage check. Pre-packed last night.' },
+          { time: '06:00', what: 'Drive to airport (10 min). Return rental car.' },
+          { time: '06:30', what: 'Check in. Security. Gate.' },
+          { time: '08:00', what: 'Fly. Allison gets a window seat.' },
+          { time: '14:00', what: 'Land Tel Aviv.' },
+          { time: 'Evening', what: 'Home. Tell people about the parts that mattered.' },
+        ],
+      },
+      planB: {
+        label: 'Plan B',
+        headline: 'Later flight · if booked afternoon',
+        energy: 'low',
+        blocks: [
+          { time: '08:00', what: 'Sleep in.' },
+          { time: '09:30', what: 'Walk along the Salzach one last time.' },
+          { time: '11:00', what: 'Return to apartment. Pack the car.' },
+          { time: '12:30', what: 'Drop car. Check in for afternoon flight.' },
+        ],
+      },
+    },
+  ],
+
+  lodgings: [
+    {
+      baseKey: 'salzburg',
+      nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
+      area: 'Andräviertel, near Linzergasse (5-min walk to Chabad Salzburg)',
+      pickName: 'master Linzergasse',
+      pickUrl: 'https://www.booking.com/hotel/at/master-linzergasse.html',
+      pickImg:
+        'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
+      pickReview: '9.2 · Wonderful · 2,308 reviews',
+      pickPrice: '€128 / night (₪510)',
+      pickWhy:
+        'Studio apartment with kitchen, 600m from old-town center, ON Linzergasse — same street as Chabad Salzburg (Linzergasse 76). Walking distance from anywhere meaningful for Shabbat. The Budva-Chabad-proximity pattern from Montenegro.',
+      alts: [
         {
-          level: 'chill',
-          label: '🌿 chill — sleep in, fly out',
-          plan: 'Pack the night before. Drop apartment keys. Return car at airport 2 hrs before flight. Coffee at the gate.',
+          name: 'Junker\'s Apartments',
+          url: 'https://www.booking.com/hotel/at/junkers-appartments.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/221346620.webp?k=cf7d95a5626dc200e5d713cbfcf5178c20086fc6ce1292547b7a2ab635163644&o=',
+          review: '9.6 · Exceptional',
+          pricePerNight: '€91 / night (₪361)',
+          note: '40m² apartment with kitchen, 1.9km from old town. Best value pick — sub-€100/night, exceptional reviews. Free cancellation. Apartment Jezero energy at Apartment Jezero price.',
         },
         {
-          level: 'moderate',
-          label: '🥾 moderate — Mirabell sunrise walk',
-          plan: 'Up at 6. One last walk through Mirabell at first light. Coffee at home. Out by 9.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — depends on flight time',
-          plan: 'If flight is afternoon, fit one last hike up Kapuzinerberg for the morning. If morning flight, skip.',
+          name: 'Pension Elisabeth — Rooms & Apartments',
+          url: 'https://www.booking.com/hotel/at/pension-elisabeth-salzburg.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/250951868.webp?k=e2d560ec802d63ccd55bffc86159644776bdc37ea72675cbe22822c5b68973d3&o=',
+          review: '8.6 · Excellent',
+          pricePerNight: '€80 / night (₪317)',
+          note: 'Studio with terrace and kitchen. 1.6km from old town. Cheapest of the pack while still meeting the 8.5+ bar.',
         },
       ],
-      timeline: [
-        { when: 'Morning', text: 'Pack · return car · check in · fly home' },
-        { when: 'Midday', text: 'Land Tel Aviv · the trip is over' },
-        { when: 'Evening', text: 'Tell people about the parts that mattered' },
+    },
+    {
+      baseKey: 'hallstatt',
+      nights: 'Sun Jul 26 – Thu Jul 30 (4 nights)',
+      area: 'Obertraun (5 min from Hallstatt by car) — the Zminca/Žabljak equivalent: lake-adjacent, quiet, full apartment',
+      pickName: 'Haus Edelweiss (Obertraun)',
+      pickUrl: 'https://www.booking.com/hotel/at/haus-edelweiss-obertraun.html',
+      pickImg:
+        'https://cf.bstatic.com/xdata/images/hotel/square600/506509432.webp?k=29d77bd1dd210a101fa445b3dc5caac41d37ef7b8ac5bd504e28fdd3b59b42f0&o=',
+      pickReview: '9.4 · Wonderful · 258 reviews',
+      pickPrice: '€142 / night (₪563)',
+      pickWhy:
+        '54m² 1-bedroom apartment with balcony, full kitchen, living room. 3km from Hallstatt — close enough for evenings, far enough for quiet. Right at the foot of the Dachstein cable car. Free cancellation. The Apartmani Jezero of this trip: deep base, lake walking distance, balcony coffee mornings.',
+      alts: [
+        {
+          name: 'Ferienhof Osl (Obertraun)',
+          url: 'https://www.booking.com/hotel/at/ferienhof-osl-urlaub-am-bauernhof.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/16860996.webp?k=2bc9d7e477477eb1fb17858d6f854b5a7d857dd1b4cf6f03b4b1def04c8b86e3&o=',
+          review: '9.2 · Wonderful',
+          pricePerNight: '€138 / night (₪548)',
+          note: 'WORKING FARMHOUSE (urlaub am bauernhof = "farm vacation"). 30m² studio with balcony, 3.7km from Hallstatt. This is literally Apartment Jezero — goats and horses outside, lake walking distance, local family running it. Most Žabljak-coded option.',
+        },
+        {
+          name: 'Austrian Apartments (Bad Goisern)',
+          url: 'https://www.booking.com/hotel/at/austria-apartments.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/680881702.webp?k=5280eca98f2aeb08f8cda08936a27de206b90945809344c6ce032c9c2f968d02&o=',
+          review: '9.5 · Exceptional',
+          pricePerNight: '€134 / night (₪531)',
+          note: 'Studio apartment with kitchen, 6.6km from Hallstatt. Bad Goisern itself has a Spar within walking distance. Free cancellation. Slightly further drive to Hallstatt Markt but quieter and 8 EUR/night cheaper.',
+        },
+      ],
+    },
+    {
+      baseKey: 'airport',
+      nights: 'Thu Jul 30 – Fri Jul 31 (1 night)',
+      area: 'Salzburg west, ~4 km from W. A. Mozart airport (10-min drive to terminal)',
+      pickName: 'morand I Apartments',
+      pickUrl: 'https://www.booking.com/hotel/at/studio-velvet.html',
+      pickImg:
+        'https://cf.bstatic.com/xdata/images/hotel/square600/653396353.webp?k=1bb7f1a7fa700e41621b17a8fd92d3491831f63d15ce4a18ac0462e48920f210&o=',
+      pickReview: '8.7 · Excellent · 336 reviews',
+      pickPrice: '€203 / night (₪806)',
+      pickWhy:
+        '1-bedroom apartment, 30m², 4.1km from Salzburg airport. Free cancellation. Quiet enough to pack at 5am for the early flight — but ALSO 10 min from central Salzburg so the Thursday-evening Mönchsberg sunset is still close.',
+      alts: [
+        {
+          name: 'Hotel Astoria (apartment-style)',
+          url: 'https://www.booking.com/hotel/at/hotelastoriasalzburg.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/384925943.webp?k=ac914eb88a1a5777c6911c69d0d7fb8e12e377b99cf1fcf4fd2293020d0f1e65&o=',
+          review: '8.0 · Very Good',
+          pricePerNight: '€245 / night (₪973)',
+          note: '45m² apartment with kitchen, 2.3km from airport — CLOSEST to the terminal. 2,759 reviews — extremely established. Slightly higher rating bar but it has the airport-proximity edge if Friday flight is very early.',
+        },
+        {
+          name: 'Rock Salzburg',
+          url: 'https://www.booking.com/hotel/at/rock-salzburg.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/577305861.webp?k=b9a5438f173df851e9f2840d8eb1ce9313afa85205fb44ed9e9882450f585bc4&o=',
+          review: '9.4 · Wonderful',
+          pricePerNight: '€294 / night (₪1,166)',
+          note: '20m² 1-bedroom apartment, 4km from airport, 250m from downtown. Premium for the last night if Allison wants to splurge on the final breakfast in town.',
+        },
       ],
     },
   ],
-};
 
-const optionB: Option = {
-  letter: 'B',
-  name: 'Option B — Two Anchors + Bled Detour',
-  tagline: 'Salzburg base for Shabbat, then move to Hallstatt for 3 nights, then Bled.',
-  oneLiner:
-    'Three apartments, three flavors of alpine. Wake up looking at a different lake every few days. More driving, more variety, more "where am I" mornings.',
-  knockout: {
-    title: 'Lake Bled sunrise — pletna boat to the island',
-    body:
-      "5am wake-up to a glassy Lake Bled. Take a traditional pletna boat to the church on the island while the mist is still on the water. 99 stone steps up, ring the wishing bell. This is your sunset-soul's morning equivalent.",
-  },
-  costSummaryEur: 2890,
-  costSummaryNis: 11470,
-  recommendationNote:
-    'More texture, more "places" feeling. Higher driving load (~14 hrs across the week). Two unpack/repack moments. Adds Slovenia, which scratches the "new country" itch.',
-  days: [
+  skipList: [
     {
-      id: 'fri-jul-24',
-      dateLabel: 'Fri Jul 24',
-      title: 'Land in Salzburg + Shabbat at the Chabad doorstep',
-      imgUrl: IMG.salzburgRiver,
-      imgAlt: 'Salzburg old town at golden hour',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'town walk only',
-      driveMinutes: '20 min (airport → apartment, walking distance to Chabad)',
-      sunsetBadge: 'Sunset 20:55 · Candle-lighting 20:35',
-      sleepWhere: 'Salzburg apartment near Linzergasse (5-min walk to Chabad)',
-      sleepCostEur: '€145',
-      kosherFood:
-        'Pre-arranged Chabad Friday-night dinner (book by email). Bring shelf-stable food from Israel for Friday lunch.',
-      whyMontenegro:
-        'The "Duckley Hotel" energy — pick the apartment for proximity to Chabad, not the view. The view comes Sunday onward.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — recover',
-          plan: 'Same as Option A Fri — sleep, river walk, prep Shabbat.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — old town',
-          plan: 'Same as Option A Fri.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — fortress sneak preview',
-          plan: 'Walk to Hohensalzburg via Mönchsberg ridge before lighting (only if jet lag is mild).',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Land 8am · pickup car · 20-min drive · drop bags' },
-        { when: 'Midday', text: 'Sleep + Shabbat prep' },
-        { when: 'Sunset', text: 'Candle lighting 20:35 · Chabad dinner · sunset 20:55' },
-      ],
+      item: 'Sound of Music tour',
+      reason: "Allison's rule: no. Hard skip. Not even ironically.",
     },
     {
-      id: 'sat-jul-25',
-      dateLabel: 'Sat Jul 25',
-      title: 'Shabbat in Salzburg',
-      imgUrl: IMG.salzburgFortress,
-      imgAlt: 'Hohensalzburg fortress',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'town walk + stairs (skip-able)',
-      driveMinutes: '0',
-      sunsetBadge: 'Havdalah 21:49',
-      sleepWhere: 'Same Salzburg apartment',
-      sleepCostEur: '€145 · included',
-      kosherFood: 'Chabad lunch · self-catered seudah shlishit',
-      whyMontenegro:
-        'Same as Option A — the Chabad meal is the moment. Make a friend over how hot the room is.',
-      tiers: [
-        { level: 'chill', label: '🌿 chill', plan: 'Same as Option A.' },
-        { level: 'moderate', label: '🥾 moderate', plan: 'Same as Option A.' },
-        { level: 'adventurous', label: '⛰️ adventurous', plan: 'Same as Option A.' },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Shul · breakfast' },
-        { when: 'Midday', text: 'Lunch · nap · walk' },
-        { when: 'Sunset', text: 'Havdalah 21:49 · pack for Hallstatt' },
-      ],
+      item: 'Salzburg city tourism (Mozart, palace tours, indoor museums)',
+      reason: 'Cute but indoor. This trip is for nature. Use Salzburg as Shabbat base, not destination.',
     },
     {
-      id: 'sun-jul-26',
-      dateLabel: 'Sun Jul 26',
-      title: 'Drive to Hallstatt via Gosausee — anchor #2',
-      imgUrl: IMG.gosausee,
-      imgAlt: 'Vorderer Gosausee reflecting Dachstein peaks',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'lakeside loop',
-      driveMinutes: 'Salzburg → Gosausee 1h10m → Hallstatt 35m',
-      sunsetBadge: 'Sunset 20:51',
-      sleepWhere: 'Hallstatt or Obertraun apartment (Obertraun = quieter + cheaper, 5 min from Hallstatt by car)',
-      sleepCostEur: '€175 · Obertraun apartments avg €175/night July',
-      kosherFood: 'Stop at the Spar in Bad Ischl en route to restock fresh dairy + produce.',
-      whyMontenegro:
-        'The Žabljak arrival — drive in via the most scenic possible road, settle into the new "triangle," eat a quinoa-avocado lunch.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — direct drive',
-          plan: 'Leave 9am. Direct to Hallstatt. Settle into apartment by 11. Lake-side lunch. Wander village.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — Gosausee on the way',
-          plan: 'Leave 9am. Stop at Vorderer Gosausee for 2-hr lake loop. Continue to Hallstatt for late afternoon.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Gosausee + Hinterer hike',
-          plan: 'Same as moderate, but extend with the 1.5-hr walk from Vorderer to Hinterer Gosausee (gravel valley path, mostly flat, dramatic finish at the back lake).',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Pack · check out Salzburg · drive to Gosausee' },
-        { when: 'Midday', text: 'Gosausee lake loop · picnic' },
-        { when: 'Sunset', text: 'Drive to Hallstatt · check in · evening on the lake' },
-      ],
+      item: 'Hallstatt salt mine tour',
+      reason: '90 min indoors on a Disneyland-style mine train. The Dachstein 5fingers + Skywalk give the views without the gimmick.',
     },
     {
-      id: 'mon-jul-27',
-      dateLabel: 'Mon Jul 27',
-      title: 'Hallstatt deep day — Skywalk + village + dachstein',
-      imgUrl: IMG.hallstattLake,
-      imgAlt: 'Hallstatt classic lake reflection',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'gentle ascents via cable car · option to push harder',
-      driveMinutes: 'Local — Hallstatt to Dachstein 15m',
-      sunsetBadge: 'Sunset 20:50',
-      sleepWhere: 'Hallstatt / Obertraun apartment',
-      sleepCostEur: '€175 · included',
-      kosherFood: 'Apartment kitchen + Spar in Hallstatt-Bad Goisern. Picnic on the Skywalk.',
-      whyMontenegro:
-        'The Black Lake reveal day — start with the village (pretty but ordinary), then the Skywalk transforms it into something you understand differently.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — village + Skywalk only',
-          plan: 'Late breakfast. Funicular up to Skywalk (€36 r/t). 360-degree platform, 360m above Hallstatt. Coffee at the panorama restaurant. Funicular down. Lake afternoon.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — Skywalk + Dachstein 5fingers',
-          plan: 'Skywalk in the morning, then drive 15 min to Obertraun, take TWO gondolas up to Krippenstein. 20-min walk to the 5fingers viewing platform — 400m drop straight down through the grate. Easy walk, dramatic payoff.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Skywalk + 5fingers + Heilbronner Rundweg',
-          plan: 'Same as moderate, then the ~1.5-hr Heilbronner ridge loop at Krippenstein (panoramic, mostly gentle, a few sections require sure footing).',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Salzbergbahn funicular · Skywalk' },
-        { when: 'Midday', text: 'Lunch at the panorama restaurant · descend · drive to Krippenstein cable cars' },
-        { when: 'Sunset', text: 'Back at apartment · lake swim · evening at the dock' },
-      ],
+      item: "Eagle's Nest / Kehlsteinhaus (Berchtesgaden)",
+      reason: "Historically heavy (Hitler's tea house). Königssee is the better Berchtesgaden day, full stop.",
     },
     {
-      id: 'tue-jul-28',
-      dateLabel: 'Tue Jul 28',
-      title: 'Drive to Lake Bled — anchor #3, Slovenia',
-      imgUrl: IMG.bled,
-      imgAlt: 'Lake Bled island church with mountain backdrop',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'driving day · lakeside walk',
-      driveMinutes: 'Hallstatt → Bled 3h15m (via Salzburg + Karawanks tunnel, border crossing 15-30min)',
-      sunsetBadge: 'Sunset 20:46 (Bled)',
-      sleepWhere: 'Lake Bled apartment',
-      sleepCostEur: '€140 · Bled apartments July avg',
-      kosherFood: "Big restock at Spar in Bled (kosher-labeled dairy + sealed cheese available in larger Slovenian Spars). Bled has no kosher infrastructure — bring more shelf-stable.",
-      whyMontenegro:
-        'New country day. The "I see Montenegro from the plane" feeling, but on the ground crossing into Slovenia. Storybook lake at the end.',
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — straight there, evening lake walk',
-          plan: 'Leave 9. Drive straight (no stops). Bled by 12:30. Apartment. Lazy afternoon. Walk full lake loop (6km, flat, paved). Sunset on the dock.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — Vintgar Gorge on arrival',
-          plan: 'Same drive. Drop bags. Drive 10 min to Vintgar Gorge — 1.6 km wooden walkway over the Radovna river, ends at a waterfall. ~1.5 hrs. Back to Bled for sunset.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — Vintgar + Ojstrica viewpoint',
-          plan: 'Same as moderate, then sunset hike up to Ojstrica viewpoint (45 min steep up, gives the postcard view of the island). Tough but short.',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Pack · drive south · cross Austrian border · Karawanks tunnel' },
-        { when: 'Midday', text: 'Arrive Bled · check in · light lunch lakeside' },
-        { when: 'Sunset', text: 'Lake walk · sunset on the dock · dinner at apartment' },
-      ],
+      item: 'Lake Bled detour into Slovenia',
+      reason: 'V1 considered this. Adds 6 hours of driving for one more lake. The Hallstatt-area lakes already deliver the storybook reflection. Save Bled for a Slovenia-specific trip.',
     },
     {
-      id: 'wed-jul-29',
-      dateLabel: 'Wed Jul 29',
-      title: 'Lake Bled full day — pletna boat to the island',
-      imgUrl: IMG.bled,
-      imgAlt: 'Bled island',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'lakeside loops + 99 stairs on the island',
-      driveMinutes: 'Local',
-      sunsetBadge: 'Sunset 20:45',
-      sleepWhere: 'Bled apartment',
-      sleepCostEur: '€140',
-      kosherFood: 'Apartment kitchen · Spar runs · Bled has a famous cream cake (kremšnita) — check ingredients but generally not certified kosher.',
-      whyMontenegro:
-        "The Skadar Lake day, but everything works. Pletna boats are Slovenia's gondolas — manually rowed wooden boats. 30 min each way. The island church bell you ring with a rope is the moment.",
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — boat + island only',
-          plan: 'Pletna boat from Mlino dock (€18pp r/t). 30 min row. 1 hr on island. Ring the bell. Boat back. Lunch at apartment. Lake swim.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — boat + castle + sunset hike',
-          plan: 'Morning pletna. Afternoon up to Bled Castle (€15 entry, 15-min uphill walk, drinks on the terrace = the panorama). Sunset hike to Mala Osojnica viewpoint (~30 min, steep but short).',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — boat + Bohinj day trip',
-          plan: "Morning pletna. Drive 30 min to Lake Bohinj (Bled's wilder, less-touristed sister). Kayak rental on Bohinj (€20/hr — Avital, NO PLUG-PULLING this time). Back for Bled sunset.",
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Pletna boat to island · 99 steps · wish bell' },
-        { when: 'Midday', text: 'Lake-side picnic · swim · castle terrace OR Bohinj' },
-        { when: 'Sunset', text: 'Sunset viewpoint (Mala Osojnica or Ojstrica) · dinner' },
-      ],
+      item: 'Italian Dolomites',
+      reason: "Already done — Allison's rule.",
     },
     {
-      id: 'thu-jul-30',
-      dateLabel: 'Thu Jul 30',
-      title: 'Drive back toward Salzburg — Krimml Falls stop',
-      imgUrl: IMG.krimml,
-      imgAlt: 'Krimml Waterfalls cascading through forest',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'falls path: gentle paved ascent, ~1 hr each way',
-      driveMinutes: 'Bled → Krimml 3h · Krimml → Salzburg 2h',
-      sunsetBadge: 'Sunset 20:45',
-      sleepWhere: 'Salzburg apartment (different from week-start, just for last night)',
-      sleepCostEur: '€135',
-      kosherFood: 'Long picnic from Bled apartment leftovers. Spar in Zell am See en route.',
-      whyMontenegro:
-        "The long Tara-back-to-Žabljak day. You're tired but you're going to one more thing because sunset is sacred and you're not going to miss this.",
-      tiers: [
-        {
-          level: 'chill',
-          label: '🌿 chill — direct drive, no falls',
-          plan: 'Leave 9. Direct to Salzburg via Villach + Tauern. ~4 hrs. Late afternoon in Salzburg, last sunset on the Mönchsberg.',
-        },
-        {
-          level: 'moderate',
-          label: '🥾 moderate — Krimml lower viewpoint',
-          plan: 'Leave Bled 8am. Drive to Krimml (via Gerlos pass, €12 toll, scenic). Lower waterfall viewpoint (~30 min uphill paved path). Lunch at the visitor center. Continue to Salzburg, 2 hrs.',
-        },
-        {
-          level: 'adventurous',
-          label: '⛰️ adventurous — full Krimml falls + Zell am See swim',
-          plan: 'Same as moderate, but walk all the way up the waterfall path (1.5 hrs each way, 380m elevation, paved switchbacks). Lake swim in Zell am See on the drive back.',
-        },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Pack Bled · drive via Tauern · arrive Krimml ~12:00' },
-        { when: 'Midday', text: 'Falls path · lunch at visitor center' },
-        { when: 'Sunset', text: 'Drive Salzburg · last evening at apartment · pack' },
-      ],
+      item: 'Vienna day trip',
+      reason: '3 hrs each way for indoor culture. Wrong trip.',
     },
     {
-      id: 'fri-jul-31',
-      dateLabel: 'Fri Jul 31',
-      title: 'Fly home',
-      imgUrl: IMG.alpineSunset,
-      imgAlt: 'Alpine valley sunrise',
-      imgCredit: 'Unsplash',
-      walkingDifficulty: 'airport only',
-      driveMinutes: '20 min to airport',
-      sunsetBadge: 'Departing',
-      sleepWhere: 'home',
-      sleepCostEur: '—',
-      kosherFood: 'Pack leftovers · El Al meal on board',
-      whyMontenegro:
-        "\"Just like every other night, we said we'd have an early one.\" Last morning. Pack. Go.",
-      tiers: [
-        { level: 'chill', label: '🌿 chill', plan: 'Same as Option A.' },
-        { level: 'moderate', label: '🥾 moderate', plan: 'Same as Option A.' },
-        { level: 'adventurous', label: '⛰️ adventurous', plan: 'Same as Option A.' },
-      ],
-      timeline: [
-        { when: 'Morning', text: 'Pack · return car · check in · fly' },
-        { when: 'Midday', text: 'Land Tel Aviv' },
-        { when: 'Evening', text: 'Home' },
-      ],
+      item: 'Tier-system mood menus (🌿/🥾/⛰️)',
+      reason: 'The v1 mistake. Each day has one Plan A + one Plan B — both real plans, neither a vibe.',
     },
   ],
 };
-
-export const OPTIONS: { A: Option; B: Option } = { A: optionA, B: optionB };
-
-export const SKIP_LIST: { item: string; reason: string }[] = [
-  {
-    item: 'Sound of Music tour',
-    reason: "Allison's rule: no. Hard skip. Not even ironically.",
-  },
-  {
-    item: 'Salzburg city tourism for its own sake (Mozart sites, palace tours)',
-    reason: 'Cute but indoor. Trip is for nature. Use Salzburg as Shabbat base, not a destination.',
-  },
-  {
-    item: 'Hallstatt salt mine tour',
-    reason: '90 min indoors on a Disneyland-style mine train. Skywalk gives the views without the gimmick.',
-  },
-  {
-    item: "Eagle's Nest / Kehlsteinhaus (Berchtesgaden)",
-    reason: "Historically heavy (Hitler's tea house). Königssee is the better Berchtesgaden day.",
-  },
-  {
-    item: 'Italian Dolomites',
-    reason: "Already done — Allison's rule.",
-  },
-  {
-    item: 'Bulgaria / Oslo from the original shortlist',
-    reason: 'Different trip. Austria + maybe Slovenia is the through-line here.',
-  },
-  {
-    item: 'Vienna day trip',
-    reason: '3 hrs each way for indoor culture. Wrong trip.',
-  },
-  {
-    item: 'Halloumi-and-chips at every random restaurant',
-    reason: "No kosher restaurants in the region. Self-cater + apartment kitchens are the design, not the constraint.",
-  },
-];

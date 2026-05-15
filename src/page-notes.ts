@@ -11,10 +11,7 @@ function formatTime(iso: string): string {
 }
 
 function noteHtml(n: Note): string {
-  const scope =
-    n.option === 'general'
-      ? 'whole trip'
-      : `Option ${n.option}${n.day_id ? ` · ${n.day_id}` : ''}`;
+  const scope = n.day_id ? n.day_id : 'whole trip';
   return `
     <div class="note-item status-${escapeHtml(n.status)}">
       <div>${escapeHtml(n.note_text)}</div>

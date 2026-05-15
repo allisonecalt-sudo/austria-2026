@@ -6,17 +6,10 @@
     <title>Austria 2026 — Allison & Avital · Jul 24-31</title>
     <meta
       name="description"
-      content="Salzburg-based road trip for Allison and Avital, July 24-31 2026. Two contrasting itineraries — pick the flavor that fits."
+      content="Concrete hour-by-hour itinerary for Salzburg + Hallstatt area, July 24-31 2026. Nature-anchored, kosher-friendly, sunset-obsessed."
     />
-    <link
-      rel="preconnect"
-      href="https://fonts.googleapis.com"
-    />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -26,14 +19,15 @@
   <body data-option="general">
     <nav class="nav">
       <div class="nav-inner">
-        <a href="/" class="nav-brand">Austria · 24-31 Jul</a>
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
-          <a href="/option-a.html">Option A</a>
-          <a href="/option-b.html">Option B</a>
-          <a href="/shabbat.html">Shabbat</a>
-          <a href="/costs.html">Costs</a>
-          <a href="/map.html">Map</a>
-          <a href="/notes.html">Notes</a>
+          <a href="itinerary.html">Itinerary</a>
+          <a href="stay.html">Where we sleep</a>
+          <a href="shabbat.html">Shabbat</a>
+          <a href="packing.html">Packing</a>
+          <a href="costs.html">Costs</a>
+          <a href="map.html">Map</a>
+          <a href="notes.html">Notes</a>
         </div>
       </div>
     </nav>
@@ -46,100 +40,75 @@
       />
       <div class="hero-inner">
         <span class="dates">Friday Jul 24 – Friday Jul 31, 2026</span>
-        <h1>Salzburg, the Alps, and (maybe) a lake in Slovenia.</h1>
-        <p class="lede">
-          Hi Avital. This is a pitch, not a plan. Pick a flavor, leave Claude notes wherever
-          something\'s off. Allison will iterate.
-        </p>
+        <h1>Salzburg for Shabbat. Hallstatt for the lakes. Sunsets every night.</h1>
+        <p class="lede" data-bind="intro"></p>
       </div>
     </header>
 
     <main class="container">
-      <section class="section">
-        <h2>Two flavors</h2>
+      <section class="section" style="border:none; padding-top:1rem;">
+        <h2>Why this plan</h2>
+        <p class="lead-block" data-bind="anchor"></p>
         <p class="lead-block">
-          Same dates, same flight, same Shabbat. Different shape after that. Both are kosher-shomer
-          Shabbat, both fit ~€2,800, both default to sunsets-as-sacred and nature-over-cities.
+          Two moves total, not seven. Salzburg apartment Friday afternoon → settle in for Shabbat 3
+          minutes from Chabad on Linzergasse. Sunday morning we drive east into the Salzkammergut
+          and unpack into a balcony apartment in Obertraun for 4 deep nights — coffee in the same
+          kitchen, the lake out the window, day trips that fan out from there. Thursday we drive
+          back to a quiet apartment 4 km from the airport so Friday's flight is a 10-minute drive.
         </p>
+      </section>
 
-        <div class="cards two-up">
-          <a href="/option-a.html" class="card">
-            <img
-              class="card-img"
-              loading="lazy"
-              src="https://images.unsplash.com/photo-1551689486-c4fa3df36b73?w=1200&q=80"
-              alt="Königssee under Watzmann cliffs"
-            />
-            <div class="card-body">
-              <div class="card-tag">Option A</div>
-              <h3>One Salzburg base · day trips</h3>
-              <p data-bind="a-tagline" style="color:#4b5a62; margin-bottom:0.6rem;"></p>
-              <p style="color:#4b5a62; font-size:0.92rem;">
-                Unpack once. Königssee, Hallstatt, Wolfgangsee, Eisriesenwelt — all reachable in
-                under 90 min from the same kitchen.
-              </p>
-              <div class="card-cta">See Option A → <span data-bind="a-cost"></span></div>
-            </div>
-          </a>
+      <section class="section">
+        <h2>The 7 days at a glance</h2>
+        <ol id="day-glance" class="glance"></ol>
+        <p style="text-align:center; margin-top:1rem;">
+          <a href="itinerary.html" class="cta">See the full hour-by-hour →</a>
+        </p>
+      </section>
 
-          <a href="/option-b.html" class="card">
-            <img
-              class="card-img"
-              loading="lazy"
-              src="https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=1200&q=80"
-              alt="Lake Bled with island church"
-            />
-            <div class="card-body">
-              <div class="card-tag">Option B</div>
-              <h3>Salzburg → Hallstatt → Bled</h3>
-              <p data-bind="b-tagline" style="color:#4b5a62; margin-bottom:0.6rem;"></p>
-              <p style="color:#4b5a62; font-size:0.92rem;">
-                Three anchors. More texture, more driving, adds Slovenia. Bled island + Hallstatt
-                Skywalk in the same week.
-              </p>
-              <div class="card-cta">See Option B → <span data-bind="b-cost"></span></div>
-            </div>
-          </a>
+      <section class="section">
+        <div class="knockout">
+          <div class="label">The Tara Bridge moment</div>
+          <h3 data-bind="peak-spot"></h3>
+          <p data-bind="peak-desc"></p>
         </div>
       </section>
 
-      <section class="section" style="margin-top:2rem;">
-        <h2>The vibe</h2>
+      <section class="section">
+        <h2>Real apartments — already searched</h2>
         <p class="lead-block">
-          Built from the Montenegro trip — sunset-obsessed, get-lost-in-nature-safely, deep
-          conversations with the locals, light-adventurous but never strenuous. Allison drives the
-          mountain roads. Avital does not capsize anything. Together-paced. Realistic 9-10am
-          starts. Apartment kitchens. Picnics on rocks.
+          Live Booking.com results pulled 2026-05-15. Three bases, three picks under the
+          Montenegro €70-150/night sweet spot. All apartments with kitchens, all 8.5+ reviews. Two
+          backup options per base.
         </p>
-        <p class="lead-block" style="font-style:italic; color:#2e5d4f;">
-          "We agreed to walk around it for an hour, maybe swim, and then head to Snake Lake."
+        <p style="text-align:center; margin-top:1rem;">
+          <a href="stay.html" class="cta">See the real listings →</a>
         </p>
       </section>
 
       <section class="section">
         <div class="callout">
-          <h3>What we\'re skipping</h3>
-          <ul id="skip-list" style="margin-left:1.2rem; line-height:1.6;"></ul>
+          <h3>What we're skipping</h3>
+          <ul id="skip-list" style="margin-left:1.2rem; line-height:1.7;"></ul>
         </div>
       </section>
 
       <section class="section">
-        <h2>Allison\'s pick</h2>
+        <h2>Budget</h2>
         <p class="lead-block">
-          <strong>Option A.</strong> Single base means more sunset hours and fewer "where are the
-          car keys" mornings. Same coffee in the same kitchen for 7 days — that was the part of
-          Apartment Jezero we both liked. Bled is real but it pulls Slovenia into a trip that\'s
-          already full. Save Bled for next time.
+          Target ceiling: <strong><span data-bind="ceiling"></span></strong> · Projected:
+          <strong><span data-bind="total-eur"></span> · <span data-bind="total-nis"></span></strong>
+          for 7 nights, 2 people, all-in except flights and rental car. Headroom for splurges.
         </p>
-        <p class="lead-block" style="color:#4b5a62;">
-          But seriously — tell me where I\'m wrong. There\'s a 💬 button in the corner. Use it.
+        <p style="text-align:center;">
+          <a href="costs.html" class="cta">See the breakdown →</a>
         </p>
       </section>
     </main>
 
     <footer>
-      Built 2026-05-15 · Iterating from Avital\'s notes · Sources: Hebcal · Google Maps · Chabad
-      Salzburg · Eisriesenwelt official
+      Built 2026-05-15 · v2 (concrete-itinerary rewrite) · Booking.com searched live ·
+      Sunset times: timeanddate.com Salzburg/Hallstatt · Drive times: Google Maps consensus
     </footer>
 
     <script type="module" src="/src/page-landing.ts"></script>

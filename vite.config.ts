@@ -10,9 +10,10 @@ export default defineConfig(({ command }) => ({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        optionA: resolve(__dirname, 'option-a.html'),
-        optionB: resolve(__dirname, 'option-b.html'),
+        itinerary: resolve(__dirname, 'itinerary.html'),
+        stay: resolve(__dirname, 'stay.html'),
         shabbat: resolve(__dirname, 'shabbat.html'),
+        packing: resolve(__dirname, 'packing.html'),
         costs: resolve(__dirname, 'costs.html'),
         notes: resolve(__dirname, 'notes.html'),
         map: resolve(__dirname, 'map.html'),

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Where we sleep · Austria 2026</title>
+    <meta
+      name="description"
+      content="Real Booking.com apartments for each base — Salzburg, Hallstatt area, airport return. All searched live, all 8.5+, all with kitchens."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="itinerary.html">Itinerary</a>
+          <a href="stay.html" class="active">Where we sleep</a>
+          <a href="shabbat.html">Shabbat</a>
+          <a href="packing.html">Packing</a>
+          <a href="costs.html">Costs</a>
+          <a href="map.html">Map</a>
+          <a href="notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header style="margin-bottom:1.4rem;">
+        <h1>Where we sleep</h1>
+        <p class="lead-block">
+          Real Booking.com apartments, searched live on 2026-05-15 for the actual nights of the
+          trip. All have kitchens (we cook — no kosher restaurants in the region). All have 8.5+
+          reviews. All in the €80-200/night zone — same shape as the Montenegro apartments that
+          worked (Studio Apartman Rea, Apartments Mitende, Apartmani Jezero).
+        </p>
+        <p class="lead-block" style="color:#4b5a62; font-size:0.95rem;">
+          <strong>Two moves, three apartments.</strong> Salzburg for Shabbat (2 nights) → Hallstatt
+          area as the nature anchor (4 nights, the Žabljak of this trip) → Salzburg airport-side
+          apartment for the last night (10-min drive to terminal Friday morning).
+        </p>
+        <p class="lead-block" style="background: var(--green-mist); border-left: 3px solid var(--green-deep); padding: 0.7rem 1rem; font-size: 0.92rem; color: var(--ink-soft);">
+          Prices shown are what Booking.com displayed for these exact nights. Final price at booking time may shift ±10-15%. Click through to verify availability before booking.
+        </p>
+      </header>
+
+      <div id="lodgings"></div>
+    </main>
+
+    <footer>
+      Booking.com searched 2026-05-15 · Listings filter: ht_id=201 (apartments), review_score≥85
+    </footer>
+
+    <script type="module" src="/src/page-stay.ts"></script>
+  </body>
+</html>

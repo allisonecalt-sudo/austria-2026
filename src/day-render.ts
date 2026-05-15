@@ -1,6 +1,7 @@
-// Render a single Day card. Pure DOM (no innerHTML in user input — only static strings).
+// Render a single Day card. Hour-by-hour blocks for Plan A + Plan B.
+// v2 — replaces tier-based rendering. Single concrete spine, no mood menus.
 
-import type { Day } from './trip-data.js';
+import type { Day, DayPlan } from './trip-data.js';
 
 function escapeHtml(s: string): string {
   return s
@@ -10,45 +11,56 @@ function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;');
 }
 
-export function renderDayCard(day: Day): string {
-  const tiers = day.tiers
+function renderPlan(plan: DayPlan, kind: 'a' | 'b'): string {
+  const rows = plan.blocks
     .map(
-      (t) => `
-    <div class="tier ${t.level}">
-      <h4>${escapeHtml(t.label)}</h4>
-      <p>${escapeHtml(t.plan)}</p>
-    </div>`,
+      (b) => `
+      <div class="block">
+        <div class="block-time">${escapeHtml(b.time)}</div>
+        <div class="block-what">${escapeHtml(b.what)}</div>
+      </div>`,
     )
     .join('');
+  return `
+    <div class="plan plan-${kind}">
+      <div class="plan-head">
+        <span class="plan-letter">${escapeHtml(plan.label)}</span>
+        <h4>${escapeHtml(plan.headline)}</h4>
+        <span class="plan-energy">${escapeHtml(plan.energy)}</span>
+      </div>
+      <div class="blocks">${rows}</div>
+    </div>`;
+}
 
-  const timeline = day.timeline
-    .map(
-      (row) => `
-    <div class="row"><div class="when">${escapeHtml(row.when)}</div><div>${escapeHtml(row.text)}</div></div>`,
-    )
-    .join('');
+export function renderDayCard(day: Day): string {
+  const tara = day.tarabridgeMoment
+    ? `<div class="tara-flag">⭐ Tara-Bridge moment — ${escapeHtml(day.tarabridgeMoment)}</div>`
+    : '';
 
   return `
   <article class="day" id="${escapeHtml(day.id)}">
     <div class="day-header">
       <div>
-        <div class="day-title">${escapeHtml(day.dateLabel)} · ${escapeHtml(day.title)}</div>
+        <div class="day-date">${escapeHtml(day.dateLabel)}</div>
+        <div class="day-title">${escapeHtml(day.title)}</div>
       </div>
       <div class="day-meta">
-        <span class="badge">🚗 ${escapeHtml(day.driveMinutes)}</span>
-        <span class="badge">👟 ${escapeHtml(day.walkingDifficulty)}</span>
-        <span class="badge sunset">☀️ ${escapeHtml(day.sunsetBadge)}</span>
+        <span class="badge sunset">☀️ Sunset ${escapeHtml(day.sunsetTime)}</span>
+        <span class="badge">🚗 ${escapeHtml(day.driveSummary)}</span>
       </div>
     </div>
     <img class="day-img" loading="lazy" src="${escapeHtml(day.imgUrl)}" alt="${escapeHtml(day.imgAlt)}" />
     <div class="day-body">
-      <div class="tiers">${tiers}</div>
-      <div class="timeline">${timeline}</div>
-    </div>
-    <div class="day-foot">
-      <div class="pair"><strong>Sleep:</strong> ${escapeHtml(day.sleepWhere)} · ${escapeHtml(day.sleepCostEur)}</div>
-      <div class="pair"><strong>Kosher:</strong> ${escapeHtml(day.kosherFood)}</div>
-      <div class="montenegro-line">${escapeHtml(day.whyMontenegro)}</div>
+      ${tara}
+      <div class="day-meta-row">
+        <div><strong>Sunset spot:</strong> ${escapeHtml(day.sunsetSpot)}</div>
+        <div><strong>Walking:</strong> ${escapeHtml(day.walkingNote)}</div>
+        <div><strong>Meals:</strong> ${escapeHtml(day.meals)}</div>
+      </div>
+      <div class="plans">
+        ${renderPlan(day.planA, 'a')}
+        ${renderPlan(day.planB, 'b')}
+      </div>
     </div>
   </article>`;
 }
