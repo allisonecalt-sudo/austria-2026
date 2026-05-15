@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maps · Austria 2026</title>
+    <meta name="description" content="Maps for both 7-night options." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="/option-a.html">Option A</a>
+          <a href="/option-b.html">Option B</a>
+          <a href="/shabbat.html">Shabbat</a>
+          <a href="/costs.html">Costs</a>
+          <a href="/map.html" class="active">Map</a>
+          <a href="/notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <h1>The geography</h1>
+      <p class="lead-block">
+        Salzburg is the hub for both options. Option A keeps you inside the inner ring (everything
+        ≤90 min). Option B reaches out east (Hallstatt) and south (Bled, Slovenia).
+      </p>
+
+      <section class="section" style="border:none; padding-top:0;">
+        <h2>Option A — radius from Salzburg</h2>
+        <p style="color:#4b5a62;">
+          All seven anchor points fit on one Google Map. Sleep stays in Salzburg every night.
+        </p>
+        <div class="map-wrap">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=12.20%2C47.30%2C13.70%2C48.10&amp;layer=mapnik&amp;marker=47.8095%2C13.0550"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Option A overview map"
+          ></iframe>
+        </div>
+        <p style="font-size:0.9rem; color:#4b5a62;">
+          🧭 Stops: Salzburg (base) · Königssee (40 min south) · Werfen / Eisriesenwelt (50 min
+          south) · Hallstatt (1h15m east via Bad Ischl) · Wolfgangsee (45 min east) · Liechtensteinklamm (50
+          min south) · Grossglockner road (1h30m south, day trip)
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Option B — three anchors</h2>
+        <p style="color:#4b5a62;">Salzburg → Hallstatt area → Bled. Border crossing between Austria and Slovenia via Karawanks tunnel (15-30 min wait).</p>
+        <div class="map-wrap">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=12.20%2C46.20%2C14.50%2C48.10&amp;layer=mapnik"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Option B overview map"
+          ></iframe>
+        </div>
+        <p style="font-size:0.9rem; color:#4b5a62;">
+          🧭 Salzburg → Gosausee → Hallstatt (1h45 with stop) → Lake Bled (3h15 with border) →
+          Krimml Falls (3h back from Bled) → Salzburg (2h)
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Drive-time matrix (Google Maps consensus)</h2>
+        <table class="costs">
+          <thead>
+            <tr><th>From Salzburg →</th><th class="num">Drive time</th><th class="num">km</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Königssee (Schönau)</td><td class="num">40 min</td><td class="num">35</td></tr>
+            <tr><td>Berchtesgaden village</td><td class="num">45 min</td><td class="num">30</td></tr>
+            <tr><td>Wolfgangsee (St. Wolfgang)</td><td class="num">45 min</td><td class="num">50</td></tr>
+            <tr><td>Werfen (Eisriesenwelt)</td><td class="num">50 min</td><td class="num">55</td></tr>
+            <tr><td>Liechtensteinklamm (St. Johann)</td><td class="num">50 min</td><td class="num">65</td></tr>
+            <tr><td>Vorderer Gosausee</td><td class="num">1h10m</td><td class="num">75</td></tr>
+            <tr><td>Hallstatt (via Bad Ischl)</td><td class="num">1h15m</td><td class="num">75</td></tr>
+            <tr><td>Zell am See</td><td class="num">1h20m</td><td class="num">90</td></tr>
+            <tr><td>Grossglockner start (Bruck)</td><td class="num">1h30m</td><td class="num">110</td></tr>
+            <tr><td>Krimml Waterfalls</td><td class="num">2h05m</td><td class="num">140</td></tr>
+            <tr><td>Lake Bled (Slovenia)</td><td class="num">2h45m</td><td class="num">230</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>
+      Map tiles © OpenStreetMap contributors · Drive times via Google Maps consensus across
+      multiple travel blogs
+    </footer>
+
+    <script type="module" src="/src/page-map.ts"></script>
+  </body>
+</html>

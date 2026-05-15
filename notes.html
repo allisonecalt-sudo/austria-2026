@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes from Avital · Austria 2026</title>
+    <meta name="description" content="Live feed of Avital\'s notes." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="/" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="/option-a.html">Option A</a>
+          <a href="/option-b.html">Option B</a>
+          <a href="/shabbat.html">Shabbat</a>
+          <a href="/costs.html">Costs</a>
+          <a href="/map.html">Map</a>
+          <a href="/notes.html" class="active">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <h1>Notes from Avital</h1>
+      <p class="lead-block">
+        Live feed. <span data-bind="note-count">0</span> notes so far. Allison\'s Claude reads
+        these between sessions and iterates the plan.
+      </p>
+      <p class="lead-block" style="color:#4b5a62; font-size:0.92rem;">
+        Want to add one? Use the 💬 button on any page — or right here.
+      </p>
+
+      <div id="notes-list" style="margin-top:1.4rem;"></div>
+    </main>
+
+    <footer>Stored in Supabase · table <code>austria_notes</code></footer>
+
+    <script type="module" src="/src/page-notes.ts"></script>
+  </body>
+</html>
