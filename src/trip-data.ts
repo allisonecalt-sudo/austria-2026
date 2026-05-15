@@ -27,17 +27,22 @@ export interface Day {
   dayOfWeek: string; // "Friday"
   dateLabel: string; // "Friday Jul 24"
   title: string;
+  summary: string; // 1-2 sentence morning/afternoon/sunset distillation
   imgUrl: string;
   imgAlt: string;
+  imgCredit?: string; // Wikimedia / Unsplash attribution
   sunsetTime: string; // "20:55"
   sunsetSpot: string; // e.g. "Hintersee dock"
+  sunsetMapsQuery?: string; // Maps query string for the sunset spot, if linkable
   driveSummary: string;
-  sleepWhere: string; // referenced lodging key, e.g. "salzburg" / "hallstatt" / "airport"
+  driveFrom?: string; // optional Maps origin
+  driveTo?: string; // optional Maps destination (renders driveSummary as directions link)
+  sleepWhere: string; // referenced lodging key
   walkingNote: string;
-  meals: string; // condensed
+  meals: string;
   planA: DayPlan;
   planB: DayPlan;
-  tarabridgeMoment?: string; // optional flag for peak-moment days
+  tarabridgeMoment?: string;
 }
 
 export interface Lodging {
@@ -73,23 +78,42 @@ export interface TripData {
   skipList: { item: string; reason: string }[];
 }
 
-// Image URLs (Unsplash CDN, license-free) — used on day cards only.
+// Image URLs — verified Wikimedia Commons for marquee places (each photo
+// actually shows the named place; fail-loud rule). Unsplash only for the
+// fly-home day where stake is low (generic dawn/clouds).
+//
+// Thumbnail width 1280px = a sanctioned size per MediaWiki $wgThumbnailSteps
+// (others: 20/40/60/120/250/330/500/960/1280/1920/3840). Using 1280 keeps
+// payloads ~150-300KB per photo on mobile while still sharp on 21:9 desktop.
+// Sources verified 2026-05-15 by Claude via Wikimedia category lookups.
 const IMG = {
   salzburgRiver:
-    'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=1600&q=80',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
   salzburgFortress:
-    'https://images.unsplash.com/photo-1583416750470-965b2707b355?w=1600&q=80',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
   hallstattLake:
-    'https://images.unsplash.com/photo-1527824404775-dce343118ebc?w=1600&q=80',
-  konigssee: 'https://images.unsplash.com/photo-1551689486-c4fa3df36b73?w=1600&q=80',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+  konigssee:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
   gosausee:
-    'https://images.unsplash.com/photo-1551639325-9d6a40a8f51c?w=1600&q=80',
-  werfenIce:
-    'https://images.unsplash.com/photo-1518889073-08fee32c8d39?w=1600&q=80',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+  werfen:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Werfen_-_Burg_Hohenwerfen_%281%29.JPG/1280px-Werfen_-_Burg_Hohenwerfen_%281%29.JPG',
   wolfgangsee:
-    'https://images.unsplash.com/photo-1567892387467-7df9c83b8a4d?w=1600&q=80',
-  alpineSunset:
-    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=85',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+  alpineSunset: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=85',
+};
+
+// Photo credits (kept here so future audits can verify provenance fast).
+const IMG_CREDIT = {
+  salzburgRiver: 'Wikimedia / Aconcagua, CC BY-SA 4.0',
+  salzburgFortress: 'Wikimedia / Andrew Bossi, CC BY-SA 4.0',
+  hallstattLake: 'Wikimedia / Jorge Royan, CC BY-SA 4.0',
+  konigssee: 'Wikimedia / Lukas Riebling, CC BY-SA 4.0',
+  gosausee: 'Wikimedia / Roman Klementschitz, CC BY-SA 3.0',
+  werfen: 'Wikimedia / C.Stadler / Bwag, CC BY-SA 4.0',
+  wolfgangsee: 'Wikimedia / C.Stadler / Bwag, CC BY-SA 4.0',
+  alpineSunset: 'Unsplash',
 };
 
 export const TRIP: TripData = {
@@ -116,11 +140,17 @@ export const TRIP: TripData = {
       dayOfWeek: 'Friday',
       dateLabel: 'Friday July 24',
       title: 'Land Salzburg — settle in for Shabbat',
+      summary:
+        "Land 8am exhausted. Nap. Stock the apartment from Spar on Linzergasse. Walk into Shabbat — candle-lighting 20:35, Chabad three minutes from the door.",
       imgUrl: IMG.salzburgRiver,
-      imgAlt: 'Salzburg old town along the Salzach river at golden hour',
+      imgAlt: 'Salzach river running through Salzburg old town beneath the Mönchsberg',
+      imgCredit: IMG_CREDIT.salzburgRiver,
       sunsetTime: '20:55',
       sunsetSpot: 'Apartment / Chabad table (in by candle-lighting 20:35)',
+      sunsetMapsQuery: 'Chabad Salzburg Linzergasse 76',
       driveSummary: 'Airport → apartment 15 min · no other driving',
+      driveFrom: 'Salzburg Airport',
+      driveTo: 'Linzergasse, Salzburg',
       sleepWhere: 'salzburg',
       walkingNote: 'Flat town walking only. Chabad 5 min, old town 8 min.',
       meals:
@@ -166,10 +196,14 @@ export const TRIP: TripData = {
       dayOfWeek: 'Saturday',
       dateLabel: 'Saturday July 25',
       title: 'Shabbat in Salzburg — walking only',
+      summary:
+        "Shul at Chabad, kiddush lunch, long nap. Late afternoon walk up the Mönchsberg stone stairs to the ridge above the old town. Havdalah at the apartment at 21:49.",
       imgUrl: IMG.salzburgFortress,
-      imgAlt: 'Hohensalzburg fortress overlooking the old town',
+      imgAlt: 'Hohensalzburg fortress on the Festungsberg above the Salzburg old town',
+      imgCredit: IMG_CREDIT.salzburgFortress,
       sunsetTime: '20:54',
-      sunsetSpot: 'Mirabell Gardens / Salzach river path (walking, no carrying outside eruv)',
+      sunsetSpot: 'Salzach river bank from Elisabethkai',
+      sunsetMapsQuery: 'Elisabethkai Salzburg',
       driveSummary: 'No driving — Shabbat.',
       sleepWhere: 'salzburg',
       walkingNote: 'Town only. Mirabell, Salzach path, Mönchsberg stairs accessible from old town side.',
@@ -212,11 +246,18 @@ export const TRIP: TripData = {
       dayOfWeek: 'Sunday',
       dateLabel: 'Sunday July 26',
       title: 'Move to Hallstatt — Gosausee mirror lake on the way',
+      summary:
+        "Pack out east via Bad Ischl. Hour-long flat loop around Vorderer Gosausee with the Dachstein mirrored in front of you. Unpack for four nights in Obertraun. Sunset over Lake Hallstatt from your new dock.",
       imgUrl: IMG.gosausee,
-      imgAlt: 'Vorderer Gosausee reflecting the Dachstein peaks',
+      imgAlt: 'Vorderer Gosausee with the Dachstein massif reflected in the water',
+      imgCredit: IMG_CREDIT.gosausee,
       sunsetTime: '20:53',
       sunsetSpot: 'Lake Hallstatt dock at Obertraun (5 min from apartment)',
-      driveSummary: 'Salzburg → Vorderer Gosausee 1h10m (via Bad Ischl + Gosau) → Hallstatt area 35 min · total drive ~2h plus stops',
+      sunsetMapsQuery: 'Obertraun Hallstätter See',
+      driveSummary:
+        'Salzburg → Vorderer Gosausee 1h10m (via Bad Ischl + Gosau) → Hallstatt area 35 min · ~2h driving + stops',
+      driveFrom: 'Salzburg, Austria',
+      driveTo: 'Obertraun, Austria',
       sleepWhere: 'hallstatt',
       walkingNote: 'Gosausee lake loop is flat ~1h, gravel + boardwalk. Easy.',
       meals:
@@ -262,11 +303,16 @@ export const TRIP: TripData = {
       dayOfWeek: 'Monday',
       dateLabel: 'Monday July 27',
       title: 'Hallstatt village + Dachstein 5fingers viewing platform',
+      summary:
+        "Two gondolas to Krippenstein, flat walk to the 5fingers platform jutting 400m over the valley. Down for Hallstatt Markt in the afternoon, Skywalk funicular for the 360° view, sunset on the lakeside walkway.",
       imgUrl: IMG.hallstattLake,
-      imgAlt: 'Hallstatt village reflected in the lake under alpine peaks',
+      imgAlt: 'Hallstatt village boathouses along the lake at the foot of alpine slopes',
+      imgCredit: IMG_CREDIT.hallstattLake,
       sunsetTime: '20:51',
-      sunsetSpot: 'Hallstatt Markt — lakeside walkway as last light hits the village',
-      driveSummary: 'Obertraun → Hallstatt Markt parking 8 min · Krippenstein cable car base 5 min · all local',
+      sunsetSpot: 'Hallstatt Markt lakeside walkway',
+      sunsetMapsQuery: 'Hallstatt Markt',
+      driveSummary:
+        'Obertraun → Krippenstein cable-car base 5 min · → Hallstatt Markt 8 min · all local',
       sleepWhere: 'hallstatt',
       walkingNote: '5fingers platform: 20 min flat walk from top gondola station. Skywalk: 5 min from funicular top.',
       meals:
@@ -313,11 +359,17 @@ export const TRIP: TripData = {
       dayOfWeek: 'Tuesday',
       dateLabel: 'Tuesday July 28',
       title: 'Königssee day — electric boats + St. Bartholomä',
+      summary:
+        "Drive over to Schönau early. Silent electric boat to St. Bartholomä and on to Salet — Obersee picnic at the back of the fjord. Last boat back at sunset: Watzmann goes gold, the lake goes silver. This is the trip's Tara Bridge.",
       imgUrl: IMG.konigssee,
-      imgAlt: 'Königssee turquoise water beneath the Watzmann cliffs',
+      imgAlt: 'St. Bartholomä church on the Königssee with the Watzmann east wall behind',
+      imgCredit: IMG_CREDIT.konigssee,
       sunsetTime: '20:50',
-      sunsetSpot: 'On the electric boat returning from St. Bartholomä',
-      driveSummary: 'Hallstatt area → Berchtesgaden / Königssee Schönau 1h15m · same drive back',
+      sunsetSpot: 'On the last electric boat returning from St. Bartholomä',
+      sunsetMapsQuery: 'St. Bartholomä Königssee',
+      driveSummary: 'Hallstatt area → Königssee Schönau 1h15m · same drive back',
+      driveFrom: 'Obertraun, Austria',
+      driveTo: 'Schönau am Königssee, Germany',
       sleepWhere: 'hallstatt',
       walkingNote: 'Boat-served. Optional 40-min flat walk to Obersee from Salet dock.',
       meals:
@@ -372,11 +424,17 @@ export const TRIP: TripData = {
       dayOfWeek: 'Wednesday',
       dateLabel: 'Wednesday July 29',
       title: 'Wolfgangsee + Schafberg cog railway at sunset',
+      summary:
+        "Easy lake-day morning in St. Wolfgang — promenade, swim. Schafbergbahn cog railway up at 18:00 (booked ahead). Packed dinner on the summit ridge with thirteen Salzkammergut lakes spread below. Sunset 20:48. Last cog train down.",
       imgUrl: IMG.wolfgangsee,
-      imgAlt: 'Lake Wolfgangsee with St. Wolfgang village on the shore',
+      imgAlt: 'St. Wolfgang village on the Wolfgangsee with the Schafberg massif beyond',
+      imgCredit: IMG_CREDIT.wolfgangsee,
       sunsetTime: '20:48',
-      sunsetSpot: 'Schafberg summit ridge (1,783 m) — 13-lake panorama at sunset',
-      driveSummary: 'Hallstatt area → St. Wolfgang 45 min · same back',
+      sunsetSpot: 'Schafberg summit ridge (1,783 m) — 13-lake panorama',
+      sunsetMapsQuery: 'Schafbergspitze Schafberg Austria',
+      driveSummary: 'Hallstatt area → St. Wolfgang am Wolfgangsee 45 min · same back',
+      driveFrom: 'Obertraun, Austria',
+      driveTo: 'St. Wolfgang im Salzkammergut',
       sleepWhere: 'hallstatt',
       walkingNote: 'Cog railway up + 30-min ridge walk at summit. Bring layer — summit ~12°C even in July.',
       meals:
@@ -422,12 +480,19 @@ export const TRIP: TripData = {
       date: '2026-07-30',
       dayOfWeek: 'Thursday',
       dateLabel: 'Thursday July 30',
-      title: 'Werfen ice cave → drive to Salzburg airport apartment',
-      imgUrl: IMG.werfenIce,
-      imgAlt: 'Alpine valley near Werfen with castle on a crag',
+      title: 'Werfen ice cave → drive back to Salzburg',
+      summary:
+        "Pack out west. Eisriesenwelt — world's largest ice cave, cable car + 1,400 stairs underground with a carbide lamp. Drive on to the airport apartment. One last Salzburg evening, last sunset from the Mönchsberg ridge.",
+      imgUrl: IMG.werfen,
+      imgAlt: 'Hohenwerfen castle perched on a rocky crag above the Salzach valley near Werfen',
+      imgCredit: IMG_CREDIT.werfen,
       sunsetTime: '20:47',
-      sunsetSpot: 'Mönchsberg ridge (Salzburg) OR airport-apartment balcony',
-      driveSummary: 'Hallstatt area → Werfen 1h15m → Salzburg airport apartment 50 min · ~2h driving + cave',
+      sunsetSpot: 'Mönchsberg ridge above Salzburg',
+      sunsetMapsQuery: 'Mönchsberg Salzburg',
+      driveSummary:
+        'Hallstatt area → Werfen 1h15m → Salzburg airport apartment 50 min · ~2h driving + cave',
+      driveFrom: 'Obertraun, Austria',
+      driveTo: 'Salzburg Airport',
       sleepWhere: 'airport',
       walkingNote: 'Eisriesenwelt is Allison-pushing: 20-min uphill walk to cable car, then 1,400 stairs inside the cave with a carbide lamp. Optional. Bring fleece — ice cave is below freezing year-round.',
       meals:
@@ -479,11 +544,16 @@ export const TRIP: TripData = {
       dayOfWeek: 'Friday',
       dateLabel: 'Friday July 31',
       title: 'Fly home',
+      summary:
+        "Early wake. Last coffee in the same kitchen you started in. Ten-minute drive to the terminal. Window seat home — sunset already in Tel Aviv by the time you land.",
       imgUrl: IMG.alpineSunset,
-      imgAlt: 'Alpine valley at first light',
+      imgAlt: 'Alpine peaks at first light',
+      imgCredit: IMG_CREDIT.alpineSunset,
       sunsetTime: '19:45',
-      sunsetSpot: 'In transit / home — sunset 19:45 Tel Aviv',
+      sunsetSpot: 'In transit — sunset 19:45 Tel Aviv',
       driveSummary: 'Airport apartment → SZG terminal 10 min · drop car.',
+      driveFrom: 'Salzburg',
+      driveTo: 'Salzburg Airport',
       sleepWhere: 'airport',
       walkingNote: 'Airport only.',
       meals: 'Apartment leftovers for breakfast. El Al kosher meal on board.',

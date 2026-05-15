@@ -17,11 +17,11 @@ function bindLanding(): void {
   if (anchor) anchor.textContent = TRIP.natureAnchor;
 
   const totalEur = document.querySelector<HTMLSpanElement>('[data-bind="total-eur"]');
-  if (totalEur) totalEur.textContent = `€${TRIP.totalCostEur.toLocaleString('en-US')}`;
+  if (totalEur) totalEur.textContent = TRIP.totalCostEur.toLocaleString('en-US');
   const totalNis = document.querySelector<HTMLSpanElement>('[data-bind="total-nis"]');
-  if (totalNis) totalNis.textContent = `₪${TRIP.totalCostNis.toLocaleString('en-US')}`;
+  if (totalNis) totalNis.textContent = TRIP.totalCostNis.toLocaleString('en-US');
   const ceiling = document.querySelector<HTMLSpanElement>('[data-bind="ceiling"]');
-  if (ceiling) ceiling.textContent = `€${TRIP.ceilingEur.toLocaleString('en-US')}`;
+  if (ceiling) ceiling.textContent = TRIP.ceilingEur.toLocaleString('en-US');
 
   const peakSpot = document.querySelector<HTMLHeadingElement>('[data-bind="peak-spot"]');
   if (peakSpot) peakSpot.textContent = TRIP.peakMoment.spot;

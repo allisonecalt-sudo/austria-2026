@@ -1,7 +1,13 @@
-// Render a single Day card. Hour-by-hour blocks for Plan A + Plan B.
-// v2 — replaces tier-based rendering. Single concrete spine, no mood menus.
+// Render a single Day card. v3 layout:
+//   hero photo (with sunset badge floating top-right)
+//   day label + serif title + 1-2 sentence summary
+//   meta chip strip (sunset spot / drive / sleep / walk)
+//   Plan A — always expanded
+//   Plan B — collapsed <details>
+//   Distinctive sunset block at the end (gold tint)
 
 import type { Day, DayPlan } from './trip-data.js';
+import { mapsLink, directionsLink } from './links.js';
 
 function escapeHtml(s: string): string {
   return s
@@ -11,8 +17,8 @@ function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;');
 }
 
-function renderPlan(plan: DayPlan, kind: 'a' | 'b'): string {
-  const rows = plan.blocks
+function renderBlocks(plan: DayPlan): string {
+  return plan.blocks
     .map(
       (b) => `
       <div class="block">
@@ -21,54 +27,109 @@ function renderPlan(plan: DayPlan, kind: 'a' | 'b'): string {
       </div>`,
     )
     .join('');
+}
+
+function renderPlanA(plan: DayPlan): string {
   return `
-    <div class="plan plan-${kind}">
+    <div class="plan-block plan-a-block">
       <div class="plan-head">
-        <span class="plan-letter">${escapeHtml(plan.label)}</span>
-        <h4>${escapeHtml(plan.headline)}</h4>
+        <span class="plan-badge">${escapeHtml(plan.label)}</span>
+        <h4 class="plan-headline">${escapeHtml(plan.headline)}</h4>
         <span class="plan-energy">${escapeHtml(plan.energy)}</span>
       </div>
-      <div class="blocks">${rows}</div>
+      <div class="blocks">${renderBlocks(plan)}</div>
     </div>`;
 }
 
-export function renderDayCard(day: Day): string {
-  const tara = day.tarabridgeMoment
-    ? `<div class="tara-flag">⭐ Tara-Bridge moment — ${escapeHtml(day.tarabridgeMoment)}</div>`
+function renderPlanB(plan: DayPlan): string {
+  return `
+    <details class="plan-b-toggle plan-b-block">
+      <summary>Show ${escapeHtml(plan.label)} — ${escapeHtml(plan.headline)}</summary>
+      <div class="plan-b-inner">
+        <div class="plan-head">
+          <span class="plan-badge">${escapeHtml(plan.label)}</span>
+          <h4 class="plan-headline">${escapeHtml(plan.headline)}</h4>
+          <span class="plan-energy">${escapeHtml(plan.energy)}</span>
+        </div>
+        <div class="blocks">${renderBlocks(plan)}</div>
+      </div>
+    </details>`;
+}
+
+function renderDriveChip(day: Day): string {
+  if (day.driveFrom && day.driveTo && day.driveSummary.toLowerCase() !== 'no driving — shabbat.') {
+    const href = directionsLink(day.driveFrom, day.driveTo);
+    return `<span class="chip"><strong>Drive</strong> <a href="${escapeHtml(href)}" target="_blank" rel="noreferrer noopener">${escapeHtml(day.driveSummary)}</a></span>`;
+  }
+  return `<span class="chip"><strong>Drive</strong> ${escapeHtml(day.driveSummary)}</span>`;
+}
+
+function renderSleepChip(day: Day): string {
+  const map: Record<string, string> = {
+    salzburg: 'Salzburg (Linzergasse)',
+    hallstatt: 'Obertraun (Hallstatt area)',
+    airport: 'Salzburg airport-side',
+  };
+  const where = map[day.sleepWhere] ?? day.sleepWhere;
+  return `<span class="chip"><strong>Sleep</strong> ${escapeHtml(where)}</span>`;
+}
+
+function renderSunsetBlock(day: Day): string {
+  const spotLink = day.sunsetMapsQuery
+    ? `<div class="sunset-place">📍 <a href="${escapeHtml(mapsLink(day.sunsetMapsQuery))}" target="_blank" rel="noreferrer noopener">${escapeHtml(day.sunsetSpot)}</a></div>`
+    : `<div class="sunset-place">📍 ${escapeHtml(day.sunsetSpot)}</div>`;
+  return `
+    <div class="sunset-block">
+      <div class="sunset-label">☀ Sunset · ${escapeHtml(day.sunsetTime)}</div>
+      <div class="sunset-spot">${escapeHtml(describeSunset(day))}</div>
+      ${spotLink}
+    </div>`;
+}
+
+// Generate a one-line sunset description from the day metadata. Mostly the spot
+// name carries it; for the Königssee day we lean into "Tara Bridge moment."
+function describeSunset(day: Day): string {
+  if (day.tarabridgeMoment) {
+    return day.sunsetSpot;
+  }
+  return day.sunsetSpot;
+}
+
+export function renderDayCard(day: Day, index: number): string {
+  const peakBadge = day.tarabridgeMoment
+    ? `<div class="day-hero-badge peak" title="Peak moment">⭐ Tara-Bridge moment</div>`
+    : `<div class="day-hero-badge">☀ Sunset ${escapeHtml(day.sunsetTime)}</div>`;
+
+  const summary = day.summary
+    ? `<p class="day-summary">${escapeHtml(day.summary)}</p>`
     : '';
 
   return `
   <article class="day" id="${escapeHtml(day.id)}">
-    <div class="day-header">
-      <div>
-        <div class="day-date">${escapeHtml(day.dateLabel)}</div>
-        <div class="day-title">${escapeHtml(day.title)}</div>
-      </div>
-      <div class="day-meta">
-        <span class="badge sunset">☀️ Sunset ${escapeHtml(day.sunsetTime)}</span>
-        <span class="badge">🚗 ${escapeHtml(day.driveSummary)}</span>
-      </div>
+    <div class="day-hero">
+      <img loading="lazy" decoding="async" src="${escapeHtml(day.imgUrl)}" alt="${escapeHtml(day.imgAlt)}" />
+      ${peakBadge}
     </div>
-    <img class="day-img" loading="lazy" src="${escapeHtml(day.imgUrl)}" alt="${escapeHtml(day.imgAlt)}" />
-    <div class="day-body">
-      ${tara}
-      <div class="day-meta-row">
-        <div><strong>Sunset spot:</strong> ${escapeHtml(day.sunsetSpot)}</div>
-        <div><strong>Walking:</strong> ${escapeHtml(day.walkingNote)}</div>
-        <div><strong>Meals:</strong> ${escapeHtml(day.meals)}</div>
-      </div>
-      <div class="plans">
-        ${renderPlan(day.planA, 'a')}
-        ${renderPlan(day.planB, 'b')}
-      </div>
+    <header class="day-header">
+      <div class="day-label">Day ${index + 1} · ${escapeHtml(day.dateLabel)}</div>
+      <h2 class="day-title">${escapeHtml(day.title)}</h2>
+      ${summary}
+    </header>
+    <div class="day-meta">
+      ${renderDriveChip(day)}
+      ${renderSleepChip(day)}
+      <span class="chip"><strong>Walking</strong> ${escapeHtml(day.walkingNote)}</span>
     </div>
+    ${renderPlanA(day.planA)}
+    ${renderPlanB(day.planB)}
+    ${renderSunsetBlock(day)}
   </article>`;
 }
 
 export function attachImageLoadHandlers(root: HTMLElement): void {
   const imgs = root.querySelectorAll<HTMLImageElement>('img[loading="lazy"]');
   imgs.forEach((img) => {
-    if (img.complete) {
+    if (img.complete && img.naturalWidth > 0) {
       img.classList.add('loaded');
     } else {
       img.addEventListener('load', () => img.classList.add('loaded'));
