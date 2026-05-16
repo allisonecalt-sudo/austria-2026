@@ -91,6 +91,41 @@ export type LodgingVibe =
 // prominently on every Salzburg card.
 export type LodgingLaundry = 'washer+dryer' | 'washer' | 'shared' | 'none' | 'unknown';
 
+// === DATA COMPLETENESS PASS — added 2026-05-17 by booking-deep-verify agent.
+// Per Allison: "I want to know right away how many beds how many bedrooms
+// kitchenette so yeah consider them you need to go through every single one".
+// These optional fields drive the at-a-glance pill row above the fold on
+// each lodging card. Older renderers ignore them gracefully.
+export type LodgingKitchen = 'full' | 'kitchenette' | 'shared' | 'none' | 'unknown';
+export type LodgingBath = 'private' | 'shared' | 'unknown';
+export type LodgingParking = 'free' | 'paid' | 'street' | 'none' | 'unknown';
+export type LodgingViewType =
+  | 'lake'
+  | 'mountain'
+  | 'forest'
+  | 'urban'
+  | 'garden'
+  | 'mixed'
+  | 'none'
+  | 'unknown';
+
+export interface DataCompletenessFields {
+  maxGuests?: number;
+  kitchen?: LodgingKitchen;
+  bath?: LodgingBath;
+  ac?: boolean;
+  parking?: LodgingParking;
+  wifi?: boolean; // default-assumed true; flag if absent
+  viewType?: LodgingViewType;
+}
+
+// Live-availability flag — added 2026-05-17 by booking-deep-verify agent.
+// Set to 'sold-out' when Playwright confirmed Booking.com showed "no
+// availability on our site for this property" for the trip dates. Renders a
+// prominent red badge on the card. Per the fail-loud rule: tell the user the
+// listing is unbookable, don't hide it.
+export type LodgingAvailability = 'available' | 'sold-out' | 'limited' | 'unverified';
+
 export interface LodgingAlt {
   name: string;
   url: string;
@@ -119,6 +154,19 @@ export interface LodgingAlt {
   // "Character pick" badge in the stay page.
   beautyPick?: boolean;
   beautyNote?: string; // 1-line why this one is beautiful
+  // Data-completeness fields (added 2026-05-17). All optional + additive.
+  maxGuests?: number;
+  kitchen?: LodgingKitchen;
+  bath?: LodgingBath;
+  ac?: boolean;
+  parking?: LodgingParking;
+  wifi?: boolean;
+  viewType?: LodgingViewType;
+  // Live availability (added 2026-05-17). Set when Playwright fact-checked
+  // Booking.com for actual trip dates. Renders sold-out badge when applicable.
+  availability?: LodgingAvailability;
+  availabilityCheckedDate?: string; // YYYY-MM-DD
+  availabilityNote?: string;
 }
 
 export interface Lodging {
@@ -141,6 +189,18 @@ export interface Lodging {
   pickBedrooms?: number | 'studio';
   pickBeds?: string;
   pickNotableDetails?: string[];
+  // Data-completeness fields (added 2026-05-17). Same shape as LodgingAlt.
+  pickMaxGuests?: number;
+  pickKitchen?: LodgingKitchen;
+  pickBath?: LodgingBath;
+  pickAc?: boolean;
+  pickParking?: LodgingParking;
+  pickWifi?: boolean;
+  pickViewType?: LodgingViewType;
+  // Live availability (added 2026-05-17). Set per Playwright sweep.
+  pickAvailability?: LodgingAvailability;
+  pickAvailabilityCheckedDate?: string;
+  pickAvailabilityNote?: string;
   alts: LodgingAlt[];
 }
 
@@ -547,6 +607,15 @@ export const TRIP: TripData = {
       pickBedrooms: 'studio',
       pickBeds: '1 queen',
       pickNotableDetails: ['Dishwasher', 'Microwave', 'Coffee machine', 'No washer'],
+      pickMaxGuests: 2,
+      pickKitchen: 'full',
+      pickBath: 'private',
+      pickAc: false,
+      pickParking: 'paid',
+      pickWifi: true,
+      pickViewType: 'urban',
+      pickAvailability: 'available',
+      pickAvailabilityCheckedDate: '2026-05-17',
       alts: [
         {
           name: "Junker's Apartments",
@@ -562,6 +631,13 @@ export const TRIP: TripData = {
           bedrooms: 1,
           beds: '1 queen (sofa bed available)',
           notableDetails: ['Coffee machine', 'Fridge', 'Garden views'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'street',
+          wifi: true,
+          viewType: 'garden',
         },
         {
           name: 'Sauerweingut',
@@ -583,6 +659,15 @@ export const TRIP: TripData = {
             'Coffee machine',
             'Free parking',
           ],
+          maxGuests: 2,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'garden',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-17',
         },
         {
           name: 'Villa Salzburg by Welcome to Salzburg',
@@ -598,6 +683,13 @@ export const TRIP: TripData = {
           bedrooms: 1,
           beds: '1 queen + sofa bed',
           notableDetails: ['Full kitchen', 'Free cancellation', 'Riedenburg side / quiet'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'street',
+          wifi: true,
+          viewType: 'mountain',
         },
         {
           name: 'Pension Elisabeth — Rooms & Apartments',
@@ -618,6 +710,13 @@ export const TRIP: TripData = {
             'Fully equipped kitchen',
             'Weekly linen change',
           ],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
         },
         {
           name: 'Amedeo Zotti Residence Salzburg',
@@ -633,6 +732,13 @@ export const TRIP: TripData = {
           bedrooms: 1,
           beds: '1 queen',
           notableDetails: ['Full kitchen', 'Free cancellation', '1,808 reviews'],
+          maxGuests: 2,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
         },
         // === LAUNDRY-FILTER ADDITIONS 2026-05-16 (bases agent) ===
         // Allison's final form: Salzburg base MUST have in-unit laundry.
@@ -651,6 +757,13 @@ export const TRIP: TripData = {
           bedrooms: 1,
           beds: '1 queen + sofa option',
           notableDetails: ['Washing machine', 'Fully equipped kitchen', 'Recently renovated'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
         },
       ],
     },
@@ -675,6 +788,19 @@ export const TRIP: TripData = {
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
       pickVibeTag: 'nature-view',
+      pickLaundry: 'unknown',
+      pickBedrooms: 1,
+      pickBeds: '1 queen + sofa',
+      pickNotableDetails: ['Balcony', 'Full kitchen', 'Living room', 'Foot of Dachstein cable car'],
+      pickMaxGuests: 4,
+      pickKitchen: 'full',
+      pickBath: 'private',
+      pickAc: false,
+      pickParking: 'free',
+      pickWifi: true,
+      pickViewType: 'mountain',
+      pickAvailability: 'available',
+      pickAvailabilityCheckedDate: '2026-05-17',
       alts: [
         {
           name: 'Austrian Apartments (Bad Goisern)',
@@ -686,6 +812,16 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 'studio',
+          beds: '1 queen',
+          maxGuests: 2,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
         },
         {
           name: 'Ferienhof Osl — Urlaub am Bauernhof (Obertraun)',
@@ -700,6 +836,19 @@ export const TRIP: TripData = {
           beautyPick: true,
           beautyNote:
             'Working farm with goats and horses outside the apartment door — the deepest immersion pick of the set.',
+          laundry: 'shared',
+          bedrooms: 'studio',
+          beds: '1 queen + sofa',
+          notableDetails: ['Working farm', 'Goats + horses', 'Balcony', '3.7km to Hallstatt'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-17',
         },
         {
           name: 'Haus Steinbrecher Hallstatt',
@@ -714,6 +863,19 @@ export const TRIP: TripData = {
           beautyPick: true,
           beautyNote:
             'Inside the postcard — ground-floor apartment in the painted-houses cluster, 9.7 review.',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '2 doubles',
+          notableDetails: ['IN Hallstatt village', 'Ground floor', '2 BR', 'Free cancellation'],
+          maxGuests: 4,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'mixed',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-17',
         },
         {
           name: 'Landhaus Lilly (Obertraun) — Liz & Paul B&B',
@@ -725,6 +887,22 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'lake-edge',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen',
+          notableDetails: [
+            'English-speaking hosts (Liz & Paul)',
+            'Mountain-view balconies',
+            '3-min drive to Krippenstein cable car',
+            'Woodland trails next door',
+          ],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
         },
         {
           name: 'Landhaus Osborne (Obertraun)',
@@ -736,6 +914,17 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen + sofa',
+          notableDetails: ['Walking distance to Hallstättersee shore', 'Free cancellation'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
         },
         // === NATURE-Y ADDITIONS 2026-05-16 ===
         // Allison: "we love to stay places that are safe but in naaturey areas
@@ -758,6 +947,17 @@ export const TRIP: TripData = {
           beautyPick: true,
           beautyNote:
             '75m² forest-edge apartment on the road to the mirror-lake trailhead — Gosau valley quiet.',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 king',
+          notableDetails: ['75m² spacious', 'Full kitchen', 'King bed', 'Forest-edge'],
+          maxGuests: 4,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'forest',
         },
         {
           name: 'Haus im Grünen (Gosau)',
@@ -769,6 +969,17 @@ export const TRIP: TripData = {
           budgetTier: 'standard',
           platform: 'booking',
           vibeTag: 'nature-view',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '1 queen + 2 singles',
+          notableDetails: ['65m² 2-BR', 'Full kitchen', 'Mountain views', 'Quiet valley floor'],
+          maxGuests: 4,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
         },
         {
           name: 'Mühlradl Apartments Gosau',
@@ -783,6 +994,17 @@ export const TRIP: TripData = {
           beautyPick: true,
           beautyNote:
             'Old water-mill converted to apartments — the mill-wheel still turns outside.',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen + sofa',
+          notableDetails: ['Old water-mill', 'Full kitchen', '38m²', 'On road to Gosausee'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'forest',
         },
         {
           name: 'Pension Sydler (Bad Goisern)',
@@ -794,6 +1016,17 @@ export const TRIP: TripData = {
           budgetTier: 'lean',
           platform: 'booking',
           vibeTag: 'farm-stay',
+          laundry: 'shared',
+          bedrooms: 1,
+          beds: '1 queen',
+          notableDetails: ['Garden BBQ', 'Sauna', 'Table tennis', '597 reviews', 'Kitchen — verify'],
+          maxGuests: 3,
+          kitchen: 'unknown',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'garden',
         },
         {
           name: 'Weisses Lamm Holiday Home (Hallstatt)',
@@ -808,6 +1041,17 @@ export const TRIP: TripData = {
           beautyPick: true,
           beautyNote:
             'Lake-view vacation home in the painted-houses village — the photo most people think IS Hallstatt.',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen + sofa bed',
+          notableDetails: ['75m² vacation home', 'Lake view', 'Full kitchen', 'IN Hallstatt village'],
+          maxGuests: 4,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'lake',
         },
         // === BEAUTIFUL-LODGING-HUNT ADDITIONS 2026-05-16 ===
         // Allison: "we love staying in beautiful places". Two character-rich
@@ -836,6 +1080,18 @@ export const TRIP: TripData = {
             'Boutique design',
             'No kitchen (room fridge only)',
           ],
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '1 queen or 2 singles',
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'lake',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-17',
         },
         {
           name: 'Bräugasthof Hallstatt (700-year-old lake-edge inn)',
@@ -857,6 +1113,16 @@ export const TRIP: TripData = {
             'Car-free old town',
             'No in-room kitchen',
           ],
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '1 queen',
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'lake',
         },
       ],
     },
@@ -878,6 +1144,19 @@ export const TRIP: TripData = {
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
       pickDriveToAirportMin: 10,
+      pickLaundry: 'unknown',
+      pickBedrooms: 'studio',
+      pickBeds: '1 queen',
+      pickNotableDetails: ['34m² studio', 'Full kitchen', 'Aparthotel', '10-min drive to SZG'],
+      pickMaxGuests: 2,
+      pickKitchen: 'full',
+      pickBath: 'private',
+      pickAc: true,
+      pickParking: 'free',
+      pickWifi: true,
+      pickViewType: 'urban',
+      pickAvailability: 'available',
+      pickAvailabilityCheckedDate: '2026-05-17',
       alts: [
         {
           name: 'Landhotel Berger (Ainring, just over the German border)',
@@ -889,6 +1168,17 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           driveToAirportMin: 12,
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen',
+          notableDetails: ['Breakfast included', 'Free cancellation', 'No prepayment'],
+          maxGuests: 2,
+          kitchen: 'kitchenette',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mixed',
         },
         {
           name: 'Hotel Astoria',
@@ -900,6 +1190,17 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           driveToAirportMin: 6,
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen + sofa',
+          notableDetails: ['45m² apartment', 'Closest to terminal', '2,750 reviews'],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: true,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
         },
         {
           name: 'Goldgasse Apartments de Luxe',
@@ -911,6 +1212,17 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           driveToAirportMin: 15,
+          laundry: 'unknown',
+          bedrooms: 'studio',
+          beds: '1 queen',
+          notableDetails: ['IN Altstadt', '200m from Mozartplatz', 'Free cancellation'],
+          maxGuests: 2,
+          kitchen: 'kitchenette',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
         },
         {
           name: 'Rock Salzburg',
@@ -922,6 +1234,17 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           driveToAirportMin: 15,
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen',
+          notableDetails: ['IN Altstadt', '250m to old-town center', 'Premium last-night pick'],
+          maxGuests: 2,
+          kitchen: 'kitchenette',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
         },
       ],
     },
@@ -1772,6 +2095,17 @@ export interface BaseConfigLodgingPick {
   bedrooms?: number | 'studio';
   beds?: string;
   notableDetails?: string[];
+  // Data-completeness fields (added 2026-05-17). Same shape as LodgingAlt.
+  maxGuests?: number;
+  kitchen?: LodgingKitchen;
+  bath?: LodgingBath;
+  ac?: boolean;
+  parking?: LodgingParking;
+  wifi?: boolean;
+  viewType?: LodgingViewType;
+  availability?: LodgingAvailability;
+  availabilityCheckedDate?: string;
+  availabilityNote?: string;
 }
 
 export interface BaseConfig {
@@ -1913,6 +2247,17 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
       '5-min walk to Königssee shore',
       'Cash-only',
     ],
+    maxGuests: 4,
+    kitchen: 'full',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mountain',
+    availability: 'sold-out',
+    availabilityCheckedDate: '2026-05-17',
+    availabilityNote:
+      'Booking.com shows no availability Sun Jul 26 → Wed Jul 29, 2026 (verified live 2026-05-17). Pick a different Berchtesgaden stay or different dates.',
   },
   {
     name: 'Gästehaus Hinterponholz (Ramsau)',
@@ -1932,6 +2277,13 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
       'Full kitchen',
       'IN national park',
     ],
+    maxGuests: 4,
+    kitchen: 'full',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mountain',
   },
   {
     name: 'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)',
@@ -1946,6 +2298,13 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     bedrooms: 1,
     beds: '1 queen',
     notableDetails: ['Mountain-view balcony', 'On-site restaurant', 'Free parking', 'Town center'],
+    maxGuests: 2,
+    kitchen: 'full',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mountain',
   },
   {
     name: 'Gästehaus Amort (Ramsau)',
@@ -1965,6 +2324,13 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
       'Family-run',
       'Quiet Ramsau setting',
     ],
+    maxGuests: 3,
+    kitchen: 'none',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mountain',
   },
   {
     name: 'Grubenlehen (Ramsau)',
@@ -1985,6 +2351,13 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
       'Communal pool',
       'Playground + BBQ',
     ],
+    maxGuests: 5,
+    kitchen: 'full',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mountain',
   },
 ];
 
@@ -2010,6 +2383,13 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
       'Modern design',
       'Helpful hosts',
     ],
+    maxGuests: 2,
+    kitchen: 'kitchenette',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'lake',
   },
   {
     name: 'Wolfgangsee Appartement (St. Wolfgang)',
@@ -2029,6 +2409,13 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
       'Fitness center',
       "Stone's-throw to lake",
     ],
+    maxGuests: 3,
+    kitchen: 'kitchenette',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'lake',
   },
   {
     name: 'Wolfgangsee Appartements (Strobl, east end of the lake)',
@@ -2043,6 +2430,13 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     bedrooms: 1,
     beds: '1 queen + sofa',
     notableDetails: ['Lake view', 'Garden + terrace', 'Quieter than St. Wolfgang'],
+    maxGuests: 3,
+    kitchen: 'full',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'lake',
   },
   {
     name: 'Appartements Mair (Strobl, 70m² 2-BR)',
@@ -2062,6 +2456,13 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
       'Walking distance to shop + center',
       'Fully equipped kitchen',
     ],
+    maxGuests: 4,
+    kitchen: 'full',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mixed',
   },
   {
     name: 'Apartment Sunset am Wolfgangsee (Strobl)',
@@ -2081,6 +2482,13 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
       'Oven + microwave',
       'Possible sunset orientation',
     ],
+    maxGuests: 2,
+    kitchen: 'kitchenette',
+    bath: 'private',
+    ac: false,
+    parking: 'free',
+    wifi: true,
+    viewType: 'mountain',
   },
 ];
 

@@ -23,6 +23,11 @@ import {
   type LodgingPlatform,
   type LodgingVibe,
   type LodgingLaundry,
+  type LodgingKitchen,
+  type LodgingBath,
+  type LodgingParking,
+  type LodgingViewType,
+  type LodgingAvailability,
   type SunsetStay,
 } from './trip-data.js';
 import { insertNote } from './supabase.js';
@@ -128,40 +133,40 @@ interface BaseDateInfo {
 
 const BASE_DATES: Record<BaseKey, BaseDateInfo> = {
   salzburg: {
-    short: 'Fri Jul 24 → Sun Jul 26 (2 nights)',
-    long: 'Friday Jul 24 → Sunday Jul 26, 2026 — 2 nights. This is the Shabbat anchor; all Salzburg picks are within walking distance of Chabad on Linzergasse.',
+    short: 'Fri Jul 24 → Sun Jul 26 (2N) · Shabbat Fri night',
+    long: 'Friday Jul 24 → Sunday Jul 26, 2026 — 2 nights. Shabbat is Fri Jul 24 night only (candle-lighting 20:35 Fri → Havdalah 21:49 Sat). All Salzburg picks are within walking distance of Chabad on Linzergasse.',
     nights: 2,
     bookingCheckIn: '2026-07-24',
     bookingCheckOut: '2026-07-26',
     shabbat: true,
   },
   obertraun: {
-    short: 'Sun Jul 26 → Wed Jul 29 (3 nights)',
-    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. The deep midweek anchor for the Salzkammergut. (Wed night is the Schafbergspitze summit overnight — separate booking.)',
+    short: 'Sun Jul 26 → Wed Jul 29 (3N)',
+    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. The deep midweek anchor for the Salzkammergut. (Wed Jul 29 night is the Schafbergspitze summit overnight — separate booking, see Sunset stays.)',
     nights: 3,
     bookingCheckIn: '2026-07-26',
     bookingCheckOut: '2026-07-29',
     shabbat: false,
   },
   berchtesgaden: {
-    short: 'Sun Jul 26 → Wed Jul 29 (3 nights)',
-    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. Bavarian Alps midweek anchor. (Wed night is the Schafbergspitze summit overnight — separate booking.)',
+    short: 'Sun Jul 26 → Wed Jul 29 (3N)',
+    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. Bavarian Alps midweek anchor. (Wed Jul 29 night is the Schafbergspitze summit overnight — separate booking.)',
     nights: 3,
     bookingCheckIn: '2026-07-26',
     bookingCheckOut: '2026-07-29',
     shabbat: false,
   },
   wolfgangsee: {
-    short: 'Sun Jul 26 → Wed Jul 29 (3 nights)',
-    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. Wolfgangsee midweek anchor. (Wed night is the Schafbergspitze summit overnight — separate booking.)',
+    short: 'Sun Jul 26 → Wed Jul 29 (3N)',
+    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. Wolfgangsee midweek anchor. (Wed Jul 29 night is the Schafbergspitze summit overnight — separate booking.)',
     nights: 3,
     bookingCheckIn: '2026-07-26',
     bookingCheckOut: '2026-07-29',
     shabbat: false,
   },
   airport: {
-    short: 'Thu Jul 30 → Fri Jul 31 (1 night)',
-    long: 'Thursday Jul 30 → Friday Jul 31, 2026 — 1 night. Pre-flight airport orbit for the LY5194 morning departure.',
+    short: 'Thu Jul 30 → Fri Jul 31 (1N) · pre-flight',
+    long: 'Thursday Jul 30 → Friday Jul 31, 2026 — 1 night. Pre-flight airport orbit for the LY5194 08:55 morning departure (~06:15 rental-car drop).',
     nights: 1,
     bookingCheckIn: '2026-07-30',
     bookingCheckOut: '2026-07-31',
@@ -195,6 +200,17 @@ interface UnifiedListing {
   bedrooms?: number | 'studio';
   beds?: string;
   notableDetails: string[];
+  // Data-completeness fields (added 2026-05-17 by booking-deep-verify agent)
+  maxGuests?: number;
+  kitchen: LodgingKitchen;
+  bath: LodgingBath;
+  parking: LodgingParking;
+  wifi: boolean;
+  viewType: LodgingViewType;
+  // Live availability (Playwright sweep 2026-05-17).
+  availability: LodgingAvailability;
+  availabilityCheckedDate?: string;
+  availabilityNote?: string;
   // Map coords (lat, lng)
   coords?: [number, number];
   // Highlight
@@ -404,6 +420,15 @@ function buildListings(): UnifiedListing[] {
       bedrooms: l.pickBedrooms,
       beds: l.pickBeds,
       notableDetails: pickDetails,
+      maxGuests: l.pickMaxGuests,
+      kitchen: l.pickKitchen ?? 'unknown',
+      bath: l.pickBath ?? 'unknown',
+      parking: l.pickParking ?? 'unknown',
+      wifi: l.pickWifi ?? true,
+      viewType: l.pickViewType ?? 'unknown',
+      availability: l.pickAvailability ?? 'unverified',
+      availabilityCheckedDate: l.pickAvailabilityCheckedDate,
+      availabilityNote: l.pickAvailabilityNote,
       coords: COORDS[l.pickName],
       isPick: true,
       isBeauty: false,
@@ -412,8 +437,8 @@ function buildListings(): UnifiedListing[] {
         l.pickLaundry === 'washer+dryer' ||
         detectAmenity(pickDetails, /washing\s*machine|washer/i),
       hasWasherDryer: l.pickLaundry === 'washer+dryer' || detectAmenity(pickDetails, /dryer/i),
-      hasAc: detectAmenity(pickDetails, /\bAC\b|air[-\s]?cond/i),
-      hasFreeParking: detectAmenity(pickDetails, /free\s*parking/i),
+      hasAc: l.pickAc === true || detectAmenity(pickDetails, /\bAC\b|air[-\s]?cond/i),
+      hasFreeParking: l.pickParking === 'free' || detectAmenity(pickDetails, /free\s*parking/i),
       hasFarmAnimals: false,
       hasLakeView: false,
       walkToChabadMin: l.pickWalkToChabadMin,
@@ -441,6 +466,15 @@ function buildListings(): UnifiedListing[] {
         bedrooms: a.bedrooms,
         beds: a.beds,
         notableDetails: dets,
+        maxGuests: a.maxGuests,
+        kitchen: a.kitchen ?? 'unknown',
+        bath: a.bath ?? 'unknown',
+        parking: a.parking ?? 'unknown',
+        wifi: a.wifi ?? true,
+        viewType: a.viewType ?? 'unknown',
+        availability: a.availability ?? 'unverified',
+        availabilityCheckedDate: a.availabilityCheckedDate,
+        availabilityNote: a.availabilityNote,
         coords: COORDS[a.name],
         isPick: false,
         isBeauty: a.beautyPick === true,
@@ -450,8 +484,8 @@ function buildListings(): UnifiedListing[] {
           a.laundry === 'washer+dryer' ||
           detectAmenity(dets, /washing\s*machine|washer/i),
         hasWasherDryer: a.laundry === 'washer+dryer' || detectAmenity(dets, /dryer/i),
-        hasAc: detectAmenity(dets, /\bAC\b|air[-\s]?cond/i),
-        hasFreeParking: detectAmenity(dets, /free\s*parking/i),
+        hasAc: a.ac === true || detectAmenity(dets, /\bAC\b|air[-\s]?cond/i),
+        hasFreeParking: a.parking === 'free' || detectAmenity(dets, /free\s*parking/i),
         hasFarmAnimals: false,
         hasLakeView: false,
         walkToChabadMin: a.walkToChabadMin,
@@ -485,6 +519,15 @@ function buildListings(): UnifiedListing[] {
         bedrooms: p.bedrooms,
         beds: p.beds,
         notableDetails: dets,
+        maxGuests: p.maxGuests,
+        kitchen: p.kitchen ?? 'unknown',
+        bath: p.bath ?? 'unknown',
+        parking: p.parking ?? 'unknown',
+        wifi: p.wifi ?? true,
+        viewType: p.viewType ?? 'unknown',
+        availability: p.availability ?? 'unverified',
+        availabilityCheckedDate: p.availabilityCheckedDate,
+        availabilityNote: p.availabilityNote,
         coords: COORDS[p.name],
         isPick: false,
         isBeauty: false,
@@ -493,8 +536,8 @@ function buildListings(): UnifiedListing[] {
           p.laundry === 'washer+dryer' ||
           detectAmenity(dets, /washing\s*machine|washer/i),
         hasWasherDryer: p.laundry === 'washer+dryer' || detectAmenity(dets, /dryer/i),
-        hasAc: detectAmenity(dets, /\bAC\b|air[-\s]?cond/i),
-        hasFreeParking: detectAmenity(dets, /free\s*parking/i),
+        hasAc: p.ac === true || detectAmenity(dets, /\bAC\b|air[-\s]?cond/i),
+        hasFreeParking: p.parking === 'free' || detectAmenity(dets, /free\s*parking/i),
         hasFarmAnimals: false,
         hasLakeView: false,
       };
@@ -727,7 +770,76 @@ function bedroomChip(b: UnifiedListing['bedrooms'], beds?: string): string {
   else if (typeof b === 'number') label = `${b} BR`;
   if (!label && !beds) return '';
   const bedsPart = beds ? ` · ${escapeHtml(beds)}` : '';
-  return `<span class="lodging-chip">🛏 ${label}${bedsPart}</span>`;
+  return `<span class="lodging-chip lodging-chip--essential">🛏 ${label}${bedsPart}</span>`;
+}
+
+// === Data-completeness pills (added 2026-05-17 by booking-deep-verify agent) ===
+
+function sleepsPill(max?: number): string {
+  if (!max) return '';
+  return `<span class="lodging-chip lodging-chip--essential">👥 Sleeps ${max}</span>`;
+}
+
+function kitchenPill(k: LodgingKitchen): string {
+  const map: Record<LodgingKitchen, { label: string; cls: string }> = {
+    full: { label: '🍳 Full kitchen', cls: 'lodging-chip--good' },
+    kitchenette: { label: '🍳 Kitchenette', cls: 'lodging-chip--essential' },
+    shared: { label: '🍳 Shared kitchen', cls: 'lodging-chip--essential' },
+    none: { label: '🚫 No kitchen', cls: 'lodging-chip--warn' },
+    unknown: { label: '🍳 Kitchen?', cls: 'lodging-chip--neutral' },
+  };
+  const { label, cls } = map[k];
+  return `<span class="lodging-chip ${cls}">${label}</span>`;
+}
+
+function bathPill(b: LodgingBath): string {
+  if (b === 'private') return '<span class="lodging-chip lodging-chip--essential">🚿 Private bath</span>';
+  if (b === 'shared') return '<span class="lodging-chip lodging-chip--warn">🚿 Shared bath</span>';
+  return '<span class="lodging-chip lodging-chip--neutral">🚿 Bath?</span>';
+}
+
+function acPill(hasAc: boolean): string {
+  return hasAc
+    ? '<span class="lodging-chip lodging-chip--good">❄️ AC</span>'
+    : '<span class="lodging-chip">❄️ No AC</span>';
+}
+
+function parkingPill(p: LodgingParking): string {
+  if (p === 'free') return '<span class="lodging-chip lodging-chip--good">🅿️ Free parking</span>';
+  if (p === 'paid') return '<span class="lodging-chip">🅿️ Paid parking</span>';
+  if (p === 'street') return '<span class="lodging-chip">🅿️ Street parking</span>';
+  if (p === 'none') return '<span class="lodging-chip lodging-chip--warn">🚫 No parking</span>';
+  return '<span class="lodging-chip lodging-chip--neutral">🅿️ Parking?</span>';
+}
+
+function wifiPill(hasWifi: boolean): string {
+  return hasWifi
+    ? '<span class="lodging-chip">📶 Wi-Fi</span>'
+    : '<span class="lodging-chip lodging-chip--warn">🚫 No Wi-Fi</span>';
+}
+
+function viewPill(v: LodgingViewType): string {
+  const map: Record<LodgingViewType, string> = {
+    lake: '🌊 Lake view',
+    mountain: '🏔 Mountain view',
+    forest: '🌲 Forest view',
+    urban: '🏙 Urban',
+    garden: '🌿 Garden view',
+    mixed: '🏞 Mixed view',
+    none: '',
+    unknown: '',
+  };
+  const label = map[v];
+  if (!label) return '';
+  return `<span class="lodging-chip">${label}</span>`;
+}
+
+// Sold-out badge — RED, prominent, above the photo per fail-loud rule.
+// Set per Playwright live-availability sweep 2026-05-17.
+function soldOutBadge(l: UnifiedListing): string {
+  if (l.availability !== 'sold-out') return '';
+  const note = l.availabilityNote ? ` ${escapeHtml(l.availabilityNote)}` : '';
+  return `<div class="lodging-soldout-badge" role="alert">❌ Sold out for these dates.${note}</div>`;
 }
 
 function platformBadge(p: LodgingPlatform): string {
@@ -755,8 +867,9 @@ function verifiedPill(): string {
 
 function datePill(base: BaseKey): string {
   const d = BASE_DATES[base];
-  const note = d.shabbat ? ' · Shabbat anchor' : '';
-  return `<span class="lodging-chip lodging-chip--date">📅 ${escapeHtml(d.short)}${escapeHtml(note)}</span>`;
+  // The Shabbat / pre-flight framing is already baked into d.short per the
+  // 2026-05-17 date-precision rule. Don't append more here.
+  return `<span class="lodging-chip lodging-chip--date">📅 ${escapeHtml(d.short)}</span>`;
 }
 
 // Booking URL with check-in/check-out + 2 adults baked in. Falls back to the
@@ -837,11 +950,29 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
     .filter(Boolean)
     .join('');
 
-  const lodgingChips = [
-    datePill(l.base),
+  // Date + verification row (above the essential pills).
+  const dateRow = [datePill(l.base), verifiedPill()].filter(Boolean).join('');
+
+  // ESSENTIAL row — the "right away" pills per Allison's 2026-05-17 directive:
+  // beds + bedrooms + sleeps + kitchen + laundry + bath. Above the fold, never
+  // inside <details>. The "Avital opens any card, knows in 1 second" test.
+  const essentialPills = [
     bedroomChip(l.bedrooms, l.beds),
+    sleepsPill(l.maxGuests),
+    kitchenPill(l.kitchen),
     laundryChip(l.laundry, l.base),
-    verifiedPill(),
+    bathPill(l.bath),
+  ]
+    .filter(Boolean)
+    .join('');
+
+  // SECONDARY row — AC, parking, wifi, view, character (vibe).
+  const secondaryPills = [
+    acPill(l.hasAc),
+    parkingPill(l.parking),
+    wifiPill(l.wifi),
+    viewPill(l.viewType),
+    vibeBadge(l.vibe),
   ]
     .filter(Boolean)
     .join('');
@@ -852,6 +983,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
     variant === 'grid' ? 'stay-card--grid' : 'stay-card--list',
     l.isBeauty ? 'stay-card--beauty' : '',
     isPicked(l.id) ? 'lodging-card--picked' : '',
+    l.availability === 'sold-out' ? 'lodging-card--sold-out' : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -872,18 +1004,21 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
         ${pickButtonHtml(l)}
       </div>
       <div class="stay-card__body lodging-card__body">
-        <p class="lodging-tldr">${escapeHtml(tldr)}</p>
+        ${soldOutBadge(l)}
         <h3 class="stay-card__name">${escapeHtml(l.name)}</h3>
-        <div class="stay-card__meta">${escapeHtml(l.review)} · <strong>${escapeHtml(l.pricePerNight)}</strong></div>
-        <div class="stay-card__chips lodging-chips">${lodgingChips}</div>
-        ${amenitiesIconRow(l)}
+        <p class="lodging-tldr">${escapeHtml(tldr)}</p>
+        <div class="stay-card__chips lodging-chips lodging-chips--date-row">${dateRow}</div>
+        <div class="stay-card__chips lodging-chips lodging-chips--essential" aria-label="At-a-glance essentials">${essentialPills}</div>
+        <div class="stay-card__chips lodging-chips lodging-chips--secondary" aria-label="Comfort + setting">${secondaryPills}</div>
         ${distanceChips(l)}
+        <div class="stay-card__meta">${escapeHtml(l.review)} · <strong>${escapeHtml(l.pricePerNight)}</strong></div>
         ${beautyLine}
         <details class="lodging-details">
           <summary class="lodging-details__summary">More info · drive times · full notes</summary>
           <div class="lodging-details__body">
             <p class="stay-card__note">${escapeHtml(l.note)}</p>
             <div class="stay-card__chips">${chips}${platformBadge(l.platform)}</div>
+            ${amenitiesIconRow(l)}
             ${matrixHtml}
           </div>
         </details>
