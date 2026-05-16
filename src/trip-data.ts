@@ -167,6 +167,17 @@ export interface LodgingAlt {
   availability?: LodgingAvailability;
   availabilityCheckedDate?: string; // YYYY-MM-DD
   availabilityNote?: string;
+  // Carousel photos (added 2026-05-17 by Photo Curation DEEP pass). 3-5 photos
+  // for the swipe-able lodging carousel. If omitted, renderer falls back to
+  // the single `img` field. Stable Wikimedia area photos preferred — Booking
+  // bstatic CDN URLs use signed/expiring k= tokens. First entry is the hero
+  // (same image as `img`); rest are area/context shots so Avital can swipe.
+  photos?: string[];
+  // Free-cancellation flag (added 2026-05-17 — see free-cancel rule
+  // 2026-05-17 01:31 in context). Renders ✓ green chip when true; renders
+  // 🔒 red badge when false (the explicit-choice case).
+  freeCancellation?: boolean;
+  freeCancellationUntil?: string;
 }
 
 export interface Lodging {
@@ -201,6 +212,12 @@ export interface Lodging {
   pickAvailability?: LodgingAvailability;
   pickAvailabilityCheckedDate?: string;
   pickAvailabilityNote?: string;
+  // Carousel photos (added 2026-05-17 by Photo Curation DEEP pass). See note
+  // on LodgingAlt.photos.
+  pickPhotos?: string[];
+  // Free-cancellation flag (added 2026-05-17 by free-cancel agent).
+  pickFreeCancellation?: boolean;
+  pickFreeCancellationUntil?: string;
   alts: LodgingAlt[];
 }
 
@@ -247,6 +264,75 @@ const IMG_CREDIT = {
   wolfgangsee: 'Wikimedia / C.Stadler / Bwag, CC BY-SA 4.0',
   alpineSunset: 'Unsplash',
 };
+
+// ---------------------------------------------------------------------------
+// LODGING-PHOTO-CAROUSEL POOLS (added 2026-05-17 by Photo Curation DEEP pass)
+// ---------------------------------------------------------------------------
+// Per Allison's note 2026-05-17 01:20 ("Can we have multiple picture for
+// sleeping where we can swipe between pictures"): each lodging card gets a
+// swipe-able carousel. Booking's bstatic.com URLs use signed `k=` tokens that
+// expire / rotate, and were the source of every fake-signature failure in the
+// audit. Instead, the carousel reuses VERIFIED-STABLE Wikimedia summer photos
+// of the listing's area (lake / village / mountain). The hero (`img`) stays
+// as the primary listing photo; carousel additions are area context.
+//
+// All URLs use the standard Wikimedia thumb widths (1280px). All are summer-
+// content shots per Avital's note 2026-05-16 23:37 ("We are going in July - I
+// only want pics from summer").
+const PHOTO_POOL = {
+  salzburgOldTown: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+  ],
+  hallstattVillage: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+  ],
+  obertraunDachstein: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
+  ],
+  gosauValley: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+  ],
+  badGoisernHallstatt: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+  ],
+  ramsauBerchtesgaden: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+  ],
+  stWolfgang: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+  ],
+  strobl: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+  ],
+  schafbergSummit: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Schafberg_Panorama_Attersee_Mondsee.jpg/1280px-Schafberg_Panorama_Attersee_Mondsee.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Schafberg_Summit.jpg/1280px-Schafberg_Summit.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+  ],
+  hinterseeMirror: [
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+  ],
+};
+
+// Helper: build a 3-photo carousel using the listing's primary photo plus
+// 2 area context shots. Filters duplicates so the hero never appears twice.
+function carousel(primary: string, ...areaPool: string[]): string[] {
+  const out = [primary];
+  for (const p of areaPool) {
+    if (!out.includes(p)) out.push(p);
+    if (out.length >= 4) break;
+  }
+  return out;
+}
 
 // Maps helpers (inline so trip-data has no import cycles).
 function searchUrl(query: string): string {
@@ -593,6 +679,7 @@ export const TRIP: TripData = {
       nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
       area: 'Andräviertel / Altstadt — all walking distance to Chabad Salzburg (Linzergasse 76)',
       pickName: 'master Linzergasse',
+      pickFreeCancellation: true,
       pickUrl: 'https://www.booking.com/hotel/at/master-linzergasse.html',
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
@@ -616,6 +703,10 @@ export const TRIP: TripData = {
       pickViewType: 'urban',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
+      pickPhotos: carousel(
+        'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
+        ...PHOTO_POOL.salzburgOldTown,
+      ),
       alts: [
         {
           name: "Junker's Apartments",
@@ -778,6 +869,7 @@ export const TRIP: TripData = {
       nights: 'Sun Jul 26 – Wed Jul 29 (3 nights)',
       area: 'Obertraun & Hallstatt-area (Salzkammergut) — full apartments, lake-adjacent, at the foot of the Dachstein',
       pickName: 'Haus Edelweiss (Obertraun)',
+      pickFreeCancellation: true,
       pickUrl: 'https://www.booking.com/hotel/at/haus-edelweiss-obertraun.html',
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/square600/506509432.webp?k=29d77bd1dd210a101fa445b3dc5caac41d37ef7b8ac5bd504e28fdd3b59b42f0&o=',
@@ -801,6 +893,11 @@ export const TRIP: TripData = {
       pickViewType: 'mountain',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
+      pickPhotos: carousel(
+        'https://cf.bstatic.com/xdata/images/hotel/square600/506509432.webp?k=29d77bd1dd210a101fa445b3dc5caac41d37ef7b8ac5bd504e28fdd3b59b42f0&o=',
+        ...PHOTO_POOL.obertraunDachstein,
+        ...PHOTO_POOL.hallstattVillage,
+      ),
       alts: [
         {
           name: 'Austrian Apartments (Bad Goisern)',
@@ -1019,7 +1116,13 @@ export const TRIP: TripData = {
           laundry: 'shared',
           bedrooms: 1,
           beds: '1 queen',
-          notableDetails: ['Garden BBQ', 'Sauna', 'Table tennis', '597 reviews', 'Kitchen — verify'],
+          notableDetails: [
+            'Garden BBQ',
+            'Sauna',
+            'Table tennis',
+            '597 reviews',
+            'Kitchen — verify',
+          ],
           maxGuests: 3,
           kitchen: 'unknown',
           bath: 'private',
@@ -1044,7 +1147,12 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 1,
           beds: '1 queen + sofa bed',
-          notableDetails: ['75m² vacation home', 'Lake view', 'Full kitchen', 'IN Hallstatt village'],
+          notableDetails: [
+            '75m² vacation home',
+            'Lake view',
+            'Full kitchen',
+            'IN Hallstatt village',
+          ],
           maxGuests: 4,
           kitchen: 'full',
           bath: 'private',
@@ -1157,6 +1265,10 @@ export const TRIP: TripData = {
       pickViewType: 'urban',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
+      pickPhotos: carousel(
+        'https://cf.bstatic.com/xdata/images/hotel/square600/139217677.webp?k=cc6b6af89947749e036d48a119040fc567cced209c7ba208ae102d736e18177e&o=',
+        ...PHOTO_POOL.salzburgOldTown,
+      ),
       alts: [
         {
           name: 'Landhotel Berger (Ainring, just over the German border)',
@@ -2106,6 +2218,11 @@ export interface BaseConfigLodgingPick {
   availability?: LodgingAvailability;
   availabilityCheckedDate?: string;
   availabilityNote?: string;
+  // Carousel photos (added 2026-05-17 by Photo Curation DEEP pass).
+  photos?: string[];
+  // Free-cancellation flag (added 2026-05-17 — same as LodgingAlt).
+  freeCancellation?: boolean;
+  freeCancellationUntil?: string;
 }
 
 export interface BaseConfig {
@@ -2850,6 +2967,9 @@ export interface SunsetStay {
   url: string;
   img: string;
   imgCredit?: string;
+  // Carousel photos (added 2026-05-17 by Photo Curation DEEP pass). 3-5
+  // stable Wikimedia summit/area photos for the sunset-stay carousel.
+  photos?: string[];
   elevationM?: number;
   region: 'salzkammergut' | 'berchtesgaden' | 'wolfgangsee' | 'dachstein';
   pitch: string;
@@ -2873,6 +2993,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     url: 'https://schafberg.net/en/',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Schafberg_Panorama_Attersee_Mondsee.jpg/1280px-Schafberg_Panorama_Attersee_Mondsee.jpg',
     imgCredit: 'Wikimedia Commons',
+    photos: PHOTO_POOL.schafbergSummit,
     elevationM: 1783,
     region: 'wolfgangsee',
     pitch:
@@ -2937,6 +3058,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     url: 'https://www.lodge.at/en/',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
     imgCredit: 'Wikimedia Commons',
+    photos: PHOTO_POOL.obertraunDachstein,
     elevationM: 2050,
     region: 'dachstein',
     pitch:
@@ -2986,6 +3108,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     url: 'https://www.gasthof-gosausee.at/en/guesthouse-gosausee/',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
     imgCredit: 'Wikimedia Commons / Roman Klementschitz, CC BY-SA 3.0',
+    photos: PHOTO_POOL.gosauValley,
     elevationM: 933,
     region: 'salzkammergut',
     pitch:
@@ -3029,6 +3152,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     url: 'https://www.booking.com/searchresults.html?ss=Hintersee+Ramsau+Berchtesgaden',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hintersee_Panorama.JPG/1280px-Hintersee_Panorama.JPG',
     imgCredit: 'Wikimedia Commons',
+    photos: PHOTO_POOL.hinterseeMirror,
     elevationM: 790,
     region: 'berchtesgaden',
     pitch:
