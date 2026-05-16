@@ -1456,7 +1456,7 @@ function renderFilterBar(matchCount: number): string {
   const activeSummary =
     totalActive > 0
       ? `<span class="filter-bar__active">${totalActive} filter${totalActive === 1 ? '' : 's'} active</span>`
-      : '<span class="filter-bar__active filter-bar__active--empty">No filters · showing everything. Click a chip to narrow.</span>';
+      : '<span class="filter-bar__active filter-bar__active--empty">Showing all — tap a chip to narrow.</span>';
 
   return `
     <div class="filter-bar__count">
