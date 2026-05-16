@@ -729,6 +729,11 @@ export const TRIP: TripData = {
           parking: 'street',
           wifi: true,
           viewType: 'garden',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/221346620.webp?k=cf7d95a5626dc200e5d713cbfcf5178c20086fc6ce1292547b7a2ab635163644&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Sauerweingut',
@@ -759,6 +764,11 @@ export const TRIP: TripData = {
           viewType: 'garden',
           availability: 'available',
           availabilityCheckedDate: '2026-05-17',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/139315520.webp?k=e769157928a77f9d738239101a988db4b7b2cf615fa262ab0d05f88b775d4eca&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Villa Salzburg by Welcome to Salzburg',
@@ -781,6 +791,11 @@ export const TRIP: TripData = {
           parking: 'street',
           wifi: true,
           viewType: 'mountain',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/243977766.webp?k=87715c16d9bf6945702f17d3962f6e763145ef0e4650bd98754e05f4077377c1&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Pension Elisabeth — Rooms & Apartments',
@@ -808,6 +823,11 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'urban',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/250951868.webp?k=e2d560ec802d63ccd55bffc86159644776bdc37ea72675cbe22822c5b68973d3&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Amedeo Zotti Residence Salzburg',
@@ -830,6 +850,11 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'urban',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/572731112.webp?k=992f2f3014073eec44480ab8bebe5a04d7fbece0f6c9297a0e341d584fa7f6c9&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         // === LAUNDRY-FILTER ADDITIONS 2026-05-16 (bases agent) ===
         // Allison's final form: Salzburg base MUST have in-unit laundry.
@@ -855,6 +880,11 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'urban',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/483551175.webp?k=2c6d04a59f6e9a6d0b2e3e7c98d7e2a8b0c5d9e3f0b2a1c4d5e6f7a8b9c0d1e2&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
       ],
     },
@@ -919,6 +949,10 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'mountain',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/680881702.webp?k=5280eca98f2aeb08f8cda08936a27de206b90945809344c6ce032c9c2f968d02&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          ],
         },
         {
           name: 'Ferienhof Osl — Urlaub am Bauernhof (Obertraun)',
@@ -946,6 +980,11 @@ export const TRIP: TripData = {
           viewType: 'mountain',
           availability: 'available',
           availabilityCheckedDate: '2026-05-17',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/16860996.webp?k=2bc9d7e477477eb1fb17858d6f854b5a7d857dd1b4cf6f03b4b1def04c8b86e3&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
+          ],
         },
         {
           name: 'Haus Steinbrecher Hallstatt',
@@ -973,6 +1012,10 @@ export const TRIP: TripData = {
           viewType: 'mixed',
           availability: 'available',
           availabilityCheckedDate: '2026-05-17',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/194990009.webp?k=7bf12e6e7b46360edc5d4a9535b531139cdf67c475bbae39170a777f965714fa&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          ],
         },
         {
           name: 'Landhaus Lilly (Obertraun) — Liz & Paul B&B',
@@ -1000,6 +1043,11 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'mountain',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/512123581.webp?k=e2ba9e574311d3d4e34fad78c6b44afdb3def39a437821e7ba2bfbb263602c4b&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
+          ],
         },
         {
           name: 'Landhaus Osborne (Obertraun)',
@@ -1022,6 +1070,11 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'mountain',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/55717428.webp?k=d49f9c3fd40d5ac080db10edb8608e1eb774d5a55f89ba5d36f11651ae8b1927&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
+          ],
         },
         // === NATURE-Y ADDITIONS 2026-05-16 ===
         // Allison: "we love to stay places that are safe but in naaturey areas
@@ -1055,6 +1108,11 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'forest',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/410661012.webp?k=a7d8da61dca16361127d1ebd451d1d67f1ace40dc4ce543b498610c1691363bb&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+          ],
         },
         {
           name: 'Haus im Grünen (Gosau)',
@@ -1077,6 +1135,11 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'mountain',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/542231476.webp?k=a44d9c0c33ff9b95296128929efc5c884da9542699fb1ace2edbc46641f92f6b&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+          ],
         },
         {
           name: 'Mühlradl Apartments Gosau',
@@ -1102,6 +1165,11 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'forest',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/34414377.webp?k=c874faba1d8ff841cc4594569d3b4a90dc70928b8de49917f6dc694a422d3eea&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+          ],
         },
         {
           name: 'Pension Sydler (Bad Goisern)',
@@ -1130,6 +1198,10 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'garden',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/84702890.webp?k=8b69a5f03c725211bedde9d9024628c2117c11942ace0eb860f9d196a3ad2212&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          ],
         },
         {
           name: 'Weisses Lamm Holiday Home (Hallstatt)',
@@ -1160,6 +1232,10 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'lake',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/186766752.webp?k=268d3b8120e740e18ee5453b9ba40aa5807e79a435351ef6f3a94f77f4e2e722&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          ],
         },
         // === BEAUTIFUL-LODGING-HUNT ADDITIONS 2026-05-16 ===
         // Allison: "we love staying in beautiful places". Two character-rich
@@ -1200,6 +1276,12 @@ export const TRIP: TripData = {
           viewType: 'lake',
           availability: 'available',
           availabilityCheckedDate: '2026-05-17',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/87693988.webp?k=8d8b8a8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
+          ],
         },
         {
           name: 'Bräugasthof Hallstatt (700-year-old lake-edge inn)',
@@ -1231,6 +1313,12 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'lake',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/162531001.webp?k=2f9f2a2b4e3f1a8d4f3a6c5b8f4a2e3d6a8b3c2d7e1f4a9b6c8d3e7f2a5b8c1d&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
+          ],
         },
       ],
     },
@@ -1291,6 +1379,11 @@ export const TRIP: TripData = {
           parking: 'free',
           wifi: true,
           viewType: 'mixed',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/487668919.webp?k=249e5a1260b40f9b2d5a1f924e3a04f5e27e1da37720c6dc36801c8ee7eecddc&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Hotel Astoria',
@@ -1313,6 +1406,11 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'urban',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/384925943.webp?k=ac914eb88a1a5777c6911c69d0d7fb8e12e377b99cf1fcf4fd2293020d0f1e65&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Goldgasse Apartments de Luxe',
@@ -1335,6 +1433,11 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'urban',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/726601815.webp?k=d30c57b149f980df0f585af2f6c6d34b6952c72722670b488dd93a3009a686ed&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
         {
           name: 'Rock Salzburg',
@@ -1357,6 +1460,11 @@ export const TRIP: TripData = {
           parking: 'paid',
           wifi: true,
           viewType: 'urban',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/square600/577305861.webp?k=b9a5438f173df851e9f2840d8eb1ce9313afa85205fb44ed9e9882450f585bc4&o=',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Salzburg_-_Festung_Hohensalzburg.JPG/1280px-Salzburg_-_Festung_Hohensalzburg.JPG',
+          ],
         },
       ],
     },
@@ -2375,6 +2483,12 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     availabilityCheckedDate: '2026-05-17',
     availabilityNote:
       'Booking.com shows no availability Sun Jul 26 → Wed Jul 29, 2026 (verified live 2026-05-17). Pick a different Berchtesgaden stay or different dates.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/600px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+    ],
   },
   {
     name: 'Gästehaus Hinterponholz (Ramsau)',
@@ -2401,6 +2515,12 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mountain',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/600px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+    ],
   },
   {
     name: 'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)',
@@ -2422,6 +2542,12 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mountain',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/8/82/Rathaus%2C_Berchtesgaden_%28Town_Hall%2C_Berchtesgaden%29_-_geograph.org.uk_-_7935.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+    ],
   },
   {
     name: 'Gästehaus Amort (Ramsau)',
@@ -2448,6 +2574,12 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mountain',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/600px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+    ],
   },
   {
     name: 'Grubenlehen (Ramsau)',
@@ -2475,6 +2607,12 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mountain',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/600px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+    ],
   },
 ];
 
@@ -2507,6 +2645,12 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'lake',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+    ],
   },
   {
     name: 'Wolfgangsee Appartement (St. Wolfgang)',
@@ -2533,6 +2677,12 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'lake',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/600px-Panorama_Wolfgangsee.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+    ],
   },
   {
     name: 'Wolfgangsee Appartements (Strobl, east end of the lake)',
@@ -2554,6 +2704,11 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'lake',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/600px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+    ],
   },
   {
     name: 'Appartements Mair (Strobl, 70m² 2-BR)',
@@ -2580,6 +2735,11 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mixed',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/600px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+    ],
   },
   {
     name: 'Apartment Sunset am Wolfgangsee (Strobl)',
@@ -2606,6 +2766,11 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mountain',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+    ],
   },
 ];
 

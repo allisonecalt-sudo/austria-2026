@@ -54,6 +54,24 @@ function statusBadge(status: NoteStatus): string {
   return `<span class="status-badge status-badge--${status}">${STATUS_ICON[status]} ${STATUS_WORD[status]}</span>`;
 }
 
+// Author chip — green for Allison, gold for Avital, muted "?" if missing
+// (older rows without the column). Goes adjacent to status + timestamp so
+// it's glanceable on the row without expanding.
+// Allison (2026-05-17 01:22): "On claudid notes page make it show who wrote each note"
+function authorChip(authorRaw: string | null | undefined): string {
+  const author = (authorRaw ?? '').toString().trim().toLowerCase();
+  if (author === 'allison') {
+    return '<span class="author-chip author-chip--allison" title="Written by Allison">🟢 Allison</span>';
+  }
+  if (author === 'avital') {
+    return '<span class="author-chip author-chip--avital" title="Written by Avital">🟡 Avital</span>';
+  }
+  // Older rows or unknown — fail-loud rather than guess.
+  return `<span class="author-chip author-chip--unknown" title="Author missing from row">? ${escapeHtml(
+    authorRaw ?? 'unknown',
+  )}</span>`;
+}
+
 function noteHtml(n: Note): string {
   const scope = n.day_id ? n.day_id : 'whole trip';
   // Strict-mode runtime guard — DB could theoretically return new status values.
@@ -72,6 +90,7 @@ function noteHtml(n: Note): string {
     <details class="note-item status-${escapeHtml(status)}${n.image_url ? ' has-image' : ''}">
       <summary>
         <div class="note-summary-row">
+          <span class="note-summary-author">${authorChip(n.author)}</span>
           <span class="note-summary-status">${statusBadge(status)}</span>
           <span class="note-summary-time">${escapeHtml(relativeTime(n.created_at))}</span>
         </div>
