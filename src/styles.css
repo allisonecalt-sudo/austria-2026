@@ -1869,3 +1869,398 @@ img.loaded {
   background: var(--gold-sun);
   border: 2px solid var(--ink);
 }
+
+/* =====================================================================
+   BASES PAGE — 4 base-config options (bases.html / page-bases.ts)
+   Added 2026-05-16 by base-configurations agent.
+   ===================================================================== */
+
+/* Compare strip — 4 small cards at top, scan at a glance */
+.compare-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 2rem;
+}
+@media (min-width: 720px) {
+  .compare-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1000px) {
+  .compare-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.compare-card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--green-deep);
+  border-radius: 14px;
+  padding: 1.1rem 1.2rem 1.2rem;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.18s ease;
+  min-height: 44px;
+}
+.compare-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+  border-top-color: var(--blue-lake);
+}
+.compare-card-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+.compare-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+.compare-card-pitch {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* Base-config card (collapsed by default, expand on tap) */
+.base-config {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  margin-bottom: 1.6rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.base-config[open] {
+  border-color: var(--green-deep);
+  border-width: 2px;
+}
+.base-config-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 1.3rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  min-height: 44px;
+  transition: background-color 0.18s ease;
+}
+.base-config-summary::-webkit-details-marker {
+  display: none;
+}
+.base-config-summary:hover {
+  background-color: var(--green-mist);
+}
+.base-config-head {
+  flex: 1 1 60%;
+  min-width: 0;
+}
+.base-config-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3.2vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.base-config-town {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.45rem;
+}
+.base-config-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.base-config-expand {
+  font-size: 0.85rem;
+  color: var(--green-deep);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.base-config[open] .base-config-expand::after {
+  content: '';
+}
+.base-config[open] .base-config-expand {
+  /* Replace text with "collapse" indicator */
+}
+.base-config[open] .base-config-expand {
+  color: var(--ink-soft);
+}
+.base-config-body {
+  padding: 0.4rem 1.5rem 1.8rem;
+  border-top: 1px solid var(--line);
+  background: var(--cream);
+}
+.base-config-pitch {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  margin: 1.2rem 0 1.5rem;
+  color: var(--ink);
+}
+.base-config-section-head {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.9rem;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.4rem;
+}
+
+/* Drive matrix — bucketed */
+.drive-matrix {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .drive-matrix {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.drive-bucket {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid;
+  border-radius: 12px;
+  padding: 0.8rem 1rem 0.9rem;
+}
+.drive-bucket-at-door {
+  border-left-color: #2e7d50;
+  background: #f0f8f3;
+}
+.drive-bucket-easy {
+  border-left-color: var(--gold-sun);
+  background: #faf3e3;
+}
+.drive-bucket-day-trip {
+  border-left-color: #d97a3a;
+  background: #fbf0e7;
+}
+.drive-bucket-long-day {
+  border-left-color: #b04a3a;
+  background: #faece9;
+}
+.drive-bucket-head {
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.drive-bucket-count {
+  font-size: 0.75rem;
+  background: var(--paper);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.drive-bucket-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.drive-bucket-list li {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  padding: 0.25rem 0;
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.08);
+}
+.drive-bucket-list li:last-child {
+  border-bottom: none;
+}
+.drive-min {
+  font-weight: 700;
+  min-width: 3.5rem;
+  color: var(--ink);
+}
+.drive-name {
+  color: var(--ink-soft);
+}
+
+/* Daily flow */
+.flow-grid {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 1rem;
+}
+.flow-row {
+  background: var(--paper);
+  border-left: 3px solid var(--blue-lake);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+}
+.flow-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blue-lake);
+  margin-bottom: 0.25rem;
+}
+.flow-text {
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+/* Pros / cons */
+.pros-cons {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  margin-top: 1.4rem;
+}
+@media (min-width: 720px) {
+  .pros-cons {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.pros-block,
+.cons-block {
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem 1rem;
+}
+.pros-block {
+  border-left: 4px solid #2e7d50;
+}
+.cons-block {
+  border-left: 4px solid #b04a3a;
+}
+.pros-block h4,
+.cons-block h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.pros-block ul,
+.cons-block ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.pros-block li,
+.cons-block li {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
+}
+
+/* Cost delta block */
+.cost-delta-block {
+  background: var(--gold-soft);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  margin-top: 1.4rem;
+}
+.cost-delta-block h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--gold-deep);
+  margin-bottom: 0.35rem;
+}
+.cost-delta-block p {
+  font-size: 0.92rem;
+  margin: 0;
+  color: var(--ink);
+}
+
+/* Map link */
+.base-config-map {
+  margin-top: 1.4rem;
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  text-align: center;
+}
+.map-link-btn {
+  display: inline-block;
+  background: var(--green-deep);
+  color: white;
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.18s ease;
+}
+.map-link-btn:hover {
+  background: var(--green-mid);
+}
+.map-pin-note {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.7rem;
+  margin-bottom: 0;
+}
+
+/* Notable details list (on lodging cards) */
+.notable-details {
+  list-style: none;
+  padding: 0;
+  margin: 0.45rem 0 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.notable-details li {
+  font-size: 0.78rem;
+  background: var(--green-mist);
+  color: var(--green-deep);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+/* Chip variants for laundry / recommended */
+.chip-good {
+  background: #e2f1e8;
+  color: #1e5536;
+}
+.chip-warn {
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+}
+.chip-bad {
+  background: #f7d8d2;
+  color: #8c2f23;
+}
+.chip-recommended {
+  background: var(--gold-warm);
+  color: var(--gold-deep);
+  font-weight: 700;
+}
+
+/* Laundry callout */
+.callout-laundry {
+  border-left-color: var(--blue-lake) !important;
+  background: var(--blue-mist);
+  margin-bottom: 2rem;
+}
+.callout-laundry h3 {
+  color: var(--blue-lake);
+}
+.callout-laundry h4 {
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+.callout-laundry ul {
+  margin-bottom: 0.4rem;
+}

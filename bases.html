@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Where to base — 4 options · Austria 2026</title>
+    <meta
+      name="description"
+      content="Four base configurations for the 4-night midweek anchor: Obertraun, Berchtesgaden, split 2+2, or St. Wolfgang. Each is a full plan — drive matrix, lodging picks, daily flow, cost delta."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="itinerary.html">Trip</a>
+          <a href="stay.html" class="active">Stay</a>
+          <a href="logistics.html">Logistics</a>
+          <a href="costs.html">Costs</a>
+          <a href="notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header style="margin-bottom: 1.4rem">
+        <div class="eyebrow">Stay · base configuration</div>
+        <h1>Where to base — 4 options</h1>
+        <p class="lead-block">
+          The Salzburg Shabbat anchor (2 nights) and the airport-side last night (1 night) are
+          locked. The <strong>4-night midweek anchor</strong> is the choice that shapes the trip.
+          Below are <strong>4 fully-developed configurations</strong> — each with its drive matrix
+          to all 15 nature destinations, lodging picks, daily flow, pros + cons, and cost delta. No
+          "best" pick. The Obertraun config is starred as the current default because it's the
+          most-vetted lodging set, but the others stand on their own.
+        </p>
+        <p
+          class="lead-block"
+          style="
+            background: var(--green-mist);
+            border-left: 3px solid var(--green-deep);
+            padding: 0.7rem 1rem;
+            font-size: 0.92rem;
+            color: var(--ink-soft);
+          "
+        >
+          Tap a config card to expand its full plan. The
+          <a href="map.html">Map page</a> shows all 4 base areas geographically. The
+          <a href="stay.html">Stay page</a> has the lodging cards per current locked plan (Salzburg
+          + Obertraun + airport).
+        </p>
+      </header>
+
+      <!-- Quick comparison strip — at-a-glance scan -->
+      <section id="bases-compare" class="section"></section>
+
+      <!-- Salzburg laundry filter status (always shown at top) -->
+      <section id="salzburg-laundry-status" class="section"></section>
+
+      <!-- The 4 expandable config cards -->
+      <div id="bases-root"></div>
+
+      <section class="section">
+        <div class="callout">
+          <h3>How to use this page</h3>
+          <ul>
+            <li>
+              <strong>Read the 4 pitches first</strong> — one paragraph each. Then pick the 2 you
+              want to compare in detail.
+            </li>
+            <li>
+              <strong>Drive matrix</strong> tells the geography truth: green = at your door (≤10
+              min), yellow = easy (≤30), orange = day trip (≤60), red = long day (60+).
+            </li>
+            <li>
+              <strong>Lodging picks</strong> per config are real Booking.com listings with vibe tags
+              + bedrooms/beds + laundry status. 2-BR / 2-sleeping-area picks sorted to top for the
+              main 4-night anchor.
+            </li>
+            <li>
+              <strong>Drop a note</strong> on the 💬 floating button if you want to lock a config or
+              have a question.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <p style="font-size: 0.9rem; color: var(--ink-soft)">
+          <strong>Couldn't verify (fail-loud):</strong> Berchtesgaden + St. Wolfgang per-night
+          prices are mid-range estimates for Jul 26-30 — verify on Booking before locking. Drive
+          times are Google Maps consensus, not Jul-2026 peak-traffic measured. Laundry status is
+          from Booking listing descriptions + tourism-board pages where Booking didn't load —
+          confirm with host on any "unknown" listing. The Apart Chalet Unterbrandnerlehen is
+          cash-only and excludes children. Re-verify all 5 Berchtesgaden + 5 St. Wolfgang slugs on
+          Booking before paying.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      Bases agent · 2026-05-16 · Options-first per Allison: "give options!!! thats the ideas always
+      optiposn" · Map-driven per "use map"
+    </footer>
+
+    <script type="module" src="/src/page-bases.ts"></script>
+  </body>
+</html>

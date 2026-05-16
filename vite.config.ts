@@ -21,6 +21,7 @@ export default defineConfig(({ command }) => ({
         map: resolve(__dirname, 'map.html'),
         natureDestinations: resolve(__dirname, 'nature-destinations.html'),
         logistics: resolve(__dirname, 'logistics.html'),
+        bases: resolve(__dirname, 'bases.html'),
       },
     },
   },
