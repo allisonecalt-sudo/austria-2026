@@ -702,3 +702,545 @@ export const TRIP: TripData = {
     },
   ],
 };
+
+// =====================================================================
+// NATURE DESTINATIONS MENU
+// =====================================================================
+// Allison (2026-05-16 21:22): "ok now lets have an agent in charge of where
+// we go eachday the gaol isnt to make an itnerary the goals is to give
+// ootpitons like lake bled can be in ther lik top 15 places natrue to go,
+// but here is where im not sure because we also whant sunsets, we also
+// needsdistnace wand whats close to what".
+//
+// This is a MENU, not a plan. 15 curated destinations across 4 regions.
+// Cards on `nature-destinations.html` are driven from this array.
+// Full design rationale in NATURE_MENU_DESIGN.md.
+//
+// Rules applied:
+//  - Walks + easy hikes only — strenuous cut (Avital's mobility ceiling)
+//  - Sunset rating graded 1-3 (not binary) — direction + horizon + access
+//  - "lockedDay" marks destinations already in the v1 itinerary
+//  - "pairsWith" gives 1-3 ids of destinations within 30min drive
+//  - Distances are Google Maps consensus — v4 fact-check agent re-verifies
+
+export type NatureRegion = 'salzkammergut' | 'berchtesgaden' | 'hohe-tauern' | 'slovenia';
+
+export type NatureType =
+  | 'lake'
+  | 'gorge'
+  | 'waterfall'
+  | 'peak'
+  | 'cave'
+  | 'village'
+  | 'road'
+  | 'platform';
+
+export type NatureWalk = 'walk' | 'easy-hike';
+
+export type SunsetGrade = 1 | 2 | 3;
+
+export interface NatureDestination {
+  id: string;
+  name: string;
+  localName?: string;
+  region: NatureRegion;
+  type: NatureType;
+  country: 'AT' | 'DE' | 'SI';
+  fromSalzburgMin: number;
+  fromHallstattMin: number;
+  sunset: SunsetGrade;
+  bestTime: 'sunrise' | 'midday' | 'golden' | 'sunset' | 'anytime';
+  walk: NatureWalk;
+  walkNote: string;
+  lockedDay?: string;
+  pairsWith: string[];
+  feature: string;
+  hero: { src: string; alt: string; credit: string };
+  links: {
+    official?: string;
+    wikipedia: string;
+    mapsFromSalzburg: string;
+    mapsFromHallstatt: string;
+  };
+  caveat?: string;
+}
+
+const NIMG = {
+  gosausee: IMG.gosausee,
+  hallstattLake: IMG.hallstattLake,
+  konigssee: IMG.konigssee,
+  werfen: IMG.werfen,
+  wolfgangseeVillage: IMG.wolfgangsee,
+  schafberg:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Schafberg_Salzkammergut.jpg/1280px-Schafberg_Salzkammergut.jpg',
+  krippenstein:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/5fingers_1.jpg/1280px-5fingers_1.jpg',
+  attersee:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Attersee_at_evening_2017_05_28.jpg/1280px-Attersee_at_evening_2017_05_28.jpg',
+  hinterseeRamsau:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Hintersee_Ramsau_Berchtesgaden_3.jpg/1280px-Hintersee_Ramsau_Berchtesgaden_3.jpg',
+  almbachklamm:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Almbachklamm_-_Kessel.jpg/1280px-Almbachklamm_-_Kessel.jpg',
+  liechtensteinklamm:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Liechtensteinklamm_2009-09-05.jpg/1280px-Liechtensteinklamm_2009-09-05.jpg',
+  krimml:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Krimmler_Wasserf%C3%A4lle_2.JPG/1280px-Krimmler_Wasserf%C3%A4lle_2.JPG',
+  grossglockner:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Grossglockner_High_Alpine_Road.JPG/1280px-Grossglockner_High_Alpine_Road.JPG',
+  bled: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Bled_island.jpg/1280px-Bled_island.jpg',
+  vintgar:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Vintgar_Gorge%2C_Slovenia_%28%C5%A0um_Falls%29.jpg/1280px-Vintgar_Gorge%2C_Slovenia_%28%C5%A0um_Falls%29.jpg',
+};
+
+const NCREDIT = {
+  gosausee: IMG_CREDIT.gosausee,
+  hallstattLake: IMG_CREDIT.hallstattLake,
+  konigssee: IMG_CREDIT.konigssee,
+  werfen: IMG_CREDIT.werfen,
+  wolfgangseeVillage: IMG_CREDIT.wolfgangsee,
+  schafberg: 'Wikimedia, CC BY-SA',
+  krippenstein: 'Wikimedia / Friedrich Böhringer, CC BY-SA',
+  attersee: 'Wikimedia, CC BY-SA',
+  hinterseeRamsau: 'Wikimedia, CC BY-SA',
+  almbachklamm: 'Wikimedia, CC BY-SA',
+  liechtensteinklamm: 'Wikimedia, CC BY-SA',
+  krimml: 'Wikimedia / Norbert Aepli, CC BY 3.0',
+  grossglockner: 'Wikimedia, CC BY-SA',
+  bled: 'Wikimedia, CC BY-SA',
+  vintgar: 'Wikimedia, CC BY-SA',
+};
+
+export const NATURE_DESTINATIONS: NatureDestination[] = [
+  {
+    id: 'gosausee',
+    name: 'Vorderer Gosausee',
+    localName: 'Vorderer Gosausee',
+    region: 'salzkammergut',
+    type: 'lake',
+    country: 'AT',
+    fromSalzburgMin: 80,
+    fromHallstattMin: 35,
+    sunset: 2,
+    bestTime: 'golden',
+    walk: 'walk',
+    walkNote: 'Flat gravel loop around the lake, ~1 hour. Stroller-friendly.',
+    lockedDay: 'Sun Jul 26',
+    pairsWith: ['hallstatt-markt', 'krippenstein-5fingers'],
+    feature: 'Mirror lake reflecting the Dachstein glacier — Salzkammergut postcard #1.',
+    hero: {
+      src: NIMG.gosausee,
+      alt: 'Vorderer Gosausee with the Dachstein massif reflected',
+      credit: NCREDIT.gosausee,
+    },
+    links: {
+      official: 'https://www.dachstein-salzkammergut.com/en/destinations/lakes/gosausee.html',
+      wikipedia: 'https://en.wikipedia.org/wiki/Gosausee',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Vorderer Gosausee'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Vorderer Gosausee'),
+    },
+  },
+  {
+    id: 'hallstatt-markt',
+    name: 'Hallstätter See — Hallstatt Markt',
+    localName: 'Hallstatt Markt am Hallstätter See',
+    region: 'salzkammergut',
+    type: 'lake',
+    country: 'AT',
+    fromSalzburgMin: 75,
+    fromHallstattMin: 5,
+    sunset: 3,
+    bestTime: 'sunset',
+    walk: 'walk',
+    walkNote: 'Flat lakeside walkway through the painted village. Boat dock at one end.',
+    lockedDay: 'Mon Jul 27',
+    pairsWith: ['krippenstein-5fingers', 'gosausee'],
+    feature: 'The painted-house postcard village. Sunset turns the south wall gold.',
+    hero: {
+      src: NIMG.hallstattLake,
+      alt: 'Hallstatt village boathouses along the lake',
+      credit: NCREDIT.hallstattLake,
+    },
+    links: {
+      official: 'https://www.hallstatt.net/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Hallstatt',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Hallstatt, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Hallstatt, Austria'),
+    },
+  },
+  {
+    id: 'krippenstein-5fingers',
+    name: 'Dachstein Krippenstein — 5fingers platform',
+    localName: 'Krippenstein 5fingers',
+    region: 'salzkammergut',
+    type: 'platform',
+    country: 'AT',
+    fromSalzburgMin: 80,
+    fromHallstattMin: 5,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'walk',
+    walkNote:
+      'Two gondolas do the climbing. 20-min flat walk from the top station to the platform.',
+    lockedDay: 'Mon Jul 27',
+    pairsWith: ['hallstatt-markt', 'gosausee'],
+    feature:
+      'Steel platform jutting 400m straight out over the Hallstatt valley. No hike required.',
+    hero: {
+      src: NIMG.krippenstein,
+      alt: '5fingers viewing platform projecting over the Dachstein cliff',
+      credit: NCREDIT.krippenstein,
+    },
+    links: {
+      official: 'https://www.dachstein-salzkammergut.com/en/skywalks/5fingers.html',
+      wikipedia: 'https://en.wikipedia.org/wiki/5fingers_(viewing_platform)',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Krippenstein, Obertraun'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Krippenstein Gondola'),
+    },
+  },
+  {
+    id: 'schafbergspitze',
+    name: 'Schafbergspitze (Wolfgangsee)',
+    localName: 'Schafbergspitze',
+    region: 'salzkammergut',
+    type: 'peak',
+    country: 'AT',
+    fromSalzburgMin: 60,
+    fromHallstattMin: 50,
+    sunset: 3,
+    bestTime: 'sunset',
+    walk: 'walk',
+    walkNote:
+      'Cog railway from St. Wolfgang does the 1,000m climb. ~10-min easy walk on top to the terrace.',
+    lockedDay: 'Wed Jul 29',
+    pairsWith: ['wolfgangsee-village', 'attersee'],
+    feature: '13 lakes visible at once from a 1,783m terrace — the panorama of the trip.',
+    hero: {
+      src: NIMG.schafberg,
+      alt: 'Schafbergspitze with lakes visible below',
+      credit: NCREDIT.schafberg,
+    },
+    links: {
+      official: 'https://www.5schaetze.at/en/schafbergbahn/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Schafberg_(Salzkammergut)',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Schafbergbahn, St. Wolfgang'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Schafbergbahn, St. Wolfgang'),
+    },
+  },
+  {
+    id: 'wolfgangsee-village',
+    name: 'St. Wolfgang am Wolfgangsee',
+    localName: 'Wolfgangsee',
+    region: 'salzkammergut',
+    type: 'village',
+    country: 'AT',
+    fromSalzburgMin: 50,
+    fromHallstattMin: 45,
+    sunset: 2,
+    bestTime: 'golden',
+    walk: 'walk',
+    walkNote: 'Flat lakeside promenade with public Strandbad swim access mid-promenade.',
+    lockedDay: 'Wed Jul 29',
+    pairsWith: ['schafbergspitze', 'attersee'],
+    feature: 'Lake village under the Schafberg — pair with the cog railway as the same day.',
+    hero: {
+      src: NIMG.wolfgangseeVillage,
+      alt: 'St. Wolfgang im Salzkammergut on the lake',
+      credit: NCREDIT.wolfgangseeVillage,
+    },
+    links: {
+      official: 'https://www.wolfgangsee.salzkammergut.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/St._Wolfgang_im_Salzkammergut',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'St. Wolfgang im Salzkammergut'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'St. Wolfgang im Salzkammergut'),
+    },
+  },
+  {
+    id: 'attersee',
+    name: 'Attersee (Nußdorf esplanade)',
+    localName: 'Attersee',
+    region: 'salzkammergut',
+    type: 'lake',
+    country: 'AT',
+    fromSalzburgMin: 50,
+    fromHallstattMin: 65,
+    sunset: 2,
+    bestTime: 'sunset',
+    walk: 'walk',
+    walkNote: 'Promenade walks at multiple lake villages — flat, all accessible.',
+    pairsWith: ['wolfgangsee-village', 'schafbergspitze'],
+    feature:
+      "Austria's largest entirely-domestic lake. West-shore villages have horizon-clear sunsets.",
+    hero: { src: NIMG.attersee, alt: 'Attersee at evening', credit: NCREDIT.attersee },
+    links: {
+      official: 'https://attersee-attergau.salzkammergut.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Attersee',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Nußdorf am Attersee'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Nußdorf am Attersee'),
+    },
+  },
+  {
+    id: 'konigssee',
+    name: 'Königssee + Obersee',
+    localName: 'Königssee',
+    region: 'berchtesgaden',
+    type: 'lake',
+    country: 'DE',
+    fromSalzburgMin: 35,
+    fromHallstattMin: 90,
+    sunset: 3,
+    bestTime: 'sunset',
+    walk: 'easy-hike',
+    walkNote: 'Silent electric boat to Salet, then a 20-min flat walk to Obersee. No climbing.',
+    lockedDay: 'Tue Jul 28',
+    pairsWith: ['hintersee-ramsau', 'almbachklamm'],
+    feature:
+      'Fjord-shaped lake serviced only by silent electric boats since 1909. The Tara-Bridge moment.',
+    hero: {
+      src: NIMG.konigssee,
+      alt: 'St. Bartholomä church on the Königssee',
+      credit: NCREDIT.konigssee,
+    },
+    links: {
+      official: 'https://www.seenschifffahrt.de/en/koenigssee/',
+      wikipedia: 'https://en.wikipedia.org/wiki/K%C3%B6nigssee',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Schönau am Königssee, Germany'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Schönau am Königssee, Germany'),
+    },
+  },
+  {
+    id: 'hintersee-ramsau',
+    name: 'Hintersee (Ramsau)',
+    localName: 'Hintersee, Ramsau bei Berchtesgaden',
+    region: 'berchtesgaden',
+    type: 'lake',
+    country: 'DE',
+    fromSalzburgMin: 50,
+    fromHallstattMin: 105,
+    sunset: 3,
+    bestTime: 'sunset',
+    walk: 'walk',
+    walkNote: 'Flat 1km loop around the lake. Tiny islets with trees you can almost touch.',
+    pairsWith: ['konigssee', 'almbachklamm'],
+    feature:
+      'Photographer-famous: tiny tree-islets reflect in glassy water, Hochkalter peak behind.',
+    hero: {
+      src: NIMG.hinterseeRamsau,
+      alt: 'Hintersee at Ramsau with Hochkalter behind',
+      credit: NCREDIT.hinterseeRamsau,
+    },
+    links: {
+      official: 'https://www.berchtesgaden.de/en/nature-wonders/hintersee-lake-and-ramsau',
+      wikipedia: 'https://en.wikipedia.org/wiki/Hintersee_(Berchtesgaden)',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Hintersee, Ramsau bei Berchtesgaden'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Hintersee, Ramsau bei Berchtesgaden'),
+    },
+  },
+  {
+    id: 'almbachklamm',
+    name: 'Almbachklamm gorge',
+    localName: 'Almbachklamm',
+    region: 'berchtesgaden',
+    type: 'gorge',
+    country: 'DE',
+    fromSalzburgMin: 25,
+    fromHallstattMin: 90,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'easy-hike',
+    walkNote: '3km gorge walk with bridges. Easy, non-strenuous; ~1h20 round-trip to bridge 19.',
+    pairsWith: ['konigssee', 'hintersee-ramsau'],
+    feature:
+      'Just over the German border, 25 min from Salzburg. Easy gorge walk, deep cold water.',
+    hero: {
+      src: NIMG.almbachklamm,
+      alt: 'Almbachklamm gorge cauldron',
+      credit: NCREDIT.almbachklamm,
+    },
+    links: {
+      official:
+        'https://www.berchtesgaden.de/en/nature/hiking-paradise/almbach-gorge-almbachklamm',
+      wikipedia: 'https://en.wikipedia.org/wiki/Almbachklamm',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Almbachklamm, Marktschellenberg, Germany'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Almbachklamm, Marktschellenberg, Germany'),
+    },
+  },
+  {
+    id: 'eisriesenwelt-werfen',
+    name: 'Eisriesenwelt ice cave + Hohenwerfen castle',
+    localName: 'Eisriesenwelt Werfen',
+    region: 'hohe-tauern',
+    type: 'cave',
+    country: 'AT',
+    fromSalzburgMin: 50,
+    fromHallstattMin: 75,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'easy-hike',
+    walkNote:
+      '20-min uphill walk to cable car, then 15-min walk to entrance, 1,400 stairs inside (slow pace OK).',
+    lockedDay: 'Thu Jul 30',
+    pairsWith: ['liechtensteinklamm'],
+    feature:
+      "World's largest accessible ice cave. Carbide-lamp tour through frozen halls. Bring fleece.",
+    hero: {
+      src: NIMG.werfen,
+      alt: 'Hohenwerfen castle above the Salzach valley',
+      credit: NCREDIT.werfen,
+    },
+    links: {
+      official: 'https://www.eisriesenwelt.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Eisriesenwelt',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Eisriesenwelt, Werfen, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Eisriesenwelt, Werfen, Austria'),
+    },
+  },
+  {
+    id: 'liechtensteinklamm',
+    name: 'Liechtensteinklamm gorge',
+    localName: 'Liechtensteinklamm',
+    region: 'hohe-tauern',
+    type: 'gorge',
+    country: 'AT',
+    fromSalzburgMin: 60,
+    fromHallstattMin: 70,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'easy-hike',
+    walkNote: '25-min walk in to the end of the gorge, 440 partly-grating steps. Return same path.',
+    pairsWith: ['eisriesenwelt-werfen'],
+    feature: "Austria's deepest accessible gorge. Steel walkways carved into the rock walls.",
+    hero: {
+      src: NIMG.liechtensteinklamm,
+      alt: 'Liechtensteinklamm gorge walkway',
+      credit: NCREDIT.liechtensteinklamm,
+    },
+    links: {
+      official: 'https://www.liechtensteinklamm.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Liechtensteinklamm',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Liechtensteinklamm, St. Johann im Pongau'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Liechtensteinklamm, St. Johann im Pongau'),
+    },
+  },
+  {
+    id: 'krimml-waterfalls',
+    name: 'Krimml Waterfalls',
+    localName: 'Krimmler Wasserfälle',
+    region: 'hohe-tauern',
+    type: 'waterfall',
+    country: 'AT',
+    fromSalzburgMin: 110,
+    fromHallstattMin: 130,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'easy-hike',
+    walkNote:
+      'Lowest cascade is 10-15 min walk. Top of falls is ~1h15 uphill on a paved path. Stroller-friendly to the first viewpoint.',
+    pairsWith: [],
+    feature:
+      "Europe's tallest waterfall, 380m in three cascades. Paved zigzag trail, no scrambling.",
+    hero: {
+      src: NIMG.krimml,
+      alt: 'Krimml Waterfalls cascading down the mountain',
+      credit: NCREDIT.krimml,
+    },
+    links: {
+      official: 'https://www.wasserfaelle-krimml.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Krimml_Waterfalls',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Krimmler Wasserfälle'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Krimmler Wasserfälle'),
+    },
+    caveat:
+      'Far west — 110min each way from Salzburg, 130min from Hallstatt. Best as a full day, not a swap-in.',
+  },
+  {
+    id: 'grossglockner-road',
+    name: 'Grossglockner High Alpine Road',
+    localName: 'Großglockner Hochalpenstraße',
+    region: 'hohe-tauern',
+    type: 'road',
+    country: 'AT',
+    fromSalzburgMin: 90,
+    fromHallstattMin: 130,
+    sunset: 2,
+    bestTime: 'golden',
+    walk: 'walk',
+    walkNote:
+      'Drive-up overlooks. Short walks from each pull-off; no hike required for the main views.',
+    pairsWith: [],
+    feature: '48km panoramic road with 36 hairpins to the Hohe Tauern glacier face. Open May-Nov.',
+    hero: {
+      src: NIMG.grossglockner,
+      alt: 'Grossglockner High Alpine Road serpentines',
+      credit: NCREDIT.grossglockner,
+    },
+    links: {
+      official: 'https://www.grossglockner.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Grossglockner_High_Alpine_Road',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Grossglockner High Alpine Road'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Grossglockner High Alpine Road'),
+    },
+    caveat:
+      'Separate toll €46.50/car on top of vignette. Best done as its own full day — too far for half-day swap.',
+  },
+  {
+    id: 'lake-bled',
+    name: 'Lake Bled',
+    localName: 'Blejsko jezero',
+    region: 'slovenia',
+    type: 'lake',
+    country: 'SI',
+    fromSalzburgMin: 210,
+    fromHallstattMin: 230,
+    sunset: 3,
+    bestTime: 'sunset',
+    walk: 'walk',
+    walkNote:
+      '6km flat lakeside loop around the entire lake. Island reachable by traditional pletna boat.',
+    pairsWith: ['vintgar-gorge'],
+    feature:
+      "Castle on a cliff, island church in the middle of the lake. The reason Slovenia's on the menu.",
+    hero: {
+      src: NIMG.bled,
+      alt: 'Bled island church in the middle of Lake Bled',
+      credit: NCREDIT.bled,
+    },
+    links: {
+      official: 'https://www.bled.si/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Lake_Bled',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Lake Bled, Slovenia'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Lake Bled, Slovenia'),
+    },
+    caveat:
+      '3.5h+ each way. Would require an overnight stay in Bled — currently OUT of the v1 itinerary. Surface for the "only if insane" call.',
+  },
+  {
+    id: 'vintgar-gorge',
+    name: 'Vintgar Gorge',
+    localName: 'Soteska Vintgar',
+    region: 'slovenia',
+    type: 'gorge',
+    country: 'SI',
+    fromSalzburgMin: 215,
+    fromHallstattMin: 235,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'easy-hike',
+    walkNote:
+      '1.6km wooden walkway one-way along the gorge floor. Flat, easy, ends at Sum waterfall.',
+    pairsWith: ['lake-bled'],
+    feature:
+      "Wooden boardwalks through a turquoise gorge — Slovenia's most-Instagrammed nature stop.",
+    hero: {
+      src: NIMG.vintgar,
+      alt: 'Vintgar Gorge walkways with Sum waterfall',
+      credit: NCREDIT.vintgar,
+    },
+    links: {
+      official: 'https://www.vintgar.si/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Vintgar_Gorge',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Vintgar Gorge, Slovenia'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Vintgar Gorge, Slovenia'),
+    },
+    caveat: 'Bundle with Lake Bled — 5 min apart. Only add if you go to Slovenia at all.',
+  },
+];

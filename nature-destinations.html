@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nature destinations menu · Austria 2026</title>
+    <meta
+      name="description"
+      content="Menu of 15 nature destinations within reach of Salzburg + Hallstatt. Sunset ratings, drive times, what pairs with what. Pick from the menu — not a fixed itinerary."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="itinerary.html">Itinerary</a>
+          <a href="stay.html">Stay</a>
+          <a href="rental-car.html">Car</a>
+          <a href="shabbat.html">Shabbat</a>
+          <a href="jewish-sights.html">Jewish sights</a>
+          <a href="packing.html">Packing</a>
+          <a href="costs.html">Costs</a>
+          <a href="map.html">Map</a>
+          <a href="notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header style="margin-bottom: 2.2rem">
+        <div class="eyebrow">Menu · pick what to do, not a forced schedule</div>
+        <h1>Where to go — 15 nature destinations within reach</h1>
+        <p class="lead-block">
+          This page is a <strong>menu, not an itinerary</strong>. Five of these are already locked
+          into the schedule on the <a href="itinerary.html">Itinerary</a> page (marked with a gold ✓
+          Locked badge). The other ten are alternates — swap any in, swap any out. Filtered to walks
+          + easy hikes only. Sunset rating is graded 1-3 — three suns means the marquee reason to
+          drive there.
+        </p>
+
+        <div
+          class="callout"
+          style="margin: 1.4rem 0; border-left-color: var(--green-deep); padding: 1rem 1.2rem"
+        >
+          <h3 style="color: var(--green-deep)">Legend</h3>
+          <ul>
+            <li>
+              <strong>🌅🌅🌅</strong> — west-facing, easy sunset access, photogenic in late July
+              (Tara-Bridge tier). <strong>🌅🌅</strong> — sunset works but not the reason to go.
+              <strong>🌅</strong> — daytime spot, not a sunset spot.
+            </li>
+            <li>
+              <strong>🚶 walk</strong> — flat, &lt;30 min, no elevation.
+              <strong>🥾 easy hike</strong> — mild grade, &lt;1.5h, no scrambling. Anything harder
+              is cut.
+            </li>
+            <li>
+              <strong>✓ Locked badge</strong> — already in the v1 itinerary on the Itinerary page.
+              Cards without it are alternates.
+            </li>
+            <li>
+              <strong>🚗 chips</strong> — drive time from each base (Salzburg or Hallstatt-area).
+              Tap to open Google Maps directions.
+            </li>
+            <li>
+              <strong>Pairs with</strong> — other destinations within ~30 min drive. Tap the chip to
+              scroll there.
+            </li>
+          </ul>
+        </div>
+
+        <p class="lead-block" style="font-size: 0.96rem">
+          For the spatial view (lakes + day-trip range mapped), open the
+          <a href="map.html">Map page</a>. For the locked-in plan day-by-day,
+          <a href="itinerary.html">Itinerary</a>. For sleeping options at each base,
+          <a href="stay.html">Stay</a>.
+        </p>
+      </header>
+
+      <!-- Region sections rendered by page-nature-destinations.ts -->
+      <div id="nature-root"></div>
+
+      <section class="section">
+        <div class="callout">
+          <h3>How to use this menu</h3>
+          <ul>
+            <li>
+              <strong>Default plan:</strong> stick with the 5 Locked spots in the
+              <a href="itinerary.html">Itinerary</a>. They're the strongest hits of each region.
+            </li>
+            <li>
+              <strong>Swap an alternate in:</strong> any non-locked card in the same region pairs
+              naturally with the existing day. Example: swap Hintersee (Ramsau) into the Königssee
+              day instead of the Obersee leg if the boat round-trip feels too long.
+            </li>
+            <li>
+              <strong>Add a "drive day":</strong> Krimml Waterfalls or Grossglockner are full-day
+              commitments. Each replaces a slower lake-day at the apartment if you want one big
+              alpine drive.
+            </li>
+            <li>
+              <strong>Slovenia call:</strong> Lake Bled + Vintgar = an overnight in a different
+              country. Currently OUT. If yes, we re-plan the back half — talk first.
+            </li>
+            <li>
+              <strong>Leave a note on the floating 💬 button</strong> if you want any of these moved
+              into the locked plan.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <p style="font-size: 0.9rem; color: var(--ink-soft)">
+          <strong>Couldn't verify (fail-loud):</strong> sunset ratings are based on map orientation,
+          west-facing horizon, and photographer-blog consensus — not direct site visits. Drive times
+          are Google Maps consensus, not peak-July traffic. Specific opening hours for July 24-31
+          2026 not verified for every entry (links go to the official site for each so you can
+          re-check before the trip). The v4 fact-check agent will sweep these before lock.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      Sources: Wikipedia · Salzkammergut tourism · Berchtesgaden tourism · Roam Austria sunset guide
+      · Sunset Obsession photography guide · Moon Honey Travel · Wanderlog · Atlas Obscura design
+      reference · Wikimedia Commons photos · verified 2026-05-16
+    </footer>
+
+    <script type="module" src="/src/page-nature-destinations.ts"></script>
+  </body>
+</html>
