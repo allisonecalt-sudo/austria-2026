@@ -10,6 +10,7 @@ function escapeHtml(s: string): string {
 }
 
 function bindLanding(): void {
+  // Cost bindings — used in the CTA strip
   const totalEur = document.querySelectorAll<HTMLSpanElement>('[data-bind="total-eur"]');
   totalEur.forEach((el) => (el.textContent = TRIP.totalCostEur.toLocaleString('en-US')));
   const totalNis = document.querySelectorAll<HTMLSpanElement>('[data-bind="total-nis"]');
@@ -17,11 +18,7 @@ function bindLanding(): void {
   const ceiling = document.querySelectorAll<HTMLSpanElement>('[data-bind="ceiling"]');
   ceiling.forEach((el) => (el.textContent = TRIP.ceilingEur.toLocaleString('en-US')));
 
-  const peakSpot = document.querySelector<HTMLHeadingElement>('[data-bind="peak-spot"]');
-  if (peakSpot) peakSpot.textContent = TRIP.peakMoment.spot;
-  const peakDesc = document.querySelector<HTMLParagraphElement>('[data-bind="peak-desc"]');
-  if (peakDesc) peakDesc.textContent = TRIP.peakMoment.description;
-
+  // Day strip — moment 5
   const strip = document.querySelector<HTMLDivElement>('#day-strip');
   if (strip) {
     strip.innerHTML = TRIP.days
@@ -43,33 +40,23 @@ function bindLanding(): void {
       .join('');
   }
 
-  const picks = document.querySelector<HTMLDivElement>('#pick-row');
-  if (picks) {
-    const baseLabel: Record<string, string> = {
-      salzburg: 'Salzburg · Shabbat',
-      hallstatt: 'Obertraun · Lakes',
-      airport: 'Airport-side · Final night',
-    };
-    picks.innerHTML = TRIP.lodgings
-      .map((l) => {
-        return `
-          <a class="pick-mini" href="${escapeHtml(l.pickUrl)}" target="_blank" rel="noreferrer noopener">
-            <img loading="lazy" src="${escapeHtml(l.pickImg)}" alt="${escapeHtml(l.pickName)}" />
-            <div class="pick-mini-body">
-              <div class="pick-mini-eyebrow">${escapeHtml(baseLabel[l.baseKey] ?? l.baseKey)}</div>
-              <div class="pick-mini-title">${escapeHtml(l.pickName)}</div>
-              <div class="pick-mini-meta">${escapeHtml(l.pickReview.split('·')[0]?.trim() ?? '')} · <strong>${escapeHtml(l.pickPrice)}</strong></div>
-            </div>
-          </a>`;
-      })
-      .join('');
-  }
-
-  const skipList = document.querySelector<HTMLUListElement>('#skip-list');
-  if (skipList) {
-    skipList.innerHTML = TRIP.skipList
-      .map((s) => `<li><strong>${escapeHtml(s.item)}</strong> — ${escapeHtml(s.reason)}</li>`)
-      .join('');
+  // Nav style switch — when hero is on-screen, nav is translucent over
+  // the photo; off-screen, nav becomes solid on the cream background.
+  const nav = document.querySelector<HTMLElement>('#top-nav');
+  const hero = document.querySelector<HTMLElement>('#m-hero');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.target === hero) {
+            nav.classList.toggle('nav--overlay', entry.isIntersecting);
+            nav.classList.toggle('nav--solid', !entry.isIntersecting);
+          }
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(hero);
   }
 }
 

@@ -3158,3 +3158,516 @@ img.loaded {
     scroll-behavior: auto;
   }
 }
+
+/* ============================================================
+   Day-flexibility additions (2026-05-16) — additive only
+   Pages: friday-salzburg, sundays-closed, weather-plan-c,
+   pre-trip, cafes
+   ============================================================ */
+
+/* Flex section / option / card primitives used across the new pages */
+.flex-section {
+  margin-bottom: 3rem;
+}
+
+.flex-option {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green-deep);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.2rem;
+  box-shadow: var(--shadow-soft);
+}
+.flex-option[data-intensity='medium'] {
+  border-left-color: var(--blue-lake);
+}
+.flex-option[data-intensity='fuller'] {
+  border-left-color: var(--gold-sun);
+}
+.flex-option-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+.flex-option-head h3 {
+  margin: 0;
+}
+.flex-option-tag {
+  display: inline-block;
+  background: var(--green-mist);
+  color: var(--green-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+.flex-option[data-intensity='medium'] .flex-option-tag {
+  background: var(--blue-mist);
+  color: var(--blue-lake);
+}
+.flex-option[data-intensity='fuller'] .flex-option-tag {
+  background: var(--gold-warm);
+  color: var(--gold-deep);
+}
+.flex-option-meta {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.6rem;
+  line-height: 1.45;
+}
+.flex-option-body {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 0.7rem;
+}
+.flex-option-cta {
+  color: var(--blue-lake);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(58, 111, 143, 0.25);
+}
+
+.flex-card-grid {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1fr;
+  margin-top: 1.2rem;
+}
+@media (min-width: 720px) {
+  .flex-card-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .flex-card-grid.two-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.flex-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.2rem 1.3rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+}
+.flex-card h3 {
+  margin-bottom: 0.45rem;
+}
+.flex-card-meta {
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.55rem;
+  line-height: 1.4;
+}
+.flex-card-body {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  margin-bottom: 0.6rem;
+  flex: 1;
+}
+.flex-card-cta {
+  color: var(--blue-lake);
+  font-weight: 600;
+  font-size: 0.88rem;
+  margin-top: auto;
+}
+
+/* Generic link list */
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+.link-list li {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem 0.95rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Critical callout used on sundays-closed */
+.callout-critical {
+  background: #fdf2e7;
+  border: 1px solid #f4ce9a;
+  border-left: 5px solid var(--gold-deep);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-soft);
+}
+.callout-critical h2 {
+  color: var(--gold-deep);
+  margin-bottom: 0.7rem;
+}
+.callout-critical p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.callout-list {
+  margin: 0.7rem 0 0 1.3rem;
+  padding: 0;
+}
+.callout-list li {
+  margin-bottom: 0.5rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+/* Kosher callout used on cafes — quietly distinctive */
+.callout-kosher {
+  background: var(--green-mist);
+  border: 1px solid var(--green-soft);
+  border-left: 5px solid var(--green-deep);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-soft);
+}
+.callout-kosher h2 {
+  color: var(--green-deep);
+  margin-bottom: 0.7rem;
+  font-size: clamp(1.4rem, 3.5vw, 1.7rem);
+}
+.callout-kosher p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Pre-trip timeline + checklist */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+}
+.timeline-stage {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green-deep);
+  border-radius: 14px;
+  padding: 1.6rem 1.7rem;
+  box-shadow: var(--shadow-soft);
+}
+.timeline-stage[data-stage='day-of'] {
+  border-left-color: var(--gold-sun);
+}
+.timeline-stage[data-stage='midweek'] {
+  border-left-color: var(--blue-lake);
+}
+.timeline-stage-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+.timeline-stage-head h2 {
+  margin: 0;
+}
+.timeline-stage-date {
+  display: inline-block;
+  background: var(--green-mist);
+  color: var(--green-deep);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+}
+.timeline-stage[data-stage='day-of'] .timeline-stage-date {
+  background: var(--gold-warm);
+  color: var(--gold-deep);
+}
+.timeline-stage[data-stage='midweek'] .timeline-stage-date {
+  background: var(--blue-mist);
+  color: var(--blue-lake);
+}
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.checklist-item {
+  border-radius: 10px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  transition: background 0.15s ease;
+}
+.checklist-item:hover {
+  background: var(--paper);
+}
+.checklist-item label {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  align-items: flex-start;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+.checklist-item input[type='checkbox'] {
+  margin-top: 0.25rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--green-deep);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.checklist-item.done {
+  background: var(--green-mist);
+  opacity: 0.7;
+}
+.checklist-item.done label {
+  text-decoration: line-through;
+  text-decoration-color: var(--green-soft);
+}
+
+.checklist-progress {
+  display: inline-block;
+  background: var(--green-mist);
+  color: var(--green-deep);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+.checklist-progress-complete {
+  background: var(--gold-warm);
+  color: var(--gold-deep);
+}
+
+.cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1.4rem;
+  background: var(--paper);
+  color: var(--ink-soft);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+.cta-secondary:hover {
+  background: var(--green-mist);
+  color: var(--green-deep);
+}
+
+/* ============================================================
+   Driving-Austria primer (2026-05-16) — color-coded callouts,
+   verified badges, TL;DR box, jump-TOC
+   ============================================================ */
+.tldr-box {
+  background: linear-gradient(180deg, #fff8e8 0%, #fdf2e7 100%);
+  border: 1px solid #f4ce9a;
+  border-left: 5px solid var(--gold-deep);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-soft);
+}
+.tldr-box h2 {
+  color: var(--gold-deep);
+  margin-bottom: 0.8rem;
+  font-size: clamp(1.4rem, 3.5vw, 1.7rem);
+}
+.tldr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.tldr-list li {
+  font-size: 1rem;
+  line-height: 1.55;
+  padding-left: 1.6rem;
+  position: relative;
+}
+.tldr-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--gold-deep);
+  font-weight: 700;
+}
+
+.callout {
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  font-size: 0.97rem;
+  line-height: 1.6;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--ink-soft);
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+}
+.callout-red {
+  background: #fdecec;
+  border-color: #f4b4b4;
+  border-left-color: #b03030;
+}
+.callout-red strong {
+  color: #8a1f1f;
+}
+.callout-yellow {
+  background: #fff7e0;
+  border-color: #f4dfa0;
+  border-left-color: #b8881c;
+}
+.callout-yellow strong {
+  color: #7a5b10;
+}
+.callout-green {
+  background: var(--green-mist);
+  border-color: var(--green-soft);
+  border-left-color: var(--green-deep);
+}
+.callout-green strong {
+  color: var(--green-deep);
+}
+.callout-label {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.35rem;
+  opacity: 0.85;
+}
+.callout-red .callout-label {
+  color: #8a1f1f;
+}
+.callout-yellow .callout-label {
+  color: #7a5b10;
+}
+.callout-green .callout-label {
+  color: var(--green-deep);
+}
+
+.verified-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--green-deep);
+  background: var(--green-mist);
+  border: 1px solid var(--green-soft);
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  margin-left: 0.45rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.source-link {
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.5rem;
+}
+.source-link a {
+  color: var(--green-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--green-soft);
+  text-underline-offset: 2px;
+}
+
+.primer-section {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem 1.6rem;
+  margin-bottom: 1.8rem;
+  box-shadow: var(--shadow-soft);
+}
+.primer-section h2 {
+  margin-bottom: 0.4rem;
+}
+.primer-section h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 0.4rem;
+  font-size: 1.15rem;
+}
+.primer-section p,
+.primer-section li {
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.primer-section ul {
+  margin: 0.5rem 0 0.6rem 1.3rem;
+}
+.primer-section ul li {
+  margin-bottom: 0.4rem;
+}
+
+.fact-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+}
+.fact-table td {
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.fact-table td:first-child {
+  font-weight: 600;
+  width: 38%;
+  color: var(--ink);
+}
+.fact-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.toc-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 2.2rem;
+  padding: 1rem 1.1rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.toc-jump a {
+  font-size: 0.86rem;
+  padding: 0.35rem 0.7rem;
+  background: var(--green-mist);
+  border: 1px solid var(--green-soft);
+  border-radius: 999px;
+  color: var(--green-deep);
+  text-decoration: none;
+  font-weight: 500;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+.toc-jump a:hover {
+  background: var(--green-soft);
+  color: var(--paper);
+}
