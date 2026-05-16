@@ -22,6 +22,7 @@ function buildFab(): HTMLButtonElement {
   btn.type = 'button';
   btn.setAttribute('aria-label', 'Leave Claude a note');
   btn.innerHTML = '<span aria-hidden="true">💬</span><span>Leave Claude a note</span>';
+  btn.style.zIndex = '99999';
   return btn;
 }
 
@@ -30,6 +31,7 @@ function buildModal(): HTMLDivElement {
   wrap.className = 'modal-backdrop';
   wrap.setAttribute('role', 'dialog');
   wrap.setAttribute('aria-modal', 'true');
+  wrap.style.zIndex = '100000';
   wrap.innerHTML = `
     <div class="modal">
       <h3>Leave Claude a note</h3>
