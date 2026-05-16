@@ -1,6 +1,6 @@
 // Entry script for /stay.html — real Booking.com lodging listings per base.
 
-import { TRIP, type BudgetTier, type LodgingPlatform } from './trip-data.js';
+import { TRIP, type BudgetTier, type LodgingPlatform, type LodgingVibe } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 
 function escapeHtml(s: string): string {
@@ -17,13 +17,33 @@ function tierBadge(tier?: BudgetTier): string {
     lean: '💰 Lean',
     standard: '💰💰 Standard',
     splurge: '💰💰💰 Mid-high',
+    'mid-high': '💰💰💰 Mid-high',
   };
   return `<span class="chip" title="Budget tier">${map[tier]}</span>`;
 }
 
 function platformBadge(p?: LodgingPlatform): string {
   if (!p) return '';
-  return `<span class="chip">${p === 'booking' ? 'Booking.com' : 'Airbnb'}</span>`;
+  const labels: Record<LodgingPlatform, string> = {
+    booking: 'Booking.com',
+    airbnb: 'Airbnb',
+    'urlaub-am-bauernhof': 'Urlaub am Bauernhof',
+  };
+  return `<span class="chip">${labels[p]}</span>`;
+}
+
+// Vibe tag chip — visual differentiator for the nature-y picks. Added
+// 2026-05-16 alongside the Gosau / Bad Goisern / Hallstatt lake-edge
+// expansion. Each tag gets an emoji prefix so the page reads at a glance.
+function vibeBadge(vibe?: LodgingVibe): string {
+  if (!vibe || vibe === 'in-town') return '';
+  const labels: Record<Exclude<LodgingVibe, 'in-town'>, string> = {
+    'nature-view': '🌄 Nature view',
+    'farm-stay': '🐐 Farm stay',
+    'lake-edge': '🏞️ Lake edge',
+    'forest-cabin': '🌲 Forest cabin',
+  };
+  return `<span class="chip" title="Setting">${labels[vibe]}</span>`;
 }
 
 function walkBadge(min?: number): string {
@@ -53,6 +73,7 @@ function renderLodging(l: (typeof TRIP.lodgings)[number]): string {
           <div class="alt-meta">${escapeHtml(a.review)} · <strong>${escapeHtml(a.pricePerNight)}</strong></div>
           <p class="alt-note">${escapeHtml(a.note)}</p>
           ${chipRow([
+            vibeBadge(a.vibeTag),
             tierBadge(a.budgetTier),
             platformBadge(a.platform),
             walkBadge(a.walkToChabadMin),
@@ -80,6 +101,7 @@ function renderLodging(l: (typeof TRIP.lodgings)[number]): string {
           <div class="pick-meta">${escapeHtml(l.pickReview)} · <strong>${escapeHtml(l.pickPrice)}</strong></div>
           <p class="pick-why">${escapeHtml(l.pickWhy)}</p>
           ${chipRow([
+            vibeBadge(l.pickVibeTag),
             tierBadge(l.pickBudgetTier),
             platformBadge(l.pickPlatform),
             walkBadge(l.pickWalkToChabadMin),

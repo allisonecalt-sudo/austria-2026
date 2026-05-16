@@ -61,8 +61,22 @@ export interface Day {
   tarabridgeMoment?: string;
 }
 
-export type BudgetTier = 'lean' | 'standard' | 'splurge';
-export type LodgingPlatform = 'booking' | 'airbnb';
+// BudgetTier — 'splurge' kept as the legacy label for €130-180 picks; 'mid-high'
+// added 2026-05-16 per Allison's tier-spread direction (lower-to-higher, not too
+// high; cap is now €180 not €200+). Both render the same triple-coin badge.
+export type BudgetTier = 'lean' | 'standard' | 'splurge' | 'mid-high';
+export type LodgingPlatform = 'booking' | 'airbnb' | 'urlaub-am-bauernhof';
+// Vibe tag — visual differentiator on the stay page so the Apt-Jezero-style
+// nature picks stand out from urban/airport stays. Added 2026-05-16 after
+// Allison flagged: "we love to stay places that are safe but in naaturey
+// areas like in montngro is fpossible- can be an option" + "add more nature
+// with view places ars optiosn". Older renderers ignore this field gracefully.
+export type LodgingVibe =
+  | 'nature-view' // mountain/forest-view balcony, otherwise standard apartment
+  | 'farm-stay' // working farm with animals (Urlaub am Bauernhof style)
+  | 'lake-edge' // lakeshore property, balcony or window over the water
+  | 'forest-cabin' // forest-edge or valley-floor cabin with quirky local character
+  | 'in-town'; // urban / village-center default
 
 export interface LodgingAlt {
   name: string;
@@ -75,6 +89,7 @@ export interface LodgingAlt {
   // Older renderers ignore them gracefully.
   budgetTier?: BudgetTier;
   platform?: LodgingPlatform;
+  vibeTag?: LodgingVibe;
   walkToChabadMin?: number; // Salzburg base only — minutes walking to Linzergasse 76
   driveToAirportMin?: number; // Airport base only — minutes driving to SZG
 }
@@ -92,6 +107,7 @@ export interface Lodging {
   // Optional fields on the pick — UX agent may consume.
   pickBudgetTier?: BudgetTier;
   pickPlatform?: LodgingPlatform;
+  pickVibeTag?: LodgingVibe;
   pickWalkToChabadMin?: number;
   pickDriveToAirportMin?: number;
   alts: LodgingAlt[];
@@ -542,6 +558,7 @@ export const TRIP: TripData = {
         '54m² 1-bedroom apartment with balcony, full kitchen, living room. 3km from Hallstatt — close enough for evenings, far enough for quiet. Right at the foot of the Dachstein cable car. Free cancellation. The Apartmani Jezero of this trip.',
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
+      pickVibeTag: 'nature-view',
       alts: [
         {
           name: 'Austrian Apartments (Bad Goisern)',
@@ -552,6 +569,7 @@ export const TRIP: TripData = {
           note: '22m² studio apartment with kitchen, 6.6km from Hallstatt in Bad Goisern (has its own Spar, café strip). Free cancellation. Best price-to-review ratio in the area.',
           budgetTier: 'splurge',
           platform: 'booking',
+          vibeTag: 'in-town',
         },
         {
           name: 'Ferienhof Osl — Urlaub am Bauernhof (Obertraun)',
@@ -562,6 +580,7 @@ export const TRIP: TripData = {
           note: 'WORKING FARMHOUSE (urlaub am bauernhof = "farm vacation"). 30m² studio with balcony, 3.7km from Hallstatt. Goats and horses outside, lake walking distance, local family running it. Most Žabljak-coded option of the bunch.',
           budgetTier: 'splurge',
           platform: 'booking',
+          vibeTag: 'farm-stay',
         },
         {
           name: 'Haus Steinbrecher Hallstatt',
@@ -572,6 +591,7 @@ export const TRIP: TripData = {
           note: '48m² ground-floor 2-bedroom apartment with full kitchen, IN HALLSTATT village (not Obertraun). Free cancellation. Highest review score in the area — closest you can get to the painted-houses postcard and still have a kitchen.',
           budgetTier: 'splurge',
           platform: 'booking',
+          vibeTag: 'in-town',
         },
         {
           name: 'River Lilly Apartment (Obertraun)',
@@ -582,6 +602,7 @@ export const TRIP: TripData = {
           note: '40m² 1-bedroom apartment with living room, riverside in Obertraun. 14 reviews, all 10/10. Free cancellation. New listing — fewer reviews than Edelweiss but uniformly perfect so far.',
           budgetTier: 'splurge',
           platform: 'booking',
+          vibeTag: 'lake-edge',
         },
         {
           name: 'Landhaus Osborne (Obertraun)',
@@ -592,6 +613,70 @@ export const TRIP: TripData = {
           note: '27m² Apartment (3) with kitchen, in Obertraun village. Free cancellation. Long-established 200-review listing, walking distance to the Hallstättersee shore.',
           budgetTier: 'splurge',
           platform: 'booking',
+          vibeTag: 'in-town',
+        },
+        // === NATURE-Y ADDITIONS 2026-05-16 ===
+        // Allison: "we love to stay places that are safe but in naaturey areas
+        // like in montngro is fpossible- can be an option" + "add more nature
+        // with view places ars optiosn". Search expanded to Gosau valley
+        // (closer to Vorderer Gosausee — the marquee mirror-lake day) +
+        // Bad Goisern + Hallstatt lake-edge. All apartments with working
+        // kitchens, paved access, reachable by car after dark. Live Booking
+        // prices Jul 26-30 2026, ÷ 4 nights.
+        {
+          name: 'Ferienwohnung Schmaranzer (Gosau)',
+          url: 'https://www.booking.com/hotel/at/ferienwohnung-schmaranzer.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/410661012.webp?k=a7d8da61dca16361127d1ebd451d1d67f1ace40dc4ce543b498610c1691363bb&o=',
+          review: '9.6 · Exceptional · 46 reviews',
+          pricePerNight: '€127 / night (₪504)',
+          note: 'Huge 75m² 1-bedroom apartment with full kitchen + king bed. 4.1km from Gosau village — i.e. closer to the Vorderer Gosausee mirror-lake trailhead than to town. Family-run Ferienwohnung in the Gosau valley, second-highest review score in the area. Forest-edge feel, easy paved drive in.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          vibeTag: 'forest-cabin',
+        },
+        {
+          name: 'Haus im Grünen (Gosau)',
+          url: 'https://www.booking.com/hotel/at/haus-im-grunen-gosau.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/542231476.webp?k=a44d9c0c33ff9b95296128929efc5c884da9542699fb1ace2edbc46641f92f6b&o=',
+          review: '9.2 · Superb · 26 reviews',
+          pricePerNight: '€127 / night (₪502)',
+          note: 'Name literally means "House in the Green." 65m² 2-bedroom apartment with kitchen, 1.5km from Gosau center, surrounded by green. Newer listing (26 reviews) but uniformly strong. Mountain views, quiet valley floor, paved single-track to the door.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          vibeTag: 'nature-view',
+        },
+        {
+          name: 'Mühlradl Apartments Gosau',
+          url: 'https://www.booking.com/hotel/at/ma1-4hlradl-apartments.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/34414377.webp?k=c874faba1d8ff841cc4594569d3b4a90dc70928b8de49917f6dc694a422d3eea&o=',
+          review: '9.4 · Superb · 319 reviews',
+          pricePerNight: '€155 / night (₪614)',
+          note: '"Mühlradl" = mill-wheel — old water-mill property converted to apartments. 38m² 1-bedroom apartment with full kitchen, 3.3km from Gosau center on the road toward the Gosausee lakes. 319 reviews = battle-tested. The most "quirky local character" pick in Gosau.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'forest-cabin',
+        },
+        {
+          name: 'Pension Sydler (Bad Goisern)',
+          url: 'https://www.booking.com/hotel/at/pension-sydler.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/84702890.webp?k=8b69a5f03c725211bedde9d9024628c2117c11942ace0eb860f9d196a3ad2212&o=',
+          review: '8.8 · Excellent · 597 reviews',
+          pricePerNight: '€80 / night (₪317)',
+          note: 'LEAN-tier find — €80/night for an apartment unit with bathroom and balcony overlooking the garden, 10-min walk from Bad Goisern center, 9.4km from Hallstatt. Garden with BBQ, sauna, table tennis — old-school Austrian guest-house energy. 597 reviews. Verify "kitchen" with host on booking — Booking lists this slot as "Apartment" but description says "some units feature a kitchen," so confirm before paying.',
+          budgetTier: 'lean',
+          platform: 'booking',
+          vibeTag: 'farm-stay',
+        },
+        {
+          name: 'Weisses Lamm Holiday Home (Hallstatt)',
+          url: 'https://www.booking.com/hotel/at/weisses-lamm.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/186766752.webp?k=268d3b8120e740e18ee5453b9ba40aa5807e79a435351ef6f3a94f77f4e2e722&o=',
+          review: '8.2 · Very good · 2,113 reviews',
+          pricePerNight: '€217 / night (₪862)',
+          note: 'LAKE-VIEW holiday home — 75m² entire vacation home with full kitchen, IN Hallstatt village (150m from downtown), one bedroom + living room. 2,113 reviews = extremely battle-tested. ABOVE the €180 mid-high cap but flagged worth-it: lake view + size + the only Hallstatt-village kitchen-equipped property at this scale. 8.2 review is slightly below 8.5 bar; trade-off explained by view + space.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'lake-edge',
         },
       ],
     },
