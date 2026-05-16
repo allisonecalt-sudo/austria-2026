@@ -30,6 +30,7 @@
         <div class="nav-links">
           <a href="trip-summary.html">Trip</a>
           <a href="stay.html">Stay</a>
+          <a href="activities.html">Activities</a>
           <a href="logistics.html">Logistics</a>
           <a href="costs.html">Costs</a>
           <a href="notes.html">Notes</a>
@@ -52,12 +53,90 @@
           <h1 class="moment-title">
             Lakes for the week.<br />Salzburg for Shabbat.<br />Sunsets every night.
           </h1>
+          <p class="moment-tldr">
+            Salzburg Shabbat <span class="moment-tldr__arrow">→</span> mountain lake 3 nights
+            <span class="moment-tldr__arrow">→</span> sunset peak summit
+            <span class="moment-tldr__arrow">→</span> home.
+          </p>
           <p class="moment-line">
-            Allison and Avital. Seven nights. Two apartments. One silent electric boat back from St.
+            Allison and Avital. Seven nights. Four bases. One silent electric boat back from St.
             Bartholomä as the Watzmann goes gold.
           </p>
-          <a href="#m-peak" class="moment-cue">scroll <span aria-hidden="true">↓</span></a>
+          <a href="#m-bases" class="moment-cue">the four bases <span aria-hidden="true">↓</span></a>
         </div>
+      </section>
+
+      <!-- MOMENT 2 — FOUR BASES STRIP (NEW 2026-05-17 — IA rethink) -->
+      <!-- Cards strip the 4-base structure so Avital sees the trip shape
+           immediately. Each card = one base = nights + vibe + drive-to-next.
+           Locked 2026-05-16: Salzburg(2N) → Mountain(3N) → Schafberg(1N) → Airport(1N). -->
+      <section class="moment moment--bases" id="m-bases">
+        <div class="bases-inner">
+          <span class="moment-eyebrow moment-eyebrow--dark">The four bases</span>
+          <h2 class="bases-title">Where you sleep each night</h2>
+          <p class="bases-sub">
+            Apartments only, no hotels (except the summit night). Three moves across the week —
+            geography does the work, your bags do the rest.
+          </p>
+          <div class="bases-strip">
+            <a href="stay.html#base-salzburg" class="bstrip-card bstrip-card--salzburg">
+              <div class="bstrip-card__topbar"></div>
+              <div class="bstrip-card__body">
+                <div class="bstrip-card__num">1</div>
+                <div class="bstrip-card__name">Salzburg</div>
+                <div class="bstrip-card__nights">Fri-Sun · 2 nights</div>
+                <div class="bstrip-card__vibe">
+                  Linzergasse studio. 3-min walk to Chabad. Shabbat anchor.
+                </div>
+                <div class="bstrip-card__drive">→ 1 h 15 m to mountain anchor</div>
+              </div>
+            </a>
+            <a href="stay.html#base-obertraun" class="bstrip-card bstrip-card--obertraun bstrip-card--star">
+              <div class="bstrip-card__topbar"></div>
+              <div class="bstrip-card__body">
+                <div class="bstrip-card__num">2</div>
+                <div class="bstrip-card__name">Mountain anchor</div>
+                <div class="bstrip-card__nights">Sun-Wed · 3 nights · deep</div>
+                <div class="bstrip-card__vibe">
+                  2-BR apartment near Hallstatt. Lake out the window, full kitchen.
+                </div>
+                <div class="bstrip-card__drive">→ 30 m + cog 35 m to summit</div>
+              </div>
+            </a>
+            <a
+              href="stay.html#base-summit"
+              class="bstrip-card bstrip-card--summit bstrip-card--peak"
+            >
+              <div class="bstrip-card__topbar"></div>
+              <div class="bstrip-card__body">
+                <div class="bstrip-card__num">3</div>
+                <div class="bstrip-card__name">Schafbergspitze</div>
+                <div class="bstrip-card__nights">Wed-Thu · 1 night · ⭐ peak</div>
+                <div class="bstrip-card__vibe">
+                  Mountain hotel at 1,783 m. Cog up. Sunset over 13 lakes. Sunrise on the Dachstein.
+                </div>
+                <div class="bstrip-card__drive">→ 1 h 10 m to airport-area sleep</div>
+              </div>
+            </a>
+            <a href="stay.html#base-airport" class="bstrip-card bstrip-card--airport">
+              <div class="bstrip-card__topbar"></div>
+              <div class="bstrip-card__body">
+                <div class="bstrip-card__num">4</div>
+                <div class="bstrip-card__name">Airport area</div>
+                <div class="bstrip-card__nights">Thu-Fri · 1 night · sleep</div>
+                <div class="bstrip-card__vibe">
+                  Cheap, clean, decent reviews. Just somewhere to sleep before the 6:30 flight.
+                </div>
+                <div class="bstrip-card__drive">→ 15 m to SZG gate Fri 4:30 am</div>
+              </div>
+            </a>
+          </div>
+          <p class="bases-helper">
+            Tap any card for sleeping options at that base. Or
+            <a href="activities.html">see what to do FROM each base →</a>
+          </p>
+        </div>
+        <a href="#m-peak" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
 
       <!-- MOMENT 2 — THE PEAK -->
@@ -79,6 +158,39 @@
           </p>
           <p class="moment-line moment-line--peak" style="opacity: 0.85; font-size: 0.95rem">
             This is the you-will-stand-still moment of the trip. Hours, not minutes.
+          </p>
+        </div>
+        <a href="#m-summit" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
+      </section>
+
+      <!-- MOMENT — SCHAFBERGSPITZE (the summit night, the OTHER peak) -->
+      <!-- Added 2026-05-17 — IA rethink. The 4-base lock made the Wed-night
+           summit splurge the trip's emotional climax. Was buried in the day-
+           strip before; now gets its own scene. -->
+      <section class="moment moment--summit" id="m-summit">
+        <img
+          class="moment-img"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg"
+          alt="Schafberg summit ridge with Salzkammergut lakes visible far below in evening light"
+          loading="lazy"
+        />
+        <div class="moment-veil moment-veil--full"></div>
+        <div class="moment-body moment-body--center">
+          <span class="moment-badge moment-badge--summit">⛰️ The summit night</span>
+          <h2 class="moment-title moment-title--lyric">Sleep above thirteen lakes.</h2>
+          <p class="moment-line moment-line--peak">
+            Wednesday afternoon we pack a small overnight bag and ride the cog railway up to
+            <strong>Berghotel Schafbergspitze</strong> — 1,783 m, one of the highest hotels in
+            the Alps. We drop the bag, walk the ridge, and watch the sun sink behind the
+            Salzkammergut while every lake below goes copper.
+          </p>
+          <p class="moment-line moment-line--peak" style="opacity: 0.85; font-size: 0.95rem">
+            The last cog leaves at 18:35. When it does, the day-trippers go with it. We stay.
+            Dinner on the terrace, stars without light pollution, sunrise over the Dachstein at
+            05:30, breakfast looking at thirteen mirrors.
+          </p>
+          <p class="moment-line moment-line--peak" style="font-size: 0.92rem; opacity: 0.78">
+            One night only — the trip splurge. Locked Wed Jul 29.
           </p>
         </div>
         <a href="#m-shape" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
@@ -133,13 +245,13 @@
         <div class="moment-veil moment-veil--bottom"></div>
         <div class="moment-body moment-body--bottom">
           <span class="moment-eyebrow">Where we sleep</span>
-          <h2 class="moment-title">Lake out the window. Goats somewhere. The kitchen is yours.</h2>
+          <h2 class="moment-title">Lake out the window. The kitchen is yours.</h2>
           <p class="moment-line">
-            Four deep nights at a working farmhouse 3 km from Hallstatt — full kitchen, balcony,
-            mountains right there. Plus a Linzergasse studio five minutes from Chabad for Shabbat.
-            Apartments only. No hotels. We cook.
+            Three deep nights at the mountain anchor — full kitchen, balcony, mountains right
+            there. Salzburg studio for Shabbat. Summit hotel for the splurge night. Airport
+            apartment for the last sleep. Apartments at every base except the summit.
           </p>
-          <a href="stay.html" class="moment-cta">See all 11 apartments →</a>
+          <a href="stay.html" class="moment-cta">See sleeping options at each base →</a>
         </div>
         <a href="#m-shabbat" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
@@ -185,7 +297,7 @@
       <section class="moment moment--cta" id="m-cta">
         <div class="cta-inner">
           <h2 class="cta-title">Pick your way in.</h2>
-          <p class="cta-sub">Six surfaces. All the depth lives behind them.</p>
+          <p class="cta-sub">Seven surfaces. All the depth lives behind them.</p>
           <div class="cta-grid">
             <a href="trip-summary.html" class="cta-card">
               <span class="cta-card-num">01</span>
@@ -195,20 +307,25 @@
             <a href="stay.html" class="cta-card">
               <span class="cta-card-num">02</span>
               <span class="cta-card-h">Stay</span>
-              <span class="cta-card-p">11 apartments across 3 bases.</span>
+              <span class="cta-card-p">Sleeping options at each of the 4 bases.</span>
+            </a>
+            <a href="activities.html" class="cta-card">
+              <span class="cta-card-num">03</span>
+              <span class="cta-card-h">Activities</span>
+              <span class="cta-card-p">What to do FROM each base. Per-base menu, filter by type.</span>
             </a>
             <a href="bases.html" class="cta-card">
-              <span class="cta-card-num">03</span>
+              <span class="cta-card-num">04</span>
               <span class="cta-card-h">Bases</span>
-              <span class="cta-card-p">4 ways to anchor the week.</span>
+              <span class="cta-card-p">Alternative base configs (Berchtesgaden / Wolfgangsee).</span>
             </a>
             <a href="logistics.html" class="cta-card">
-              <span class="cta-card-num">04</span>
+              <span class="cta-card-num">05</span>
               <span class="cta-card-h">Logistics</span>
               <span class="cta-card-p">Car, Shabbat, packing, kosher.</span>
             </a>
             <a href="costs.html" class="cta-card">
-              <span class="cta-card-num">05</span>
+              <span class="cta-card-num">06</span>
               <span class="cta-card-h">Costs</span>
               <span class="cta-card-p"
                 >€<span data-bind="total-eur"></span> · ₪<span data-bind="total-nis"></span>
@@ -216,9 +333,9 @@
               >
             </a>
             <a href="notes.html" class="cta-card">
-              <span class="cta-card-num">06</span>
+              <span class="cta-card-num">07</span>
               <span class="cta-card-h">Notes</span>
-              <span class="cta-card-p">Avital's feedback feed.</span>
+              <span class="cta-card-p">Live feed — Avital + Allison.</span>
             </a>
           </div>
           <p class="cta-foot">

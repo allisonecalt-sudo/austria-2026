@@ -244,17 +244,30 @@ function bindLanding(): void {
   const ceiling = document.querySelectorAll<HTMLSpanElement>('[data-bind="ceiling"]');
   ceiling.forEach((el) => (el.textContent = TRIP.ceilingEur.toLocaleString('en-US')));
 
-  // Day strip — moment 5
+  // Day strip — moment 5. Each card now shows the BASE pin color in a strip
+  // along the top edge so Avital can orient geographically while swiping
+  // (Allison 2026-05-17 — IA rethink: "show base pin color per day").
   const strip = document.querySelector<HTMLDivElement>('#day-strip');
   if (strip) {
+    const baseLabel: Record<string, string> = {
+      salzburg: 'Salzburg',
+      hallstatt: 'Mountain anchor',
+      schafbergspitze: 'Summit',
+      airport: 'Airport',
+    };
     strip.innerHTML = TRIP.days
       .map((d, i) => {
         const isPeak = !!d.tarabridgeMoment;
+        const baseKey = d.sleepWhere;
         return `
-          <a class="day-strip-card" href="itinerary.html#${escapeHtml(d.id)}">
+          <a class="day-strip-card day-strip-card--${escapeHtml(baseKey)}" href="itinerary.html#${escapeHtml(d.id)}">
+            <span class="day-strip-basebar" aria-hidden="true"></span>
             <img class="day-strip-photo" loading="lazy" src="${escapeHtml(d.hero.src)}" alt="${escapeHtml(d.hero.alt)}" />
             <div class="day-strip-body">
-              <div class="day-strip-eyebrow">Day ${i + 1} · ${escapeHtml(d.dateLabel)}</div>
+              <div class="day-strip-eyebrow">
+                Day ${i + 1} · ${escapeHtml(d.dateLabel)}
+                <span class="day-strip-basetag day-strip-basetag--${escapeHtml(baseKey)}" title="Sleeping at ${escapeHtml(baseLabel[baseKey] ?? baseKey)}">●&nbsp;${escapeHtml(baseLabel[baseKey] ?? baseKey)}</span>
+              </div>
               <div class="day-strip-title">${escapeHtml(d.headline)}</div>
               <div class="day-strip-foot">
                 <span>☀ ${escapeHtml(d.sunset.time)}</span>
