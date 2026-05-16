@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Itinerary · Austria 2026</title>
+    <title>The Trip · Austria 2026</title>
     <meta
       name="description"
-      content="Eight days, one general idea per day, the few times that matter, sunset every night."
+      content="Seven days, one idea per day. Tap any day for the plan. Easier-day alternate behind a swap."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,28 +21,38 @@
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
-          <a href="itinerary.html" class="active">Itinerary</a>
+          <a href="itinerary.html" class="active">Trip</a>
           <a href="stay.html">Stay</a>
-          <a href="rental-car.html">Car</a>
-          <a href="shabbat.html">Shabbat</a>
-          <a href="jewish-sights.html">Jewish sights</a>
-          <a href="packing.html">Packing</a>
+          <a href="logistics.html">Logistics</a>
           <a href="costs.html">Costs</a>
-          <a href="map.html">Map</a>
           <a href="notes.html">Notes</a>
         </div>
       </div>
     </nav>
 
-    <!-- Sticky day-nav (scrollspy) mounts here -->
     <div id="day-nav-mount"></div>
 
     <main class="container">
-      <header style="margin-bottom: 2.5rem;">
-        <div class="eyebrow">The whole week, one idea per day</div>
-        <h1>Eight days. One general idea each. Sunset every night.</h1>
+      <header style="margin-bottom: 2rem">
+        <div class="eyebrow">The trip · seven days, one idea each</div>
+        <h1>Tap a day. See the plan.</h1>
         <p class="lead-block" data-bind="why"></p>
       </header>
+
+      <section style="margin-bottom: 2.4rem">
+        <div class="map-wrap">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=12.20%2C47.30%2C13.85%2C48.10&amp;layer=mapnik&amp;marker=47.5622%2C13.6492"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Austria 2026 route map"
+          ></iframe>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); text-align: center">
+          🧭 <strong>Salzburg</strong> (Fri-Sun) → <strong>Obertraun · Hallstatt area</strong>
+          (Sun-Thu, the anchor) → <strong>Airport-side</strong> (Thu-Fri). Two moves total.
+        </p>
+      </section>
 
       <div class="peak-callout">
         <div class="eyebrow">The Tara-Bridge moment · <span data-bind="peak-day"></span></div>
@@ -50,19 +60,18 @@
         <p data-bind="peak-desc"></p>
       </div>
 
-      <section style="margin-top: 3rem;">
-        <p style="color: var(--ink-soft); margin-bottom: 2rem; max-width: 640px;">
-          Each day is a short paragraph — what the day's about, where the sunset is, anything that
-          actually needs booking. The few times that matter are listed underneath. A one-line
-          <strong>Plan B</strong> sits collapsed below if the day asks for less.
-        </p>
+      <section style="margin-top: 3rem">
+        <div class="expand-controls" aria-label="Expand or collapse all days">
+          <button type="button" id="expand-all">Expand all</button>
+          <button type="button" id="collapse-all">Collapse all</button>
+        </div>
         <div id="days"></div>
       </section>
     </main>
 
     <footer>
-      v3 (visual redesign) · Sunset times: timeanddate.com Salzburg / Hallstatt 47.5°N late July ·
-      Drive times: Google Maps consensus · Photos: Wikimedia Commons CC BY-SA
+      v4 (digestibility) · Sunset times: timeanddate.com Salzburg / Hallstatt 47.5°N late July ·
+      Drive times: Google Maps · Photos: Wikimedia Commons CC BY-SA
     </footer>
 
     <script type="module" src="/src/page-itinerary.ts"></script>

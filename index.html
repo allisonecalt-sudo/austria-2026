@@ -6,7 +6,7 @@
     <title>Austria 2026 — Allison & Avital · Jul 24-31</title>
     <meta
       name="description"
-      content="Salzburg for Shabbat, the Salzkammergut lakes for the rest. Concrete hour-by-hour itinerary built on the Montenegro template — sunset-obsessed, nature-anchored, kosher-friendly."
+      content="Salzburg for Shabbat, the Salzkammergut lakes for the rest. Built for Avital to grasp in 30 seconds — every day, one idea, one sunset."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,14 +21,10 @@
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
-          <a href="itinerary.html">Itinerary</a>
+          <a href="itinerary.html">Trip</a>
           <a href="stay.html">Stay</a>
-          <a href="rental-car.html">Car</a>
-          <a href="shabbat.html">Shabbat</a>
-          <a href="jewish-sights.html">Jewish sights</a>
-          <a href="packing.html">Packing</a>
+          <a href="logistics.html">Logistics</a>
           <a href="costs.html">Costs</a>
-          <a href="map.html">Map</a>
           <a href="notes.html">Notes</a>
         </div>
       </div>
@@ -44,45 +40,56 @@
         <span class="dates">Friday Jul 24 — Friday Jul 31, 2026</span>
         <h1>Salzburg for Shabbat. Lakes for the rest. Sunsets every night.</h1>
         <p class="lede">
-          Nature-anchored, sunset-obsessed, together-paced. The Montenegro template ported to the
-          Salzkammergut — one Shabbat base, one nature anchor, picnics on rocks, and a real plan
-          for every day so we don't have to decide anything at 9am.
+          Allison and Avital, seven nights, two apartments, one Tara-Bridge moment on the
+          Königssee. Nature-anchored, sunset-obsessed, together-paced.
         </p>
+        <a href="#days-glance" class="hero-cta">See the 7 days ↓</a>
       </div>
     </header>
 
     <main class="container">
-      <section class="section">
-        <div class="eyebrow">Why this plan</div>
-        <h2>Two moves, three apartments, eight sunsets.</h2>
-        <p class="lead-block">
-          Land Friday morning in Salzburg and settle in for Shabbat five minutes from Chabad on
-          Linzergasse. Sunday after Havdalah we drive east into the Salzkammergut and unpack into
-          a balcony apartment in Obertraun for four deep nights — coffee in the same kitchen, lake
-          out the window, day trips that fan out from there. Thursday we move once more to a
-          quiet apartment four kilometers from the airport so Friday's flight is a ten-minute
-          drive.
+      <section class="section" id="days-glance">
+        <div class="eyebrow">The trip at a glance</div>
+        <h2>Seven days. Swipe through.</h2>
+        <p class="lead-block" style="font-size: 1rem; color: var(--ink-soft)">
+          One headline per day. Tap any card to open it on the Trip page.
         </p>
-        <p class="lead-block">
-          Every day ends at a named sunset spot with a real time. The Königssee evening boat is the
-          Tara Bridge of this one.
-        </p>
+        <div class="day-strip-wrap">
+          <div class="day-strip" id="day-strip"></div>
+        </div>
+        <p class="day-strip-helper">← Swipe → · Tap any day for the full plan</p>
       </section>
 
-      <div class="pullquote">
-        <blockquote>
-          "Sometimes I dangled my feet over the side of the bridge, other times I sat on the
-          ground or stood, watching in awe. We stayed there for hours."
-        </blockquote>
-        <cite>— Allison, Montenegro · July 2024</cite>
-      </div>
-
       <section class="section">
-        <div class="eyebrow">The eight days</div>
-        <h2>At a glance</h2>
-        <ol id="day-glance" class="glance"></ol>
-        <p style="text-align: center; margin-top: 2rem;">
-          <a href="itinerary.html" class="cta">Read the day-by-day →</a>
+        <div class="eyebrow">By the numbers</div>
+        <h2>What we're committing to</h2>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-num">7</div>
+            <div class="stat-label">nights</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3</div>
+            <div class="stat-label">apartments</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">€<span data-bind="total-eur"></span></div>
+            <div class="stat-label">projected total</div>
+          </div>
+        </div>
+        <p
+          class="lead-block"
+          style="
+            font-size: 0.98rem;
+            color: var(--ink-soft);
+            text-align: center;
+            max-width: 580px;
+            margin: 0 auto;
+          "
+        >
+          Two moves — Salzburg for Shabbat, Obertraun-by-Hallstatt for four deep nights, one
+          airport-side apartment for the early flight out. Headroom for splurges under the
+          €<span data-bind="ceiling"></span> ceiling.
         </p>
       </section>
 
@@ -96,42 +103,43 @@
 
       <section class="section">
         <div class="eyebrow">Where we sleep</div>
-        <h2>Real apartments. Real prices. Real kitchens.</h2>
-        <p class="lead-block">
-          Booking.com searched live for the actual nights of the trip. Three bases — Salzburg for
-          Shabbat, Obertraun (Hallstatt-area, the Žabljak of this trip), Salzburg airport-side
-          for the last night. All apartments with kitchens. All 8.5+ reviews. All in the
-          Montenegro €70-200/night sweet spot.
+        <h2>Three apartments, kitchens, lake views.</h2>
+        <p class="lead-block" style="font-size: 0.98rem; color: var(--ink-soft)">
+          Booking.com searched live for the actual nights. Apartment with kitchen non-negotiable —
+          we cook, no kosher restaurants in the region.
         </p>
-        <p style="text-align: center;">
-          <a href="stay.html" class="cta">See the listings →</a>
+        <div class="pick-row" id="pick-row"></div>
+        <p style="text-align: center; margin-top: 1.6rem">
+          <a href="stay.html" class="cta">See all the options →</a>
         </p>
       </section>
 
       <section class="section">
+        <div class="pullquote">
+          <blockquote>
+            "Sometimes I dangled my feet over the side of the bridge, other times I sat on the
+            ground or stood, watching in awe. We stayed there for hours."
+          </blockquote>
+          <cite>— Allison, Montenegro · July 2024</cite>
+        </div>
         <div class="callout">
-          <h3>What we're skipping (so we don't try to do everything)</h3>
+          <h3>What we're skipping — so we don't try to do everything</h3>
           <ul id="skip-list"></ul>
         </div>
       </section>
 
       <section class="section">
-        <div class="eyebrow">Money</div>
-        <h2>Budget</h2>
-        <p class="lead-block">
-          Target ceiling: <strong>€<span data-bind="ceiling"></span></strong>. Projected:
-          <strong>€<span data-bind="total-eur"></span> · ₪<span data-bind="total-nis"></span></strong>
-          for 7 nights, 2 people, all-in except flights and rental car. Headroom for splurges.
-        </p>
-        <p style="text-align: center;">
-          <a href="costs.html" class="cta">See the breakdown →</a>
-        </p>
+        <div class="cta-strip">
+          <a href="itinerary.html">Open the trip →</a>
+          <a href="stay.html">Where we sleep →</a>
+          <a href="costs.html">See the costs →</a>
+        </div>
       </section>
     </main>
 
     <footer>
-      Built 2026-05-15 · v3 (visual redesign) · Booking.com searched live · Sunset times:
-      timeanddate.com · Drive times: Google Maps consensus · Photos: Wikimedia Commons CC BY-SA
+      Built for Avital · 2026-05-16 · v4 (digestibility pass) · Booking.com searched live · Sunset
+      times: timeanddate.com · Photos: Wikimedia Commons CC BY-SA
     </footer>
 
     <script type="module" src="/src/page-landing.ts"></script>

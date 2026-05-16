@@ -6,7 +6,7 @@
     <title>Costs · Austria 2026</title>
     <meta
       name="description"
-      content="Real-price cost breakdown: 7 nights, 2 people, against the €2,800 ceiling."
+      content="Visual budget breakdown: 7 nights, 2 people, against the €2,800 ceiling."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,236 +21,276 @@
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
-          <a href="itinerary.html">Itinerary</a>
+          <a href="itinerary.html">Trip</a>
           <a href="stay.html">Stay</a>
-          <a href="rental-car.html">Car</a>
-          <a href="shabbat.html">Shabbat</a>
-          <a href="jewish-sights.html">Jewish sights</a>
-          <a href="packing.html">Packing</a>
+          <a href="logistics.html">Logistics</a>
           <a href="costs.html" class="active">Costs</a>
-          <a href="map.html">Map</a>
           <a href="notes.html">Notes</a>
         </div>
       </div>
     </nav>
 
     <main class="container">
-      <h1>Costs · 7 nights, 2 people</h1>
-      <p class="lead-block">
-        Ceiling: <strong>€2,800 / ₪11,000</strong>. Projected: <strong><span data-bind="total-eur"></span> /
-        <span data-bind="total-nis"></span></strong>. Headroom: ~€390 for splurges. Numbers below use
-        actual Booking.com prices from the 2026-05-15 search and Montenegro-actuals for everything
-        else. EUR→NIS at ≈₪3.97 (May 2026 rate). Excludes flights (separate budget) and rental car
-        (Allison will price separately).
+      <header style="margin-bottom: 1.4rem; text-align: center">
+        <div class="eyebrow">Money · 7 nights, 2 people</div>
+        <h1>What it costs</h1>
+      </header>
+
+      <div class="cost-total">
+        <div class="cost-total-num">€<span data-bind="total-eur"></span></div>
+        <div class="cost-total-sub">
+          ≈ ₪<span data-bind="total-nis"></span> · all-in except flights and rental car
+        </div>
+        <div class="cost-total-ceiling">
+          ✓ Under €<span data-bind="ceiling"></span> ceiling · ~€390 headroom
+        </div>
+      </div>
+
+      <div class="cost-bar-wrap">
+        <div class="cost-bar" aria-label="Cost breakdown">
+          <div class="cost-bar-seg lodging" style="flex-grow: 1027" title="Lodging €1,027">
+            €1,027
+          </div>
+          <div class="cost-bar-seg activities" style="flex-grow: 364" title="Activities €364">
+            €364
+          </div>
+          <div
+            class="cost-bar-seg food"
+            style="flex-grow: 1019"
+            title="Food + gas + buffer €1,019"
+          >
+            €1,019
+          </div>
+        </div>
+        <div class="cost-legend">
+          <div class="cost-legend-item">
+            <span class="cost-legend-dot lodging"></span>
+            <span><strong>Lodging</strong> <span class="cost-legend-num">€1,027 · 43%</span></span>
+          </div>
+          <div class="cost-legend-item">
+            <span class="cost-legend-dot activities"></span>
+            <span
+              ><strong>Activities</strong> <span class="cost-legend-num">€364 · 15%</span></span
+            >
+          </div>
+          <div class="cost-legend-item">
+            <span class="cost-legend-dot food"></span>
+            <span
+              ><strong>Food, gas, buffer</strong>
+              <span class="cost-legend-num">€1,019 · 42%</span></span
+            >
+          </div>
+        </div>
+      </div>
+
+      <p
+        class="lead-block"
+        style="
+          text-align: center;
+          font-size: 0.95rem;
+          color: var(--ink-soft);
+          max-width: 580px;
+          margin: 1.6rem auto 0;
+        "
+      >
+        Real Booking.com prices for July 24-31. Activity entry fees from operator sites. Food / gas
+        / buffer follow the Montenegro template (~€67/wk groceries scaled up + €130 Chabad Shabbat
+        + €60 gas + buffer). EUR→NIS at ₪3.97.
       </p>
 
-      <section class="section" style="border:none; padding-top:1rem;">
-        <h2>Lodging — real prices</h2>
-        <table class="costs">
-          <thead>
-            <tr>
-              <th>Stay</th>
-              <th class="num">€/night</th>
-              <th class="num">Nights</th>
-              <th class="num">€ subtotal</th>
-              <th class="num">₪ subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Salzburg · master Linzergasse</td>
-              <td class="num">128</td>
-              <td class="num">2</td>
-              <td class="num">256</td>
-              <td class="num">1,016</td>
-            </tr>
-            <tr>
-              <td>Obertraun · Haus Edelweiss (Hallstatt area)</td>
-              <td class="num">142</td>
-              <td class="num">4</td>
-              <td class="num">568</td>
-              <td class="num">2,255</td>
-            </tr>
-            <tr>
-              <td>Salzburg-airport · morand I Apartments</td>
-              <td class="num">203</td>
-              <td class="num">1</td>
-              <td class="num">203</td>
-              <td class="num">806</td>
-            </tr>
-            <tr class="total">
-              <td>Lodging total</td>
-              <td class="num">—</td>
-              <td class="num">7</td>
-              <td class="num">1,027</td>
-              <td class="num">4,077</td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="font-size:0.9rem; color:#4b5a62;">
-          Cheaper-pick variant: Junker's (€91) + Ferienhof Osl (€138) + Hotel Astoria (€245) = €859 total.
-          That's a €168 savings on lodging if Allison wants more Montenegro-style budget energy.
-        </p>
-      </section>
+      <details class="cost-section">
+        <summary>Lodging detail — 3 bookings, 7 nights</summary>
+        <div class="cost-section-body">
+          <table class="costs">
+            <thead>
+              <tr>
+                <th>Stay</th>
+                <th class="num">€/night</th>
+                <th class="num">Nights</th>
+                <th class="num">€ subtotal</th>
+                <th class="num">₪ subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Salzburg · master Linzergasse</td>
+                <td class="num">128</td>
+                <td class="num">2</td>
+                <td class="num">256</td>
+                <td class="num">1,016</td>
+              </tr>
+              <tr>
+                <td>Obertraun · Haus Edelweiss</td>
+                <td class="num">142</td>
+                <td class="num">4</td>
+                <td class="num">568</td>
+                <td class="num">2,255</td>
+              </tr>
+              <tr>
+                <td>Salzburg-airport · final-night pick</td>
+                <td class="num">203</td>
+                <td class="num">1</td>
+                <td class="num">203</td>
+                <td class="num">806</td>
+              </tr>
+              <tr class="total">
+                <td>Lodging total</td>
+                <td class="num">—</td>
+                <td class="num">7</td>
+                <td class="num">1,027</td>
+                <td class="num">4,077</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size: 0.9rem; color: var(--ink-soft)">
+            Cheaper-pick variant available in the Stay page alternates — see Junker's (€91) +
+            Ferienhof Osl (€138) etc.
+          </p>
+        </div>
+      </details>
 
-      <section class="section">
-        <h2>Activities — real entry fees</h2>
-        <table class="costs">
-          <thead>
-            <tr>
-              <th>Activity</th>
-              <th class="num">€ pp</th>
-              <th class="num">€ total (2)</th>
-              <th>Note</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Königssee boat to Salet (Tue Jul 28)</td>
-              <td class="num">24</td>
-              <td class="num">48</td>
-              <td>Round trip all the way to Obersee</td>
-            </tr>
-            <tr>
-              <td>Dachstein Krippenstein gondola + 5fingers (Mon Jul 27)</td>
-              <td class="num">43</td>
-              <td class="num">86</td>
-              <td>Both gondolas + summit access</td>
-            </tr>
-            <tr>
-              <td>Hallstatt Skywalk funicular (Mon Jul 27)</td>
-              <td class="num">20</td>
-              <td class="num">40</td>
-              <td>Round trip</td>
-            </tr>
-            <tr>
-              <td>Schafbergbahn cog railway (Wed Jul 29)</td>
-              <td class="num">46</td>
-              <td class="num">92</td>
-              <td>Sunset slot — BOOK AHEAD, sells out July</td>
-            </tr>
-            <tr>
-              <td>Eisriesenwelt ice cave + cable car (Thu Jul 30)</td>
-              <td class="num">42</td>
-              <td class="num">84</td>
-              <td>Combo ticket</td>
-            </tr>
-            <tr>
-              <td>Vorderer Gosausee parking + walk (Sun Jul 26)</td>
-              <td class="num">0</td>
-              <td class="num">0</td>
-              <td>Free</td>
-            </tr>
-            <tr>
-              <td>Wolfgangsee swim + ferry (Wed Jul 29 alt)</td>
-              <td class="num">7</td>
-              <td class="num">14</td>
-              <td>Strandbad entry; ferry separate if used</td>
-            </tr>
-            <tr class="total">
-              <td>Activities total</td>
-              <td class="num">—</td>
-              <td class="num">364</td>
-              <td>₪1,445</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <details class="cost-section">
+        <summary>Activity entry fees — real ticket prices</summary>
+        <div class="cost-section-body">
+          <table class="costs">
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th class="num">€ pp</th>
+                <th class="num">€ total (2)</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Königssee boat to Salet (Tue Jul 28)</td>
+                <td class="num">24</td>
+                <td class="num">48</td>
+                <td>Round trip to Obersee</td>
+              </tr>
+              <tr>
+                <td>Dachstein Krippenstein + 5fingers (Mon Jul 27)</td>
+                <td class="num">43</td>
+                <td class="num">86</td>
+                <td>Both gondolas + summit</td>
+              </tr>
+              <tr>
+                <td>Hallstatt Skywalk funicular (Mon Jul 27)</td>
+                <td class="num">20</td>
+                <td class="num">40</td>
+                <td>Round trip</td>
+              </tr>
+              <tr>
+                <td>Schafbergbahn cog railway (Wed Jul 29)</td>
+                <td class="num">46</td>
+                <td class="num">92</td>
+                <td>Sunset slot — BOOK AHEAD</td>
+              </tr>
+              <tr>
+                <td>Eisriesenwelt ice cave (Thu Jul 30)</td>
+                <td class="num">42</td>
+                <td class="num">84</td>
+                <td>Cave + cable car combo</td>
+              </tr>
+              <tr>
+                <td>Vorderer Gosausee (Sun Jul 26)</td>
+                <td class="num">0</td>
+                <td class="num">0</td>
+                <td>Free</td>
+              </tr>
+              <tr>
+                <td>Wolfgangsee swim (Wed Jul 29 alt)</td>
+                <td class="num">7</td>
+                <td class="num">14</td>
+                <td>Strandbad entry</td>
+              </tr>
+              <tr class="total">
+                <td>Activities total</td>
+                <td class="num">—</td>
+                <td class="num">364</td>
+                <td>₪1,445</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
 
-      <section class="section">
-        <h2>Food, gas, parking, buffer</h2>
-        <table class="costs">
-          <thead>
-            <tr><th>Category</th><th class="num">€</th><th class="num">₪</th><th>Note</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Groceries + Spar runs (7 days, 2 ppl)</td>
-              <td class="num">200</td>
-              <td class="num">794</td>
-              <td>Montenegro actual was €67/wk; Austria a bit pricier</td>
-            </tr>
-            <tr>
-              <td>Chabad Shabbat meals (Friday dinner + Sat lunch, 2 ppl)</td>
-              <td class="num">130</td>
-              <td class="num">516</td>
-              <td>Suggested donation, similar to Budva Duckley</td>
-            </tr>
-            <tr>
-              <td>Coffees / ice cream / café stops</td>
-              <td class="num">90</td>
-              <td class="num">357</td>
-              <td>Bad Ischl Zauner, Krippenstein lodge, lakefront cafés</td>
-            </tr>
-            <tr>
-              <td>Gas (~600 km @ €1.65/L · 6L/100km)</td>
-              <td class="num">60</td>
-              <td class="num">238</td>
-              <td>Salzburg ↔ Hallstatt + Königssee + Wolfgangsee + Werfen</td>
-            </tr>
-            <tr>
-              <td>Parking (Königssee €5, Hallstatt P1 €15/day Mon, mountain lots €3-5)</td>
-              <td class="num">40</td>
-              <td class="num">159</td>
-              <td>Cash buffer</td>
-            </tr>
-            <tr>
-              <td>Buffer for the inevitable (~25%)</td>
-              <td class="num">499</td>
-              <td class="num">1,982</td>
-              <td>The Häagen-Dazs / kayak-deposit / "we want one more thing" line</td>
-            </tr>
-            <tr class="total">
-              <td>Misc total</td>
-              <td class="num">1,019</td>
-              <td class="num">4,046</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <details class="cost-section">
+        <summary>Food, gas, parking, buffer</summary>
+        <div class="cost-section-body">
+          <table class="costs">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th class="num">€</th>
+                <th class="num">₪</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Groceries + Spar runs (7 days, 2 ppl)</td>
+                <td class="num">200</td>
+                <td class="num">794</td>
+                <td>Montenegro was €67/wk; Austria pricier</td>
+              </tr>
+              <tr>
+                <td>Chabad Shabbat meals (Fri dinner + Sat lunch)</td>
+                <td class="num">130</td>
+                <td class="num">516</td>
+                <td>Suggested donation</td>
+              </tr>
+              <tr>
+                <td>Coffees / ice cream / cafés</td>
+                <td class="num">90</td>
+                <td class="num">357</td>
+                <td>Bad Ischl, mountain lodges, lakefront</td>
+              </tr>
+              <tr>
+                <td>Gas (~600 km @ €1.65/L)</td>
+                <td class="num">60</td>
+                <td class="num">238</td>
+                <td>Salzburg ↔ Hallstatt + day trips</td>
+              </tr>
+              <tr>
+                <td>Parking (Königssee, Hallstatt P1, mountain lots)</td>
+                <td class="num">40</td>
+                <td class="num">159</td>
+                <td>Cash buffer</td>
+              </tr>
+              <tr>
+                <td>Inevitable-buffer (~25%)</td>
+                <td class="num">499</td>
+                <td class="num">1,982</td>
+                <td>The "one more thing" line</td>
+              </tr>
+              <tr class="total">
+                <td>Misc total</td>
+                <td class="num">1,019</td>
+                <td class="num">4,046</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
 
-      <section class="section">
-        <h2>Grand total</h2>
-        <table class="costs">
-          <thead>
-            <tr><th>Line</th><th class="num">€</th><th class="num">₪</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Lodging</td><td class="num">1,027</td><td class="num">4,077</td></tr>
-            <tr><td>Activities</td><td class="num">364</td><td class="num">1,445</td></tr>
-            <tr><td>Food + gas + parking + buffer</td><td class="num">1,019</td><td class="num">4,046</td></tr>
-            <tr class="total">
-              <td>TOTAL (projected, 2 ppl, 7 nights)</td>
-              <td class="num"><span data-bind="total-eur"></span></td>
-              <td class="num"><span data-bind="total-nis"></span></td>
-            </tr>
-            <tr>
-              <td>Against ceiling</td>
-              <td class="num"><span data-bind="ceiling"></span></td>
-              <td class="num">₪11,000</td>
-            </tr>
-            <tr>
-              <td>Headroom</td>
-              <td class="num">~390</td>
-              <td class="num">~1,549</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="section">
-        <h2>Not in these numbers</h2>
-        <ul style="margin-left:1.4rem; line-height:1.7;">
-          <li>Flight (separate El Al-style budget)</li>
-          <li>Rental car (Allison will price separately — Montenegro Yaris was €50/day)</li>
-          <li>Duty-free, gifts, anything bought on impulse on day 6</li>
-          <li>Splitwise settlement at trip end — we don't track who paid what here, that's the Splitwise ledger's job</li>
-        </ul>
+      <section class="section" style="margin-top: 3rem">
+        <div class="callout">
+          <h3>Not in these numbers</h3>
+          <ul>
+            <li><strong>Flight</strong> — separate El Al budget</li>
+            <li>
+              <strong>Rental car</strong> — see the Logistics page (Montenegro Yaris was €50/day)
+            </li>
+            <li><strong>Duty-free / impulse buys</strong> — what they are, when they happen</li>
+            <li><strong>Splitwise settlement</strong> — that ledger lives elsewhere</li>
+          </ul>
+        </div>
       </section>
     </main>
 
-    <footer>EUR/NIS at ₪3.97 · Booking prices verified live 2026-05-15</footer>
+    <footer>EUR/NIS at ₪3.97 · Booking.com prices verified live 2026-05-15</footer>
 
     <script type="module" src="/src/page-costs.ts"></script>
   </body>

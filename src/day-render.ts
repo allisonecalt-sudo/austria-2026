@@ -1,17 +1,10 @@
-// Render a single Day card. v3.1 layout (2026-05-15 evening):
-// Thinner shape — no hour-by-hour blocks.
+// Day card render — v4 digestibility pass (2026-05-16).
+// Goal: glanceable collapsed state, paragraph + plan B + anchors live behind tap.
 //
-//   hero photo (with sunset badge floating top-right)
-//   day label + serif title
-//   "The plan" — one general-idea paragraph
-//   anchors list (short, named times only)
-//   meta chips (drive / sleep)
-//   Plan B — collapsed <details> one-liner
-//   Distinctive sunset block at the end (gold tint)
+// Collapsed (default): hero photo with title overlay + sunset badge + expand chevron.
+// Expanded: photo + "Default" paragraph + "Easier day" alternate + anchors + meta chips.
 //
-// Per Allison 2026-05-15 18:45: "we dont need every day fully plan mor elike
-// gernal idea and opiton". Drop minute-by-minute scheduling; keep the spine
-// + a one-line alternate.
+// First card opens by default so Avital sees the pattern.
 
 import type { Day, DayAnchor } from './trip-data.js';
 
@@ -41,80 +34,99 @@ function renderAnchors(anchors: DayAnchor[]): string {
     </div>`;
 }
 
-function renderPlanBLine(planB: string | undefined): string {
+function renderPlanB(planB: string | undefined): string {
   if (!planB) return '';
   return `
-    <details class="planb-toggle">
-      <summary><span class="planb-badge">Plan B</span> <span class="planb-hint">if the day asks for less</span></summary>
-      <p class="planb-body">${escapeHtml(planB)}</p>
-    </details>`;
+    <div class="planb-inline">
+      <div class="planb-label">Easier day — if we don't have the energy</div>
+      <p class="planb-text">${escapeHtml(planB)}</p>
+    </div>`;
 }
 
-function renderDriveChip(day: Day): string {
-  const parts: string[] = [];
-  if (day.driveFrom) {
-    parts.push(
-      `<a href="${escapeHtml(day.driveFrom.mapsUrl)}" target="_blank" rel="noreferrer noopener">from ${escapeHtml(day.driveFrom.place)} · ${day.driveFrom.minutes} min</a>`,
-    );
-  }
-  if (day.driveTo) {
-    parts.push(
-      `<a href="${escapeHtml(day.driveTo.mapsUrl)}" target="_blank" rel="noreferrer noopener">to ${escapeHtml(day.driveTo.place)} · ${day.driveTo.minutes} min</a>`,
-    );
-  }
-  if (!parts.length) {
-    return `<span class="chip"><strong>Drive</strong> none</span>`;
-  }
-  return `<span class="chip"><strong>Drive</strong> ${parts.join(' · ')}</span>`;
-}
-
-function renderSleepChip(day: Day): string {
-  const map: Record<string, string> = {
+function renderMetaChips(day: Day): string {
+  const chips: string[] = [];
+  const sleepLabel: Record<string, string> = {
     salzburg: 'Salzburg (Linzergasse)',
     hallstatt: 'Obertraun (Hallstatt area)',
     airport: 'Salzburg airport-side',
   };
-  const where = map[day.sleepWhere] ?? day.sleepWhere;
-  return `<span class="chip"><strong>Sleep</strong> ${escapeHtml(where)}</span>`;
+  const where = sleepLabel[day.sleepWhere] ?? day.sleepWhere;
+
+  const driveParts: string[] = [];
+  if (day.driveFrom) {
+    driveParts.push(
+      `<a href="${escapeHtml(day.driveFrom.mapsUrl)}" target="_blank" rel="noreferrer noopener">from ${escapeHtml(day.driveFrom.place)} · ${day.driveFrom.minutes} min</a>`,
+    );
+  }
+  if (day.driveTo) {
+    driveParts.push(
+      `<a href="${escapeHtml(day.driveTo.mapsUrl)}" target="_blank" rel="noreferrer noopener">to ${escapeHtml(day.driveTo.place)} · ${day.driveTo.minutes} min</a>`,
+    );
+  }
+  if (driveParts.length) {
+    chips.push(
+      `<span class="chip"><span class="chip-icon">🚗</span> ${driveParts.join(' · ')}</span>`,
+    );
+  }
+  chips.push(`<span class="chip"><span class="chip-icon">🛏</span> ${escapeHtml(where)}</span>`);
+
+  return `<div class="day-meta">${chips.join('')}</div>`;
 }
 
-function renderSunsetBlock(day: Day): string {
-  const spotLink = day.sunset.mapsUrl
-    ? `<div class="sunset-place">📍 <a href="${escapeHtml(day.sunset.mapsUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(day.sunset.place)}</a></div>`
-    : `<div class="sunset-place">📍 ${escapeHtml(day.sunset.place)}</div>`;
+function renderSunsetInline(day: Day): string {
+  const link = day.sunset.mapsUrl
+    ? `<a href="${escapeHtml(day.sunset.mapsUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(day.sunset.place)}</a>`
+    : escapeHtml(day.sunset.place);
   return `
-    <div class="sunset-block">
-      <div class="sunset-label">☀ Sunset · ${escapeHtml(day.sunset.time)}</div>
-      <div class="sunset-spot">${escapeHtml(day.sunset.place)}</div>
-      ${spotLink}
+    <div class="sunset-inline">
+      <span class="sunset-inline-label">☀ Sunset · ${escapeHtml(day.sunset.time)}</span>
+      <span class="sunset-inline-spot">${link}</span>
     </div>`;
 }
 
 export function renderDayCard(day: Day, index: number): string {
-  const peakBadge = day.tarabridgeMoment
-    ? `<div class="day-hero-badge peak" title="Peak moment">⭐ Tara-Bridge moment</div>`
-    : `<div class="day-hero-badge">☀ Sunset ${escapeHtml(day.sunset.time)}</div>`;
+  const isPeak = !!day.tarabridgeMoment;
+  const startOpen = index === 0;
+  const openAttr = startOpen ? ' open' : '';
+
+  const peakBadge = isPeak
+    ? `<span class="day-pin peak" title="Peak moment of the trip">⭐ Peak moment</span>`
+    : '';
 
   return `
-  <article class="day" id="${escapeHtml(day.id)}">
-    <div class="day-hero">
-      <img loading="lazy" decoding="async" src="${escapeHtml(day.hero.src)}" alt="${escapeHtml(day.hero.alt)}" />
-      ${peakBadge}
-    </div>
-    <header class="day-header">
-      <div class="day-label">Day ${index + 1} · ${escapeHtml(day.dateLabel)}</div>
-      <h2 class="day-title">${escapeHtml(day.headline)}</h2>
-    </header>
-    <div class="day-body">
-      <p class="day-idea">${escapeHtml(day.generalIdea)}</p>
-      ${renderAnchors(day.anchors)}
-      <div class="day-meta">
-        ${renderDriveChip(day)}
-        ${renderSleepChip(day)}
+  <article class="day${isPeak ? ' day--peak' : ''}" id="${escapeHtml(day.id)}">
+    <details class="day-disclose"${openAttr}>
+      <summary class="day-summary-target" aria-label="Toggle ${escapeHtml(day.dateLabel)} details">
+        <div class="day-hero">
+          <img loading="lazy" decoding="async" src="${escapeHtml(day.hero.src)}" alt="${escapeHtml(day.hero.alt)}" />
+          <div class="day-hero-overlay">
+            <div class="day-hero-top">
+              <span class="day-hero-eyebrow">Day ${index + 1} · ${escapeHtml(day.dateLabel)}</span>
+              ${peakBadge}
+            </div>
+            <h2 class="day-hero-title">${escapeHtml(day.headline)}</h2>
+            <div class="day-hero-bottom">
+              <span class="day-hero-sunset">☀ Sunset ${escapeHtml(day.sunset.time)}</span>
+              <span class="day-hero-chevron" aria-hidden="true">
+                <span class="chev-open">Tap for the plan</span>
+                <span class="chev-close">Hide</span>
+                <svg class="chev-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </summary>
+      <div class="day-body">
+        <div class="day-block">
+          <div class="day-block-label">Default</div>
+          <p class="day-idea">${escapeHtml(day.generalIdea)}</p>
+        </div>
+        ${renderPlanB(day.planB)}
+        ${renderAnchors(day.anchors)}
+        ${renderSunsetInline(day)}
+        ${renderMetaChips(day)}
       </div>
-      ${renderPlanBLine(day.planB)}
-    </div>
-    ${renderSunsetBlock(day)}
+    </details>
   </article>`;
 }
 
@@ -128,4 +140,21 @@ export function attachImageLoadHandlers(root: HTMLElement): void {
       img.addEventListener('error', () => img.classList.add('loaded'));
     }
   });
+}
+
+export function attachExpandAllControls(): void {
+  const expandBtn = document.querySelector<HTMLButtonElement>('#expand-all');
+  const collapseBtn = document.querySelector<HTMLButtonElement>('#collapse-all');
+  const all = (): NodeListOf<HTMLDetailsElement> =>
+    document.querySelectorAll<HTMLDetailsElement>('.day-disclose');
+  if (expandBtn) {
+    expandBtn.addEventListener('click', () => {
+      all().forEach((d) => (d.open = true));
+    });
+  }
+  if (collapseBtn) {
+    collapseBtn.addEventListener('click', () => {
+      all().forEach((d) => (d.open = false));
+    });
+  }
 }

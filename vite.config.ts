@@ -20,6 +20,7 @@ export default defineConfig(({ command }) => ({
         notes: resolve(__dirname, 'notes.html'),
         map: resolve(__dirname, 'map.html'),
         natureDestinations: resolve(__dirname, 'nature-destinations.html'),
+        logistics: resolve(__dirname, 'logistics.html'),
       },
     },
   },
