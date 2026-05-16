@@ -50,8 +50,8 @@
       <p class="lead-block">
         Every pin from the trip on one bird's-eye map — 13 nature destinations, 22+ lodging picks
         across the 4 bases (Salzburg · mountain anchor · Schafbergspitze summit · airport), Chabad
-        Salzburg, the airport, and Jewish sights. Color-coded by region, clustered when zoomed
-        out, click any pin for details + link to its full page. The Schafbergspitze pin (gold-star
+        Salzburg, the airport, and Jewish sights. Color-coded by region, clustered when zoomed out,
+        click any pin for details + link to its full page. The Schafbergspitze pin (gold-star
         summit) marks the locked Wed-night base.
       </p>
       <p
@@ -69,14 +69,138 @@
         map) to fly to Linzergasse 76 and open its details. The pin pulses gold-on-navy so it stays
         unmissable at any zoom.
       </p>
+      <p class="lead-block lead-block--map-hint">
+        <strong>New:</strong> filter chips above the map · open <strong>List view</strong> to search
+        every pin · toggle <strong>Show 7-day route</strong> to see the trip shape · shift-click two
+        list rows to draw a distance line between them.
+      </p>
 
       <section class="section" style="border: none; padding-top: 0">
-        <div
-          id="map"
-          class="leaflet-map"
-          role="application"
-          aria-label="Austria 2026 trip map"
-        ></div>
+        <!-- Filter chip strip — replaces cramped default Leaflet layers control. -->
+        <div class="map-toolbar" id="map-toolbar" aria-label="Map filters">
+          <div class="map-toolbar-group" role="group" aria-label="Pin layers">
+            <span class="map-toolbar-label">Layers</span>
+            <button
+              type="button"
+              class="map-chip"
+              role="switch"
+              aria-pressed="true"
+              data-layer="nature"
+            >
+              <span class="map-chip-dot map-chip-dot--nature"></span>Nature
+            </button>
+            <button
+              type="button"
+              class="map-chip"
+              role="switch"
+              aria-pressed="true"
+              data-layer="lodging"
+            >
+              <span class="map-chip-dot map-chip-dot--lodging"></span>Lodging
+            </button>
+            <button
+              type="button"
+              class="map-chip"
+              role="switch"
+              aria-pressed="true"
+              data-layer="other"
+            >
+              <span class="map-chip-dot map-chip-dot--other"></span>Airport · Chabad · Jewish
+            </button>
+          </div>
+          <div class="map-toolbar-group" role="group" aria-label="Region filter (nature only)">
+            <span class="map-toolbar-label">Region</span>
+            <button
+              type="button"
+              class="map-chip map-chip--region"
+              role="switch"
+              aria-pressed="true"
+              data-region="salzkammergut"
+            >
+              <span class="map-chip-dot map-chip-dot--salzkammergut"></span>Salzkammergut
+            </button>
+            <button
+              type="button"
+              class="map-chip map-chip--region"
+              role="switch"
+              aria-pressed="true"
+              data-region="berchtesgaden"
+            >
+              <span class="map-chip-dot map-chip-dot--berchtesgaden"></span>Berchtesgaden
+            </button>
+            <button
+              type="button"
+              class="map-chip map-chip--region"
+              role="switch"
+              aria-pressed="true"
+              data-region="hohe-tauern"
+            >
+              <span class="map-chip-dot map-chip-dot--hohe-tauern"></span>Hohe Tauern
+            </button>
+          </div>
+          <div class="map-toolbar-group" role="group" aria-label="Route overlays">
+            <span class="map-toolbar-label">Route</span>
+            <button
+              type="button"
+              class="map-chip map-chip--toggle"
+              role="switch"
+              aria-pressed="false"
+              data-toggle="day-route"
+            >
+              <span aria-hidden="true">⟶</span> Show 7-day route
+            </button>
+            <button
+              type="button"
+              class="map-chip map-chip--list-mobile"
+              data-toggle="sidebar"
+              aria-expanded="false"
+              aria-controls="map-sidebar"
+            >
+              <span aria-hidden="true">☰</span> List view
+            </button>
+          </div>
+        </div>
+
+        <!-- Map + sidebar shell. Sidebar sits beside the map on desktop
+             (≥900px), slides over as a drawer on mobile (<900px). -->
+        <div class="map-shell">
+          <div
+            id="map"
+            class="leaflet-map"
+            role="application"
+            aria-label="Austria 2026 trip map"
+          ></div>
+          <aside
+            id="map-sidebar"
+            class="map-sidebar"
+            aria-label="All pins on the map (filterable list)"
+          >
+            <div class="map-sidebar-head">
+              <h2 class="map-sidebar-title">All pins</h2>
+              <button
+                type="button"
+                class="map-sidebar-close"
+                aria-label="Close pin list"
+                data-close="sidebar"
+              >
+                ✕
+              </button>
+            </div>
+            <label class="map-sidebar-search">
+              <span class="visually-hidden">Search pins by name</span>
+              <input
+                type="search"
+                id="map-sidebar-search"
+                placeholder="Search pins…"
+                autocomplete="off"
+              />
+            </label>
+            <p class="map-sidebar-hint">
+              Click a row to fly to its pin · Shift-click two rows to draw the line between them
+            </p>
+            <div id="map-sidebar-list" class="map-sidebar-list" aria-live="polite">Loading…</div>
+          </aside>
+        </div>
         <p class="map-stats" id="map-stats" aria-live="polite">Loading map…</p>
       </section>
 

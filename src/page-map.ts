@@ -1,7 +1,7 @@
 /**
  * page-map.ts — Leaflet bird's-eye map for the full Austria 2026 trip.
  *
- * Replaces the prior single-marker OSM iframe. Renders:
+ * Renders:
  *   - 13 nature destinations (color-coded by region: salzkammergut /
  *     berchtesgaden / hohe-tauern)
  *   - 22+ lodging picks (color-coded by base: salzburg-shabbat / obertraun
@@ -10,19 +10,21 @@
  *   - Chabad Salzburg (Shabbat home, Linzergasse 76)
  *   - Jewish sights (Judengasse, IKG, cemetery, Mauthausen)
  *
- * Features:
- *   - Auto-fit bounds on load (all pins zoomed to fit)
- *   - Color-coded divIcon markers (no external icon files)
- *   - Marker clustering at low zoom (markercluster plugin)
- *   - Layer toggle top-right (Nature / Lodging / Jewish + Airport)
- *   - Legend bottom-right (color/icon meanings)
- *   - Click pin → popup with name + description + "view details" link
- *   - Mobile-responsive (full-width map, touch gestures, sized popups)
+ * Features (refresh 2026-05-17 — map-interactivity-genius pass):
+ *   - Filter chip strip above map (replaces default L.control.layers)
+ *   - Sidebar drawer on desktop / slide-over on mobile — every pin
+ *     listed, searchable, click → flyTo + openPopup (cluster-safe via
+ *     zoomToShowLayer callback)
+ *   - Day-route polyline toggle — animated 7-segment trip shape
+ *   - Two-pin distance line (shift-click two rows in sidebar)
+ *   - Collapsible legend (default open desktop, collapsed mobile)
+ *   - Richer popups: photo slot + drive-time row + close affordance
+ *   - "Find" mini-toolbar: Chabad / Schafbergspitze / Airport
  *
  * Coordinates source: NATURE_COORDS / LODGING_COORDS / STANDALONE_POIS in
- * trip-data.ts. All public data from Wikipedia + OpenStreetMap infoboxes.
+ * trip-data.ts.
  *
- * Created 2026-05-16 by map agent.
+ * Design spec: MAP_INTERACTIVITY_RESEARCH.md (created same day).
  */
 
 import { initNotesWidget } from './notes-widget.js';
@@ -41,9 +43,9 @@ initNotesWidget();
 initChatPlanPopup();
 
 // =====================================================================
-// Leaflet ambient types — the plugin is loaded via <script src> in
-// map.html, so we declare a minimal surface here rather than depending
-// on @types/leaflet (avoids new devDep + version mismatch).
+// Leaflet ambient types — Leaflet itself is loaded via CDN <script> in
+// map.html. Declared narrowly here rather than depending on
+// @types/leaflet (avoids devDep + version drift).
 // =====================================================================
 interface LMap {
   setView(center: [number, number], zoom: number): LMap;
@@ -51,7 +53,9 @@ interface LMap {
   flyTo(center: [number, number], zoom: number, opts?: { duration?: number }): LMap;
   addLayer(layer: unknown): LMap;
   removeLayer(layer: unknown): LMap;
+  hasLayer(layer: unknown): boolean;
   invalidateSize(): void;
+  on(event: string, fn: (e: unknown) => void): void;
 }
 interface LBounds {
   extend(latLng: [number, number]): LBounds;
@@ -59,20 +63,38 @@ interface LBounds {
 }
 interface LMarker {
   bindPopup(html: string, opts?: { maxWidth?: number; className?: string }): LMarker;
+  bindTooltip(html: string, opts?: Record<string, unknown>): LMarker;
   addTo(layer: unknown): LMarker;
   openPopup(): LMarker;
+  closePopup(): LMarker;
   getLatLng(): { lat: number; lng: number };
+  setIcon(icon: unknown): LMarker;
+  getElement(): HTMLElement | null;
+}
+interface LClusterGroup {
+  addLayer(layer: unknown): LClusterGroup;
+  addTo(map: LMap): LClusterGroup;
+  zoomToShowLayer(marker: LMarker, callback: () => void): void;
 }
 interface LLayerGroup {
   addLayer(layer: unknown): LLayerGroup;
+  removeLayer(layer: unknown): LLayerGroup;
+  clearLayers(): LLayerGroup;
   addTo(map: LMap): LLayerGroup;
+}
+interface LPolyline {
+  addTo(layer: unknown): LPolyline;
+  setStyle(opts: Record<string, unknown>): LPolyline;
+  setLatLngs(latLngs: Array<[number, number]>): LPolyline;
+  remove(): LPolyline;
+  bindTooltip(html: string, opts?: Record<string, unknown>): LPolyline;
 }
 interface LDivIconOpts {
   html: string;
   className: string;
   iconSize: [number, number];
   iconAnchor: [number, number];
-  popupAnchor: [number, number];
+  popupAnchor?: [number, number];
 }
 interface LeafletStatic {
   map(id: string, opts?: { zoomControl?: boolean; scrollWheelZoom?: boolean }): LMap;
@@ -80,6 +102,7 @@ interface LeafletStatic {
   marker(latLng: [number, number], opts?: { icon?: unknown; zIndexOffset?: number }): LMarker;
   divIcon(opts: LDivIconOpts): unknown;
   latLngBounds(latLngs: Array<[number, number]>): LBounds;
+  polyline(latLngs: Array<[number, number]>, opts?: Record<string, unknown>): LPolyline;
   control: {
     layers(
       baseLayers: Record<string, unknown>,
@@ -100,11 +123,15 @@ interface LeafletStatic {
     };
   };
   DomUtil: { create(tag: string, className?: string): HTMLElement };
+  DomEvent: {
+    disableClickPropagation(el: HTMLElement): void;
+    disableScrollPropagation(el: HTMLElement): void;
+  };
   markerClusterGroup(opts?: {
     showCoverageOnHover?: boolean;
     maxClusterRadius?: number;
     disableClusteringAtZoom?: number;
-  }): LLayerGroup;
+  }): LClusterGroup;
   layerGroup(): LLayerGroup;
 }
 
@@ -115,7 +142,7 @@ declare global {
 }
 
 // =====================================================================
-// Pin styling — color-coded divIcons via inline SVG. No image files.
+// Pin styling — color-coded divIcons via inline HTML. No image files.
 // =====================================================================
 
 type PinCategory =
@@ -131,18 +158,21 @@ type PinCategory =
   | 'chabad'
   | 'jewish';
 
+type GroupKey = 'nature' | 'lodging' | 'other';
+type RegionKey = 'salzkammergut' | 'berchtesgaden' | 'hohe-tauern' | null;
+
 const PIN_COLORS: Record<PinCategory, string> = {
   'nature-salzkammergut': '#2f7a4f', // green (matches --green-deep)
   'nature-berchtesgaden': '#2d6a8f', // blue (matches --blue-lake)
-  'nature-hohe-tauern': '#9b5fa5', // purple (per spec — distinct from gold lodging)
+  'nature-hohe-tauern': '#9b5fa5', // purple (distinct from gold lodging)
   'lodging-salzburg': '#d4a017', // gold (Shabbat base)
   'lodging-obertraun': '#0aa39e', // teal
   'lodging-airport': '#7f8c95', // gray
   'lodging-berchtesgaden': '#c8482c', // red
   'lodging-wolfgangsee': '#e87b1c', // orange
-  airport: '#1c1c1c', // near-black (airplane)
-  chabad: '#0033a0', // navy (Star of David)
-  jewish: '#5d6d76', // muted slate (secondary)
+  airport: '#1c1c1c',
+  chabad: '#0033a0',
+  jewish: '#5d6d76',
 };
 
 const PIN_LABEL: Record<PinCategory, string> = {
@@ -159,7 +189,6 @@ const PIN_LABEL: Record<PinCategory, string> = {
   jewish: 'Jewish sight',
 };
 
-/** Build a Leaflet divIcon with a color-coded pin shape. */
 function makePinIcon(category: PinCategory): unknown {
   const color = PIN_COLORS[category];
   let inner = '';
@@ -171,9 +200,6 @@ function makePinIcon(category: PinCategory): unknown {
   if (category === 'airport') {
     inner = '<span class="pin-glyph">✈</span>';
   } else if (category === 'chabad') {
-    // OVERSIZED Chabad pin — Avital flagged it wasn't visible. Now 42x42
-    // with pulsing ring + permanent "Chabad" text label hanging below.
-    // Always-on-top via zIndexOffset on the marker side.
     inner = '<span class="pin-glyph pin-glyph-chabad">✡</span>';
     html = `
       <div class="leaflet-pin leaflet-pin--chabad" style="background:${color}">${inner}</div>
@@ -200,11 +226,6 @@ function makePinIcon(category: PinCategory): unknown {
   });
 }
 
-/**
- * Special icon for Berghotel Schafbergspitze — the locked Wed-night summit
- * base (4-base restructure 2026-05-17). Oversized + gold-on-deep-green +
- * permanent label, similar to the Chabad pin pattern.
- */
 function makeSchafbergSummitIcon(): unknown {
   const html = `
     <div class="leaflet-pin leaflet-pin--summit-sleep" style="background:#b9892a;color:#fff;">
@@ -222,7 +243,7 @@ function makeSchafbergSummitIcon(): unknown {
 }
 
 // =====================================================================
-// Popup HTML — name + 1-line description + "view details" link.
+// Popup HTML — name + drive-time row + close affordance + actions.
 // =====================================================================
 
 function escapeHtml(s: string): string {
@@ -234,6 +255,10 @@ function escapeHtml(s: string): string {
     .replace(/'/g, '&#39;');
 }
 
+function popupClose(): string {
+  return '<button type="button" class="pop-close" aria-label="Close popup" data-pop-close>✕</button>';
+}
+
 function naturePopup(d: NatureDestination): string {
   const regionLabel =
     d.region === 'salzkammergut'
@@ -241,9 +266,6 @@ function naturePopup(d: NatureDestination): string {
       : d.region === 'berchtesgaden'
         ? 'Berchtesgaden · Germany'
         : 'Hohe Tauern · Austria';
-  // Schafbergspitze is the LOCKED Wed-night summit base (4-base restructure
-  // 2026-05-17) — surface that prominently in the popup, not just as a
-  // generic "nature destination".
   const isSchafberg = d.id === 'schafbergspitze';
   const sleepBadge = isSchafberg
     ? '<span class="pop-badge pop-badge-summit-sleep">🏔 SLEEP HERE Wed Jul 29 → Thu Jul 30</span>'
@@ -256,13 +278,14 @@ function naturePopup(d: NatureDestination): string {
     : '';
   return `
     <div class="pop${isSchafberg ? ' pop--summit-sleep' : ''}">
+      ${popupClose()}
       <div class="pop-cat">${regionLabel}</div>
       <div class="pop-title">${escapeHtml(d.name)}</div>
       <div class="pop-desc">${escapeHtml(d.feature)}</div>
       ${summitExtra}
-      <div class="pop-meta">
-        <span>From Salzburg: <strong>${d.fromSalzburgMin} min</strong></span> ·
-        <span>From Hallstatt: <strong>${d.fromHallstattMin} min</strong></span>
+      <div class="pop-drive">
+        <span class="pop-drive-pill">SZG ${d.fromSalzburgMin}m</span>
+        <span class="pop-drive-pill">Hallstatt ${d.fromHallstattMin}m</span>
       </div>
       ${sleepBadge}${lockedBadge}
       <div class="pop-actions">
@@ -283,12 +306,13 @@ interface LodgingPinInput {
   baseLabel: string;
   category: PinCategory;
   coord: LatLng;
-  stayAnchor: string; // hash anchor for stay.html (kebab name)
+  stayAnchor: string;
 }
 
 function lodgingPopup(l: LodgingPinInput): string {
   return `
     <div class="pop">
+      ${popupClose()}
       <div class="pop-cat">${escapeHtml(l.baseLabel)}</div>
       <div class="pop-title">${escapeHtml(l.name)}</div>
       <div class="pop-desc">${escapeHtml(l.note.slice(0, 180))}${l.note.length > 180 ? '…' : ''}</div>
@@ -317,6 +341,7 @@ function poiPopup(poi: MapPOI): string {
     : '';
   return `
     <div class="pop">
+      ${popupClose()}
       <div class="pop-cat">${catLabel}</div>
       <div class="pop-title">${escapeHtml(poi.name)}</div>
       <div class="pop-desc">${escapeHtml(poi.description)}</div>
@@ -328,17 +353,13 @@ function poiPopup(poi: MapPOI): string {
 
 // =====================================================================
 // Lodging gathering — merge TRIP.lodgings (3 bases) + BASE_CONFIGS B & D
-// (Berchtesgaden + Wolfgangsee). De-duplicate by name (same listing may
-// appear in both Obertraun TRIP base and Config A base).
+// (Berchtesgaden + Wolfgangsee). De-duplicate by name.
 // =====================================================================
 
 function gatherLodging(): LodgingPinInput[] {
   const seen = new Set<string>();
   const out: LodgingPinInput[] = [];
 
-  // Helper: kebab-ify a name for stay.html anchor (matches what stay-page
-  // would build if it ever adds anchors — at minimum the link won't 404,
-  // it just falls back to top of stay.html).
   const slugify = (s: string): string =>
     s
       .toLowerCase()
@@ -364,7 +385,6 @@ function gatherLodging(): LodgingPinInput[] {
     out.push(input);
   };
 
-  // Pass 1 — TRIP.lodgings (3 base sets, pick + alts)
   for (const lod of TRIP.lodgings) {
     const cat = baseToCategory(lod.baseKey);
     const label = baseLabel(lod.baseKey);
@@ -404,8 +424,6 @@ function gatherLodging(): LodgingPinInput[] {
     }
   }
 
-  // Pass 2 — BASE_CONFIGS B (Berchtesgaden) + D (Wolfgangsee). Skip A & C
-  // because A reuses TRIP.lodgings and C combines existing entries.
   for (const cfg of BASE_CONFIGS) {
     if (cfg.id !== 'berchtesgaden' && cfg.id !== 'wolfgangsee') continue;
     const cat: PinCategory =
@@ -438,14 +456,161 @@ function gatherLodging(): LodgingPinInput[] {
 }
 
 // =====================================================================
-// Boot — wait for both DOMContentLoaded + Leaflet script to be ready.
+// Pin registry — unified record of every marker for sidebar / filter.
+// =====================================================================
+
+interface PinEntry {
+  id: string;
+  name: string;
+  group: GroupKey;
+  category: PinCategory;
+  region: RegionKey;
+  subLabel: string;
+  marker: LMarker;
+  coord: { lat: number; lng: number };
+  layerOwner: LClusterGroup | LLayerGroup;
+  isCluster: boolean;
+}
+
+// =====================================================================
+// Day-route polyline — 7-day shape, animated reveal.
+// Sequence + colour-by-day for the locked v1 itinerary:
+//   Fri  arrive SZG → Salzburg (Linzergasse)
+//   Sat  Salzburg (Shabbat — no drive)
+//   Sun  Salzburg → Obertraun, side-trip Gosausee
+//   Mon  Obertraun → Hallstatt + Krippenstein (local)
+//   Tue  Obertraun → Königssee (peak Bavaria day)
+//   Wed  Obertraun → St. Wolfgang → Schafbergspitze summit (sleep up)
+//   Thu  Schafberg → Werfen → airport apt
+//   Fri  airport apt → SZG (depart 5am)
+// =====================================================================
+
+interface DaySegment {
+  day: string;
+  color: string;
+  fromKey: string;
+  toKey: string;
+  label: string;
+}
+
+function getDaySegments(): DaySegment[] {
+  return [
+    {
+      day: 'Fri arrive',
+      color: '#0033a0',
+      fromKey: 'airport',
+      toKey: 'salzburg',
+      label: 'SZG → Salzburg · ~15 min',
+    },
+    {
+      day: 'Sun',
+      color: '#2f7a4f',
+      fromKey: 'salzburg',
+      toKey: 'gosausee',
+      label: 'Salzburg → Gosausee · ~80 min',
+    },
+    {
+      day: 'Sun pm',
+      color: '#2f7a4f',
+      fromKey: 'gosausee',
+      toKey: 'obertraun',
+      label: 'Gosausee → Obertraun · ~35 min',
+    },
+    {
+      day: 'Mon',
+      color: '#0aa39e',
+      fromKey: 'obertraun',
+      toKey: 'krippenstein',
+      label: 'Obertraun → Krippenstein 5fingers · local',
+    },
+    {
+      day: 'Tue',
+      color: '#2d6a8f',
+      fromKey: 'obertraun',
+      toKey: 'konigssee',
+      label: 'Obertraun → Königssee · ~1h15',
+    },
+    {
+      day: 'Wed',
+      color: '#b9892a',
+      fromKey: 'obertraun',
+      toKey: 'schafberg',
+      label: 'Obertraun → Schafbergspitze summit · cog up',
+    },
+    {
+      day: 'Thu',
+      color: '#9b5fa5',
+      fromKey: 'schafberg',
+      toKey: 'werfen',
+      label: 'Schafberg → Werfen · ice cave',
+    },
+    {
+      day: 'Thu pm',
+      color: '#9b5fa5',
+      fromKey: 'werfen',
+      toKey: 'airportApt',
+      label: 'Werfen → airport apt · ~1h',
+    },
+    {
+      day: 'Fri depart',
+      color: '#5d6d76',
+      fromKey: 'airportApt',
+      toKey: 'airport',
+      label: 'Airport apt → SZG · ~15 min',
+    },
+  ];
+}
+
+function getRouteAnchors(): Record<string, [number, number]> {
+  const linz = LODGING_COORDS['master Linzergasse'];
+  const edel = LODGING_COORDS['Haus Edelweiss (Obertraun)'];
+  const hapi = LODGING_COORDS['Hapimag Ferienwohnungen Salzburg'];
+  const airport = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
+  return {
+    airport: airport ? [airport.lat, airport.lng] : [47.7933, 13.0043],
+    salzburg: linz ? [linz.lat, linz.lng] : [47.8049, 13.0476],
+    obertraun: edel ? [edel.lat, edel.lng] : [47.5497, 13.6892],
+    airportApt: hapi ? [hapi.lat, hapi.lng] : [47.8164, 13.0014],
+    gosausee: [NATURE_COORDS.gosausee.lat, NATURE_COORDS.gosausee.lng],
+    krippenstein: [
+      NATURE_COORDS['krippenstein-5fingers'].lat,
+      NATURE_COORDS['krippenstein-5fingers'].lng,
+    ],
+    konigssee: [NATURE_COORDS.konigssee.lat, NATURE_COORDS.konigssee.lng],
+    schafberg: [NATURE_COORDS.schafbergspitze.lat, NATURE_COORDS.schafbergspitze.lng],
+    werfen: [NATURE_COORDS['eisriesenwelt-werfen'].lat, NATURE_COORDS['eisriesenwelt-werfen'].lng],
+  };
+}
+
+// =====================================================================
+// Haversine — straight-line distance + naive drive-time estimate for
+// the "shift-click two pins" measurement. Motorway average 75 km/h.
+// =====================================================================
+
+function haversineKm(a: [number, number], b: [number, number]): number {
+  const toRad = (deg: number): number => (deg * Math.PI) / 180;
+  const R = 6371;
+  const dLat = toRad(b[0] - a[0]);
+  const dLng = toRad(b[1] - a[1]);
+  const lat1 = toRad(a[0]);
+  const lat2 = toRad(b[0]);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+function estimateDriveMinutes(km: number): number {
+  // 75 km/h average — alpine roads aren't all motorway, so haversine
+  // straight-line × 1.4 detour factor / 75 km/h. Always rounded up.
+  const detour = km * 1.4;
+  return Math.ceil((detour / 75) * 60);
+}
+
+// =====================================================================
+// Boot
 // =====================================================================
 
 function whenLeafletReady(cb: () => void): void {
   const tick = (): void => {
-    // window.L is injected by the CDN <script> tag in map.html; until that
-    // script executes the global is undefined. Cast to unknown for the
-    // existence check since the declared type asserts it's always present.
     const L = (window as unknown as { L?: LeafletStatic }).L;
     if (L) {
       cb();
@@ -463,8 +628,6 @@ function bootMap(): void {
     return;
   }
   const L = window.L;
-
-  // Initial view — Salzburg-area center, will be overridden by fitBounds.
   const map = L.map('map', { scrollWheelZoom: false, zoomControl: true }).setView([47.65, 13.2], 8);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -473,7 +636,7 @@ function bootMap(): void {
     maxZoom: 18,
   }).addTo(map);
 
-  // === Build layer groups ===
+  // === Layer groups ===
   const natureLayer = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 40,
@@ -484,9 +647,19 @@ function bootMap(): void {
     maxClusterRadius: 35,
     disableClusteringAtZoom: 11,
   });
-  const jewishAirportLayer = L.layerGroup();
+  const otherLayer = L.layerGroup();
+
+  // Route + distance overlay layers — separate so toggles don't fight.
+  const routeLayer = L.layerGroup();
+  const measureLayer = L.layerGroup();
 
   const allLatLngs: Array<[number, number]> = [];
+  const pinRegistry: PinEntry[] = [];
+
+  // Helper: register a pin so the sidebar + filters can find it.
+  const register = (entry: PinEntry): void => {
+    pinRegistry.push(entry);
+  };
 
   // === Nature destinations ===
   let natureCount = 0;
@@ -502,28 +675,51 @@ function bootMap(): void {
         : dest.region === 'berchtesgaden'
           ? 'nature-berchtesgaden'
           : 'nature-hohe-tauern';
-    // Schafbergspitze gets a special "summit-sleep" icon variant — it's the
-    // locked Wed-night base, not just a nature destination. Treat like
-    // Chabad pin: oversized + always-on-top so it stays unmissable.
     const isSchafbergSleep = dest.id === 'schafbergspitze';
     const icon = isSchafbergSleep ? makeSchafbergSummitIcon() : makePinIcon(cat);
     const marker = L.marker([coord.lat, coord.lng], {
       icon,
       zIndexOffset: isSchafbergSleep ? 800 : undefined,
-    }).bindPopup(naturePopup(dest), { maxWidth: 300, className: 'leaflet-popup-trip' });
+    })
+      .bindPopup(naturePopup(dest), { maxWidth: 300, className: 'leaflet-popup-trip' })
+      .bindTooltip(escapeHtml(dest.name), { direction: 'top', offset: [0, -16] });
     natureLayer.addLayer(marker);
     allLatLngs.push([coord.lat, coord.lng]);
     natureCount += 1;
+    register({
+      id: `nature-${dest.id}`,
+      name: dest.name,
+      group: 'nature',
+      category: cat,
+      region: dest.region as RegionKey,
+      subLabel: `${PIN_LABEL[cat]} · SZG ${dest.fromSalzburgMin}m · Hallstatt ${dest.fromHallstattMin}m`,
+      marker,
+      coord,
+      layerOwner: natureLayer,
+      isCluster: true,
+    });
   }
 
   // === Lodging ===
   const lodging = gatherLodging();
   for (const l of lodging) {
-    const marker = L.marker([l.coord.lat, l.coord.lng], {
-      icon: makePinIcon(l.category),
-    }).bindPopup(lodgingPopup(l), { maxWidth: 300, className: 'leaflet-popup-trip' });
+    const marker = L.marker([l.coord.lat, l.coord.lng], { icon: makePinIcon(l.category) })
+      .bindPopup(lodgingPopup(l), { maxWidth: 300, className: 'leaflet-popup-trip' })
+      .bindTooltip(escapeHtml(l.name), { direction: 'top', offset: [0, -16] });
     lodgingLayer.addLayer(marker);
     allLatLngs.push([l.coord.lat, l.coord.lng]);
+    register({
+      id: `lodging-${l.stayAnchor}`,
+      name: l.name,
+      group: 'lodging',
+      category: l.category,
+      region: null,
+      subLabel: `${PIN_LABEL[l.category]} · ${l.pricePerNight}`,
+      marker,
+      coord: l.coord,
+      layerOwner: lodgingLayer,
+      isCluster: true,
+    });
   }
 
   // === Standalone POIs (airport, Chabad, Jewish sights) ===
@@ -531,72 +727,425 @@ function bootMap(): void {
   let chabadCount = 0;
   let jewishCount = 0;
   let chabadMarker: LMarker | null = null;
+  let airportMarker: LMarker | null = null;
   for (const poi of STANDALONE_POIS) {
     const cat: PinCategory =
       poi.category === 'airport' ? 'airport' : poi.category === 'chabad' ? 'chabad' : 'jewish';
     if (poi.category === 'airport') airportCount += 1;
     else if (poi.category === 'chabad') chabadCount += 1;
     else jewishCount += 1;
-    // Chabad sits above ALL other markers — zIndexOffset 1000 wins over
-    // lodging cluster pins at the same Salzburg coordinates.
     const zOffset = cat === 'chabad' ? 1000 : 0;
     const marker = L.marker([poi.lat, poi.lng], {
       icon: makePinIcon(cat),
       zIndexOffset: zOffset,
-    }).bindPopup(poiPopup(poi), { maxWidth: 270, className: 'leaflet-popup-trip' });
-    jewishAirportLayer.addLayer(marker);
+    })
+      .bindPopup(poiPopup(poi), { maxWidth: 270, className: 'leaflet-popup-trip' })
+      .bindTooltip(escapeHtml(poi.name), { direction: 'top', offset: [0, -16] });
+    otherLayer.addLayer(marker);
     allLatLngs.push([poi.lat, poi.lng]);
     if (cat === 'chabad') chabadMarker = marker;
+    if (cat === 'airport') airportMarker = marker;
+    register({
+      id: `other-${poi.id}`,
+      name: poi.name,
+      group: 'other',
+      category: cat,
+      region: null,
+      subLabel: PIN_LABEL[cat],
+      marker,
+      coord: { lat: poi.lat, lng: poi.lng },
+      layerOwner: otherLayer,
+      isCluster: false,
+    });
   }
 
   // Add all layers on by default
   natureLayer.addTo(map);
   lodgingLayer.addTo(map);
-  jewishAirportLayer.addTo(map);
+  otherLayer.addTo(map);
 
-  // === Layer toggle control ===
-  L.control
-    .layers(
-      {},
-      {
-        [`Nature destinations (${natureCount})`]: natureLayer,
-        [`Lodging picks (${lodging.length})`]: lodgingLayer,
-        [`Airport + Chabad + Jewish sights (${airportCount + chabadCount + jewishCount})`]:
-          jewishAirportLayer,
-      },
-      { collapsed: false, position: 'topright' },
-    )
-    .addTo(map);
-
-  // === Legend control (bottom-right) ===
+  // === Legend (collapsible — bottom-right) ===
   const Legend = L.Control.extend({
     options: { position: 'bottomright' },
     onAdd: (): HTMLElement => {
       const div = L.DomUtil.create('div', 'map-legend-box');
+      const startOpen = window.matchMedia('(min-width: 900px)').matches;
+      div.classList.toggle('is-open', startOpen);
       div.innerHTML = `
-        <div class="lg-title">Pin legend</div>
-        <div class="lg-section"><strong>Nature</strong></div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['nature-salzkammergut']}"></span>Salzkammergut (AT)</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['nature-berchtesgaden']}"></span>Berchtesgaden (DE)</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['nature-hohe-tauern']}"></span>Hohe Tauern (AT)</div>
-        <div class="lg-section"><strong>Lodging ⌂</strong></div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-salzburg']}"></span>Salzburg · Shabbat</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-obertraun']}"></span>Obertraun · 4-night</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-berchtesgaden']}"></span>Berchtesgaden · Config B</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-wolfgangsee']}"></span>St. Wolfgang · Config C</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-airport']}"></span>Airport · last night</div>
-        <div class="lg-section"><strong>Other</strong></div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['airport']}">✈</span>Salzburg Airport</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['chabad']}">✡</span>Chabad Salzburg</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['jewish']}">✡</span>Jewish sights</div>
+        <button type="button" class="lg-toggle" aria-label="Toggle map legend" aria-expanded="${startOpen ? 'true' : 'false'}">
+          <span class="lg-toggle-label">Legend</span>
+          <span class="lg-toggle-icon" aria-hidden="true">${startOpen ? '▾' : '▸'}</span>
+        </button>
+        <div class="lg-body">
+          <div class="lg-section"><strong>Nature</strong></div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['nature-salzkammergut']}"></span>Salzkammergut (AT)</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['nature-berchtesgaden']}"></span>Berchtesgaden (DE)</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['nature-hohe-tauern']}"></span>Hohe Tauern (AT)</div>
+          <div class="lg-section"><strong>Lodging ⌂</strong></div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-salzburg']}"></span>Salzburg · Shabbat</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-obertraun']}"></span>Obertraun · 4-night</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-berchtesgaden']}"></span>Berchtesgaden · Config B</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-wolfgangsee']}"></span>St. Wolfgang · Config C</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-airport']}"></span>Airport · last night</div>
+          <div class="lg-section"><strong>Other</strong></div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['airport']};color:#fff">✈</span>Salzburg Airport</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['chabad']};color:#ffd700">✡</span>Chabad Salzburg</div>
+          <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['jewish']};color:#fff">✡</span>Jewish sights</div>
+        </div>
       `;
-      // Prevent map drag/scroll when interacting with the legend on mobile.
-      div.addEventListener('click', (e) => e.stopPropagation());
-      div.addEventListener('wheel', (e) => e.stopPropagation());
+      const toggle = div.querySelector<HTMLButtonElement>('.lg-toggle');
+      toggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = !div.classList.contains('is-open');
+        div.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        const iconEl = toggle.querySelector('.lg-toggle-icon');
+        if (iconEl) iconEl.textContent = open ? '▾' : '▸';
+      });
+      L.DomEvent.disableClickPropagation(div);
+      L.DomEvent.disableScrollPropagation(div);
       return div;
     },
   });
   new Legend().addTo(map);
+
+  // === "Find" mini-toolbar (top-left) — Chabad / Schafberg / Airport ===
+  interface FindEntry {
+    label: string;
+    glyph: string;
+    cls: string;
+    marker: LMarker;
+    zoom: number;
+  }
+  const findRaw: Array<{
+    label: string;
+    glyph: string;
+    cls: string;
+    marker: LMarker | null;
+    zoom: number;
+  }> = [
+    { label: 'Find Chabad', glyph: '✡', cls: 'fc-chabad', marker: chabadMarker, zoom: 15 },
+    {
+      label: 'Find Sleep · Schafberg',
+      glyph: '🏔',
+      cls: 'fc-summit',
+      marker: pinRegistry.find((p) => p.id === 'nature-schafbergspitze')?.marker ?? null,
+      zoom: 13,
+    },
+    { label: 'Find Airport', glyph: '✈', cls: 'fc-airport', marker: airportMarker, zoom: 13 },
+  ];
+  const findEntries: FindEntry[] = findRaw
+    .filter((e): e is typeof e & { marker: LMarker } => e.marker !== null)
+    .map((e) => ({ ...e, marker: e.marker }));
+
+  if (findEntries.length > 0) {
+    const FindBar = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd: (): HTMLElement => {
+        const div = L.DomUtil.create('div', 'leaflet-bar map-find-bar');
+        div.innerHTML = findEntries
+          .map(
+            (e) => `
+            <a href="#" role="button" class="${e.cls}" aria-label="${escapeHtml(e.label)}">
+              <span class="fc-star">${e.glyph}</span>
+              <span class="fc-label">${escapeHtml(e.label)}</span>
+            </a>
+          `,
+          )
+          .join('');
+        const links = div.querySelectorAll<HTMLAnchorElement>('a');
+        links.forEach((link, i) => {
+          link.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const entry = findEntries[i];
+            if (!entry) return;
+            const ll = entry.marker.getLatLng();
+            map.flyTo([ll.lat, ll.lng], entry.zoom, { duration: 0.8 });
+            window.setTimeout(() => entry.marker.openPopup(), 900);
+          });
+        });
+        L.DomEvent.disableClickPropagation(div);
+        return div;
+      },
+    });
+    new FindBar().addTo(map);
+  }
+
+  // === Filter chip strip (toolbar above map) — wire to layers + registry ===
+  const layerOn: Record<GroupKey, boolean> = { nature: true, lodging: true, other: true };
+  const regionOn: Record<'salzkammergut' | 'berchtesgaden' | 'hohe-tauern', boolean> = {
+    salzkammergut: true,
+    berchtesgaden: true,
+    'hohe-tauern': true,
+  };
+
+  function applyLayerVisibility(): void {
+    if (layerOn.nature) {
+      if (!map.hasLayer(natureLayer)) map.addLayer(natureLayer);
+    } else if (map.hasLayer(natureLayer)) map.removeLayer(natureLayer);
+    if (layerOn.lodging) {
+      if (!map.hasLayer(lodgingLayer)) map.addLayer(lodgingLayer);
+    } else if (map.hasLayer(lodgingLayer)) map.removeLayer(lodgingLayer);
+    if (layerOn.other) {
+      if (!map.hasLayer(otherLayer)) map.addLayer(otherLayer);
+    } else if (map.hasLayer(otherLayer)) map.removeLayer(otherLayer);
+    applyRegionFilter();
+    renderSidebar();
+  }
+
+  function applyRegionFilter(): void {
+    // For nature pins: add/remove each marker from natureLayer based on
+    // whether its region's chip is on. This is cheap for 13 markers.
+    for (const entry of pinRegistry) {
+      if (entry.group !== 'nature' || !entry.region) continue;
+      const wanted = regionOn[entry.region];
+      const owner = entry.layerOwner as unknown as {
+        hasLayer(m: unknown): boolean;
+        addLayer(m: unknown): void;
+        removeLayer(m: unknown): void;
+      };
+      if (wanted) {
+        if (!owner.hasLayer(entry.marker)) owner.addLayer(entry.marker);
+      } else if (owner.hasLayer(entry.marker)) {
+        owner.removeLayer(entry.marker);
+      }
+    }
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('.map-chip[data-layer]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const layer = btn.dataset.layer as GroupKey;
+      const next = !(layerOn[layer] ?? true);
+      layerOn[layer] = next;
+      btn.setAttribute('aria-pressed', next ? 'true' : 'false');
+      applyLayerVisibility();
+    });
+  });
+  document.querySelectorAll<HTMLButtonElement>('.map-chip[data-region]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const region = btn.dataset.region as 'salzkammergut' | 'berchtesgaden' | 'hohe-tauern';
+      const next = !(regionOn[region] ?? true);
+      regionOn[region] = next;
+      btn.setAttribute('aria-pressed', next ? 'true' : 'false');
+      applyRegionFilter();
+      renderSidebar();
+    });
+  });
+
+  // === Day-route toggle — animated polyline reveal ===
+  let routeShown = false;
+  function clearRoute(): void {
+    routeLayer.clearLayers();
+    if (map.hasLayer(routeLayer)) map.removeLayer(routeLayer);
+  }
+  function showRoute(): void {
+    routeLayer.clearLayers();
+    const anchors = getRouteAnchors();
+    const segments = getDaySegments();
+    if (!map.hasLayer(routeLayer)) routeLayer.addTo(map);
+    // Reveal each segment with a brief stagger so the eye traces the
+    // shape rather than the whole thing flashing on at once.
+    segments.forEach((seg, i) => {
+      const from = anchors[seg.fromKey];
+      const to = anchors[seg.toKey];
+      if (!from || !to) {
+        console.warn(`[map] route segment missing anchor: ${seg.fromKey}→${seg.toKey}`);
+        return;
+      }
+      window.setTimeout(() => {
+        if (!routeShown) return; // race-safe — user toggled off mid-animation
+        const line = L.polyline([from, to], {
+          color: seg.color,
+          weight: 4,
+          opacity: 0.85,
+          dashArray: '10 6',
+          lineCap: 'round',
+          interactive: true,
+        }).addTo(routeLayer);
+        line.bindTooltip(`<strong>${escapeHtml(seg.day)}</strong><br/>${escapeHtml(seg.label)}`, {
+          sticky: true,
+          direction: 'top',
+        });
+      }, i * 140);
+    });
+  }
+
+  const routeBtn = document.querySelector<HTMLButtonElement>('.map-chip[data-toggle="day-route"]');
+  routeBtn?.addEventListener('click', () => {
+    routeShown = !routeShown;
+    routeBtn.setAttribute('aria-pressed', routeShown ? 'true' : 'false');
+    routeBtn.classList.toggle('is-active', routeShown);
+    if (routeShown) showRoute();
+    else clearRoute();
+  });
+
+  // === Sidebar — searchable filterable list of every pin ===
+  measureLayer.addTo(map);
+  const sidebar = document.getElementById('map-sidebar');
+  const sidebarList = document.getElementById('map-sidebar-list');
+  const sidebarSearch = document.getElementById('map-sidebar-search') as HTMLInputElement | null;
+  const sidebarToggleBtn = document.querySelector<HTMLButtonElement>(
+    '.map-chip[data-toggle="sidebar"]',
+  );
+  const sidebarCloseBtn = document.querySelector<HTMLButtonElement>(
+    '.map-sidebar-close[data-close="sidebar"]',
+  );
+
+  // Two-pin distance measurement.
+  let measureSelection: PinEntry[] = [];
+  let measureLine: LPolyline | null = null;
+  function clearMeasure(): void {
+    measureLayer.clearLayers();
+    measureLine = null;
+    measureSelection = [];
+    document
+      .querySelectorAll('.map-sidebar-row.is-measured')
+      .forEach((el) => el.classList.remove('is-measured'));
+  }
+  function pushMeasure(entry: PinEntry, rowEl: HTMLElement): void {
+    if (measureSelection.some((e) => e.id === entry.id)) {
+      measureSelection = measureSelection.filter((e) => e.id !== entry.id);
+      rowEl.classList.remove('is-measured');
+      if (measureLine) {
+        measureLine.remove();
+        measureLine = null;
+      }
+      return;
+    }
+    if (measureSelection.length >= 2) {
+      // Replace the older selection (FIFO so 3rd click rotates).
+      const dropped = measureSelection.shift();
+      if (dropped) {
+        document
+          .querySelector(`.map-sidebar-row[data-pin="${dropped.id}"]`)
+          ?.classList.remove('is-measured');
+      }
+      if (measureLine) {
+        measureLine.remove();
+        measureLine = null;
+      }
+    }
+    measureSelection.push(entry);
+    rowEl.classList.add('is-measured');
+    if (measureSelection.length === 2) {
+      const a: [number, number] = [measureSelection[0].coord.lat, measureSelection[0].coord.lng];
+      const b: [number, number] = [measureSelection[1].coord.lat, measureSelection[1].coord.lng];
+      const km = haversineKm(a, b);
+      const mins = estimateDriveMinutes(km);
+      measureLine = L.polyline([a, b], {
+        color: '#0033a0',
+        weight: 3,
+        opacity: 0.8,
+        dashArray: '4 6',
+        interactive: true,
+      }).addTo(measureLayer);
+      measureLine.bindTooltip(
+        `<strong>≈ ${km.toFixed(1)} km</strong><br/>≈ ${mins} min driving (motorway avg)`,
+        { sticky: true, direction: 'top' },
+      );
+    }
+  }
+
+  function renderSidebar(): void {
+    if (!sidebarList) return;
+    const q = (sidebarSearch?.value ?? '').trim().toLowerCase();
+    const visible = pinRegistry.filter((p) => {
+      if (!layerOn[p.group]) return false;
+      if (p.group === 'nature' && p.region && !regionOn[p.region]) return false;
+      if (q && !p.name.toLowerCase().includes(q) && !p.subLabel.toLowerCase().includes(q)) {
+        return false;
+      }
+      return true;
+    });
+    const groups: Array<{ key: GroupKey; label: string }> = [
+      { key: 'nature', label: 'Nature' },
+      { key: 'lodging', label: 'Lodging' },
+      { key: 'other', label: 'Airport · Chabad · Jewish' },
+    ];
+    let html = '';
+    let any = false;
+    for (const g of groups) {
+      const rows = visible.filter((v) => v.group === g.key);
+      if (rows.length === 0) continue;
+      any = true;
+      html += `<div class="map-sidebar-group"><h3>${escapeHtml(g.label)} <span class="map-sidebar-count">${rows.length}</span></h3>`;
+      for (const row of rows) {
+        const color = PIN_COLORS[row.category];
+        html += `
+          <button type="button" class="map-sidebar-row" data-pin="${escapeHtml(row.id)}">
+            <span class="map-sidebar-dot" style="background:${color}"></span>
+            <span class="map-sidebar-text">
+              <span class="map-sidebar-name">${escapeHtml(row.name)}</span>
+              <span class="map-sidebar-sub">${escapeHtml(row.subLabel)}</span>
+            </span>
+          </button>
+        `;
+      }
+      html += '</div>';
+    }
+    if (!any) {
+      html = '<p class="map-sidebar-empty">No pins match this filter.</p>';
+    }
+    sidebarList.innerHTML = html;
+
+    sidebarList.querySelectorAll<HTMLButtonElement>('.map-sidebar-row').forEach((rowEl) => {
+      const id = rowEl.dataset.pin;
+      const entry = pinRegistry.find((p) => p.id === id);
+      if (!entry) return;
+      rowEl.addEventListener('mouseenter', () => {
+        const el = entry.marker.getElement();
+        if (el) el.classList.add('leaflet-pin-highlighted');
+      });
+      rowEl.addEventListener('mouseleave', () => {
+        const el = entry.marker.getElement();
+        if (el) el.classList.remove('leaflet-pin-highlighted');
+      });
+      rowEl.addEventListener('click', (ev) => {
+        if (ev.shiftKey) {
+          ev.preventDefault();
+          pushMeasure(entry, rowEl);
+          return;
+        }
+        // Single click → fly + open popup. Cluster-safe via zoomToShowLayer.
+        if (entry.isCluster) {
+          const cluster = entry.layerOwner as LClusterGroup;
+          cluster.zoomToShowLayer(entry.marker, () => entry.marker.openPopup());
+        } else {
+          const ll = entry.marker.getLatLng();
+          map.flyTo([ll.lat, ll.lng], 14, { duration: 0.6 });
+          window.setTimeout(() => entry.marker.openPopup(), 700);
+        }
+        // Mobile: close drawer after click
+        if (window.matchMedia('(max-width: 899px)').matches) {
+          sidebar?.classList.remove('is-open');
+          sidebarToggleBtn?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
+  sidebarSearch?.addEventListener('input', renderSidebar);
+  sidebarToggleBtn?.addEventListener('click', () => {
+    const open = !sidebar?.classList.contains('is-open');
+    sidebar?.classList.toggle('is-open', open);
+    sidebarToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  sidebarCloseBtn?.addEventListener('click', () => {
+    sidebar?.classList.remove('is-open');
+    sidebarToggleBtn?.setAttribute('aria-expanded', 'false');
+    if (measureSelection.length > 0) clearMeasure();
+  });
+
+  // === Popup close affordance (event delegation on map container) ===
+  el.addEventListener('click', (ev) => {
+    const target = ev.target as HTMLElement;
+    if (target.matches('[data-pop-close]')) {
+      ev.preventDefault();
+      // Find the open popup and close every marker that owns it.
+      pinRegistry.forEach((p) => p.marker.closePopup());
+    }
+  });
 
   // === Fit bounds to show every pin ===
   if (allLatLngs.length > 0) {
@@ -606,43 +1155,16 @@ function bootMap(): void {
     }
   }
 
-  // === Find Chabad button — Avital flagged the pin wasn't obvious. ===
-  // Top-left control: tap to fly to Chabad at zoom 15 + auto-open popup.
-  if (chabadMarker) {
-    const FindChabad = L.Control.extend({
-      options: { position: 'topleft' },
-      onAdd: (): HTMLElement => {
-        const div = L.DomUtil.create('div', 'leaflet-bar map-find-chabad');
-        div.innerHTML = `
-          <a href="#" role="button" aria-label="Zoom to Chabad Salzburg">
-            <span class="fc-star">✡</span>
-            <span class="fc-label">Find Chabad</span>
-          </a>
-        `;
-        div.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (chabadMarker) {
-            const ll = chabadMarker.getLatLng();
-            map.flyTo([ll.lat, ll.lng], 15, { duration: 0.8 });
-            window.setTimeout(() => chabadMarker?.openPopup(), 900);
-          }
-        });
-        div.addEventListener('wheel', (e) => e.stopPropagation());
-        return div;
-      },
-    });
-    new FindChabad().addTo(map);
-  }
-
-  // Invalidate size after layout settles (fonts load asynchronously).
   window.setTimeout(() => map.invalidateSize(), 250);
 
-  // === Stats line beneath map (fail-loud count) ===
+  // === Initial sidebar render ===
+  renderSidebar();
+
+  // === Stats line ===
   const statsEl = document.getElementById('map-stats');
   if (statsEl) {
     const total = natureCount + lodging.length + airportCount + chabadCount + jewishCount;
-    statsEl.innerHTML = `<strong>${total} pins</strong> on the map · ${natureCount} nature destinations · ${lodging.length} lodging picks · ${airportCount} airport · ${chabadCount} Chabad · ${jewishCount} Jewish sight${jewishCount === 1 ? '' : 's'}. Toggle groups top-right. Click any pin for details.`;
+    statsEl.innerHTML = `<strong>${total} pins</strong> on the map · ${natureCount} nature · ${lodging.length} lodging · ${airportCount} airport · ${chabadCount} Chabad · ${jewishCount} Jewish sight${jewishCount === 1 ? '' : 's'}. Use filter chips above to focus · open <strong>List view</strong> to search · toggle <strong>Show 7-day route</strong> for the trip shape · shift-click two list rows to draw a distance line.`;
     statsEl.title = `Categories: ${Object.values(PIN_LABEL).join(' · ')}`;
   }
 }

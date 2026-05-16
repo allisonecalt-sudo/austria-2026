@@ -21,7 +21,10 @@ interface MiniMap {
   invalidateSize(): void;
 }
 interface MiniMarker {
-  bindTooltip(html: string, opts?: { permanent?: boolean; direction?: string }): MiniMarker;
+  bindTooltip(
+    html: string,
+    opts?: { permanent?: boolean; direction?: string; offset?: [number, number] },
+  ): MiniMarker;
   addTo(m: MiniMap): MiniMarker;
 }
 interface MiniLeaflet {
@@ -138,17 +141,22 @@ function initShapeMap(): void {
     maxZoom: 18,
   }).addTo(map);
 
+  // Pins — interactive now (was non-interactive). Lets touch users tap to
+  // see the label without dragging/zooming. Wrapper is 30×30 invisible
+  // touch target via CSS (.moment-map-pin-wrap) so fingers don't miss
+  // the small visible dot.
   for (const a of anchors) {
     const icon = L.divIcon({
       html: `<span class="moment-map-pin moment-map-pin--${a.key}" aria-hidden="true"></span>`,
       className: 'moment-map-pin-wrap',
-      iconSize: [22, 22],
-      iconAnchor: [11, 11],
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
     });
-    L.marker(a.latLng, { icon, interactive: false, keyboard: false })
+    L.marker(a.latLng, { icon, interactive: true, keyboard: false })
       .bindTooltip(`<strong>${escapeHtml(a.label)}</strong><br />${escapeHtml(a.sub)}`, {
         permanent: false,
         direction: 'top',
+        offset: [0, -6],
       })
       .addTo(map);
   }
@@ -156,8 +164,6 @@ function initShapeMap(): void {
   // Route shape — visual hint of the week's loop. Not literal driving
   // route; OSRM would over-engineer this. A subtle dashed polyline reads
   // as "these connect" without lying about turn-by-turn.
-  // Order: airport (arrive) → Salzburg → Obertraun → Schafbergspitze →
-  // (descend) → airport (depart).
   const byKey = Object.fromEntries(anchors.map((a) => [a.key, a.latLng])) as Record<
     ShapeAnchor['key'],
     [number, number]
@@ -171,13 +177,54 @@ function initShapeMap(): void {
   ];
   const routePts = routeOrder.map((k) => byKey[k]).filter((p): p is [number, number] => !!p);
   if (routePts.length >= 2) {
-    L.polyline(routePts, {
+    const line = L.polyline(routePts, {
       color: '#0033a0',
       weight: 2.5,
       opacity: 0.55,
       dashArray: '6 6',
       interactive: false,
     }).addTo(map);
+
+    // Scroll-into-view draw animation — fires once when the moment is
+    // first visible. Uses SVG stroke-dashoffset trick: compute the path's
+    // total length, set dasharray = length, dashoffset = length (invisible),
+    // then on intersect set dashoffset = 0 (CSS transition does the rest).
+    const pathEl = (line as unknown as { _path?: SVGPathElement })._path;
+    if (pathEl && 'IntersectionObserver' in window) {
+      try {
+        const length = pathEl.getTotalLength();
+        pathEl.classList.add('moment-route-animating');
+        pathEl.style.strokeDasharray = `${length}`;
+        pathEl.style.strokeDashoffset = `${length}`;
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                // Defer one frame so the CSS transition picks up the change.
+                requestAnimationFrame(() => {
+                  pathEl.style.strokeDashoffset = '0';
+                });
+                io.disconnect();
+                // Restore the dashed look ~1.6s after the draw completes
+                // by re-applying the original 6-6 dash pattern.
+                window.setTimeout(() => {
+                  pathEl.classList.remove('moment-route-animating');
+                  pathEl.style.strokeDasharray = '6 6';
+                  pathEl.style.strokeDashoffset = '0';
+                }, 1700);
+              }
+            }
+          },
+          { threshold: 0.25 },
+        );
+        io.observe(el);
+      } catch (err) {
+        // getTotalLength can fail on some Safari edge cases. Fall back
+        // to the static dashed line — no animation, but the polyline is
+        // already visible.
+        console.warn('[shape-map] route animation skipped:', err);
+      }
+    }
   }
 
   map.fitBounds(
