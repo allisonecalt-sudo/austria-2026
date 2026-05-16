@@ -455,7 +455,6 @@ function optionCard(o: WaterOption): string {
           <span class="water-type-pill">${typeLabel(o.type)}</span>
           <span class="water-difficulty-pill water-diff-${o.difficulty}">${difficultyLabel(o.difficulty)}</span>
           <span class="water-region-pill">${escape(regionLabel(o.region))}</span>
-          <span class="water-verified-pill">Verified ${escape(o.verified)}</span>
         </div>
         <h3 class="water-card-name">${escape(o.name)}</h3>
         <p class="water-card-where">${escape(o.where)}</p>

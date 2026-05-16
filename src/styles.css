@@ -8150,6 +8150,115 @@ details.note-item[open] .note-summary-preview {
   font-size: 0.88rem;
 }
 
+/* ----- No-coord sidebar rows: visible-but-flagged so 30% of dataset
+   never silently vanishes from the map view (empathy-gap report 2). ----- */
+.map-sidebar-row--nocoord {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.85;
+}
+.map-sidebar-row--nocoord:hover,
+.map-sidebar-row--nocoord:focus-visible {
+  background: #fff7ee;
+  border-color: #e8c79a;
+  opacity: 1;
+}
+.map-sidebar-dot--hollow {
+  background: transparent !important;
+  border-width: 2px;
+  border-style: dashed;
+}
+.map-sidebar-nocoord-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: #fff1d9;
+  color: #8a5a00;
+  padding: 1px 6px;
+  border-radius: 99px;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+}
+.map-sidebar-nc-count {
+  font-size: 0.62rem;
+  color: #8a5a00;
+  font-weight: 600;
+  margin-left: 0.3rem;
+}
+
+/* ----- Map error banner (replaces silent-white-box failure mode) ----- */
+.map-error-banner {
+  background: #fff5f0;
+  border: 2px solid #c8482c;
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  margin: 0;
+  color: #5c2412;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  justify-content: center;
+}
+.map-error-banner strong {
+  font-size: 1.05rem;
+  color: #8a2918;
+}
+.map-error-banner p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+.map-error-banner a {
+  color: #0033a0;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.map-error-tech {
+  margin-top: 0.4rem;
+  opacity: 0.7;
+}
+.map-error-tech small {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: 0.76rem;
+}
+
+/* ----- Page-verification footer (replaces uniform per-card "Verified
+   2026-05-16" rubber-stamp pattern called out in empathy-gap #10) ----- */
+.page-verification-footer {
+  margin: 2.5rem auto 1.5rem;
+  padding: 0.9rem 1.1rem;
+  max-width: 880px;
+  background: #f6faf6;
+  border-left: 3px solid var(--green-deep);
+  border-radius: 6px;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.page-verification-footer strong {
+  color: var(--ink);
+}
+.page-verification-footer a {
+  color: var(--green-deep);
+}
+
+/* ----- Notes-fab override: raise above Leaflet (z 400) + legend panels,
+   and reserve breathing room at the bottom of <main> on mobile so the
+   fab never sits ON TOP of legend / last-card content (empathy-gap #7) ----- */
+.fab {
+  z-index: 9999;
+  bottom: max(20px, env(safe-area-inset-bottom, 16px));
+}
+@media (max-width: 720px) {
+  main.container {
+    padding-bottom: 96px;
+  }
+}
+
 /* ----- Highlight pin when hovering the sidebar row ----- */
 .leaflet-pin-highlighted .leaflet-pin {
   transform: scale(1.18);
@@ -9181,4 +9290,156 @@ details.note-item[open] .note-summary-preview {
   background: rgba(77, 102, 128, 0.16);
   color: #38516e;
   border-color: rgba(77, 102, 128, 0.4);
+}
+
+/* ===========================================================================
+ * Lodging photo carousel — added 2026-05-17 by lodging-carousel agent.
+ * Pure CSS scroll-snap for swipe (mobile primary); buttons + dots for desktop.
+ * The .lodging-carousel container fully replaces the single <img> inside
+ * .lodging-card__media / .sunset-stay__media — height comes from the parent.
+ * =========================================================================== */
+.lodging-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  outline: none;
+}
+.lodging-carousel:focus-visible {
+  box-shadow: inset 0 0 0 3px var(--alpine-blue, #3a6f8f);
+}
+.lodging-carousel__track {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+.lodging-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+.lodging-carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+}
+.lodging-carousel__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  background: var(--green-mist, #d9e6d9);
+}
+.lodging-carousel__dots {
+  position: absolute;
+  bottom: 0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.25rem 0.55rem;
+  background: rgba(0, 0, 0, 0.42);
+  border-radius: 999px;
+  z-index: 3;
+  pointer-events: auto;
+}
+.lodging-carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+  appearance: none;
+}
+.lodging-carousel__dot:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+.lodging-carousel__dot.is-active {
+  background: #fff;
+  transform: scale(1.25);
+}
+.lodging-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: #222;
+  font-size: 0.95rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.18s ease, background 0.18s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  appearance: none;
+}
+.lodging-carousel__arrow:hover {
+  background: #fff;
+}
+.lodging-carousel__arrow--prev {
+  left: 0.55rem;
+}
+.lodging-carousel__arrow--next {
+  right: 0.55rem;
+}
+.lodging-carousel:hover .lodging-carousel__arrow,
+.lodging-carousel:focus-within .lodging-carousel__arrow {
+  opacity: 1;
+}
+.lodging-carousel__counter {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  z-index: 3;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* Touch devices: arrows are always faintly visible (no hover to reveal). */
+@media (hover: none) {
+  .lodging-carousel__arrow {
+    opacity: 0.6;
+  }
+  .lodging-carousel__arrow--prev,
+  .lodging-carousel__arrow--next {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Reduced-motion users: skip smooth-scroll on programmatic jumps. */
+@media (prefers-reduced-motion: reduce) {
+  .lodging-carousel__track {
+    scroll-behavior: auto;
+  }
 }

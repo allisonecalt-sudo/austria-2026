@@ -356,17 +356,24 @@ function poiPopup(poi: MapPOI): string {
 // (Berchtesgaden + Wolfgangsee). De-duplicate by name.
 // =====================================================================
 
-function gatherLodging(): LodgingPinInput[] {
+function slugifyName(s: string): string {
+  return s
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .slice(0, 64);
+}
+
+interface GatherLodgingResult {
+  withCoord: LodgingPinInput[];
+  noCoord: NoCoordEntry[];
+}
+
+function gatherLodging(): GatherLodgingResult {
   const seen = new Set<string>();
   const out: LodgingPinInput[] = [];
-
-  const slugify = (s: string): string =>
-    s
-      .toLowerCase()
-      .replace(/[^\w\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .slice(0, 64);
+  const noCoord: NoCoordEntry[] = [];
 
   const baseToCategory = (baseKey: Lodging['baseKey']): PinCategory => {
     if (baseKey === 'salzburg') return 'lodging-salzburg';
@@ -385,6 +392,28 @@ function gatherLodging(): LodgingPinInput[] {
     out.push(input);
   };
 
+  const noteNoCoord = (
+    name: string,
+    cat: PinCategory,
+    label: string,
+    detailUrl: string,
+  ): void => {
+    if (seen.has(name)) return;
+    seen.add(name);
+    noCoord.push({
+      id: `lodging-nc-${slugifyName(name)}`,
+      name,
+      group: 'lodging',
+      category: cat,
+      region: null,
+      subLabel: `${label} · no map pin yet — see Stay page`,
+      detailUrl,
+    });
+    // Intentionally no console.warn — these items are surfaced in the
+    // sidebar as "(no pin — see list)" rows so they don't silently vanish.
+    // The dataset owner adds coords when verified.
+  };
+
   for (const lod of TRIP.lodgings) {
     const cat = baseToCategory(lod.baseKey);
     const label = baseLabel(lod.baseKey);
@@ -399,15 +428,15 @@ function gatherLodging(): LodgingPinInput[] {
         baseLabel: `${label} · TOP PICK`,
         category: cat,
         coord: pickCoord,
-        stayAnchor: slugify(lod.pickName),
+        stayAnchor: slugifyName(lod.pickName),
       });
     } else {
-      console.warn(`[map] Missing coord for pick: ${lod.pickName}`);
+      noteNoCoord(lod.pickName, cat, `${label} · TOP PICK`, `stay.html#${slugifyName(lod.pickName)}`);
     }
     for (const alt of lod.alts) {
       const c = LODGING_COORDS[alt.name];
       if (!c) {
-        console.warn(`[map] Missing coord for lodging: ${alt.name}`);
+        noteNoCoord(alt.name, cat, label, `stay.html#${slugifyName(alt.name)}`);
         continue;
       }
       push({
@@ -419,7 +448,7 @@ function gatherLodging(): LodgingPinInput[] {
         baseLabel: label,
         category: cat,
         coord: c,
-        stayAnchor: slugify(alt.name),
+        stayAnchor: slugifyName(alt.name),
       });
     }
   }
@@ -435,7 +464,7 @@ function gatherLodging(): LodgingPinInput[] {
     for (const pick of cfg.lodging) {
       const c = LODGING_COORDS[pick.name];
       if (!c) {
-        console.warn(`[map] Missing coord for config lodging: ${pick.name}`);
+        noteNoCoord(pick.name, cat, label, `stay.html#${slugifyName(pick.name)}`);
         continue;
       }
       push({
@@ -447,12 +476,12 @@ function gatherLodging(): LodgingPinInput[] {
         baseLabel: label,
         category: cat,
         coord: c,
-        stayAnchor: slugify(pick.name),
+        stayAnchor: slugifyName(pick.name),
       });
     }
   }
 
-  return out;
+  return { withCoord: out, noCoord };
 }
 
 // =====================================================================
@@ -470,6 +499,20 @@ interface PinEntry {
   coord: { lat: number; lng: number };
   layerOwner: LClusterGroup | LLayerGroup;
   isCluster: boolean;
+}
+
+// Items known to the dataset but with no map coord yet — surfaced in the
+// sidebar as "(no pin — see details)" rows so they don't silently vanish.
+// Replaces the prior console.warn-only path (Avital pointed out the map
+// was lying about coverage when 30% of pins were dropped silently).
+interface NoCoordEntry {
+  id: string;
+  name: string;
+  group: GroupKey;
+  category: PinCategory;
+  region: RegionKey;
+  subLabel: string;
+  detailUrl: string; // page to open with "view details"
 }
 
 // =====================================================================
@@ -609,14 +652,22 @@ function estimateDriveMinutes(km: number): number {
 // Boot
 // =====================================================================
 
-function whenLeafletReady(cb: () => void): void {
+function whenLeafletReady(cb: () => void, onTimeout: (reason: string) => void): void {
+  // Cap at 8 seconds. If Leaflet CDN never resolves, fall through to the
+  // error banner instead of polling forever (the old behavior was a silent
+  // white box — exactly what trashed trust per the empathy-gap report).
+  const deadline = Date.now() + 8000;
   const tick = (): void => {
     const L = (window as unknown as { L?: LeafletStatic }).L;
     if (L) {
       cb();
-    } else {
-      window.setTimeout(tick, 30);
+      return;
     }
+    if (Date.now() > deadline) {
+      onTimeout('Leaflet CDN did not load within 8s — likely network / blocker.');
+      return;
+    }
+    window.setTimeout(tick, 30);
   };
   tick();
 }
@@ -655,6 +706,7 @@ function bootMap(): void {
 
   const allLatLngs: Array<[number, number]> = [];
   const pinRegistry: PinEntry[] = [];
+  const noCoordRegistry: NoCoordEntry[] = [];
 
   // Helper: register a pin so the sidebar + filters can find it.
   const register = (entry: PinEntry): void => {
@@ -666,7 +718,21 @@ function bootMap(): void {
   for (const dest of NATURE_DESTINATIONS) {
     const coord = NATURE_COORDS[dest.id];
     if (!coord) {
-      console.warn(`[map] Missing coord for nature destination: ${dest.id}`);
+      const cat: PinCategory =
+        dest.region === 'salzkammergut'
+          ? 'nature-salzkammergut'
+          : dest.region === 'berchtesgaden'
+            ? 'nature-berchtesgaden'
+            : 'nature-hohe-tauern';
+      noCoordRegistry.push({
+        id: `nature-nc-${dest.id}`,
+        name: dest.name,
+        group: 'nature',
+        category: cat,
+        region: dest.region as RegionKey,
+        subLabel: `${PIN_LABEL[cat]} · no map pin yet — see details`,
+        detailUrl: `nature-destinations.html#${encodeURIComponent(dest.id)}`,
+      });
       continue;
     }
     const cat: PinCategory =
@@ -701,7 +767,9 @@ function bootMap(): void {
   }
 
   // === Lodging ===
-  const lodging = gatherLodging();
+  const lodgingResult = gatherLodging();
+  const lodging = lodgingResult.withCoord;
+  for (const nc of lodgingResult.noCoord) noCoordRegistry.push(nc);
   for (const l of lodging) {
     const marker = L.marker([l.coord.lat, l.coord.lng], { icon: makePinIcon(l.category) })
       .bindPopup(lodgingPopup(l), { maxWidth: 300, className: 'leaflet-popup-trip' })
@@ -1058,6 +1126,14 @@ function bootMap(): void {
       }
       return true;
     });
+    const visibleNoCoord = noCoordRegistry.filter((p) => {
+      if (!layerOn[p.group]) return false;
+      if (p.group === 'nature' && p.region && !regionOn[p.region]) return false;
+      if (q && !p.name.toLowerCase().includes(q) && !p.subLabel.toLowerCase().includes(q)) {
+        return false;
+      }
+      return true;
+    });
     const groups: Array<{ key: GroupKey; label: string }> = [
       { key: 'nature', label: 'Nature' },
       { key: 'lodging', label: 'Lodging' },
@@ -1067,9 +1143,13 @@ function bootMap(): void {
     let any = false;
     for (const g of groups) {
       const rows = visible.filter((v) => v.group === g.key);
-      if (rows.length === 0) continue;
+      const ncRows = visibleNoCoord.filter((v) => v.group === g.key);
+      if (rows.length === 0 && ncRows.length === 0) continue;
       any = true;
-      html += `<div class="map-sidebar-group"><h3>${escapeHtml(g.label)} <span class="map-sidebar-count">${rows.length}</span></h3>`;
+      const totalCount = rows.length + ncRows.length;
+      const ncSuffix =
+        ncRows.length > 0 ? ` <span class="map-sidebar-nc-count">(${ncRows.length} no-pin)</span>` : '';
+      html += `<div class="map-sidebar-group"><h3>${escapeHtml(g.label)} <span class="map-sidebar-count">${totalCount}</span>${ncSuffix}</h3>`;
       for (const row of rows) {
         const color = PIN_COLORS[row.category];
         html += `
@@ -1080,6 +1160,18 @@ function bootMap(): void {
               <span class="map-sidebar-sub">${escapeHtml(row.subLabel)}</span>
             </span>
           </button>
+        `;
+      }
+      for (const row of ncRows) {
+        const color = PIN_COLORS[row.category];
+        html += `
+          <a class="map-sidebar-row map-sidebar-row--nocoord" href="${escapeHtml(row.detailUrl)}" data-nopin="${escapeHtml(row.id)}" title="Coords not on the map yet — opens details page">
+            <span class="map-sidebar-dot map-sidebar-dot--hollow" style="border-color:${color}"></span>
+            <span class="map-sidebar-text">
+              <span class="map-sidebar-name">${escapeHtml(row.name)} <span class="map-sidebar-nocoord-tag">no pin</span></span>
+              <span class="map-sidebar-sub">${escapeHtml(row.subLabel)}</span>
+            </span>
+          </a>
         `;
       }
       html += '</div>';
@@ -1164,11 +1256,54 @@ function bootMap(): void {
   const statsEl = document.getElementById('map-stats');
   if (statsEl) {
     const total = natureCount + lodging.length + airportCount + chabadCount + jewishCount;
-    statsEl.innerHTML = `<strong>${total} pins</strong> on the map · ${natureCount} nature · ${lodging.length} lodging · ${airportCount} airport · ${chabadCount} Chabad · ${jewishCount} Jewish sight${jewishCount === 1 ? '' : 's'}. Use filter chips above to focus · open <strong>List view</strong> to search · toggle <strong>Show 7-day route</strong> for the trip shape · shift-click two list rows to draw a distance line.`;
+    const ncTotal = noCoordRegistry.length;
+    const ncSuffix =
+      ncTotal > 0
+        ? ` · <strong>${ncTotal} more</strong> in the dataset without map pins yet (find them in <strong>List view</strong> — tagged <em>no pin</em>, link to details).`
+        : '';
+    statsEl.innerHTML = `<strong>${total} pins</strong> on the map · ${natureCount} nature · ${lodging.length} lodging · ${airportCount} airport · ${chabadCount} Chabad · ${jewishCount} Jewish sight${jewishCount === 1 ? '' : 's'}.${ncSuffix} Use filter chips above to focus · open <strong>List view</strong> to search · toggle <strong>Show 7-day route</strong> for the trip shape · shift-click two list rows to draw a distance line.`;
     statsEl.title = `Categories: ${Object.values(PIN_LABEL).join(' · ')}`;
   }
 }
 
+// Friendly fallback if bootMap throws OR if Leaflet never loads. Replaces
+// the silent white box / cryptic console error pattern. Surfaces a path
+// forward (sidebar list, nature page, stay page) so trust isn't lost.
+function showMapErrorBanner(reason: string): void {
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  // Avoid double-render if already shown.
+  if (mapEl.querySelector('.map-error-banner')) return;
+  mapEl.innerHTML = `
+    <div class="map-error-banner" role="alert">
+      <strong>Map couldn't render right now.</strong>
+      <p>This is usually a tile-server / CDN hiccup — try refreshing in a few seconds.</p>
+      <p class="map-error-fallback">
+        In the meantime, every pin still exists as a list:
+        <a href="nature-destinations.html">nature destinations</a> ·
+        <a href="stay.html">lodging</a> ·
+        <a href="jewish-sights.html">Jewish sights</a>.
+      </p>
+      <p class="map-error-tech"><small>Reason: ${escapeHtml(reason)}</small></p>
+    </div>
+  `;
+  const statsEl = document.getElementById('map-stats');
+  if (statsEl) {
+    statsEl.innerHTML =
+      'Map render failed — use the per-page lists above (linked in the banner) to browse pins.';
+  }
+}
+
+function bootMapSafely(): void {
+  try {
+    bootMap();
+  } catch (err) {
+    const msg = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
+    console.error('[map] bootMap threw:', err);
+    showMapErrorBanner(msg);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-  whenLeafletReady(bootMap);
+  whenLeafletReady(bootMapSafely, showMapErrorBanner);
 });

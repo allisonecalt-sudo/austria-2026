@@ -188,6 +188,10 @@ interface UnifiedListing {
   name: string;
   url: string;
   img: string;
+  // Carousel photos (added 2026-05-17 by lodging-carousel agent — Avital's
+  // "Can we have multiple picture for sleeping where we can swipe between
+  // pictures"). When empty/undefined, renderer falls back to [img].
+  photos?: string[];
   review: string;
   pricePerNight: string;
   note: string;
@@ -415,6 +419,7 @@ function buildListings(): UnifiedListing[] {
       name: l.pickName,
       url: l.pickUrl,
       img: l.pickImg,
+      photos: l.pickPhotos,
       review: l.pickReview,
       pricePerNight: l.pickPrice,
       note: l.pickWhy,
@@ -466,6 +471,7 @@ function buildListings(): UnifiedListing[] {
         name: a.name,
         url: a.url,
         img: a.img,
+        photos: a.photos,
         review: a.review,
         pricePerNight: a.pricePerNight,
         note: a.note,
@@ -520,6 +526,7 @@ function buildListings(): UnifiedListing[] {
         name: p.name,
         url: p.url,
         img: p.img,
+        photos: p.photos,
         review: p.review,
         pricePerNight: p.pricePerNight,
         note: p.note,
@@ -969,6 +976,162 @@ function pickButtonHtml(l: UnifiedListing): string {
   return `<button type="button" class="${cls}" data-pick-id="${escapeHtml(l.id)}" aria-pressed="${picked}" aria-label="${aria}">${label}</button>`;
 }
 
+// ---------------------------------------------------------------------------
+// Lodging photo carousel (added 2026-05-17 by lodging-carousel agent).
+// Avital's ask: "Can we have multiple picture for sleeping where we can swipe
+// between pictures". CSS scroll-snap drives the swipe on touch; small ◀ ▶
+// arrows + dot pagination handle desktop. Zero new deps.
+//
+// Data: uses `photos` if non-empty; falls back to `[img]` for graceful render
+// when the photo-curation pass didn't fill the array.
+// Perf: photos[0] is eager (so the hero loads), photos[1+] are lazy + async.
+// A11y: aria-roledescription=carousel, "Photo N of M" labels, arrow-key nav
+// when the carousel has focus.
+// ---------------------------------------------------------------------------
+function lodgingCarouselHtml(
+  photos: string[] | undefined,
+  fallbackImg: string,
+  alt: string,
+  imgClass: string,
+): string {
+  const list = photos && photos.length > 0 ? photos : [fallbackImg];
+  const safeAlt = escapeHtml(alt);
+  if (list.length === 1) {
+    // Single-photo path — no carousel scaffolding (keeps DOM lean for the
+    // ~half of listings the curation pass didn't fill).
+    return `<img class="${imgClass}" loading="lazy" decoding="async" src="${escapeHtml(list[0]!)}" alt="${safeAlt}" />`;
+  }
+  const total = list.length;
+  const slides = list
+    .map((src, i) => {
+      const loading = i === 0 ? 'eager' : 'lazy';
+      const fetchPri = i === 0 ? ' fetchpriority="high"' : '';
+      return `<div class="lodging-carousel__slide" data-slide-index="${i}" role="group" aria-roledescription="slide" aria-label="Photo ${i + 1} of ${total}"><img class="${imgClass} lodging-carousel__img" loading="${loading}" decoding="async"${fetchPri} src="${escapeHtml(src)}" alt="${safeAlt}" /></div>`;
+    })
+    .join('');
+  const dots = list
+    .map(
+      (_, i) =>
+        `<button type="button" class="lodging-carousel__dot${i === 0 ? ' is-active' : ''}" data-dot-index="${i}" aria-label="Go to photo ${i + 1} of ${total}"${i === 0 ? ' aria-current="true"' : ''}></button>`,
+    )
+    .join('');
+  return `
+    <div class="lodging-carousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${safeAlt} photos">
+      <div class="lodging-carousel__track" data-carousel-track>${slides}</div>
+      <button type="button" class="lodging-carousel__arrow lodging-carousel__arrow--prev" aria-label="Previous photo" tabindex="-1">◀</button>
+      <button type="button" class="lodging-carousel__arrow lodging-carousel__arrow--next" aria-label="Next photo" tabindex="-1">▶</button>
+      <div class="lodging-carousel__dots" role="tablist" aria-label="Photo navigation">${dots}</div>
+      <span class="lodging-carousel__counter" aria-hidden="true">1 / ${total}</span>
+    </div>`;
+}
+
+function initLodgingCarousels(root: ParentNode = document): void {
+  root.querySelectorAll<HTMLDivElement>('.lodging-carousel').forEach((carousel) => {
+    if (carousel.dataset.carouselReady === '1') return;
+    carousel.dataset.carouselReady = '1';
+    const track = carousel.querySelector<HTMLDivElement>('[data-carousel-track]');
+    if (!track) return;
+    const slides = Array.from(track.querySelectorAll<HTMLDivElement>('.lodging-carousel__slide'));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('.lodging-carousel__dot'));
+    const counter = carousel.querySelector<HTMLSpanElement>('.lodging-carousel__counter');
+    const prevBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--prev');
+    const nextBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--next');
+    if (slides.length < 2) return;
+
+    const goTo = (idx: number, smooth = true): void => {
+      const clamped = Math.max(0, Math.min(slides.length - 1, idx));
+      const target = slides[clamped];
+      if (!target) return;
+      track.scrollTo({ left: target.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    };
+
+    const updateActive = (): void => {
+      // Pick the slide whose left-edge is closest to the track's scroll position.
+      const scrollLeft = track.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      dots.forEach((dot, i) => {
+        if (i === best) {
+          dot.classList.add('is-active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('is-active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+      if (counter) counter.textContent = `${best + 1} / ${slides.length}`;
+    };
+
+    let scrollTimer: number | null = null;
+    track.addEventListener('scroll', () => {
+      if (scrollTimer !== null) window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(updateActive, 60);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(i);
+      });
+    });
+
+    const currentIndex = (): number => {
+      const scrollLeft = track.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      return best;
+    };
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(currentIndex() - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(currentIndex() + 1);
+      });
+    }
+
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goTo(currentIndex() - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goTo(currentIndex() + 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goTo(slides.length - 1);
+      }
+    });
+
+    updateActive();
+  });
+}
+
 function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string {
   const chips = [
     pickBadgeHtml(l.isPick),
@@ -1033,7 +1196,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
   return `
     <article class="${cardClass}" id="card-${escapeHtml(l.id)}" data-base="${l.base}">
       <div class="lodging-card__media">
-        <img class="stay-card__img" loading="lazy" src="${escapeHtml(l.img)}" alt="${escapeHtml(l.name)}" />
+        ${lodgingCarouselHtml(l.photos, l.img, l.name, 'stay-card__img')}
         ${pickButtonHtml(l)}
       </div>
       <div class="stay-card__body lodging-card__body">
@@ -1155,7 +1318,7 @@ function renderSunsetStayCard(s: SunsetStay): string {
   return `
     <article class="sunset-stay" id="sunset-${escapeHtml(s.id)}">
       <div class="sunset-stay__media">
-        <img class="sunset-stay__img" loading="lazy" src="${escapeHtml(s.img)}" alt="${escapeHtml(s.name)}" />
+        ${lodgingCarouselHtml(s.photos, s.img, s.name, 'sunset-stay__img')}
         ${elev}
       </div>
       <div class="sunset-stay__body">
@@ -1456,6 +1619,7 @@ function renderShell(): void {
 
   writeHash();
   bindDynamicHandlers();
+  initLodgingCarousels();
 }
 
 function bindDynamicHandlers(): void {
@@ -1598,7 +1762,10 @@ function init(): void {
   readHash();
 
   const sunsetSlot = document.querySelector<HTMLDivElement>('#sunset-stays-slot');
-  if (sunsetSlot) sunsetSlot.innerHTML = renderSunsetStays();
+  if (sunsetSlot) {
+    sunsetSlot.innerHTML = renderSunsetStays();
+    initLodgingCarousels(sunsetSlot);
+  }
 
   let tries = 0;
   const poll = (): void => {
