@@ -1429,7 +1429,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       'Timber walkway through the 200m gorge — 15-30 min to do it once. €5 entry. Extendable into the Wimbachtal valley if you want longer.',
     pairsWith: ['hintersee-ramsau', 'klausbachtal', 'konigssee'],
     feature:
-      'Berchtesgaden National Park\'s quieter gorge — waterfalls cascading over moss-covered walls, smooth timber boardwalk, family-friendly. The hidden alternative to Almbachklamm.',
+      "Berchtesgaden National Park's quieter gorge — waterfalls cascading over moss-covered walls, smooth timber boardwalk, family-friendly. The hidden alternative to Almbachklamm.",
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/In_der_Wimbachklamm_%2826%29.JPG/1280px-In_der_Wimbachklamm_%2826%29.JPG',
       alt: 'Wimbachklamm gorge interior with timber walkway and waterfall',
@@ -1438,8 +1438,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     links: {
       official: 'https://www.berchtesgaden.de/en/nature-wonders/gorges',
       wikipedia: 'https://en.wikipedia.org/wiki/Wimbachklamm',
-      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Wimbachklamm, Ramsau bei Berchtesgaden, Germany'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Wimbachklamm, Ramsau bei Berchtesgaden, Germany'),
+      mapsFromSalzburg: dirUrl(
+        'Salzburg, Austria',
+        'Wimbachklamm, Ramsau bei Berchtesgaden, Germany',
+      ),
+      mapsFromHallstatt: dirUrl(
+        'Obertraun, Austria',
+        'Wimbachklamm, Ramsau bei Berchtesgaden, Germany',
+      ),
     },
     hiddenGem: true,
   },
@@ -1489,7 +1495,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       '11-min gondola from St. Gilgen to 1,522m summit. Flat walks on top with 360° views over Wolfgangsee + Fuschlsee + Mondsee. Cafe at the top. Barrier-free gondolas.',
     pairsWith: ['wolfgangsee-village', 'attersee', 'schafbergspitze'],
     feature:
-      'Schafberg\'s quieter twin — three lakes visible from one summit. Less famous than the cog railway, often empty by comparison, and the new (2022) gondolas are spacious.',
+      "Schafberg's quieter twin — three lakes visible from one summit. Less famous than the cog railway, often empty by comparison, and the new (2022) gondolas are spacious.",
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Zw%C3%B6lferhorn_von_St.Gilgen.JPG',
       alt: 'Zwölferhorn summit above St. Gilgen and Wolfgangsee',
@@ -1519,14 +1525,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       '26km tolled panoramic road from Strobl up to the plateau. Park at any of the many pull-offs and walk through meadows + alpine huts. Wheelchair/stroller-friendly trails available. Toll ~€14/car.',
     pairsWith: ['wolfgangsee-village', 'zwoelferhorn'],
     feature:
-      'Austria\'s largest contiguous alpine pasture — 42 km² of cattle-grazed meadow at 1,000-2,000m. Drive-thru beauty for low-mobility days, with hut-density unmatched in the region.',
+      "Austria's largest contiguous alpine pasture — 42 km² of cattle-grazed meadow at 1,000-2,000m. Drive-thru beauty for low-mobility days, with hut-density unmatched in the region.",
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg/1280px-Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg',
       alt: 'Postalm alpine plateau and meadows above Wolfgangsee',
       credit: 'Wikimedia / Unsplash, CC0',
     },
     links: {
-      official: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/430003408/postalm-hiking-area.html',
+      official:
+        'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/430003408/postalm-hiking-area.html',
       wikipedia: 'https://de.wikipedia.org/wiki/Postalm',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Postalm, Strobl, Austria'),
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Postalm, Strobl, Austria'),
@@ -1556,10 +1563,17 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       credit: 'Wikimedia, CC BY-SA',
     },
     links: {
-      official: 'https://www.nationalpark-berchtesgaden.de/english/infopoints/facilities/observation_point/index.htm',
+      official:
+        'https://www.nationalpark-berchtesgaden.de/english/infopoints/facilities/observation_point/index.htm',
       wikipedia: 'https://de.wikipedia.org/wiki/Klausbachtal',
-      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Klausbachhaus, Ramsau bei Berchtesgaden, Germany'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Klausbachhaus, Ramsau bei Berchtesgaden, Germany'),
+      mapsFromSalzburg: dirUrl(
+        'Salzburg, Austria',
+        'Klausbachhaus, Ramsau bei Berchtesgaden, Germany',
+      ),
+      mapsFromHallstatt: dirUrl(
+        'Obertraun, Austria',
+        'Klausbachhaus, Ramsau bei Berchtesgaden, Germany',
+      ),
     },
     hiddenGem: true,
   },
@@ -1589,7 +1603,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       official: 'https://www.seisenbergklamm.eu/',
       wikipedia: 'https://de.wikipedia.org/wiki/Seisenbergklamm',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Seisenbergklamm, Weißbach bei Lofer, Austria'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Seisenbergklamm, Weißbach bei Lofer, Austria'),
+      mapsFromHallstatt: dirUrl(
+        'Obertraun, Austria',
+        'Seisenbergklamm, Weißbach bei Lofer, Austria',
+      ),
     },
     hiddenGem: true,
   },
@@ -1609,7 +1626,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       'Two-in-one. Gollinger Wasserfall: 10-min walk from car park to 75m two-tier fall, €5. Bluntautal lakes: 6km flat loop, ~1.5h, past two crystal pools. Combine for a half-day.',
     pairsWith: ['hallstatt-markt', 'eisriesenwelt-werfen'],
     feature:
-      'Tennengau\'s twin payoff — one of Austria\'s most photographed waterfalls plus a glassy turquoise-pool valley loop, both reachable from the same Golling parking.',
+      "Tennengau's twin payoff — one of Austria's most photographed waterfalls plus a glassy turquoise-pool valley loop, both reachable from the same Golling parking.",
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Golling_Wasserfall_3.jpg/1280px-Golling_Wasserfall_3.jpg',
       alt: 'Gollinger Wasserfall two-tier waterfall',
@@ -1636,10 +1653,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     bestTime: 'sunset',
     walk: 'walk',
     walkNote:
-      'Flat lakeshore strolls from Fuschl am See village. Full 3h circuit if wanted. Sun sets directly over the water mid-summer. Stand-up paddle + swim if it\'s warm.',
+      "Flat lakeshore strolls from Fuschl am See village. Full 3h circuit if wanted. Sun sets directly over the water mid-summer. Stand-up paddle + swim if it's warm.",
     pairsWith: ['wolfgangsee-village', 'zwoelferhorn'],
     feature:
-      'Turquoise Salzkammergut lake just 30 min from Salzburg — Red Bull\'s headquarters lake, surprisingly under-the-radar for English-speaking visitors. Best sunset within 30 min of the city.',
+      "Turquoise Salzkammergut lake just 30 min from Salzburg — Red Bull's headquarters lake, surprisingly under-the-radar for English-speaking visitors. Best sunset within 30 min of the city.",
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg',
       alt: 'Aerial view of turquoise Fuschlsee from the southeast',
@@ -2457,4 +2474,210 @@ export interface SunsetStay {
   sourceLinks: { label: string; url: string }[];
 }
 
-export const SUNSET_STAYS: SunsetStay[] = [];
+export const SUNSET_STAYS: SunsetStay[] = [
+  {
+    id: 'schafbergspitze-stay',
+    name: 'Berghotel Schafbergspitze',
+    url: 'https://schafberg.net/en/',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Schafberg_panorama.jpg/1280px-Schafberg_panorama.jpg',
+    imgCredit: 'Wikimedia Commons',
+    elevationM: 1783,
+    region: 'wolfgangsee',
+    pitch:
+      "Sleep on a 1,783 m peak after every day-tripper takes the last cog down. Sunset over fourteen Salzkammergut lakes from Austria's oldest mountain hotel (built 1862).",
+    whyInsane:
+      'Cog railway runs day-trippers up and back until ~17:00. After that the summit empties to ~34 overnight guests. 360-degree panorama covers Wolfgangsee, Mondsee, Attersee, Fuschlsee. Sun sets behind the western horizon at ~20:46 in late July, golden hour stretches a full hour because you are above the haze. Sunrise the next morning over the Dachstein massif to the east. Built 1862 — predates the railway by 30 years.',
+    pricePerNightEur: '€155.80 / person (double, includes cog round-trip + breakfast)',
+    pricePerNightNote:
+      "Single supplement +€22. Tourist tax €3.50/person. B&B-only (no train): €105 double. 'Night on the Schafberg' package for 2 people ≈ €311 + €7 tax.",
+    logistics: [
+      {
+        label: 'Cog railway up',
+        value: '~40 min ride (St. Wolfgang valley station → 1,732 m summit)',
+      },
+      {
+        label: '2026 cog round-trip',
+        value: '€61 / adult standalone — INCLUDED in the overnight package',
+      },
+      { label: 'First cog up', value: '~09:00 (verify Jul 2026 timetable — runs Apr 25-Nov 1)' },
+      { label: 'Last cog down', value: '~17:00 (verify — this is your storm-escape window)' },
+      {
+        label: 'Park at valley station',
+        value: 'St. Wolfgang Markt — paid lot, ~€5-8/24h (confirm at booking)',
+      },
+      { label: 'Drive from Obertraun apartment', value: '~50 min (53 km via B166)' },
+      {
+        label: 'Drive from Salzburg airport',
+        value: '~55 min (52 km via Wolfgangsee Bundesstraße)',
+      },
+    ],
+    kosherKit:
+      'NO guest kitchen / kettle / microwave in rooms (Tripadvisor + UNIQ Hotels both confirm rooms are spartan — "proper heating + functioning bathroom" only). Restaurant menu is NOT kosher. Plan: bring sealed snacks + sandwiches from the Spar run. Ask reception if they will boil a kettle of hot water for tea (low-friction, no kosher contact). Breakfast is included — eat sealed items only (sealed fruit, sealed yogurt with hechsher you bring yourself, sealed jam, sealed crackers). Realistic call: this is a one-night picnic-in, not a kosher-cooked night.',
+    packList:
+      'Overnight bag only (rest stays in the car at the valley lot). Layers — summit is 10-15°C colder than valley, can be 5°C at sunrise. Headlamp. Warm jacket + hat. Sealed kosher dinner (sandwiches, salami, hummus tubs, pita, fruit, water). Cash for tip. Camera + power bank.',
+    weatherRisk:
+      'Cog railway runs in summer rain but suspends in thunderstorms / high wind / lightning. If the last train is cancelled you stay an extra night (the hotel accommodates, prepay your 2nd night). Forecast check at 12:00 the day you go up — if a storm is named for the evening, defer.',
+    verdict: 'LEAD PICK — real, bookable, magic. Worth swapping one Obertraun night for.',
+    status: 'bookable',
+    bookingNote:
+      'Book direct: phone +43 (0) 6138 / 35 42 (office hours 08:30-12:00 + 16:00-20:00 daily), or email via the contact form at schafberg.net. Specify "Night on the Schafberg" package + a Jul 2026 date + 2 adults double room. Package paid at the cog railway valley station before ascent.',
+    sourceLinks: [
+      { label: 'Official site (schafberg.net)', url: 'https://schafberg.net/en/' },
+      { label: 'Rooms + 2026 prices', url: 'https://schafberg.net/en/rooms/' },
+      {
+        label: '"Night on the Schafberg" package',
+        url: 'https://www.5schaetze.at/en/schafbergbahn/events-and-experiences/night-on-the-schafberg.html',
+      },
+      {
+        label: 'Cog railway 2026 prices + timetable',
+        url: 'https://www.5schaetze.at/en/schafbergbahn/prices-and-timetables.html',
+      },
+      {
+        label: 'Tripadvisor reviews',
+        url: 'https://www.tripadvisor.com/Hotel_Review-g296672-d570320-Reviews-Schafbergspitze-St_Wolfgang_Upper_Austria.html',
+      },
+    ],
+  },
+  {
+    id: 'krippenstein-lodge',
+    name: 'Lodge am Krippenstein',
+    url: 'https://www.lodge.at/en/',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Krippenstein_Salzkammergut.jpg/1280px-Krippenstein_Salzkammergut.jpg',
+    imgCredit: 'Wikimedia Commons',
+    elevationM: 2050,
+    region: 'dachstein',
+    pitch:
+      'Sleep next to the 5fingers viewing platform on the Dachstein. Deep-red sunset from the Welterbespirale ("World Heritage Spiral") 5 min from your door.',
+    whyInsane:
+      'At 2,050 m on the Krippenstein plateau, the lodge is 5 min from the Welterbespirale viewpoint and 20 min from the 5fingers cantilevered platform. Hallstättersee sits 1,600 m straight down to the north; the Dachstein glacier 1,500 m up to the south. Sunset paints the entire Dachstein massif red. Section II cable car runs last DOWN at 19:00 in July 2026 (later than Schafberg) — day-trippers leave by 17:00, you have the high plateau to yourself with breakfast at sunrise.',
+    pricePerNightEur: '~€236 / night (per Kayak listing — "Price on request" official)',
+    pricePerNightNote:
+      'No 2026 public rate sheet. Standard / Komfort / Panorama / Gallery rooms + bunk beds. Email moni@lodge.at for an exact Jul 2026 quote.',
+    logistics: [
+      {
+        label: 'Cable car up',
+        value: '2 sections from Obertraun valley. Section II (top) operates Jul 4-Sep 13, 2026',
+      },
+      { label: 'First cable car', value: '08:40' },
+      { label: 'Last cable car DOWN', value: '19:00' },
+      { label: 'Walk lodge ↔ top station', value: '2 min' },
+      { label: 'Walk lodge ↔ 5fingers', value: '~20 min easy plateau path' },
+      { label: 'Drive from Obertraun apartment', value: '5 min to the valley station' },
+    ],
+    kosherKit:
+      'Lodge has rooms (no in-room kitchen mentioned). Restaurant on site (not kosher). Same pattern as Schafberg: bring sealed dinner + breakfast (or rely on sealed items in the breakfast spread — call moni@lodge.at to ask what they can isolate). Plus side: only 5 min from your car at the valley station, so worst case you cable-car down to Obertraun for groceries.',
+    packList:
+      'Same as Schafberg: overnight bag, layers (10-15°C at 2,050 m even in July), sealed kosher dinner + breakfast, headlamp, camera. Plateau is exposed — wind shell mandatory.',
+    weatherRisk:
+      'Cable car closes in thunderstorms. Plateau exposed — lightning risk REAL if storms develop. Check weather morning of, abort if storms forecast 16:00-22:00.',
+    verdict:
+      'STRETCH PICK — easier logistics than Schafberg (you base in Obertraun, 5 min to the cable car). Less of a "world apart" feel because the lodge sits in the ski-area zone, not on a single peak. Strong backup if Schafberg is full.',
+    status: 'confirm-with-host',
+    bookingNote:
+      'Direct: email moni@lodge.at or phone +43 (0) 664 380 405 4. Ask for a Jul 27-28 or Jul 28-29 2026 double room + breakfast + 2 adults.',
+    sourceLinks: [
+      { label: 'Official site (lodge.at)', url: 'https://www.lodge.at/en/' },
+      {
+        label: 'Krippenstein cable car schedule + pricing',
+        url: 'https://www.dachstein-salzkammergut.com/en/summer/operation-times-summer',
+      },
+      {
+        label: 'Hallstatt.net lodge profile',
+        url: 'https://www.hallstatt.net/about-hallstatt/active-summer-holiday/wanderzeit-en-US/mountain-huts-and-alpine/lodge-am-krippenstein-en-US/',
+      },
+    ],
+  },
+  {
+    id: 'gasthof-gosausee-stay',
+    name: 'Gasthof Gosausee',
+    url: 'https://www.gasthof-gosausee.at/en/guesthouse-gosausee/',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+    imgCredit: 'Wikimedia Commons / Roman Klementschitz, CC BY-SA 3.0',
+    elevationM: 933,
+    region: 'salzkammergut',
+    pitch:
+      'The only inn directly on Lake Gosau. Watch the Dachstein glacier go pink in the mirror at sunset from the lakeside terrace — Swiss-pine "Gosausee" rooms have the same view from the in-room balcony.',
+    whyInsane:
+      'Vorderer Gosausee is the marquee mirror-lake of the Salzkammergut — Dachstein\'s glacier face reflected in calm water at golden hour. Day-trippers crowd the trail 11-15:00 then disperse. Gasthof Gosausee is the SOLE lake-level lodging, so by 18:00 you have the lake to yourself + a beer-garden terrace facing the mountain. Swiss-pine furnished "Gosausee" rooms have direct lake + Dachstein view from in-room balcony. Family-run, kitchen, beer garden, snack kiosk.',
+    pricePerNightEur: '~€110-160 / night (varies by room type, breakfast typically included)',
+    pricePerNightNote: 'Confirm Jul 26-30 dates direct on Booking.com or via the official site.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '35-40 min via B166 + Gosau valley' },
+      { label: 'Drive from Salzburg airport', value: '~75 min' },
+      { label: 'Parking', value: 'Free on-site (lakeside)' },
+      { label: 'Walk to mirror viewpoint', value: 'Out the door, 200 m to lake-edge bench' },
+    ],
+    kosherKit:
+      'No in-room kitchen (it is a guesthouse, not an apartment). Restaurant not kosher but they will store bagged food in the kitchen fridge — ask at check-in. Realistic plan: bring dinner from the Bad Goisern Spar (15 min back) or eat at the Obertraun apartment before driving up. Breakfast included is bread/dairy/jam — request sealed items in advance.',
+    packList:
+      'Overnight bag, dinner picnic, camera. Lower elevation than the peak picks — summer night ~12-15°C, normal layers.',
+    weatherRisk:
+      'Valley floor lodging — no cable car / cog dependency. Worst case is overcast sunset (forecast morning of). Easy to drive back to Obertraun if it rains all day.',
+    verdict:
+      'VALLEY-LEVEL CHARACTER PICK — easier logistics than the peak picks, but real lake-edge magic. The Tara-Bridge-equivalent for the Salzkammergut mirror-lake hour.',
+    status: 'bookable',
+    bookingNote:
+      'Booking.com listing live (search "Gasthof Gosausee"). Specifically request the "Gosausee" Swiss-pine room with the lake-view balcony — not the back-of-house rooms.',
+    sourceLinks: [
+      { label: 'Official site', url: 'https://www.gasthof-gosausee.at/en/guesthouse-gosausee/' },
+      {
+        label: 'Booking.com listing',
+        url: 'https://www.booking.com/hotel/at/gasthof-gosausee.html',
+      },
+      {
+        label: 'Tripadvisor reviews (sunset confirmed)',
+        url: 'https://www.tripadvisor.com/Hotel_Review-g666530-d1583953-Reviews-Guesthouse_Gosausee-Gosau_Upper_Austria.html',
+      },
+    ],
+  },
+  {
+    id: 'hintersee-lake-edge',
+    name: 'Hintersee lake-edge apartments (Ramsau)',
+    url: 'https://www.booking.com/searchresults.html?ss=Hintersee+Ramsau+Berchtesgaden',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Hintersee_Ramsau_pano.jpg/1280px-Hintersee_Ramsau_pano.jpg',
+    imgCredit: 'Wikimedia Commons',
+    elevationM: 790,
+    region: 'berchtesgaden',
+    pitch:
+      'Wake up to the Hintersee. Apartment with a balcony directly over the water, Hochkalter glacier glowing at sunrise.',
+    whyInsane:
+      'The Hintersee at sunrise is one of the most-photographed scenes in the Bavarian Alps — dead-calm water, Hochkalter and the Blue Ice Glacier reflected. Day-trippers do not arrive until 09:00. Multiple apartments on the lake edge (Residenz am Hintersee, "Vacation apartment directly at Hintersee", Mountain-view Apartment in Ramsau) have west / south-facing balconies. Sunset over the Reiteralpe to the west at ~21:00 in late July, but SUNRISE is the move — and you only get it if you sleep there.',
+    pricePerNightEur: '~€140-200 / night (varies by listing)',
+    pricePerNightNote:
+      'Multiple lake-edge apartments — Residenz am Hintersee (€141+), Vacation apartment directly at Hintersee (€149+). Confirm Jul dates live.',
+    logistics: [
+      {
+        label: 'Drive from Obertraun apartment',
+        value: '~1h 30 min via B166 + Ramsau road (worth it only if you stay overnight)',
+      },
+      {
+        label: 'Drive from Königssee',
+        value: '20 min — natural pairing with the Königssee boat day',
+      },
+      { label: 'Parking', value: 'Free at most lake-edge apartments' },
+      {
+        label: 'Best for',
+        value: 'Second nature anchor if you swap Obertraun for the split-base config',
+      },
+    ],
+    kosherKit:
+      'Apartments WITH kitchens (full stovetop + fridge). Same setup as the Obertraun base — cook from Spar groceries (nearest Spar is in Ramsau village, 4 km from the lake). Easiest kosher-cooked option of the four sunset picks because it is a real apartment.',
+    packList: 'Standard 1-night apartment-stay packing. Camera tripod for the sunrise.',
+    weatherRisk: 'None real — apartment, valley floor, car-accessible year-round.',
+    verdict:
+      'BERCHTESGADEN-SIDE BEAUTIFUL APARTMENT — best if you go for the Split or Berchtesgaden base config (Config B / C on the Bases page). For Config A (Obertraun-only), this is a 1h30 drive each way — not worth it as a single night.',
+    status: 'confirm-with-host',
+    bookingNote:
+      'Search Booking.com or Airbnb "Hintersee Ramsau" with date filter Jul 26-30. Filter "apartments" + "view: lake" + "balcony". Multiple listings — pick the one with explicit "lake view balcony" + free cancellation.',
+    sourceLinks: [
+      {
+        label: 'Booking.com Hintersee apartments',
+        url: 'https://www.booking.com/apartments/city/at/hintersee.html',
+      },
+      {
+        label: 'Lake Hintersee official info',
+        url: 'https://www.ramsau.de/en/attractions/our-village/lake-hintersee.html',
+      },
+    ],
+  },
+];

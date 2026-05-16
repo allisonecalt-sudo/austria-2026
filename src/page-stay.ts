@@ -21,10 +21,12 @@
 import {
   TRIP,
   BASE_CONFIGS,
+  SUNSET_STAYS,
   type BudgetTier,
   type LodgingPlatform,
   type LodgingVibe,
   type LodgingLaundry,
+  type SunsetStay,
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 
@@ -141,6 +143,10 @@ interface UnifiedListing {
   coords?: [number, number];
   // Highlight
   isPick: boolean;
+  // Beautiful-character pick (set 2026-05-16 by beautiful-lodging-hunt
+  // agent). Quietly badged on existing cards.
+  isBeauty: boolean;
+  beautyNote?: string;
   // Derived booleans for amenity filters
   hasWasher: boolean;
   hasWasherDryer: boolean;
@@ -250,6 +256,7 @@ function buildListings(): UnifiedListing[] {
       notableDetails: pickDetails,
       coords: COORDS[l.pickName],
       isPick: true,
+      isBeauty: false,
       hasWasher:
         l.pickLaundry === 'washer' ||
         l.pickLaundry === 'washer+dryer' ||
@@ -282,6 +289,8 @@ function buildListings(): UnifiedListing[] {
         notableDetails: dets,
         coords: COORDS[a.name],
         isPick: false,
+        isBeauty: a.beautyPick === true,
+        beautyNote: a.beautyNote,
         hasWasher:
           a.laundry === 'washer' ||
           a.laundry === 'washer+dryer' ||
@@ -319,6 +328,7 @@ function buildListings(): UnifiedListing[] {
         notableDetails: dets,
         coords: COORDS[p.name],
         isPick: false,
+        isBeauty: false,
         hasWasher:
           p.laundry === 'washer' ||
           p.laundry === 'washer+dryer' ||
@@ -426,9 +436,16 @@ function pickBadgeHtml(isPick: boolean): string {
   return isPick ? '<span class="chip chip-recommended">★ Allison\'s pick</span>' : '';
 }
 
+function beautyBadgeHtml(isBeauty: boolean): string {
+  return isBeauty
+    ? '<span class="chip chip-beauty" title="Character pick — beautiful place to stay">✨ Character pick</span>'
+    : '';
+}
+
 function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string {
   const chips = [
     pickBadgeHtml(l.isPick),
+    beautyBadgeHtml(l.isBeauty),
     baseBadge(l.base),
     tierBadge(l.budgetTier),
     vibeBadge(l.vibe),
@@ -439,8 +456,19 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
     .filter(Boolean)
     .join('');
 
-  const cardClass = variant === 'grid' ? 'stay-card stay-card--grid' : 'stay-card stay-card--list';
+  const cardClass = [
+    'stay-card',
+    variant === 'grid' ? 'stay-card--grid' : 'stay-card--list',
+    l.isBeauty ? 'stay-card--beauty' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
   const headingTag = variant === 'grid' ? 'h3' : 'h3';
+
+  const beautyLine =
+    l.isBeauty && l.beautyNote
+      ? `<p class="stay-card__beauty-note">✨ ${escapeHtml(l.beautyNote)}</p>`
+      : '';
 
   return `
     <article class="${cardClass}" id="card-${escapeHtml(l.id)}" data-base="${l.base}">
@@ -449,6 +477,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
         <div class="stay-card__body">
           <${headingTag} class="stay-card__name">${escapeHtml(l.name)}</${headingTag}>
           <div class="stay-card__meta">${escapeHtml(l.review)} · <strong>${escapeHtml(l.pricePerNight)}</strong></div>
+          ${beautyLine}
           <p class="stay-card__note">${escapeHtml(l.note)}</p>
           <div class="stay-card__chips">${chips}</div>
           <div class="stay-card__cta">View listing →</div>
@@ -517,6 +546,90 @@ function emptyStateHtml(): string {
       <p><strong>No listings match these filters.</strong></p>
       <p>Try removing a filter, or <button type="button" class="stay-empty__clear" id="empty-clear">clear all filters</button>.</p>
     </div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Sunset Stays — "sleep + sunset in the same spot" pinned section.
+// Added 2026-05-16 by beautiful-lodging-hunt agent. Pinned above the main
+// filterable listings so it's the first thing seen. NOT affected by filters
+// (these are special cross-finds, not base options).
+// ---------------------------------------------------------------------------
+function renderSunsetStayCard(s: SunsetStay): string {
+  const statusBadge: Record<typeof s.status, string> = {
+    bookable:
+      '<span class="sunset-stay__status sunset-stay__status--good">✓ Bookable Jul 2026</span>',
+    'confirm-with-host':
+      '<span class="sunset-stay__status sunset-stay__status--warn">Confirm with host</span>',
+    'skip-too-hard':
+      '<span class="sunset-stay__status sunset-stay__status--bad">Logistics too hard — skip</span>',
+  };
+  const logisticsRows = s.logistics
+    .map(
+      (row) =>
+        `<li><span class="sunset-stay__log-label">${escapeHtml(row.label)}</span><span class="sunset-stay__log-value">${escapeHtml(row.value)}</span></li>`,
+    )
+    .join('');
+  const sourceLinks = s.sourceLinks
+    .map(
+      (src) =>
+        `<a href="${escapeHtml(src.url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(src.label)}</a>`,
+    )
+    .join(' · ');
+  const elev = s.elevationM ? `<span class="sunset-stay__elev">${s.elevationM} m</span>` : '';
+  return `
+    <article class="sunset-stay" id="sunset-${escapeHtml(s.id)}">
+      <div class="sunset-stay__media">
+        <img class="sunset-stay__img" loading="lazy" src="${escapeHtml(s.img)}" alt="${escapeHtml(s.name)}" />
+        ${elev}
+      </div>
+      <div class="sunset-stay__body">
+        <header class="sunset-stay__head">
+          <h3 class="sunset-stay__name">${escapeHtml(s.name)}</h3>
+          ${statusBadge[s.status]}
+        </header>
+        <p class="sunset-stay__pitch">${escapeHtml(s.pitch)}</p>
+        <p class="sunset-stay__verdict">${escapeHtml(s.verdict)}</p>
+        <details class="sunset-stay__details">
+          <summary>Why the sunset is insane + full logistics</summary>
+          <div class="sunset-stay__details-body">
+            <p class="sunset-stay__why">${escapeHtml(s.whyInsane)}</p>
+            <p class="sunset-stay__price"><strong>${escapeHtml(s.pricePerNightEur)}</strong>${s.pricePerNightNote ? ` <span class="sunset-stay__price-note">${escapeHtml(s.pricePerNightNote)}</span>` : ''}</p>
+            <h4 class="sunset-stay__sub">Logistics</h4>
+            <ul class="sunset-stay__logistics">${logisticsRows}</ul>
+            <h4 class="sunset-stay__sub">Kosher cooking on the mountain</h4>
+            <p>${escapeHtml(s.kosherKit)}</p>
+            <h4 class="sunset-stay__sub">Pack list</h4>
+            <p>${escapeHtml(s.packList)}</p>
+            <h4 class="sunset-stay__sub">Weather risk</h4>
+            <p>${escapeHtml(s.weatherRisk)}</p>
+            <h4 class="sunset-stay__sub">How to book</h4>
+            <p>${escapeHtml(s.bookingNote)}</p>
+            <p class="sunset-stay__sources"><strong>Verified from:</strong> ${sourceLinks}</p>
+          </div>
+        </details>
+        <a class="sunset-stay__cta" href="${escapeHtml(s.url)}" target="_blank" rel="noreferrer noopener">
+          Open the listing →
+        </a>
+      </div>
+    </article>`;
+}
+
+function renderSunsetStays(): string {
+  if (SUNSET_STAYS.length === 0) return '';
+  const cards = SUNSET_STAYS.map(renderSunsetStayCard).join('');
+  return `
+    <section class="sunset-stays" aria-labelledby="sunset-stays-heading">
+      <header class="sunset-stays__head">
+        <span class="sunset-stays__eyebrow">✨ Sunset stays</span>
+        <h2 id="sunset-stays-heading" class="sunset-stays__title">Sleep where the sunset happens</h2>
+        <p class="sunset-stays__lede">
+          Four places where the room IS the viewpoint — peak hotels above the cog railway, lakeside
+          inns at the foot of the Dachstein, balconies hanging over Hintersee.
+          Swap one Obertraun night for one of these.
+        </p>
+      </header>
+      <div class="sunset-stays__grid">${cards}</div>
+    </section>`;
 }
 
 // ---------------------------------------------------------------------------
@@ -805,6 +918,11 @@ function bindDynamicHandlers(): void {
 
 function init(): void {
   readHash();
+
+  // Render the pinned Sunset Stays section once (independent of filters).
+  const sunsetSlot = document.querySelector<HTMLDivElement>('#sunset-stays-slot');
+  if (sunsetSlot) sunsetSlot.innerHTML = renderSunsetStays();
+
   // Wait for Leaflet (CDN script) before first render so the map slot can
   // initialize. We poll briefly; otherwise we just render without map
   // (it'll fill in on the next interaction).
