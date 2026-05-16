@@ -1922,14 +1922,95 @@ img.loaded {
 .leaflet-pin .pin-glyph-small {
   font-size: 12px;
 }
-/* Chabad pin slightly larger + prominent navy ring */
+/* Chabad pin — UNMISSABLE per Avital feedback 2026-05-16.
+   Larger circle + pulsing gold halo + permanent text label below. */
 .leaflet-pin--chabad {
-  width: 30px;
-  height: 30px;
-  border-color: #ffd700;
+  width: 42px;
+  height: 42px;
+  border: 3px solid #ffd700;
+  background: #0033a0 !important;
   box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.5),
-    0 0 0 2px rgba(0, 51, 160, 0.6);
+    0 3px 10px rgba(0, 0, 0, 0.55),
+    0 0 0 3px rgba(255, 215, 0, 0.65),
+    0 0 0 6px rgba(0, 51, 160, 0.35);
+  animation: chabadPulse 2.4s ease-in-out infinite;
+}
+.leaflet-pin .pin-glyph-chabad {
+  font-size: 22px;
+  color: #ffd700;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+.leaflet-pin-label--chabad {
+  margin-top: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: #0033a0;
+  padding: 1px 7px;
+  border-radius: 8px;
+  border: 1.5px solid #ffd700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+@keyframes chabadPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.55),
+      0 0 0 3px rgba(255, 215, 0, 0.65),
+      0 0 0 6px rgba(0, 51, 160, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 3px 12px rgba(0, 0, 0, 0.6),
+      0 0 0 5px rgba(255, 215, 0, 0.85),
+      0 0 0 10px rgba(0, 51, 160, 0.2);
+  }
+}
+
+/* Find Chabad button — top-left Leaflet control */
+.leaflet-bar.map-find-chabad {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.leaflet-bar.map-find-chabad a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #0033a0;
+  color: #ffd700;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 2px solid #ffd700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+.leaflet-bar.map-find-chabad a:hover {
+  background: #00277a;
+  color: #fff;
+}
+.leaflet-bar.map-find-chabad .fc-star {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.leaflet-bar.map-find-chabad .fc-label {
+  font-size: 0.78rem;
 }
 /* Airport — slightly larger */
 .leaflet-pin--airport {
@@ -5169,4 +5250,914 @@ img.loaded {
 .flights-note-tight {
   margin-top: 0.4rem;
   font-size: 0.84rem;
+}
+
+/* =====================================================================
+   TRIP SUMMARY PAGE — built 2026-05-16 per Avital feedback.
+   "Key places + drive times + where staying + great views" — high level.
+   ===================================================================== */
+.ts-section {
+  margin-top: 2.4rem;
+}
+.ts-intro {
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+  margin: 0.4rem 0 1.4rem;
+  max-width: 56rem;
+  line-height: 1.55;
+}
+
+/* Toggle bar at top — Summary vs Full */
+.ts-toggle-row {
+  display: inline-flex;
+  gap: 0.5rem;
+  background: var(--cream);
+  padding: 0.4rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+}
+.ts-toggle {
+  display: inline-block;
+  padding: 0.55rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-radius: 7px;
+  transition: background 0.18s ease;
+}
+.ts-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--ink);
+}
+.ts-toggle--active {
+  background: var(--ink);
+  color: #fff;
+}
+.ts-toggle--active:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+/* 1. Stay cards (3 bases) */
+.ts-stays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.ts-stay-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--green-deep);
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  box-shadow: var(--shadow-soft);
+}
+.ts-stay--salzburg {
+  border-left-color: #d4a017;
+}
+.ts-stay--hallstatt {
+  border-left-color: #0aa39e;
+}
+.ts-stay--airport {
+  border-left-color: #7f8c95;
+}
+.ts-stay-eyebrow {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.ts-stay-nights {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0.2rem 0 0.4rem;
+  color: var(--ink);
+}
+.ts-stay-area {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.7rem;
+  line-height: 1.4;
+}
+.ts-stay-pick {
+  font-size: 0.92rem;
+  margin-bottom: 0.5rem;
+}
+.ts-stay-pick-h {
+  color: var(--ink-soft);
+  margin-right: 0.3rem;
+}
+.ts-stay-price {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  margin-left: 0.4rem;
+}
+.ts-stay-why {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0 0 0.7rem;
+}
+.ts-stay-more {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  text-decoration: none;
+}
+.ts-stay-more:hover {
+  text-decoration: underline;
+}
+
+/* 2. Place rows (numbered list of must-see anchors) */
+.ts-places {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.ts-place-row {
+  display: flex;
+  gap: 1rem;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+.ts-place-num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--ink);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.ts-place-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ts-place-when {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.ts-place-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0.15rem 0 0.4rem;
+  line-height: 1.3;
+}
+.ts-place-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+}
+.ts-place-meta-item strong {
+  color: var(--ink);
+}
+
+/* 3. Sunset cards (top 5) */
+.ts-sunsets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.9rem;
+}
+.ts-sunset-card {
+  display: flex;
+  gap: 0.9rem;
+  background: linear-gradient(135deg, #fff 0%, #fff8e7 100%);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: var(--shadow-soft);
+}
+.ts-sunset-rank {
+  flex-shrink: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d4a017;
+  line-height: 1;
+}
+.ts-sunset-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ts-sunset-when {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.ts-sunset-spot {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0.2rem 0 0.4rem;
+  line-height: 1.3;
+}
+.ts-sunset-line {
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 4. 7-day strip (compact, link-out cards) */
+.ts-week-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.7rem;
+}
+.ts-week-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.85rem 0.95rem;
+  text-decoration: none;
+  color: var(--ink);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+  box-shadow: var(--shadow-soft);
+}
+.ts-week-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+.ts-week-num {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--green-deep);
+  font-weight: 700;
+}
+.ts-week-date {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 0.1rem 0 0.4rem;
+}
+.ts-week-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 0.45rem;
+}
+.ts-week-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.ts-week-peak {
+  margin-top: 0.4rem;
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #d4a017;
+  background: #fff8e7;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+/* 5. Drive matrix table tweaks */
+.ts-drive-table th,
+.ts-drive-table td {
+  vertical-align: middle;
+}
+
+/* 6. CTA grid */
+.ts-cta {
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem 1.6rem;
+}
+.ts-cta h2 {
+  margin-top: 0;
+}
+.ts-cta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+.ts-cta-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1rem 1.1rem;
+  text-decoration: none;
+  color: var(--ink);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.ts-cta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-soft);
+}
+.ts-cta-h {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--green-deep);
+}
+.ts-cta-p {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* Mobile tweaks */
+@media (max-width: 540px) {
+  .ts-place-row {
+    padding: 0.7rem;
+  }
+  .ts-place-num {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+  .ts-place-headline {
+    font-size: 1.05rem;
+  }
+  .ts-sunset-rank {
+    font-size: 1.6rem;
+  }
+}
+
+/* =============================================================
+   Water-activities page (rafting, kayak, SUP, electric boats)
+   ============================================================= */
+#water-rafting-root,
+#water-paddle-root,
+#water-specialty-root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 1.4rem;
+}
+.water-card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.08);
+}
+.water-card-head {
+  padding: 1.2rem 1.2rem 0.8rem;
+  border-bottom: 1px dashed var(--line);
+}
+@media (min-width: 720px) {
+  .water-card-head {
+    padding: 1.4rem 1.8rem 0.9rem;
+  }
+}
+.water-card-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+.water-type-pill,
+.water-difficulty-pill,
+.water-region-pill,
+.water-verified-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+}
+.water-type-pill {
+  background: #0f2a3a;
+  color: white;
+}
+.water-difficulty-pill {
+  background: #eef2f4;
+  color: var(--ink);
+}
+.water-diff-beginner,
+.water-diff-family {
+  background: #d8f0e0;
+  color: #1a4a2e;
+}
+.water-diff-intermediate {
+  background: #fce9c8;
+  color: #6c4516;
+}
+.water-diff-experienced {
+  background: #f6cfcf;
+  color: #6e1f1f;
+}
+.water-region-pill {
+  background: #eef7fb;
+  color: #1d4a5e;
+}
+.water-verified-pill {
+  background: rgba(56, 178, 212, 0.92);
+  color: #0c2a3a;
+}
+.water-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.2rem;
+  color: var(--ink);
+}
+.water-card-where {
+  color: var(--ink-soft);
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+}
+.water-card-body {
+  padding: 1rem 1.2rem 1.4rem;
+}
+@media (min-width: 720px) {
+  .water-card-body {
+    padding: 1.2rem 1.8rem 1.6rem;
+  }
+}
+.water-card-tldr {
+  background: #eef7fb;
+  border-left: 3px solid #38b2d4;
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 1rem;
+  font-size: 0.94rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.water-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.7rem;
+  margin: 0.4rem 0 1rem;
+}
+@media (min-width: 720px) {
+  .water-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.water-cell {
+  background: #f6f9fb;
+  border-radius: 8px;
+  padding: 0.65rem 0.8rem;
+}
+.water-cell-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.water-cell-value {
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.water-cell-nis {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+.water-section {
+  margin: 0.85rem 0;
+}
+.water-section p {
+  margin: 0.3rem 0;
+  color: var(--ink);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+.water-section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.water-section-modesty {
+  background: #faf5ee;
+  border-left: 3px solid #c79a3d;
+  padding: 0.7rem 0.9rem;
+  border-radius: 6px;
+}
+.water-drive-grid {
+  margin: 1.1rem 0 0.6rem;
+  background: #f6f9fb;
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+}
+.water-drive-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.water-drive-cells {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem 0.8rem;
+}
+@media (min-width: 720px) {
+  .water-drive-cells {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.water-drive-cell {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.88rem;
+}
+.water-drive-cell strong {
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.water-drive-cell span {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.water-card-links {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--line);
+  font-size: 0.9rem;
+}
+.water-card-links a {
+  color: #2a7fa0;
+  text-decoration: none;
+  font-weight: 600;
+}
+.water-card-links a:hover {
+  text-decoration: underline;
+}
+
+/* ───── First-visit popup for Avital (chat plan explainer) ───── */
+.popup-chat-plan-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 36, 41, 0.65);
+  z-index: 200000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+.popup-chat-plan-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.popup-chat-plan {
+  position: relative;
+  background: var(--paper);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 460px;
+  padding: 1.8rem 1.6rem 1.4rem;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 3px var(--gold-warm);
+  border-top: 4px solid var(--gold-sun);
+  transform: translateY(8px) scale(0.98);
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+.popup-chat-plan-backdrop.open .popup-chat-plan {
+  transform: translateY(0) scale(1);
+}
+.popup-chat-plan h3 {
+  margin: 0 0 0.85rem;
+  font-size: 1.35rem;
+  color: var(--gold-deep);
+  padding-right: 2rem;
+}
+.popup-chat-plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.3rem;
+}
+.popup-chat-plan-list li {
+  padding: 0.55rem 0 0.55rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.96rem;
+  line-height: 1.5;
+  color: var(--ink);
+  position: relative;
+}
+.popup-chat-plan-list li:last-child {
+  border-bottom: none;
+}
+.popup-chat-plan-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0.25rem;
+  top: 0.55rem;
+  color: var(--gold-sun);
+  font-weight: 700;
+}
+.popup-chat-plan-list li strong {
+  color: var(--gold-deep);
+}
+.popup-chat-plan-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.65rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.popup-chat-plan-close:hover {
+  background: var(--gold-warm);
+  color: var(--gold-deep);
+}
+.popup-chat-plan-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.popup-chat-plan-actions .btn.primary {
+  background: linear-gradient(135deg, var(--gold-sun), var(--gold-deep));
+  border-color: var(--gold-deep);
+  color: white;
+}
+.popup-chat-plan-actions .btn.primary:hover {
+  filter: brightness(1.05);
+}
+@media (max-width: 480px) {
+  .popup-chat-plan {
+    padding: 1.4rem 1.15rem 1.1rem;
+    max-width: 100%;
+  }
+  .popup-chat-plan h3 {
+    font-size: 1.2rem;
+  }
+  .popup-chat-plan-list li {
+    font-size: 0.92rem;
+  }
+}
+
+/* ───── Notes-page live status (2026-05-16, notes-widget polish) ───── */
+.notes-statusbar {
+  position: sticky;
+  top: 60px;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  padding: 0.5rem 1rem;
+}
+.notes-statusbar__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.notes-statusbar__counts {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.ns-chip {
+  font-size: 0.82rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: #f3efe2;
+  color: var(--ink-soft);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+.ns-chip strong {
+  color: var(--ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ns-chip--pending {
+  background: #fdf3d8;
+  color: #7a5a00;
+}
+.ns-chip--seen {
+  background: #dfe9f0;
+  color: #1c5a7a;
+}
+.ns-chip--applied {
+  background: #e6efe9;
+  color: #2e5d4f;
+}
+.notes-statusbar__latest {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  flex: 1 1 auto;
+  text-align: right;
+  min-width: 0;
+}
+.notes-statusbar__latest strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .notes-statusbar {
+    top: 56px;
+    padding: 0.5rem 0.8rem;
+  }
+  .notes-statusbar__latest {
+    text-align: left;
+    flex-basis: 100%;
+  }
+}
+
+/* Status badge — used inside the notes-list rows + statusbar latest. */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.status-badge--pending {
+  background: #fdf3d8;
+  color: #7a5a00;
+}
+.status-badge--seen {
+  background: #dfe9f0;
+  color: #1c5a7a;
+}
+.status-badge--applied {
+  background: #e6efe9;
+  color: #2e5d4f;
+}
+
+/* Latest-applied feed (notes.html top). */
+.notes-applied-feed {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.applied-card {
+  background: var(--green-mist);
+  border: 1px solid #b8d4c4;
+  border-left: 4px solid var(--green-mid);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+.applied-card__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.applied-card__label {
+  font-weight: 700;
+  color: var(--green-deep);
+  font-size: 0.88rem;
+}
+.applied-card__text {
+  margin-top: 0.2rem;
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+.applied-card__time {
+  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+/* "How this works" collapsible. */
+.notes-help {
+  margin: 1rem 0;
+  padding: 0.7rem 1rem;
+  background: #f7f3e8;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+.notes-help summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--green-deep);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.notes-help summary::before {
+  content: 'ⓘ';
+  color: var(--gold-deep);
+}
+.notes-help summary::-webkit-details-marker {
+  display: none;
+}
+.notes-help[open] summary {
+  margin-bottom: 0.5rem;
+}
+.notes-help ul {
+  list-style: disc;
+  padding-left: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  line-height: 1.5;
+}
+
+/* Expandable note item (was a div, now a <details>). Re-style to keep the
+   look of existing .note-item but add summary affordance. */
+details.note-item {
+  cursor: pointer;
+  padding: 0.8rem 1rem;
+}
+details.note-item > summary {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+details.note-item > summary::-webkit-details-marker {
+  display: none;
+}
+.note-summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.note-summary-time {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.note-summary-preview {
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+details.note-item[open] .note-summary-preview {
+  display: none;
+}
+.note-body {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--line);
+}
+.note-fulltext {
+  color: var(--ink);
+  font-size: 0.96rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
 }
