@@ -1025,19 +1025,26 @@ function renderSunsetStayCard(s: SunsetStay): string {
 function renderSunsetStays(): string {
   if (SUNSET_STAYS.length === 0) return '';
   const cards = SUNSET_STAYS.map(renderSunsetStayCard).join('');
+  // Per Allison 2026-05-17 00:27 + 00:28: "I think sunset booking section should be
+  // colapsable" / "Sunset booking start collapsed". Wrap in <details> closed by default.
   return `
-    <section class="sunset-stays" aria-labelledby="sunset-stays-heading">
-      <header class="sunset-stays__head">
+    <details class="sunset-stays" aria-labelledby="sunset-stays-heading">
+      <summary class="sunset-stays__summary">
         <span class="sunset-stays__eyebrow">✨ Sunset stays</span>
+        <span class="sunset-stays__summary-text">
+          <strong>Sleep where the sunset happens</strong> · 4 places (Schafbergspitze summit + 3 more) · tap to explore
+        </span>
+      </summary>
+      <header class="sunset-stays__head">
         <h2 id="sunset-stays-heading" class="sunset-stays__title">Sleep where the sunset happens</h2>
         <p class="sunset-stays__lede">
           Four places where the room IS the viewpoint — peak hotels above the cog railway, lakeside
           inns at the foot of the Dachstein, balconies hanging over Hintersee.
-          Swap one Obertraun night for one of these.
+          Schafbergspitze is now LOCKED for Wed Jul 29.
         </p>
       </header>
       <div class="sunset-stays__grid">${cards}</div>
-    </section>`;
+    </details>`;
 }
 
 // ---------------------------------------------------------------------------
