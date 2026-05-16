@@ -786,7 +786,7 @@ export const TRIP: TripData = {
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/87693988.webp?k=8d8b8a8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e&o=',
           review: '8.9 · Fabulous · 600+ reviews',
           pricePerNight: '€240 / night (₪953) — confirm live on Booking',
-          note: 'Three carefully renovated historic townhouses on the lakeshore — Kainz House (on the jetty), Stocker House (the oldest building in Hallstatt), Seethaler House (perched on the hillside with the postcard view). All rooms face the lake. Boutique, design-led, history you can feel. NO KITCHEN — hotel rooms, not apartments. Above the €180 mid-high cap. Surface as "if you want one or two nights of beautiful, not kosher-cooked" — kosher meals would need to be cold-cuts/salads brought up from Spar (the room has a fridge but no stove).',
+          note: 'Three carefully renovated historic townhouses on the lakeshore — Kainz House (on the jetty), Stocker House (the oldest building in Hallstatt), Seethaler House (perched on the hillside with the postcard view). All rooms face the lake. Boutique, design-led, history you can feel. NO KITCHEN — hotel rooms, not apartments. Above the €180 mid-high cap. Surface as "if you want one or two nights of beautiful, no self-catering" — meals would be cold-cuts/salads brought up from Spar (the room has a fridge but no stove).',
           budgetTier: 'mid-high',
           platform: 'booking',
           vibeTag: 'lake-edge',
@@ -2515,7 +2515,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
       },
     ],
     kosherKit:
-      'NO guest kitchen / kettle / microwave in rooms (Tripadvisor + UNIQ Hotels both confirm rooms are spartan — "proper heating + functioning bathroom" only). Restaurant menu is NOT kosher. Plan: bring sealed snacks + sandwiches from the Spar run. Ask reception if they will boil a kettle of hot water for tea (low-friction, no kosher contact). Breakfast is included — eat sealed items only (sealed fruit, sealed yogurt with hechsher you bring yourself, sealed jam, sealed crackers). Realistic call: this is a one-night picnic-in, not a kosher-cooked night.',
+      'NO guest kitchen / kettle / microwave in rooms (Tripadvisor + UNIQ Hotels both confirm rooms are spartan — "proper heating + functioning bathroom" only). Restaurant menu is NOT kosher. Plan: bring sealed snacks + sandwiches from the Spar run. Ask reception if they will boil a kettle of hot water for tea (low-friction, no kosher contact). Breakfast is included — eat sealed items only (sealed fruit, sealed yogurt with hechsher you bring yourself, sealed jam, sealed crackers). Realistic call: this is a one-night picnic-in, not a self-catered night.',
     packList:
       'Overnight bag only (rest stays in the car at the valley lot). Layers — summit is 10-15°C colder than valley, can be 5°C at sunrise. Headlamp. Warm jacket + hat. Sealed kosher dinner (sandwiches, salami, hummus tubs, pita, fruit, water). Cash for tip. Camera + power bank.',
     weatherRisk:
@@ -2664,7 +2664,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
       },
     ],
     kosherKit:
-      'Apartments WITH kitchens (full stovetop + fridge). Same setup as the Obertraun base — cook from Spar groceries (nearest Spar is in Ramsau village, 4 km from the lake). Easiest kosher-cooked option of the four sunset picks because it is a real apartment.',
+      'Apartments WITH kitchens (full stovetop + fridge). Same setup as the Obertraun base — cook from Spar groceries (nearest Spar is in Ramsau village, 4 km from the lake). Easiest self-catered option of the four sunset picks because it is a real apartment.',
     packList: 'Standard 1-night apartment-stay packing. Camera tripod for the sunrise.',
     weatherRisk: 'None real — apartment, valley floor, car-accessible year-round.',
     verdict:
