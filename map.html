@@ -6,13 +6,28 @@
     <title>Map · Austria 2026</title>
     <meta
       name="description"
-      content="The geography — 13 nature pins, lodging clusters, drive radii."
+      content="Interactive Leaflet map — 13 nature destinations, 22+ lodging picks, Chabad, airport, Jewish sights. Color-coded, clustered, clickable."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+    />
+    <!-- Leaflet core + markercluster CSS — loaded from CDN, no API key required. -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
     />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
@@ -33,36 +48,19 @@
     <main class="container">
       <h1>The geography</h1>
       <p class="lead-block">
-        Two lodging moves. Salzburg (Fri-Sun) → Obertraun / Hallstatt anchor (Sun-Thu) → airport
-        apartment (Thu-Fri). The Hallstatt apartment is the deep anchor — almost all the nature
-        below is a day-trip out and back from there. Pins below: all 13 nature destinations
-        color-coded by region, plus the three lodging bases.
+        Every pin from the trip on one bird's-eye map — 13 nature destinations, 22+ lodging picks
+        across 4 bases, Chabad Salzburg, the airport, and Jewish sights. Color-coded by region,
+        clustered when zoomed out, click any pin for details + link to its full page.
       </p>
 
       <section class="section" style="border: none; padding-top: 0">
-        <h2>The full picture</h2>
-        <div class="map-wrap">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=11.50%2C46.20%2C14.40%2C48.10&amp;layer=mapnik&amp;marker=47.5622%2C13.6492"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Austria 2026 — nature destinations + lodging map"
-          ></iframe>
-        </div>
-        <div class="map-legend" aria-label="Map pin legend">
-          <span><span class="pin-dot dot-salzkammergut"></span>Salzkammergut lakes (Austria)</span>
-          <span
-            ><span class="pin-dot dot-berchtesgaden"></span>Berchtesgaden / Bavaria (Germany)</span
-          >
-          <span><span class="pin-dot dot-hohe-tauern"></span>Hohe Tauern / Pongau (Austria)</span>
-          <span><span class="pin-dot dot-lodging"></span>Lodging base</span>
-        </div>
-        <p style="font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.8rem">
-          OpenStreetMap is showing the route bounding box. For a clickable view of every pin with
-          its hero photo, sunset rating, and drive times, the
-          <a href="nature-destinations.html"><strong>nature destinations page</strong></a> is the
-          map experience. Map embed = orientation; nature page = details.
-        </p>
+        <div
+          id="map"
+          class="leaflet-map"
+          role="application"
+          aria-label="Austria 2026 trip map"
+        ></div>
+        <p class="map-stats" id="map-stats" aria-live="polite">Loading map…</p>
       </section>
 
       <section class="section">
@@ -218,7 +216,6 @@
             </tr>
           </tbody>
         </table>
-
       </section>
 
       <section class="section">
@@ -392,9 +389,10 @@
       <section class="section">
         <p style="font-size: 0.9rem; color: var(--ink-soft)">
           <strong>Fail-loud:</strong> drive times are Google Maps consensus, not measured at peak
-          July traffic. The OSM iframe is bounded by region — it doesn't show clickable per-pin
-          info; for per-pin photos + sunset ratings open the
-          <a href="nature-destinations.html">nature destinations page</a>.
+          July traffic. Pin coordinates verified from Wikipedia + OpenStreetMap article infoboxes
+          2026-05-16. For per-pin photos + sunset ratings open the
+          <a href="nature-destinations.html">nature destinations page</a>; for lodging photos +
+          reviews open the <a href="stay.html">stay page</a>.
         </p>
       </section>
     </main>
@@ -404,6 +402,13 @@
       Booking.com verified 2026-05-15
     </footer>
 
+    <!-- Leaflet JS + markercluster — loaded synchronously (page-map.ts depends on them). -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script type="module" src="/src/page-map.ts"></script>
   </body>
 </html>

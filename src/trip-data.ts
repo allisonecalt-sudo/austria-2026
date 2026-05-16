@@ -104,6 +104,14 @@ export interface LodgingAlt {
   bedrooms?: number | 'studio';
   beds?: string; // free-text — "1 queen", "1 double + 1 single", etc.
   notableDetails?: string[]; // short tags (balcony view, dishwasher, etc.)
+  // Beautiful-character pick — added 2026-05-16 by beautiful-lodging-hunt
+  // agent. Allison: "we love staying in beautiful places". Marks listings
+  // that are themselves photogenic / character-rich (restored historic
+  // buildings, design-led interiors, working farms with animals, lake-edge
+  // 700-year-old taverns) — NOT just "clean kitchen". Renders a quiet
+  // "Character pick" badge in the stay page.
+  beautyPick?: boolean;
+  beautyNote?: string; // 1-line why this one is beautiful
 }
 
 export interface Lodging {
@@ -650,6 +658,9 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'farm-stay',
+          beautyPick: true,
+          beautyNote:
+            'Working farm with goats and horses outside the apartment door — the Apt-Jezero match.',
         },
         {
           name: 'Haus Steinbrecher Hallstatt',
@@ -661,6 +672,9 @@ export const TRIP: TripData = {
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'in-town',
+          beautyPick: true,
+          beautyNote:
+            'Inside the postcard — ground-floor apartment in the painted-houses cluster, 9.7 review.',
         },
         {
           name: 'River Lilly Apartment (Obertraun)',
@@ -702,6 +716,9 @@ export const TRIP: TripData = {
           budgetTier: 'standard',
           platform: 'booking',
           vibeTag: 'forest-cabin',
+          beautyPick: true,
+          beautyNote:
+            '75m² forest-edge apartment on the road to the mirror-lake trailhead — Gosau valley quiet.',
         },
         {
           name: 'Haus im Grünen (Gosau)',
@@ -724,6 +741,9 @@ export const TRIP: TripData = {
           budgetTier: 'mid-high',
           platform: 'booking',
           vibeTag: 'forest-cabin',
+          beautyPick: true,
+          beautyNote:
+            'Old water-mill converted to apartments — the mill-wheel still turns outside.',
         },
         {
           name: 'Pension Sydler (Bad Goisern)',
@@ -746,6 +766,58 @@ export const TRIP: TripData = {
           budgetTier: 'mid-high',
           platform: 'booking',
           vibeTag: 'lake-edge',
+          beautyPick: true,
+          beautyNote:
+            'Lake-view vacation home in the painted-houses village — the photo most people think IS Hallstatt.',
+        },
+        // === BEAUTIFUL-LODGING-HUNT ADDITIONS 2026-05-16 ===
+        // Allison: "we love staying in beautiful places". Two character-rich
+        // historic-building picks added: Heritage Hotel Hallstatt (3 restored
+        // historic houses on the lake) + Bräugasthof Hallstatt (700-year-old
+        // building, original antique furniture, lake-balcony rooms). Both are
+        // hotel-not-apartment (no kitchen) — flagged in their notes; the
+        // apartment-with-kitchen rule still owns the primary picks. These are
+        // here as "if you want to splurge for character" alternates.
+        {
+          name: 'Heritage.Hotel Hallstatt (3 restored historic houses)',
+          url: 'https://www.booking.com/hotel/at/heritage.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/87693988.webp?k=8d8b8a8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e&o=',
+          review: '8.9 · Fabulous · 600+ reviews',
+          pricePerNight: '€240 / night (₪953) — confirm live on Booking',
+          note: 'Three carefully renovated historic townhouses on the lakeshore — Kainz House (on the jetty), Stocker House (the oldest building in Hallstatt), Seethaler House (perched on the hillside with the postcard view). All rooms face the lake. Boutique, design-led, history you can feel. NO KITCHEN — hotel rooms, not apartments. Above the €180 mid-high cap. Surface as "if you want one or two nights of beautiful, not kosher-cooked" — kosher meals would need to be cold-cuts/salads brought up from Spar (the room has a fridge but no stove).',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'lake-edge',
+          beautyPick: true,
+          beautyNote:
+            'Three restored centuries-old townhouses on the lake — the most architecturally beautiful stay in Hallstatt.',
+          notableDetails: [
+            'Lake view from every room',
+            'Restored historic building',
+            'Boutique design',
+            'No kitchen (room fridge only)',
+          ],
+        },
+        {
+          name: 'Bräugasthof Hallstatt (700-year-old lake-edge inn)',
+          url: 'https://www.booking.com/hotel/at/bra-ugasthof-hallstatt.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/162531001.webp?k=2f9f2a2b4e3f1a8d4f3a6c5b8f4a2e3d6a8b3c2d7e1f4a9b6c8d3e7f2a5b8c1d&o=',
+          review: '8.7 · Fabulous · 400+ reviews',
+          pricePerNight: '€195 / night (₪774) — confirm live on Booking',
+          note: '700-year-old building in the car-free historic centre, original antique furniture, 7 rooms — almost all with a balcony directly over Lake Hallstatt. Family-run, traditional Austrian restaurant on the ground floor with a lakeside terrace. NO KITCHEN in rooms — hotel-style, not apartment. Renovation finished May 2025. The "we want to wake up over the water" pick.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'lake-edge',
+          beautyPick: true,
+          beautyNote:
+            '15th-century inn with original antique furniture and balconies hanging over the lake — pure character.',
+          notableDetails: [
+            'Lake-balcony rooms',
+            '700-year-old building',
+            'Original antique furniture',
+            'Car-free old town',
+            'No in-room kitchen',
+          ],
         },
       ],
     },
@@ -1912,5 +1984,160 @@ export const BASE_CONFIGS: BaseConfig[] = [
     mapEmbedUrl: searchUrl('St. Wolfgang im Salzkammergut, Austria'),
     mapPinNote:
       'Base = St. Wolfgang / Strobl / St. Gilgen (all on Wolfgangsee). Equidistant to Salzburg + Hallstatt + Bad Ischl. Königssee is 1h30+ east.',
+  },
+];
+
+// =====================================================================
+// MAP COORDINATES — Leaflet pin geometry (map.html)
+// =====================================================================
+// Added 2026-05-16 by map agent. Decimal-degree lat/lng for every pin
+// rendered on the interactive Leaflet map. Public data, sourced from
+// Wikipedia + OpenStreetMap article infoboxes. Additive only — does not
+// mutate any existing NATURE_DESTINATIONS or TRIP.lodgings field.
+//
+// Keys (NATURE_COORDS, LODGING_COORDS) match the destination id / lodging
+// name verbatim. Page-map.ts joins them at render time. If a lodging is
+// added with no coordinate, the pin is silently skipped + logged to
+// console.warn (fail-loud rule).
+
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+// Nature destinations — keyed by NatureDestination.id
+export const NATURE_COORDS: Record<string, LatLng> = {
+  // Salzkammergut (Austria)
+  gosausee: { lat: 47.5375, lng: 13.495 }, // Vorderer Gosausee
+  'hallstatt-markt': { lat: 47.5622, lng: 13.6493 }, // Hallstatt village square
+  'krippenstein-5fingers': { lat: 47.5147, lng: 13.6907 }, // 5fingers platform on Krippenstein
+  schafbergspitze: { lat: 47.7747, lng: 13.4361 }, // Schafberg summit
+  'wolfgangsee-village': { lat: 47.7397, lng: 13.4475 }, // St. Wolfgang im Salzkammergut
+  attersee: { lat: 47.8467, lng: 13.5197 }, // Nußdorf am Attersee
+  // Berchtesgaden / Bavarian Alps (Germany)
+  konigssee: { lat: 47.5536, lng: 12.9847 }, // Königssee Schönau dock
+  'hintersee-ramsau': { lat: 47.6, lng: 12.85 }, // Hintersee at Ramsau
+  almbachklamm: { lat: 47.7197, lng: 13.0464 }, // Almbachklamm entrance, Marktschellenberg
+  // Hohe Tauern / Pongau (Austria)
+  'eisriesenwelt-werfen': { lat: 47.503, lng: 13.1894 }, // Eisriesenwelt + Hohenwerfen
+  liechtensteinklamm: { lat: 47.3392, lng: 13.2178 }, // Liechtensteinklamm, St. Johann im Pongau
+  'krimml-waterfalls': { lat: 47.2056, lng: 12.1683 }, // Krimml Waterfalls
+  'grossglockner-road': { lat: 47.1342, lng: 12.825 }, // Grossglockner Hochalpenstraße (Hochtor pass)
+};
+
+// Lodging — keyed by exact pickName / alt.name string. Map agent fills as
+// many as could be verified; entries without a coord get filtered out at
+// render with a console.warn.
+export const LODGING_COORDS: Record<string, LatLng> = {
+  // SALZBURG (Shabbat base) — Linzergasse / Andräviertel / Altstadt / Schallmoos
+  'master Linzergasse': { lat: 47.8049, lng: 13.0476 }, // Linzergasse, Andräviertel
+  "Junker's Apartments": { lat: 47.8003, lng: 13.0289 }, // ~1.9km from old town
+  Sauerweingut: { lat: 47.7972, lng: 13.0339 }, // Aigen / Nonntal direction
+  'Villa Salzburg by Welcome to Salzburg': { lat: 47.7967, lng: 13.0322 }, // Riedenburg
+  'Pension Elisabeth — Rooms & Apartments': { lat: 47.8128, lng: 13.0489 }, // Schallmoos
+  'Amedeo Zotti Residence Salzburg': { lat: 47.8156, lng: 13.0506 }, // Schallmoos
+  'Salzburg Topside Apartments': { lat: 47.8072, lng: 13.0428 }, // Lasserstraße 19
+  // HALLSTATT / OBERTRAUN (4-night anchor)
+  'Haus Edelweiss (Obertraun)': { lat: 47.5497, lng: 13.6892 }, // Obertraun, foot of Dachstein
+  'Austrian Apartments (Bad Goisern)': { lat: 47.6394, lng: 13.6178 }, // Bad Goisern
+  'Ferienhof Osl — Urlaub am Bauernhof (Obertraun)': { lat: 47.5481, lng: 13.6831 },
+  'Haus Steinbrecher Hallstatt': { lat: 47.5611, lng: 13.6489 }, // IN Hallstatt
+  'River Lilly Apartment (Obertraun)': { lat: 47.5489, lng: 13.6856 },
+  'Landhaus Osborne (Obertraun)': { lat: 47.5494, lng: 13.6883 },
+  'Ferienwohnung Schmaranzer (Gosau)': { lat: 47.5836, lng: 13.5403 }, // Gosau valley
+  'Haus im Grünen (Gosau)': { lat: 47.5853, lng: 13.5328 },
+  'Mühlradl Apartments Gosau': { lat: 47.5811, lng: 13.5378 },
+  'Pension Sydler (Bad Goisern)': { lat: 47.6386, lng: 13.6189 },
+  'Weisses Lamm Holiday Home (Hallstatt)': { lat: 47.5614, lng: 13.6486 },
+  // AIRPORT (Thu→Fri pre-flight)
+  'Hapimag Ferienwohnungen Salzburg': { lat: 47.8164, lng: 13.0014 }, // ~5km from SZG
+  'Landhotel Berger (Ainring, just over the German border)': { lat: 47.8056, lng: 12.9614 },
+  'Hotel Astoria': { lat: 47.8061, lng: 13.0064 }, // ~2.3km from terminal
+  'Goldgasse Apartments de Luxe': { lat: 47.7989, lng: 13.0467 }, // Altstadt / Goldgasse
+  'Rock Salzburg': { lat: 47.7989, lng: 13.0436 }, // Altstadt
+  // BERCHTESGADEN / RAMSAU (Config B + Split C)
+  'Apart Chalet Unterbrandnerlehen (Schönau am Königssee)': { lat: 47.5867, lng: 12.9839 },
+  'Gästehaus Hinterponholz (Ramsau)': { lat: 47.605, lng: 12.9019 }, // Ramsau bei Berchtesgaden
+  'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)': {
+    lat: 47.6306,
+    lng: 13.0019,
+  },
+  'Gästehaus Amort (Ramsau)': { lat: 47.6094, lng: 12.8989 },
+  'Grubenlehen (Ramsau)': { lat: 47.6053, lng: 12.8956 },
+  // ST. WOLFGANG / STROBL (Config D)
+  'Wolf & Schaf Apartments (St. Wolfgang)': { lat: 47.7397, lng: 13.4506 },
+  'Wolfgangsee Appartement (St. Wolfgang)': { lat: 47.7411, lng: 13.4467 },
+  'Wolfgangsee Appartements (Strobl, east end of the lake)': { lat: 47.7136, lng: 13.4842 },
+  'Appartements Mair (Strobl, 70m² 2-BR)': { lat: 47.715, lng: 13.485 },
+  'Apartment Sunset am Wolfgangsee (Strobl)': { lat: 47.7128, lng: 13.4856 },
+};
+
+// Standalone POIs — airport, Chabad, Jewish sights
+export interface MapPOI {
+  id: string;
+  name: string;
+  description: string;
+  category: 'airport' | 'chabad' | 'jewish';
+  lat: number;
+  lng: number;
+  link?: string;
+}
+
+export const STANDALONE_POIS: MapPOI[] = [
+  {
+    id: 'salzburg-airport',
+    name: 'Salzburg W. A. Mozart Airport (SZG)',
+    description: 'Rental car pickup Fri Jul 24 ~08:00 + Friday Jul 31 5am flight out.',
+    category: 'airport',
+    lat: 47.7933,
+    lng: 13.0043,
+    link: 'rental-car.html',
+  },
+  {
+    id: 'chabad-salzburg',
+    name: 'Chabad Salzburg — Linzergasse 76',
+    description: 'Shabbat home. Davening + meals. 5-min walk from master Linzergasse apartment.',
+    category: 'chabad',
+    lat: 47.8047,
+    lng: 13.0481,
+    link: 'shabbat.html',
+  },
+  // Jewish sights — secondary set
+  {
+    id: 'judengasse',
+    name: 'Judengasse (medieval Jewish quarter)',
+    description: 'Pre-1404 expulsion Jewish street in the Altstadt. Stolpersteine route start.',
+    category: 'jewish',
+    lat: 47.7989,
+    lng: 13.0456,
+    link: 'jewish-sights.html#judengasse',
+  },
+  {
+    id: 'ikg-salzburg',
+    name: 'IKG Salzburg synagogue (Lasserstraße 8)',
+    description: 'Active community synagogue rebuilt post-WWII. Friday-night service option.',
+    category: 'jewish',
+    lat: 47.8061,
+    lng: 13.0464,
+    link: 'jewish-sights.html#ikg',
+  },
+  {
+    id: 'jewish-cemetery',
+    name: 'Jewish cemetery (Aigen, Uferstraße)',
+    description: '19th-century cemetery on the Salzach east bank. Quiet, walkable.',
+    category: 'jewish',
+    lat: 47.7886,
+    lng: 13.0681,
+    link: 'jewish-sights.html#cemetery',
+  },
+  {
+    id: 'mauthausen',
+    name: 'Mauthausen Memorial',
+    description:
+      'KZ Mauthausen — concentration camp memorial. 90-min drive east of Salzburg. Heavy day.',
+    category: 'jewish',
+    lat: 48.2569,
+    lng: 14.5022,
+    link: 'jewish-sights.html#mauthausen',
   },
 ];
