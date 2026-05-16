@@ -23,6 +23,7 @@ export interface Note {
   note_text: string;
   author: string;
   status: NoteStatus;
+  image_url: string | null;
 }
 
 export interface InsertNoteInput {
@@ -31,6 +32,7 @@ export interface InsertNoteInput {
   activity_id?: string | null;
   note_text: string;
   author?: string;
+  image_url?: string | null;
 }
 
 export async function insertNote(input: InsertNoteInput): Promise<Note> {
@@ -40,6 +42,7 @@ export async function insertNote(input: InsertNoteInput): Promise<Note> {
     activity_id: input.activity_id ?? null,
     note_text: input.note_text,
     author: input.author ?? 'avital',
+    image_url: input.image_url ?? null,
   };
   const res = await fetch(`${SUPABASE_URL}/rest/v1/austria_notes`, {
     method: 'POST',
@@ -52,6 +55,32 @@ export async function insertNote(input: InsertNoteInput): Promise<Note> {
   }
   const data = (await res.json()) as Note[];
   return data[0];
+}
+
+// Upload a photo to the austria-notes-photos bucket. Returns the public URL.
+// Filename pattern: {timestamp}-{random}.{ext} — no PII, collision-resistant.
+// Throws on failure so the caller can surface a toast.
+export async function uploadNotePhoto(file: File): Promise<string> {
+  const ext = (file.name.split('.').pop() ?? 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const safeExt = ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext) ? ext : 'jpg';
+  const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${safeExt}`;
+  const res = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/austria-notes-photos/${filename}`,
+    {
+      method: 'POST',
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': file.type || 'image/jpeg',
+      },
+      body: file,
+    },
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Photo upload failed (${res.status}): ${text}`);
+  }
+  return `${SUPABASE_URL}/storage/v1/object/public/austria-notes-photos/${filename}`;
 }
 
 export async function listNotes(): Promise<Note[]> {

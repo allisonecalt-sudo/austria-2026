@@ -1,7 +1,7 @@
 // Floating "leave a note" button + modal. Posted to austria_notes.
 // v2 (2026-05-15) — single-spine, no A/B options. Day picker only.
 
-import { insertNote } from './supabase.js';
+import { insertNote, uploadNotePhoto } from './supabase.js';
 
 interface ModalConfig {
   defaultDayId: string | null;
@@ -46,6 +46,17 @@ function buildModal(): HTMLDivElement {
       </div>
       <p class="sub">Type anything — agreement, disagreement, swap ideas, "I won't get up at 7am for Königssee," dealbreakers. Claude reads these between sessions and iterates.</p>
       <textarea id="note-text" placeholder="e.g. 'Skip the ice cave — I don't want to do 1400 stairs.'"></textarea>
+      <div class="modal-row note-photo-row">
+        <label for="note-photo" class="note-photo-label">
+          <span>📷 Attach photo (optional)</span>
+          <span class="note-photo-hint">screenshot something to show, or a photo of what's wrong</span>
+        </label>
+        <input type="file" id="note-photo" accept="image/*" capture="environment" />
+        <div id="note-photo-preview" class="note-photo-preview" hidden>
+          <img id="note-photo-preview-img" alt="preview" />
+          <button type="button" id="note-photo-clear" class="note-photo-clear" aria-label="Remove photo">✕</button>
+        </div>
+      </div>
       <div class="modal-row">
         <label>Day (optional) <select id="note-day">
           <option value="">— whole trip —</option>
@@ -152,10 +163,48 @@ export function initNotesWidget(): void {
   const authorSelect = modal.querySelector<HTMLSelectElement>('#note-author');
   const cancelBtn = modal.querySelector<HTMLButtonElement>('#note-cancel');
   const submitBtn = modal.querySelector<HTMLButtonElement>('#note-submit');
+  const photoInput = modal.querySelector<HTMLInputElement>('#note-photo');
+  const photoPreview = modal.querySelector<HTMLDivElement>('#note-photo-preview');
+  const photoPreviewImg = modal.querySelector<HTMLImageElement>('#note-photo-preview-img');
+  const photoClearBtn = modal.querySelector<HTMLButtonElement>('#note-photo-clear');
 
-  if (!textarea || !daySelect || !authorSelect || !cancelBtn || !submitBtn) {
+  if (
+    !textarea ||
+    !daySelect ||
+    !authorSelect ||
+    !cancelBtn ||
+    !submitBtn ||
+    !photoInput ||
+    !photoPreview ||
+    !photoPreviewImg ||
+    !photoClearBtn
+  ) {
     return;
   }
+
+  // Photo preview + clear logic. Object URLs revoked on clear/submit to avoid leaks.
+  let currentPreviewUrl: string | null = null;
+  const clearPhoto = (): void => {
+    photoInput.value = '';
+    photoPreview.hidden = true;
+    photoPreviewImg.removeAttribute('src');
+    if (currentPreviewUrl) {
+      URL.revokeObjectURL(currentPreviewUrl);
+      currentPreviewUrl = null;
+    }
+  };
+  photoInput.addEventListener('change', () => {
+    const file = photoInput.files?.[0] ?? null;
+    if (!file) {
+      clearPhoto();
+      return;
+    }
+    if (currentPreviewUrl) URL.revokeObjectURL(currentPreviewUrl);
+    currentPreviewUrl = URL.createObjectURL(file);
+    photoPreviewImg.src = currentPreviewUrl;
+    photoPreview.hidden = false;
+  });
+  photoClearBtn.addEventListener('click', clearPhoto);
 
   // Per Allison 2026-05-17 01:13: author toggle + persist last choice
   try {
@@ -217,14 +266,30 @@ export function initNotesWidget(): void {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
     try {
+      let imageUrl: string | null = null;
+      const file = photoInput.files?.[0] ?? null;
+      if (file) {
+        submitBtn.textContent = 'Uploading photo…';
+        try {
+          imageUrl = await uploadNotePhoto(file);
+        } catch (uploadErr) {
+          // Fail-loud: tell Avital the photo didn't go through. Don't silently submit text-only.
+          const msg = uploadErr instanceof Error ? uploadErr.message : 'Unknown error';
+          showToast(`Photo upload failed: ${msg}. Note not sent — try again or remove the photo.`, 5000);
+          return;
+        }
+      }
+      submitBtn.textContent = 'Sending…';
       const inserted = await insertNote({
         option: 'general', // v2 single-spine — column kept for back-compat
         day_id: daySelect.value || null,
         activity_id: cfg.defaultActivityId,
         note_text: text,
         author: authorSelect.value || 'avital',
+        image_url: imageUrl,
       });
       textarea.value = '';
+      clearPhoto();
       close();
       showSubmitFlow(inserted?.id ?? null);
     } catch (err) {

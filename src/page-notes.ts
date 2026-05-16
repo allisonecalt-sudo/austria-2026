@@ -62,18 +62,28 @@ function noteHtml(n: Note): string {
   )
     ? (n.status as NoteStatus)
     : 'pending';
+  const thumb = n.image_url
+    ? `<div class="note-summary-thumb"><img loading="lazy" src="${escapeHtml(n.image_url)}" alt="attached photo" /></div>`
+    : '';
+  const fullImg = n.image_url
+    ? `<div class="note-image"><img loading="lazy" src="${escapeHtml(n.image_url)}" alt="attached photo" data-lightbox="${escapeHtml(n.image_url)}" /></div>`
+    : '';
   return `
-    <details class="note-item status-${escapeHtml(status)}">
+    <details class="note-item status-${escapeHtml(status)}${n.image_url ? ' has-image' : ''}">
       <summary>
         <div class="note-summary-row">
           <span class="note-summary-status">${statusBadge(status)}</span>
           <span class="note-summary-time">${escapeHtml(relativeTime(n.created_at))}</span>
         </div>
-        <div class="note-summary-preview">${escapeHtml(n.note_text.slice(0, 140))}${
-          n.note_text.length > 140 ? '…' : ''
-        }</div>
+        <div class="note-summary-body">
+          ${thumb}
+          <div class="note-summary-preview">${escapeHtml(n.note_text.slice(0, 140))}${
+            n.note_text.length > 140 ? '…' : ''
+          }</div>
+        </div>
       </summary>
       <div class="note-body">
+        ${fullImg}
         <div class="note-fulltext">${escapeHtml(n.note_text)}</div>
         <div class="note-meta">
           <span>📌 ${escapeHtml(scope)}</span>
@@ -82,6 +92,30 @@ function noteHtml(n: Note): string {
         </div>
       </div>
     </details>`;
+}
+
+// Lightweight click-to-lightbox. Delegated on body so it survives re-renders.
+function initLightbox(): void {
+  document.body.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (!target) return;
+    const src = target.dataset.lightbox;
+    if (!src) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const backdrop = document.createElement('div');
+    backdrop.className = 'lightbox-backdrop';
+    backdrop.innerHTML = `<img src="${src.replace(/"/g, '&quot;')}" alt="full-size photo" /><button type="button" class="lightbox-close" aria-label="Close">✕</button>`;
+    const close = (): void => backdrop.remove();
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key === 'Escape') {
+        close();
+        document.removeEventListener('keydown', esc);
+      }
+    });
+    document.body.appendChild(backdrop);
+  });
 }
 
 function updateStatusBar(notes: Note[]): void {
@@ -179,6 +213,7 @@ function paintLoading(): void {
 }
 
 paintLoading();
+initLightbox();
 void load();
 
 // Two pollers. Both are best-effort — fail silent, retry next tick.
