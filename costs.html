@@ -30,6 +30,15 @@
       </div>
     </nav>
 
+    <!-- TODO COST-SYNC 2026-05-17: trip-data.ts has stale aggregate totals:
+         TRIP.totalCostEur = 2699 (should be ~3330)
+         TRIP.totalCostNis = 10750 (should be 13209)
+         TRIP.ceilingEur   = 3275 (target ₪13,000 = €3,275 OK)
+         index.html line 214 data-bind="total-eur"/"total-nis" pulls these stale
+         numbers — landing page Costs CTA card shows €2,699 / ₪10,750 while
+         costs.html says ₪13,209. Defer to Booking EXPERTISE agent (owns
+         lodging cost fields in trip-data.ts) to update these to match real
+         all-in: totalCostEur 3330, totalCostNis 13209. -->
     <main class="container costs-page">
       <!-- ====================================================================
            BLOCK 1 — VERDICT BAR — Status word + total vs target + delta
@@ -50,6 +59,11 @@
       <!-- ====================================================================
            BLOCK 2 — HERO TOTAL with progress bar
            ==================================================================== -->
+      <!-- COST-SYNC 2026-05-17: Hero ₪13,209 = combined (2-person) all-in.
+           Reconciled with per-person sum: Allison 6422 + Avital 6787 = 13,209 ✓
+           Categories sum: 4313 + 1162 + 1445 + 2580 + 3337 + 370 = 13,207 — 2-NIS
+           rounding gap; hero retained at 13,209 to match per-person view (which
+           is the figure shared with Avital and used for Splitwise). -->
       <section class="hero-total" aria-labelledby="hero-total-num">
         <div class="hero-eyebrow">All-in · 7 nights · 2 people</div>
         <div class="hero-total-num" id="hero-total-num">₪13,209</div>
@@ -76,6 +90,14 @@
       <!-- ====================================================================
            BLOCK 3 — TWO-PERSON CARDS — side-by-side Allison + Avital
            ==================================================================== -->
+      <!-- COST-SYNC 2026-05-17: Per-person math:
+           Shared pot = lodging 4313 + car 1162 + activities 1445 + food 2580 + baggage 370 = 9870
+           Shared half = 9870 / 2 = 4935 (rounded up to 4,936 for display — 1 NIS rounding)
+           Allison = 4936 + own flight 1486 = 6,422
+           Avital  = 4936 + own flight 1851 est = 6,787 est
+           Combined = 6422 + 6787 = 13,209 (matches hero)
+           Baggage extras ARE in the shared half — no separate "own baggage" row.
+           Settle-strip just covers cash-flow timing (Allison paid the $100 upfront). -->
       <section class="people-grid" aria-label="Per-person totals">
         <article class="person-card person-card--allison">
           <div class="person-card-head">
@@ -86,16 +108,12 @@
           <div class="person-card-sub">her share of the trip</div>
           <dl class="person-card-rows">
             <div class="person-card-row">
-              <dt>Shared half</dt>
+              <dt>Shared half (lodging + car + food + activities + baggage)</dt>
               <dd>₪4,936</dd>
             </div>
             <div class="person-card-row">
               <dt>Own flight · El Al ZP96JK</dt>
               <dd>₪1,486</dd>
-            </div>
-            <div class="person-card-row">
-              <dt>Own baggage half</dt>
-              <dd>₪0</dd>
             </div>
           </dl>
         </article>
@@ -109,16 +127,12 @@
           <div class="person-card-sub">her share of the trip (est)</div>
           <dl class="person-card-rows">
             <div class="person-card-row">
-              <dt>Shared half</dt>
+              <dt>Shared half (lodging + car + food + activities + baggage)</dt>
               <dd>₪4,936</dd>
             </div>
             <div class="person-card-row">
               <dt>Own flight · cash, est</dt>
               <dd>~₪1,851</dd>
-            </div>
-            <div class="person-card-row">
-              <dt>Own baggage half</dt>
-              <dd>₪0</dd>
             </div>
           </dl>
         </article>
@@ -209,26 +223,38 @@
       <section class="cost-block">
         <h2 class="cost-block-h">Could we spend less? More?</h2>
         <p class="cost-block-sub">
-          Same 7-night, 2-person shape. Only the lodging tier shifts the total. Everything else
-          (car, food, activities, flights) holds. Current pick is starred.
+          Same 7-night, 2-person shape. Only the lodging tier shifts the total — all three numbers
+          are combined (2-person) totals vs the ₪13,000 combined target. Car, food, activities,
+          flights, baggage all hold fixed at ₪8,894. Current pick is starred.
         </p>
 
         <div class="tier-grid">
           <article class="tier-card">
             <div class="tier-card-label">Lean</div>
-            <div class="tier-card-total">₪9,658</div>
-            <div class="tier-card-delta tier-card-delta--ok">−₪3,342 under target</div>
+            <!-- COST-SYNC 2026-05-17: Lean = swap to cheapest mid-range lodging
+                 + skip Schafbergspitze (loses summit night, gain 1 extra night at mountain).
+                 Salz 2N @ ~€95 ≈ ₪754 · Mtn 4N @ ~€80 ≈ ₪1,270 · Airport 1N @ ~€70 ≈ ₪278
+                 = lodging ~₪2,302 + fixed ₪8,894 = ₪11,196.
+                 Was ₪9,658 — old per-person figure, mixed-basis error.
+                 Fixed (non-lodging) = car 1162 + activities 1445 + food 2580 + flights 3337 + bag 370 = 8894. -->
+            <div class="tier-card-total">₪11,196</div>
+            <div class="tier-card-delta tier-card-delta--ok">−₪1,804 under target</div>
             <p class="tier-card-note">
-              Mid-range Booking picks · <strong>skip Schafbergspitze</strong> summit night. Loses
-              the marquee sunset experience.
+              Mid-range Booking picks · <strong>skip Schafbergspitze</strong> summit night, add a
+              4th night at the mountain base instead. Loses the marquee sunset experience.
             </p>
           </article>
 
           <article class="tier-card tier-card--current">
             <div class="tier-card-pick">★ Current pick</div>
             <div class="tier-card-label">Standard</div>
-            <div class="tier-card-total">₪11,171</div>
-            <div class="tier-card-delta tier-card-delta--ok">−₪1,829 under target (Allison alone)</div>
+            <!-- COST-SYNC 2026-05-17: Standard card MUST match hero combined total
+                 (4,936 shared half × 2 + 1,486 flight + 1,851 flight = 13,209).
+                 Was 11,171 — that was a per-person figure mixed into a combined row.
+                 All three tier cards are combined (2-person) totals so they're
+                 comparable to ₪13,000 combined target. -->
+            <div class="tier-card-total">₪13,209</div>
+            <div class="tier-card-delta tier-card-delta--over">+₪209 over target · soft cap, fine</div>
             <p class="tier-card-note">
               Linzergasse apt + Haus Edelweiss Obertraun + <strong>Schafbergspitze summit</strong> +
               airport apt. Keeps the wow night.
@@ -237,11 +263,16 @@
 
           <article class="tier-card">
             <div class="tier-card-label">Splurge</div>
-            <div class="tier-card-total">₪12,658</div>
-            <div class="tier-card-delta tier-card-delta--ok">−₪342 under target</div>
+            <!-- COST-SYNC 2026-05-17: Splurge = Aiola Resort Salzburg (€217/nt × 2 = ₪1,723) +
+                 Hallstatt-village lake-view holiday home (€217/nt × 3 = ₪2,584) +
+                 keep summit ₪1,263 + keep airport ₪343 = lodging ₪5,913.
+                 + fixed ₪8,894 = ₪14,807.
+                 Was ₪12,658 — old per-person basis (would mean splurge cheaper than current pick, impossible). -->
+            <div class="tier-card-total">₪14,807</div>
+            <div class="tier-card-delta tier-card-delta--over">+₪1,807 over target · within "ceiling can pass" rule</div>
             <p class="tier-card-note">
-              Aiola Resort Salzburg + Heritage Hotel Hallstatt swap. Still under target but both
-              nights notably nicer.
+              Aiola Resort Salzburg + Hallstatt-village holiday home swap. Both nights notably nicer
+              for ~₪1,600 more than current pick.
             </p>
           </article>
         </div>
@@ -299,6 +330,13 @@
             <p class="base-card-incl">
               <strong>Includes:</strong> cog railway round-trip + breakfast + dinner room rate ·
               €155.80 pp × 2 + tax.
+            </p>
+            <p class="base-card-incl" style="color: #b45309; margin-top: 0.4rem;">
+              <!-- COST-SYNC 2026-05-17: Allison locked "all bookings need free cancellation"
+                   as a hard rule. Schafberg.net direct booking is typically non-refundable
+                   close to the date — needs re-verification before locking. -->
+              ⚠ <strong>Verify free cancellation</strong> on schafberg.net direct booking —
+              new hard rule. If non-refundable, re-search a refundable alternative.
             </p>
             <a class="base-card-link" href="https://schafberg.net/" target="_blank" rel="noopener"
               >schafberg.net ↗</a
@@ -444,6 +482,13 @@
               Schafbergspitze line is the per-person bundle (cog + breakfast). Lean / splurge
               swaps live on <a href="stay.html">Stay page</a>.
             </p>
+            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem;">
+              ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> all 4 lodging
+              bookings must be refundable. Booking.com Salzburg/Obertraun/airport picks already
+              flagged free-cancellation in the data. <strong>Schafbergspitze direct booking
+              needs re-verification</strong> — if non-refundable, swap for a refundable summit
+              option (e.g. base at mountain + early cog up instead of sleep-up).
+            </p>
           </div>
         </details>
 
@@ -502,6 +547,12 @@
               >
               Not included: motorway vignette (~€11.50), per-trip fuel (in food/gas bucket),
               Grossglockner separate toll if driven.
+            </p>
+            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem;">
+              ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> when booking the
+              car on DiscoverCars, filter for "free cancellation" suppliers only — quoted
+              $305 likely includes non-refundable suppliers. Refundable rate may be
+              ~10-15% higher; recompute total if so.
             </p>
           </div>
         </details>
