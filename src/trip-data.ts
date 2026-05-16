@@ -221,11 +221,11 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.salzburgRiver,
       },
       generalIdea:
-        "Land 8am exhausted. Pick up the rental car at the airport, drop bags at the apartment on Linzergasse, run to Spar for Shabbat groceries, nap. Slow afternoon walk along the Salzach. Candle-lighting 20:35 — Chabad is a 3-minute walk and they're expecting us (WhatsApp Chani in advance). The whole day is built around being settled and unwound before sundown.",
+        "LY5193 lands SZG 07:50 — pick up the rental car at the airport, drop bags at the apartment on Linzergasse, run to Spar for Shabbat groceries, nap. Slow afternoon walk along the Salzach. Candle-lighting 20:35 — Chabad is a 3-minute walk and they're expecting us (WhatsApp Chani in advance). The whole day is built around being settled and unwound before sundown.",
       planB:
         'If jet lag is mild: skip the nap, slow walk into the Altstadt for coffee in a square before Shabbat prep.',
       anchors: [
-        { label: 'Land SZG', time: '08:00' },
+        { label: 'Land SZG (LY5193)', time: '07:50' },
         { label: 'Spar groceries by', time: '11:00' },
         { label: 'Settled in by', time: '18:00' },
         { label: 'Candle-lighting', time: '20:35' },
@@ -466,11 +466,13 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
-        'Early wake. Last coffee in the same kitchen you started in. Ten-minute drive to the terminal, drop the rental car, window seat home. Sunset already in Tel Aviv by the time you land.',
+        'Early wake. Last coffee in the same kitchen you started in. Ten-minute drive to the terminal, drop the rental car, board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
       anchors: [
-        { label: 'Wake', time: '05:00' },
-        { label: 'Drop car at SZG', time: '06:00' },
-        { label: 'Sunset (Tel Aviv)', time: '19:45' },
+        { label: 'Wake', time: '05:30' },
+        { label: 'Drop car at SZG', time: '06:15' },
+        { label: 'At terminal (LY5194)', time: '06:55' },
+        { label: 'Depart SZG', time: '08:55' },
+        { label: 'Land TLV', time: '13:25' },
       ],
       driveTo: {
         place: 'Salzburg Airport',
@@ -478,9 +480,9 @@ export const TRIP: TripData = {
         mapsUrl: dirUrl('Salzburg', 'Salzburg Airport'),
       },
       sunset: {
-        place: 'In transit — sunset 19:45 Tel Aviv',
+        place: 'Home in Jerusalem — TLV land 13:25, sunset 19:45 from wherever Shabbat finds you',
         time: '19:45',
-        mapsUrl: searchUrl('Ben Gurion Airport'),
+        mapsUrl: searchUrl('Jerusalem'),
       },
       sleepWhere: 'airport',
     },
@@ -678,7 +680,7 @@ export const TRIP: TripData = {
         },
         {
           name: 'River Lilly Apartment (Obertraun)',
-          url: 'https://www.booking.com/hotel/at/apartment-lilly.html',
+          url: 'https://www.booking.com/hotel/at/landhaus-lilly.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/512123581.webp?k=e2ba9e574311d3d4e34fad78c6b44afdb3def39a437821e7ba2bfbb263602c4b&o=',
           review: '10 · Exceptional · 14 reviews',
           pricePerNight: '€159 / night (₪632)',
@@ -780,7 +782,7 @@ export const TRIP: TripData = {
         // here as "if you want to splurge for character" alternates.
         {
           name: 'Heritage.Hotel Hallstatt (3 restored historic houses)',
-          url: 'https://www.booking.com/hotel/at/heritage.html',
+          url: 'https://www.booking.com/hotel/at/heritage-hallstatt.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/87693988.webp?k=8d8b8a8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e&o=',
           review: '8.9 · Fabulous · 600+ reviews',
           pricePerNight: '€240 / night (₪953) — confirm live on Booking',
@@ -842,7 +844,7 @@ export const TRIP: TripData = {
       alts: [
         {
           name: 'Landhotel Berger (Ainring, just over the German border)',
-          url: 'https://www.booking.com/hotel/at/landhaus-berger-ainring.html',
+          url: 'https://www.booking.com/hotel/de/landhaus-berger-ainring.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/487668919.webp?k=249e5a1260b40f9b2d5a1f924e3a04f5e27e1da37720c6dc36801c8ee7eecddc&o=',
           review: '8.4 · Very good · 421 reviews',
           pricePerNight: '€203 / night (₪807)',
@@ -1876,7 +1878,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   },
   {
     name: 'Gästehaus Hinterponholz (Ramsau)',
-    url: 'https://www.booking.com/hotel/de/gastehaus-hinterponholz.html',
+    url: 'https://www.booking.com/hotel/de/ga-stehaus-hinterponholz.html',
     img: 'https://cf.bstatic.com/xdata/images/hotel/square600/156478923.webp?k=b2c3d4e5f607182931a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4&o=',
     review: '9.4 · Superb · 180 reviews',
     pricePerNight: '€120 / night (₪476)',
@@ -2379,7 +2381,8 @@ export const STANDALONE_POIS: MapPOI[] = [
   {
     id: 'salzburg-airport',
     name: 'Salzburg W. A. Mozart Airport (SZG)',
-    description: 'Rental car pickup Fri Jul 24 ~08:00 + Friday Jul 31 5am flight out.',
+    description:
+      'Rental car pickup Fri Jul 24 ~08:30 (LY5193 lands 07:50) + Friday Jul 31 LY5194 dep 08:55 (rental drop ~06:15).',
     category: 'airport',
     lat: 47.7933,
     lng: 13.0043,

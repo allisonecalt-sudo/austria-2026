@@ -46,6 +46,7 @@ initNotesWidget();
 interface LMap {
   setView(center: [number, number], zoom: number): LMap;
   fitBounds(bounds: LBounds, opts?: { padding?: [number, number] }): LMap;
+  flyTo(center: [number, number], zoom: number, opts?: { duration?: number }): LMap;
   addLayer(layer: unknown): LMap;
   removeLayer(layer: unknown): LMap;
   invalidateSize(): void;
@@ -57,6 +58,8 @@ interface LBounds {
 interface LMarker {
   bindPopup(html: string, opts?: { maxWidth?: number; className?: string }): LMarker;
   addTo(layer: unknown): LMarker;
+  openPopup(): LMarker;
+  getLatLng(): { lat: number; lng: number };
 }
 interface LLayerGroup {
   addLayer(layer: unknown): LLayerGroup;
@@ -72,7 +75,10 @@ interface LDivIconOpts {
 interface LeafletStatic {
   map(id: string, opts?: { zoomControl?: boolean; scrollWheelZoom?: boolean }): LMap;
   tileLayer(url: string, opts: { attribution: string; maxZoom: number }): { addTo(m: LMap): void };
-  marker(latLng: [number, number], opts?: { icon?: unknown }): LMarker;
+  marker(
+    latLng: [number, number],
+    opts?: { icon?: unknown; zIndexOffset?: number },
+  ): LMarker;
   divIcon(opts: LDivIconOpts): unknown;
   latLngBounds(latLngs: Array<[number, number]>): LBounds;
   control: {
@@ -158,28 +164,40 @@ const PIN_LABEL: Record<PinCategory, string> = {
 function makePinIcon(category: PinCategory): unknown {
   const color = PIN_COLORS[category];
   let inner = '';
+  let html = '';
+  let size: [number, number] = [26, 26];
+  let anchor: [number, number] = [13, 13];
+  let popupAnchor: [number, number] = [0, -13];
+
   if (category === 'airport') {
-    // Airplane glyph
     inner = '<span class="pin-glyph">✈</span>';
   } else if (category === 'chabad') {
-    // Star of David glyph
-    inner = '<span class="pin-glyph">✡</span>';
+    // OVERSIZED Chabad pin — Avital flagged it wasn't visible. Now 42x42
+    // with pulsing ring + permanent "Chabad" text label hanging below.
+    // Always-on-top via zIndexOffset on the marker side.
+    inner = '<span class="pin-glyph pin-glyph-chabad">✡</span>';
+    html = `
+      <div class="leaflet-pin leaflet-pin--chabad" style="background:${color}">${inner}</div>
+      <div class="leaflet-pin-label leaflet-pin-label--chabad">Chabad</div>
+    `;
+    size = [44, 56];
+    anchor = [22, 22];
+    popupAnchor = [0, -22];
   } else if (category.startsWith('lodging-')) {
-    // House glyph
     inner = '<span class="pin-glyph">⌂</span>';
   } else if (category === 'jewish') {
     inner = '<span class="pin-glyph pin-glyph-small">✡</span>';
-  } else {
-    // Nature — solid circle
-    inner = '';
   }
-  const html = `<div class="leaflet-pin leaflet-pin--${category}" style="background:${color}">${inner}</div>`;
+
+  if (!html) {
+    html = `<div class="leaflet-pin leaflet-pin--${category}" style="background:${color}">${inner}</div>`;
+  }
   return window.L.divIcon({
     html,
     className: 'leaflet-pin-wrapper',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
-    popupAnchor: [0, -13],
+    iconSize: size,
+    iconAnchor: anchor,
+    popupAnchor,
   });
 }
 
@@ -475,18 +493,23 @@ function bootMap(): void {
   let airportCount = 0;
   let chabadCount = 0;
   let jewishCount = 0;
+  let chabadMarker: LMarker | null = null;
   for (const poi of STANDALONE_POIS) {
     const cat: PinCategory =
       poi.category === 'airport' ? 'airport' : poi.category === 'chabad' ? 'chabad' : 'jewish';
     if (poi.category === 'airport') airportCount += 1;
     else if (poi.category === 'chabad') chabadCount += 1;
     else jewishCount += 1;
-    const marker = L.marker([poi.lat, poi.lng], { icon: makePinIcon(cat) }).bindPopup(
-      poiPopup(poi),
-      { maxWidth: 270, className: 'leaflet-popup-trip' },
-    );
+    // Chabad sits above ALL other markers — zIndexOffset 1000 wins over
+    // lodging cluster pins at the same Salzburg coordinates.
+    const zOffset = cat === 'chabad' ? 1000 : 0;
+    const marker = L.marker([poi.lat, poi.lng], {
+      icon: makePinIcon(cat),
+      zIndexOffset: zOffset,
+    }).bindPopup(poiPopup(poi), { maxWidth: 270, className: 'leaflet-popup-trip' });
     jewishAirportLayer.addLayer(marker);
     allLatLngs.push([poi.lat, poi.lng]);
+    if (cat === 'chabad') chabadMarker = marker;
   }
 
   // Add all layers on by default
@@ -544,6 +567,35 @@ function bootMap(): void {
     if (bounds.isValid()) {
       map.fitBounds(bounds, { padding: [40, 40] });
     }
+  }
+
+  // === Find Chabad button — Avital flagged the pin wasn't obvious. ===
+  // Top-left control: tap to fly to Chabad at zoom 15 + auto-open popup.
+  if (chabadMarker) {
+    const FindChabad = L.Control.extend({
+      options: { position: 'topleft' },
+      onAdd: (): HTMLElement => {
+        const div = L.DomUtil.create('div', 'leaflet-bar map-find-chabad');
+        div.innerHTML = `
+          <a href="#" role="button" aria-label="Zoom to Chabad Salzburg">
+            <span class="fc-star">✡</span>
+            <span class="fc-label">Find Chabad</span>
+          </a>
+        `;
+        div.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (chabadMarker) {
+            const ll = chabadMarker.getLatLng();
+            map.flyTo([ll.lat, ll.lng], 15, { duration: 0.8 });
+            window.setTimeout(() => chabadMarker?.openPopup(), 900);
+          }
+        });
+        div.addEventListener('wheel', (e) => e.stopPropagation());
+        return div;
+      },
+    });
+    new FindChabad().addTo(map);
   }
 
   // Invalidate size after layout settles (fonts load asynchronously).

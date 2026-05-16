@@ -37,6 +37,18 @@
         <div class="eyebrow">The trip · seven days, one idea each</div>
         <h1>Tap a day. See the plan.</h1>
         <p class="lead-block" data-bind="why"></p>
+
+        <div class="ts-toggle-row" role="tablist" aria-label="Trip view">
+          <a href="trip-summary.html" class="ts-toggle" role="tab">📍 Summary view</a>
+          <a href="itinerary.html" class="ts-toggle ts-toggle--active" role="tab"
+            >📅 Full day-by-day</a
+          >
+        </div>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.4rem">
+          Want the high-level view — key places, drive times, where staying, top views — without the
+          hour-by-hour? Tap <strong>Summary view</strong> above.
+        </p>
+
         <p
           class="lead-block"
           style="
@@ -44,6 +56,7 @@
             background: var(--cream);
             border-left: 3px solid var(--green-deep);
             padding: 0.7rem 1rem;
+            margin-top: 1rem;
           "
         >
           Want to swap something in? See the
@@ -69,7 +82,7 @@
       </section>
 
       <div class="peak-callout">
-        <div class="eyebrow">The Tara-Bridge moment · <span data-bind="peak-day"></span></div>
+        <div class="eyebrow">The peak moment · <span data-bind="peak-day"></span></div>
         <h3 data-bind="peak-spot"></h3>
         <p data-bind="peak-desc"></p>
       </div>
