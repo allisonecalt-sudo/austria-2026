@@ -6,7 +6,7 @@
     <title>Costs · Austria 2026</title>
     <meta
       name="description"
-      content="Visual budget — 7 nights, 2 people. All numbers in shekel against the ₪13,000 target."
+      content="Trip cost at a glance — ₪13,209 total, split fairly, every line sourced."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,808 +30,806 @@
       </div>
     </nav>
 
-    <main class="container">
-      <header class="costs-header">
-        <div class="eyebrow">Money · 7 nights, 2 people · shekel-first</div>
-        <h1>What it costs</h1>
-      </header>
-
-      <!-- TLDR right under the title, Avital-grasp -->
-      <p class="cost-tldr">
-        <strong>TL;DR —</strong> Shared trip cost split 50/50 (lodging, car, food, activities).
-        Flights + baggage each-own. <strong>Allison ~₪6,422</strong> · <strong>Avital ~₪6,787</strong> ·
-        <strong>combined ~₪13,209</strong> — just over the ₪13,000 target by ~₪209 (acceptable per
-        Allison's "can pass ceiling" rule).
-      </p>
-
-      <!-- Big total — visually dominant, Cormorant serif, gold accent line -->
-      <section class="cost-hero">
-        <div class="cost-hero-label">All-in for the trip (both)</div>
-        <div class="cost-hero-num">~₪13,209</div>
-        <div class="cost-hero-sub">
-          ≈ €3,330 · Allison ~₪6,422 + Avital ~₪6,787 (incl. flight differences)
-        </div>
-        <div class="cost-hero-ceiling">
-          <span class="cost-status-dot" aria-hidden="true"></span>
-          On plan · ₪13,000 target · <strong>~₪209 over (soft cap)</strong>
-        </div>
-        <div class="cost-hero-meta">
-          50/50 split on shared (each ₪4,936). Flights each-own: Allison ₪1,486 (Matmid points),
-          Avital ~₪1,851 (cash, est — confirms exact later).
-        </div>
-      </section>
-
-      <!-- Bar chart with all categories -->
-      <div class="cost-bar-wrap">
-        <div class="cost-bar" aria-label="Cost breakdown by category">
-          <div class="cost-bar-seg lodging" style="flex-grow: 4313" title="Lodging ₪4,313">
-            <span class="cost-bar-amt">₪4,313</span>
-          </div>
-          <div class="cost-bar-seg food" style="flex-grow: 2580" title="Food + gas + buffer ₪2,580">
-            <span class="cost-bar-amt">₪2,580</span>
-          </div>
-          <div class="cost-bar-seg flight" style="flex-grow: 1486" title="Flight (Allison) ₪1,486">
-            <span class="cost-bar-amt">₪1,486</span>
-          </div>
-          <div class="cost-bar-seg activities" style="flex-grow: 1445" title="Activities ₪1,445">
-            <span class="cost-bar-amt">₪1,445</span>
-          </div>
-          <div class="cost-bar-seg car" style="flex-grow: 1162" title="Rental car ₪1,162">
-            <span class="cost-bar-amt">₪1,162</span>
-          </div>
-          <div class="cost-bar-seg baggage" style="flex-grow: 185" title="Baggage split ₪185">
-            <span class="cost-bar-amt">₪185</span>
-          </div>
-        </div>
-        <div class="cost-legend">
-          <div class="cost-legend-item">
-            <span class="cost-legend-dot lodging"></span>
-            <span><strong>Lodging</strong> <span class="cost-legend-num">₪4,313 · 39%</span></span>
-          </div>
-          <div class="cost-legend-item">
-            <span class="cost-legend-dot food"></span>
-            <span
-              ><strong>Food, gas, buffer</strong>
-              <span class="cost-legend-num">₪2,580 · 23%</span></span
-            >
-          </div>
-          <div class="cost-legend-item">
-            <span class="cost-legend-dot flight"></span>
-            <span
-              ><strong>Flight (Allison)</strong>
-              <span class="cost-legend-num">₪1,486 · 13%</span></span
-            >
-          </div>
-          <div class="cost-legend-item">
-            <span class="cost-legend-dot activities"></span>
-            <span
-              ><strong>Activities</strong> <span class="cost-legend-num">₪1,445 · 13%</span></span
-            >
-          </div>
-          <div class="cost-legend-item">
-            <span class="cost-legend-dot car"></span>
-            <span
-              ><strong>Rental car</strong> <span class="cost-legend-num">₪1,162 · 10%</span></span
-            >
-          </div>
-          <div class="cost-legend-item">
-            <span class="cost-legend-dot baggage"></span>
-            <span
-              ><strong>Baggage extras</strong>
-              <span class="cost-legend-num">₪185 · 2%</span></span
-            >
-          </div>
-        </div>
+    <main class="container costs-page">
+      <!-- ====================================================================
+           BLOCK 1 — VERDICT BAR — Status word + total vs target + delta
+           ==================================================================== -->
+      <div class="verdict-bar" role="status" aria-label="Trip budget status">
+        <span class="verdict-pill verdict-pill--ok">
+          <span class="verdict-dot" aria-hidden="true"></span>
+          On plan
+        </span>
+        <span class="verdict-divider" aria-hidden="true"></span>
+        <span class="verdict-detail">
+          <strong>₪13,209</strong> of <strong>₪13,000</strong> target
+        </span>
+        <span class="verdict-divider" aria-hidden="true"></span>
+        <span class="verdict-delta">₪209 over · soft cap, acceptable</span>
       </div>
 
-      <!-- ============================================================
-           PER-BASE BREAKDOWN — 4-base shape, lodging-only
-           ============================================================ -->
-      <section class="cost-block">
-        <h2 class="cost-block-h">Per-base breakdown · lodging</h2>
-        <p class="cost-block-sub">
-          4-base shape: Salzburg → Obertraun → Schafbergspitze → Airport. Each row = nights × per-night.
-        </p>
-        <div class="costs-scroll">
-          <table class="costs cost-base-table">
-            <thead>
-              <tr>
-                <th>Base</th>
-                <th>Dates</th>
-                <th class="num">€/nt</th>
-                <th class="num">Nts</th>
-                <th class="num">€</th>
-                <th class="num">₪</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Salzburg</strong> · Linzergasse apt</td>
-                <td>Fri 24 → Sun 26</td>
-                <td class="num">128</td>
-                <td class="num">2</td>
-                <td class="num">256</td>
-                <td class="num">1,016</td>
-              </tr>
-              <tr>
-                <td><strong>Mountain</strong> · Haus Edelweiss Obertraun</td>
-                <td>Sun 26 → Wed 29</td>
-                <td class="num">142</td>
-                <td class="num">3</td>
-                <td class="num">426</td>
-                <td class="num">1,691</td>
-              </tr>
-              <tr>
-                <td><strong>Schafbergspitze 1,783m</strong> · summit overnight</td>
-                <td>Wed 29 → Thu 30</td>
-                <td class="num">—</td>
-                <td class="num">1</td>
-                <td class="num">318</td>
-                <td class="num">1,263</td>
-              </tr>
-              <tr>
-                <td><strong>Airport</strong> · final-night pick</td>
-                <td>Thu 30 → Fri 31</td>
-                <td class="num">86</td>
-                <td class="num">1</td>
-                <td class="num">86</td>
-                <td class="num">343</td>
-              </tr>
-              <tr class="total">
-                <td>4 bases · 7 nights</td>
-                <td></td>
-                <td class="num">—</td>
-                <td class="num">7</td>
-                <td class="num">1,086</td>
-                <td class="num">4,313</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- ====================================================================
+           BLOCK 2 — HERO TOTAL with progress bar
+           ==================================================================== -->
+      <section class="hero-total" aria-labelledby="hero-total-num">
+        <div class="hero-eyebrow">All-in · 7 nights · 2 people</div>
+        <div class="hero-total-num" id="hero-total-num">₪13,209</div>
+        <div class="hero-total-sub">≈ €3,330 · ≈ $3,570</div>
+
+        <div class="cost-progress" aria-label="Spend against ₪13,000 target">
+          <div class="cost-progress-track">
+            <div class="cost-progress-fill" style="width: 100%"></div>
+            <div
+              class="cost-progress-marker"
+              style="left: 100%"
+              title="Actual ₪13,209"
+              aria-hidden="true"
+            ></div>
+          </div>
+          <div class="cost-progress-labels">
+            <span class="cost-progress-start">₪0</span>
+            <span class="cost-progress-target">Target ₪13K</span>
+            <span class="cost-progress-actual">Actual ₪13.2K</span>
+          </div>
         </div>
+      </section>
+
+      <!-- ====================================================================
+           BLOCK 3 — TWO-PERSON CARDS — side-by-side Allison + Avital
+           ==================================================================== -->
+      <section class="people-grid" aria-label="Per-person totals">
+        <article class="person-card person-card--allison">
+          <div class="person-card-head">
+            <span class="person-card-name">Allison</span>
+            <span class="person-card-badge person-card-badge--ok">✓ Flight booked</span>
+          </div>
+          <div class="person-card-total">₪6,422</div>
+          <div class="person-card-sub">her share of the trip</div>
+          <dl class="person-card-rows">
+            <div class="person-card-row">
+              <dt>Shared half</dt>
+              <dd>₪4,936</dd>
+            </div>
+            <div class="person-card-row">
+              <dt>Own flight · El Al ZP96JK</dt>
+              <dd>₪1,486</dd>
+            </div>
+            <div class="person-card-row">
+              <dt>Own baggage half</dt>
+              <dd>₪0</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="person-card person-card--avital">
+          <div class="person-card-head">
+            <span class="person-card-name">Avital</span>
+            <span class="person-card-badge person-card-badge--pending">⏳ Flight TBD</span>
+          </div>
+          <div class="person-card-total">~₪6,787</div>
+          <div class="person-card-sub">her share of the trip (est)</div>
+          <dl class="person-card-rows">
+            <div class="person-card-row">
+              <dt>Shared half</dt>
+              <dd>₪4,936</dd>
+            </div>
+            <div class="person-card-row">
+              <dt>Own flight · cash, est</dt>
+              <dd>~₪1,851</dd>
+            </div>
+            <div class="person-card-row">
+              <dt>Own baggage half</dt>
+              <dd>₪0</dd>
+            </div>
+          </dl>
+        </article>
+      </section>
+
+      <!-- ====================================================================
+           BLOCK 4 — SETTLE-UP STRIP (Splitwise punchline)
+           ==================================================================== -->
+      <div class="settle-strip" role="note">
+        <span class="settle-strip-icon" aria-hidden="true">💸</span>
+        <span class="settle-strip-text">
+          <strong>Settle-up at trip end:</strong> square — each pays her own flight, everything
+          else 50/50. No one owes anyone.
+        </span>
+      </div>
+
+      <!-- ====================================================================
+           BLOCK 5 — CATEGORICAL BREAKDOWN BAR
+           ==================================================================== -->
+      <section class="cost-block">
+        <h2 class="cost-block-h">Where the money goes</h2>
+        <p class="cost-block-sub">
+          Six buckets. Hover (or tap) any segment to see the line. Lodging is the biggest;
+          food + activities are flexible; flights are fixed.
+        </p>
+
+        <div class="cost-bar-wrap">
+          <div class="cost-bar" aria-label="Cost breakdown by category">
+            <div class="cost-bar-seg lodging" style="flex-grow: 4313" title="Lodging ₪4,313 (33%)">
+              <span class="cost-bar-amt">Lodging ₪4,313</span>
+            </div>
+            <div class="cost-bar-seg food" style="flex-grow: 2580" title="Food + gas + buffer ₪2,580 (20%)">
+              <span class="cost-bar-amt">Food ₪2,580</span>
+            </div>
+            <div class="cost-bar-seg flight" style="flex-grow: 3337" title="Flights ₪3,337 (25%)">
+              <span class="cost-bar-amt">Flights ₪3,337</span>
+            </div>
+            <div class="cost-bar-seg activities" style="flex-grow: 1445" title="Activities ₪1,445 (11%)">
+              <span class="cost-bar-amt">Activities ₪1,445</span>
+            </div>
+            <div class="cost-bar-seg car" style="flex-grow: 1162" title="Rental car ₪1,162 (9%)">
+              <span class="cost-bar-amt">Car ₪1,162</span>
+            </div>
+            <div class="cost-bar-seg baggage" style="flex-grow: 370" title="Baggage extras ₪370 (3%)">
+              <span class="cost-bar-amt">Bag ₪370</span>
+            </div>
+          </div>
+
+          <div class="cost-legend">
+            <div class="cost-legend-item">
+              <span class="cost-legend-dot lodging"></span>
+              <strong>Lodging</strong>
+              <span class="cost-legend-num">₪4,313 · 33%</span>
+            </div>
+            <div class="cost-legend-item">
+              <span class="cost-legend-dot flight"></span>
+              <strong>Flights (both)</strong>
+              <span class="cost-legend-num">₪3,337 · 25%</span>
+            </div>
+            <div class="cost-legend-item">
+              <span class="cost-legend-dot food"></span>
+              <strong>Food, gas, buffer</strong>
+              <span class="cost-legend-num">₪2,580 · 20%</span>
+            </div>
+            <div class="cost-legend-item">
+              <span class="cost-legend-dot activities"></span>
+              <strong>Activities</strong>
+              <span class="cost-legend-num">₪1,445 · 11%</span>
+            </div>
+            <div class="cost-legend-item">
+              <span class="cost-legend-dot car"></span>
+              <strong>Rental car</strong>
+              <span class="cost-legend-num">₪1,162 · 9%</span>
+            </div>
+            <div class="cost-legend-item">
+              <span class="cost-legend-dot baggage"></span>
+              <strong>Baggage extras</strong>
+              <span class="cost-legend-num">₪370 · 3%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           BLOCK 6 — TIER COMPARISON (3 cards horizontally)
+           ==================================================================== -->
+      <section class="cost-block">
+        <h2 class="cost-block-h">Could we spend less? More?</h2>
+        <p class="cost-block-sub">
+          Same 7-night, 2-person shape. Only the lodging tier shifts the total. Everything else
+          (car, food, activities, flights) holds. Current pick is starred.
+        </p>
+
+        <div class="tier-grid">
+          <article class="tier-card">
+            <div class="tier-card-label">Lean</div>
+            <div class="tier-card-total">₪9,658</div>
+            <div class="tier-card-delta tier-card-delta--ok">−₪3,342 under target</div>
+            <p class="tier-card-note">
+              Mid-range Booking picks · <strong>skip Schafbergspitze</strong> summit night. Loses
+              the marquee sunset experience.
+            </p>
+          </article>
+
+          <article class="tier-card tier-card--current">
+            <div class="tier-card-pick">★ Current pick</div>
+            <div class="tier-card-label">Standard</div>
+            <div class="tier-card-total">₪11,171</div>
+            <div class="tier-card-delta tier-card-delta--ok">−₪1,829 under target (Allison alone)</div>
+            <p class="tier-card-note">
+              Linzergasse apt + Haus Edelweiss Obertraun + <strong>Schafbergspitze summit</strong> +
+              airport apt. Keeps the wow night.
+            </p>
+          </article>
+
+          <article class="tier-card">
+            <div class="tier-card-label">Splurge</div>
+            <div class="tier-card-total">₪12,658</div>
+            <div class="tier-card-delta tier-card-delta--ok">−₪342 under target</div>
+            <p class="tier-card-note">
+              Aiola Resort Salzburg + Heritage Hotel Hallstatt swap. Still under target but both
+              nights notably nicer.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           BLOCK 7 — PER-BASE CARDS (4-base shape, 2×2 grid)
+           ==================================================================== -->
+      <section class="cost-block">
+        <h2 class="cost-block-h">Where you sleep · 4 bases, 7 nights</h2>
+        <p class="cost-block-sub">
+          Lodging splits across 4 bases — Salzburg start, mountain anchor, summit night, airport
+          finish. Schafbergspitze includes the cog up + breakfast.
+        </p>
+
+        <div class="base-grid">
+          <article class="base-card">
+            <div class="base-card-icon" aria-hidden="true">🏛</div>
+            <div class="base-card-name">Salzburg</div>
+            <div class="base-card-stay">Linzergasse apt</div>
+            <div class="base-card-total">₪1,016</div>
+            <div class="base-card-meta">2 nts · €128/nt · Fri 24 → Sun 26</div>
+            <p class="base-card-incl">Lodging only.</p>
+            <a
+              class="base-card-link"
+              href="https://www.booking.com/searchresults.html?ss=Salzburg&checkin=2026-07-24&checkout=2026-07-26"
+              target="_blank"
+              rel="noopener"
+              >Booking ↗</a
+            >
+          </article>
+
+          <article class="base-card">
+            <div class="base-card-icon" aria-hidden="true">🏔</div>
+            <div class="base-card-name">Mountain · Obertraun</div>
+            <div class="base-card-stay">Haus Edelweiss</div>
+            <div class="base-card-total">₪1,691</div>
+            <div class="base-card-meta">3 nts · €142/nt · Sun 26 → Wed 29</div>
+            <p class="base-card-incl">Lodging only. Hallstatt + Krippenstein from here.</p>
+            <a
+              class="base-card-link"
+              href="https://www.booking.com/searchresults.html?ss=Obertraun&checkin=2026-07-26&checkout=2026-07-29"
+              target="_blank"
+              rel="noopener"
+              >Booking ↗</a
+            >
+          </article>
+
+          <article class="base-card base-card--feature">
+            <div class="base-card-icon" aria-hidden="true">🌄</div>
+            <div class="base-card-name">Schafbergspitze · 1,783m</div>
+            <div class="base-card-stay">Summit overnight</div>
+            <div class="base-card-total">₪1,263</div>
+            <div class="base-card-meta">1 nt · package · Wed 29 → Thu 30</div>
+            <p class="base-card-incl">
+              <strong>Includes:</strong> cog railway round-trip + breakfast + dinner room rate ·
+              €155.80 pp × 2 + tax.
+            </p>
+            <a class="base-card-link" href="https://schafberg.net/" target="_blank" rel="noopener"
+              >schafberg.net ↗</a
+            >
+          </article>
+
+          <article class="base-card">
+            <div class="base-card-icon" aria-hidden="true">✈</div>
+            <div class="base-card-name">Airport</div>
+            <div class="base-card-stay">Salzburg-airport pick</div>
+            <div class="base-card-total">₪343</div>
+            <div class="base-card-meta">1 nt · €86/nt · Thu 30 → Fri 31</div>
+            <p class="base-card-incl">Lodging only. Required for the 08:55 Fri morning flight.</p>
+            <a
+              class="base-card-link"
+              href="https://www.booking.com/searchresults.html?ss=Salzburg+Airport&checkin=2026-07-30&checkout=2026-07-31"
+              target="_blank"
+              rel="noopener"
+              >Booking ↗</a
+            >
+          </article>
+        </div>
+
         <p class="cost-source">
           <span class="cost-verified">Verified 2026-05-17</span>
-          Booking.com (Salzburg, Obertraun, Airport) + schafberg.net (summit). Schafbergspitze
-          line = per-person package: €155.80 × 2 = €311.60 + €7 tax incl. cog round-trip +
-          breakfast. Full listings on <a href="stay.html">Stay page</a>.
+          Lodging total ₪4,313 (€1,086). Sourced from Booking.com listings + schafberg.net.
+          Full options + lean/splurge alternatives on the <a href="stay.html">Stay page</a>.
         </p>
       </section>
 
-      <!-- ============================================================
-           SPLITWISE / PER-TRAVELER VIEW
-           ============================================================ -->
-      <section class="cost-block">
-        <h2 class="cost-block-h">Who pays what · Splitwise view</h2>
+      <!-- ====================================================================
+           BLOCK 8 — DEEP-DIVE: every line, every source
+           ==================================================================== -->
+      <section class="cost-block cost-block--deep">
+        <h2 class="cost-block-h">Deep-dive · every line, every source</h2>
         <p class="cost-block-sub">
-          Shared lines split 50/50. Flights + baggage extras are each-own.
+          Tap to expand. Each line cites the live source (Booking URL, El Al PNR, operator
+          ticket page, DiscoverCars quote).
         </p>
-        <div class="costs-scroll">
-          <table class="costs cost-split-table">
-            <thead>
-              <tr>
-                <th>Line</th>
-                <th class="num">Total ₪</th>
-                <th class="num">Allison ₪</th>
-                <th class="num">Avital ₪</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Lodging (4 bookings, 7 nights)</td>
-                <td class="num">4,313</td>
-                <td class="num">2,157</td>
-                <td class="num">2,157</td>
-              </tr>
-              <tr>
-                <td>Rental car (Opel Mokka)</td>
-                <td class="num">1,162</td>
-                <td class="num">581</td>
-                <td class="num">581</td>
-              </tr>
-              <tr>
-                <td>Activities (boats, gondolas, cog, ice cave)</td>
-                <td class="num">1,445</td>
-                <td class="num">723</td>
-                <td class="num">723</td>
-              </tr>
-              <tr>
-                <td>Food, gas, parking, buffer</td>
-                <td class="num">2,580</td>
-                <td class="num">1,290</td>
-                <td class="num">1,290</td>
-              </tr>
-              <tr>
-                <td><strong>Flight — Allison</strong> · El Al ZP96JK booked</td>
-                <td class="num">1,486</td>
-                <td class="num">1,486</td>
-                <td class="num">—</td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Flight — Avital</strong> · separate booking, paid cash (no Matmid points)
-                  <span class="cost-pill est" style="margin-left: 0.3rem">est</span>
-                  <br><span style="font-size:0.8rem;opacity:0.75">Allison's ₪1,486 + ~$100 cash diff. Avital confirms exact later.</span>
-                </td>
-                <td class="num">~1,851</td>
-                <td class="num">—</td>
-                <td class="num">~1,851</td>
-              </tr>
-              <tr>
-                <td>Baggage extras (2 suitcases, $100 split)</td>
-                <td class="num">370</td>
-                <td class="num">185</td>
-                <td class="num">185</td>
-              </tr>
-              <tr class="total">
-                <td>Allison's all-in</td>
-                <td class="num">—</td>
-                <td class="num">11,171</td>
-                <td class="num"></td>
-              </tr>
-              <tr class="total">
-                <td>Avital's all-in (est)</td>
-                <td class="num">—</td>
-                <td class="num"></td>
-                <td class="num">~6,936+</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="cost-source">
-          <span class="cost-verified">Verified 2026-05-17 · El Al PNR ZP96JK confirmed</span>
-          Allison's all-in = shared half + own flight + own baggage half. Avital's all-in pending
-          her flight confirmation. Settle at trip end via Splitwise.
-        </p>
+
+        <details class="cost-section">
+          <summary>
+            <span class="cost-summary-label">Lodging — 4 bookings, 7 nights</span>
+            <span class="cost-summary-amt">₪4,313 <span class="cost-pill ok">on plan</span></span>
+          </summary>
+          <div class="cost-section-body">
+            <div class="costs-scroll">
+              <table class="costs">
+                <thead>
+                  <tr>
+                    <th>Stay</th>
+                    <th class="num">€/night</th>
+                    <th class="num">Nights</th>
+                    <th class="num">€ subtotal</th>
+                    <th class="num">₪ subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Salzburg · master Linzergasse (Fri-Sun)
+                      <br />
+                      <a
+                        href="https://www.booking.com/searchresults.html?ss=Salzburg&checkin=2026-07-24&checkout=2026-07-26"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >Booking ↗</a
+                      >
+                    </td>
+                    <td class="num">128</td>
+                    <td class="num">2</td>
+                    <td class="num">256</td>
+                    <td class="num">1,016</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Mountain anchor · Haus Edelweiss Obertraun (Sun-Wed)
+                      <br />
+                      <a
+                        href="https://www.booking.com/searchresults.html?ss=Obertraun&checkin=2026-07-26&checkout=2026-07-29"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >Booking ↗</a
+                      >
+                    </td>
+                    <td class="num">142</td>
+                    <td class="num">3</td>
+                    <td class="num">426</td>
+                    <td class="num">1,691</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Schafbergspitze 1,783m · summit (Wed-Thu)</strong>
+                      <br /><span style="font-size: 0.82rem; color: var(--ink-soft)"
+                        >Berghotel Schafbergspitze · €155.80 pp incl. cog round-trip + breakfast ·
+                        2 ppl ≈ €311 + €7 tax</span
+                      >
+                      <br />
+                      <a
+                        href="https://schafberg.net/"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >schafberg.net ↗</a
+                      >
+                    </td>
+                    <td class="num">—</td>
+                    <td class="num">1</td>
+                    <td class="num">318</td>
+                    <td class="num">1,263</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Salzburg-airport · final-night pick (Thu-Fri)
+                      <br />
+                      <a
+                        href="https://www.booking.com/searchresults.html?ss=Salzburg+Airport&checkin=2026-07-30&checkout=2026-07-31"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >Booking ↗</a
+                      >
+                    </td>
+                    <td class="num">86</td>
+                    <td class="num">1</td>
+                    <td class="num">86</td>
+                    <td class="num">343</td>
+                  </tr>
+                  <tr class="total">
+                    <td>Lodging total</td>
+                    <td class="num">—</td>
+                    <td class="num">7</td>
+                    <td class="num">1,086</td>
+                    <td class="num">4,313</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cost-source">
+              <span class="cost-verified">Verified 2026-05-17 · Booking.com + schafberg.net</span>
+              Schafbergspitze line is the per-person bundle (cog + breakfast). Lean / splurge
+              swaps live on <a href="stay.html">Stay page</a>.
+            </p>
+          </div>
+        </details>
+
+        <details class="cost-section">
+          <summary>
+            <span class="cost-summary-label">Rental car — Opel Mokka (Compact SUV auto)</span>
+            <span class="cost-summary-amt">₪1,162 <span class="cost-pill ok">on plan</span></span>
+          </summary>
+          <div class="cost-section-body">
+            <div class="costs-scroll">
+              <table class="costs">
+                <tbody>
+                  <tr>
+                    <td><strong>Vehicle</strong></td>
+                    <td>
+                      Opel Mokka — Compact SUV automatic (one notch up from the Montenegro Yaris)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Pickup / Drop-off</strong></td>
+                    <td>
+                      Salzburg airport (SZG), Fri 24 Jul ~08:30 → Fri 31 Jul ~06:15
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Provider</strong></td>
+                    <td>
+                      DiscoverCars via Kayak (live-priced 2026-05-16) ·
+                      <a
+                        href="https://www.discovercars.com/austria-salzburg/airport"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >DiscoverCars ↗</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>$305 USD ≈ €284 ≈ ₪1,162</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Per day</strong></td>
+                    <td>~$43.50 / ~€40.50</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Source</strong></td>
+                    <td><a href="rental-car.html">Full options on rental-car page →</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cost-source">
+              <span class="cost-verified"
+                >Verified 2026-05-16 · DiscoverCars via Kayak live quote</span
+              >
+              Not included: motorway vignette (~€11.50), per-trip fuel (in food/gas bucket),
+              Grossglockner separate toll if driven.
+            </p>
+          </div>
+        </details>
+
+        <details class="cost-section">
+          <summary>
+            <span class="cost-summary-label">Flights — Allison booked · Avital pending</span>
+            <span class="cost-summary-amt"
+              >₪1,486 + ~₪1,851 <span class="cost-pill booked">PNR ZP96JK</span></span
+            >
+          </summary>
+          <div class="cost-section-body">
+            <div class="costs-scroll">
+              <table class="costs">
+                <tbody>
+                  <tr>
+                    <td><strong>Booked</strong></td>
+                    <td>El Al · confirmation <strong>ZP96JK</strong> · confirmed 2026-05-16</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Class</strong></td>
+                    <td>Classic (L) · Ms Allison Alt (Silver Matmid)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Outbound · Fri Jul 24</strong></td>
+                    <td>
+                      <strong>LY5193</strong> (Sundor) · TLV 05:00 → SZG 07:50 · 3h 50m · seat 8A
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Return · Fri Jul 31</strong></td>
+                    <td>
+                      <strong>LY5194</strong> (Sundor) · SZG 08:55 → TLV 13:25 · 3h 30m · seat 12A
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Baggage included</strong></td>
+                    <td>23kg × 2 (each leg)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Allison's ticket</strong></td>
+                    <td><strong>₪1,486</strong> (Matmid points + cash)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Avital's ticket</strong></td>
+                    <td>
+                      Same flights (LY5193 / LY5194) · paid cash · separate booking ·
+                      <span class="cost-pill est">est ~₪1,851</span>
+                      <br /><span style="font-size: 0.82rem; color: var(--ink-soft)"
+                        >Allison's ₪1,486 + ~$100 cash diff. Avital confirms exact later.</span
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Baggage extras</strong></td>
+                    <td>
+                      $100 split for 2 extra suitcases · Allison's half = <strong>₪185</strong>,
+                      Avital's half = ₪185
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cost-source">
+              <span class="cost-verified">Confirmed El Al 2026-05-16 · PNR ZP96JK</span>
+              Both on same flights — Avital books separately because Allison used Matmid points.
+              Full leg-by-leg view on <a href="logistics.html">Logistics page</a>.
+            </p>
+          </div>
+        </details>
+
+        <details class="cost-section">
+          <summary>
+            <span class="cost-summary-label">Activity entry fees — real ticket prices</span>
+            <span class="cost-summary-amt">₪1,445 <span class="cost-pill ok">on plan</span></span>
+          </summary>
+          <div class="cost-section-body">
+            <div class="costs-scroll">
+              <table class="costs">
+                <thead>
+                  <tr>
+                    <th>Activity</th>
+                    <th class="num">€ pp</th>
+                    <th class="num">€ total (2)</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Königssee boat to Salet (Tue Jul 28) ·
+                      <a
+                        href="https://www.seenschifffahrt.de/koenigssee/"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >seenschifffahrt.de ↗</a
+                      >
+                    </td>
+                    <td class="num">24</td>
+                    <td class="num">48</td>
+                    <td>Round trip to Obersee</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Dachstein Krippenstein + 5fingers (Mon Jul 27) ·
+                      <a
+                        href="https://www.dachstein-salzkammergut.com/"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >dachstein-salzkammergut.com ↗</a
+                      >
+                    </td>
+                    <td class="num">43</td>
+                    <td class="num">86</td>
+                    <td>Both gondolas + summit</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Hallstatt Skywalk funicular (Mon Jul 27) ·
+                      <a
+                        href="https://www.salzwelten.at/en/hallstatt"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >salzwelten.at ↗</a
+                      >
+                    </td>
+                    <td class="num">20</td>
+                    <td class="num">40</td>
+                    <td>Round trip</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Schafbergbahn cog railway (Wed Jul 29) ·
+                      <a
+                        href="https://schafbergbahn.at/"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >schafbergbahn.at ↗</a
+                      >
+                    </td>
+                    <td class="num">46</td>
+                    <td class="num">92</td>
+                    <td>Sunset slot — BOOK AHEAD</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Eisriesenwelt ice cave (Thu Jul 30) ·
+                      <a
+                        href="https://www.eisriesenwelt.at/"
+                        target="_blank"
+                        rel="noopener"
+                        class="cost-link"
+                        >eisriesenwelt.at ↗</a
+                      >
+                    </td>
+                    <td class="num">42</td>
+                    <td class="num">84</td>
+                    <td>Cave + cable car combo</td>
+                  </tr>
+                  <tr>
+                    <td>Vorderer Gosausee (Sun Jul 26)</td>
+                    <td class="num">0</td>
+                    <td class="num">0</td>
+                    <td>Free</td>
+                  </tr>
+                  <tr>
+                    <td>Wolfgangsee swim (Wed Jul 29 alt)</td>
+                    <td class="num">7</td>
+                    <td class="num">14</td>
+                    <td>Strandbad entry</td>
+                  </tr>
+                  <tr class="total">
+                    <td>Activities total</td>
+                    <td class="num">—</td>
+                    <td class="num">€364</td>
+                    <td class="num">₪1,445</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cost-source">
+              <span class="cost-verified">Verified 2026-05-16 · operator ticket pages</span>
+              Per-person entry fees only. Free hikes (Vorderer Gosausee, lake walks) aren't here.
+            </p>
+          </div>
+        </details>
+
+        <details class="cost-section">
+          <summary>
+            <span class="cost-summary-label">Food, gas, parking, buffer — Israel-pack strategy</span>
+            <span class="cost-summary-amt">₪2,580 <span class="cost-pill est">estimate</span></span>
+          </summary>
+          <div class="cost-section-body">
+            <div class="costs-scroll">
+              <table class="costs">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th class="num">€</th>
+                    <th class="num">₪</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Fresh groceries + Spar runs (7 days, 2 ppl)</td>
+                    <td class="num">130</td>
+                    <td class="num">516</td>
+                    <td>Mostly produce + dairy w/ hechsher; pantry from Israel</td>
+                  </tr>
+                  <tr>
+                    <td>Chabad Shabbat meals (Fri dinner + Sat lunch)</td>
+                    <td class="num">130</td>
+                    <td class="num">516</td>
+                    <td>Suggested donation</td>
+                  </tr>
+                  <tr>
+                    <td>Coffees / ice cream / cafés</td>
+                    <td class="num">75</td>
+                    <td class="num">298</td>
+                    <td>Bad Ischl, mountain lodges, lakefront</td>
+                  </tr>
+                  <tr>
+                    <td>Gas (~600 km @ €1.65/L)</td>
+                    <td class="num">60</td>
+                    <td class="num">238</td>
+                    <td>Salzburg ↔ Hallstatt + day trips</td>
+                  </tr>
+                  <tr>
+                    <td>Parking (Königssee, Hallstatt P1, mountain lots)</td>
+                    <td class="num">40</td>
+                    <td class="num">159</td>
+                    <td>Cash buffer</td>
+                  </tr>
+                  <tr>
+                    <td>Buffer — "one more thing"</td>
+                    <td class="num">215</td>
+                    <td class="num">853</td>
+                    <td>Trimmed since food comes from Israel</td>
+                  </tr>
+                  <tr class="total">
+                    <td>Food + gas + parking total</td>
+                    <td class="num">€650</td>
+                    <td class="num">₪2,580</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cost-source">
+              <span class="cost-verified"
+                >Estimate · based on Montenegro 2025 actuals + AT grocery norms</span
+              >
+              Allison brings shelf-stable kosher pantry from Israel; only fresh produce +
+              sealed-hechsher dairy bought locally.
+            </p>
+          </div>
+        </details>
+
+        <details class="cost-section">
+          <summary>
+            <span class="cost-summary-label">Baggage extras — split with Avital</span>
+            <span class="cost-summary-amt">₪370 <span class="cost-pill ok">split 50/50</span></span>
+          </summary>
+          <div class="cost-section-body">
+            <div class="costs-scroll">
+              <table class="costs">
+                <tbody>
+                  <tr>
+                    <td><strong>Total split</strong></td>
+                    <td>$100 USD for 2 extra suitcases (El Al online price)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Allison's half</strong></td>
+                    <td><strong>$50 ≈ ₪185</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Avital's half</strong></td>
+                    <td><strong>$50 ≈ ₪185</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>When to pay</strong></td>
+                    <td>
+                      Online before flight = up to 50% off vs airport counter price · see
+                      <a href="pre-trip.html">Pre-trip checklist</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="cost-source">
+              <span class="cost-verified">Per Allison 2026-05-16 23:30</span>
+              Allison's El Al ticket already includes 23kg × 2 checked. Split covers oversize or
+              additional bags beyond the included allowance.
+            </p>
+          </div>
+        </details>
       </section>
 
-      <!-- ============================================================
-           COMPARISON: LEAN / CURRENT / SPLURGE
-           ============================================================ -->
-      <section class="cost-block">
-        <h2 class="cost-block-h">Lean vs current vs splurge · lodging swaps</h2>
-        <p class="cost-block-sub">
-          Same trip shape (4 bases, 7 nights). Only lodging swaps move the total. Other lines hold.
-        </p>
-        <div class="costs-scroll">
-          <table class="costs cost-compare-table">
-            <thead>
-              <tr>
-                <th>Tier</th>
-                <th>Lodging swap</th>
-                <th class="num">Lodging ₪</th>
-                <th class="num">Allison all-in ₪</th>
-                <th class="num">vs ₪13K</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Lean</strong></td>
-                <td>Mid-range Booking picks · skip summit</td>
-                <td class="num">~2,800</td>
-                <td class="num">~9,658</td>
-                <td class="num"><span class="cost-pill ok">−₪3,342</span></td>
-              </tr>
-              <tr class="total">
-                <td><strong>Current pick</strong></td>
-                <td>Linzergasse + Edelweiss + Schafbergspitze + Airport</td>
-                <td class="num">4,313</td>
-                <td class="num">11,171</td>
-                <td class="num"><span class="cost-pill ok">−₪1,829</span></td>
-              </tr>
-              <tr>
-                <td><strong>Splurge</strong></td>
-                <td>Aiola Resort Salzburg + Heritage Hallstatt swap</td>
-                <td class="num">~5,800</td>
-                <td class="num">~12,658</td>
-                <td class="num"><span class="cost-pill ok">−₪342</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="cost-source">
-          <span class="cost-verified">Estimates · live Booking quotes 2026-05-17</span>
-          Current pick keeps the summit night (the wow-factor) and stays ₪1,829 under target.
-          Lean drops the summit. Splurge upgrades both anchors but still under.
-        </p>
-      </section>
-
-      <!-- ============================================================
-           DETAIL SECTIONS (existing, kept collapsed)
-           ============================================================ -->
-      <h2 class="cost-block-h" style="margin-top: 2.4rem">Line-by-line detail</h2>
-
-      <details class="cost-section">
-        <summary>
-          <span class="cost-summary-label">Lodging — 4 bookings, 7 nights</span>
-          <span class="cost-summary-amt">₪4,313 <span class="cost-pill ok">on plan</span></span>
-        </summary>
-        <div class="cost-section-body">
-          <div class="costs-scroll">
-            <table class="costs">
-              <thead>
-                <tr>
-                  <th>Stay</th>
-                  <th class="num">€/night</th>
-                  <th class="num">Nights</th>
-                  <th class="num">€ subtotal</th>
-                  <th class="num">₪ subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Salzburg · master Linzergasse (Fri-Sun)
-                    <br />
-                    <a
-                      href="https://www.booking.com/searchresults.html?ss=Salzburg&checkin=2026-07-24&checkout=2026-07-26"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >Booking ↗</a
-                    >
-                  </td>
-                  <td class="num">128</td>
-                  <td class="num">2</td>
-                  <td class="num">256</td>
-                  <td class="num">1,016</td>
-                </tr>
-                <tr>
-                  <td>
-                    Mountain anchor · Haus Edelweiss Obertraun (Sun-Wed)
-                    <br />
-                    <a
-                      href="https://www.booking.com/searchresults.html?ss=Obertraun&checkin=2026-07-26&checkout=2026-07-29"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >Booking ↗</a
-                    >
-                  </td>
-                  <td class="num">142</td>
-                  <td class="num">3</td>
-                  <td class="num">426</td>
-                  <td class="num">1,691</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Schafbergspitze 1,783m · summit overnight (Wed-Thu)</strong>
-                    <br /><span style="font-size: 0.82rem; color: var(--ink-soft)"
-                      >Berghotel Schafbergspitze · €155.80 pp incl. cog + breakfast · 2 ppl
-                      ≈ €311 + €7 tax</span
-                    >
-                    <br />
-                    <a
-                      href="https://schafberg.net/"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >schafberg.net ↗</a
-                    >
-                  </td>
-                  <td class="num">—</td>
-                  <td class="num">1</td>
-                  <td class="num">318</td>
-                  <td class="num">1,263</td>
-                </tr>
-                <tr>
-                  <td>
-                    Salzburg-airport · final-night pick (Thu-Fri)
-                    <br />
-                    <a
-                      href="https://www.booking.com/searchresults.html?ss=Salzburg+Airport&checkin=2026-07-30&checkout=2026-07-31"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >Booking ↗</a
-                    >
-                  </td>
-                  <td class="num">86</td>
-                  <td class="num">1</td>
-                  <td class="num">86</td>
-                  <td class="num">343</td>
-                </tr>
-                <tr class="total">
-                  <td>Lodging total</td>
-                  <td class="num">—</td>
-                  <td class="num">7</td>
-                  <td class="num">1,086</td>
-                  <td class="num">4,313</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cost-source">
-            <span class="cost-verified">Verified 2026-05-17 · Booking.com + schafberg.net</span>
-            4-base shape: Salzburg 2 + mountain anchor 3 + Schafbergspitze summit 1 + airport 1
-            = 7 nights. The Schafbergspitze line is the per-person package (cog round-trip +
-            breakfast included). Lean tier variants in the
-            <a href="stay.html">Stay page</a>.
-          </p>
-        </div>
-      </details>
-
-      <details class="cost-section">
-        <summary>
-          <span class="cost-summary-label">Rental car — Opel Mokka (Compact SUV auto)</span>
-          <span class="cost-summary-amt">₪1,162 <span class="cost-pill ok">on plan</span></span>
-        </summary>
-        <div class="cost-section-body">
-          <div class="costs-scroll">
-            <table class="costs">
-              <tbody>
-                <tr>
-                  <td><strong>Vehicle</strong></td>
-                  <td>
-                    Opel Mokka — Compact SUV automatic (one notch up from the Montenegro Yaris)
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Pickup / Drop-off</strong></td>
-                  <td>
-                    Salzburg airport (SZG), Fri 24 Jul ~08:30 (after 07:50 land) → Fri 31 Jul ~06:15
-                    (before 08:55 flight)
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Provider</strong></td>
-                  <td>
-                    DiscoverCars via Kayak (live-priced 2026-05-16) ·
-                    <a
-                      href="https://www.discovercars.com/austria-salzburg/airport"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >DiscoverCars ↗</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Total</strong></td>
-                  <td><strong>$305 USD ≈ €284 ≈ ₪1,162</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Per day</strong></td>
-                  <td>~$43.50 / ~€40.50</td>
-                </tr>
-                <tr>
-                  <td><strong>Source</strong></td>
-                  <td><a href="rental-car.html">Full options on rental-car page →</a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cost-source">
-            <span class="cost-verified"
-              >Verified 2026-05-16 · DiscoverCars via Kayak live quote</span
-            >
-            Not included here: Austria motorway vignette (~€11.50), per-trip fuel (in food/gas
-            bucket below), Grossglockner separate toll if we do that road.
-          </p>
-        </div>
-      </details>
-
-      <details class="cost-section">
-        <summary>
-          <span class="cost-summary-label">Flights — Allison booked · Avital pending</span>
-          <span class="cost-summary-amt">₪1,486 + TBD <span class="cost-pill booked">booked</span></span>
-        </summary>
-        <div class="cost-section-body">
-          <div class="costs-scroll">
-            <table class="costs">
-              <tbody>
-                <tr>
-                  <td><strong>Booked</strong></td>
-                  <td>El Al · confirmation <strong>ZP96JK</strong> · confirmed 2026-05-16</td>
-                </tr>
-                <tr>
-                  <td><strong>Class</strong></td>
-                  <td>Classic (L) · Ms Allison Alt (Silver Matmid)</td>
-                </tr>
-                <tr>
-                  <td><strong>Outbound · Fri Jul 24</strong></td>
-                  <td>
-                    <strong>LY5193</strong> (Sundor) · TLV 05:00 → SZG 07:50 · 3h 50m · seat 8A
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Return · Fri Jul 31</strong></td>
-                  <td>
-                    <strong>LY5194</strong> (Sundor) · SZG 08:55 → TLV 13:25 · 3h 30m · seat 12A
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Baggage included</strong></td>
-                  <td>23kg × 2 (each leg)</td>
-                </tr>
-                <tr>
-                  <td><strong>Allison's ticket</strong></td>
-                  <td>
-                    <strong>₪1,486</strong> (Matmid points + cash)
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Avital's ticket</strong></td>
-                  <td>
-                    Same flights (LY5193 / LY5194) · paid cash · separate booking ·
-                    <span class="cost-pill est">TBD ~₪2,000+</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>Baggage extras</strong></td>
-                  <td>
-                    $100 split for 2 suitcases · Allison's half = <strong>₪185</strong>
-                    (in own-line baggage bucket)
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cost-source">
-            <span class="cost-verified">Confirmed El Al 2026-05-16 · PNR ZP96JK</span>
-            Both on same flights — Avital books separately because Allison used Matmid points.
-            Full leg-by-leg view on <a href="logistics.html">Logistics page</a>.
-          </p>
-        </div>
-      </details>
-
-      <details class="cost-section">
-        <summary>
-          <span class="cost-summary-label">Activity entry fees — real ticket prices</span>
-          <span class="cost-summary-amt">₪1,445 <span class="cost-pill ok">on plan</span></span>
-        </summary>
-        <div class="cost-section-body">
-          <div class="costs-scroll">
-            <table class="costs">
-              <thead>
-                <tr>
-                  <th>Activity</th>
-                  <th class="num">€ pp</th>
-                  <th class="num">€ total (2)</th>
-                  <th>Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Königssee boat to Salet (Tue Jul 28) ·
-                    <a
-                      href="https://www.seenschifffahrt.de/koenigssee/"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >seenschifffahrt.de ↗</a
-                    >
-                  </td>
-                  <td class="num">24</td>
-                  <td class="num">48</td>
-                  <td>Round trip to Obersee</td>
-                </tr>
-                <tr>
-                  <td>
-                    Dachstein Krippenstein + 5fingers (Mon Jul 27) ·
-                    <a
-                      href="https://www.dachstein-salzkammergut.com/"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >dachstein-salzkammergut.com ↗</a
-                    >
-                  </td>
-                  <td class="num">43</td>
-                  <td class="num">86</td>
-                  <td>Both gondolas + summit</td>
-                </tr>
-                <tr>
-                  <td>
-                    Hallstatt Skywalk funicular (Mon Jul 27) ·
-                    <a
-                      href="https://www.salzwelten.at/en/hallstatt"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >salzwelten.at ↗</a
-                    >
-                  </td>
-                  <td class="num">20</td>
-                  <td class="num">40</td>
-                  <td>Round trip</td>
-                </tr>
-                <tr>
-                  <td>
-                    Schafbergbahn cog railway (Wed Jul 29) ·
-                    <a
-                      href="https://schafbergbahn.at/"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >schafbergbahn.at ↗</a
-                    >
-                  </td>
-                  <td class="num">46</td>
-                  <td class="num">92</td>
-                  <td>Sunset slot — BOOK AHEAD</td>
-                </tr>
-                <tr>
-                  <td>
-                    Eisriesenwelt ice cave (Thu Jul 30) ·
-                    <a
-                      href="https://www.eisriesenwelt.at/"
-                      target="_blank"
-                      rel="noopener"
-                      class="cost-link"
-                      >eisriesenwelt.at ↗</a
-                    >
-                  </td>
-                  <td class="num">42</td>
-                  <td class="num">84</td>
-                  <td>Cave + cable car combo</td>
-                </tr>
-                <tr>
-                  <td>Vorderer Gosausee (Sun Jul 26)</td>
-                  <td class="num">0</td>
-                  <td class="num">0</td>
-                  <td>Free</td>
-                </tr>
-                <tr>
-                  <td>Wolfgangsee swim (Wed Jul 29 alt)</td>
-                  <td class="num">7</td>
-                  <td class="num">14</td>
-                  <td>Strandbad entry</td>
-                </tr>
-                <tr class="total">
-                  <td>Activities total</td>
-                  <td class="num">—</td>
-                  <td class="num">€364</td>
-                  <td class="num">₪1,445</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cost-source">
-            <span class="cost-verified"
-              >Verified 2026-05-16 · Operator ticket pages</span
-            >
-            Activity tickets are per-person entry fees only. Free hikes (Vorderer Gosausee, lake
-            walks) aren't here.
-          </p>
-        </div>
-      </details>
-
-      <details class="cost-section">
-        <summary>
-          <span class="cost-summary-label">Food, gas, parking, buffer — Israel-pack strategy</span>
-          <span class="cost-summary-amt">₪2,580 <span class="cost-pill est">estimate</span></span>
-        </summary>
-        <div class="cost-section-body">
-          <div class="costs-scroll">
-            <table class="costs">
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th class="num">€</th>
-                  <th class="num">₪</th>
-                  <th>Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Fresh groceries + Spar runs (7 days, 2 ppl)</td>
-                  <td class="num">130</td>
-                  <td class="num">516</td>
-                  <td>Mostly produce + dairy w/ hechsher; pantry from Israel</td>
-                </tr>
-                <tr>
-                  <td>Chabad Shabbat meals (Fri dinner + Sat lunch)</td>
-                  <td class="num">130</td>
-                  <td class="num">516</td>
-                  <td>Suggested donation</td>
-                </tr>
-                <tr>
-                  <td>Coffees / ice cream / cafés</td>
-                  <td class="num">75</td>
-                  <td class="num">298</td>
-                  <td>Bad Ischl, mountain lodges, lakefront</td>
-                </tr>
-                <tr>
-                  <td>Gas (~600 km @ €1.65/L)</td>
-                  <td class="num">60</td>
-                  <td class="num">238</td>
-                  <td>Salzburg ↔ Hallstatt + day trips</td>
-                </tr>
-                <tr>
-                  <td>Parking (Königssee, Hallstatt P1, mountain lots)</td>
-                  <td class="num">40</td>
-                  <td class="num">159</td>
-                  <td>Cash buffer</td>
-                </tr>
-                <tr>
-                  <td>Buffer — "one more thing"</td>
-                  <td class="num">215</td>
-                  <td class="num">853</td>
-                  <td>Trimmed from v3 since food comes from Israel</td>
-                </tr>
-                <tr class="total">
-                  <td>Food + gas + parking total</td>
-                  <td class="num">€650</td>
-                  <td class="num">₪2,580</td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cost-source">
-            <span class="cost-verified"
-              >Estimate · based on Montenegro 2025 actuals + AT grocery norms</span
-            >
-            Down from v3's ₪4,046 — Allison brings shelf-stable kosher pantry from Israel.
-            Only fresh produce + sealed-hechsher dairy bought locally.
-          </p>
-        </div>
-      </details>
-
-      <details class="cost-section">
-        <summary>
-          <span class="cost-summary-label">Baggage extras — split with Avital</span>
-          <span class="cost-summary-amt">₪185 <span class="cost-pill ok">Allison half</span></span>
-        </summary>
-        <div class="cost-section-body">
-          <div class="costs-scroll">
-            <table class="costs">
-              <tbody>
-                <tr>
-                  <td><strong>Total split</strong></td>
-                  <td>$100 USD for 2 extra suitcases (El Al online price)</td>
-                </tr>
-                <tr>
-                  <td><strong>Allison's half</strong></td>
-                  <td><strong>$50 ≈ ₪185</strong></td>
-                </tr>
-                <tr>
-                  <td><strong>Avital's half</strong></td>
-                  <td>$50 ≈ ₪185 (her column)</td>
-                </tr>
-                <tr>
-                  <td><strong>When to pay</strong></td>
-                  <td>
-                    Online before flight = up to 50% off vs airport counter price · see
-                    <a href="pre-trip.html">Pre-trip checklist</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="cost-source">
-            <span class="cost-verified">Per Allison 2026-05-16 23:30</span>
-            Allison's El Al ticket already includes 23kg × 2 checked. The split covers oversize
-            or additional bags beyond the included allowance.
-          </p>
-        </div>
-      </details>
-
-      <section class="section" style="margin-top: 3rem">
-        <div class="callout">
-          <h3>How the numbers track</h3>
-          <ul>
-            <li>
-              <strong>Target:</strong> ₪13,000 (Allison's set ceiling — soft, not a hard cap).
-            </li>
-            <li>
-              <strong>Allison's all-in:</strong> ₪11,171 — under target by <strong>~₪1,829</strong>.
-            </li>
-            <li>
-              <strong>Avital's all-in:</strong> est ~₪6,787 (= ₪4,936 shared half + ~₪1,851 flight est + ₪0 own baggage half). She
-              books her flight separately because Allison used Matmid points; ~$100 cash difference.
-              Exact flight cost: Avital can confirm later.
-            </li>
-            <li>
-              <strong>Splitwise rules:</strong> lodging, car, food, activities split 50/50.
-              Flights + baggage extras are each-own. Settle at trip end.
-            </li>
-            <li>
-              <strong>Headroom uses:</strong> upgrade lodging if a better listing appears, swap in
-              a higher-end activity, or bank for splurges on the day.
-            </li>
-          </ul>
-        </div>
+      <!-- ====================================================================
+           BLOCK 9 — FOOTER NOTES
+           ==================================================================== -->
+      <section class="cost-footnotes" aria-label="How the numbers work">
+        <h3 class="cost-footnotes-h">How the numbers work</h3>
+        <ul>
+          <li>
+            <strong>Target ₪13,000.</strong> Soft cap. Allison's rule:
+            <em>"it can pass the ceiling if needed."</em> Today we're ₪209 over — acceptable.
+          </li>
+          <li>
+            <strong>Split rule:</strong> lodging, car, food, activities = 50/50. Flights +
+            baggage extras = each-own. Settle at trip end.
+          </li>
+          <li>
+            <strong>Allison's all-in ₪6,422</strong> = ₪4,936 shared half + ₪1,486 flight.
+          </li>
+          <li>
+            <strong>Avital's all-in ~₪6,787</strong> = ₪4,936 shared half + ~₪1,851 flight est.
+            She'll confirm her exact flight cost after booking.
+          </li>
+          <li>
+            <strong>Headroom:</strong> upgrade a lodging if a better listing appears, swap in a
+            higher-end activity, or bank for splurges on the day.
+          </li>
+        </ul>
       </section>
     </main>
 
