@@ -137,9 +137,18 @@ img {
   font-size: 1.2rem;
   color: var(--ink);
   border-bottom: none;
+  white-space: nowrap;
 }
 .nav-brand:hover {
   border-bottom: none;
+}
+/* Below 520px the brand needs to shrink-fit so it doesn't wrap across the
+   line when the nav-links group reflows. Mobile sweep 2026-05-17 (Pixel 7 Pro XL
+   412dp): existing nav showed "Austria · / 24-31 Jul" on two lines. */
+@media (max-width: 520px) {
+  .nav-brand {
+    font-size: 1.02rem;
+  }
 }
 .nav-links {
   display: flex;
@@ -1251,6 +1260,22 @@ table.costs {
 .costs td.num {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+/* Mobile sweep 2026-05-17: table.costs overflows at 412dp in some pages
+   (map.html drive-time matrix is the worst — 4 wide columns). Shrink
+   padding + font + allow horizontal scroll if content still doesn't fit. */
+@media (max-width: 520px) {
+  table.costs {
+    font-size: 0.86rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  .costs th,
+  .costs td {
+    padding: 0.5rem 0.65rem;
+  }
 }
 .costs tr.total {
   background: var(--cream);
@@ -8991,6 +9016,26 @@ details.note-item[open] .note-summary-preview {
 }
 .act-longday[open] summary::before {
   content: '▾ ';
+}
+/* Tap affordance hint per Wave 6 brief — make the disclosure obvious so it
+   doesn't read as static text. Pixel 7 Pro XL 412dp mobile audit 2026-05-17. */
+.act-longday summary::after {
+  content: ' — tap to open';
+  font-weight: 400;
+  font-size: 0.82em;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.act-longday[open] summary::after {
+  content: ' — tap to close';
+}
+.act-longday summary:hover {
+  color: var(--green-deep);
+}
+.act-longday summary:focus-visible {
+  outline: 2px solid var(--green-deep);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 .act-longday ul {
   margin: 0.6rem 0 0;
