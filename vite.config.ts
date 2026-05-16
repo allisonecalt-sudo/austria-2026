@@ -32,6 +32,7 @@ export default defineConfig(({ command }) => ({
         lakeSwimming: resolve(__dirname, 'lake-swimming.html'),
         waterActivities: resolve(__dirname, 'water-activities.html'),
         tripSummary: resolve(__dirname, 'trip-summary.html'),
+        activities: resolve(__dirname, 'activities.html'),
       },
     },
   },

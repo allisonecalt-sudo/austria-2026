@@ -6240,13 +6240,47 @@ details.note-item > summary::-webkit-details-marker {
 .note-summary-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.note-summary-row .note-summary-status {
+  margin-left: auto;
 }
 .note-summary-time {
   font-size: 0.78rem;
   color: var(--ink-soft);
   font-variant-numeric: tabular-nums;
+}
+
+/* Author chip — pill on every note row identifying who wrote it.
+   Allison (2026-05-17 01:22): "make it show who wrote each note".
+   Green = Allison, Gold = Avital, muted = unknown/older row. */
+.author-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+.author-chip--allison {
+  background: #e2f0e2;
+  color: #1f5a2e;
+  border: 1px solid #b6d8b6;
+}
+.author-chip--avital {
+  background: #fbecc1;
+  color: #6e4a00;
+  border: 1px solid #e9cf85;
+}
+.author-chip--unknown {
+  background: var(--cream);
+  color: var(--ink-soft);
+  border: 1px dashed var(--line-strong);
 }
 .note-summary-preview {
   color: var(--ink);
@@ -8479,4 +8513,672 @@ details.note-item[open] .note-summary-preview {
 }
 .lightbox-close:hover {
   background: #fff;
+}
+
+/* ====================================================================
+   Activities-by-base hub (activities.html / page-activities.ts).
+   IA reframe 2026-05-17 — per-base activity menu for Avital. Filter pills
+   start empty, TLDR-first cards, drive-time chips per base.
+   ==================================================================== */
+
+/* Quick-jump base nav at top of activities page */
+.acts-basenav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem;
+  margin: 1.4rem 0 1.8rem;
+}
+.acts-basechip {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.95rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.16s ease;
+  border-bottom: 1px solid var(--line);
+}
+.acts-basechip:hover {
+  box-shadow: var(--shadow-soft);
+  transform: translateY(-1px);
+  border-bottom: 1px solid var(--line);
+}
+.acts-basechip__dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex: none;
+}
+.acts-basechip--salzburg .acts-basechip__dot {
+  background: #c89342;
+}
+.acts-basechip--obertraun .acts-basechip__dot {
+  background: #4a7a4a;
+}
+.acts-basechip--summit .acts-basechip__dot {
+  background: #6d4f8b;
+}
+.acts-basechip--airport .acts-basechip__dot {
+  background: #4d6680;
+}
+.acts-basechip__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+.acts-basechip__name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.acts-basechip__sub {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+/* Filter bar (category pills) */
+.acts-filterbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 0 0 1.6rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.acts-filterbar__label {
+  font-weight: 700;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.acts-filterbar__pills {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+.acts-filterbar__clear {
+  appearance: none;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.acts-filterbar__clear:hover {
+  background: var(--cream);
+}
+
+/* Base section — each of the 4 bases */
+.acts-base {
+  margin: 0 0 3rem;
+}
+.acts-base__head {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 1.6rem;
+  min-height: 200px;
+  box-shadow: var(--shadow-soft);
+}
+.acts-base__hero {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.acts-base__headoverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0.75) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.1rem 1.4rem;
+  color: #fff;
+}
+.acts-base__eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  opacity: 0.92;
+  margin-bottom: 0.3rem;
+}
+.acts-base__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.85rem;
+  margin: 0 0 0.3rem;
+  line-height: 1.15;
+}
+.acts-base__vibe {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin: 0;
+  max-width: 720px;
+}
+.acts-base__head--summit .acts-base__headoverlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(70, 50, 100, 0.85) 100%);
+}
+.acts-base__head--salzburg .acts-base__headoverlay {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(120, 80, 30, 0.78) 100%);
+}
+.acts-base__message {
+  background: var(--cream);
+  border-left: 4px solid var(--gold-deep);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+.acts-base__xref {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+/* Drive-time bucket within a base */
+.act-bucket {
+  margin-bottom: 1.8rem;
+}
+.act-bucket__head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+.act-bucket__count {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-left: auto;
+}
+
+/* Card grid */
+.act-cards-grid {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .act-cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1100px) {
+  .act-cards-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* Activity card */
+.act-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.18s ease;
+  box-shadow: var(--shadow-soft);
+}
+.act-card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
+}
+.act-card[hidden] {
+  display: none;
+}
+.act-card__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+.act-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.act-card__body {
+  padding: 0.95rem 1.05rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.act-card__eyebrow {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.act-card__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+}
+.act-card__tldr {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+}
+.act-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.act-chip--drive {
+  background: var(--cream);
+  border-color: var(--line-strong);
+  font-weight: 700;
+}
+.act-card__walk {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  margin: 0;
+  padding-top: 0.3rem;
+  border-top: 1px dashed var(--line);
+}
+.act-card__catrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.1rem;
+}
+.act-card__catrow .chip {
+  font-size: 0.74rem;
+  background: var(--cream);
+  color: var(--ink-soft);
+  border-color: var(--line);
+}
+.act-card__links {
+  display: flex;
+  gap: 0.9rem;
+  font-size: 0.88rem;
+  margin-top: 0.3rem;
+  flex-wrap: wrap;
+}
+.act-card__links a {
+  color: var(--green-deep);
+  font-weight: 600;
+}
+
+/* Long-day collapse — for >75min picks from this base */
+.act-longday {
+  margin: 0.8rem 0 1.4rem;
+  padding: 0.8rem 1rem;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 0.92rem;
+}
+.act-longday summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--ink);
+  list-style: none;
+}
+.act-longday summary::-webkit-details-marker {
+  display: none;
+}
+.act-longday summary::before {
+  content: '▸ ';
+  color: var(--gold-deep);
+}
+.act-longday[open] summary::before {
+  content: '▾ ';
+}
+.act-longday ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+  line-height: 1.55;
+}
+
+/* Jewish-sights section (consolidated mini-list with recommendation badges) */
+.acts-jewish {
+  margin-top: 2.6rem;
+}
+.acts-section__head {
+  margin-bottom: 1.1rem;
+}
+.acts-section__eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--gold-deep);
+  margin-bottom: 0.25rem;
+}
+.acts-section__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+.acts-section__sub {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  max-width: 720px;
+}
+.acts-jewish__list {
+  display: grid;
+  gap: 0.9rem;
+}
+.acts-jewish__row {
+  position: relative;
+  padding: 1rem 1.15rem 1rem 1.15rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: all 0.14s ease;
+}
+.acts-jewish__row:hover {
+  box-shadow: var(--shadow-soft);
+  border-bottom: 1px solid var(--line);
+}
+.acts-jewish__row--top {
+  border-left: 4px solid var(--gold-deep);
+  background: linear-gradient(90deg, #fdf6e2 0%, var(--paper) 30%);
+}
+.acts-jewish__row--heavy {
+  border-left: 4px solid #8a6b6b;
+  background: #faf5f5;
+}
+.acts-jewish__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  background: rgba(214, 168, 75, 0.18);
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.4rem;
+}
+.acts-jewish__badge--heavy {
+  color: #6b4040;
+  background: rgba(138, 107, 107, 0.18);
+}
+.acts-jewish__body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  margin: 0 0 0.35rem;
+  line-height: 1.2;
+}
+.acts-jewish__body p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* ====================================================================
+   Landing — IA rethink 2026-05-17.
+   - Above-fold TLDR (≤50 words, one sentence per beat)
+   - MOMENT 2 "Four bases" horizontal strip
+   - MOMENT 3 "Schafbergspitze summit night" — emotional build
+   - Day-strip cards now color-coded by base
+   ==================================================================== */
+
+/* Above-fold TLDR — the Avital-grasp line right under the hero h1 */
+.moment-tldr {
+  margin: 0.6rem 0 0.4rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+  line-height: 1.45;
+  color: #fff;
+  opacity: 0.94;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+.moment-tldr__arrow {
+  color: var(--gold-sun, #f3c66b);
+  font-weight: 700;
+  padding: 0 0.18em;
+}
+
+/* MOMENT 2 — Four bases strip */
+.moment--bases {
+  background: linear-gradient(180deg, #faf6ec 0%, #f3ead5 100%);
+  padding: 3rem 1.2rem 3.6rem;
+  position: relative;
+}
+.bases-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.bases-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin: 0.25rem 0 0.55rem;
+  color: var(--ink);
+  line-height: 1.15;
+}
+.bases-sub {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin: 0 0 1.6rem;
+}
+.bases-strip {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .bases-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1050px) {
+  .bases-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.bases-helper {
+  margin: 1.4rem 0 0;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.bases-helper a {
+  color: var(--green-deep);
+  font-weight: 700;
+}
+
+/* Base card in the strip (namespaced bstrip- to avoid collision with the
+   costs page's .base-card). */
+.bstrip-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper, #fff);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.18s ease;
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  min-height: 200px;
+}
+.bstrip-card:hover {
+  box-shadow: var(--shadow-lift);
+  transform: translateY(-3px);
+  border-bottom: 1px solid var(--line);
+}
+.bstrip-card__topbar {
+  height: 6px;
+  background: #ccc;
+}
+.bstrip-card--salzburg .bstrip-card__topbar {
+  background: #c89342;
+}
+.bstrip-card--obertraun .bstrip-card__topbar {
+  background: #4a7a4a;
+}
+.bstrip-card--summit .bstrip-card__topbar {
+  background: linear-gradient(90deg, #6d4f8b 0%, #b08ad0 100%);
+}
+.bstrip-card--airport .bstrip-card__topbar {
+  background: #4d6680;
+}
+.bstrip-card__body {
+  padding: 1rem 1.1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+.bstrip-card__num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  margin-bottom: 0.1rem;
+}
+.bstrip-card__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.bstrip-card--summit .bstrip-card__name {
+  color: #5b3a82;
+}
+.bstrip-card__nights {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  margin-bottom: 0.15rem;
+}
+.bstrip-card__vibe {
+  font-size: 0.93rem;
+  line-height: 1.5;
+  color: var(--ink);
+  flex: 1;
+}
+.bstrip-card__drive {
+  margin-top: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--line);
+}
+.bstrip-card--peak {
+  border-color: rgba(109, 79, 139, 0.5);
+  background: linear-gradient(180deg, #faf3ff 0%, var(--paper, #fff) 60%);
+}
+.bstrip-card--star {
+  border-color: rgba(74, 122, 74, 0.4);
+}
+
+/* MOMENT — Schafbergspitze summit. Reuses .moment + .moment-img skeleton.
+   Adds a violet/gold treatment so it reads as the trip's emotional peak. */
+.moment--summit .moment-veil--full,
+.moment--summit > .moment-veil {
+  background: linear-gradient(
+    180deg,
+    rgba(20, 12, 40, 0.6) 0%,
+    rgba(40, 20, 70, 0.78) 70%,
+    rgba(70, 40, 100, 0.88) 100%
+  );
+}
+.moment-badge--summit {
+  background: rgba(109, 79, 139, 0.85);
+  color: #fff;
+  border: 1px solid rgba(220, 200, 240, 0.5);
+}
+
+/* Day-strip — base color coding */
+.day-strip-basebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 2;
+  background: #ccc;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.day-strip-card {
+  position: relative;
+}
+.day-strip-card--salzburg .day-strip-basebar {
+  background: #c89342;
+}
+.day-strip-card--hallstatt .day-strip-basebar {
+  background: #4a7a4a;
+}
+.day-strip-card--schafbergspitze .day-strip-basebar {
+  background: linear-gradient(90deg, #6d4f8b 0%, #b08ad0 100%);
+}
+.day-strip-card--airport .day-strip-basebar {
+  background: #4d6680;
+}
+
+/* Base tag inside day-strip eyebrow */
+.day-strip-basetag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: var(--cream);
+  color: var(--ink);
+  margin-left: 0.4rem;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.day-strip-basetag--salzburg {
+  background: rgba(200, 147, 66, 0.16);
+  color: #7c5414;
+  border-color: rgba(200, 147, 66, 0.4);
+}
+.day-strip-basetag--hallstatt {
+  background: rgba(74, 122, 74, 0.16);
+  color: #2e5a2e;
+  border-color: rgba(74, 122, 74, 0.4);
+}
+.day-strip-basetag--schafbergspitze {
+  background: rgba(109, 79, 139, 0.16);
+  color: #5b3a82;
+  border-color: rgba(109, 79, 139, 0.4);
+}
+.day-strip-basetag--airport {
+  background: rgba(77, 102, 128, 0.16);
+  color: #38516e;
+  border-color: rgba(77, 102, 128, 0.4);
 }
