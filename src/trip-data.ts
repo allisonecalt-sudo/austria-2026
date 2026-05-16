@@ -1324,28 +1324,41 @@ export const TRIP: TripData = {
     },
     {
       // SALZBURG AIRPORT — Thu Jul 30 – Fri Jul 31, 1 night.
-      // Quiet enough to pack at 5am for early Friday flight.
-      // 10-min drive max to SZG terminal.
+      // REBUILT 2026-05-17 by booking-genius agent per Allison's directive:
+      // "Airport sleeping night should be cheaper end just sleeping bf airport
+      // but nice enough for Allison taste and good reviews". Target ≤€150/night
+      // room rate, ≥8.0 reviews + 200+ review count, ≤15-min drive to SZG,
+      // free cancellation MANDATORY (Allison's hard rule 2026-05-16). All alts
+      // verified 2026-05-17 via Playwright (URL loads + title matches + property
+      // is in airport orbit). Previous Hapimag pick @ €320 dropped (broke
+      // budget); kept on bench as splurge alt.
       baseKey: 'airport',
       nights: 'Thu Jul 30 – Fri Jul 31 (1 night)',
-      area: 'Salzburg city / west side — within 10-min drive of W. A. Mozart airport for the 5am Friday departure',
-      pickName: 'Hapimag Ferienwohnungen Salzburg',
-      pickUrl: 'https://www.booking.com/hotel/at/hapimag-resort-salzburg.html',
+      area: 'Salzburg west / airport orbit — within 10-15 min drive of W. A. Mozart airport for the 5am Friday departure. Budget tier — just need a clean bed before the flight',
+      pickName: 'Best Western Hotel am Walserberg',
+      pickFreeCancellation: true,
+      pickUrl: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
       pickImg:
-        'https://cf.bstatic.com/xdata/images/hotel/square600/139217677.webp?k=cc6b6af89947749e036d48a119040fc567cced209c7ba208ae102d736e18177e&o=',
-      pickReview: '9.4 · Superb · 304 reviews',
-      pickPrice: '€320 / night (₪1,272)',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+      pickReview: '8.1 · Very good · 1,639 reviews',
+      pickPrice: '€105 / night (₪418)',
       pickWhy:
-        '34m² studio apartment with full kitchen, ~5km from airport (10-min drive), aparthotel-style. 9.4 score across 304 reviews. The "wake at 5am, be at the gate by 6" pick — fewer surprises than a one-off self-check-in for the night that matters most.',
-      pickBudgetTier: 'splurge',
+        'Budget-tier airport pick — 4.4 km / ~8-min drive to SZG terminal. Best Western chain reliability for the night that matters most (5am wake-up). 1,639 reviews = battle-tested. Free cancellation, breakfast available, free parking. Clean+functional, not character-pick territory — but Allison\'s directive said "cheaper end just sleeping bf airport, nice enough for Allison taste."',
+      pickBudgetTier: 'lean',
       pickPlatform: 'booking',
-      pickDriveToAirportMin: 10,
-      pickLaundry: 'unknown',
-      pickBedrooms: 'studio',
+      pickDriveToAirportMin: 8,
+      pickLaundry: 'none',
+      pickBedrooms: 1,
       pickBeds: '1 queen',
-      pickNotableDetails: ['34m² studio', 'Full kitchen', 'Aparthotel', '10-min drive to SZG'],
+      pickNotableDetails: [
+        'Best Western chain',
+        '1,639 reviews',
+        'Free cancellation',
+        'Free parking',
+        '8-min drive to SZG',
+      ],
       pickMaxGuests: 2,
-      pickKitchen: 'full',
+      pickKitchen: 'none',
       pickBath: 'private',
       pickAc: true,
       pickParking: 'free',
@@ -1354,7 +1367,7 @@ export const TRIP: TripData = {
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
       pickPhotos: carousel(
-        'https://cf.bstatic.com/xdata/images/hotel/square600/139217677.webp?k=cc6b6af89947749e036d48a119040fc567cced209c7ba208ae102d736e18177e&o=',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
         ...PHOTO_POOL.salzburgOldTown,
       ),
       alts: [
@@ -1593,9 +1606,9 @@ const NIMG = {
   liechtensteinklamm:
     'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Liechtensteinklamm_gorge_%2824277176943%29.jpg/1280px-Liechtensteinklamm_gorge_%2824277176943%29.jpg',
   krimml:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Krimmler_Wasserf%C3%A4lle_2.JPG/1280px-Krimmler_Wasserf%C3%A4lle_2.JPG',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Krimml_Waterfalls%2C_2014_%2802%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2802%29.JPG',
   grossglockner:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Grossglockner_High_Alpine_Road.JPG/1280px-Grossglockner_High_Alpine_Road.JPG',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_2.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_2.jpg',
 };
 
 const NCREDIT = {
@@ -1610,8 +1623,8 @@ const NCREDIT = {
   hinterseeRamsau: 'Wikimedia, CC BY-SA',
   almbachklamm: 'Wikimedia, CC BY-SA',
   liechtensteinklamm: 'Wikimedia, CC BY-SA',
-  krimml: 'Wikimedia / Norbert Aepli, CC BY 3.0',
-  grossglockner: 'Wikimedia, CC BY-SA',
+  krimml: 'Wikimedia Commons, CC BY-SA',
+  grossglockner: 'Wikimedia Commons, CC BY-SA',
 };
 
 export const NATURE_DESTINATIONS: NatureDestination[] = [
@@ -2456,7 +2469,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Apart Chalet Unterbrandnerlehen (Schönau am Königssee)',
     url: 'https://www.booking.com/hotel/de/fewo-unterbrandnerlehen.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/600px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
     review: '9.5 · Exceptional · 51 reviews',
     pricePerNight: '€155 / night (₪615)',
     note: '2-bedroom chalet apartment 0.2 mi from Königssee, 2-min walk to bakery + Jennerbahn cable car. Cash-only. Children not allowed. Free bus + cable-car pass with guest card. The character-stay pick of Berchtesgaden. [Photo is the Königssee area, not the listing — view live photos on Booking.]',
@@ -2484,7 +2497,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     availabilityNote:
       'Booking.com shows no availability Sun Jul 26 → Wed Jul 29, 2026 (verified live 2026-05-17). Pick a different Berchtesgaden stay or different dates.',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/600px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
@@ -2493,7 +2506,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Gästehaus Hinterponholz (Ramsau)',
     url: 'https://www.booking.com/hotel/de/ga-stehaus-hinterponholz.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/600px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/1280px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
     review: '9.4 · Superb · 180 reviews',
     pricePerNight: '€120 / night (₪476)',
     note: 'Alpine-style guest house IN Berchtesgaden National Park with separated living + sleeping area, full kitchen, balcony with mountain views. Family-run. Apartments sleep up to 4. [Photo is the Ramsau area, not the listing — view live photos on Booking.]',
@@ -2516,7 +2529,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/600px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/1280px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
@@ -2552,7 +2565,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Gästehaus Amort (Ramsau)',
     url: 'https://www.booking.com/hotel/de/gastehaus-amort.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/600px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/1280px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
     review: '9.3 · Superb · 130 reviews',
     pricePerNight: '€105 / night (₪417)',
     note: 'Family-run pension in Ramsau with private balconies overlooking the Berchtesgaden Alps. Custom breakfast at preferred times. Quiet, homelike. ~10 min drive to Königssee + Hintersee both. [Photo is Ramsau village (St. Sebastian church), not the listing — view live photos on Booking.]',
@@ -2575,7 +2588,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/600px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/1280px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
@@ -2584,7 +2597,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Grubenlehen (Ramsau)',
     url: 'https://www.ramsau.de/en/accomodations/self-catering-apartments/grubenlehen.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/600px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
     review: '9.0 · Superb · 65 reviews (off-Booking; via ramsau.de)',
     pricePerNight: '€140 / night (₪555)',
     note: "2-BEDROOM apartment — master bedroom fits an extra bed, children's room has bunk beds. Sleeps 4-5. East-facing terrace with mountain views, communal pool + playground + BBQ. Booked via ramsau.de (the village tourism portal — not on Booking). [Photo is Ramsau village, not the listing — view live photos on ramsau.de.]",
@@ -2608,7 +2621,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/600px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
@@ -2622,7 +2635,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolf & Schaf Apartments (St. Wolfgang)',
     url: 'https://www.booking.com/hotel/at/harmonie-st-wolfgang.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
     review: '9.4 · Superb · 904 reviews',
     pricePerNight: '€175 / night (₪695)',
     note: 'Modern Alpine-style apartments 200m from Lake Wolfgangsee, 10-min walk to St. Wolfgang center. Kitchenettes, balcony, dining area. Free guest passes to the public lido for swimming. Hosts (Yoni + Bram) actively helpful. Note: bathrooms small per one review. 4-star luxury tier. [Photo is St. Wolfgang lakeshore, not the listing — view live photos on Booking.]',
@@ -2646,7 +2659,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'lake',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
@@ -2655,7 +2668,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolfgangsee Appartement (St. Wolfgang)',
     url: 'https://www.booking.com/hotel/at/wolfgangsee-appartement.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/600px-Panorama_Wolfgangsee.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
     review: '9.2 · Superb · 130 reviews · Location 9.5',
     pricePerNight: '€135 / night (₪536)',
     note: "Lake-view apartment with kitchenette, balcony with outdoor dining, mountain + lake views. Stone's-throw from Wolfgangsee shore. Garden, terrace, outdoor fireplace, fitness center. From €120/night per Booking. [Photo is Wolfgangsee panorama, not the listing — view live photos on Booking.]",
@@ -2678,7 +2691,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'lake',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/600px-Panorama_Wolfgangsee.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
@@ -2687,7 +2700,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolfgangsee Appartements (Strobl, east end of the lake)',
     url: 'https://www.booking.com/hotel/at/wolfgangsee-appartements.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/600px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
     review: '9.5 · Exceptional · 95 reviews',
     pricePerNight: '€140 / night (₪555)',
     note: 'Strobl base — east end of Wolfgangsee, 15 min by car from St. Wolfgang. Garden + lake views, terrace, fully appointed kitchen. Slightly quieter than St. Wolfgang itself. Great for "lake but not the tourist hub" preference. [Photo is Strobl on the Wolfgangsee, not the listing — view live photos on Booking.]',
@@ -2705,7 +2718,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'lake',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/600px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
     ],
@@ -2713,7 +2726,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Appartements Mair (Strobl, 70m² 2-BR)',
     url: 'https://www.booking.com/hotel/at/70m2-ferienwohnung-am-wolfgangsee-strobl.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/600px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/1280px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
     review: '9.4 · Superb · 80 reviews',
     pricePerNight: '€160 / night (₪635)',
     note: '70m² 2-BEDROOM apartment with fully equipped kitchen, lake-close, shop + town center walking distance. Strobl base. The "we want two real bedrooms on the 4-night main" priority pick for Wolfgangsee config. [Photo is Wolfgangsee at Strobl, not the listing — view live photos on Booking.]',
@@ -2736,7 +2749,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mixed',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/600px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/1280px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
     ],
@@ -2744,7 +2757,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Apartment Sunset am Wolfgangsee (Strobl)',
     url: 'https://www.booking.com/hotel/at/apartment-sunset-am-wolfgangsee.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
     review: '8.8 · Excellent · 100 reviews',
     pricePerNight: '€115 / night (₪456)',
     note: 'Apartment with terrace + mountain views, dishwasher + oven + microwave in the kitchenette. Sunset name suggests west-facing — verify before booking. Budget-friendly pick. [Photo is the Wolfgangsee at St. Wolfgang, not the listing — view live photos on Booking.]',
@@ -2767,7 +2780,7 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
     ],
