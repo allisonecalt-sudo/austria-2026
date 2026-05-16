@@ -356,6 +356,40 @@ img {
   line-height: 1.65;
 }
 
+/* TLDR block — Avital's rule: "i wnat everything TLDR - not such a reader".
+   Always the first scroll-visible block on a page. ≤50 words. Light tint,
+   slight padding, anchors the fold. */
+.page-tldr {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--green-mist);
+  border-left: 3px solid var(--green-deep);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  margin: 0 0 1.6rem;
+  max-width: var(--max-prose);
+  font-weight: 500;
+}
+.page-tldr strong {
+  color: var(--green-deep);
+}
+.page-tldr::before {
+  content: 'TL;DR';
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-right: 0.55rem;
+  padding: 0.12rem 0.5rem;
+  background: rgba(46, 93, 79, 0.13);
+  border-radius: 999px;
+  vertical-align: 0.12em;
+}
+
 .eyebrow {
   font-size: 0.78rem;
   text-transform: uppercase;
