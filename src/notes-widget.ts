@@ -51,7 +51,7 @@ function buildModal(): HTMLDivElement {
           <span>📷 Attach photo (optional)</span>
           <span class="note-photo-hint">screenshot something to show, or a photo of what's wrong</span>
         </label>
-        <input type="file" id="note-photo" accept="image/*" capture="environment" />
+        <input type="file" id="note-photo" accept="image/*" />
         <div id="note-photo-preview" class="note-photo-preview" hidden>
           <img id="note-photo-preview-img" alt="preview" />
           <button type="button" id="note-photo-clear" class="note-photo-clear" aria-label="Remove photo">✕</button>
