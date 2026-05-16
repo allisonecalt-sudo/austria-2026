@@ -35,7 +35,16 @@ function buildModal(): HTMLDivElement {
   wrap.innerHTML = `
     <div class="modal">
       <h3>Leave Claude a note</h3>
-      <p class="sub">Type anything — agreement, disagreement, swap ideas, "I won't get up at 7am for Königssee," dealbreakers. Allison's Claude reads these and iterates.</p>
+      <div class="modal-row" style="margin-bottom:0.6rem;">
+        <label style="display:flex;gap:0.5rem;align-items:center;">
+          <strong>Who's this from?</strong>
+          <select id="note-author" style="font-size:1rem;padding:0.3rem 0.5rem;border-radius:0.4rem;border:1px solid #c7b89c;">
+            <option value="avital">Avital</option>
+            <option value="allison">Allison</option>
+          </select>
+        </label>
+      </div>
+      <p class="sub">Type anything — agreement, disagreement, swap ideas, "I won't get up at 7am for Königssee," dealbreakers. Claude reads these between sessions and iterates.</p>
       <textarea id="note-text" placeholder="e.g. 'Skip the ice cave — I don't want to do 1400 stairs.'"></textarea>
       <div class="modal-row">
         <label>Day (optional) <select id="note-day">
@@ -46,7 +55,7 @@ function buildModal(): HTMLDivElement {
         <button class="btn" type="button" id="note-cancel">Cancel</button>
         <button class="btn primary" type="button" id="note-submit">Send</button>
       </div>
-      <p class="sub" style="margin-top:0.5rem; opacity:0.7; font-size:0.78rem;">Press Ctrl+K anytime to open this. ESC to close.</p>
+      <p class="sub" style="margin-top:0.5rem; opacity:0.7; font-size:0.78rem;">Press Ctrl+K anytime to open this. ESC to close. Your last "who" choice is remembered.</p>
     </div>
   `;
   return wrap;
@@ -140,12 +149,30 @@ export function initNotesWidget(): void {
 
   const textarea = modal.querySelector<HTMLTextAreaElement>('#note-text');
   const daySelect = modal.querySelector<HTMLSelectElement>('#note-day');
+  const authorSelect = modal.querySelector<HTMLSelectElement>('#note-author');
   const cancelBtn = modal.querySelector<HTMLButtonElement>('#note-cancel');
   const submitBtn = modal.querySelector<HTMLButtonElement>('#note-submit');
 
-  if (!textarea || !daySelect || !cancelBtn || !submitBtn) {
+  if (!textarea || !daySelect || !authorSelect || !cancelBtn || !submitBtn) {
     return;
   }
+
+  // Per Allison 2026-05-17 01:13: author toggle + persist last choice
+  try {
+    const savedAuthor = localStorage.getItem('austria-note-author');
+    if (savedAuthor === 'allison' || savedAuthor === 'avital') {
+      authorSelect.value = savedAuthor;
+    }
+  } catch {
+    // storage unavailable
+  }
+  authorSelect.addEventListener('change', () => {
+    try {
+      localStorage.setItem('austria-note-author', authorSelect.value);
+    } catch {
+      // ignore
+    }
+  });
 
   for (const d of DAY_OPTIONS) {
     const opt = document.createElement('option');
@@ -195,7 +222,7 @@ export function initNotesWidget(): void {
         day_id: daySelect.value || null,
         activity_id: cfg.defaultActivityId,
         note_text: text,
-        author: 'avital',
+        author: authorSelect.value || 'avital',
       });
       textarea.value = '';
       close();
