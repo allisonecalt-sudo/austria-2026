@@ -1,5 +1,6 @@
 import { TRIP } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 const eurEls = document.querySelectorAll<HTMLSpanElement>('[data-bind="total-eur"]');
 eurEls.forEach((el) => (el.textContent = `€${TRIP.totalCostEur.toLocaleString('en-US')}`));
@@ -11,3 +12,4 @@ const ceilEls = document.querySelectorAll<HTMLSpanElement>('[data-bind="ceiling"
 ceilEls.forEach((el) => (el.textContent = `€${TRIP.ceilingEur.toLocaleString('en-US')}`));
 
 initNotesWidget();
+initChatPlanPopup();

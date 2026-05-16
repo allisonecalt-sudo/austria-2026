@@ -13,6 +13,7 @@
 
 import { NATURE_DESTINATIONS, type NatureDestination } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 // =====================================================================
 // Per-pick metadata — the trip-night context not in NATURE_DESTINATIONS
@@ -493,3 +494,4 @@ function renderPage(): void {
 
 renderPage();
 initNotesWidget();
+initChatPlanPopup();

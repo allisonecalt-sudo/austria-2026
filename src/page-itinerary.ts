@@ -6,6 +6,7 @@ import { TRIP } from './trip-data.js';
 import { renderDayCard, attachImageLoadHandlers, attachExpandAllControls } from './day-render.js';
 import { renderDayNav } from './day-nav.js';
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 function render(): void {
   const why = document.querySelector<HTMLParagraphElement>('[data-bind="why"]');
@@ -42,3 +43,4 @@ function render(): void {
 
 render();
 initNotesWidget();
+initChatPlanPopup();

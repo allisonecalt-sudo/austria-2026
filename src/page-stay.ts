@@ -29,6 +29,7 @@ import {
   type SunsetStay,
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 // ---------------------------------------------------------------------------
 // Leaflet typings — loaded via CDN <script> in stay.html (no npm dep).
@@ -945,3 +946,4 @@ function init(): void {
 
 init();
 initNotesWidget();
+initChatPlanPopup();

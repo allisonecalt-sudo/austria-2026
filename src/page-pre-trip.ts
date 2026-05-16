@@ -3,6 +3,7 @@
 // Progress pill updates on every change. Reset button clears state.
 
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 const STORAGE_KEY = 'austria-pretrip-v1';
 
@@ -118,3 +119,4 @@ if (document.readyState === 'loading') {
 }
 
 initNotesWidget();
+initChatPlanPopup();

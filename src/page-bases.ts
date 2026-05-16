@@ -22,6 +22,7 @@ import {
   type LodgingVibe,
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 function escapeHtml(s: string): string {
   return s
@@ -356,3 +357,4 @@ function render(): void {
 
 render();
 initNotesWidget();
+initChatPlanPopup();

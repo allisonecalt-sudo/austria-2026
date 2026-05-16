@@ -11,6 +11,7 @@ import {
   type NatureType,
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 
 interface RegionSpec {
   key: NatureRegion;
@@ -232,3 +233,4 @@ function renderPage(): void {
 
 renderPage();
 initNotesWidget();
+initChatPlanPopup();

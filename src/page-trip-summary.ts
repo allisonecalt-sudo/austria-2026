@@ -14,10 +14,12 @@
  */
 
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 import { TRIP } from './trip-data.js';
 import type { Day, Lodging } from './trip-data.js';
 
 initNotesWidget();
+initChatPlanPopup();
 
 function escapeHtml(s: string): string {
   return s
@@ -207,7 +209,7 @@ const TOP_5_SUNSETS: SunsetPick[] = [
     day: 'Sun Jul 26',
     time: '20:53',
     oneLine:
-      "Five minutes from the apartment door. The arrival sunset — settle in, exhale, watch the lake light up the day you move east.",
+      'Five minutes from the apartment door. The arrival sunset — settle in, exhale, watch the lake light up the day you move east.',
   },
 ];
 

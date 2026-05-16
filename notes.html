@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notes from Avital · Austria 2026</title>
-    <meta name="description" content="Live feed of Avital\'s notes." />
+    <meta name="description" content="Live feed of Avital's notes." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,20 +27,52 @@
       </div>
     </nav>
 
+    <!-- Sticky status pill: counts + latest note status. Polls every 15s. -->
+    <div class="notes-statusbar" id="notes-statusbar" role="status" aria-live="polite">
+      <div class="notes-statusbar__inner">
+        <div class="notes-statusbar__counts">
+          <span class="ns-chip ns-chip--total"><strong data-bind="ns-total">–</strong> total</span>
+          <span class="ns-chip ns-chip--pending">🕐 <strong data-bind="ns-pending">–</strong></span>
+          <span class="ns-chip ns-chip--seen">👁 <strong data-bind="ns-seen">–</strong></span>
+          <span class="ns-chip ns-chip--applied">✅ <strong data-bind="ns-applied">–</strong></span>
+        </div>
+        <div class="notes-statusbar__latest" data-bind="ns-latest">Loading…</div>
+      </div>
+    </div>
+
     <main class="container">
       <h1>Notes from Avital</h1>
-      <p class="lead-block">
-        Live feed. <span data-bind="note-count">0</span> notes so far. Allison\'s Claude reads these
-        between sessions and iterates the plan.
+
+      <!-- "Latest update from Claude" feed: notes flipped to applied in last 10 min -->
+      <div id="notes-applied-feed" class="notes-applied-feed" hidden></div>
+
+      <!-- How this works — collapsible -->
+      <details class="notes-help">
+        <summary>How this works</summary>
+        <ul>
+          <li>You type a note → Claude reads between sessions → status updates here when done.</li>
+          <li>
+            Read window is usually under a few hours, not seconds. Status pill above is honest about
+            where each note is.
+          </li>
+          <li>
+            Live chat sidebar (typing back-and-forth with Claude) is being built — coming next
+            build.
+          </li>
+        </ul>
+      </details>
+
+      <p class="lead-block" style="margin-top: 1rem">
+        Live feed. <span data-bind="note-count">0</span> notes so far. Tap any note to expand.
       </p>
       <p class="lead-block" style="color: #4b5a62; font-size: 0.92rem">
-        Want to add one? Use the 💬 button on any page — or right here.
+        Add a note: 💬 button bottom-right of any page, or Ctrl+K.
       </p>
 
       <div id="notes-list" style="margin-top: 1.4rem"></div>
     </main>
 
-    <footer>Stored in Supabase · table <code>austria_notes</code></footer>
+    <footer>Stored in Supabase · table <code>austria_notes</code> · polls every 15s</footer>
 
     <script type="module" src="/src/page-notes.ts"></script>
   </body>

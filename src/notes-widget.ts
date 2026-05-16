@@ -63,16 +63,72 @@ const DAY_OPTIONS: { id: string; label: string }[] = [
   { id: 'fri-jul-31', label: 'Fri Jul 31 — fly home' },
 ];
 
-function showToast(text: string, ms = 2400): void {
+function showToast(text: string, ms = 2400): HTMLDivElement {
   const t = document.createElement('div');
   t.className = 'toast';
   t.textContent = text;
   document.body.appendChild(t);
   requestAnimationFrame(() => t.classList.add('show'));
+  if (ms > 0) {
+    setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => t.remove(), 300);
+    }, ms);
+  }
+  return t;
+}
+
+// After-submit confirmation flow.
+// Honest about latency: notes are read between sessions, not instantly.
+// The countdown is a heartbeat so Avital sees something is alive — but the
+// label is "Allison's Claude will read this next session" — not a fake
+// "reading now" claim. When/if status flips to 'seen' (Allison's session
+// marks it), we show that too.
+function showSubmitFlow(insertedId: string | null): void {
+  const t = showToast('Saved! Allison’s Claude reads notes each session.', 0);
+  // Step 1: 3.5s — saved confirmation.
+  setTimeout(() => {
+    t.textContent = 'Status → pending. Watch the feed on /notes.';
+  }, 3500);
+  // Step 2: 7s — fade out.
   setTimeout(() => {
     t.classList.remove('show');
     setTimeout(() => t.remove(), 300);
-  }, ms);
+  }, 7000);
+
+  // Light-touch poll: if the newly-inserted note flips to seen/applied within
+  // 60s (rare but possible if Allison is mid-session), pop a follow-up toast.
+  if (!insertedId) return;
+  let attempts = 0;
+  const maxAttempts = 6; // 6 * 10s = 60s
+  const poll = setInterval(() => {
+    attempts += 1;
+    void fetch(
+      `https://hpiyvnfhoqnnnotrmwaz.supabase.co/rest/v1/austria_notes?id=eq.${insertedId}&select=status`,
+      {
+        headers: {
+          apikey:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhwaXl2bmZob3Fubm5vdHJtd2F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NzIwNDEsImV4cCI6MjA4ODA0ODA0MX0.AsGhYitkSnyVMwpJII05UseS_gICaXiCy7d8iHsr6Qw',
+        },
+      },
+    )
+      .then((r) => (r.ok ? r.json() : null))
+      .then((rows: { status: string }[] | null) => {
+        if (!rows || rows.length === 0) return;
+        const s = rows[0].status;
+        if (s === 'seen') {
+          showToast('👁 Claude has seen your last note.', 4000);
+          clearInterval(poll);
+        } else if (s === 'applied') {
+          showToast('✅ Claude applied your last note.', 5000);
+          clearInterval(poll);
+        }
+      })
+      .catch(() => {
+        /* silent — best effort */
+      });
+    if (attempts >= maxAttempts) clearInterval(poll);
+  }, 10000);
 }
 
 export function initNotesWidget(): void {
@@ -134,7 +190,7 @@ export function initNotesWidget(): void {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending…';
     try {
-      await insertNote({
+      const inserted = await insertNote({
         option: 'general', // v2 single-spine — column kept for back-compat
         day_id: daySelect.value || null,
         activity_id: cfg.defaultActivityId,
@@ -143,7 +199,7 @@ export function initNotesWidget(): void {
       });
       textarea.value = '';
       close();
-      showToast('Saved. Allison will see it.');
+      showSubmitFlow(inserted?.id ?? null);
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       showToast(`Failed: ${msg}`, 4000);

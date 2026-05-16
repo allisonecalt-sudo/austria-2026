@@ -26,6 +26,7 @@
  */
 
 import { initNotesWidget } from './notes-widget.js';
+import { initChatPlanPopup } from './popup-chat-plan.js';
 import {
   NATURE_DESTINATIONS,
   NATURE_COORDS,
@@ -37,6 +38,7 @@ import {
 import type { LatLng, MapPOI, Lodging, NatureDestination } from './trip-data.js';
 
 initNotesWidget();
+initChatPlanPopup();
 
 // =====================================================================
 // Leaflet ambient types — the plugin is loaded via <script src> in
@@ -75,10 +77,7 @@ interface LDivIconOpts {
 interface LeafletStatic {
   map(id: string, opts?: { zoomControl?: boolean; scrollWheelZoom?: boolean }): LMap;
   tileLayer(url: string, opts: { attribution: string; maxZoom: number }): { addTo(m: LMap): void };
-  marker(
-    latLng: [number, number],
-    opts?: { icon?: unknown; zIndexOffset?: number },
-  ): LMarker;
+  marker(latLng: [number, number], opts?: { icon?: unknown; zIndexOffset?: number }): LMarker;
   divIcon(opts: LDivIconOpts): unknown;
   latLngBounds(latLngs: Array<[number, number]>): LBounds;
   control: {
