@@ -6,7 +6,7 @@
     <title>Rental car · Austria 2026</title>
     <meta
       name="description"
-      content="Salzburg airport (SZG) pickup Jul 24 — drop-off Jul 31. 7 automatic-only, gasoline/hybrid, all-in-with-full-coverage rentals, cross-border to Germany + Slovenia verified."
+      content="Salzburg airport (SZG) pickup Jul 24 — drop-off Jul 31. 7 automatic-only, gasoline/hybrid, all-in-with-full-coverage rentals, cross-border to Germany verified."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,23 +17,23 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
           <a href="itinerary.html">Trip</a>
           <a href="stay.html">Stay</a>
-          <a href="logistics.html" class="active">Logistics</a>
+          <a href="logistics.html" class="active" aria-current="page">Logistics</a>
           <a href="costs.html">Costs</a>
           <a href="notes.html">Notes</a>
         </div>
       </div>
     </nav>
 
-    <main class="container">
+    <main class="container" id="main">
       <header style="margin-bottom: 2rem">
         <div class="eyebrow">Salzburg airport · Jul 24 → Jul 31 · 7 days</div>
-        <h1>Rental car — automatic only, gas or hybrid, all-in with full coverage</h1>
+        <h1>Rental car — automatic, gas or hybrid, all-in with full coverage</h1>
         <p class="lead-block">
           Pickup Salzburg W. A. Mozart Airport (SZG) around 09:00 Friday Jul 24 (post customs + bag
           claim). Drop-off same airport ~05:00 Friday Jul 31 for the early flight. Allison drives
@@ -45,8 +45,8 @@
           <strong>The stricter spec on this page:</strong> automatic transmission only (no manuals).
           Gasoline primary, hybrid acceptable, no diesel, no pure electric. Headline price is
           <strong>all-in WITH full coverage</strong> (CDW zero-excess + theft + glass + tire) —
-          single number, no asterisks. Cross-border to <strong>Germany + Slovenia</strong>
-          (Berchtesgaden + Lake Bled) verified per listing. Every vehicle is quality-vetted — Euro
+          single number, no asterisks. Cross-border to <strong>Germany</strong>
+          (Berchtesgaden / Königssee) verified per listing. Every vehicle is quality-vetted — Euro
           NCAP safety, reliability, Alpine suitability, cargo space.
         </p>
         <p
@@ -60,29 +60,32 @@
           "
         >
           Prices are <strong>live DiscoverCars + Kayak pulls from 2026-05-16</strong> for the actual
-          trip dates (Jul 24 09:00 → Jul 31 05:00, driver age 30), then I added the full-coverage
-          upgrade to each (broker-side Full Coverage ~€7-10/day or supplier-side Premium Cover
-          ~€14/day, whichever is bundled). Currency primary in ₪ (1 USD ≈ ₪3.81, 1 EUR ≈ ₪3.97 as of
-          May 2026). Cross-border policies pulled from each provider's published terms — Sixt's
-          policy is the clearest (Germany Zone I, Slovenia Zone II, both allowed); aggregator
-          listings inherit the underlying supplier's rules so confirm at counter where flagged.
+          trip dates (Jul 24 09:00 → Jul 31 05:00, driver age 30), then the full-coverage upgrade is
+          added to each (broker Full Coverage ~€7-10/day or supplier Premium Cover ~€14/day,
+          whichever is bundled). Currency primary in ₪ (1 USD ≈ ₪3.81, 1 EUR ≈ ₪3.97 as of May
+          2026). Germany cross-border is effectively default for Salzburg-airport rentals — the
+          German border is 2 km away. Listings are flagged "DE verified" where the supplier
+          publishes it in writing, "DE confirm" where it's the practical norm but not explicitly
+          stated.
         </p>
       </header>
 
       <section class="section" style="border: none; padding-top: 0">
         <div class="eyebrow">The recommendation</div>
-        <h2>Volkswagen Golf — Compact automatic gasoline · Sixt direct</h2>
+        <h2>Opel Mokka — Compact SUV automatic gasoline · DiscoverCars</h2>
         <p class="lead-block" style="font-size: 0.98rem; margin-bottom: 0.9rem">
           <strong
-            >All-in ~₪1,870 / ~€471 for the week, including Sixt Premium Cover zero excess.</strong
+            >All-in ~₪1,440 / ~€363 for the week, including DiscoverCars Full Coverage zero
+            excess.</strong
           >
-          5-star Euro NCAP. Bulletproof reliability (30+ years of European hatchback proof). 379 L
-          boot fits 2 suitcases + kitchen kit + groceries with the rear seats up. Sixt's
-          cross-border policy is the clearest on the page — Germany €11.90/day capped at €39.95,
-          Slovenia €16.50/day capped at €64.40, both pre-authorised at booking, no counter-side
-          surprises. Regular gasoline (not the diesel TDI, not the GTE plug-in). One-line take: this
-          is the no-asterisks pick — right size, named-brand customer service, the only listing
-          where Germany AND Slovenia are crystal-clear in writing before you drive off.
+          4★ Euro NCAP. 2021+ Mokka is the reliable generation per What Car?. Compact-SUV class
+          (one notch up from the Yaris in Montenegro) — higher seating position for alpine hairpins,
+          350 L boot fits two suitcases + kitchen kit. Regular gasoline. With Slovenia off the
+          itinerary, the Sixt cross-border edge no longer earns the €100+ premium — Germany is
+          effectively default at SZG (the border is 2 km from the rental desks), and a compact SUV
+          at this price is the best value-per-shekel pick. One-line take: this is the
+          best-balance choice — right size, right fuel, right coverage, right price, no asterisks
+          you'll actually trip on.
         </p>
         <table class="costs">
           <tbody>
@@ -90,172 +93,208 @@
               <td><strong>Provider</strong></td>
               <td>
                 <a
-                  href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
+                  href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
                   target="_blank"
                   rel="noreferrer noopener"
-                  >Sixt direct — Salzburg Airport branch</a
+                  >DiscoverCars — Salzburg Airport SZG</a
                 >
+                · shuttle pickup (Megadrive / Buchbinder)
               </td>
             </tr>
             <tr>
               <td><strong>Vehicle class</strong></td>
-              <td>Compact 5-door hatchback automatic · 5 seats · 379 L boot · gasoline (petrol)</td>
+              <td>Compact SUV automatic · 5 seats · 350 L boot · gasoline (petrol)</td>
             </tr>
             <tr>
               <td><strong>Quality</strong></td>
               <td>
-                <strong>5★ Euro NCAP (2022)</strong> · top-tier reliability per What Car? &amp; Auto
-                Express · proven on Alpine roads · fits 2 large suitcases + carry-ons + the kitchen
-                kit + grocery hauls
+                <strong>4★ Euro NCAP</strong> · 2021+ generation rated reliable per What Car? ·
+                refined cabin, light steering · higher seating eases alpine hairpins · fits 2 large
+                suitcases + kitchen kit (no headroom for major grocery overflow)
               </td>
             </tr>
             <tr>
-              <td><strong>Base rate (Kayak)</strong></td>
-              <td>$389 USD / ~€362 / ~₪1,482 for 7 days</td>
+              <td><strong>Base rate (DiscoverCars)</strong></td>
+              <td>$305 USD / ~€303 / ~₪1,162 for 7 days</td>
             </tr>
             <tr>
-              <td><strong>+ Premium Cover</strong></td>
-              <td>Sixt's zero-excess CDW + theft + glass + tire · €14/day × 7 = €98 / ~₪389</td>
+              <td><strong>+ Full Coverage</strong></td>
+              <td>DiscoverCars zero-excess CDW + theft + glass + tire · ~€60 / ~₪278</td>
             </tr>
             <tr>
               <td><strong>= All-in week total</strong></td>
-              <td><strong>~€471 / ~₪1,870</strong> (gasoline excluded — full-to-full)</td>
+              <td><strong>~€363 / ~₪1,440</strong> (gasoline excluded — full-to-full)</td>
             </tr>
             <tr>
-              <td><strong>Cross-border DE + SI</strong></td>
+              <td><strong>Cross-border DE</strong></td>
               <td>
-                Both <strong>verified yes</strong>. Germany Zone I: €11.90/day, capped €39.95
-                (~₪158) for the week. Slovenia Zone II: €16.50/day, capped €64.40 (~₪256). Pay at
-                booking, no counter friction.
+                Germany default-allowed on SZG rentals (border 2 km away). Confirm at counter
+                + get in writing on the contract before driving toward Berchtesgaden.
               </td>
             </tr>
             <tr>
               <td><strong>Pickup</strong></td>
-              <td>SZG in-terminal · counter open from 06:00 · drop-off 24h key-drop</td>
+              <td>Shuttle from terminal (~10 min) · 24h drop-box for 05:00 Friday return</td>
             </tr>
             <tr>
               <td><strong>Cancellation</strong></td>
-              <td>Standard Sixt — free cancellation when booked pay-at-counter</td>
+              <td>DiscoverCars standard — free cancellation up to 48h before pickup on most</td>
             </tr>
             <tr>
               <td><strong>Book direct</strong></td>
               <td>
                 <a
-                  href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
+                  href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
                   target="_blank"
                   rel="noreferrer noopener"
-                  >sixt.com/car-rental/austria/salzburg/salzburg-airport</a
+                  >discovercars.com → Salzburg Airport SZG</a
                 >
               </td>
             </tr>
           </tbody>
         </table>
+        <p class="lead-block" style="font-size: 0.93rem; margin-top: 0.7rem">
+          <strong>Why this changed from VW Golf:</strong> earlier the Golf via Sixt was picked
+          because Sixt was the only listing with both Germany AND Slovenia cross-border in writing.
+          With Slovenia dropped from the trip, that advantage disappears — Germany cross-border is
+          effectively automatic for any SZG rental. The Mokka is ~₪430 cheaper, in the right
+          size-class, and the only real trade-offs are 10 min of shuttle vs in-terminal pickup
+          and 4★ vs 5★ Euro NCAP. If you want the zero-asterisk pick anyway, the
+          <a href="#alt-golf">VW Golf via Sixt</a> is still on the board below.
+        </p>
       </section>
 
       <section class="section">
-        <div class="eyebrow">The full board — 6 alternates, automatic only, all-in</div>
-        <h2>Real options across price tiers</h2>
+        <div class="eyebrow">The full board — 7 options, automatic only, all-in</div>
+        <h2>Real picks across price tiers</h2>
         <p class="lead-block" style="font-size: 0.94rem">
-          All seven listings below are
+          All seven listings are
           <strong
-            >automatic, gasoline or hybrid, all-in with full coverage, cross-border-checked</strong
+            >automatic, gasoline or hybrid, all-in with full coverage, Germany-cross-border-checked</strong
           >. Each links to the cheapest legit source for that vehicle. Badge legend:
           <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-            ><span class="chip-icon">⛽</span>Gasoline</span
+            ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
           >
           <span class="chip" style="background: #e8f5e9; border-color: #a5d6a7"
-            ><span class="chip-icon">⛽⚡</span>Hybrid</span
+            ><span class="chip-icon" aria-hidden="true">⛽⚡</span>Hybrid</span
           >
           <span class="chip" style="background: #e3f2fd; border-color: #90caf9"
-            ><span class="chip-icon">🇩🇪🇸🇮</span>DE + SI verified</span
+            ><span class="chip-icon" aria-hidden="true">🇩🇪</span>DE verified</span
           >
           <span class="chip" style="background: #fff3e0; border-color: #ffcc80"
-            ><span class="chip-icon">⚠</span>Confirm at counter</span
+            ><span class="chip-icon" aria-hidden="true">⚠</span>DE confirm at counter</span
           >
         </p>
 
         <div class="cards two-up">
-          <!-- 1. VW Golf — already the recommendation, repeat as card #1 for symmetry -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
-            <div class="alt-name">VW Golf — Compact auto · ★ RECOMMENDATION</div>
-            <div class="alt-meta">
-              <strong>~₪1,870 / ~€471 all-in</strong> · Sixt direct · in-terminal SZG
+          <!-- 1. Opel Mokka — RECOMMENDATION -->
+          <article
+            class="alt-card"
+            id="alt-mokka"
+            style="padding: 1.2rem 1.3rem; border: 2px solid var(--green-deep)"
+            aria-labelledby="alt-mokka-name"
+          >
+            <div class="alt-name" id="alt-mokka-name">
+              Opel Mokka — Compact SUV auto · ★ RECOMMENDATION
             </div>
-            <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
-              <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-                ><span class="chip-icon">⛽</span>Gasoline</span
-              >
-              <span class="chip" style="background: #e3f2fd; border-color: #90caf9"
-                ><span class="chip-icon">🇩🇪🇸🇮</span>DE + SI verified</span
-              >
-              <span class="chip"><span class="chip-icon">🛡</span>Zero excess</span>
-              <span class="chip"><span class="chip-icon">⭐</span>5★ NCAP</span>
-            </div>
-            <p class="alt-note">
-              <strong>Quality:</strong> 5★ Euro NCAP 2022 · 379 L boot fits 2 large suitcases +
-              kitchen kit · enviable reliability over 30+ years · light, precise handling on
-              Austrian B-roads. <strong>Base $389 + Premium Cover €98 = €471 / ₪1,870.</strong>
-              Sixt cross-border crystal clear in writing before driving off the lot. The pick if you
-              want zero asterisks.
-            </p>
-            <a
-              class="alt-cta"
-              href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
-              target="_blank"
-              rel="noreferrer noopener"
-              >Book Sixt direct →</a
-            >
-          </div>
-
-          <!-- 2. Opel Mokka gasoline — DiscoverCars cheapest credible auto SUV -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
-            <div class="alt-name">Opel Mokka — Compact SUV auto · cheapest credible</div>
             <div class="alt-meta">
               <strong>~₪1,440 / ~€363 all-in</strong> · DiscoverCars · shuttle pickup
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-                ><span class="chip-icon">⛽</span>Gasoline</span
+                ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
               >
               <span class="chip" style="background: #fff3e0; border-color: #ffcc80"
-                ><span class="chip-icon">⚠</span>SI confirm at counter</span
+                ><span class="chip-icon" aria-hidden="true">⚠</span>DE confirm at counter</span
               >
-              <span class="chip"><span class="chip-icon">🛡</span>Full Coverage</span>
-              <span class="chip"><span class="chip-icon">⭐</span>4★ NCAP</span>
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Full Coverage</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>4★ NCAP</span
+              >
             </div>
             <p class="alt-note">
               <strong>Quality:</strong> 4★ Euro NCAP · 350 L boot (smallest of the SUVs here — 2 big
               suitcases fit but no headroom for grocery overflow) · 2021+ Mokka is the reliable
               generation per What Car? · refined cabin, light steering.
               <strong>Base $305 + DiscoverCars Full Coverage ~€60 = €363 / ₪1,440.</strong> Germany
-              usually included on SZG rentals (border is 2 km from the airport); Slovenia varies by
-              underlying supplier — confirm before driving south. Pickup is shuttle (Megadrive /
-              Buchbinder) — 10 extra min vs in-terminal.
+              cross-border default-allowed on SZG rentals (border 2 km from airport) — get it in
+              writing at the counter before driving toward Berchtesgaden. Pickup is shuttle
+              (Megadrive / Buchbinder) — 10 extra min vs in-terminal.
             </p>
             <a
               class="alt-cta"
               href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="Book Opel Mokka on DiscoverCars (opens in new tab)"
               >Book on DiscoverCars →</a
             >
-          </div>
+          </article>
+
+          <!-- 2. VW Golf — zero-asterisk alternate -->
+          <article
+            class="alt-card"
+            id="alt-golf"
+            style="padding: 1.2rem 1.3rem"
+            aria-labelledby="alt-golf-name"
+          >
+            <div class="alt-name" id="alt-golf-name">VW Golf — Compact auto · zero-asterisk</div>
+            <div class="alt-meta">
+              <strong>~₪1,870 / ~€471 all-in</strong> · Sixt direct · in-terminal SZG
+            </div>
+            <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
+              <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
+                ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
+              >
+              <span class="chip" style="background: #e3f2fd; border-color: #90caf9"
+                ><span class="chip-icon" aria-hidden="true">🇩🇪</span>DE verified</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Zero excess</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>5★ NCAP</span
+              >
+            </div>
+            <p class="alt-note">
+              <strong>Quality:</strong> 5★ Euro NCAP 2022 · 379 L boot fits 2 large suitcases +
+              kitchen kit · enviable reliability over 30+ years · light, precise handling on
+              Austrian B-roads. <strong>Base $389 + Premium Cover €98 = €471 / ₪1,870.</strong>
+              Sixt publishes Germany cross-border in writing (Zone I, €11.90/day, capped €39.95)
+              + in-terminal pickup + premium counter service. Pay €430 over the Mokka for the
+              zero-asterisk experience.
+            </p>
+            <a
+              class="alt-cta"
+              href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Book VW Golf on Sixt direct (opens in new tab)"
+              >Book Sixt direct →</a
+            >
+          </article>
 
           <!-- 3. Opel Mokka Hybrid -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
+          <article class="alt-card" style="padding: 1.2rem 1.3rem">
             <div class="alt-name">Opel Mokka Hybrid — Compact SUV auto · fuel-saver</div>
             <div class="alt-meta">
               <strong>~₪1,415 / ~€356 all-in</strong> · DiscoverCars · shuttle pickup
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #e8f5e9; border-color: #a5d6a7"
-                ><span class="chip-icon">⛽⚡</span>Hybrid</span
+                ><span class="chip-icon" aria-hidden="true">⛽⚡</span>Hybrid</span
               >
               <span class="chip" style="background: #fff3e0; border-color: #ffcc80"
-                ><span class="chip-icon">⚠</span>SI confirm at counter</span
+                ><span class="chip-icon" aria-hidden="true">⚠</span>DE confirm at counter</span
               >
-              <span class="chip"><span class="chip-icon">🛡</span>Full Coverage</span>
-              <span class="chip"><span class="chip-icon">⭐</span>4★ NCAP</span>
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Full Coverage</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>4★ NCAP</span
+              >
             </div>
             <p class="alt-note">
               Same Mokka body, hybrid drivetrain (mild-hybrid — not plug-in, no charging required).
@@ -269,93 +308,107 @@
               href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="Book Opel Mokka Hybrid on DiscoverCars (opens in new tab)"
               >Book on DiscoverCars →</a
             >
-          </div>
+          </article>
 
           <!-- 4. Opel Astra — cheapest credible auto Compact -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
+          <article class="alt-card" style="padding: 1.2rem 1.3rem">
             <div class="alt-name">Opel Astra — Compact auto · cheapest legit</div>
             <div class="alt-meta">
               <strong>~₪780 / ~€196 all-in</strong> · DiscoverCars (Sicily By Car) · shuttle pickup
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-                ><span class="chip-icon">⛽</span>Gasoline</span
+                ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
               >
               <span class="chip" style="background: #fff3e0; border-color: #ffcc80"
-                ><span class="chip-icon">⚠</span>DE + SI confirm at counter</span
+                ><span class="chip-icon" aria-hidden="true">⚠</span>DE confirm at counter</span
               >
-              <span class="chip"><span class="chip-icon">🛡</span>Full Coverage</span>
-              <span class="chip"><span class="chip-icon">⭐</span>5★ NCAP (with safety pack)</span>
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Full Coverage</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>5★ NCAP (with safety pack)</span
+              >
             </div>
             <p class="alt-note">
               <strong>Quality:</strong> Astra 2024 gets 4-5★ Euro NCAP (5★ with full safety pack) ·
               422 L boot — bigger than the Mokka, fits everything · Stellantis-platform shared with
               Peugeot 308, decent Alpine handling.
-              <strong>Base ₪500 (₪71.49/day) + ~₪280 Full Coverage = ₪780 / €196.</strong> Sicily By
-              Car is a smaller broker brand — counter service is more variable than Sixt/Hertz, and
-              Slovenia cross-border policy is NOT published on DiscoverCars; you MUST confirm at the
-              counter and get it in writing before driving south. If they say no, switch to another
-              car on the spot.
+              <strong>Base ₪500 (₪71.49/day) + ~₪280 Full Coverage = ₪780 / €196.</strong> Sicily
+              By Car is a smaller broker brand — counter service is more variable than Sixt/Hertz.
+              Germany cross-border is the SZG-default but get it in writing on the contract before
+              driving toward Berchtesgaden.
             </p>
             <a
               class="alt-cta"
               href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="Book Opel Astra on DiscoverCars (opens in new tab)"
               >Book on DiscoverCars →</a
             >
-          </div>
+          </article>
 
           <!-- 5. Toyota Corolla — bulletproof reliability -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
+          <article class="alt-card" style="padding: 1.2rem 1.3rem">
             <div class="alt-name">Toyota Corolla — Compact auto · bulletproof</div>
             <div class="alt-meta">
               <strong>~₪1,925 / ~€485 all-in</strong> · Wisecars (via Kayak) · in-terminal SZG
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-                ><span class="chip-icon">⛽</span>Gasoline</span
+                ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
               >
               <span class="chip" style="background: #fff3e0; border-color: #ffcc80"
-                ><span class="chip-icon">⚠</span>SI confirm at counter</span
+                ><span class="chip-icon" aria-hidden="true">⚠</span>DE confirm at counter</span
               >
-              <span class="chip"><span class="chip-icon">🛡</span>Full Coverage</span>
-              <span class="chip"><span class="chip-icon">⭐</span>5★ NCAP</span>
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Full Coverage</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>5★ NCAP</span
+              >
             </div>
             <p class="alt-note">
               <strong>Quality:</strong> 5★ Euro NCAP · Toyota's standard "it just starts" car · 332
               L boot in hatch form (smaller — verify sedan version if offered, ~470 L) · great fuel
               economy on highway · low-stress mountain driving.
               <strong>Base $432 + ~$50 Full Coverage = ~$507 / €485 / ₪1,925.</strong> In-terminal
-              pickup is a real win after a 5-hour flight. Slovenia varies by underlying supplier —
-              confirm.
+              pickup is a real win after a 5-hour flight. Germany cross-border default-allowed at
+              SZG — confirm at counter.
             </p>
             <a
               class="alt-cta"
               href="https://www.kayak.com/cars/SZG-airport/SZG-airport/2026-07-24-09h/2026-07-31-05h/30?sort=rank_a"
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="Open Toyota Corolla (Wisecars) on Kayak (opens in new tab)"
               >Open Kayak (Wisecars) →</a
             >
-          </div>
+          </article>
 
           <!-- 6. Peugeot 2008 — Sixt premium SUV -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
+          <article class="alt-card" style="padding: 1.2rem 1.3rem">
             <div class="alt-name">Peugeot 2008 — Compact SUV auto · Sixt premium</div>
             <div class="alt-meta">
               <strong>~₪2,030 / ~€512 all-in</strong> · Sixt direct · in-terminal SZG
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-                ><span class="chip-icon">⛽</span>Gasoline</span
+                ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
               >
               <span class="chip" style="background: #e3f2fd; border-color: #90caf9"
-                ><span class="chip-icon">🇩🇪🇸🇮</span>DE + SI verified</span
+                ><span class="chip-icon" aria-hidden="true">🇩🇪</span>DE verified</span
               >
-              <span class="chip"><span class="chip-icon">🛡</span>Zero excess</span>
-              <span class="chip"><span class="chip-icon">⭐</span>4★ NCAP (5★ w/pack)</span>
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Zero excess</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>4★ NCAP (5★ w/pack)</span
+              >
             </div>
             <p class="alt-note">
               <strong>Quality:</strong> 4★ Euro NCAP base, 5★ with safety pack · 76% reliability
@@ -363,20 +416,20 @@
               higher seating position than the Golf, easier for spotting hairpins on alpine passes.
               <strong>Base $431 + Sixt Premium Cover €98 = ~$534 / €512 / ₪2,030.</strong> Most
               expensive on the page but you're paying for Sixt cross-border-policy clarity +
-              Compact-SUV-class room + premium counter service. Worth it if the Königssee day and
-              Lake Bled day both happen.
+              Compact-SUV-class room + premium counter service.
             </p>
             <a
               class="alt-cta"
               href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="Book Peugeot 2008 on Sixt direct (opens in new tab)"
               >Book Sixt direct →</a
             >
-          </div>
+          </article>
 
           <!-- 7. Suzuki Vitara — bigger SUV in-terminal -->
-          <div class="alt-card" style="padding: 1.2rem 1.3rem">
+          <article class="alt-card" style="padding: 1.2rem 1.3rem">
             <div class="alt-name">Suzuki Vitara — Intermediate SUV auto · most room</div>
             <div class="alt-meta">
               <strong>~₪1,580 / ~€398 all-in</strong> · EconomyBookings (via Kayak) · in-terminal
@@ -384,13 +437,17 @@
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
-                ><span class="chip-icon">⛽</span>Gasoline</span
+                ><span class="chip-icon" aria-hidden="true">⛽</span>Gasoline</span
               >
               <span class="chip" style="background: #fff3e0; border-color: #ffcc80"
-                ><span class="chip-icon">⚠</span>DE + SI confirm at counter</span
+                ><span class="chip-icon" aria-hidden="true">⚠</span>DE confirm at counter</span
               >
-              <span class="chip"><span class="chip-icon">🛡</span>Full Coverage</span>
-              <span class="chip"><span class="chip-icon">⭐</span>5★ NCAP (older test)</span>
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">🛡</span>Full Coverage</span
+              >
+              <span class="chip"
+                ><span class="chip-icon" aria-hidden="true">⭐</span>5★ NCAP (older test)</span
+              >
             </div>
             <p class="alt-note">
               <strong>Quality:</strong> 5★ Euro NCAP (2015 test — re-test pending for 2024 model) ·
@@ -398,17 +455,18 @@
               Suzuki reliability is strong (top-3 brand in Consumer Reports historically).
               <strong>Base $341 + ~$57 Full Coverage = ~$398 / €398 / ₪1,580.</strong> The "going
               off the beaten path" option — most cargo room of any auto here, and if any gravel road
-              appears (Hintersee back-routes, Slovenia farm tracks), this is the one that won't
-              scrape. In-terminal pickup. Confirm Slovenia at counter.
+              appears (Hintersee back-routes, Bavarian farm tracks), this is the one that won't
+              scrape. In-terminal pickup.
             </p>
             <a
               class="alt-cta"
               href="https://www.kayak.com/cars/SZG-airport/SZG-airport/2026-07-24-09h/2026-07-31-05h/30?sort=rank_a"
               target="_blank"
               rel="noreferrer noopener"
+              aria-label="Open Suzuki Vitara (EconomyBookings) on Kayak (opens in new tab)"
               >Open Kayak (EconomyBookings) →</a
             >
-          </div>
+          </article>
         </div>
 
         <p style="font-size: 0.92rem; color: var(--ink-soft); margin-top: 1.2rem">
@@ -422,229 +480,238 @@
       </section>
 
       <section class="section">
-        <div class="eyebrow">All booking platforms — pick your channel</div>
-        <h2>Direct links to every platform searched</h2>
-        <p class="lead-block" style="font-size: 0.95rem">
-          Same vehicle can be on multiple platforms at different prices — the cheapest legit source
-          is what each card above links to, but if you want to comparison-shop yourself, here are
-          the direct search URLs for the exact dates (Jul 24 09:00 → Jul 31 05:00, age 30):
-        </p>
-        <table class="costs">
-          <tbody>
-            <tr>
-              <td><strong>DiscoverCars</strong> (Allison's named primary)</td>
-              <td>
-                <a
-                  href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >discovercars.com → Salzburg Airport SZG</a
-                >
-                · aggregates 25+ suppliers · Full Coverage add-on ~€7-10/day · ILS currency native
-              </td>
-            </tr>
-            <tr>
-              <td><strong>AutoEurope</strong></td>
-              <td>
-                <a
-                  href="https://www.autoeurope.com/car-rental-salzburg-airport/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >autoeurope.com Salzburg Airport</a
-                >
-                · partners directly with Europcar / Hertz / Sixt · sometimes beats supplier direct
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Sixt direct</strong></td>
-              <td>
-                <a
-                  href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >sixt.com Salzburg Airport</a
-                >
-                · in-terminal · cleanest cross-border-to-DE-and-SI in writing · Premium Cover
-                €14/day zero-excess
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Hertz direct</strong></td>
-              <td>
-                <a
-                  href="https://www.hertz.com/us/en/location/austria/salzburg"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >hertz.com Salzburg</a
-                >
-                · in-terminal · SuperCover ~€20/day for zero excess
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Avis direct</strong></td>
-              <td>
-                <a
-                  href="https://www.avis.com/en/locations/eur/at/salzburg/szg"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >avis.com Salzburg Airport</a
-                >
-                · in-terminal · ProtectionPlus add-on for excess waiver
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Europcar direct</strong></td>
-              <td>
-                <a
-                  href="https://www.europcar.com/en-us/places/car-rental-austria/salzburg/salzburg-airport"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >europcar.com Salzburg Airport</a
-                >
-                · in-terminal · "Premium Cover" zero-excess add-on
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Kayak</strong></td>
-              <td>
-                <a
-                  href="https://www.kayak.com/cars/SZG-airport/SZG-airport/2026-07-24-09h/2026-07-31-05h/30?sort=price_a"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >kayak.com SZG → SZG search</a
-                >
-                · meta-search across DiscoverCars / EconomyBookings / Wisecars / Booking.com /
-                Priceline
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Rentalcars.com</strong></td>
-              <td>
-                <a
-                  href="https://www.rentalcars.com/SearchResults.do?puYear=2026&puMonth=7&puDay=24&puHour=9&puMinute=0&doYear=2026&doMonth=7&doDay=31&doHour=5&doMinute=0&driversAge=30&puLocation=salzburg+airport"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >rentalcars.com search → Salzburg Airport</a
-                >
-                · Booking.com's car rental arm · "Full protection" add-on
-              </td>
-            </tr>
-            <tr>
-              <td><strong>EconomyBookings</strong></td>
-              <td>
-                <a
-                  href="https://www.economybookings.com/car-rental/austria/salzburg-airport"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  >economybookings.com Salzburg Airport</a
-                >
-                · regularly the cheapest broker on Kayak's results · CDW-+-theft on most rentals
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+        <details class="cost-section">
+          <summary>All booking platforms — pick your channel (9 direct search links)</summary>
+          <div class="cost-section-body">
+            <p class="lead-block" style="font-size: 0.95rem">
+              Same vehicle can be on multiple platforms at different prices — the cheapest legit
+              source is what each card above links to. If you want to comparison-shop yourself,
+              here are the direct search URLs for the exact dates (Jul 24 09:00 → Jul 31 05:00,
+              age 30):
+            </p>
+            <table class="costs">
+              <tbody>
+                <tr>
+                  <td><strong>DiscoverCars</strong> (Allison's named primary)</td>
+                  <td>
+                    <a
+                      href="https://www.discovercars.com/austria/salzburg/szg?puh=09:00&doh=05:00&country=AT&driverAge=30&pud=2026-07-24&dod=2026-07-31"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >discovercars.com → Salzburg Airport SZG</a
+                    >
+                    · aggregates 25+ suppliers · Full Coverage add-on ~€7-10/day · ILS currency
+                    native
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>AutoEurope</strong></td>
+                  <td>
+                    <a
+                      href="https://www.autoeurope.com/car-rental-salzburg-airport/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >autoeurope.com Salzburg Airport</a
+                    >
+                    · partners directly with Europcar / Hertz / Sixt · sometimes beats supplier
+                    direct
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Sixt direct</strong></td>
+                  <td>
+                    <a
+                      href="https://www.sixt.com/car-rental/austria/salzburg/salzburg-airport/"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >sixt.com Salzburg Airport</a
+                    >
+                    · in-terminal · cleanest cross-border-to-DE in writing · Premium Cover €14/day
+                    zero-excess
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Hertz direct</strong></td>
+                  <td>
+                    <a
+                      href="https://www.hertz.com/us/en/location/austria/salzburg"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >hertz.com Salzburg</a
+                    >
+                    · in-terminal · SuperCover ~€20/day for zero excess
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Avis direct</strong></td>
+                  <td>
+                    <a
+                      href="https://www.avis.com/en/locations/eur/at/salzburg/szg"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >avis.com Salzburg Airport</a
+                    >
+                    · in-terminal · ProtectionPlus add-on for excess waiver
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Europcar direct</strong></td>
+                  <td>
+                    <a
+                      href="https://www.europcar.com/en-us/places/car-rental-austria/salzburg/salzburg-airport"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >europcar.com Salzburg Airport</a
+                    >
+                    · in-terminal · "Premium Cover" zero-excess add-on
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Kayak</strong></td>
+                  <td>
+                    <a
+                      href="https://www.kayak.com/cars/SZG-airport/SZG-airport/2026-07-24-09h/2026-07-31-05h/30?sort=price_a"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >kayak.com SZG → SZG search</a
+                    >
+                    · meta-search across DiscoverCars / EconomyBookings / Wisecars / Booking.com /
+                    Priceline
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Rentalcars.com</strong></td>
+                  <td>
+                    <a
+                      href="https://www.rentalcars.com/SearchResults.do?puYear=2026&puMonth=7&puDay=24&puHour=9&puMinute=0&doYear=2026&doMonth=7&doDay=31&doHour=5&doMinute=0&driversAge=30&puLocation=salzburg+airport"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >rentalcars.com search → Salzburg Airport</a
+                    >
+                    · Booking.com's car rental arm · "Full protection" add-on
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>EconomyBookings</strong></td>
+                  <td>
+                    <a
+                      href="https://www.economybookings.com/car-rental/austria/salzburg-airport"
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      >economybookings.com Salzburg Airport</a
+                    >
+                    · regularly the cheapest broker on Kayak's results · CDW-+-theft on most
+                    rentals
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
 
-      <section class="section">
-        <div class="eyebrow">Cross-border verification — fail-loud notes</div>
-        <h2>Germany + Slovenia per provider</h2>
-        <p class="lead-block" style="font-size: 0.95rem">
-          <strong>Sixt</strong> publishes a clear two-zone schedule (verified from their AT terms
-          page): <strong>Germany = Zone I</strong> (€11.90/day, capped €39.95) and
-          <strong>Slovenia = Zone II</strong> (€16.50/day, capped €64.40). Both pre-authorisable at
-          booking. This is the cleanest cross-border policy on the page.
-        </p>
-        <p class="lead-block" style="font-size: 0.95rem">
-          <strong>Hertz, Avis, Europcar, Enterprise:</strong> all four typically permit Germany on
-          Salzburg-airport rentals by default (the German border is 2 km from SZG). Slovenia is more
-          variable — usually allowed for an extra cross-border fee on Standard/Compact class,
-          sometimes restricted on Premium/Luxury. Their websites do not publish a consolidated
-          schedule like Sixt does — you have to ask the counter.
-        </p>
-        <p class="lead-block" style="font-size: 0.95rem">
-          <strong
-            >Aggregator listings (DiscoverCars, Kayak, EconomyBookings, Wisecars, Sicily By Car,
-            Dryyve, WheeGo, Buchbinder, Megadrive, Alamo at SZG):</strong
-          >
-          cross-border policies are set by the underlying supplier, not the aggregator. The
-          aggregator shows you the price but the rules don't surface until you read the fine-print
-          PDF at booking OR ask at the counter.
-          <strong>Treat every aggregator listing as "DE likely yes, SI confirm at counter."</strong>
-          Get it in writing on the contract before driving south.
-        </p>
-        <p class="lead-block" style="font-size: 0.95rem">
-          <strong>What I could NOT verify:</strong> exact 2026 Slovenia cross-border fees for
-          DiscoverCars-listed brokers (Dryyve, WheeGo, Sicily By Car), exact Hertz / Avis / Europcar
-          Slovenia fees from their public websites. These vary by car class and need a live booking
-          quote or a counter conversation. Don't drive into Slovenia until the contract explicitly
-          authorises it.
-        </p>
-      </section>
+        <details class="cost-section">
+          <summary>Cross-border verification — Germany per provider (fail-loud notes)</summary>
+          <div class="cost-section-body">
+            <p class="lead-block" style="font-size: 0.95rem">
+              <strong>Sixt</strong> publishes a clear cross-border schedule (verified from their AT
+              terms page): <strong>Germany = Zone I</strong>, €11.90/day, capped €39.95 for the
+              week (~₪158). Pre-authorisable at booking. This is the cleanest cross-border policy
+              on the page.
+            </p>
+            <p class="lead-block" style="font-size: 0.95rem">
+              <strong>Hertz, Avis, Europcar, Enterprise:</strong> all four typically permit Germany
+              on Salzburg-airport rentals by default (the German border is 2 km from SZG). Their
+              websites do not publish a consolidated cross-border schedule like Sixt does — you
+              ask the counter or read the contract fine-print before driving off.
+            </p>
+            <p class="lead-block" style="font-size: 0.95rem">
+              <strong
+                >Aggregator listings (DiscoverCars, Kayak, EconomyBookings, Wisecars, Sicily By Car,
+                Dryyve, WheeGo, Buchbinder, Megadrive, Alamo at SZG):</strong
+              >
+              cross-border policies are set by the underlying supplier, not the aggregator. The
+              aggregator shows you the price but the rules don't surface until you read the
+              fine-print PDF at booking OR ask at the counter.
+              <strong>Treat every aggregator listing as "DE likely yes, confirm at counter."</strong>
+              Get Germany authorisation in writing on the contract before driving toward
+              Berchtesgaden.
+            </p>
+            <p class="lead-block" style="font-size: 0.95rem">
+              <strong>What I could NOT verify:</strong> exact 2026 Hertz / Avis / Europcar Germany
+              cross-border fees from their public websites — these vary by car class and need a
+              live booking quote or a counter conversation. The German-border default is industry
+              practice for SZG rentals but not a written guarantee — get it on the contract.
+            </p>
+          </div>
+        </details>
 
-      <section class="section">
-        <div class="eyebrow">The caveats — read these before booking</div>
-        <h2>Things that aren't in the headline price</h2>
+        <details class="cost-section">
+          <summary>The caveats — read these before booking (vignette, IDP, fuel, hours)</summary>
+          <div class="cost-section-body">
+            <h3 style="margin-top: 0.5rem">Vignette (Austrian motorway toll sticker)</h3>
+            <p class="lead-block" style="font-size: 0.96rem">
+              Austrian motorways require a vignette — ~€11.50 for a 10-day sticker (2026 rate).
+              Most rentals out of Salzburg airport include a digital vignette pre-affixed, but it's
+              not automatic — <strong>confirm at the counter</strong>. If yours doesn't include it,
+              buy a 10-day digital vignette from
+              <a
+                href="https://www.asfinag.at/en/toll/vignette/"
+                target="_blank"
+                rel="noreferrer noopener"
+                >asfinag.at</a
+              >
+              before driving onto the A1 / A10. Note: the stretch from the German border at
+              Walserberg to Salzburg-Nord exit is <em>vignette-exempt</em> — the
+              airport-to-old-town leg itself is free, but everything beyond Salzburg-Nord requires
+              it (Hallstatt, Werfen, etc.).
+            </p>
 
-        <h3 style="margin-top: 0.5rem">Vignette (Austrian motorway toll sticker)</h3>
-        <p class="lead-block" style="font-size: 0.96rem">
-          Austrian motorways require a vignette — ~€11.50 for a 10-day sticker (2026 rate). Most
-          rentals out of Salzburg airport include a digital vignette pre-affixed, but it's not
-          automatic — <strong>confirm at the counter</strong>. If yours doesn't include it, buy a
-          10-day digital vignette from
-          <a
-            href="https://www.asfinag.at/en/toll/vignette/"
-            target="_blank"
-            rel="noreferrer noopener"
-            >asfinag.at</a
-          >
-          before driving onto the A1 / A10. Note: the stretch from the German border at Walserberg
-          to Salzburg-Nord exit is <em>vignette-exempt</em> — the airport-to-old-town leg itself is
-          free, but everything beyond Salzburg-Nord requires it (Hallstatt, Werfen, etc.).
-        </p>
+            <h3>Grossglockner High Alpine Road — separate toll (~€42 / 2026)</h3>
+            <p class="lead-block" style="font-size: 0.96rem">
+              The Grossglockner Hochalpenstrasse is a private toll road, not on the vignette. Day
+              ticket ~€42 per car as of 2026 (verify at
+              <a href="https://www.grossglockner.at" target="_blank" rel="noreferrer noopener"
+                >grossglockner.at</a
+              >). Not in the current itinerary — but if you swap a day for it, that's a separate
+              cash line.
+            </p>
 
-        <h3>Grossglockner High Alpine Road — separate toll (~€42 / 2026)</h3>
-        <p class="lead-block" style="font-size: 0.96rem">
-          The Grossglockner Hochalpenstrasse is a private toll road, not on the vignette. Day ticket
-          ~€42 per car as of 2026 (verify at
-          <a href="https://www.grossglockner.at" target="_blank" rel="noreferrer noopener"
-            >grossglockner.at</a
-          >). Not in the current itinerary — but if you swap a day for it, that's a separate cash
-          line.
-        </p>
+            <h3>International Driving Permit (IDP)</h3>
+            <p class="lead-block" style="font-size: 0.96rem">
+              Allison drives on an Israeli license. Austria + Germany both technically
+              <em>recommend</em> an IDP alongside the home-country license for rentals. The IDP
+              is free in Israel via
+              <a href="https://memsi.org.il" target="_blank" rel="noreferrer noopener">MEMSI</a>
+              — pick it up before the trip. Without it, most counters will rent anyway but it
+              removes a refusal risk on arrival.
+            </p>
 
-        <h3>International Driving Permit (IDP)</h3>
-        <p class="lead-block" style="font-size: 0.96rem">
-          Allison drives on an Israeli license. Austria + Germany + Slovenia all technically
-          <em>recommend</em> an IDP alongside the home-country license for rentals. The IDP is free
-          in Israel via
-          <a href="https://memsi.org.il" target="_blank" rel="noreferrer noopener">MEMSI</a>
-          — pick it up before the trip. Without it, most counters will rent anyway but it removes a
-          refusal risk on arrival.
-        </p>
+            <h3>Fuel policy</h3>
+            <p class="lead-block" style="font-size: 0.96rem">
+              Ask for <strong>full-to-full</strong> (return with a full tank). The full-to-empty
+              option looks cheaper on paper but the per-litre markup is brutal. Last gas station
+              before SZG on the way back is on the B1 / A1 ring road, ~3 min before the rental
+              return.
+            </p>
 
-        <h3>Fuel policy</h3>
-        <p class="lead-block" style="font-size: 0.96rem">
-          Ask for <strong>full-to-full</strong> (return with a full tank). The full-to-empty option
-          looks cheaper on paper but the per-litre markup is brutal. Last gas station before SZG on
-          the way back is on the B1 / A1 ring road, ~3 min before the rental return.
-        </p>
+            <h3>Pickup hours Friday morning</h3>
+            <p class="lead-block" style="font-size: 0.96rem">
+              Salzburg airport rental desks open <strong>05:30-06:00 most days</strong>; flight
+              lands 08:00, so the counter is open by then. Sixt + Hertz + Europcar + Avis +
+              Enterprise all in-terminal — no shuttle. DiscoverCars-listed brokers (Megadrive,
+              Buchbinder, Goldcar, Sicily By Car) are mostly <em>shuttle</em> pickups — add 10-15
+              minutes from terminal to keys.
+            </p>
 
-        <h3>Pickup hours Friday morning</h3>
-        <p class="lead-block" style="font-size: 0.96rem">
-          Salzburg airport rental desks open <strong>05:30-06:00 most days</strong>; flight lands
-          08:00, so the counter is open by then. Sixt + Hertz + Europcar + Avis + Enterprise all
-          in-terminal — no shuttle. DiscoverCars-listed brokers (Megadrive, Buchbinder, Goldcar,
-          Sicily By Car) are mostly <em>shuttle</em> pickups — add 10-15 minutes from terminal to
-          keys.
-        </p>
-
-        <h3>Drop-off Friday morning at 05:00</h3>
-        <p class="lead-block" style="font-size: 0.96rem">
-          5am drop-off for the early flight — confirm the return lot has 24-hour access (most do at
-          SZG; you leave the keys in a drop-box). Pre-fill a return-receipt photo: take a
-          time-stamped phone photo of the fuel gauge + odometer + a quick walk-around at drop-off so
-          any phantom-damage claims later can be disputed.
-        </p>
+            <h3>Drop-off Friday morning at 05:00</h3>
+            <p class="lead-block" style="font-size: 0.96rem">
+              5am drop-off for the early flight — confirm the return lot has 24-hour access (most
+              do at SZG; you leave the keys in a drop-box). Pre-fill a return-receipt photo: take
+              a time-stamped phone photo of the fuel gauge + odometer + a quick walk-around at
+              drop-off so any phantom-damage claims later can be disputed.
+            </p>
+          </div>
+        </details>
       </section>
 
       <section class="section">
@@ -652,32 +719,33 @@
           <h3>Bottom line</h3>
           <ul>
             <li>
-              <strong>Recommendation:</strong> VW Golf Compact automatic gasoline via Sixt direct —
-              <strong>~₪1,870 / €471 all-in</strong> including Premium Cover zero-excess. 5★ NCAP,
-              bulletproof reliability, in-terminal pickup, the only listing where Germany AND
-              Slovenia cross-border are crystal-clear in writing at booking time.
+              <strong>Recommendation:</strong> Opel Mokka Compact-SUV automatic gasoline via
+              DiscoverCars — <strong>~₪1,440 / €363 all-in</strong> including Full Coverage zero
+              excess. 4★ NCAP, 2021+ reliable generation, right size, Germany cross-border
+              default-allowed at SZG (border 2 km away).
             </li>
             <li>
-              <strong>If price beats brand:</strong> Opel Mokka gasoline via DiscoverCars, ~₪1,440 /
-              €363 all-in. Shuttle pickup adds 10 min; Slovenia must be confirmed at counter; 4★
-              safety vs 5★. The savings are real.
+              <strong>Zero-asterisk alternate (pay €430 more):</strong> VW Golf via Sixt direct,
+              ~₪1,870 / €471. 5★ NCAP, in-terminal pickup, Germany cross-border in writing at
+              booking, premium counter service. The pick if shuttle pickup or aggregator
+              counter-risk is a hard no.
             </li>
             <li>
-              <strong>If you want cargo room above all:</strong> Suzuki Vitara via Kayak/
+              <strong>If you want cargo room above all:</strong> Suzuki Vitara via Kayak /
               EconomyBookings, ~₪1,580 / €398. In-terminal, AWD for gravel roads, biggest boot.
             </li>
             <li>
               <strong>If you want the cheapest legit auto:</strong> Opel Astra Compact via
-              DiscoverCars (Sicily By Car), ~₪780 / €196. Smaller broker, more counter risk, but the
-              math is hard to argue with.
+              DiscoverCars (Sicily By Car), ~₪780 / €196. Smaller broker, more counter risk, but
+              the math is hard to argue with.
             </li>
             <li>
               <strong>Pre-trip TO-DO:</strong> issue an IDP at MEMSI · book whichever of these you
               pick at least 2 weeks out · for the non-Sixt picks, email the supplier in advance
-              asking "does this contract permit driving into Slovenia and Germany, and what are the
-              fees?" — get the answer in writing before pickup day · decide your excess-buy-down
-              strategy (most cards above price in the full coverage already — confirm at counter
-              that the contract reflects it).
+              asking "does this contract permit driving into Germany, and what are the fees?" —
+              get the answer in writing before pickup day · decide your excess-buy-down strategy
+              (most cards above price in the full coverage already — confirm at counter that the
+              contract reflects it).
             </li>
           </ul>
         </div>
@@ -686,8 +754,8 @@
 
     <footer>
       Live DiscoverCars search 2026-05-16 (₪ daily rates direct from site) · Live Kayak search
-      2026-05-16 (USD weekly totals) · Sixt cross-border zones verified from their AT public terms ·
-      Quality assessments from Euro NCAP official results + Carbuyer + What Car? + Auto Express +
+      2026-05-16 (USD weekly totals) · Sixt cross-border zones verified from their AT public terms
+      · Quality assessments from Euro NCAP official results + Carbuyer + What Car? + Auto Express +
       Top Gear reliability data · USD → EUR ≈ 0.93 · USD → ILS ≈ 3.81 · EUR → ILS ≈ 3.97 (May 2026)
     </footer>
 
