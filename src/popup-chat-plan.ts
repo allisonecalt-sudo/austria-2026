@@ -19,6 +19,7 @@ function buildBackdrop(): HTMLDivElement {
         data-action="close"
       >×</button>
       <h3 id="popup-chat-plan-title">Hey Avital 👋</h3>
+      <p class="popup-chat-plan-greeting"><em>Allison says hi.</em></p>
       <ul class="popup-chat-plan-list">
         <li>Saw your note about live chat — building it now.</li>
         <li><strong>Tomorrow:</strong> real chat sidebar (type, get instant answers about the trip).</li>
