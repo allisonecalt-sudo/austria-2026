@@ -6395,6 +6395,203 @@ details.note-item[open] .note-summary-preview {
 }
 
 /* ============================================================
+   Costs page DEEPER pass (2026-05-17 ~00:50)
+   Big hero, per-base + splitwise + comparison tables, bar
+   segments for flight/car/baggage, link badges, mobile-first.
+   ============================================================ */
+
+.costs-header {
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+/* Big hero block — total dominates the page above the fold */
+.cost-hero {
+  text-align: center;
+  margin: 1.4rem auto 1.8rem;
+  padding: 1.6rem 1rem 1.4rem;
+  max-width: 640px;
+  background: linear-gradient(180deg, var(--green-mist) 0%, var(--paper) 100%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+.cost-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold-sun) 0%, var(--green-deep) 100%);
+}
+.cost-hero-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin-bottom: 0.3rem;
+}
+.cost-hero-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.6rem, 11vw, 6rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--green-deep);
+  letter-spacing: -0.035em;
+  margin: 0.2rem 0 0.4rem;
+}
+.cost-hero-sub {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.9rem;
+}
+.cost-hero-ceiling {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  background: white;
+  border: 1px solid var(--green-deep);
+  color: var(--green-deep);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.cost-hero-ceiling strong {
+  color: var(--green-deep);
+}
+.cost-hero-meta {
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* Bar segments — extended palette for flight/car/baggage */
+.cost-bar-seg.flight {
+  background: var(--gold-sun);
+}
+.cost-bar-seg.car {
+  background: var(--blue-lake);
+}
+.cost-bar-seg.baggage {
+  background: var(--gold-deep, #8a6a1e);
+}
+.cost-legend-dot.flight {
+  background: var(--gold-sun);
+}
+.cost-legend-dot.car {
+  background: var(--blue-lake);
+}
+.cost-legend-dot.baggage {
+  background: var(--gold-deep, #8a6a1e);
+}
+.cost-bar-amt {
+  white-space: nowrap;
+  padding: 0 0.3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Cost block — per-base / splitwise / comparison sections */
+.cost-block {
+  margin: 2.4rem 0;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.2rem 1.2rem 1rem;
+  box-shadow: var(--shadow-soft);
+}
+.cost-block-h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  margin: 0 0 0.3rem;
+  letter-spacing: -0.01em;
+}
+.cost-block-sub {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+/* Splitwise + comparison tables: more compact, currency-aligned */
+.cost-split-table td,
+.cost-base-table td,
+.cost-compare-table td {
+  vertical-align: middle;
+}
+.cost-split-table tr.total td,
+.cost-compare-table tr.total td {
+  background: var(--green-mist);
+  font-weight: 700;
+  color: var(--green-deep);
+}
+
+/* Inline source links per row */
+.cost-link {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  background: var(--green-mist);
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  border-bottom: none;
+  margin-top: 0.25rem;
+  white-space: nowrap;
+}
+.cost-link:hover {
+  background: var(--green-deep);
+  color: white;
+  border-bottom: none;
+}
+
+/* Mobile pass — tighten hero, stack tables sensibly */
+@media (max-width: 560px) {
+  .cost-hero {
+    padding: 1.2rem 0.8rem 1.1rem;
+    border-radius: 14px;
+  }
+  .cost-hero-num {
+    font-size: clamp(3rem, 14vw, 4.4rem);
+  }
+  .cost-hero-sub {
+    font-size: 0.88rem;
+  }
+  .cost-hero-ceiling {
+    font-size: 0.82rem;
+    padding: 0.35rem 0.8rem;
+  }
+  .cost-block {
+    padding: 1rem 0.8rem 0.8rem;
+    margin: 1.8rem 0;
+  }
+  .cost-block-h {
+    font-size: 1.35rem;
+  }
+  .cost-block-sub {
+    font-size: 0.86rem;
+  }
+  .cost-bar-seg .cost-bar-amt {
+    font-size: 0.62rem;
+  }
+}
+
+/* Very narrow phones — hide bar segment amounts entirely so colors read clean */
+@media (max-width: 380px) {
+  .cost-bar-seg .cost-bar-amt {
+    display: none;
+  }
+}
+
+/* ============================================================
    Mini-Booking.com agent — lodging card v2 (2026-05-17)
    Avital + Allison: pick button, dates pill, drive matrix,
    amenities row, Booking CTA, shortlist sticky bar.
@@ -6461,7 +6658,7 @@ details.note-item[open] .note-summary-preview {
 }
 
 /* Lodging chips */
-.lodging-chips { gap: 0.4rem; margin: 0.2rem 0; }
+.lodging-chips { gap: 0.4rem; margin: 0.2rem 0; display: flex; flex-wrap: wrap; }
 .lodging-chip {
   display: inline-flex;
   align-items: center;
@@ -6480,6 +6677,32 @@ details.note-item[open] .note-summary-preview {
 .lodging-chip--neutral { background: #f0eee8; color: #6a655a; border-color: #d8d2c4; font-style: italic; }
 .lodging-chip--verified { background: #e6f2ee; color: #285c4a; border-color: #9bc7b6; }
 .lodging-chip--date { background: #eaf1f8; color: #284c6a; border-color: #a8c2d8; }
+
+/* === Essential pill row — Avital's "right away" test ===
+   Added 2026-05-17 by booking-deep-verify agent. Above the fold, distinct
+   background, slightly stronger borders so beds / bedrooms / sleeps / kitchen /
+   laundry / bath stand out from secondary pills. "Avital opens any card, knows
+   the answer in 1 second" test. */
+.lodging-chips--date-row { margin-top: 0.5rem; }
+.lodging-chips--essential {
+  background: #fbf6e9;
+  border: 1px solid #ead9b0;
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  margin: 0.4rem 0 0.3rem;
+}
+.lodging-chips--essential .lodging-chip {
+  font-size: 0.82rem;
+  padding: 0.26rem 0.65rem;
+  background: #fff;
+  border-color: #d8c896;
+}
+.lodging-chips--essential .lodging-chip--good { background: #def5e2; border-color: #9ad7a4; }
+.lodging-chips--essential .lodging-chip--warn { background: #fbe6d8; border-color: #e6b78a; }
+.lodging-chips--essential .lodging-chip--neutral { background: #f0eee8; border-color: #d8d2c4; }
+.lodging-chip--essential { background: #fff; border-color: #d8c896; }
+.lodging-chips--secondary { margin: 0.1rem 0 0.4rem; opacity: 0.95; }
+.lodging-chips--secondary .lodging-chip { font-size: 0.76rem; padding: 0.18rem 0.55rem; }
 
 /* Amenity icons */
 .lodging-amenities {
