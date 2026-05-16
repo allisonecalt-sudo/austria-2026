@@ -66,7 +66,7 @@ export interface Day {
 // high; cap is now €180 not €200+). Both render the same triple-coin badge.
 export type BudgetTier = 'lean' | 'standard' | 'splurge' | 'mid-high';
 export type LodgingPlatform = 'booking' | 'airbnb' | 'urlaub-am-bauernhof';
-// Vibe tag — visual differentiator on the stay page so the Apt-Jezero-style
+// Vibe tag — visual differentiator on the stay page so the farm-stay /
 // nature picks stand out from urban/airport stays. Added 2026-05-16 after
 // Allison flagged: "we love to stay places that are safe but in naaturey
 // areas like in montngro is fpossible- can be an option" + "add more nature
@@ -193,11 +193,11 @@ function dirUrl(origin: string, destination: string): string {
 
 export const TRIP: TripData = {
   intro:
-    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat. Built on the Montenegro template: one nature anchor for the bulk of the week, apartments with kitchens, picnics on rocks, sunsets every single night.',
+    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat. One nature base for the bulk of the week, apartments with kitchens, picnics on rocks, sunsets every single night.',
   whyThisPlan:
-    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — Hallstatt area for 4 deep nights (the Žabljak of this trip). Day trips from there to Königssee, Gosausee, Wolfgangsee, Werfen ice cave. Thursday we drive back to a quiet apartment 4 km from Salzburg airport so Friday morning's flight is a 10-minute drive. Two moves total. Every night ends at a named sunset spot with a real time.",
+    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — Hallstatt area for 4 deep nights, the heart of the week. Day trips from there to Königssee, Gosausee, Wolfgangsee, Werfen ice cave. Thursday we drive back to a quiet apartment 4 km from Salzburg airport so Friday morning's flight is a 10-minute drive. Two moves total. Every night ends at a named sunset spot with a real time.",
   natureAnchor:
-    'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay that earned its name in Montenegro at Žabljak.',
+    'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay where most of the week happens.',
   totalCostEur: 2699,
   totalCostNis: 10750,
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target
@@ -205,7 +205,7 @@ export const TRIP: TripData = {
     day: 'Tuesday Jul 28',
     spot: 'Königssee — last electric boat back from St. Bartholomä at sunset',
     description:
-      "The Königssee is the only lake in Germany serviced exclusively by silent electric boats — strict no-combustion rule since 1909. Last boat from St. Bartholomä leaves around 19:30. Watzmann's east wall goes gold over your right shoulder, the lake goes silver, and you glide back through a fjord-shaped natural cathedral. This is the Tara-Bridge-equivalent of Austria. Sunset 20:50 — boat docks at Schönau just as the sky lights.",
+      "The Königssee is the only lake in Germany serviced exclusively by silent electric boats — strict no-combustion rule since 1909. Last boat from St. Bartholomä leaves around 19:30. Watzmann's east wall goes gold over your right shoulder, the lake goes silver, and you glide back through a fjord-shaped natural cathedral. This is the you-will-stand-still spot of the trip — the one you'll remember in 20 years. Sunset 20:50 — boat docks at Schönau just as the sky lights.",
   },
   days: [
     // --- DAY 1 — Fri Jul 24 ---
@@ -285,7 +285,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.gosausee,
       },
       generalIdea:
-        'Pack out of Salzburg after a slow morning. Drive east via Bad Ischl (Spar restock). Stop at Vorderer Gosausee — a flat hour-long loop around the lake with the Dachstein glacier mirrored in the water. Lakeside picnic. Continue to the Obertraun apartment (the Žabljak of this trip — 4 nights here, the deep base). Sunset over Lake Hallstatt from the Obertraun dock, 5 minutes from the door.',
+        'Pack out of Salzburg after a slow morning. Drive east via Bad Ischl (Spar restock). Stop at Vorderer Gosausee — a flat hour-long loop around the lake with the Dachstein glacier mirrored in the water. Lakeside picnic. Continue to the Obertraun apartment — 4 nights here, the deep base for the week. Sunset over Lake Hallstatt from the Obertraun dock, 5 minutes from the door.',
       planB:
         'If Shabbat tired the legs: skip Gosausee, drive direct via Bad Ischl for coffee, settle into the apartment for a long balcony afternoon.',
       anchors: [
@@ -354,7 +354,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.konigssee,
       },
       generalIdea:
-        "Drive west into Germany (Berchtesgaden National Park) early. Buy the full round-trip ticket all the way to Salet (€24pp). Silent electric boat into the fjord — first stop St. Bartholomä with the famous onion-domed church; continue to Salet, then a flat 20-min walk to Obersee, the dramatic quieter back-of-the-fjord lake. Picnic there. The Tara-Bridge moment is the last boat back: Watzmann east wall goes gold, lake goes silver. Book the return so you're on the late one.",
+        "Drive west into Germany (Berchtesgaden National Park) early. Buy the full round-trip ticket all the way to Salet (€24pp). Silent electric boat into the fjord — first stop St. Bartholomä with the famous onion-domed church; continue to Salet, then a flat 20-min walk to Obersee, the dramatic quieter back-of-the-fjord lake. Picnic there. The peak moment is the last boat back: Watzmann east wall goes gold, lake goes silver. Book the return so you're on the late one.",
       planB:
         'Cut the Obersee leg — boat round-trip to St. Bartholomä only (€18pp). Lakeside meadow picnic, back to Hallstatt by mid-afternoon, sunset from the Obertraun dock.',
       anchors: [
@@ -375,7 +375,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'hallstatt',
       tarabridgeMoment:
-        'Last boat back at sunset = the Tara Bridge of this trip. See peak-moment note.',
+        'Last boat back at sunset = the peak moment of the trip. See peak-moment note.',
     },
 
     // --- DAY 6 — Wed Jul 29 ---
@@ -505,7 +505,7 @@ export const TRIP: TripData = {
       pickReview: '9.2 · Superb · 2,309 reviews',
       pickPrice: '€128 / night (₪510)',
       pickWhy:
-        'Studio apartment with kitchen, ON Linzergasse — same street as Chabad (Linzergasse 76). 5-min walk to shul, 600m from old-town center. The Budva-Chabad-proximity pattern from Montenegro: sleep where you daven. NOTE: no washing machine — fails the Salzburg laundry filter. See bases page for Sauerweingut / Pension Elisabeth / Topside, which all have washers.',
+        'Studio apartment with kitchen, ON Linzergasse — same street as Chabad (Linzergasse 76). 5-min walk to shul, 600m from old-town center. Sleep where you daven. NOTE: no washing machine — fails the Salzburg laundry filter. See bases page for Sauerweingut / Pension Elisabeth / Topside, which all have washers.',
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
       pickWalkToChabadMin: 5,
@@ -622,7 +622,7 @@ export const TRIP: TripData = {
     },
     {
       // OBERTRAUN / HALLSTATT — Sun Jul 26 – Thu Jul 30, 4 nights.
-      // The Žabljak of this trip. Lake-adjacent, quiet, full apartment.
+      // The deep-anchor stay. Lake-adjacent, quiet, full apartment.
       // Live Booking.com prices for Jul 26-30, ÷ 4 nights for per-night.
       baseKey: 'hallstatt',
       nights: 'Sun Jul 26 – Thu Jul 30 (4 nights)',
@@ -634,7 +634,7 @@ export const TRIP: TripData = {
       pickReview: '9.4 · Superb · 258 reviews',
       pickPrice: '€142 / night (₪564)',
       pickWhy:
-        '54m² 1-bedroom apartment with balcony, full kitchen, living room. 3km from Hallstatt — close enough for evenings, far enough for quiet. Right at the foot of the Dachstein cable car. Free cancellation. The Apartmani Jezero of this trip.',
+        '54m² 1-bedroom apartment with balcony, full kitchen, living room. 3km from Hallstatt — close enough for evenings, far enough for quiet. Right at the foot of the Dachstein cable car. Free cancellation. The deep-anchor pick.',
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
       pickVibeTag: 'nature-view',
@@ -656,13 +656,13 @@ export const TRIP: TripData = {
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/16860996.webp?k=2bc9d7e477477eb1fb17858d6f854b5a7d857dd1b4cf6f03b4b1def04c8b86e3&o=',
           review: '9.2 · Superb · 312 reviews',
           pricePerNight: '€136 / night (₪540)',
-          note: 'WORKING FARMHOUSE (urlaub am bauernhof = "farm vacation"). 30m² studio with balcony, 3.7km from Hallstatt. Goats and horses outside, lake walking distance, local family running it. Most Žabljak-coded option of the bunch.',
+          note: 'WORKING FARMHOUSE (urlaub am bauernhof = "farm vacation"). 30m² studio with balcony, 3.7km from Hallstatt. Goats and horses outside, lake walking distance, local family running it. The most deeply Salzkammergut option in the set — apartment-on-a-real-farm energy.',
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'farm-stay',
           beautyPick: true,
           beautyNote:
-            'Working farm with goats and horses outside the apartment door — the Apt-Jezero match.',
+            'Working farm with goats and horses outside the apartment door — the deepest immersion pick of the set.',
         },
         {
           name: 'Haus Steinbrecher Hallstatt',
@@ -1001,17 +1001,17 @@ const NIMG = {
   werfen: IMG.werfen,
   wolfgangseeVillage: IMG.wolfgangsee,
   schafberg:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Schafberg_Salzkammergut.jpg/1280px-Schafberg_Salzkammergut.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
   krippenstein:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/5fingers_1.jpg/1280px-5fingers_1.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
   attersee:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Attersee_at_evening_2017_05_28.jpg/1280px-Attersee_at_evening_2017_05_28.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg/1280px-Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
   hinterseeRamsau:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Hintersee_Ramsau_Berchtesgaden_3.jpg/1280px-Hintersee_Ramsau_Berchtesgaden_3.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
   almbachklamm:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Almbachklamm_-_Kessel.jpg/1280px-Almbachklamm_-_Kessel.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Almbachklamm_8_Wasserfall_1.jpg/1280px-Almbachklamm_8_Wasserfall_1.jpg',
   liechtensteinklamm:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Liechtensteinklamm_2009-09-05.jpg/1280px-Liechtensteinklamm_2009-09-05.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Liechtensteinklamm_gorge_%2824277176943%29.jpg/1280px-Liechtensteinklamm_gorge_%2824277176943%29.jpg',
   krimml:
     'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Krimmler_Wasserf%C3%A4lle_2.JPG/1280px-Krimmler_Wasserf%C3%A4lle_2.JPG',
   grossglockner:
@@ -1218,7 +1218,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     lockedDay: 'Tue Jul 28',
     pairsWith: ['hintersee-ramsau', 'almbachklamm'],
     feature:
-      'Fjord-shaped lake serviced only by silent electric boats since 1909. The Tara-Bridge moment.',
+      'Fjord-shaped lake serviced only by silent electric boats since 1909. The peak moment of the trip.',
     hero: {
       src: NIMG.konigssee,
       alt: 'St. Bartholomä church on the Königssee',
@@ -1630,7 +1630,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     feature:
       "Tennengau's twin payoff — one of Austria's most photographed waterfalls plus a glassy turquoise-pool valley loop, both reachable from the same Golling parking.",
     hero: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Golling_Wasserfall_3.jpg/1280px-Golling_Wasserfall_3.jpg',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Golling-waterfall.jpg/1280px-Golling-waterfall.jpg',
       alt: 'Gollinger Wasserfall two-tier waterfall',
       credit: 'Wikimedia, CC BY-SA',
     },
@@ -1859,10 +1859,10 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Apart Chalet Unterbrandnerlehen (Schönau am Königssee)',
     url: 'https://www.booking.com/hotel/de/fewo-unterbrandnerlehen.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/127845632.webp?k=a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/600px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
     review: '9.5 · Exceptional · 51 reviews',
     pricePerNight: '€155 / night (₪615)',
-    note: '2-bedroom chalet apartment 0.2 mi from Königssee, 2-min walk to bakery + Jennerbahn cable car. Cash-only. Children not allowed. Free bus + cable-car pass with guest card. The Apt-Jezero of Berchtesgaden.',
+    note: '2-bedroom chalet apartment 0.2 mi from Königssee, 2-min walk to bakery + Jennerbahn cable car. Cash-only. Children not allowed. Free bus + cable-car pass with guest card. The character-stay pick of Berchtesgaden. [Photo is the Königssee area, not the listing — view live photos on Booking.]',
     budgetTier: 'mid-high',
     vibeTag: 'forest-cabin',
     laundry: 'washer',
@@ -1879,10 +1879,10 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Gästehaus Hinterponholz (Ramsau)',
     url: 'https://www.booking.com/hotel/de/ga-stehaus-hinterponholz.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/156478923.webp?k=b2c3d4e5f607182931a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/600px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
     review: '9.4 · Superb · 180 reviews',
     pricePerNight: '€120 / night (₪476)',
-    note: 'Alpine-style guest house IN Berchtesgaden National Park with separated living + sleeping area, full kitchen, balcony with mountain views. Family-run. Apartments sleep up to 4.',
+    note: 'Alpine-style guest house IN Berchtesgaden National Park with separated living + sleeping area, full kitchen, balcony with mountain views. Family-run. Apartments sleep up to 4. [Photo is the Ramsau area, not the listing — view live photos on Booking.]',
     budgetTier: 'standard',
     vibeTag: 'nature-view',
     laundry: 'shared',
@@ -1898,10 +1898,10 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)',
     url: 'https://www.booking.com/hotel/de/ferienwohnung-da-celia.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/178945621.webp?k=c3d4e5f607182931a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Rathaus%2C_Berchtesgaden_%28Town_Hall%2C_Berchtesgaden%29_-_geograph.org.uk_-_7935.jpg',
     review: '8.2 · Very good · 98 reviews',
     pricePerNight: '€110 / night (₪437)',
-    note: '1-bedroom apartment in central Berchtesgaden with fully equipped kitchen + balcony with mountain views. On-site restaurant, free parking. Few minutes walk from town center. 8.2 below ideal 8.5 — kept for value + location + restaurant.',
+    note: '1-bedroom apartment in central Berchtesgaden with fully equipped kitchen + balcony with mountain views. On-site restaurant, free parking. Few minutes walk from town center. 8.2 below ideal 8.5 — kept for value + location + restaurant. [Photo is Berchtesgaden town, not the listing — view live photos on Booking.]',
     budgetTier: 'standard',
     vibeTag: 'in-town',
     laundry: 'unknown',
@@ -1912,10 +1912,10 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Gästehaus Amort (Ramsau)',
     url: 'https://www.booking.com/hotel/de/gastehaus-amort.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/189456732.webp?k=d4e5f607182931a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f6&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/600px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
     review: '9.3 · Superb · 130 reviews',
     pricePerNight: '€105 / night (₪417)',
-    note: 'Family-run pension in Ramsau with private balconies overlooking the Berchtesgaden Alps. Custom breakfast at preferred times. Quiet, homelike. ~10 min drive to Königssee + Hintersee both.',
+    note: 'Family-run pension in Ramsau with private balconies overlooking the Berchtesgaden Alps. Custom breakfast at preferred times. Quiet, homelike. ~10 min drive to Königssee + Hintersee both. [Photo is Ramsau village (St. Sebastian church), not the listing — view live photos on Booking.]',
     budgetTier: 'standard',
     vibeTag: 'nature-view',
     laundry: 'shared',
@@ -1931,10 +1931,10 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Grubenlehen (Ramsau)',
     url: 'https://www.ramsau.de/en/accomodations/self-catering-apartments/grubenlehen.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/199467832.webp?k=e5f607182931a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f607&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/600px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
     review: '9.0 · Superb · 65 reviews (off-Booking; via ramsau.de)',
     pricePerNight: '€140 / night (₪555)',
-    note: "2-BEDROOM apartment — master bedroom fits an extra bed, children's room has bunk beds. Sleeps 4-5. East-facing terrace with mountain views, communal pool + playground + BBQ. Booked via ramsau.de (the village tourism portal — not on Booking).",
+    note: "2-BEDROOM apartment — master bedroom fits an extra bed, children's room has bunk beds. Sleeps 4-5. East-facing terrace with mountain views, communal pool + playground + BBQ. Booked via ramsau.de (the village tourism portal — not on Booking). [Photo is Ramsau village, not the listing — view live photos on ramsau.de.]",
     budgetTier: 'standard',
     vibeTag: 'farm-stay',
     laundry: 'washer',
@@ -1956,10 +1956,10 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolf & Schaf Apartments (St. Wolfgang)',
     url: 'https://www.booking.com/hotel/at/harmonie-st-wolfgang.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/210453876.webp?k=f6071829314a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f6071&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
     review: '9.4 · Superb · 904 reviews',
     pricePerNight: '€175 / night (₪695)',
-    note: 'Modern Alpine-style apartments 200m from Lake Wolfgangsee, 10-min walk to St. Wolfgang center. Kitchenettes, balcony, dining area. Free guest passes to the public lido for swimming. Hosts (Yoni + Bram) actively helpful. Note: bathrooms small per one review. 4-star luxury tier.',
+    note: 'Modern Alpine-style apartments 200m from Lake Wolfgangsee, 10-min walk to St. Wolfgang center. Kitchenettes, balcony, dining area. Free guest passes to the public lido for swimming. Hosts (Yoni + Bram) actively helpful. Note: bathrooms small per one review. 4-star luxury tier. [Photo is St. Wolfgang lakeshore, not the listing — view live photos on Booking.]',
     budgetTier: 'mid-high',
     vibeTag: 'lake-edge',
     laundry: 'washer',
@@ -1976,10 +1976,10 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolfgangsee Appartement (St. Wolfgang)',
     url: 'https://www.booking.com/hotel/at/wolfgangsee-appartement.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/221456987.webp?k=a071829314a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f60718&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/600px-Panorama_Wolfgangsee.jpg',
     review: '9.2 · Superb · 130 reviews · Location 9.5',
     pricePerNight: '€135 / night (₪536)',
-    note: "Lake-view apartment with kitchenette, balcony with outdoor dining, mountain + lake views. Stone's-throw from Wolfgangsee shore. Garden, terrace, outdoor fireplace, fitness center. From €120/night per Booking.",
+    note: "Lake-view apartment with kitchenette, balcony with outdoor dining, mountain + lake views. Stone's-throw from Wolfgangsee shore. Garden, terrace, outdoor fireplace, fitness center. From €120/night per Booking. [Photo is Wolfgangsee panorama, not the listing — view live photos on Booking.]",
     budgetTier: 'standard',
     vibeTag: 'lake-edge',
     laundry: 'unknown',
@@ -1995,10 +1995,10 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Wolfgangsee Appartements (Strobl, east end of the lake)',
     url: 'https://www.booking.com/hotel/at/wolfgangsee-appartements.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/231468923.webp?k=b1829314a2b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f6071829&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/600px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
     review: '9.5 · Exceptional · 95 reviews',
     pricePerNight: '€140 / night (₪555)',
-    note: 'Strobl base — east end of Wolfgangsee, 15 min by car from St. Wolfgang. Garden + lake views, terrace, fully appointed kitchen. Slightly quieter than St. Wolfgang itself. Great for "lake but not the tourist hub" preference.',
+    note: 'Strobl base — east end of Wolfgangsee, 15 min by car from St. Wolfgang. Garden + lake views, terrace, fully appointed kitchen. Slightly quieter than St. Wolfgang itself. Great for "lake but not the tourist hub" preference. [Photo is Strobl on the Wolfgangsee, not the listing — view live photos on Booking.]',
     budgetTier: 'standard',
     vibeTag: 'lake-edge',
     laundry: 'unknown',
@@ -2009,10 +2009,10 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Appartements Mair (Strobl, 70m² 2-BR)',
     url: 'https://www.booking.com/hotel/at/70m2-ferienwohnung-am-wolfgangsee-strobl.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/241479834.webp?k=c2931a4b3c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f60718293a&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/600px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
     review: '9.4 · Superb · 80 reviews',
     pricePerNight: '€160 / night (₪635)',
-    note: '70m² 2-BEDROOM apartment with fully equipped kitchen, lake-close, shop + town center walking distance. Strobl base. The "we want two real bedrooms on the 4-night main" priority pick for Wolfgangsee config.',
+    note: '70m² 2-BEDROOM apartment with fully equipped kitchen, lake-close, shop + town center walking distance. Strobl base. The "we want two real bedrooms on the 4-night main" priority pick for Wolfgangsee config. [Photo is Wolfgangsee at Strobl, not the listing — view live photos on Booking.]',
     budgetTier: 'mid-high',
     vibeTag: 'in-town',
     laundry: 'unknown',
@@ -2028,10 +2028,10 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
   {
     name: 'Apartment Sunset am Wolfgangsee (Strobl)',
     url: 'https://www.booking.com/hotel/at/apartment-sunset-am-wolfgangsee.html',
-    img: 'https://cf.bstatic.com/xdata/images/hotel/square600/251482945.webp?k=d3a41b5c4d5e6f70819a0b1c2d3e4f50617283940a1b2c3d4e5f607182931a4&o=',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/600px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
     review: '8.8 · Excellent · 100 reviews',
     pricePerNight: '€115 / night (₪456)',
-    note: 'Apartment with terrace + mountain views, dishwasher + oven + microwave in the kitchenette. Sunset name suggests west-facing — verify before booking. Budget-friendly pick.',
+    note: 'Apartment with terrace + mountain views, dishwasher + oven + microwave in the kitchenette. Sunset name suggests west-facing — verify before booking. Budget-friendly pick. [Photo is the Wolfgangsee at St. Wolfgang, not the listing — view live photos on Booking.]',
     budgetTier: 'standard',
     vibeTag: 'nature-view',
     laundry: 'unknown',
@@ -2085,13 +2085,13 @@ export const BASE_CONFIGS: BaseConfig[] = [
     nightsAtBase: '4 nights',
     recommended: true,
     pitch:
-      'The current locked plan and the lowest-friction option. The Žabljak of this trip — one apartment for the whole midweek, every Salzkammergut anchor (Hallstatt, Gosausee, Krippenstein, Wolfgangsee, Schafberg) is 5-50 minutes away. Königssee is the one stretch — 1h30 day trip from here. 11 apartment options vetted, several with the working-farm + lake-edge vibes you loved at Apt Jezero.',
+      'The current locked plan and the lowest-friction option. One apartment for the whole midweek, every Salzkammergut anchor (Hallstatt, Gosausee, Krippenstein, Wolfgangsee, Schafberg) is 5-50 minutes away. Königssee is the one stretch — 1h30 day trip from here. 11 apartment options vetted, several with the working-farm + lake-edge vibes.',
     pros: [
       'One apartment, no mid-week pack/unpack',
       'Closest base to Hallstatt + Gosausee + Krippenstein (5-35 min)',
       'Most vetted lodging options (11 picks, all real)',
       'Cheapest overall (lodging baseline)',
-      'Ferienhof Osl + Gosau farm-stays = strongest Apt-Jezero matches',
+      'Ferienhof Osl + Gosau farm-stays = the deepest farm-and-lake immersion options',
     ],
     cons: [
       'Königssee + Hintersee become 1h30 day trips (still doable but a longer drive)',
@@ -2129,9 +2129,9 @@ export const BASE_CONFIGS: BaseConfig[] = [
     country: 'DE',
     nightsAtBase: '4 nights',
     pitch:
-      "Bavarian Alps anchor. Königssee + Hintersee — the two 🌅🌅🌅 sunset spots — are 10 minutes from base. Almbachklamm gorge is 15 min. The trade-off: Hallstatt + Gosausee become 1h30 day trips. Better kosher-friendly Spar infrastructure (bigger Bavarian supermarkets than Obertraun's small ones). 5 verified apartment options including the Apt-Jezero-coded 2-BR Unterbrandnerlehen chalet 5 min from the Königssee shore.",
+      "Bavarian Alps anchor. Königssee + Hintersee — the two 🌅🌅🌅 sunset spots — are 10 minutes from base. Almbachklamm gorge is 15 min. The trade-off: Hallstatt + Gosausee become 1h30 day trips. Better kosher-friendly Spar infrastructure (bigger Bavarian supermarkets than Obertraun's small ones). 5 verified apartment options including the lake-side 2-BR Unterbrandnerlehen chalet 5 min from the Königssee shore.",
     pros: [
-      'Königssee is 10 min away — turn the Tara-Bridge moment into a slow ritual, not a day trip',
+      'Königssee is 10 min away — turn the peak sunset-boat moment into a slow ritual, not a day trip',
       'Hintersee photographer-spot is 10 min away too',
       'Almbachklamm gorge + Salzburg both reachable in 25 min',
       'Bigger supermarkets (Bavarian Spar / Edeka) than Obertraun',
@@ -2482,7 +2482,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     id: 'schafbergspitze-stay',
     name: 'Berghotel Schafbergspitze',
     url: 'https://schafberg.net/en/',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Schafberg_panorama.jpg/1280px-Schafberg_panorama.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Schafberg_Panorama_Attersee_Mondsee.jpg/1280px-Schafberg_Panorama_Attersee_Mondsee.jpg',
     imgCredit: 'Wikimedia Commons',
     elevationM: 1783,
     region: 'wolfgangsee',
@@ -2545,7 +2545,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     id: 'krippenstein-lodge',
     name: 'Lodge am Krippenstein',
     url: 'https://www.lodge.at/en/',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Krippenstein_Salzkammergut.jpg/1280px-Krippenstein_Salzkammergut.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
     imgCredit: 'Wikimedia Commons',
     elevationM: 2050,
     region: 'dachstein',
@@ -2617,7 +2617,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     weatherRisk:
       'Valley floor lodging — no cable car / cog dependency. Worst case is overcast sunset (forecast morning of). Easy to drive back to Obertraun if it rains all day.',
     verdict:
-      'VALLEY-LEVEL CHARACTER PICK — easier logistics than the peak picks, but real lake-edge magic. The Tara-Bridge-equivalent for the Salzkammergut mirror-lake hour.',
+      'VALLEY-LEVEL CHARACTER PICK — easier logistics than the peak picks, but real lake-edge magic. The you-will-stand-still-here spot for the Salzkammergut mirror-lake hour.',
     status: 'bookable',
     bookingNote:
       'Booking.com listing live (search "Gasthof Gosausee"). Specifically request the "Gosausee" Swiss-pine room with the lake-view balcony — not the back-of-house rooms.',
@@ -2637,7 +2637,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     id: 'hintersee-lake-edge',
     name: 'Hintersee lake-edge apartments (Ramsau)',
     url: 'https://www.booking.com/searchresults.html?ss=Hintersee+Ramsau+Berchtesgaden',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Hintersee_Ramsau_pano.jpg/1280px-Hintersee_Ramsau_pano.jpg',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hintersee_Panorama.JPG/1280px-Hintersee_Panorama.JPG',
     imgCredit: 'Wikimedia Commons',
     elevationM: 790,
     region: 'berchtesgaden',
