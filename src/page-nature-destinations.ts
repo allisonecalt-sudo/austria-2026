@@ -48,6 +48,8 @@ const TYPE_ICON: Record<NatureType, string> = {
   village: '🏘️',
   road: '🛣️',
   platform: '🪜',
+  meadow: '🌾',
+  valley: '🌲',
 };
 
 const TYPE_LABEL: Record<NatureType, string> = {
@@ -59,6 +61,8 @@ const TYPE_LABEL: Record<NatureType, string> = {
   village: 'Village',
   road: 'Scenic road',
   platform: 'Viewpoint',
+  meadow: 'Alpine meadow',
+  valley: 'Valley',
 };
 
 function sunsetStars(n: 1 | 2 | 3): string {
@@ -89,7 +93,9 @@ function bestTimeLabel(t: NatureDestination['bestTime']): string {
 function destinationCard(d: NatureDestination, byId: Map<string, NatureDestination>): string {
   const lockedBadge = d.lockedDay
     ? `<div class="day-hero-badge peak" title="Already in the v1 itinerary">✓ Locked · ${escape(d.lockedDay)}</div>`
-    : '';
+    : d.hiddenGem
+      ? `<div class="day-hero-badge hidden-gem-badge" title="Hidden gem — off the beaten path">💎 Hidden gem</div>`
+      : '';
   const typeBadge = `<div class="day-hero-badge" style="left:1rem; right:auto; background: rgba(20,26,30,0.72);">${TYPE_ICON[d.type]} ${escape(TYPE_LABEL[d.type])}</div>`;
 
   const pairsHtml = d.pairsWith
@@ -186,6 +192,33 @@ function regionSection(spec: RegionSpec, byId: Map<string, NatureDestination>): 
   `;
 }
 
+// Hidden-gems section — surfaces the 2026-05-16 additions as a separate
+// curated block above the regional groupings, so Allison + Avital see the
+// off-the-beaten-path picks first. Cards still also appear in their region
+// sections below (so nothing is hidden from the regional view).
+function hiddenGemsSection(byId: Map<string, NatureDestination>): string {
+  const gems = NATURE_DESTINATIONS.filter((d) => d.hiddenGem);
+  if (gems.length === 0) return '';
+
+  const cards = gems.map((d) => destinationCard(d, byId)).join('');
+  return `
+    <section class="section" id="region-hidden-gems">
+      <div class="eyebrow">Hidden gems · ${gems.length} off-the-beaten-path picks</div>
+      <h2>💎 Hidden gems we found</h2>
+      <p class="lead-block">
+        Beyond the headliners. Sourced from German-language travel blogs, photography guides
+        (Sunset Obsession, Moon Honey Travel), and SalzburgerLand tourism's
+        lesser-known-viewpoints lists. Each is drive-accessible, walks-only,
+        Avital-mobility friendly, and verified stunning in real photos. Same cards
+        also live in their region sections below.
+      </p>
+      <div class="alts-grid">
+        ${cards}
+      </div>
+    </section>
+  `;
+}
+
 function renderPage(): void {
   const root = document.getElementById('nature-root');
   if (!root) return;
@@ -193,7 +226,7 @@ function renderPage(): void {
   const byId: Map<string, NatureDestination> = new Map(
     NATURE_DESTINATIONS.map((d) => [d.id, d] as [string, NatureDestination]),
   );
-  const html = REGIONS.map((r) => regionSection(r, byId)).join('');
+  const html = hiddenGemsSection(byId) + REGIONS.map((r) => regionSection(r, byId)).join('');
   root.innerHTML = html;
 }
 

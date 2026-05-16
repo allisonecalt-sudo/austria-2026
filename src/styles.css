@@ -4347,3 +4347,31 @@ img.loaded {
   color: var(--ink-soft);
   font-style: italic;
 }
+
+/* Hidden-gem badge (2026-05-16) — emerald-tinted to distinguish from the
+   gold "Locked" badge. Used on NATURE_DESTINATIONS cards where hiddenGem=true. */
+.day-hero-badge.hidden-gem-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #0d7c63 0%, #14a085 100%);
+  color: #fff;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 8px rgba(13, 124, 99, 0.4);
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+/* Hidden-gems section gets a subtle emerald accent on the eyebrow */
+#region-hidden-gems .eyebrow {
+  color: #0d7c63;
+}
+#region-hidden-gems h2 {
+  border-bottom: 2px solid #14a085;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}

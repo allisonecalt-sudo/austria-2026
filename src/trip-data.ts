@@ -954,7 +954,9 @@ export type NatureType =
   | 'cave'
   | 'village'
   | 'road'
-  | 'platform';
+  | 'platform'
+  | 'meadow'
+  | 'valley';
 
 export type NatureWalk = 'walk' | 'easy-hike';
 
@@ -984,6 +986,10 @@ export interface NatureDestination {
     mapsFromHallstatt: string;
   };
   caveat?: string;
+  // Hidden-gem additions (May 16, 2026) — sourced from photography blogs +
+  // German tourism boards beyond the original 13. Rendered with a distinct
+  // badge so Allison + Avital can see what's "off the beaten path."
+  hiddenGem?: boolean;
 }
 
 const NIMG = {
@@ -1396,6 +1402,257 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     caveat:
       'Separate toll €46.50/car on top of vignette. Best done as its own full day — too far for half-day swap.',
   },
+  // =====================================================================
+  // HIDDEN GEMS (added 2026-05-16) — 8 stunning nature picks beyond the
+  // original 13. Sourced from Sunset Obsession, Moon Honey Travel, Salzburger-
+  // Land tourism, German-language travel blogs, AllTrails, Komoot. Each
+  // verified for: stunning photos (Wikimedia), drive-accessible (no multi-
+  // hour hikes), Avital-mobility OK (walks + easy loops), within 2-hr radius
+  // of at least one of the 4 base configs. flagged with hiddenGem: true.
+  //
+  // Drive times: Google Maps consensus 2026-05-16. fromHallstattMin = from
+  // Obertraun. Berchtesgaden/Wolfgangsee minutes added to the matrices below.
+  // =====================================================================
+  {
+    id: 'wimbachklamm',
+    name: 'Wimbachklamm Gorge',
+    localName: 'Wimbachklamm',
+    region: 'berchtesgaden',
+    type: 'gorge',
+    country: 'DE',
+    fromSalzburgMin: 45,
+    fromHallstattMin: 100,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'walk',
+    walkNote:
+      'Timber walkway through the 200m gorge — 15-30 min to do it once. €5 entry. Extendable into the Wimbachtal valley if you want longer.',
+    pairsWith: ['hintersee-ramsau', 'klausbachtal', 'konigssee'],
+    feature:
+      'Berchtesgaden National Park\'s quieter gorge — waterfalls cascading over moss-covered walls, smooth timber boardwalk, family-friendly. The hidden alternative to Almbachklamm.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/In_der_Wimbachklamm_%2826%29.JPG/1280px-In_der_Wimbachklamm_%2826%29.JPG',
+      alt: 'Wimbachklamm gorge interior with timber walkway and waterfall',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://www.berchtesgaden.de/en/nature-wonders/gorges',
+      wikipedia: 'https://en.wikipedia.org/wiki/Wimbachklamm',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Wimbachklamm, Ramsau bei Berchtesgaden, Germany'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Wimbachklamm, Ramsau bei Berchtesgaden, Germany'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'filzmoos-bachlalm',
+    name: 'Filzmoos + Bachlalm — Bischofsmütze meadows',
+    localName: 'Bachlalm bei Filzmoos',
+    region: 'hohe-tauern',
+    type: 'meadow',
+    country: 'AT',
+    fromSalzburgMin: 65,
+    fromHallstattMin: 75,
+    sunset: 2,
+    bestTime: 'golden',
+    walk: 'easy-hike',
+    walkNote:
+      'Drive up to Bachlalm car park, then ~1h easy circuit through forest + meadow with Bischofsmütze twin peaks as constant backdrop. Marmots in the grass. Hut at the top for drinks.',
+    pairsWith: ['gosausee', 'krippenstein-5fingers'],
+    feature:
+      'Alpine pasture below the Bischofsmütze\'s twin limestone peaks — Filzmoos is the kind of village English guidebooks miss. The "Nativity scene of Styria" landscape.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/0/02/West_view_of_Bischofsm%C3%BCtze_%282009%29.jpg',
+      alt: 'Bischofsmütze twin peaks above Filzmoos meadows',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://www.filzmoos.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Filzmoos',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Bachlalm, Filzmoos, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Bachlalm, Filzmoos, Austria'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'zwoelferhorn',
+    name: 'Zwölferhorn cable car — St. Gilgen',
+    localName: 'Zwölferhornbahn',
+    region: 'salzkammergut',
+    type: 'platform',
+    country: 'AT',
+    fromSalzburgMin: 40,
+    fromHallstattMin: 55,
+    sunset: 2,
+    bestTime: 'golden',
+    walk: 'walk',
+    walkNote:
+      '11-min gondola from St. Gilgen to 1,522m summit. Flat walks on top with 360° views over Wolfgangsee + Fuschlsee + Mondsee. Cafe at the top. Barrier-free gondolas.',
+    pairsWith: ['wolfgangsee-village', 'attersee', 'schafbergspitze'],
+    feature:
+      'Schafberg\'s quieter twin — three lakes visible from one summit. Less famous than the cog railway, often empty by comparison, and the new (2022) gondolas are spacious.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Zw%C3%B6lferhorn_von_St.Gilgen.JPG',
+      alt: 'Zwölferhorn summit above St. Gilgen and Wolfgangsee',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://www.zwoelferhorn.at/en/summer/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Zw%C3%B6lferhorn',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Zwölferhornbahn, St. Gilgen, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Zwölferhornbahn, St. Gilgen, Austria'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'postalm',
+    name: 'Postalm panoramic road + plateau',
+    localName: 'Postalmstraße',
+    region: 'salzkammergut',
+    type: 'road',
+    country: 'AT',
+    fromSalzburgMin: 60,
+    fromHallstattMin: 50,
+    sunset: 2,
+    bestTime: 'golden',
+    walk: 'walk',
+    walkNote:
+      '26km tolled panoramic road from Strobl up to the plateau. Park at any of the many pull-offs and walk through meadows + alpine huts. Wheelchair/stroller-friendly trails available. Toll ~€14/car.',
+    pairsWith: ['wolfgangsee-village', 'zwoelferhorn'],
+    feature:
+      'Austria\'s largest contiguous alpine pasture — 42 km² of cattle-grazed meadow at 1,000-2,000m. Drive-thru beauty for low-mobility days, with hut-density unmatched in the region.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg/1280px-Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg',
+      alt: 'Postalm alpine plateau and meadows above Wolfgangsee',
+      credit: 'Wikimedia / Unsplash, CC0',
+    },
+    links: {
+      official: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/430003408/postalm-hiking-area.html',
+      wikipedia: 'https://de.wikipedia.org/wiki/Postalm',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Postalm, Strobl, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Postalm, Strobl, Austria'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'klausbachtal',
+    name: 'Klausbachtal — eagle valley + suspension bridge',
+    localName: 'Klausbachtal',
+    region: 'berchtesgaden',
+    type: 'valley',
+    country: 'DE',
+    fromSalzburgMin: 50,
+    fromHallstattMin: 105,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'walk',
+    walkNote:
+      '4.5km circular path, ~1h, 50m elevation, easy. Largely barrier-free — stroller + wheelchair OK. Suspension bridge with Mühlsturzhörner views. Deer reserve at the end.',
+    pairsWith: ['hintersee-ramsau', 'wimbachklamm'],
+    feature:
+      'Golden-eagle hunting territory inside Berchtesgaden NP — one of only 4 nesting pairs in the park. The suspension bridge frames the Mühlsturzhörner rock wall.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/9/91/Klausbachtal.jpg',
+      alt: 'Klausbachtal valley with Mühlsturzhörner mountain wall',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://www.nationalpark-berchtesgaden.de/english/infopoints/facilities/observation_point/index.htm',
+      wikipedia: 'https://de.wikipedia.org/wiki/Klausbachtal',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Klausbachhaus, Ramsau bei Berchtesgaden, Germany'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Klausbachhaus, Ramsau bei Berchtesgaden, Germany'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'seisenbergklamm',
+    name: 'Seisenbergklamm — Weißbach',
+    localName: 'Naturdenkmal Seisenbergklamm',
+    region: 'hohe-tauern',
+    type: 'gorge',
+    country: 'AT',
+    fromSalzburgMin: 70,
+    fromHallstattMin: 100,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'walk',
+    walkNote:
+      '600m gorge, ~1h round-trip via 51 footbridges + 373 steps. Waterfall in the dark part. "Ghost of the Gorge" kids\' info-trail. Snack bar at entrance.',
+    pairsWith: ['liechtensteinklamm'],
+    feature:
+      'Gateway to Weißbach Nature Park — 50m-deep limestone gorge carved by ice-age meltwater. Quieter sibling to Liechtensteinklamm, with the same dark-passage drama.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Seisenberg_Klamm_006.jpg/1280px-Seisenberg_Klamm_006.jpg',
+      alt: 'Seisenbergklamm gorge interior wooden walkway',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://www.seisenbergklamm.eu/',
+      wikipedia: 'https://de.wikipedia.org/wiki/Seisenbergklamm',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Seisenbergklamm, Weißbach bei Lofer, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Seisenbergklamm, Weißbach bei Lofer, Austria'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'bluntautal-golling',
+    name: 'Bluntautal lakes + Gollinger Wasserfall',
+    localName: 'Bluntautal + Gollinger Wasserfall',
+    region: 'hohe-tauern',
+    type: 'waterfall',
+    country: 'AT',
+    fromSalzburgMin: 40,
+    fromHallstattMin: 65,
+    sunset: 1,
+    bestTime: 'midday',
+    walk: 'easy-hike',
+    walkNote:
+      'Two-in-one. Gollinger Wasserfall: 10-min walk from car park to 75m two-tier fall, €5. Bluntautal lakes: 6km flat loop, ~1.5h, past two crystal pools. Combine for a half-day.',
+    pairsWith: ['hallstatt-markt', 'eisriesenwelt-werfen'],
+    feature:
+      'Tennengau\'s twin payoff — one of Austria\'s most photographed waterfalls plus a glassy turquoise-pool valley loop, both reachable from the same Golling parking.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Golling_Wasserfall_3.jpg/1280px-Golling_Wasserfall_3.jpg',
+      alt: 'Gollinger Wasserfall two-tier waterfall',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://www.gollinger-wasserfall.com/',
+      wikipedia: 'https://de.wikipedia.org/wiki/Gollinger_Wasserfall',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Gollinger Wasserfall, Golling, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Gollinger Wasserfall, Golling, Austria'),
+    },
+    hiddenGem: true,
+  },
+  {
+    id: 'fuschlsee',
+    name: 'Fuschlsee',
+    localName: 'Fuschlsee',
+    region: 'salzkammergut',
+    type: 'lake',
+    country: 'AT',
+    fromSalzburgMin: 30,
+    fromHallstattMin: 65,
+    sunset: 3,
+    bestTime: 'sunset',
+    walk: 'walk',
+    walkNote:
+      'Flat lakeshore strolls from Fuschl am See village. Full 3h circuit if wanted. Sun sets directly over the water mid-summer. Stand-up paddle + swim if it\'s warm.',
+    pairsWith: ['wolfgangsee-village', 'zwoelferhorn'],
+    feature:
+      'Turquoise Salzkammergut lake just 30 min from Salzburg — Red Bull\'s headquarters lake, surprisingly under-the-radar for English-speaking visitors. Best sunset within 30 min of the city.',
+    hero: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg',
+      alt: 'Aerial view of turquoise Fuschlsee from the southeast',
+      credit: 'Wikimedia, CC BY-SA',
+    },
+    links: {
+      official: 'https://fuschlsee.salzkammergut.at/en/',
+      wikipedia: 'https://en.wikipedia.org/wiki/Fuschlsee',
+      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Fuschl am See, Austria'),
+      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Fuschl am See, Austria'),
+    },
+    hiddenGem: true,
+  },
 ];
 
 // =====================================================================
@@ -1517,6 +1774,15 @@ const BERCHTESGADEN_DRIVE_TIMES: Record<string, number> = {
   liechtensteinklamm: 80,
   'krimml-waterfalls': 130,
   'grossglockner-road': 110,
+  // Hidden-gem additions (2026-05-16)
+  wimbachklamm: 15,
+  'filzmoos-bachlalm': 90,
+  zwoelferhorn: 80,
+  postalm: 100,
+  klausbachtal: 20,
+  seisenbergklamm: 45,
+  'bluntautal-golling': 45,
+  fuschlsee: 70,
 };
 
 // St. Wolfgang base drive times (Google Maps consensus) — base = St. Wolfgang
@@ -1535,6 +1801,15 @@ const WOLFGANGSEE_DRIVE_TIMES: Record<string, number> = {
   liechtensteinklamm: 80,
   'krimml-waterfalls': 130,
   'grossglockner-road': 120,
+  // Hidden-gem additions (2026-05-16)
+  wimbachklamm: 80,
+  'filzmoos-bachlalm': 75,
+  zwoelferhorn: 15,
+  postalm: 25,
+  klausbachtal: 90,
+  seisenbergklamm: 80,
+  'bluntautal-golling': 60,
+  fuschlsee: 30,
 };
 
 function berchtesgadenDriveRow(d: (typeof NATURE_DESTINATIONS)[number]): BaseConfigDriveRow {
@@ -2141,3 +2416,45 @@ export const STANDALONE_POIS: MapPOI[] = [
     link: 'jewish-sights.html#mauthausen',
   },
 ];
+
+// =====================================================================
+// SUNSET STAYS — "sleep + sunset in the same spot"
+// =====================================================================
+// Added 2026-05-16 by beautiful-lodging-hunt agent.
+// Allison: "if theres a place to sleep with an insane sunset wotht
+// noting" + "we love staying in beautiful places" + "be crrative".
+//
+// Special cross-finds — NOT the primary lodging picks. Alternates or
+// "swap one night" picks where you wake up where the sunset happens.
+// Each is a verified-bookable property for Jul 2026.
+
+export type SunsetStayStatus = 'bookable' | 'confirm-with-host' | 'skip-too-hard';
+
+export interface SunsetStayLogistics {
+  label: string;
+  value: string;
+}
+
+export interface SunsetStay {
+  id: string;
+  name: string;
+  url: string;
+  img: string;
+  imgCredit?: string;
+  elevationM?: number;
+  region: 'salzkammergut' | 'berchtesgaden' | 'wolfgangsee' | 'dachstein';
+  pitch: string;
+  whyInsane: string;
+  pricePerNightEur: string;
+  pricePerNightNote?: string;
+  logistics: SunsetStayLogistics[];
+  kosherKit: string;
+  packList: string;
+  weatherRisk: string;
+  verdict: string;
+  status: SunsetStayStatus;
+  bookingNote: string;
+  sourceLinks: { label: string; url: string }[];
+}
+
+export const SUNSET_STAYS: SunsetStay[] = [];
