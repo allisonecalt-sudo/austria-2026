@@ -837,11 +837,6 @@ export const TRIP: TripData = {
         "Historically heavy (Hitler's tea house). Königssee is the better Berchtesgaden day, full stop.",
     },
     {
-      item: 'Lake Bled detour into Slovenia',
-      reason:
-        'Adds 6 hours of driving for one more lake. The Hallstatt-area lakes already deliver the storybook reflection. Save Bled for a Slovenia-specific trip.',
-    },
-    {
       item: 'Italian Dolomites',
       reason: "Already done — Allison's rule.",
     },
@@ -877,7 +872,7 @@ export const TRIP: TripData = {
 //  - "pairsWith" gives 1-3 ids of destinations within 30min drive
 //  - Distances are Google Maps consensus — v4 fact-check agent re-verifies
 
-export type NatureRegion = 'salzkammergut' | 'berchtesgaden' | 'hohe-tauern' | 'slovenia';
+export type NatureRegion = 'salzkammergut' | 'berchtesgaden' | 'hohe-tauern';
 
 export type NatureType =
   | 'lake'
@@ -941,9 +936,6 @@ const NIMG = {
     'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Krimmler_Wasserf%C3%A4lle_2.JPG/1280px-Krimmler_Wasserf%C3%A4lle_2.JPG',
   grossglockner:
     'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Grossglockner_High_Alpine_Road.JPG/1280px-Grossglockner_High_Alpine_Road.JPG',
-  bled: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Bled_island.jpg/1280px-Bled_island.jpg',
-  vintgar:
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Vintgar_Gorge%2C_Slovenia_%28%C5%A0um_Falls%29.jpg/1280px-Vintgar_Gorge%2C_Slovenia_%28%C5%A0um_Falls%29.jpg',
 };
 
 const NCREDIT = {
@@ -960,8 +952,6 @@ const NCREDIT = {
   liechtensteinklamm: 'Wikimedia, CC BY-SA',
   krimml: 'Wikimedia / Norbert Aepli, CC BY 3.0',
   grossglockner: 'Wikimedia, CC BY-SA',
-  bled: 'Wikimedia, CC BY-SA',
-  vintgar: 'Wikimedia, CC BY-SA',
 };
 
 export const NATURE_DESTINATIONS: NatureDestination[] = [
@@ -1334,67 +1324,6 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     caveat:
       'Separate toll €46.50/car on top of vignette. Best done as its own full day — too far for half-day swap.',
   },
-  {
-    id: 'lake-bled',
-    name: 'Lake Bled',
-    localName: 'Blejsko jezero',
-    region: 'slovenia',
-    type: 'lake',
-    country: 'SI',
-    fromSalzburgMin: 210,
-    fromHallstattMin: 230,
-    sunset: 3,
-    bestTime: 'sunset',
-    walk: 'walk',
-    walkNote:
-      '6km flat lakeside loop around the entire lake. Island reachable by traditional pletna boat.',
-    pairsWith: ['vintgar-gorge'],
-    feature:
-      "Castle on a cliff, island church in the middle of the lake. The reason Slovenia's on the menu.",
-    hero: {
-      src: NIMG.bled,
-      alt: 'Bled island church in the middle of Lake Bled',
-      credit: NCREDIT.bled,
-    },
-    links: {
-      official: 'https://www.bled.si/en/',
-      wikipedia: 'https://en.wikipedia.org/wiki/Lake_Bled',
-      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Lake Bled, Slovenia'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Lake Bled, Slovenia'),
-    },
-    caveat:
-      '3.5h+ each way. Would require an overnight stay in Bled — currently OUT of the v1 itinerary. Surface for the "only if insane" call.',
-  },
-  {
-    id: 'vintgar-gorge',
-    name: 'Vintgar Gorge',
-    localName: 'Soteska Vintgar',
-    region: 'slovenia',
-    type: 'gorge',
-    country: 'SI',
-    fromSalzburgMin: 215,
-    fromHallstattMin: 235,
-    sunset: 1,
-    bestTime: 'midday',
-    walk: 'easy-hike',
-    walkNote:
-      '1.6km wooden walkway one-way along the gorge floor. Flat, easy, ends at Sum waterfall.',
-    pairsWith: ['lake-bled'],
-    feature:
-      "Wooden boardwalks through a turquoise gorge — Slovenia's most-Instagrammed nature stop.",
-    hero: {
-      src: NIMG.vintgar,
-      alt: 'Vintgar Gorge walkways with Sum waterfall',
-      credit: NCREDIT.vintgar,
-    },
-    links: {
-      official: 'https://www.vintgar.si/en/',
-      wikipedia: 'https://en.wikipedia.org/wiki/Vintgar_Gorge',
-      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Vintgar Gorge, Slovenia'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Vintgar Gorge, Slovenia'),
-    },
-    caveat: 'Bundle with Lake Bled — 5 min apart. Only add if you go to Slovenia at all.',
-  },
 ];
 
 // =====================================================================
@@ -1411,7 +1340,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
 // Rules applied:
 //  - No "best" pick — all 4 with honest trade-offs. A recommended star on one
 //    is fine but never replaces alternatives.
-//  - Drive-time matrix to every one of the 15 NATURE_DESTINATIONS from this
+//  - Drive-time matrix to every one of the 13 NATURE_DESTINATIONS from this
 //    config's base, bucketed: ≤10min "at the door" / ≤30min "easy" / ≤60min
 //    "day trip" / 60+ "long day".
 //  - Lodging picks (3-6 real options) — Obertraun reuses TRIP.lodgings[1].
@@ -1516,8 +1445,6 @@ const BERCHTESGADEN_DRIVE_TIMES: Record<string, number> = {
   liechtensteinklamm: 80,
   'krimml-waterfalls': 130,
   'grossglockner-road': 110,
-  'lake-bled': 220,
-  'vintgar-gorge': 225,
 };
 
 // St. Wolfgang base drive times (Google Maps consensus) — base = St. Wolfgang
@@ -1536,8 +1463,6 @@ const WOLFGANGSEE_DRIVE_TIMES: Record<string, number> = {
   liechtensteinklamm: 80,
   'krimml-waterfalls': 130,
   'grossglockner-road': 120,
-  'lake-bled': 235,
-  'vintgar-gorge': 240,
 };
 
 function berchtesgadenDriveRow(d: (typeof NATURE_DESTINATIONS)[number]): BaseConfigDriveRow {

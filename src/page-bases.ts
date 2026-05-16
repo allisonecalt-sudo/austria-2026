@@ -221,7 +221,7 @@ function renderConfigCard(c: BaseConfig, idx: number): string {
       <div class="base-config-body">
         <p class="base-config-pitch">${escapeHtml(c.pitch)}</p>
 
-        <h3 class="base-config-section-head">Drive matrix — distance from this base to each of the 15 nature destinations</h3>
+        <h3 class="base-config-section-head">Drive matrix — distance from this base to each of the 13 nature destinations</h3>
         <div class="drive-matrix">${renderDriveMatrix(c.driveMatrix)}</div>
 
         <h3 class="base-config-section-head">Daily flow under this config</h3>

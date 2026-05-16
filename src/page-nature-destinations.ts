@@ -37,12 +37,6 @@ const REGIONS: RegionSpec[] = [
     blurb:
       'Bigger drives, bigger drama. Werfen ice cave is locked. The other three are full-day commitments — most-rewarding if Allison-Avital want one big "drive day".',
   },
-  {
-    key: 'slovenia',
-    label: 'Slovenia — only if insane',
-    blurb:
-      "Out of the v1 itinerary. Surfaced because Allison asked. 3.5h+ each way means it's an overnight, not a day trip. Real call to make together.",
-  },
 ];
 
 const TYPE_ICON: Record<NatureType, string> = {
@@ -124,7 +118,7 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
       </div>
       <div class="alt-body" style="padding:1.2rem 1.3rem 1.4rem;">
         <div class="eyebrow" style="margin-bottom:0.45rem;">
-          ${escape(d.country === 'AT' ? 'Austria' : d.country === 'DE' ? 'Germany' : 'Slovenia')} ·
+          ${escape(d.country === 'AT' ? 'Austria' : 'Germany')} ·
           ${escape(TYPE_LABEL[d.type])}
         </div>
         <h3 class="alt-name" style="font-size:1.3rem; margin-bottom:0.55rem;">${escape(d.name)}</h3>
