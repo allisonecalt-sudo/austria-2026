@@ -6598,16 +6598,23 @@ details.note-item[open] .note-summary-preview {
    ============================================================ */
 
 /* Card layout */
-.lodging-card { display: grid; grid-template-columns: 1fr; }
+.lodging-card {
+  display: grid;
+  grid-template-columns: 1fr;
+}
 @media (min-width: 720px) {
-  .stay-card--list.lodging-card { grid-template-columns: 280px 1fr; }
+  .stay-card--list.lodging-card {
+    grid-template-columns: 280px 1fr;
+  }
 }
 .lodging-card__media {
   position: relative;
   min-height: 200px;
   background: var(--green-mist);
 }
-.stay-card--grid.lodging-card .lodging-card__media { aspect-ratio: 16 / 10; }
+.stay-card--grid.lodging-card .lodging-card__media {
+  aspect-ratio: 16 / 10;
+}
 .lodging-card__body {
   padding: 1rem 1.2rem 1.1rem;
   display: flex;
@@ -6634,15 +6641,22 @@ details.note-item[open] .note-summary-preview {
   font-size: 0.85rem;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-  transition: transform 0.12s ease, background 0.12s ease;
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
 }
-.lodging-pick-btn:hover { transform: scale(1.04); background: #fff; }
+.lodging-pick-btn:hover {
+  transform: scale(1.04);
+  background: #fff;
+}
 .lodging-pick-btn--on {
   background: var(--gold-deep, #c89938);
   color: #fff;
   border-color: var(--gold-deep, #c89938);
 }
-.lodging-pick-btn--on:hover { background: var(--gold-sun, #d8aa3a); }
+.lodging-pick-btn--on:hover {
+  background: var(--gold-sun, #d8aa3a);
+}
 
 /* TLDR */
 .lodging-tldr {
@@ -6658,7 +6672,12 @@ details.note-item[open] .note-summary-preview {
 }
 
 /* Lodging chips */
-.lodging-chips { gap: 0.4rem; margin: 0.2rem 0; display: flex; flex-wrap: wrap; }
+.lodging-chips {
+  gap: 0.4rem;
+  margin: 0.2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+}
 .lodging-chip {
   display: inline-flex;
   align-items: center;
@@ -6672,18 +6691,41 @@ details.note-item[open] .note-summary-preview {
   border: 1px solid var(--line, #e3dccb);
   white-space: nowrap;
 }
-.lodging-chip--good { background: #def5e2; color: #1f5d2b; border-color: #9ad7a4; }
-.lodging-chip--warn { background: #fbe6d8; color: #8a4815; border-color: #e6b78a; }
-.lodging-chip--neutral { background: #f0eee8; color: #6a655a; border-color: #d8d2c4; font-style: italic; }
-.lodging-chip--verified { background: #e6f2ee; color: #285c4a; border-color: #9bc7b6; }
-.lodging-chip--date { background: #eaf1f8; color: #284c6a; border-color: #a8c2d8; }
+.lodging-chip--good {
+  background: #def5e2;
+  color: #1f5d2b;
+  border-color: #9ad7a4;
+}
+.lodging-chip--warn {
+  background: #fbe6d8;
+  color: #8a4815;
+  border-color: #e6b78a;
+}
+.lodging-chip--neutral {
+  background: #f0eee8;
+  color: #6a655a;
+  border-color: #d8d2c4;
+  font-style: italic;
+}
+.lodging-chip--verified {
+  background: #e6f2ee;
+  color: #285c4a;
+  border-color: #9bc7b6;
+}
+.lodging-chip--date {
+  background: #eaf1f8;
+  color: #284c6a;
+  border-color: #a8c2d8;
+}
 
 /* === Essential pill row — Avital's "right away" test ===
    Added 2026-05-17 by booking-deep-verify agent. Above the fold, distinct
    background, slightly stronger borders so beds / bedrooms / sleeps / kitchen /
    laundry / bath stand out from secondary pills. "Avital opens any card, knows
    the answer in 1 second" test. */
-.lodging-chips--date-row { margin-top: 0.5rem; }
+.lodging-chips--date-row {
+  margin-top: 0.5rem;
+}
 .lodging-chips--essential {
   background: #fbf6e9;
   border: 1px solid #ead9b0;
@@ -6697,12 +6739,30 @@ details.note-item[open] .note-summary-preview {
   background: #fff;
   border-color: #d8c896;
 }
-.lodging-chips--essential .lodging-chip--good { background: #def5e2; border-color: #9ad7a4; }
-.lodging-chips--essential .lodging-chip--warn { background: #fbe6d8; border-color: #e6b78a; }
-.lodging-chips--essential .lodging-chip--neutral { background: #f0eee8; border-color: #d8d2c4; }
-.lodging-chip--essential { background: #fff; border-color: #d8c896; }
-.lodging-chips--secondary { margin: 0.1rem 0 0.4rem; opacity: 0.95; }
-.lodging-chips--secondary .lodging-chip { font-size: 0.76rem; padding: 0.18rem 0.55rem; }
+.lodging-chips--essential .lodging-chip--good {
+  background: #def5e2;
+  border-color: #9ad7a4;
+}
+.lodging-chips--essential .lodging-chip--warn {
+  background: #fbe6d8;
+  border-color: #e6b78a;
+}
+.lodging-chips--essential .lodging-chip--neutral {
+  background: #f0eee8;
+  border-color: #d8d2c4;
+}
+.lodging-chip--essential {
+  background: #fff;
+  border-color: #d8c896;
+}
+.lodging-chips--secondary {
+  margin: 0.1rem 0 0.4rem;
+  opacity: 0.95;
+}
+.lodging-chips--secondary .lodging-chip {
+  font-size: 0.76rem;
+  padding: 0.18rem 0.55rem;
+}
 
 /* Amenity icons */
 .lodging-amenities {
@@ -6713,10 +6773,16 @@ details.note-item[open] .note-summary-preview {
   line-height: 1;
   margin: 0.1rem 0;
 }
-.lodging-amenities span { cursor: help; }
+.lodging-amenities span {
+  cursor: help;
+}
 
 /* Distance chips */
-.lodging-distances { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.lodging-distances {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
 
 /* Details */
 .lodging-details {
@@ -6733,13 +6799,17 @@ details.note-item[open] .note-summary-preview {
   list-style: none;
 }
 .lodging-details__summary::marker,
-.lodging-details__summary::-webkit-details-marker { display: none; }
+.lodging-details__summary::-webkit-details-marker {
+  display: none;
+}
 .lodging-details__summary::before {
-  content: "\25B8\00a0";
+  content: '\25B8\00a0';
   display: inline-block;
   transition: transform 0.15s ease;
 }
-.lodging-details[open] > .lodging-details__summary::before { transform: rotate(90deg); }
+.lodging-details[open] > .lodging-details__summary::before {
+  transform: rotate(90deg);
+}
 .lodging-details__body {
   padding: 0.5rem 0 0;
   display: flex;
@@ -6757,18 +6827,39 @@ details.note-item[open] .note-summary-preview {
 .drive-matrix__title {
   margin: 0 0 0.5rem;
   font-size: 0.93rem;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   color: var(--ink);
 }
-.drive-matrix__table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-.drive-matrix__table td { padding: 0.28rem 0.5rem; border-bottom: 1px solid #ede7d8; }
-.drive-matrix__table tr:last-child td { border-bottom: 0; }
-.drive-row__min { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
-.drive-row--green td { background: #e6f5e9; }
-.drive-row--yellow td { background: #fbf4d8; }
-.drive-row--orange td { background: #fce4cc; }
-.drive-row--red td { background: #fbd6d2; }
+.drive-matrix__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.drive-matrix__table td {
+  padding: 0.28rem 0.5rem;
+  border-bottom: 1px solid #ede7d8;
+}
+.drive-matrix__table tr:last-child td {
+  border-bottom: 0;
+}
+.drive-row__min {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.drive-row--green td {
+  background: #e6f5e9;
+}
+.drive-row--yellow td {
+  background: #fbf4d8;
+}
+.drive-row--orange td {
+  background: #fce4cc;
+}
+.drive-row--red td {
+  background: #fbd6d2;
+}
 .drive-matrix__summary {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -6776,8 +6867,13 @@ details.note-item[open] .note-summary-preview {
   margin-top: 0.55rem;
   font-size: 0.82rem;
 }
-.drive-matrix__summary ul { margin: 0.25rem 0 0; padding-left: 1.1rem; }
-.drive-matrix__summary li { margin-bottom: 0.1rem; }
+.drive-matrix__summary ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+}
+.drive-matrix__summary li {
+  margin-bottom: 0.1rem;
+}
 .drive-matrix__legend {
   display: flex;
   flex-wrap: wrap;
@@ -6795,13 +6891,26 @@ details.note-item[open] .note-summary-preview {
   vertical-align: middle;
   margin-right: 0.2rem;
 }
-.drive-matrix__swatch--green { background: #74c483; }
-.drive-matrix__swatch--yellow { background: #e8c95a; }
-.drive-matrix__swatch--orange { background: #e89758; }
-.drive-matrix__swatch--red { background: #d96e6e; }
+.drive-matrix__swatch--green {
+  background: #74c483;
+}
+.drive-matrix__swatch--yellow {
+  background: #e8c95a;
+}
+.drive-matrix__swatch--orange {
+  background: #e89758;
+}
+.drive-matrix__swatch--red {
+  background: #d96e6e;
+}
 
 /* CTA row */
-.lodging-card__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.lodging-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
 .lodging-cta {
   display: inline-flex;
   align-items: center;
@@ -6812,22 +6921,32 @@ details.note-item[open] .note-summary-preview {
   font-size: 0.92rem;
   text-decoration: none;
   border-bottom: 0 !important;
-  transition: transform 0.12s ease, background 0.12s ease;
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
 }
-.lodging-cta:hover { transform: translateY(-1px); border-bottom: 0 !important; }
+.lodging-cta:hover {
+  transform: translateY(-1px);
+  border-bottom: 0 !important;
+}
 .lodging-cta--primary {
   background: var(--gold-deep, #c89938);
   color: #fff;
   flex: 1 1 auto;
   min-width: 180px;
 }
-.lodging-cta--primary:hover { background: var(--gold-sun, #d8aa3a); color: #fff; }
+.lodging-cta--primary:hover {
+  background: var(--gold-sun, #d8aa3a);
+  color: #fff;
+}
 .lodging-cta--ghost {
   background: transparent;
   color: var(--blue-lake, #2d6a90);
   border: 1px solid var(--blue-lake, #2d6a90);
 }
-.lodging-cta--ghost:hover { background: var(--blue-mist, #eaf1f8); }
+.lodging-cta--ghost:hover {
+  background: var(--blue-mist, #eaf1f8);
+}
 
 /* Group header date */
 .stay-group__dates {
@@ -6858,7 +6977,10 @@ details.note-item[open] .note-summary-preview {
   color: var(--ink);
   border: 1px solid var(--line, #e3dccb);
 }
-.shortlist-bar__count { font-weight: 700; font-size: 1rem; }
+.shortlist-bar__count {
+  font-weight: 700;
+  font-size: 1rem;
+}
 .shortlist-bar__author {
   font-size: 0.85rem;
   display: inline-flex;
@@ -6884,23 +7006,43 @@ details.note-item[open] .note-summary-preview {
   font-size: 0.88rem;
   cursor: pointer;
 }
-.shortlist-bar__btn:hover { background: var(--paper-soft, #f6f1e6); }
+.shortlist-bar__btn:hover {
+  background: var(--paper-soft, #f6f1e6);
+}
 .shortlist-bar__btn--ghost {
   margin-left: 0;
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.6);
 }
-.shortlist-bar__btn--ghost:hover { background: rgba(255, 255, 255, 0.15); color: #fff; }
+.shortlist-bar__btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
 
 /* Filter chip count */
-.filter-chip__count { font-weight: 500; font-size: 0.78rem; opacity: 0.75; margin-left: 0.15rem; }
-.filter-chip.is-on .filter-chip__count { opacity: 0.9; }
-.filter-bar__active { font-size: 0.83rem; color: var(--ink-soft); margin-left: 0.6rem; }
-.filter-bar__active--empty { font-style: italic; }
+.filter-chip__count {
+  font-weight: 500;
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-left: 0.15rem;
+}
+.filter-chip.is-on .filter-chip__count {
+  opacity: 0.9;
+}
+.filter-bar__active {
+  font-size: 0.83rem;
+  color: var(--ink-soft);
+  margin-left: 0.6rem;
+}
+.filter-bar__active--empty {
+  font-style: italic;
+}
 
 /* Map pin ring for picked */
-.stay-pin { position: relative; }
+.stay-pin {
+  position: relative;
+}
 .stay-pin__ring {
   position: absolute;
   top: -3px;
@@ -6915,9 +7057,154 @@ details.note-item[open] .note-summary-preview {
 
 /* Mobile */
 @media (max-width: 720px) {
-  .lodging-tldr { font-size: 0.88rem; }
-  .lodging-card__actions { flex-direction: column; }
-  .lodging-cta--primary { width: 100%; }
-  .drive-matrix__summary { grid-template-columns: 1fr; }
-  .shortlist-bar { top: 0; border-radius: 0; }
+  .lodging-tldr {
+    font-size: 0.88rem;
+  }
+  .lodging-card__actions {
+    flex-direction: column;
+  }
+  .lodging-cta--primary {
+    width: 100%;
+  }
+  .drive-matrix__summary {
+    grid-template-columns: 1fr;
+  }
+  .shortlist-bar {
+    top: 0;
+    border-radius: 0;
+  }
+}
+
+/* =====================================================================
+   MOMENT 3 — "THE SHAPE OF IT" (mini-map preview on the landing page)
+   Added 2026-05-17 by landing-map agent. Visually matches moment--days
+   (cream background, centered narrow column). The map itself is a
+   non-interactive Leaflet preview — drag/zoom disabled — that funnels
+   to map.html for the real interactive experience.
+   ===================================================================== */
+.moment--shape {
+  background: var(--cream);
+  color: var(--ink);
+  padding: 4rem 0 5rem;
+  min-height: auto;
+  position: relative;
+}
+.shape-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.2rem;
+  width: 100%;
+  text-align: center;
+}
+.shape-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--ink);
+  margin: 0.4rem 0 0.3rem;
+  line-height: 1.1;
+}
+.shape-sub {
+  color: var(--ink-soft);
+  margin: 0 0 1.4rem;
+  font-size: 1rem;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.moment-map {
+  width: 100%;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  background: #e8eef1;
+  z-index: 0;
+  position: relative;
+}
+@media (min-width: 720px) {
+  .moment-map {
+    height: 380px;
+  }
+}
+.moment-map--unavailable {
+  display: none;
+}
+.moment-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.1rem;
+  margin: 1rem auto 1.4rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  max-width: 36rem;
+}
+.moment-map-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+.moment-map-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+.moment-map-dot--salzburg {
+  background: #0033a0;
+}
+.moment-map-dot--obertraun {
+  background: #2f6e4f;
+}
+.moment-map-dot--summit {
+  background: #c89938;
+}
+.moment-map-dot--airport {
+  background: #6b2d8a;
+}
+
+/* Pins on the actual map (divIcon wrappers). Bigger than the legend dot
+   so they read from across the map; same color system. */
+.moment-map-pin-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+.moment-map-pin {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.moment-map-pin--salzburg {
+  background: #0033a0;
+}
+.moment-map-pin--obertraun {
+  background: #2f6e4f;
+}
+.moment-map-pin--summit {
+  background: #c89938;
+  width: 22px;
+  height: 22px;
+  box-shadow:
+    0 0 0 3px rgba(200, 153, 56, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.moment-map-pin--airport {
+  background: #6b2d8a;
+}
+
+.moment-cta--centered {
+  display: inline-block;
+  margin-top: 0.4rem;
 }

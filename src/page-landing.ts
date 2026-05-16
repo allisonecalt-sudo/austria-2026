@@ -1,4 +1,4 @@
-import { TRIP } from './trip-data.js';
+import { TRIP, LODGING_COORDS, NATURE_COORDS, STANDALONE_POIS } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
 
@@ -8,6 +8,184 @@ function escapeHtml(s: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// =====================================================================
+// Leaflet ambient types — minimal surface for the moment-3 mini-map.
+// Leaflet itself is loaded from CDN in index.html. Kept narrow because
+// the full type set lives in page-map.ts; landing only needs marker +
+// fitBounds + tileLayer.
+// =====================================================================
+interface MiniMap {
+  fitBounds(latLngs: Array<[number, number]>, opts?: { padding?: [number, number] }): void;
+  invalidateSize(): void;
+}
+interface MiniMarker {
+  bindTooltip(html: string, opts?: { permanent?: boolean; direction?: string }): MiniMarker;
+  addTo(m: MiniMap): MiniMarker;
+}
+interface MiniLeaflet {
+  map(el: HTMLElement | string, opts?: Record<string, unknown>): MiniMap;
+  tileLayer(
+    url: string,
+    opts: { attribution: string; maxZoom: number },
+  ): { addTo(m: MiniMap): void };
+  marker(latLng: [number, number], opts?: Record<string, unknown>): MiniMarker;
+  divIcon(opts: Record<string, unknown>): unknown;
+  polyline(
+    latLngs: Array<[number, number]>,
+    opts?: Record<string, unknown>,
+  ): { addTo(m: MiniMap): void };
+}
+
+// Local accessor — we deliberately DON'T augment `Window.L` here because
+// page-map.ts already does that with a different (richer) type and the
+// two pages share the same global namespace at type-check time.
+function getLeaflet(): MiniLeaflet | undefined {
+  return (window as unknown as { L?: MiniLeaflet }).L;
+}
+
+// Anchors for the moment-3 preview map. Each is one of the 4 bases (or
+// the airport). Coords pulled from trip-data.ts so the map of the trip
+// and the preview can never drift out of sync.
+//   - Salzburg base: master Linzergasse (Shabbat apartment, also adjacent
+//     to Chabad).
+//   - Obertraun anchor: Haus Edelweiss (Obertraun, 4-night mountain base).
+//   - Summit: Schafbergspitze (locked Wed-night summit overnight; the
+//     nature destination coord IS the hotel because it's at the summit).
+//   - Airport: Salzburg W. A. Mozart Airport (SZG) from STANDALONE_POIS.
+//
+// If any coord is missing (shouldn't happen — trip-data.ts is canonical),
+// we surface a console.warn (fail-loud rule) and skip the pin rather than
+// silently hide it.
+interface ShapeAnchor {
+  key: 'salzburg' | 'obertraun' | 'summit' | 'airport';
+  label: string;
+  sub: string;
+  latLng: [number, number] | null;
+}
+
+function getShapeAnchors(): ShapeAnchor[] {
+  const salzburgLodging = LODGING_COORDS['master Linzergasse'];
+  const obertraunLodging = LODGING_COORDS['Haus Edelweiss (Obertraun)'];
+  const summit = NATURE_COORDS['schafbergspitze'];
+  const airport = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
+
+  const anchors: ShapeAnchor[] = [
+    {
+      key: 'salzburg',
+      label: 'Salzburg',
+      sub: 'Shabbat',
+      latLng: salzburgLodging ? [salzburgLodging.lat, salzburgLodging.lng] : null,
+    },
+    {
+      key: 'obertraun',
+      label: 'Obertraun',
+      sub: 'mountain anchor',
+      latLng: obertraunLodging ? [obertraunLodging.lat, obertraunLodging.lng] : null,
+    },
+    {
+      key: 'summit',
+      label: 'Schafbergspitze',
+      sub: '1,783m summit',
+      latLng: summit ? [summit.lat, summit.lng] : null,
+    },
+    {
+      key: 'airport',
+      label: 'SZG airport',
+      sub: 'arrive + depart',
+      latLng: airport ? [airport.lat, airport.lng] : null,
+    },
+  ];
+
+  for (const a of anchors) {
+    if (!a.latLng) {
+      console.warn(`[shape-map] missing coord for anchor "${a.key}" — pin skipped`);
+    }
+  }
+  return anchors;
+}
+
+function initShapeMap(): void {
+  const el = document.querySelector<HTMLDivElement>('#moment-map');
+  if (!el) return;
+  const L = getLeaflet();
+  if (!L) {
+    console.warn('[shape-map] Leaflet not loaded — preview map skipped');
+    el.classList.add('moment-map--unavailable');
+    return;
+  }
+
+  const anchors = getShapeAnchors().filter(
+    (a): a is ShapeAnchor & { latLng: [number, number] } => a.latLng !== null,
+  );
+  if (anchors.length === 0) return;
+
+  const map = L.map(el, {
+    zoomControl: false,
+    scrollWheelZoom: false,
+    dragging: false,
+    touchZoom: false,
+    doubleClickZoom: false,
+    boxZoom: false,
+    keyboard: false,
+    tap: false,
+    attributionControl: true,
+  });
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  for (const a of anchors) {
+    const icon = L.divIcon({
+      html: `<span class="moment-map-pin moment-map-pin--${a.key}" aria-hidden="true"></span>`,
+      className: 'moment-map-pin-wrap',
+      iconSize: [22, 22],
+      iconAnchor: [11, 11],
+    });
+    L.marker(a.latLng, { icon, interactive: false, keyboard: false })
+      .bindTooltip(`<strong>${escapeHtml(a.label)}</strong><br />${escapeHtml(a.sub)}`, {
+        permanent: false,
+        direction: 'top',
+      })
+      .addTo(map);
+  }
+
+  // Route shape — visual hint of the week's loop. Not literal driving
+  // route; OSRM would over-engineer this. A subtle dashed polyline reads
+  // as "these connect" without lying about turn-by-turn.
+  // Order: airport (arrive) → Salzburg → Obertraun → Schafbergspitze →
+  // (descend) → airport (depart).
+  const byKey = Object.fromEntries(anchors.map((a) => [a.key, a.latLng])) as Record<
+    ShapeAnchor['key'],
+    [number, number]
+  >;
+  const routeOrder: Array<ShapeAnchor['key']> = [
+    'airport',
+    'salzburg',
+    'obertraun',
+    'summit',
+    'airport',
+  ];
+  const routePts = routeOrder.map((k) => byKey[k]).filter((p): p is [number, number] => !!p);
+  if (routePts.length >= 2) {
+    L.polyline(routePts, {
+      color: '#0033a0',
+      weight: 2.5,
+      opacity: 0.55,
+      dashArray: '6 6',
+      interactive: false,
+    }).addTo(map);
+  }
+
+  map.fitBounds(
+    anchors.map((a) => a.latLng),
+    { padding: [28, 28] },
+  );
+  // Recompute on next frame in case fonts/layout shifted height.
+  requestAnimationFrame(() => map.invalidateSize());
 }
 
 function bindLanding(): void {
@@ -40,6 +218,13 @@ function bindLanding(): void {
       })
       .join('');
   }
+
+  // Mini-map — moment 3 ("The shape of it"). Static-feeling preview of the
+  // 4-base geography: Salzburg / Obertraun / Schafbergspitze summit / SZG
+  // airport. Dragging + zoom disabled so it reads as a "shape" not an app —
+  // taps on legend or the "See full map →" CTA route to map.html for the
+  // real interactive experience.
+  initShapeMap();
 
   // Nav style switch — when hero is on-screen, nav is translucent over
   // the photo; off-screen, nav becomes solid on the cream background.

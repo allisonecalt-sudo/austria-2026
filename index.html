@@ -14,6 +14,13 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Leaflet CSS — for the moment-3 mini-map preview. Same CDN as map.html. -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
@@ -46,8 +53,8 @@
             Lakes for the week.<br />Salzburg for Shabbat.<br />Sunsets every night.
           </h1>
           <p class="moment-line">
-            Allison and Avital. Seven nights. Two apartments. One silent electric
-            boat back from St. Bartholomä as the Watzmann goes gold.
+            Allison and Avital. Seven nights. Two apartments. One silent electric boat back from St.
+            Bartholomä as the Watzmann goes gold.
           </p>
           <a href="#m-peak" class="moment-cue">scroll <span aria-hidden="true">↓</span></a>
         </div>
@@ -66,45 +73,78 @@
           <span class="moment-badge">⭐ The peak</span>
           <h2 class="moment-title moment-title--lyric">The last electric boat back.</h2>
           <p class="moment-line moment-line--peak">
-            Königssee is the only lake in Germany without combustion engines —
-            silent since 1909. We catch the late boat from St. Bartholomä.
-            Watzmann's east wall goes gold over our right shoulder. The lake goes
-            silver. Sunset on the water · <strong>20:50</strong>.
+            Königssee is the only lake in Germany without combustion engines — silent since 1909. We
+            catch the late boat from St. Bartholomä. Watzmann's east wall goes gold over our right
+            shoulder. The lake goes silver. Sunset on the water · <strong>20:50</strong>.
           </p>
           <p class="moment-line moment-line--peak" style="opacity: 0.85; font-size: 0.95rem">
             This is the you-will-stand-still moment of the trip. Hours, not minutes.
           </p>
         </div>
+        <a href="#m-shape" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
+      </section>
+
+      <!-- MOMENT 3 — THE SHAPE OF IT (map preview) -->
+      <section class="moment moment--shape" id="m-shape">
+        <div class="shape-inner">
+          <span class="moment-eyebrow moment-eyebrow--dark">The shape of it</span>
+          <h2 class="shape-title">4 bases · 1 summit · 1 airport drive</h2>
+          <p class="shape-sub">
+            Salzburg for Shabbat, the mountains for nature, the summit hotel for sunset, then home.
+          </p>
+          <div
+            id="moment-map"
+            class="moment-map"
+            role="application"
+            aria-label="Trip geography preview — Salzburg, Obertraun, Schafbergspitze summit, airport"
+          ></div>
+          <div class="moment-map-legend" aria-hidden="true">
+            <span class="moment-map-legend-item">
+              <span class="moment-map-dot moment-map-dot--salzburg"></span>Salzburg (Shabbat)
+            </span>
+            <span class="moment-map-legend-item">
+              <span class="moment-map-dot moment-map-dot--obertraun"></span>Obertraun (mountains)
+            </span>
+            <span class="moment-map-legend-item">
+              <span class="moment-map-dot moment-map-dot--summit"></span>Schafbergspitze (summit)
+            </span>
+            <span class="moment-map-legend-item">
+              <span class="moment-map-dot moment-map-dot--airport"></span>SZG airport
+            </span>
+          </div>
+          <a href="map.html" class="moment-cta moment-cta--centered">See full map →</a>
+        </div>
         <a href="#m-sleep" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
 
-      <!-- MOMENT 3 — WHERE WE SLEEP -->
+      <!-- MOMENT 4 — WHERE WE SLEEP -->
       <section class="moment moment--sleep" id="m-sleep">
         <img
           class="moment-img"
           src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/16860996.webp?k=2bc9d7e477477eb1fb17858d6f854b5a7d857dd1b4cf6f03b4b1def04c8b86e3&o="
           alt="Ferienhof Osl working farmhouse near Obertraun — lake-edge, farm-animal, balcony stay"
           loading="lazy"
-          onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1920px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg';"
+          onerror="
+            this.onerror = null;
+            this.src =
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1920px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg';
+          "
         />
         <div class="moment-veil moment-veil--bottom"></div>
         <div class="moment-body moment-body--bottom">
           <span class="moment-eyebrow">Where we sleep</span>
-          <h2 class="moment-title">
-            Lake out the window. Goats somewhere. The kitchen is yours.
-          </h2>
+          <h2 class="moment-title">Lake out the window. Goats somewhere. The kitchen is yours.</h2>
           <p class="moment-line">
-            Four deep nights at a working farmhouse 3 km from Hallstatt — full
-            kitchen, balcony, mountains right there. Plus a Linzergasse studio
-            five minutes from Chabad for Shabbat. Apartments only. No hotels. We
-            cook.
+            Four deep nights at a working farmhouse 3 km from Hallstatt — full kitchen, balcony,
+            mountains right there. Plus a Linzergasse studio five minutes from Chabad for Shabbat.
+            Apartments only. No hotels. We cook.
           </p>
           <a href="stay.html" class="moment-cta">See all 11 apartments →</a>
         </div>
         <a href="#m-shabbat" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
 
-      <!-- MOMENT 4 — SHABBAT -->
+      <!-- MOMENT 5 — SHABBAT -->
       <section class="moment moment--shabbat" id="m-shabbat">
         <img
           class="moment-img"
@@ -119,16 +159,16 @@
           <div class="candle-time">20:35</div>
           <p class="candle-label">Candle-lighting · Friday Jul 24</p>
           <p class="moment-line moment-line--center">
-            Three-minute walk to Chabad on Linzergasse. Kiddush lunch, long nap,
-            Mönchsberg climb in the late afternoon (no money, no lift — pure
-            Shabbat-legal). Sunset from the Salzach river bank. Havdalah
+            Three-minute walk to Chabad on Linzergasse. Kiddush lunch, long nap, Mönchsberg climb in
+            the late afternoon (no money, no lift — pure Shabbat-legal). Sunset from the Salzach
+            river bank. Havdalah
             <strong>21:49</strong>.
           </p>
         </div>
         <a href="#m-days" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
 
-      <!-- MOMENT 5 — THE 7 DAYS AT A GLANCE -->
+      <!-- MOMENT 6 — THE 7 DAYS AT A GLANCE -->
       <section class="moment moment--days" id="m-days">
         <div class="days-inner">
           <span class="moment-eyebrow moment-eyebrow--dark">The arc</span>
@@ -141,7 +181,7 @@
         </div>
       </section>
 
-      <!-- MOMENT 6 — CTA -->
+      <!-- MOMENT 7 — CTA -->
       <section class="moment moment--cta" id="m-cta">
         <div class="cta-inner">
           <h2 class="cta-title">Pick your way in.</h2>
@@ -182,14 +222,19 @@
             </a>
           </div>
           <p class="cta-foot">
-            Built for Avital · 2026-05-16 · v5 (pitch-deck pass) · Photos: Wikimedia
-            Commons (CC BY-SA) + Booking.com listings · Sunset times:
-            timeanddate.com
+            Built for Avital · 2026-05-17 · v6 (pitch-deck + map preview) · Photos: Wikimedia
+            Commons (CC BY-SA) + Booking.com listings · Sunset times: timeanddate.com
           </p>
         </div>
       </section>
     </main>
 
+    <!-- Leaflet JS — loaded before page-landing.ts so the moment-3 mini-map can init. -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script type="module" src="/src/page-landing.ts"></script>
   </body>
 </html>
