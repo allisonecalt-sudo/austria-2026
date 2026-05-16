@@ -29,6 +29,7 @@ export default defineConfig(({ command }) => ({
         preTrip: resolve(__dirname, 'pre-trip.html'),
         cafes: resolve(__dirname, 'cafes.html'),
         drivingAustria: resolve(__dirname, 'driving-austria.html'),
+        lakeSwimming: resolve(__dirname, 'lake-swimming.html'),
       },
     },
   },
