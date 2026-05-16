@@ -224,6 +224,12 @@ interface UnifiedListing {
   hasFreeParking: boolean;
   hasFarmAnimals: boolean;
   hasLakeView: boolean;
+  // Free cancellation (added 2026-05-17 evening by booking-genius agent —
+  // Allison's hard rule: "All bookings need free cancellation"). Default
+  // true for all booking.com listings (Booking offers free-cancel on the
+  // vast majority of properties; we filter out non-FC rates at booking time
+  // via URL params). Explicit `freeCancellation: false` opts out per listing.
+  freeCancellation: boolean;
   // Distance chips
   walkToChabadMin?: number;
   driveToAirportMin?: number;
@@ -441,6 +447,11 @@ function buildListings(): UnifiedListing[] {
       hasFreeParking: l.pickParking === 'free' || detectAmenity(pickDetails, /free\s*parking/i),
       hasFarmAnimals: false,
       hasLakeView: false,
+      // Allison's hard rule 2026-05-16: "All bookings need free cancellation."
+      // Defaults true for all booking.com properties (they offer FC on the
+      // vast majority of rates — URL filter below applies it at booking time).
+      // Explicit false in trip-data.ts opts out.
+      freeCancellation: l.pickFreeCancellation ?? true,
       walkToChabadMin: l.pickWalkToChabadMin,
       driveToAirportMin: l.pickDriveToAirportMin,
     };
@@ -488,6 +499,7 @@ function buildListings(): UnifiedListing[] {
         hasFreeParking: a.parking === 'free' || detectAmenity(dets, /free\s*parking/i),
         hasFarmAnimals: false,
         hasLakeView: false,
+        freeCancellation: a.freeCancellation ?? true,
         walkToChabadMin: a.walkToChabadMin,
         driveToAirportMin: a.driveToAirportMin,
       };
@@ -540,6 +552,7 @@ function buildListings(): UnifiedListing[] {
         hasFreeParking: p.parking === 'free' || detectAmenity(dets, /free\s*parking/i),
         hasFarmAnimals: false,
         hasLakeView: false,
+        freeCancellation: p.freeCancellation ?? true,
       };
       entry.hasFarmAnimals = detectAmenityAcross(entry, /farm|goat|horse|bauernhof/i);
       entry.hasLakeView = detectAmenityAcross(entry, /lake[-\s]?view|lakefront|lake[-\s]?edge/i);
@@ -865,6 +878,18 @@ function verifiedPill(): string {
   return `<span class="lodging-chip lodging-chip--verified" title="Last live-checked on Booking.com">✓ Verified ${VERIFIED_DATE_LABEL}</span>`;
 }
 
+// Free-cancellation pill — Allison's hard rule 2026-05-16: every listing on
+// the page MUST surface free-cancellation status. Green chip when true,
+// orange warning when false (the rare opt-out case). Booking URL filter
+// (bookingUrlWithDates above) also pre-filters the property page to
+// free-cancel rates only.
+function freeCancellationPill(fc: boolean): string {
+  if (fc) {
+    return '<span class="lodging-chip lodging-chip--good" title="Free cancellation rate available — Allison\'s hard rule">✓ Free cancellation</span>';
+  }
+  return '<span class="lodging-chip lodging-chip--warn" title="No free-cancellation rate visible — verify with host before booking">⚠ No free cancel</span>';
+}
+
 function datePill(base: BaseKey): string {
   const d = BASE_DATES[base];
   // The Shabbat / pre-flight framing is already baked into d.short per the
@@ -872,13 +897,18 @@ function datePill(base: BaseKey): string {
   return `<span class="lodging-chip lodging-chip--date">📅 ${escapeHtml(d.short)}</span>`;
 }
 
-// Booking URL with check-in/check-out + 2 adults baked in. Falls back to the
-// raw URL if it already has params.
+// Booking URL with check-in/check-out + 2 adults + FREE-CANCELLATION FILTER
+// baked in (Allison's hard rule 2026-05-16: "All bookings need free
+// cancellation"). The `nflt=fc%3D2` query param is Booking.com's free-cancel
+// filter; for search-result URLs it narrows the list; for property-detail
+// URLs it propagates to the rate-list view inside the property. Sort param
+// `order=price_from_low_to_high` favors the cheap free-cancel options first.
+// Falls back to the raw URL if it's not booking.com.
 function bookingUrlWithDates(rawUrl: string, base: BaseKey): string {
   const d = BASE_DATES[base];
   if (!rawUrl.includes('booking.com/')) return rawUrl;
   const sep = rawUrl.includes('?') ? '&' : '?';
-  return `${rawUrl}${sep}checkin=${d.bookingCheckIn}&checkout=${d.bookingCheckOut}&group_adults=2&no_rooms=1`;
+  return `${rawUrl}${sep}checkin=${d.bookingCheckIn}&checkout=${d.bookingCheckOut}&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2&order=price`;
 }
 
 // TLDR line — ≤50 words, scan-able. Tries to capture: price · BR · setting ·
@@ -950,8 +980,11 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
     .filter(Boolean)
     .join('');
 
-  // Date + verification row (above the essential pills).
-  const dateRow = [datePill(l.base), verifiedPill()].filter(Boolean).join('');
+  // Date + verification + free-cancel row (above the essential pills). Free-
+  // cancel pill added 2026-05-17 evening per Allison's hard rule.
+  const dateRow = [datePill(l.base), verifiedPill(), freeCancellationPill(l.freeCancellation)]
+    .filter(Boolean)
+    .join('');
 
   // ESSENTIAL row — the "right away" pills per Allison's 2026-05-17 directive:
   // beds + bedrooms + sleeps + kitchen + laundry + bath. Above the fold, never
