@@ -27,7 +27,9 @@ export function renderDayNav({ days, mountSelector }: DayNavRenderOptions): void
     .map((d, i) => {
       // Short label: "Day N" with date underneath.
       const dayN = `Day ${i + 1}`;
-      const shortDate = d.dateLabel.replace(/^(Friday|Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday) /, '').replace('July ', 'Jul ');
+      const shortDate = d.dateLabel
+        .replace(/^(Friday|Saturday|Sunday|Monday|Tuesday|Wednesday|Thursday) /, '')
+        .replace('July ', 'Jul ');
       return `<a class="day-pill" href="#${escapeHtml(d.id)}" data-day-id="${escapeHtml(d.id)}">
         <span class="pill-day">${escapeHtml(dayN)}</span>
         <span class="pill-date">${escapeHtml(shortDate)}</span>

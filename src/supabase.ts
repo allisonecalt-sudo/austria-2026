@@ -55,10 +55,9 @@ export async function insertNote(input: InsertNoteInput): Promise<Note> {
 }
 
 export async function listNotes(): Promise<Note[]> {
-  const res = await fetch(
-    `${SUPABASE_URL}/rest/v1/austria_notes?select=*&order=created_at.desc`,
-    { headers },
-  );
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/austria_notes?select=*&order=created_at.desc`, {
+    headers,
+  });
   if (!res.ok) {
     throw new Error(`List failed (${res.status})`);
   }

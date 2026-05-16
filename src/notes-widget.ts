@@ -44,6 +44,7 @@ function buildModal(): HTMLDivElement {
         <button class="btn" type="button" id="note-cancel">Cancel</button>
         <button class="btn primary" type="button" id="note-submit">Send</button>
       </div>
+      <p class="sub" style="margin-top:0.5rem; opacity:0.7; font-size:0.78rem;">Press Ctrl+K anytime to open this. ESC to close.</p>
     </div>
   `;
   return wrap;
@@ -112,6 +113,13 @@ export function initNotesWidget(): void {
     if (e.target === modal) close();
   });
   document.addEventListener('keydown', (e) => {
+    // Ctrl+K (or Cmd+K on Mac) opens the note modal globally.
+    // Allison 2026-05-16: "create short for ctrl k fo rleave claude a cntoe"
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (!modal.classList.contains('open')) open();
+      return;
+    }
     if (e.key === 'Escape' && modal.classList.contains('open')) close();
   });
 

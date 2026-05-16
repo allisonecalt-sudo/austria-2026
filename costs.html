@@ -6,7 +6,7 @@
     <title>Costs · Austria 2026</title>
     <meta
       name="description"
-      content="Visual budget breakdown: 7 nights, 2 people, against the €2,800 ceiling."
+      content="Visual budget — 7 nights, 2 people. All numbers in shekel against the ₪13,000 target."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,52 +32,71 @@
 
     <main class="container">
       <header style="margin-bottom: 1.4rem; text-align: center">
-        <div class="eyebrow">Money · 7 nights, 2 people</div>
+        <div class="eyebrow">Money · 7 nights, 2 people · shekel-first</div>
         <h1>What it costs</h1>
       </header>
 
       <div class="cost-total">
-        <div class="cost-total-num">€<span data-bind="total-eur"></span></div>
-        <div class="cost-total-sub">
-          ≈ ₪<span data-bind="total-nis"></span> · all-in except flights and rental car
-        </div>
-        <div class="cost-total-ceiling">
-          ✓ Under €<span data-bind="ceiling"></span> ceiling · ~€390 headroom
-        </div>
+        <div class="cost-total-num">₪10,750</div>
+        <div class="cost-total-sub">≈ €2,699 · all-in including flight + rental car</div>
+        <div class="cost-total-ceiling">Tracking against ₪13,000 target · ~₪2,250 of headroom</div>
       </div>
 
       <div class="cost-bar-wrap">
         <div class="cost-bar" aria-label="Cost breakdown">
-          <div class="cost-bar-seg lodging" style="flex-grow: 1027" title="Lodging €1,027">
-            €1,027
+          <div class="cost-bar-seg lodging" style="flex-grow: 4077" title="Lodging ₪4,077">
+            ₪4,077
           </div>
-          <div class="cost-bar-seg activities" style="flex-grow: 364" title="Activities €364">
-            €364
+          <div class="cost-bar-seg activities" style="flex-grow: 1445" title="Activities ₪1,445">
+            ₪1,445
+          </div>
+          <div class="cost-bar-seg food" style="flex-grow: 2580" title="Food + gas + buffer ₪2,580">
+            ₪2,580
           </div>
           <div
-            class="cost-bar-seg food"
-            style="flex-grow: 1019"
-            title="Food + gas + buffer €1,019"
+            class="cost-bar-seg activities"
+            style="flex-grow: 1162; background: var(--blue-lake)"
+            title="Rental car ₪1,162"
           >
-            €1,019
+            ₪1,162
+          </div>
+          <div
+            class="cost-bar-seg lodging"
+            style="flex-grow: 1486; background: var(--gold-sun)"
+            title="Flight ₪1,486"
+          >
+            ₪1,486
           </div>
         </div>
         <div class="cost-legend">
           <div class="cost-legend-item">
             <span class="cost-legend-dot lodging"></span>
-            <span><strong>Lodging</strong> <span class="cost-legend-num">€1,027 · 43%</span></span>
+            <span><strong>Lodging</strong> <span class="cost-legend-num">₪4,077 · 38%</span></span>
           </div>
           <div class="cost-legend-item">
             <span class="cost-legend-dot activities"></span>
             <span
-              ><strong>Activities</strong> <span class="cost-legend-num">€364 · 15%</span></span
+              ><strong>Activities</strong> <span class="cost-legend-num">₪1,445 · 13%</span></span
             >
           </div>
           <div class="cost-legend-item">
             <span class="cost-legend-dot food"></span>
             <span
               ><strong>Food, gas, buffer</strong>
-              <span class="cost-legend-num">€1,019 · 42%</span></span
+              <span class="cost-legend-num">₪2,580 · 24%</span></span
+            >
+          </div>
+          <div class="cost-legend-item">
+            <span class="cost-legend-dot activities" style="background: var(--blue-lake)"></span>
+            <span
+              ><strong>Rental car</strong> <span class="cost-legend-num">₪1,162 · 11%</span></span
+            >
+          </div>
+          <div class="cost-legend-item">
+            <span class="cost-legend-dot lodging" style="background: var(--gold-sun)"></span>
+            <span
+              ><strong>Flight (Allison)</strong>
+              <span class="cost-legend-num">₪1,486 · 14%</span></span
             >
           </div>
         </div>
@@ -89,17 +108,19 @@
           text-align: center;
           font-size: 0.95rem;
           color: var(--ink-soft);
-          max-width: 580px;
+          max-width: 620px;
           margin: 1.6rem auto 0;
         "
       >
-        Real Booking.com prices for July 24-31. Activity entry fees from operator sites. Food / gas
-        / buffer follow the Montenegro template (~€67/wk groceries scaled up + €130 Chabad Shabbat
-        + €60 gas + buffer). EUR→NIS at ₪3.97.
+        Real Booking.com lodging prices. Activity entry fees from operator sites. Car is the Opel
+        Mokka pick on the <a href="rental-car.html">Rental car page</a>. Flight is Allison's actual
+        El Al ticket (₪1,486). Food estimate down vs v3 — Allison brings shelf-stable from Israel,
+        fresh produce + dairy locally. Shekel-first because the actual ceiling lives in NIS. EUR
+        shown at ₪3.97/€1.
       </p>
 
       <details class="cost-section">
-        <summary>Lodging detail — 3 bookings, 7 nights</summary>
+        <summary>Lodging detail — 3 bookings, 7 nights (₪4,077)</summary>
         <div class="cost-section-body">
           <table class="costs">
             <thead>
@@ -143,14 +164,75 @@
             </tbody>
           </table>
           <p style="font-size: 0.9rem; color: var(--ink-soft)">
-            Cheaper-pick variant available in the Stay page alternates — see Junker's (€91) +
-            Ferienhof Osl (€138) etc.
+            Lean tier variants in the <a href="stay.html">Stay page</a> — Junker's at €91/night,
+            Ferienhof Osl at €138/night, etc. Tiers are guidelines, picks above are the
+            experience-first defaults.
           </p>
         </div>
       </details>
 
       <details class="cost-section">
-        <summary>Activity entry fees — real ticket prices</summary>
+        <summary>Rental car — Opel Mokka (Compact SUV automatic) (₪1,162)</summary>
+        <div class="cost-section-body">
+          <table class="costs">
+            <tbody>
+              <tr>
+                <td><strong>Vehicle</strong></td>
+                <td>Opel Mokka — Compact SUV automatic (one notch up from the Montenegro Yaris)</td>
+              </tr>
+              <tr>
+                <td><strong>Pickup / Drop-off</strong></td>
+                <td>Salzburg airport (SZG), Fri 24 Jul 09:00 → Fri 31 Jul 05:00</td>
+              </tr>
+              <tr>
+                <td><strong>Provider</strong></td>
+                <td>DiscoverCars via Kayak (live-priced 2026-05-16)</td>
+              </tr>
+              <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>$305 USD ≈ €284 ≈ ₪1,162</strong></td>
+              </tr>
+              <tr>
+                <td><strong>Per day</strong></td>
+                <td>~$43.50 / ~€40.50</td>
+              </tr>
+              <tr>
+                <td><strong>Source</strong></td>
+                <td><a href="rental-car.html">Full options on rental-car page →</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size: 0.9rem; color: var(--ink-soft)">
+            Not included here: Austria motorway vignette (~€11.50), per-trip fuel (in food/gas
+            bucket below), Grossglockner separate toll if we do that road.
+          </p>
+        </div>
+      </details>
+
+      <details class="cost-section">
+        <summary>Flight — Allison's El Al ticket (₪1,486)</summary>
+        <div class="cost-section-body">
+          <table class="costs">
+            <tbody>
+              <tr>
+                <td><strong>Booked</strong></td>
+                <td>El Al · confirmation ZP96JK · confirmed 2026-05-16</td>
+              </tr>
+              <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>₪1,486</strong> (Allison's actual ticket — Avital books separately)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="font-size: 0.9rem; color: var(--ink-soft)">
+            Avital's flight isn't included — separate booking. This number tracks Allison's leg
+            only.
+          </p>
+        </div>
+      </details>
+
+      <details class="cost-section">
+        <summary>Activity entry fees — real ticket prices (₪1,445)</summary>
         <div class="cost-section-body">
           <table class="costs">
             <thead>
@@ -216,7 +298,7 @@
       </details>
 
       <details class="cost-section">
-        <summary>Food, gas, parking, buffer</summary>
+        <summary>Food, gas, parking, buffer — Israel-pack strategy (₪2,580)</summary>
         <div class="cost-section-body">
           <table class="costs">
             <thead>
@@ -229,10 +311,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Groceries + Spar runs (7 days, 2 ppl)</td>
-                <td class="num">200</td>
-                <td class="num">794</td>
-                <td>Montenegro was €67/wk; Austria pricier</td>
+                <td>Fresh groceries + Spar runs (7 days, 2 ppl)</td>
+                <td class="num">130</td>
+                <td class="num">516</td>
+                <td>Mostly produce + dairy w/ hechsher; pantry from Israel</td>
               </tr>
               <tr>
                 <td>Chabad Shabbat meals (Fri dinner + Sat lunch)</td>
@@ -242,8 +324,8 @@
               </tr>
               <tr>
                 <td>Coffees / ice cream / cafés</td>
-                <td class="num">90</td>
-                <td class="num">357</td>
+                <td class="num">75</td>
+                <td class="num">298</td>
                 <td>Bad Ischl, mountain lodges, lakefront</td>
               </tr>
               <tr>
@@ -259,38 +341,54 @@
                 <td>Cash buffer</td>
               </tr>
               <tr>
-                <td>Inevitable-buffer (~25%)</td>
-                <td class="num">499</td>
-                <td class="num">1,982</td>
-                <td>The "one more thing" line</td>
+                <td>Buffer — "one more thing"</td>
+                <td class="num">215</td>
+                <td class="num">853</td>
+                <td>Trimmed from v3 since food comes from Israel</td>
               </tr>
               <tr class="total">
-                <td>Misc total</td>
-                <td class="num">1,019</td>
-                <td class="num">4,046</td>
+                <td>Food + gas + parking total</td>
+                <td class="num">650</td>
+                <td class="num">2,580</td>
                 <td></td>
               </tr>
             </tbody>
           </table>
+          <p style="font-size: 0.9rem; color: var(--ink-soft)">
+            Down from v3's ₪4,046 — Allison brings shelf-stable kosher pantry from Israel
+            (Montenegro shopping list applies: tuna, pasta, oatmeal, granola bars, halva, instant
+            coffee, sealed challot, kiddush wine, etc.). Only fresh produce + sealed-hechsher dairy
+            bought locally.
+          </p>
         </div>
       </details>
 
       <section class="section" style="margin-top: 3rem">
         <div class="callout">
-          <h3>Not in these numbers</h3>
+          <h3>How the numbers track</h3>
           <ul>
-            <li><strong>Flight</strong> — separate El Al budget</li>
             <li>
-              <strong>Rental car</strong> — see the Logistics page (Montenegro Yaris was €50/day)
+              <strong>Target:</strong> ₪13,000 (Allison's set ceiling — soft, not a hard cap).
             </li>
-            <li><strong>Duty-free / impulse buys</strong> — what they are, when they happen</li>
-            <li><strong>Splitwise settlement</strong> — that ledger lives elsewhere</li>
+            <li><strong>Projected total:</strong> ₪10,750 — under target by ~₪2,250.</li>
+            <li>
+              <strong>Headroom uses:</strong> upgrade lodging if a better listing appears, swap in a
+              higher-end activity, or just bank the headroom for splurges on the day.
+            </li>
+            <li>
+              <strong>Avital's flight</strong> is separate, not in this total. Splitwise settles
+              50/50 on shared lines (lodging, car, food, activities) — Allison's flight is hers
+              alone.
+            </li>
           </ul>
         </div>
       </section>
     </main>
 
-    <footer>EUR/NIS at ₪3.97 · Booking.com prices verified live 2026-05-15</footer>
+    <footer>
+      Shekel-first · EUR/NIS at ₪3.97 · Booking.com prices verified 2026-05-15 · Car prices
+      live-Kayak 2026-05-16 · Flight: El Al ZP96JK 2026-05-16
+    </footer>
 
     <script type="module" src="/src/page-costs.ts"></script>
   </body>

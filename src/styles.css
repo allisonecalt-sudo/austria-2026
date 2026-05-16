@@ -42,7 +42,13 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
   font-size: 17px;
   line-height: 1.65;
   color: var(--ink);
@@ -1667,9 +1673,13 @@ footer {
 }
 
 img[loading='lazy']:not(.loaded) {
-  background:
-    linear-gradient(110deg, var(--green-mist) 8%, var(--blue-mist) 18%, var(--green-mist) 33%) 0 0 /
-      200% 100%;
+  background: linear-gradient(
+      110deg,
+      var(--green-mist) 8%,
+      var(--blue-mist) 18%,
+      var(--green-mist) 33%
+    )
+    0 0 / 200% 100%;
   animation: shimmer 1.8s linear infinite;
 }
 img.loaded {
@@ -1697,4 +1707,165 @@ img.loaded {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Shabbat marquee — make candle-lighting + Havdalah glanceable at top of shabbat.html */
+.shabbat-marquee {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.9rem;
+  margin: 1.4rem 0 1.8rem;
+}
+@media (min-width: 640px) {
+  .shabbat-marquee {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.1rem;
+  }
+}
+.shabbat-time-card {
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold-warm));
+  border: 1px solid var(--gold-sun);
+  border-radius: 16px;
+  padding: 1.4rem 1.5rem 1.5rem;
+  box-shadow: var(--shadow-soft);
+}
+.shabbat-time-card .smc-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.4rem;
+}
+.shabbat-time-card .smc-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.6rem, 8vw, 3.6rem);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.45rem;
+}
+.shabbat-time-card .smc-when {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  margin-bottom: 0.35rem;
+}
+.shabbat-time-card .smc-note {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+/* Map cluster blocks — "if you go here, sleep here" pairings */
+.map-cluster-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+@media (min-width: 720px) {
+  .map-cluster-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.map-cluster {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green-deep);
+  border-radius: 14px;
+  padding: 1.2rem 1.3rem 1.3rem;
+  box-shadow: var(--shadow-soft);
+}
+.map-cluster.cluster-berchtesgaden {
+  border-left-color: var(--blue-lake);
+}
+.map-cluster.cluster-hohe-tauern {
+  border-left-color: var(--gold-deep);
+}
+.map-cluster.cluster-slovenia {
+  border-left-color: var(--ink-soft);
+}
+.map-cluster h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.2rem;
+}
+.map-cluster .mc-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+}
+.map-cluster .mc-places {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 0 0 0.85rem;
+}
+.map-cluster .mc-places strong {
+  color: var(--ink);
+}
+.map-cluster .mc-sleep-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-deep);
+  margin: 0 0 0.4rem;
+}
+.map-cluster.cluster-berchtesgaden .mc-sleep-label {
+  color: var(--blue-lake);
+}
+.map-cluster.cluster-hohe-tauern .mc-sleep-label {
+  color: var(--gold-deep);
+}
+.map-cluster .mc-sleep {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.map-cluster .mc-sleep a {
+  color: var(--green-deep);
+  font-weight: 600;
+  border-bottom: 1px solid rgba(46, 93, 79, 0.3);
+}
+.map-cluster .mc-sleep a:hover {
+  border-bottom-color: var(--green-deep);
+}
+
+/* Map pin legend */
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.1rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+}
+.map-legend .pin-dot {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+.pin-dot.dot-salzkammergut {
+  background: var(--green-deep);
+}
+.pin-dot.dot-berchtesgaden {
+  background: var(--blue-lake);
+}
+.pin-dot.dot-hohe-tauern {
+  background: var(--gold-deep);
+}
+.pin-dot.dot-slovenia {
+  background: var(--ink-soft);
+}
+.pin-dot.dot-lodging {
+  background: var(--gold-sun);
+  border: 2px solid var(--ink);
 }

@@ -158,9 +158,9 @@ export const TRIP: TripData = {
     "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — Hallstatt area for 4 deep nights (the Žabljak of this trip). Day trips from there to Königssee, Gosausee, Wolfgangsee, Werfen ice cave. Thursday we drive back to a quiet apartment 4 km from Salzburg airport so Friday morning's flight is a 10-minute drive. Two moves total. Every night ends at a named sunset spot with a real time.",
   natureAnchor:
     'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay that earned its name in Montenegro at Žabljak.',
-  totalCostEur: 2410,
-  totalCostNis: 9568,
-  ceilingEur: 2800,
+  totalCostEur: 2699,
+  totalCostNis: 10750,
+  ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target
   peakMoment: {
     day: 'Tuesday Jul 28',
     spot: 'Königssee — last electric boat back from St. Bartholomä at sunset',
@@ -1049,16 +1049,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     walk: 'easy-hike',
     walkNote: '3km gorge walk with bridges. Easy, non-strenuous; ~1h20 round-trip to bridge 19.',
     pairsWith: ['konigssee', 'hintersee-ramsau'],
-    feature:
-      'Just over the German border, 25 min from Salzburg. Easy gorge walk, deep cold water.',
+    feature: 'Just over the German border, 25 min from Salzburg. Easy gorge walk, deep cold water.',
     hero: {
       src: NIMG.almbachklamm,
       alt: 'Almbachklamm gorge cauldron',
       credit: NCREDIT.almbachklamm,
     },
     links: {
-      official:
-        'https://www.berchtesgaden.de/en/nature/hiking-paradise/almbach-gorge-almbachklamm',
+      official: 'https://www.berchtesgaden.de/en/nature/hiking-paradise/almbach-gorge-almbachklamm',
       wikipedia: 'https://en.wikipedia.org/wiki/Almbachklamm',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Almbachklamm, Marktschellenberg, Germany'),
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Almbachklamm, Marktschellenberg, Germany'),

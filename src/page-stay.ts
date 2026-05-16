@@ -1,6 +1,6 @@
 // Entry script for /stay.html — real Booking.com lodging listings per base.
 
-import { TRIP } from './trip-data.js';
+import { TRIP, type BudgetTier, type LodgingPlatform } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 
 function escapeHtml(s: string): string {
@@ -9,6 +9,37 @@ function escapeHtml(s: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function tierBadge(tier?: BudgetTier): string {
+  if (!tier) return '';
+  const map: Record<BudgetTier, string> = {
+    lean: '💰 Lean',
+    standard: '💰💰 Standard',
+    splurge: '💰💰💰 Mid-high',
+  };
+  return `<span class="chip" title="Budget tier">${map[tier]}</span>`;
+}
+
+function platformBadge(p?: LodgingPlatform): string {
+  if (!p) return '';
+  return `<span class="chip">${p === 'booking' ? 'Booking.com' : 'Airbnb'}</span>`;
+}
+
+function walkBadge(min?: number): string {
+  if (min === undefined) return '';
+  return `<span class="chip" title="Walk to Chabad Salzburg">🚶 ${min} min to Chabad</span>`;
+}
+
+function driveBadge(min?: number): string {
+  if (min === undefined) return '';
+  return `<span class="chip" title="Drive to airport terminal">🚗 ${min} min to SZG</span>`;
+}
+
+function chipRow(chips: string[]): string {
+  const non = chips.filter(Boolean);
+  if (non.length === 0) return '';
+  return `<div class="day-meta" style="margin-top:0.6rem;">${non.join('')}</div>`;
 }
 
 function renderLodging(l: (typeof TRIP.lodgings)[number]): string {
@@ -21,6 +52,12 @@ function renderLodging(l: (typeof TRIP.lodgings)[number]): string {
           <div class="alt-name">${escapeHtml(a.name)}</div>
           <div class="alt-meta">${escapeHtml(a.review)} · <strong>${escapeHtml(a.pricePerNight)}</strong></div>
           <p class="alt-note">${escapeHtml(a.note)}</p>
+          ${chipRow([
+            tierBadge(a.budgetTier),
+            platformBadge(a.platform),
+            walkBadge(a.walkToChabadMin),
+            driveBadge(a.driveToAirportMin),
+          ])}
           <div class="alt-cta">View on Booking.com →</div>
         </div>
       </a>`,
@@ -42,6 +79,12 @@ function renderLodging(l: (typeof TRIP.lodgings)[number]): string {
           <h3>${escapeHtml(l.pickName)}</h3>
           <div class="pick-meta">${escapeHtml(l.pickReview)} · <strong>${escapeHtml(l.pickPrice)}</strong></div>
           <p class="pick-why">${escapeHtml(l.pickWhy)}</p>
+          ${chipRow([
+            tierBadge(l.pickBudgetTier),
+            platformBadge(l.pickPlatform),
+            walkBadge(l.pickWalkToChabadMin),
+            driveBadge(l.pickDriveToAirportMin),
+          ])}
           <div class="pick-cta">View on Booking.com →</div>
         </div>
       </a>
