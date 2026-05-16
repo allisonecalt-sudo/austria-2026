@@ -6,13 +6,20 @@
     <title>Where we sleep · Austria 2026</title>
     <meta
       name="description"
-      content="Real Booking.com apartments for each base — Salzburg, Hallstatt area, airport return. All searched live, all 8.5+, all with kitchens."
+      content="22+ real Booking.com apartments across 5 bases — Salzburg, Obertraun, Berchtesgaden, St. Wolfgang, Airport. Filterable, three views, embedded map."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+    />
+    <!-- Leaflet for the embedded lodging map -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
     />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
@@ -42,46 +49,85 @@
             font-size: 1rem;
           "
         >
-          <strong>New (2026-05-16):</strong> the 4-night midweek anchor isn't locked. There are
-          <strong>4 base-configuration options</strong> — Obertraun, Berchtesgaden, split 2+2, or
-          St. Wolfgang — each with its own drive matrix + lodging picks + cost delta.
+          <strong>New (2026-05-16):</strong> 22+ vetted apartments across 5 bases — Salzburg,
+          Obertraun, Berchtesgaden, St. Wolfgang, and the Airport orbit. Use the filter chips below
+          to narrow by base, budget, vibe, bedrooms, or amenities. Toggle the view (List / Grid /
+          Map) at the top.
           <a href="bases.html" style="font-weight: 700">See the 4 base options →</a>
         </p>
-        <p class="lead-block">
-          Below: lodging cards under the <strong>current locked plan</strong> (Salzburg Shabbat +
-          Obertraun midweek + airport last night). Real Booking.com apartments, searched live on
-          2026-05-15 for the actual nights of the trip. All have kitchens (we cook — no kosher
-          restaurants in the region). All have 8.5+ reviews. All in the €80-200/night zone — same
-          shape as the Montenegro apartments that worked (Studio Apartman Rea, Apartments Mitende,
-          Apartmani Jezero).
-        </p>
         <p class="lead-block" style="color: #4b5a62; font-size: 0.95rem">
-          <strong>Two moves, three apartments.</strong> Salzburg for Shabbat (2 nights) → Hallstatt
-          area as the nature anchor (4 nights, the Žabljak of this trip) → Salzburg airport-side
-          apartment for the last night (10-min drive to terminal Friday morning).
-        </p>
-        <p
-          class="lead-block"
-          style="
-            background: var(--green-mist);
-            border-left: 3px solid var(--green-deep);
-            padding: 0.7rem 1rem;
-            font-size: 0.92rem;
-            color: var(--ink-soft);
-          "
-        >
-          Prices shown are what Booking.com displayed for these exact nights. Final price at booking
-          time may shift ±10-15%. Click through to verify availability before booking.
+          Real Booking.com apartments, searched live 2026-05-15 for the actual trip nights. All have
+          kitchens (we cook — no kosher restaurants in the region). All in the €80-220/night zone —
+          Montenegro template applied.
         </p>
       </header>
 
-      <div id="lodgings"></div>
+      <!-- Embedded map (lodging-only — color-coded by base) -->
+      <section class="stay-map-wrap" aria-label="Lodging map">
+        <div id="stay-map" class="stay-map"></div>
+        <div class="stay-map-legend">
+          <span
+            ><span class="stay-map-legend__dot" style="background: #3a6f8f"></span>Salzburg</span
+          >
+          <span
+            ><span class="stay-map-legend__dot" style="background: #2e5d4f"></span>Obertraun /
+            Hallstatt</span
+          >
+          <span
+            ><span class="stay-map-legend__dot" style="background: #7a4f8f"></span
+            >Berchtesgaden</span
+          >
+          <span
+            ><span class="stay-map-legend__dot" style="background: #2a8a8a"></span>St.
+            Wolfgang</span
+          >
+          <span><span class="stay-map-legend__dot" style="background: #777b7e"></span>Airport</span>
+        </div>
+      </section>
+
+      <!-- Sticky view-toggle -->
+      <div class="view-toggle-wrap">
+        <div id="view-toggle"></div>
+        <button
+          type="button"
+          class="filter-sheet-btn"
+          id="filter-sheet-open"
+          aria-label="Open filters"
+        >
+          ⚙ Filters
+        </button>
+      </div>
+
+      <!-- Filter bar (desktop = inline, mobile = collapsible sheet) -->
+      <aside class="filter-bar" aria-label="Filter listings">
+        <div class="filter-bar__head">
+          <h2 class="filter-bar__title">Filters</h2>
+          <button
+            type="button"
+            class="filter-sheet-close"
+            id="filter-sheet-close"
+            aria-label="Close filters"
+          >
+            ✕
+          </button>
+        </div>
+        <div id="filter-bar"></div>
+      </aside>
+
+      <!-- Rendered view (list / grid / map) -->
+      <div id="stay-listings"></div>
     </main>
 
     <footer>
-      Booking.com searched 2026-05-15 · Listings filter: ht_id=201 (apartments), review_score≥85
+      Booking.com searched 2026-05-15 · 22+ listings across 5 bases · Filters AND together · Map ©
+      OpenStreetMap contributors
     </footer>
 
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script type="module" src="/src/page-stay.ts"></script>
   </body>
 </html>
