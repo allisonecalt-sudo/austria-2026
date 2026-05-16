@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pre-trip countdown · Austria 2026</title>
+    <meta
+      name="description"
+      content="T-2 weeks to departure day. Checklist with localStorage state — checkmarks persist across reloads."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="itinerary.html">Trip</a>
+          <a href="stay.html">Stay</a>
+          <a href="logistics.html" class="active">Logistics</a>
+          <a href="costs.html">Costs</a>
+          <a href="notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header style="margin-bottom: 1.6rem">
+        <div class="eyebrow">2 weeks out · countdown</div>
+        <h1>Pre-trip checklist</h1>
+        <p class="lead-block">
+          The compressed timeline — what needs to happen and when. Check boxes are saved in your
+          browser (localStorage), so progress persists when you come back. Reset at the bottom if
+          you need a clean start.
+        </p>
+        <div class="checklist-progress" data-progress-pill>
+          <span data-progress-text>0 / 0 done</span>
+        </div>
+      </header>
+
+      <section class="timeline" id="checklist">
+        <div class="timeline-stage" data-stage="t-minus-2-weeks">
+          <div class="timeline-stage-head">
+            <div class="timeline-stage-date">Mon Jul 13</div>
+            <h2>T-2 weeks · the long-lead asks</h2>
+          </div>
+          <ul class="checklist">
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t14-chabad-whatsapp" />
+                <span>
+                  <strong>WhatsApp Chani at Chabad Salzburg</strong> at
+                  <a href="https://wa.me/4367683181555" target="_blank" rel="noreferrer noopener"
+                    >+43 676 8318 1555</a
+                  >
+                  — lock Friday night dinner + Saturday lunch reservations for 2. Mention kosher
+                  shopping help (Mann's Bakery challah) + any dietary specifics.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t14-kosher-tirol" />
+                <span>
+                  <strong>Email Kosher Tirol</strong> at
+                  <a href="mailto:info@koshertirol.com">info@koshertirol.com</a> — ask which Spar
+                  branches in Salzburg currently carry their hechshered dairy + which products. They
+                  rotate stock; better to know before landing.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t14-airbnb-check" />
+                <span>
+                  <strong>Re-confirm both apartments</strong> with hosts (Linzergasse Salzburg +
+                  Obertraun base) — check-in instructions, key pickup, kitchen induction-plate
+                  question if Shabbat-relevant. Save host phone numbers in your phone.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t14-airport-night" />
+                <span>
+                  <strong>Confirm Thursday night airport-area lodging</strong> — required for the
+                  05:00 Friday Jul 31 flight. Front-desk hours / late check-in / shuttle to terminal
+                  if any.
+                </span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="timeline-stage" data-stage="t-minus-1-week">
+          <div class="timeline-stage-head">
+            <div class="timeline-stage-date">Fri Jul 17</div>
+            <h2>T-1 week · lock the logistics</h2>
+          </div>
+          <ul class="checklist">
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t7-rental-car" />
+                <span>
+                  <strong>Confirm rental car booking</strong> — whichever option wins the
+                  rental-car-page QA. Check pickup desk hours for Fri Jul 24 06:00-09:00, confirm
+                  cross-border-DE included, vignette included or to-buy.
+                  <a href="rental-car.html">See rental car options →</a>
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t7-idp" />
+                <span>
+                  <strong>International Driving Permit (IDP)</strong> — print + bring. Israeli
+                  license alone may not be honored at all desks. Get it from MEMSI if you don't have
+                  one valid through Aug 2026.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t7-flight-checkin" />
+                <span>
+                  <strong>Set flight check-in reminders</strong> — outbound 24h before departure
+                  (push notification), return 24h before. Pre-pay any baggage you'll add.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t7-cash" />
+                <span>
+                  <strong>Cash:</strong> withdraw €200 cash before flying — for parking machines,
+                  rural cafés, donations at small village churches, anywhere card-shy. Top up at
+                  Salzburg ATM if you run low.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t7-insurance" />
+                <span>
+                  <strong>Travel insurance</strong> — verify coverage dates Jul 24-31 incl. Germany
+                  day-trip, save policy PDF to phone offline.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t7-data" />
+                <span>
+                  <strong>Phone data plan</strong> — Austria + Germany roaming or eSIM (Airalo
+                  Europe 5GB ~$15). Check that Google Maps + WhatsApp will work day one.
+                </span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="timeline-stage" data-stage="t-minus-3-days">
+          <div class="timeline-stage-head">
+            <div class="timeline-stage-date">Tue Jul 21</div>
+            <h2>T-3 days · pack</h2>
+          </div>
+          <ul class="checklist">
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t3-shelf-stable" />
+                <span>
+                  <strong>Shelf-stable food pack</strong> — full Montenegro list (instant coffee,
+                  pita, crackers, oatmeal, pasta, quinoa, jars, bars, dried fruit, tuna packets,
+                  salami, jerky, chickpeas, tehina, almond butter, mayo, S&amp;P grinder).
+                  <a href="packing.html">Full list →</a>
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t3-kitchen-kit" />
+                <span>
+                  <strong>Kitchen kit</strong> — small dairy pan, knife, cutting board, utensils,
+                  small spice baggies, dish soap, sponge. Don't trust the apartment to have
+                  kosher-separable everything.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t3-clothes" />
+                <span>
+                  <strong>Clothes — Salzkammergut weather</strong>: light rain jacket, layers
+                  (mornings 13°C, afternoons 26°C), hiking shoes for Hallstatt + Krippenstein, one
+                  warm layer for the ice cave (1°C inside), comfortable city-walking shoes for
+                  Salzburg, Shabbat clothes for 2 meals.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t3-electronics" />
+                <span>
+                  <strong>Electronics</strong> — EU adapter (Type F), phone chargers, camera + spare
+                  battery, backup battery pack, e-reader if you're bringing one.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t3-meds" />
+                <span>
+                  <strong>Medications + first aid</strong> — full strip of anything prescribed,
+                  ibuprofen, antihistamine, blister plasters (Salzburg cobblestones), motion
+                  sickness for the Königssee boat if you're prone.
+                </span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="timeline-stage" data-stage="t-minus-1-day">
+          <div class="timeline-stage-head">
+            <div class="timeline-stage-date">Thu Jul 23 · Tisha b'Av</div>
+            <h2>T-1 day · finish packing, light fast</h2>
+          </div>
+          <ul class="checklist">
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t1-tisha-bav" />
+                <span>
+                  <strong>Tisha b'Av observance</strong> — fast begins Wed evening, ends Thu
+                  evening. Plan a light fast (low-energy, indoors), no Tisha-b'Av flight scheduling
+                  conflicts (you fly Friday morning).
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t1-laundry" />
+                <span>
+                  <strong>Last laundry run</strong> — Thursday afternoon if fast allows, otherwise
+                  Wednesday. Pack everything by Thursday night.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t1-docs" />
+                <span>
+                  <strong>Document check</strong> — passport (6+ months validity), IDP, license,
+                  vaccination card if needed, insurance card, printed copies of booking
+                  confirmations (rental car + apartments) in case phone dies.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t1-charge" />
+                <span>
+                  <strong>Charge everything</strong> — phone to 100%, backup battery to 100%, camera
+                  battery, e-reader. Pack chargers in carry-on (don't check them).
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="t1-offline-maps" />
+                <span>
+                  <strong>Download offline Google Maps</strong> — Salzburg + Salzkammergut +
+                  Berchtesgaden tiles. In case roaming fails on day one.
+                </span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="timeline-stage" data-stage="day-of">
+          <div class="timeline-stage-head">
+            <div class="timeline-stage-date">Fri Jul 24 · flight day</div>
+            <h2>Day of · go</h2>
+          </div>
+          <ul class="checklist">
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="day0-flight-confirm" />
+                <span>
+                  <strong>Confirm flight not delayed</strong> — check airline app before leaving for
+                  airport. Build in 3-hour airport buffer (security, gate-walk).
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="day0-rental-pickup" />
+                <span>
+                  <strong>Rental car pickup at SZG</strong> — present IDP + license + booking
+                  confirmation + credit card. Walk-around inspection BEFORE driving off (photo every
+                  scratch). Confirm vignette installed or not.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="day0-apartment-host" />
+                <span>
+                  <strong>Message Linzergasse apartment host</strong> — flight landed, ETA to
+                  apartment around 14:00 (check-in time). Confirm key pickup mechanism.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="day0-park-old-town" />
+                <span>
+                  <strong>Park at Altstadtgarage Mönchsberg</strong> (Hildmannplatz 1, ~€18/day),
+                  bags in trunk, no valuables visible.
+                  <a href="friday-salzburg.html">Friday menu →</a>
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="day0-shabbat-prep" />
+                <span>
+                  <strong>Back at apartment by 17:30</strong> — kitchen cooking for Shabbat,
+                  candle-lighting 20:35.
+                </span>
+              </label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="timeline-stage" data-stage="midweek">
+          <div class="timeline-stage-head">
+            <div class="timeline-stage-date">Sat Jul 25 · Sun Jul 26</div>
+            <h2>Critical mid-trip beats</h2>
+          </div>
+          <ul class="checklist">
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="mid-havdalah-spar" />
+                <span>
+                  <strong>Saturday 22:00 — Spar Hauptbahnhof sweep</strong> after Havdalah. Stock
+                  for 3 days at Obertraun.
+                  <a href="sundays-closed.html">Why this matters →</a>
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="mid-sunday-move" />
+                <span>
+                  <strong>Sunday Jul 26 — drive to Obertraun</strong>. Most of Austria closed. If
+                  you missed Saturday sweep, hit Spar Hauptbahnhof again before leaving Salzburg.
+                </span>
+              </label>
+            </li>
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="mid-thursday-return" />
+                <span>
+                  <strong>Thursday Jul 30 evening — drive back to airport-area lodging</strong>.
+                  Full day in Obertraun/Hallstatt, evening drive (~1h15), sleep at airport-near
+                  apartment for early Friday flight.
+                </span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" style="text-align: center; margin-top: 3rem">
+        <button type="button" class="cta-secondary" data-reset-checklist>
+          Reset all checkmarks
+        </button>
+      </section>
+    </main>
+
+    <footer>Pre-trip countdown · v1 (2026-05-16) · state in localStorage</footer>
+
+    <script type="module" src="/src/page-pre-trip.ts"></script>
+  </body>
+</html>
