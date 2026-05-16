@@ -75,10 +75,10 @@ const LAKES: Lake[] = [
       salzburg: '55 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Attersee_-_panoramio_%282%29.jpg/1280px-Attersee_-_panoramio_%282%29.jpg',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg/1280px-Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
       alt: 'Attersee — large blue Salzkammergut lake under summer sky',
-      credit: 'Wikimedia Commons / panoramio, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Attersee_-_panoramio_(2).jpg',
+      credit: 'Wikimedia Commons, CC BY-SA',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Attersee_am_Attersee,_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
     },
     officialUrl:
       'https://attersee-attergau.salzkammergut.at/en/activities/sports-and-health/bathing.html',
@@ -115,10 +115,10 @@ const LAKES: Lake[] = [
       salzburg: '35 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mondsee_with_Drachenwand_and_Schober.jpg/1280px-Mondsee_with_Drachenwand_and_Schober.jpg',
-      alt: 'Mondsee with Drachenwand cliff and Schober peak in the background',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Aerial_image_of_the_Mondsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Mondsee_%28view_from_the_southeast%29.jpg',
+      alt: 'Mondsee aerial — Salzkammergut lake from the southeast with the Drachenwand cliff face',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Mondsee_with_Drachenwand_and_Schober.jpg',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Mondsee_(view_from_the_southeast).jpg',
     },
     officialUrl:
       'https://mondsee.salzkammergut.at/en/oesterreich-poi/detail/201982/alpine-beach-mondsee.html',
@@ -153,11 +153,11 @@ const LAKES: Lake[] = [
       salzburg: '50 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/St._Wolfgang_im_Salzkammergut_-_Lakeshore.jpg/1280px-St._Wolfgang_im_Salzkammergut_-_Lakeshore.jpg',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
       alt: 'St. Wolfgang lakeshore on the Wolfgangsee with mountains behind',
       credit: 'Wikimedia Commons, CC BY-SA',
       sourceUrl:
-        'https://commons.wikimedia.org/wiki/File:St._Wolfgang_im_Salzkammergut_-_Lakeshore.jpg',
+        'https://commons.wikimedia.org/wiki/File:St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
     },
     officialUrl:
       'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/200729/strandbad-liegewiese-felmayer.html',
@@ -197,11 +197,11 @@ const LAKES: Lake[] = [
       salzburg: '75 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Hallstatt_-_Hallst%C3%A4tter_See_-_panoramio.jpg/1280px-Hallstatt_-_Hallst%C3%A4tter_See_-_panoramio.jpg',
-      alt: 'Hallstatt village reflected in Hallstättersee at golden hour',
-      credit: 'Wikimedia Commons / panoramio, CC BY-SA',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+      alt: 'Hallstatt boathouses on the Hallstättersee at golden hour',
+      credit: 'Wikimedia Commons, CC BY-SA',
       sourceUrl:
-        'https://commons.wikimedia.org/wiki/File:Hallstatt_-_Hallst%C3%A4tter_See_-_panoramio.jpg',
+        'https://commons.wikimedia.org/wiki/File:Boathouses_in_Hallstatt,_Austria_-_2017jpg.jpg',
     },
     officialUrl:
       'https://www.obertraun.net/obertraun-en-US/active-holiday/bathing-at-lake-hallstatt/recreational-paradise-on-lake-hallstatt/',
@@ -238,10 +238,10 @@ const LAKES: Lake[] = [
       salzburg: '25 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fuschlsee_panorama.jpg/1280px-Fuschlsee_panorama.jpg',
-      alt: 'Fuschlsee panorama with surrounding green hills',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg',
+      alt: 'Fuschlsee aerial — surrounding green hills and lake from the southeast',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Fuschlsee_panorama.jpg',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Fuschlsee_(view_from_the_southeast).jpg',
     },
     officialUrl: 'https://www.fuschlseeregion.com/',
     notesAvital: 'Closest real lake-swim to Salzburg — heated pool as backup if water feels cold.',
@@ -280,10 +280,10 @@ const LAKES: Lake[] = [
       salzburg: '35 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/K%C3%B6nigssee_-_Malerwinkel.jpg/1280px-K%C3%B6nigssee_-_Malerwinkel.jpg',
-      alt: 'Königssee from the Malerwinkel viewpoint — turquoise cove framed by alpine cliffs',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      alt: 'Königssee with St. Bartholomä chapel and Watzmann east face — turquoise alpine water framed by cliffs (same lake, Malerwinkel is the cove on the near shore)',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:K%C3%B6nigssee_-_Malerwinkel.jpg',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
     },
     officialUrl: 'https://www.nationalpark-berchtesgaden.bayern.de/',
     notesAvital: 'Cold-shock dip + brag. Not a "swim laps" lake. The cove is what you came for.',
@@ -320,10 +320,10 @@ const LAKES: Lake[] = [
       salzburg: '85 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Vorderer_Gosausee_und_Dachstein.jpg/1280px-Vorderer_Gosausee_und_Dachstein.jpg',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Vorderer_Gosausee_mit_Dachstein.jpg/1280px-Vorderer_Gosausee_mit_Dachstein.jpg',
       alt: 'Vorderer Gosausee with Dachstein glacier reflected in the still alpine water',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Vorderer_Gosausee_und_Dachstein.jpg',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Vorderer_Gosausee_mit_Dachstein.jpg',
     },
     officialUrl:
       'https://dachstein.salzkammergut.at/en/visitor-information/our-lakes/lake-gosau.html',
@@ -360,10 +360,10 @@ const LAKES: Lake[] = [
       salzburg: '50 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Hintersee_Ramsau_001.jpg/1280px-Hintersee_Ramsau_001.jpg',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Hintersee_Panorama.JPG/1280px-Hintersee_Panorama.JPG',
       alt: 'Hintersee Ramsau — still mirror lake with Reiteralpe massif reflected',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Hintersee_Ramsau_001.jpg',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Hintersee_Panorama.JPG',
     },
     officialUrl: 'https://www.berchtesgaden.de/hintersee',
     notesAvital: 'Quietest swim of the trip. Cold + private + flat gravel walk-in.',
