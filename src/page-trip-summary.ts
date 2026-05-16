@@ -37,7 +37,7 @@ function bindWhyShort(): void {
   const el = document.querySelector<HTMLParagraphElement>('[data-bind="why-short"]');
   if (!el) return;
   el.textContent =
-    'Friday Jul 24 — Friday Jul 31, 2026. Salzburg for Shabbat, then four deep nights in the Hallstatt-area lakes with day trips out to Königssee, Wolfgangsee, and Werfen. Two moves total. The exact day order can flex around weather + energy.';
+    'Friday Jul 24 — Friday Jul 31, 2026. Salzburg for Shabbat (2 nights), then a mountain anchor (3 nights) with day-trip options to Königssee / Hallstatt / Gosausee / Wolfgangsee. Wed-night summit overnight at Berghotel Schafbergspitze (1,783m, locked). Thu airport-side. 4 bases, 3 moves. Each open day shows OPTIONS — Avital picks per energy + weather.';
 }
 
 // ---------------------------------------------------------------
@@ -57,10 +57,10 @@ interface StayCard {
 function buildStayCards(): StayCard[] {
   const labelMap: Record<Lodging['baseKey'], string> = {
     salzburg: 'Salzburg · Shabbat base',
-    hallstatt: 'Obertraun / Hallstatt · the anchor',
+    hallstatt: 'Mountain anchor · the 3-night midweek',
     airport: 'Salzburg airport-side · last night',
   };
-  return TRIP.lodgings.map((lod) => ({
+  const fromTrip: StayCard[] = TRIP.lodgings.map((lod) => ({
     baseKey: lod.baseKey,
     label: labelMap[lod.baseKey],
     nightsLabel: lod.nights,
@@ -70,6 +70,30 @@ function buildStayCards(): StayCard[] {
     pickWhy: lod.pickWhy,
     pickUrl: lod.pickUrl,
   }));
+
+  // Insert Schafbergspitze (Base #3 of 4) between mountain anchor and airport.
+  // It lives in SUNSET_STAYS, not TRIP.lodgings — pull the canonical info from
+  // there. This is a locked Wed-night base added 2026-05-17 per the 4-base
+  // restructure.
+  const schafbergStay: StayCard = {
+    baseKey: 'hallstatt', // closest existing base-key — visually styled like the mountain anchor
+    label: 'Schafbergspitze 1,783m · Wed-night summit (locked)',
+    nightsLabel: 'Wed Jul 29 → Thu Jul 30 (1 night)',
+    area: 'Berghotel Schafbergspitze · 1,783m summit · accessed via Schafbergbahn cog railway from St. Wolfgang am Wolfgangsee',
+    pickName: 'Berghotel Schafbergspitze (the only hotel up there)',
+    pickPrice: '€155.80 / person (incl. cog + breakfast)',
+    pickWhy:
+      "Austria's oldest mountain hotel (1862). After the last cog down at ~17:00 the summit empties to ~34 overnight guests. 360° panorama: Wolfgangsee, Mondsee, Attersee, Fuschlsee — 13 lakes visible at sunset. Sunrise over the Dachstein. BOOK ~2-3 weeks ahead by phone (+43 6138 35 42) or schafberg.net.",
+    pickUrl: 'https://schafberg.net/en/',
+  };
+
+  // Place: salzburg, hallstatt (mountain anchor), schafbergspitze, airport.
+  // TRIP.lodgings order is salzburg → hallstatt → airport. Insert at index 2.
+  const out = [...fromTrip];
+  const airportIdx = out.findIndex((s) => s.baseKey === 'airport');
+  if (airportIdx >= 0) out.splice(airportIdx, 0, schafbergStay);
+  else out.push(schafbergStay);
+  return out;
 }
 
 function renderStays(): void {
@@ -98,26 +122,26 @@ function renderStays(): void {
 }
 
 // ---------------------------------------------------------------
-// 2 — Must-see places per day (with sleep + drive-from)
+// 2 — Per-day OPTIONS-FIRST summary (added 2026-05-17 per the
+// "OPTIONS-FIRST OVERRIDE TRIP SUMMARY" spec). Each row shows the
+// locked beats + a short menu of options for the open hours +
+// where we sleep + drive time. Avital scans, picks, iterates.
 // ---------------------------------------------------------------
 interface PlaceRow {
   day: string;
   date: string;
-  place: string;
+  headline: string;
+  doing: string;
   sleep: string;
   driveFromLabel: string;
 }
 
 const SLEEP_LABEL: Record<Day['sleepWhere'], string> = {
   salzburg: 'Salzburg (Linzergasse)',
-  hallstatt: 'Obertraun / Hallstatt area',
+  hallstatt: 'Mountain anchor (Obertraun / Hallstatt area)',
+  schafbergspitze: 'Berghotel Schafbergspitze (1,783m summit)',
   airport: 'Salzburg airport-side',
 };
-
-function pickPlaceForDay(d: Day): string {
-  // Pull the headline as the must-see anchor for each day.
-  return d.headline;
-}
 
 function buildPlaceRows(): PlaceRow[] {
   return TRIP.days.map((d) => {
@@ -130,7 +154,8 @@ function buildPlaceRows(): PlaceRow[] {
     return {
       day: d.dayOfWeek,
       date: d.dateLabel,
-      place: pickPlaceForDay(d),
+      headline: d.headline,
+      doing: d.doingSummary,
       sleep: SLEEP_LABEL[d.sleepWhere],
       driveFromLabel: driveLabel,
     };
@@ -148,7 +173,8 @@ function renderPlaces(): void {
         <div class="ts-place-num">${i + 1}</div>
         <div class="ts-place-body">
           <div class="ts-place-when">${escapeHtml(r.date)}</div>
-          <div class="ts-place-headline">${escapeHtml(r.place)}</div>
+          <div class="ts-place-headline">${escapeHtml(r.headline)}</div>
+          <div class="ts-place-doing"><span class="ts-place-doing-label">Doing:</span> ${escapeHtml(r.doing)}</div>
           <div class="ts-place-meta">
             <span class="ts-place-meta-item">🏠 Sleep: <strong>${escapeHtml(r.sleep)}</strong></span>
             <span class="ts-place-meta-item">🚗 ${escapeHtml(r.driveFromLabel)}</span>
@@ -181,11 +207,11 @@ const TOP_5_SUNSETS: SunsetPick[] = [
   },
   {
     rank: 2,
-    spot: 'Schafberg summit ridge — 13-lake panorama',
+    spot: 'Schafbergspitze summit — SLEEP at 1,783m (Wed Jul 29 base)',
     day: 'Wed Jul 29',
     time: '20:48',
     oneLine:
-      'Cog rail up to 1,783m. Wolfgangsee, Mondsee, Attersee, Fuschlsee all visible at once. Last train down at 21:15.',
+      "Cog rail up at ~17:00 → after last train down the summit empties to ~34 overnight guests. Sleep at Austria's oldest mountain hotel (1862). 360° panorama: 13 lakes at sunset, Dachstein at sunrise. Locked base, not a day trip.",
   },
   {
     rank: 3,

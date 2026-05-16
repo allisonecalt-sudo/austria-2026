@@ -47,7 +47,8 @@ function renderMetaChips(day: Day): string {
   const chips: string[] = [];
   const sleepLabel: Record<string, string> = {
     salzburg: 'Salzburg (Linzergasse)',
-    hallstatt: 'Obertraun (Hallstatt area)',
+    hallstatt: 'Mountain anchor (Obertraun)',
+    schafbergspitze: 'Berghotel Schafbergspitze (1,783m)',
     airport: 'Salzburg airport-side',
   };
   const where = sleepLabel[day.sleepWhere] ?? day.sleepWhere;
@@ -117,6 +118,10 @@ export function renderDayCard(day: Day, index: number): string {
         </div>
       </summary>
       <div class="day-body">
+        <div class="day-block day-block--doing">
+          <div class="day-block-label">What we're doing (options)</div>
+          <p class="day-idea day-idea--doing">${escapeHtml(day.doingSummary)}</p>
+        </div>
         <div class="day-block">
           <div class="day-block-label">Default</div>
           <p class="day-idea">${escapeHtml(day.generalIdea)}</p>

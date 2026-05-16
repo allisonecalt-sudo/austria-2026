@@ -78,7 +78,8 @@ const LAKES: Lake[] = [
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg/1280px-Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
       alt: 'Attersee — large blue Salzkammergut lake under summer sky',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Attersee_am_Attersee,_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
+      sourceUrl:
+        'https://commons.wikimedia.org/wiki/File:Attersee_am_Attersee,_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
     },
     officialUrl:
       'https://attersee-attergau.salzkammergut.at/en/activities/sports-and-health/bathing.html',
@@ -118,7 +119,8 @@ const LAKES: Lake[] = [
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Aerial_image_of_the_Mondsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Mondsee_%28view_from_the_southeast%29.jpg',
       alt: 'Mondsee aerial — Salzkammergut lake from the southeast with the Drachenwand cliff face',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Mondsee_(view_from_the_southeast).jpg',
+      sourceUrl:
+        'https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Mondsee_(view_from_the_southeast).jpg',
     },
     officialUrl:
       'https://mondsee.salzkammergut.at/en/oesterreich-poi/detail/201982/alpine-beach-mondsee.html',
@@ -241,7 +243,8 @@ const LAKES: Lake[] = [
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg',
       alt: 'Fuschlsee aerial — surrounding green hills and lake from the southeast',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Fuschlsee_(view_from_the_southeast).jpg',
+      sourceUrl:
+        'https://commons.wikimedia.org/wiki/File:Aerial_image_of_the_Fuschlsee_(view_from_the_southeast).jpg',
     },
     officialUrl: 'https://www.fuschlseeregion.com/',
     notesAvital: 'Closest real lake-swim to Salzburg — heated pool as backup if water feels cold.',
@@ -283,7 +286,8 @@ const LAKES: Lake[] = [
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
       alt: 'Königssee with St. Bartholomä chapel and Watzmann east face — turquoise alpine water framed by cliffs (same lake, Malerwinkel is the cove on the near shore)',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
+      sourceUrl:
+        'https://commons.wikimedia.org/wiki/File:Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
     },
     officialUrl: 'https://www.nationalpark-berchtesgaden.bayern.de/',
     notesAvital: 'Cold-shock dip + brag. Not a "swim laps" lake. The cove is what you came for.',

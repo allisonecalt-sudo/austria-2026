@@ -57,8 +57,15 @@ export interface Day {
   driveFrom?: DriveLeg;
   driveTo?: DriveLeg;
   sunset: SunsetSpot;
-  sleepWhere: 'salzburg' | 'hallstatt' | 'airport';
+  sleepWhere: 'salzburg' | 'hallstatt' | 'schafbergspitze' | 'airport';
   tarabridgeMoment?: string;
+  // Options-first per-day summary (added 2026-05-17 per the 4-base restructure).
+  // Different from `headline` (short title) and `generalIdea` (paragraph). One
+  // line that names the locked beats + a short menu of options for the open
+  // hours, e.g. "Move to mountain ~1h15m. Pick from: Hallstatt afternoon /
+  // Gosausee mirror / Wolfgangsee swim". The site is a CATALOG OF OPTIONS
+  // Avital browses through; summary views surface options, never single locks.
+  doingSummary: string;
 }
 
 // BudgetTier — 'splurge' kept as the legacy label for €130-180 picks; 'mid-high'
@@ -193,11 +200,11 @@ function dirUrl(origin: string, destination: string): string {
 
 export const TRIP: TripData = {
   intro:
-    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat. One nature base for the bulk of the week, apartments with kitchens, picnics on rocks, sunsets every single night.',
+    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat, with one unique-experience night on a 1,783m summit. Apartments with kitchens, picnics on rocks, sunsets every single night.',
   whyThisPlan:
-    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — Hallstatt area for 4 deep nights, the heart of the week. Day trips from there to Königssee, Gosausee, Wolfgangsee, Werfen ice cave. Thursday we drive back to a quiet apartment 4 km from Salzburg airport so Friday morning's flight is a 10-minute drive. Two moves total. Every night ends at a named sunset spot with a real time.",
+    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — mountain anchor for 3 deep nights, the heart of the week. Day trips from there to Königssee, Gosausee, Wolfgangsee, Dachstein 5fingers. Wednesday afternoon we pack a small overnight bag and take the cog railway up to Berghotel Schafbergspitze (1,783m) for sunset above 13 lakes + sunrise over the Dachstein. Thursday we come down and drive to a quiet apartment near Salzburg airport for Friday's early flight. Four bases, three moves. Every night ends at a named sunset spot with a real time.",
   natureAnchor:
-    'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay where most of the week happens.',
+    'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay where most of the midweek happens, before the Wed-night summit pivot.',
   totalCostEur: 2699,
   totalCostNis: 10750,
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target
@@ -241,6 +248,8 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Chabad Salzburg Linzergasse 76'),
       },
       sleepWhere: 'salzburg',
+      doingSummary:
+        'Land 07:50 → Salzburg Old Town. Pick from: Mozart Geburtshaus / Mirabell Gardens / Hohensalzburg fortress / Mondsee detour / café-only (tired). Shabbat prep 17:30, candle-lighting 20:35.',
     },
 
     // --- DAY 2 — Sat Jul 25 ---
@@ -270,6 +279,8 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Elisabethkai Salzburg'),
       },
       sleepWhere: 'salzburg',
+      doingSummary:
+        'Shabbat in Salzburg (walking only) — Old Town, river, Mirabell Gardens, optional Mönchsberg climb. Havdalah 21:49.',
     },
 
     // --- DAY 3 — Sun Jul 26 ---
@@ -285,7 +296,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.gosausee,
       },
       generalIdea:
-        'Pack out of Salzburg after a slow morning. Drive east via Bad Ischl (Spar restock). Stop at Vorderer Gosausee — a flat hour-long loop around the lake with the Dachstein glacier mirrored in the water. Lakeside picnic. Continue to the Obertraun apartment — 4 nights here, the deep base for the week. Sunset over Lake Hallstatt from the Obertraun dock, 5 minutes from the door.',
+        'Pack out of Salzburg after a slow morning. Drive east via Bad Ischl (Spar restock). Stop at Vorderer Gosausee — a flat hour-long loop around the lake with the Dachstein glacier mirrored in the water. Lakeside picnic. Continue to the Obertraun apartment — 3 nights here Sun-Wed, the deep mountain anchor for the midweek (Wed-night base shifts to Schafbergspitze summit via cog). Sunset over Lake Hallstatt from the Obertraun dock, 5 minutes from the door.',
       planB:
         'If Shabbat tired the legs: skip Gosausee, drive direct via Bad Ischl for coffee, settle into the apartment for a long balcony afternoon.',
       anchors: [
@@ -310,6 +321,8 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Obertraun Hallstätter See'),
       },
       sleepWhere: 'hallstatt',
+      doingSummary:
+        'Move to mountain anchor ~1h15m. Day options: Hallstatt village afternoon / Gosausee mirror-lake / Wolfgangsee swim / settle in on the balcony.',
     },
 
     // --- DAY 4 — Mon Jul 27 ---
@@ -339,6 +352,8 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Hallstatt Markt'),
       },
       sleepWhere: 'hallstatt',
+      doingSummary:
+        'Pick from: Königssee boat + Hintersee sunset / Krippenstein 5fingers + Hallstatt evening / Werfen ice cave / SUP on Hallstättersee.',
     },
 
     // --- DAY 5 — Tue Jul 28 ---
@@ -376,33 +391,42 @@ export const TRIP: TripData = {
       sleepWhere: 'hallstatt',
       tarabridgeMoment:
         'Last boat back at sunset = the peak moment of the trip. See peak-moment note.',
+      doingSummary:
+        'Pick from: Königssee boat (if not Mon) / Krimml waterfalls / Liechtensteinklamm gorge / lake-swim day / Schafberg practice ride.',
     },
 
-    // --- DAY 6 — Wed Jul 29 ---
+    // --- DAY 6 — Wed Jul 29 — SCHAFBERGSPITZE SUMMIT NIGHT ---
+    // Restructured 2026-05-17 per the 4-base spec. Was a Hallstatt-anchored
+    // "Wolfgangsee + day-trip cog" day; now the canonical Schafbergspitze
+    // overnight (sleep at 1,783m). Pack out of the mountain anchor, light
+    // afternoon at the Wolfgangsee, last cog up ~17:00, sunset + sleep at
+    // the summit hotel, sunrise the next morning.
     {
       id: 'wed-jul-29',
       date: '2026-07-29',
       dayOfWeek: 'Wednesday',
       dateLabel: 'Wednesday Jul 29',
-      headline: 'Wolfgangsee + Schafberg cog railway at sunset',
+      headline: 'Schafbergspitze summit night — sleep above 13 lakes',
       hero: {
         src: IMG.wolfgangsee,
         alt: 'St. Wolfgang village on the Wolfgangsee with the Schafberg massif beyond',
         credit: IMG_CREDIT.wolfgangsee,
       },
       generalIdea:
-        'Slow morning after the big Königssee day. Drive over to St. Wolfgang am Wolfgangsee. Lakeside promenade walk, optional swim at the public Strandbad. Coffee in town. Schafbergbahn cog railway up at 18:00 (€46pp r/t, BOOK AHEAD — sells out in July). 40 minutes of steep cog climb to a 1,783 m summit ridge. Walk the easy ridge to the Schafbergspitze hotel terrace. Sunset over thirteen Salzkammergut lakes — Wolfgangsee, Mondsee, Attersee, Fuschlsee all visible at once. Last cog train down.',
+        "Pack a small overnight bag (rest stays in the car at the St. Wolfgang valley lot). Slow morning at the mountain anchor — coffee, last lake walk, check out by 11. Drive to St. Wolfgang am Wolfgangsee (~50 min). Light lakeside afternoon — promenade, optional swim at the public Strandbad, café. Schafbergbahn last cog up at ~17:00 (€61pp r/t standalone, INCLUDED in the overnight package). 40 minutes of steep cog climb to a 1,783m summit. Walk the easy ridge to Berghotel Schafbergspitze — Austria's oldest mountain hotel (1862). The day-trippers leave on the last train down; the summit empties to ~34 overnight guests. Sunset over fourteen Salzkammergut lakes — Wolfgangsee, Mondsee, Attersee, Fuschlsee, Fuschlsee all visible at once. Sleep at the summit. Sunrise the next morning over the Dachstein massif to the east.",
       planB:
-        'Lake day only — skip the summit cog. Promenade + swim + a 45-min boat across to St. Gilgen and back (€15pp). Sunset from the Obertraun shore.',
+        "Skip the summit overnight if weather is wrong or energy is gone: stay one more night at the mountain anchor (prepay both nights at Schafbergspitze to hold the room), do a lake day instead — promenade + swim + a 45-min boat across to St. Gilgen and back (€15pp). The whole trip's unique-experience night IS this one, so abort only if storms are named for the evening.",
       anchors: [
-        { label: 'Drive to Wolfgangsee', time: '11:30' },
-        { label: 'Schafbergbahn up (BOOK)', time: '18:00' },
-        { label: 'Sunset (Schafberg ridge)', time: '20:48' },
-        { label: 'Last cog down', time: '~21:15' },
+        { label: 'Pack out of mountain anchor', time: '11:00' },
+        { label: 'Drive to St. Wolfgang valley', time: '~50 min' },
+        { label: 'Schafbergbahn last cog UP', time: '~17:00 (BOOK — last train of day)' },
+        { label: 'At Berghotel Schafbergspitze', time: '~18:00' },
+        { label: 'Sunset on the summit ridge', time: '20:48' },
+        { label: 'Sleep at 1,783m', time: 'overnight' },
       ],
       driveFrom: {
-        place: 'Obertraun',
-        minutes: 45,
+        place: 'Mountain anchor (Obertraun)',
+        minutes: 50,
         mapsUrl: dirUrl('Obertraun, Austria', 'St. Wolfgang im Salzkammergut'),
       },
       sunset: {
@@ -410,40 +434,47 @@ export const TRIP: TripData = {
         time: '20:48',
         mapsUrl: searchUrl('Schafbergspitze Schafberg Austria'),
       },
-      sleepWhere: 'hallstatt',
+      sleepWhere: 'schafbergspitze',
+      doingSummary:
+        'Pack out of mountain anchor → drive to St. Wolfgang → Schafbergbahn last cog ~17:00 → sunset at the summit. SLEEP at 1,783m. (Skip only if storms are forecast — this is the unique-experience night.)',
     },
 
     // --- DAY 7 — Thu Jul 30 ---
+    // Restructured 2026-05-17: morning comes off the Schafbergspitze summit
+    // (first cog down ~09:00) rather than out of the Hallstatt anchor. Werfen
+    // ice cave demoted from locked anchor to one of several options for the
+    // open afternoon.
     {
       id: 'thu-jul-30',
       date: '2026-07-30',
       dayOfWeek: 'Thursday',
       dateLabel: 'Thursday Jul 30',
-      headline: 'Werfen ice cave → drive back to Salzburg airport-side',
+      headline: 'First cog down → drive to airport-side',
       hero: {
         src: IMG.werfen,
         alt: 'Hohenwerfen castle perched on a rocky crag above the Salzach valley near Werfen',
         credit: IMG_CREDIT.werfen,
       },
       generalIdea:
-        "Pack out west. Eisriesenwelt — world's largest ice cave: 20-min uphill walk to the cable car, cable car up, 15-min walk to the entrance, then a 75-min underground tour with carbide lamps and 1,400 stairs. Bring a fleece. €42pp combo, BOOK ONLINE the night before (July sells out). Drive on to the airport-side apartment, one last Salzburg evening — Altstadt loop, gelato, walk up the Mönchsberg from Toscaninihof for the final sunset.",
+        "Sunrise at 1,783m, breakfast at the summit hotel, first cog down ~09:00. Back at the car in St. Wolfgang by 10. Easy drive to the airport-area apartment (~55 min). Open afternoon — pick from: a lazy day in the airport apartment / one last Salzburg café + Altstadt loop / Eisriesenwelt ice cave at Werfen (the world's largest ice cave, 75-min underground tour, €42pp combo, BOOK the night before — July sells out) / Mauthausen if it's a Jewish-interest day. Finish with the Mönchsberg ridge from Toscaninihof for the final sunset.",
       planB:
-        'Skip the cave: photograph Hohenwerfen castle from the road, slow drive to the airport apartment, light afternoon, sunset from the balcony.',
+        'If the cog is weathered out and you slept the extra night at Schafbergspitze, scratch the airport night and just drive straight to the airport apartment from the summit the moment the cog reopens.',
       anchors: [
-        { label: 'Leave Hallstatt', time: '08:30' },
-        { label: 'Eisriesenwelt cave tour', time: '11:00' },
-        { label: 'Check in airport apt', time: '15:30' },
+        { label: 'Sunrise at the summit', time: '~05:50' },
+        { label: 'First cog DOWN', time: '~09:00' },
+        { label: 'At car in St. Wolfgang', time: '~10:00' },
+        { label: 'Check in airport apt', time: '~12:00' },
         { label: 'Sunset (Mönchsberg)', time: '20:47' },
       ],
       driveFrom: {
-        place: 'Obertraun',
-        minutes: 75,
-        mapsUrl: dirUrl('Obertraun, Austria', 'Werfen, Austria'),
+        place: 'St. Wolfgang (cog valley station)',
+        minutes: 55,
+        mapsUrl: dirUrl('St. Wolfgang im Salzkammergut', 'Salzburg Airport'),
       },
       driveTo: {
         place: 'Salzburg Airport area',
-        minutes: 50,
-        mapsUrl: dirUrl('Werfen, Austria', 'Salzburg Airport'),
+        minutes: 55,
+        mapsUrl: dirUrl('St. Wolfgang im Salzkammergut', 'Salzburg Airport'),
       },
       sunset: {
         place: 'Mönchsberg ridge above Salzburg',
@@ -451,6 +482,8 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Mönchsberg Salzburg'),
       },
       sleepWhere: 'airport',
+      doingSummary:
+        'First cog down ~09:00 → drive airport area. Pick from: lazy day / one last Salzburg café / Eisriesenwelt ice cave (Werfen) / Mauthausen.',
     },
 
     // --- DAY 8 — Fri Jul 31 ---
@@ -485,6 +518,7 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Jerusalem'),
       },
       sleepWhere: 'airport',
+      doingSummary: 'Drop car at SZG 06:15 → LY5194 08:55 → land TLV 13:25.',
     },
   ],
 
@@ -621,11 +655,14 @@ export const TRIP: TripData = {
       ],
     },
     {
-      // OBERTRAUN / HALLSTATT — Sun Jul 26 – Thu Jul 30, 4 nights.
+      // OBERTRAUN / HALLSTATT — Sun Jul 26 – Wed Jul 29, 3 nights.
       // The deep-anchor stay. Lake-adjacent, quiet, full apartment.
-      // Live Booking.com prices for Jul 26-30, ÷ 4 nights for per-night.
+      // Restructured 2026-05-17: shortened from 4 → 3 nights so Wed night
+      // can be the Berghotel Schafbergspitze summit overnight (new base 3
+      // of 4). See SUNSET_STAYS[schafbergspitze-stay] for the Wed night.
+      // Live Booking.com prices for Jul 26-29, ÷ 3 nights for per-night.
       baseKey: 'hallstatt',
-      nights: 'Sun Jul 26 – Thu Jul 30 (4 nights)',
+      nights: 'Sun Jul 26 – Wed Jul 29 (3 nights)',
       area: 'Obertraun & Hallstatt-area (Salzkammergut) — full apartments, lake-adjacent, at the foot of the Dachstein',
       pickName: 'Haus Edelweiss (Obertraun)',
       pickUrl: 'https://www.booking.com/hotel/at/haus-edelweiss-obertraun.html',
@@ -1707,7 +1744,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
 // laundry status confirmed; per-night prices are mid-range estimates for the
 // Jul 26-30 dates. Re-verify on Booking before locking any single config.
 
-export type BaseConfigId = 'obertraun' | 'berchtesgaden' | 'split' | 'wolfgangsee';
+// 'split' removed 2026-05-17 (4-base restructure — Schafbergspitze IS the split).
+export type BaseConfigId = 'obertraun' | 'berchtesgaden' | 'wolfgangsee';
 
 export interface BaseConfigDriveRow {
   destinationId: string; // matches NATURE_DESTINATIONS id
@@ -2076,22 +2114,27 @@ function obertraunPicks(): BaseConfigLodgingPick[] {
 }
 
 export const BASE_CONFIGS: BaseConfig[] = [
-  // --- CONFIG A: OBERTRAUN (current 4-night base) ---
+  // --- CONFIG A: OBERTRAUN (3-night mountain anchor) ---
+  // Restructured 2026-05-17: was a 4-night anchor; now 3 nights Sun-Wed.
+  // Wed night is the canonical Schafbergspitze summit overnight (LOCKED
+  // across all configs — not optional). Pick which 3-night mountain anchor
+  // you want; the Wed cog-summit night is the same in every config.
   {
     id: 'obertraun',
     label: 'Config A — Obertraun (Salzkammergut)',
     baseTown: 'Obertraun + Hallstatt area',
     country: 'AT',
-    nightsAtBase: '4 nights',
+    nightsAtBase: '3 nights · then Schafbergspitze Wed',
     recommended: true,
     pitch:
-      'The current locked plan and the lowest-friction option. One apartment for the whole midweek, every Salzkammergut anchor (Hallstatt, Gosausee, Krippenstein, Wolfgangsee, Schafberg) is 5-50 minutes away. Königssee is the one stretch — 1h30 day trip from here. 11 apartment options vetted, several with the working-farm + lake-edge vibes.',
+      'The lowest-friction mountain anchor. One apartment for the 3-night midweek (Sun-Wed), every Salzkammergut anchor (Hallstatt, Gosausee, Krippenstein, Wolfgangsee, Schafberg valley station) is 5-50 minutes away. Königssee is the one stretch — 1h30 day trip from here. 11 apartment options vetted, several with the working-farm + lake-edge vibes. Wed night you pack a small bag and ride the cog up to Berghotel Schafbergspitze for the summit overnight (locked across all configs).',
     pros: [
-      'One apartment, no mid-week pack/unpack',
+      'One apartment for the 3-night anchor, no mid-week pack/unpack until Wed',
       'Closest base to Hallstatt + Gosausee + Krippenstein (5-35 min)',
       'Most vetted lodging options (11 picks, all real)',
       'Cheapest overall (lodging baseline)',
       'Ferienhof Osl + Gosau farm-stays = the deepest farm-and-lake immersion options',
+      '~50 min drive from Obertraun to the Schafbergbahn valley station for the Wed cog-up',
     ],
     cons: [
       'Königssee + Hintersee become 1h30 day trips (still doable but a longer drive)',
@@ -2099,7 +2142,7 @@ export const BASE_CONFIGS: BaseConfig[] = [
       'Hallstatt village gets cruise-ship-busy midday (Obertraun stays quiet)',
     ],
     costDeltaEur: 0,
-    costDeltaNote: 'Baseline. Avg €142/night × 4 = €568 for the 4-night anchor.',
+    costDeltaNote: 'Baseline. Avg €142/night × 3 = €426 for the 3-night anchor.',
     flow: [
       {
         label: 'Mornings',
@@ -2127,9 +2170,9 @@ export const BASE_CONFIGS: BaseConfig[] = [
     label: 'Config B — Berchtesgaden / Ramsau (Bavarian Alps)',
     baseTown: 'Berchtesgaden + Ramsau + Schönau am Königssee',
     country: 'DE',
-    nightsAtBase: '4 nights',
+    nightsAtBase: '3 nights · then Schafbergspitze Wed',
     pitch:
-      "Bavarian Alps anchor. Königssee + Hintersee — the two 🌅🌅🌅 sunset spots — are 10 minutes from base. Almbachklamm gorge is 15 min. The trade-off: Hallstatt + Gosausee become 1h30 day trips. Better kosher-friendly Spar infrastructure (bigger Bavarian supermarkets than Obertraun's small ones). 5 verified apartment options including the lake-side 2-BR Unterbrandnerlehen chalet 5 min from the Königssee shore.",
+      "Bavarian Alps mountain anchor. 3 nights Sun-Wed. Königssee + Hintersee — the two 🌅🌅🌅 sunset spots — are 10 minutes from base. Almbachklamm gorge is 15 min. The trade-off: Hallstatt + Gosausee become 1h30 day trips. Better kosher-friendly Spar infrastructure (bigger Bavarian supermarkets than Obertraun's small ones). 5 verified apartment options including the lake-side 2-BR Unterbrandnerlehen chalet 5 min from the Königssee shore. Wed afternoon = ~1h40 drive to the Schafbergbahn valley station for the summit overnight (locked across all configs).",
     pros: [
       'Königssee is 10 min away — turn the peak sunset-boat moment into a slow ritual, not a day trip',
       'Hintersee photographer-spot is 10 min away too',
@@ -2142,10 +2185,11 @@ export const BASE_CONFIGS: BaseConfig[] = [
       'Cross-border each way means more vignette / Maut admin (covered by car insurance)',
       "Fewer verified apartments (5 vs Obertraun's 11)",
       'No equivalent of Krippenstein 5fingers — that becomes a long-day drive',
+      'Furthest drive (~1h40) to the Schafbergbahn cog valley station on Wed',
     ],
-    costDeltaEur: -40,
+    costDeltaEur: -48,
     costDeltaNote:
-      'Avg €126/night × 4 = €504 for the 4-night anchor. Slightly cheaper than Obertraun (€64 saved) — Bavarian guest houses run a bit less than Hallstatt-area apartments.',
+      'Avg €126/night × 3 = €378 for the 3-night anchor. Slightly cheaper than Obertraun (€48 saved) — Bavarian guest houses run a bit less than Hallstatt-area apartments.',
     flow: [
       {
         label: 'Mornings',
@@ -2167,84 +2211,21 @@ export const BASE_CONFIGS: BaseConfig[] = [
       'Base = Berchtesgaden + Ramsau + Schönau am Königssee (all within 10 min of each other). Day-trip range covers Königssee + Hintersee at the door; Hallstatt cluster is 1h30 east.',
   },
 
-  // --- CONFIG C: SPLIT 2+2 ---
-  {
-    id: 'split',
-    label: 'Config C — Split: 2 Obertraun + 2 Berchtesgaden',
-    baseTown: 'Obertraun (2 nights) + Berchtesgaden (2 nights)',
-    country: 'AT+DE',
-    nightsAtBase: '2 + 2 nights',
-    pitch:
-      "Cover both clusters with their native bases. Both Königssee and Hallstatt-village end up 10 min from where you sleep — depending on which leg you're on. Trade-off: pack/unpack mid-week + 1h30 transfer drive on Tuesday morning. Best fit if neither cluster is willing to give up sunset proximity.",
-    pros: [
-      'Königssee + Hintersee at the door for Berchtesgaden leg',
-      'Hallstatt + Gosausee + Krippenstein at the door for Obertraun leg',
-      'No long day-trip drives — every sunset is local',
-      'Two different apartment feels (Salzkammergut vs Bavarian)',
-    ],
-    cons: [
-      'Mid-week pack/unpack — usually Tue morning',
-      '1h30 transfer drive eats most of the morning',
-      'Higher cancellation risk (two bookings)',
-      'Slightly more expensive (no multi-night discount on either leg)',
-    ],
-    costDeltaEur: 35,
-    costDeltaNote:
-      'Avg €142/night × 2 + €126/night × 2 = €536 for the 4-night anchor. ~€35 more than Config A — minor surcharge for splitting.',
-    flow: [
-      {
-        label: 'Sun-Mon (Obertraun leg)',
-        text: 'Mirror-lake morning at Gosausee, Krippenstein 5fingers + Hallstatt evening, Obertraun dock sunsets.',
-      },
-      {
-        label: 'Tue transfer',
-        text: 'Pack out by 9, scenic drive via Bad Goisern + Salzburg bypass to Berchtesgaden (~1h30). Sunset stop en route at Werfen castle viewpoint.',
-      },
-      {
-        label: 'Wed-Thu (Berchtesgaden leg)',
-        text: 'Königssee on the last boat (peak moment), Hintersee glassy morning, Almbachklamm walk.',
-      },
-    ],
-    driveMatrix: NATURE_DESTINATIONS.map((d) => {
-      // Use the closer of the two bases for the matrix — "where you can sleep
-      // closest to this destination during the week"
-      const ober = d.fromHallstattMin;
-      const berch = BERCHTESGADEN_DRIVE_TIMES[d.id] ?? d.fromSalzburgMin;
-      const min = Math.min(ober, berch);
-      return {
-        destinationId: d.id,
-        destinationName: d.name,
-        fromBaseMin: min,
-        bucket: bucket(min),
-      };
-    }),
-    lodging: [
-      // Top 2 Obertraun picks + top 2 Berchtesgaden picks. Labels prefix the
-      // base so user knows which leg each is for.
-      ...obertraunPicks()
-        .slice(0, 3)
-        .map((p) => ({ ...p, name: `[OBERTRAUN leg] ${p.name}` })),
-      ...BERCHTESGADEN_LODGING.slice(0, 3).map((p) => ({
-        ...p,
-        name: `[BERCHTESGADEN leg] ${p.name}`,
-      })),
-    ],
-    mapEmbedUrl: searchUrl('Obertraun, Austria to Berchtesgaden'),
-    mapPinNote:
-      'Two pins: Obertraun (Sun-Tue) + Berchtesgaden (Tue-Thu). Mid-week transfer = ~1h30 scenic drive.',
-  },
+  // --- CONFIG C dropped 2026-05-17: the 2+2 split is obsolete now that
+  // Schafbergspitze IS the de-facto split (3-night anchor → 1-night summit).
+  // History preserved in git. ---
 
-  // --- CONFIG D: ST. WOLFGANG / WOLFGANGSEE ---
+  // --- CONFIG D (now C): ST. WOLFGANG / WOLFGANGSEE ---
   {
     id: 'wolfgangsee',
-    label: 'Config D — St. Wolfgang on Wolfgangsee',
+    label: 'Config C — St. Wolfgang on Wolfgangsee',
     baseTown: 'St. Wolfgang + Strobl + St. Gilgen (Wolfgangsee)',
     country: 'AT',
-    nightsAtBase: '4 nights',
+    nightsAtBase: '3 nights · then Schafbergspitze Wed',
     pitch:
-      'The middle-of-everything pick. Wolfgangsee is roughly equidistant from Hallstatt (55 min), Salzburg (50 min), and Bad Ischl (15 min). Schafberg cog railway leaves IN the village — the 13-lake sunset panorama is a walk from your door. Walk-everywhere village vibe. Trade-off: Königssee + Hintersee become 1h30+ long-day drives. 5 verified apartment options, all lake-adjacent.',
+      "The middle-of-everything mountain anchor. 3 nights Sun-Wed. Wolfgangsee is roughly equidistant from Hallstatt (55 min), Salzburg (50 min), and Bad Ischl (15 min). Schafberg cog railway leaves IN the village — Wed's cog-up is a 5-minute walk from your door. Walk-everywhere village vibe. Trade-off: Königssee + Hintersee become 1h30+ long-day drives. 5 verified apartment options, all lake-adjacent.",
     pros: [
-      'Schafberg cog railway IS in town — 13-lake sunset without a drive',
+      'Schafberg cog railway IS in town — Wed cog-up is a 5-min walk, not a 50-min drive',
       'Walk-everywhere village (most options 200-500m from lake shore)',
       'Equidistant to Hallstatt + Salzburg (55 / 50 min)',
       'Lakeside promenade with public lido swim access',
@@ -2256,9 +2237,9 @@ export const BASE_CONFIGS: BaseConfig[] = [
       'Smaller cluster of destinations within 30 min than Obertraun',
       'Less of the "deep nature anchor" feel — more village-y, more touristy in summer',
     ],
-    costDeltaEur: -16,
+    costDeltaEur: -12,
     costDeltaNote:
-      'Avg €138/night × 4 = €552 for the 4-night anchor. Roughly the same as Obertraun (~€16 cheaper) — Strobl options run a bit less than Hallstatt-area.',
+      'Avg €138/night × 3 = €414 for the 3-night anchor. Roughly the same as Obertraun (~€12 cheaper) — Strobl options run a bit less than Hallstatt-area.',
     flow: [
       {
         label: 'Mornings',
@@ -2520,10 +2501,11 @@ export const SUNSET_STAYS: SunsetStay[] = [
       'Overnight bag only (rest stays in the car at the valley lot). Layers — summit is 10-15°C colder than valley, can be 5°C at sunrise. Headlamp. Warm jacket + hat. Sealed kosher dinner (sandwiches, salami, hummus tubs, pita, fruit, water). Cash for tip. Camera + power bank.',
     weatherRisk:
       'Cog railway runs in summer rain but suspends in thunderstorms / high wind / lightning. If the last train is cancelled you stay an extra night (the hotel accommodates, prepay your 2nd night). Forecast check at 12:00 the day you go up — if a storm is named for the evening, defer.',
-    verdict: 'LEAD PICK — real, bookable, magic. Worth swapping one Obertraun night for.',
+    verdict:
+      'LOCKED Wed Jul 29 → Thu Jul 30. The 4th base of the trip (not optional). Restructured 2026-05-17: was a "swap one anchor night" stretch pick; now the canonical Wed-night base across all mountain-anchor configs.',
     status: 'bookable',
     bookingNote:
-      'Book direct: phone +43 (0) 6138 / 35 42 (office hours 08:30-12:00 + 16:00-20:00 daily), or email via the contact form at schafberg.net. Specify "Night on the Schafberg" package + a Jul 2026 date + 2 adults double room. Package paid at the cog railway valley station before ascent.',
+      'BOOK ~2-3 WEEKS AHEAD — small hotel (~34 person capacity). Book direct: phone +43 (0) 6138 / 35 42 (office hours 08:30-12:00 + 16:00-20:00 daily), or email via the contact form at schafberg.net. Specify "Night on the Schafberg" package + Wed Jul 29 → Thu Jul 30, 2026 + 2 adults double room. Package paid at the cog railway valley station before ascent.',
     sourceLinks: [
       { label: 'Official site (schafberg.net)', url: 'https://schafberg.net/en/' },
       { label: 'Rooms + 2026 prices', url: 'https://schafberg.net/en/rooms/' },

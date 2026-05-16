@@ -200,6 +200,27 @@ function makePinIcon(category: PinCategory): unknown {
   });
 }
 
+/**
+ * Special icon for Berghotel Schafbergspitze — the locked Wed-night summit
+ * base (4-base restructure 2026-05-17). Oversized + gold-on-deep-green +
+ * permanent label, similar to the Chabad pin pattern.
+ */
+function makeSchafbergSummitIcon(): unknown {
+  const html = `
+    <div class="leaflet-pin leaflet-pin--summit-sleep" style="background:#b9892a;color:#fff;">
+      <span class="pin-glyph">🏔</span>
+    </div>
+    <div class="leaflet-pin-label leaflet-pin-label--summit-sleep">SLEEP · Wed</div>
+  `;
+  return window.L.divIcon({
+    html,
+    className: 'leaflet-pin-wrapper',
+    iconSize: [44, 56],
+    iconAnchor: [22, 22],
+    popupAnchor: [0, -22],
+  });
+}
+
 // =====================================================================
 // Popup HTML — name + 1-line description + "view details" link.
 // =====================================================================
@@ -220,21 +241,33 @@ function naturePopup(d: NatureDestination): string {
       : d.region === 'berchtesgaden'
         ? 'Berchtesgaden · Germany'
         : 'Hohe Tauern · Austria';
+  // Schafbergspitze is the LOCKED Wed-night summit base (4-base restructure
+  // 2026-05-17) — surface that prominently in the popup, not just as a
+  // generic "nature destination".
+  const isSchafberg = d.id === 'schafbergspitze';
+  const sleepBadge = isSchafberg
+    ? '<span class="pop-badge pop-badge-summit-sleep">🏔 SLEEP HERE Wed Jul 29 → Thu Jul 30</span>'
+    : '';
   const lockedBadge = d.lockedDay
     ? `<span class="pop-badge pop-badge-locked">✓ ${escapeHtml(d.lockedDay)}</span>`
     : '';
+  const summitExtra = isSchafberg
+    ? '<div class="pop-desc pop-desc--sleep"><strong>Berghotel Schafbergspitze</strong> · 1,783m · €155.80 pp incl. cog + breakfast. BOOK direct 2-3 weeks ahead: +43 6138 35 42 · <a href="https://schafberg.net/en/" target="_blank" rel="noreferrer noopener">schafberg.net</a></div>'
+    : '';
   return `
-    <div class="pop">
+    <div class="pop${isSchafberg ? ' pop--summit-sleep' : ''}">
       <div class="pop-cat">${regionLabel}</div>
       <div class="pop-title">${escapeHtml(d.name)}</div>
       <div class="pop-desc">${escapeHtml(d.feature)}</div>
+      ${summitExtra}
       <div class="pop-meta">
         <span>From Salzburg: <strong>${d.fromSalzburgMin} min</strong></span> ·
         <span>From Hallstatt: <strong>${d.fromHallstattMin} min</strong></span>
       </div>
-      ${lockedBadge}
+      ${sleepBadge}${lockedBadge}
       <div class="pop-actions">
         <a class="pop-link" href="nature-destinations.html#${encodeURIComponent(d.id)}">View details →</a>
+        ${isSchafberg ? '<a class="pop-link pop-link-secondary" href="stay.html#sunset-schafbergspitze-stay">Summit stay info →</a>' : ''}
       </div>
       <div class="pop-verified">Coords verified 2026-05-16 (Wikipedia / OSM)</div>
     </div>
@@ -321,7 +354,7 @@ function gatherLodging(): LodgingPinInput[] {
   };
   const baseLabel = (baseKey: Lodging['baseKey']): string => {
     if (baseKey === 'salzburg') return 'Salzburg · Shabbat base (Fri-Sun)';
-    if (baseKey === 'hallstatt') return 'Obertraun / Hallstatt · 4-night anchor';
+    if (baseKey === 'hallstatt') return 'Mountain anchor · 3-night midweek (Sun-Wed)';
     return 'Airport-area · Thu-Fri pre-flight';
   };
 
@@ -380,7 +413,7 @@ function gatherLodging(): LodgingPinInput[] {
     const label =
       cfg.id === 'berchtesgaden'
         ? 'Berchtesgaden / Ramsau · Config B option'
-        : 'St. Wolfgang / Strobl · Config D option';
+        : 'St. Wolfgang / Strobl · Config C option';
     for (const pick of cfg.lodging) {
       const c = LODGING_COORDS[pick.name];
       if (!c) {
@@ -469,10 +502,15 @@ function bootMap(): void {
         : dest.region === 'berchtesgaden'
           ? 'nature-berchtesgaden'
           : 'nature-hohe-tauern';
-    const marker = L.marker([coord.lat, coord.lng], { icon: makePinIcon(cat) }).bindPopup(
-      naturePopup(dest),
-      { maxWidth: 280, className: 'leaflet-popup-trip' },
-    );
+    // Schafbergspitze gets a special "summit-sleep" icon variant — it's the
+    // locked Wed-night base, not just a nature destination. Treat like
+    // Chabad pin: oversized + always-on-top so it stays unmissable.
+    const isSchafbergSleep = dest.id === 'schafbergspitze';
+    const icon = isSchafbergSleep ? makeSchafbergSummitIcon() : makePinIcon(cat);
+    const marker = L.marker([coord.lat, coord.lng], {
+      icon,
+      zIndexOffset: isSchafbergSleep ? 800 : undefined,
+    }).bindPopup(naturePopup(dest), { maxWidth: 300, className: 'leaflet-popup-trip' });
     natureLayer.addLayer(marker);
     allLatLngs.push([coord.lat, coord.lng]);
     natureCount += 1;
@@ -545,7 +583,7 @@ function bootMap(): void {
         <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-salzburg']}"></span>Salzburg · Shabbat</div>
         <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-obertraun']}"></span>Obertraun · 4-night</div>
         <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-berchtesgaden']}"></span>Berchtesgaden · Config B</div>
-        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-wolfgangsee']}"></span>St. Wolfgang · Config D</div>
+        <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-wolfgangsee']}"></span>St. Wolfgang · Config C</div>
         <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['lodging-airport']}"></span>Airport · last night</div>
         <div class="lg-section"><strong>Other</strong></div>
         <div class="lg-row"><span class="lg-dot" style="background:${PIN_COLORS['airport']}">✈</span>Salzburg Airport</div>
