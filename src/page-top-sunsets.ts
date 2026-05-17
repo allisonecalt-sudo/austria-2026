@@ -89,7 +89,7 @@ const PICKS: SunsetPick[] = [
     whyThisOne:
       'Summit + 13 lakes + no real hiking required. The Schafbergbahn cog (1893, steam-traction) does the 1,000m climb in 40 minutes. You earn the panorama via €46pp ticket, not via legs. Only summit sunset on this trip.',
     practical:
-      'Schafbergbahn LAST cog down is ~21:15 from Schafbergspitze (re-verify the Wed Jul 29 timetable on 5schaetze.at). MUST book up-cog in advance — July sells out. Sunset 20:48 means you have ~25 min on the terrace before the last return. Cog station parking in St. Wolfgang is paid, ~€5/day.',
+      'OVERNIGHT-GUEST path (your locked plan): LAST cog UP for hotel guests is 16:30 daily — NON-NEGOTIABLE. Be at St. Wolfgang valley station by 16:00. Park free at Parkplatz Nr. 7 (overnight guests only). 40-min cog up, check into Berghotel Schafbergspitze, sunset 20:48 on the terrace, sleep at 1,783m, sunrise 05:30, first cog down. Hotel: NO online booking — call +43 6138 3542 ASAP. Full runbook: schafbergspitze.html.',
     pairsWithBefore:
       'St. Wolfgang lakeside promenade walk + Strandbad swim in the afternoon → coffee in town → cog up at 18:00 → easy summit walk → terrace at sunset.',
     driveFromBases: {
