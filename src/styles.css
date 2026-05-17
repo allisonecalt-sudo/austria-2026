@@ -116,7 +116,13 @@ img {
 .nav {
   position: sticky;
   top: 0;
-  z-index: 50;
+  /* Bumped from 50 -> 10500 on 2026-05-17 07:35 (re-apply; first attempt
+     got reverted by a parallel agent's stash-pop). Allison: "Menu not
+     superceding". Floating fabs (notes 99999, search pill ~9999), sticky
+     bars (~500), Leaflet popups (~400-1000) were all visually covering
+     the nav dropdown panel. Nav now sits above them; modals at 100000+
+     still win. */
+  z-index: 10500;
   background: rgba(250, 246, 238, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
