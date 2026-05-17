@@ -1769,7 +1769,8 @@ function megaCtaHtml(base: BaseKey): string {
 // ---------------------------------------------------------------------------
 function pickedListings(): UnifiedListing[] {
   const picks = readPicks();
-  return ALL_LISTINGS.filter((l) => picks[l.id]);
+  // Allison 2026-05-17: "never show sold out" — also applies to shortlist bar
+  return ALL_LISTINGS.filter((l) => picks[l.id] && l.availability !== "sold-out");
 }
 
 function pickChipHtml(l: UnifiedListing): string {
