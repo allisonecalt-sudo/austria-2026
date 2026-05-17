@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top picks · Austria 2026</title>
+    <meta
+      name="description"
+      content="Curated top picks across lodgings, places, water activities, sunsets, and Jewish sights — each with a photo, a why-it-rocks line, and a See-on-map button."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="trip-summary.html">Trip</a>
+          <a href="stay.html">Stay</a>
+          <a href="activities.html">Activities</a>
+          <a href="recommendations.html" class="active">Top picks</a>
+          <a href="map.html">Map</a>
+          <a href="notes.html">Notes</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="rec-page">
+      <header class="rec-page__header">
+        <h1 class="rec-page__title">⭐ Top picks across the trip</h1>
+        <p class="rec-page__sub">
+          Curated shortlists — sleeping, places, water, sunsets, Jewish sights. Each card opens
+          the full detail page. "📍 See on map" jumps to the bird's-eye map with that pin
+          highlighted.
+        </p>
+        <p class="rec-page__hint">
+          Looking for something specific? Hit <kbd>Cmd/Ctrl + /</kbd> or the 🔍 Search pill in
+          the bottom-left to fuzzy-search every lodging, place, activity, sunset, and Jewish
+          sight across the whole site.
+        </p>
+      </header>
+
+      <div id="rec-root"></div>
+
+      <a class="rec-nav-link" href="./">← back to trip home</a>
+    </main>
+
+    <script type="module" src="/src/page-recommendations.ts"></script>
+    <script type="module" src="/src/page-search.ts"></script>
+  </body>
+</html>
