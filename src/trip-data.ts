@@ -915,7 +915,9 @@ export const TRIP: TripData = {
         {
           name: 'Salzburg Topside Apartments',
           url: 'https://www.booking.com/hotel/at/salzburg-apartment.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/483551175.webp?k=2c6d04a59f6e9a6d0b2e3e7c98d7e2a8b0c5d9e3f0b2a1c4d5e6f7a8b9c0d1e2&o=',
+          // photo-rehab 2026-05-17: prior signed sig (483551175) was a Wave-4d
+          // hallucination — 401 from Booking CDN. Promoted first carousel photo.
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243968147.jpg?k=13a3a448f28ff382c860153f583e48c1a9b683bdb72bc0486bf8c873e71ca3a6&o=&hp=1',
           review: '9.0 · Superb · 200+ reviews',
           pricePerNight: '€175 / night (₪695) — SOLD OUT for Jul 24-26 as of 2026-05-17 (PRICE-VERIFIED: no rooms available on Booking live)',
           note: 'Recently renovated apartments on Lasserstraße 19, ~600m from Mirabell Palace, ~10-min walk to Chabad on Linzergasse. WASHING MACHINE confirmed. Spotless reviews. The "passes the Salzburg laundry filter and is close to shul" pick.',
@@ -1561,7 +1563,9 @@ export const TRIP: TripData = {
         {
           name: 'Heritage.Hotel Hallstatt (3 restored historic houses)',
           url: 'https://www.booking.com/hotel/at/heritage-hallstatt.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/87693988.webp?k=8d8b8a8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e&o=',
+          // photo-rehab 2026-05-17: prior signed sig (87693988) was a Wave-4d
+          // hallucination (8e-repeating fake sig) — 401. Promoted carousel[0].
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/706447402.jpg?k=9a73362a46ae82837a4a94dc5d5dc8b2c46203b823a1dc43eeab0126a2923fdc&o=&hp=1',
           review: '8.9 · Fabulous · 600+ reviews',
           pricePerNight: '€240 / night (₪953) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'Three carefully renovated historic townhouses on the lakeshore — Kainz House (on the jetty), Stocker House (the oldest building in Hallstatt), Seethaler House (perched on the hillside with the postcard view). All rooms face the lake. Boutique, design-led, history you can feel. NO KITCHEN — hotel rooms, not apartments. Above the €180 mid-high cap. Surface as "if you want one or two nights of beautiful, no self-catering" — meals would be cold-cuts/salads brought up from Spar (the room has a fridge but no stove).',
@@ -1605,7 +1609,9 @@ export const TRIP: TripData = {
         {
           name: 'Bräugasthof Hallstatt (700-year-old lake-edge inn)',
           url: 'https://www.booking.com/hotel/at/bra-ugasthof-hallstatt.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/162531001.webp?k=2f9f2a2b4e3f1a8d4f3a6c5b8f4a2e3d6a8b3c2d7e1f4a9b6c8d3e7f2a5b8c1d&o=',
+          // photo-rehab 2026-05-17: prior signed sig (162531001) was a Wave-4d
+          // hallucination — 401 from Booking CDN. Promoted first carousel photo.
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/296543725.jpg?k=a95248bed807efd02bc6b47470ec7a20b2c2c2f36acd9554f389727e0799c028&o=&hp=1',
           review: '8.7 · Fabulous · 400+ reviews',
           pricePerNight: '€195 / night (₪774) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: '700-year-old building in the car-free historic centre, original antique furniture, 7 rooms — almost all with a balcony directly over Lake Hallstatt. Family-run, traditional Austrian restaurant on the ground floor with a lakeside terrace. NO KITCHEN in rooms — hotel-style, not apartment. Renovation finished May 2025. The "we want to wake up over the water" pick.',
@@ -1884,7 +1890,10 @@ export const TRIP: TripData = {
         {
           name: 'AlpenParks Hagan Lodge Altaussee (log-cabin village)',
           url: 'https://www.booking.com/hotel/at/alpenparks-hagan-lodge-altaussee.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Altausseer_See_-_Panorama_4.jpg/1280px-Altausseer_See_-_Panorama_4.jpg',
+          // photo-rehab 2026-05-17: prior Altausseer_See_-_Panorama_4 was a
+          // hallucinated Wikimedia file (404 — file does not exist on Commons).
+          // Replaced with verified Lake_Altaussee_and_Dachstein.jpg.
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Lake_Altaussee_and_Dachstein.jpg/1280px-Lake_Altaussee_and_Dachstein.jpg',
           review: '9.0 · Superb · 123 reviews (Booking) / 4.7 · 157 reviews (Tripadvisor)',
           pricePerNight: '€230-340 / night (varies by lodge tier; €230 typical for 2-person 82m² lodge) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'WOW: a CAR-FREE village of 62 log cabins built in the local Altaussee style, set in forest + meadows ~4 km from Lake Altaussee. Lodge Comfort 2-People is an 82m² self-contained log house with full kitchen, dishwasher, private sauna (on request), terrace. Modern country-house interior in solid wood. Walk to Loser family ski area; ~30 min drive to Hallstatt. Best amenity-stack of any Mountain-anchor pick (private sauna in your own cabin). [Photo is Altausseer See area — view live listing photos on Booking.]',
@@ -1917,7 +1926,8 @@ export const TRIP: TripData = {
           freeCancellation: true,
           freeCancellationUntil: 'Varies by lodge type — select free-cancellation rate at booking',
           photos: [
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Altausseer_See_-_Panorama_4.jpg/1280px-Altausseer_See_-_Panorama_4.jpg',
+            // photo-rehab 2026-05-17: replaced 404'd Altausseer_See_-_Panorama_4
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Lake_Altaussee_and_Dachstein.jpg/1280px-Lake_Altaussee_and_Dachstein.jpg',
             'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
             'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
           ],
