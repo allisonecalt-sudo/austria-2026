@@ -122,7 +122,7 @@ img {
      bars (~500), Leaflet popups (~400-1000) were all visually covering
      the nav dropdown panel. Nav now sits above them; modals at 100000+
      still win. */
-  z-index: 10500;
+  z-index: 2147483640;
   background: rgba(250, 246, 238, 0.94);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -11899,7 +11899,7 @@ main.container {
   /* Bumped from 60 -> 10510 on 2026-05-17 alongside .nav so the panel sits
      above floating elements (notes fab 99999, search pill, sticky bars,
      Leaflet popups). */
-  z-index: 10510;
+  z-index: 2147483641;
   display: none;
 }
 .nav-group__btn[aria-expanded='true'] + .nav-dropdown {
@@ -11980,7 +11980,7 @@ main.container {
   position: fixed;
   inset: 0;
   /* z=100050: above notes fab (99999) + search pill (99998). Allison 2026-05-17 07:50: "Navigation still not at front when click menu" */
-  z-index: 100050;
+  z-index: 2147483642;
   background: rgba(20, 14, 4, 0.45);
   display: none;
 }
