@@ -12688,8 +12688,7 @@ body.shortlist-shared-modal-open {
   margin-top: 1.4rem;
   padding-top: 1.4rem;
   border-top: 3px solid #6b4040;
-  background:
-    linear-gradient(180deg, rgba(138, 107, 107, 0.06) 0%, transparent 50%);
+  background: linear-gradient(180deg, rgba(138, 107, 107, 0.06) 0%, transparent 50%);
   border-radius: 8px 8px 0 0;
 }
 .eyebrow--holocaust {
@@ -12790,4 +12789,74 @@ body.shortlist-shared-modal-open {
   color: #1f3a5f;
   background: #e6edf6;
   border-color: #aec0d6;
+}
+
+/* =====================================================================
+ * Mobile nav coordination (APPEND ONLY — owned by nav-coordinator.ts)
+ *
+ * Allison reported 4+ times that the menu felt "not on top" even after
+ * the .nav-mobile z-index hit max-int. Root cause: other fixed overlays
+ * (.fab @ 9999, .map-sidebar @ 1500, .place-drawer @ 1500) stayed
+ * visible/scrollable underneath, so the slide-over fought visual noise.
+ *
+ * Fix has three layers:
+ *   1. JS retracts .map-sidebar + .place-drawer when nav opens
+ *      (see src/nav-coordinator.ts + src/page-map.ts).
+ *   2. CSS hides the .fab universally while nav is open (below).
+ *   3. CSS locks body scroll so the page beneath doesn't move on iOS
+ *      Safari — `position: fixed` is the only reliable lock on iOS.
+ *      `overflow: hidden` alone leaks; the existing rule above only had
+ *      that, hence the regression. Width 100% prevents body collapse.
+ * ===================================================================== */
+body.nav-mobile-open .fab {
+  visibility: hidden;
+}
+body.nav-mobile-open {
+  position: fixed;
+  width: 100%;
+  /* `overflow: hidden` already set on the earlier body.nav-mobile-open
+     rule (~line 12037). Keeping both rules so this block reads
+     standalone. CSS cascade merges them harmlessly. */
+  overflow: hidden;
+}
+
+/* ===========================================================================
+ * Cross-device pick sync — bases COMMITTED chip + recommendations Picked-by
+ * section badge. Added 2026-05-17 alongside src/sync-picks.ts.
+ * =========================================================================== */
+
+/* Compare-strip card visually pops when a config is committed (matches the
+   existing .base-config--committed gold accent on the expanded card). */
+.compare-card--committed {
+  border: 2px solid var(--gold-deep, #b9892a);
+  background: linear-gradient(180deg, #fff8e7 0%, #fffdf6 100%);
+  box-shadow: 0 4px 12px rgba(185, 137, 42, 0.18);
+}
+
+/* Picked-by section on recommendations.html — clear visual separation from
+   the editorial groups below. */
+.rec-section--picked {
+  background: var(--green-mist, #e8f3ee);
+  border-radius: 14px;
+  padding: 1.3rem 1.2rem 1.6rem;
+  margin-bottom: 1.6rem;
+  border: 1px solid var(--green-deep, #2f6b4f);
+  border-left-width: 5px;
+}
+
+.rec-section--picked .rec-section__title {
+  color: var(--green-deep, #2f6b4f);
+}
+
+.rec-card__pick-badge {
+  display: inline-block;
+  background: var(--green-deep, #2f6b4f);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
 }

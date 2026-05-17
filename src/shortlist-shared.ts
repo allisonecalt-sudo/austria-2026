@@ -24,6 +24,7 @@
 // from every page-*.ts bootstrap.
 
 import { insertNote } from './supabase.js';
+import { startPicksSync } from './sync-picks.js';
 
 // ---------------------------------------------------------------------------
 // Types + storage
@@ -318,7 +319,9 @@ function refreshBar(): void {
 }
 
 function refreshPickButtons(): void {
-  const buttons = document.querySelectorAll<HTMLButtonElement>('.pick-button[data-pick-id][data-pick-type]');
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    '.pick-button[data-pick-id][data-pick-type]',
+  );
   buttons.forEach((btn) => {
     const id = btn.dataset.pickId;
     const type = btn.dataset.pickType as ShortlistType | undefined;
@@ -443,6 +446,19 @@ export function initSharedShortlist(): void {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && reviewBackdrop) closeReview();
   });
+
+  // After Supabase sync hydrates localStorage with cross-device picks, repaint
+  // the bottom bar + every visible pick button so the other person's picks
+  // show up without a manual reload. The 'picks-synced' event is fired by
+  // sync-picks.ts on every successful pull.
+  window.addEventListener('picks-synced', () => {
+    refreshBar();
+    refreshPickButtons();
+  });
+
+  // Kick off the read path. This is the line that fixes the P0 — without
+  // this call the shortlist UI only ever sees what THIS device wrote.
+  startPicksSync();
 
   refreshBar();
   refreshPickButtons();

@@ -33,6 +33,7 @@ import {
 import { insertNote } from './supabase.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
+import { startPicksSync } from './sync-picks.js';
 
 // ---------------------------------------------------------------------------
 // Leaflet typings — loaded via CDN <script> in stay.html (no npm dep).
@@ -498,7 +499,10 @@ function buildListings(): UnifiedListing[] {
       driveToAirportMin: l.pickDriveToAirportMin,
     };
     pickEntry.hasFarmAnimals = detectAmenityAcross(pickEntry, /farm|goat|horse|bauernhof/i);
-    pickEntry.hasLakeView = detectAmenityAcross(pickEntry, /lake[-\s]?view|lakefront|lake[-\s]?edge/i);
+    pickEntry.hasLakeView = detectAmenityAcross(
+      pickEntry,
+      /lake[-\s]?view|lakefront|lake[-\s]?edge/i,
+    );
     out.push(pickEntry);
 
     for (const a of l.alts) {
@@ -547,7 +551,10 @@ function buildListings(): UnifiedListing[] {
         driveToAirportMin: a.driveToAirportMin,
       };
       altEntry.hasFarmAnimals = detectAmenityAcross(altEntry, /farm|goat|horse|bauernhof/i);
-      altEntry.hasLakeView = detectAmenityAcross(altEntry, /lake[-\s]?view|lakefront|lake[-\s]?edge/i);
+      altEntry.hasLakeView = detectAmenityAcross(
+        altEntry,
+        /lake[-\s]?view|lakefront|lake[-\s]?edge/i,
+      );
       out.push(altEntry);
     }
   }
@@ -658,7 +665,9 @@ function driveBucketClass(min: number): string {
 }
 
 function renderDriveMatrix(l: UnifiedListing): string {
-  const rows = driveMatrixForListing(l).slice().sort((a, b) => a.fromBaseMin - b.fromBaseMin);
+  const rows = driveMatrixForListing(l)
+    .slice()
+    .sort((a, b) => a.fromBaseMin - b.fromBaseMin);
   if (rows.length === 0) return '';
   const closest = rows.slice(0, 3);
   const farthest = rows.slice(-3).reverse();
@@ -871,7 +880,8 @@ function baseBadge(base: BaseKey): string {
 
 function laundryChip(l: LodgingLaundry, base: BaseKey): string {
   // Per Allison: washer/dryer should ALWAYS be prominent.
-  if (l === 'washer+dryer') return '<span class="lodging-chip lodging-chip--good">🧺🌬 Washer + dryer</span>';
+  if (l === 'washer+dryer')
+    return '<span class="lodging-chip lodging-chip--good">🧺🌬 Washer + dryer</span>';
   if (l === 'washer') return '<span class="lodging-chip lodging-chip--good">🧺 Washer</span>';
   if (l === 'shared') return '<span class="lodging-chip">🧺 Shared laundry</span>';
   if (l === 'none')
@@ -910,7 +920,8 @@ function kitchenPill(k: LodgingKitchen): string {
 }
 
 function bathPill(b: LodgingBath): string {
-  if (b === 'private') return '<span class="lodging-chip lodging-chip--essential">🚿 Private bath</span>';
+  if (b === 'private')
+    return '<span class="lodging-chip lodging-chip--essential">🚿 Private bath</span>';
   if (b === 'shared') return '<span class="lodging-chip lodging-chip--warn">🚿 Shared bath</span>';
   return '<span class="lodging-chip lodging-chip--neutral">🚿 Bath?</span>';
 }
@@ -1044,7 +1055,8 @@ function amenitiesIconRow(l: UnifiedListing): string {
   if (l.hasFreeParking) icons.push('<span title="Free parking">🅿️</span>');
   if (l.hasLakeView) icons.push('<span title="Lake view">🌊</span>');
   if (l.hasFarmAnimals) icons.push('<span title="Farm animals">🐎</span>');
-  if (l.vibe === 'nature-view' || l.vibe === 'forest-cabin') icons.push('<span title="Nature view">🏔</span>');
+  if (l.vibe === 'nature-view' || l.vibe === 'forest-cabin')
+    icons.push('<span title="Nature view">🏔</span>');
   icons.push('<span title="Wi-Fi (standard at all listings)">📶</span>');
   icons.push('<span title="Kitchen (standard)">🍳</span>');
   return `<div class="lodging-amenities">${icons.join('')}</div>`;
@@ -1052,10 +1064,14 @@ function amenitiesIconRow(l: UnifiedListing): string {
 
 function distanceChips(l: UnifiedListing): string {
   const chips: string[] = [];
-  if (l.walkToChabadMin) chips.push(`<span class="lodging-chip">🚶 ${l.walkToChabadMin} min to Chabad</span>`);
-  if (l.driveToAirportMin) chips.push(`<span class="lodging-chip">✈ ${l.driveToAirportMin} min to SZG</span>`);
+  if (l.walkToChabadMin)
+    chips.push(`<span class="lodging-chip">🚶 ${l.walkToChabadMin} min to Chabad</span>`);
+  if (l.driveToAirportMin)
+    chips.push(`<span class="lodging-chip">✈ ${l.driveToAirportMin} min to SZG</span>`);
   // Nearest nature destination (under 30 min) — pull from the drive matrix
-  const matrix = driveMatrixForListing(l).slice().sort((a, b) => a.fromBaseMin - b.fromBaseMin);
+  const matrix = driveMatrixForListing(l)
+    .slice()
+    .sort((a, b) => a.fromBaseMin - b.fromBaseMin);
   const closest = matrix[0];
   if (closest && closest.fromBaseMin > 0) {
     chips.push(
@@ -1078,9 +1094,7 @@ function pickButtonHtml(l: UnifiedListing): string {
 // modal opens. Per stay-ux deliverable B (2026-05-17).
 function compareButtonHtml(l: UnifiedListing): string {
   const selected = compareSelection.includes(l.id);
-  const cls = selected
-    ? 'lodging-compare-btn lodging-compare-btn--on'
-    : 'lodging-compare-btn';
+  const cls = selected ? 'lodging-compare-btn lodging-compare-btn--on' : 'lodging-compare-btn';
   const label = selected ? '✓ In compare' : '📊 Compare';
   const aria = selected
     ? `Remove ${l.name} from comparison`
@@ -1654,9 +1668,7 @@ function renderMapPins(items: UnifiedListing[]): void {
     corners.push(l.coords);
     const color = BASE_COLORS[l.base];
     const picked = isPicked(l.id);
-    const ring = picked
-      ? `<span class="stay-pin__ring"></span>`
-      : '';
+    const ring = picked ? `<span class="stay-pin__ring"></span>` : '';
     const icon = L.divIcon({
       className: 'stay-pin',
       html: `${ring}<span class="stay-pin__dot" style="background:${color}"></span>`,
@@ -1770,17 +1782,18 @@ function megaCtaHtml(base: BaseKey): string {
 function pickedListings(): UnifiedListing[] {
   const picks = readPicks();
   // Allison 2026-05-17: "never show sold out" — also applies to shortlist bar
-  return ALL_LISTINGS.filter((l) => picks[l.id] && l.availability !== "sold-out");
+  return ALL_LISTINGS.filter((l) => picks[l.id] && l.availability !== 'sold-out');
 }
 
 function pickChipHtml(l: UnifiedListing): string {
   // Avatar initials from first letters of name words, max 2 chars.
-  const initials = l.name
-    .replace(/[^A-Za-z\s]/g, '')
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((w) => w.charAt(0).toUpperCase())
-    .join('') || '?';
+  const initials =
+    l.name
+      .replace(/[^A-Za-z\s]/g, '')
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((w) => w.charAt(0).toUpperCase())
+      .join('') || '?';
   const color = BASE_COLORS[l.base];
   return `
     <span class="bottom-shortlist__chip" style="background:${color}1f;border-color:${color}7a;color:${color}"
@@ -1931,13 +1944,37 @@ function renderCompareModalBody(): string {
     `<tr><th scope="row">${escapeHtml(label)}</th>${cellA}${cellB}</tr>`;
 
   const kitchenLabel = (k: LodgingKitchen): string =>
-    k === 'full' ? 'Full' : k === 'kitchenette' ? 'Kitchenette' : k === 'shared' ? 'Shared' : k === 'none' ? 'None' : 'Unknown';
+    k === 'full'
+      ? 'Full'
+      : k === 'kitchenette'
+        ? 'Kitchenette'
+        : k === 'shared'
+          ? 'Shared'
+          : k === 'none'
+            ? 'None'
+            : 'Unknown';
   const laundryLabel = (l: LodgingLaundry): string =>
-    l === 'washer+dryer' ? 'Washer + dryer' : l === 'washer' ? 'Washer' : l === 'shared' ? 'Shared' : l === 'none' ? 'None' : 'Unknown';
+    l === 'washer+dryer'
+      ? 'Washer + dryer'
+      : l === 'washer'
+        ? 'Washer'
+        : l === 'shared'
+          ? 'Shared'
+          : l === 'none'
+            ? 'None'
+            : 'Unknown';
   const bathLabel = (b: LodgingBath): string =>
     b === 'private' ? 'Private' : b === 'shared' ? 'Shared' : 'Unknown';
   const parkingLabel = (p: LodgingParking): string =>
-    p === 'free' ? 'Free' : p === 'paid' ? 'Paid' : p === 'street' ? 'Street' : p === 'none' ? 'None' : 'Unknown';
+    p === 'free'
+      ? 'Free'
+      : p === 'paid'
+        ? 'Paid'
+        : p === 'street'
+          ? 'Street'
+          : p === 'none'
+            ? 'None'
+            : 'Unknown';
   const brLabel = (l: UnifiedListing): string =>
     l.bedrooms === 'studio' ? 'Studio' : typeof l.bedrooms === 'number' ? `${l.bedrooms} BR` : '—';
 
@@ -2128,7 +2165,9 @@ function maybeShowFilterTooltip(): void {
     tip.classList.add('filter-tooltip--gone');
     window.setTimeout(() => tip.remove(), 220);
   };
-  tip.querySelector<HTMLButtonElement>('.filter-tooltip__close')?.addEventListener('click', dismiss);
+  tip
+    .querySelector<HTMLButtonElement>('.filter-tooltip__close')
+    ?.addEventListener('click', dismiss);
   // Auto-fade after 5s
   window.setTimeout(dismiss, 5000);
 }
@@ -2211,8 +2250,10 @@ function renderShell(): void {
 
   const listEl = document.querySelector<HTMLDivElement>('#stay-listings');
   if (listEl) {
-    if (state.view === 'list' && !state.showShortlistOnly) listEl.innerHTML = renderListView(matched);
-    else if (state.view === 'grid' || state.showShortlistOnly) listEl.innerHTML = renderGridView(matched);
+    if (state.view === 'list' && !state.showShortlistOnly)
+      listEl.innerHTML = renderListView(matched);
+    else if (state.view === 'grid' || state.showShortlistOnly)
+      listEl.innerHTML = renderGridView(matched);
     else listEl.innerHTML = renderMapView(matched);
   }
 
@@ -2538,6 +2579,14 @@ function init(): void {
     readHash();
     renderShell();
   });
+
+  // Cross-device pick sync — repaint the shell when Supabase delivers picks
+  // the other device made. Without this, Allison would never see Avital's
+  // lodging picks (and vice versa). Fired by sync-picks.ts.
+  window.addEventListener('picks-synced', () => {
+    renderShell();
+  });
+  startPicksSync();
 
   // Scroll listener — toggles the sticky filter summary visibility.
   // Throttled to ~60fps via rAF.

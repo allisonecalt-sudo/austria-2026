@@ -25,6 +25,7 @@ import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
 import { initSharedShortlist } from './shortlist-shared.js';
 import { insertNote } from './supabase.js';
+import { readCommittedBaseMeta, startPicksSync, type BaseCommitMeta } from './sync-picks.js';
 
 function escapeHtml(s: string): string {
   return s
@@ -207,21 +208,52 @@ function recommendedBadge(rec?: boolean): string {
   return '<span class="chip chip-recommended">⭐ Current default</span>';
 }
 
+// Format the committed-base meta as a single "★ COMMITTED · <author> · <local time>"
+// chip. Replaces the recommended/cost chips on the committed card so the
+// commit announces itself loudly. Author is capitalized for visual weight.
+function formatCommitChip(meta: BaseCommitMeta): string {
+  const who = meta.by === 'allison' ? 'Allison' : 'Avital';
+  let when = meta.committed_at;
+  try {
+    const d = new Date(meta.committed_at);
+    // YYYY-MM-DD HH:mm in user-local time, falling back to the raw ISO if
+    // Date parsing fails for any reason.
+    const y = d.getFullYear();
+    const mo = String(d.getMonth() + 1).padStart(2, '0');
+    const da = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    when = `${y}-${mo}-${da} ${hh}:${mm}`;
+  } catch {
+    /* keep raw */
+  }
+  return `<span class="chip chip-recommended" title="Committed via the Commit button on this page">★ COMMITTED · ${who} · ${when}</span>`;
+}
+
 // --- Per-config card ---
 
 function renderConfigCard(c: BaseConfig, idx: number): string {
   // Open the committed one if any, else first card by default
   const committed = readCommittedBase();
+  const committedMeta = readCommittedBaseMeta();
   const openAttr = (committed ? committed === c.id : idx === 0) ? 'open' : '';
   const isCommitted = committed === c.id;
   const committedCls = isCommitted ? ' base-config--committed' : '';
+  // When THIS card is committed, replace the recommended/cost chips with the
+  // single loud "★ COMMITTED · author · time" chip. Spec (2026-05-17): "show
+  // the strip as ★ COMMITTED · <author> · <local time> instead of ⭐ Current
+  // default · 📊 Baseline (€0)".
+  const headChips =
+    isCommitted && committedMeta
+      ? formatCommitChip(committedMeta)
+      : `${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}`;
   return `
     <details class="base-config${committedCls}" id="config-${c.id}" data-base-id="${c.id}" ${openAttr}>
       <summary class="base-config-summary">
         <div class="base-config-head">
           <div class="base-config-label">${escapeHtml(c.label)}${isCommitted ? ' <span class="chip chip-good" style="margin-left:0.4rem;">✓ Your lean</span>' : ''}</div>
           <div class="base-config-town">${escapeHtml(c.baseTown)} · ${escapeHtml(c.nightsAtBase)}</div>
-          <div class="base-config-chips">${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}</div>
+          <div class="base-config-chips">${headChips}</div>
         </div>
         <div class="base-config-expand">Tap to expand ▾</div>
       </summary>
@@ -235,7 +267,10 @@ function renderConfigCard(c: BaseConfig, idx: number): string {
         <div class="flow-grid">${renderFlow(c.flow)}</div>
 
         <h3 class="base-config-section-head">Lodging picks for this config (${c.lodging.filter((p) => p.availability !== 'sold-out').length})</h3>
-        <div class="alts-grid">${c.lodging.filter((p) => p.availability !== 'sold-out').map(renderLodgingPick).join('')}</div>
+        <div class="alts-grid">${c.lodging
+          .filter((p) => p.availability !== 'sold-out')
+          .map(renderLodgingPick)
+          .join('')}</div>
 
         ${renderProsCons(c.pros, c.cons)}
 
@@ -258,9 +293,9 @@ function renderConfigCard(c: BaseConfig, idx: number): string {
             data-base-commit-id="${c.id}"
             data-base-commit-label="${escapeHtml(c.label)}"
             aria-pressed="${isCommitted ? 'true' : 'false'}"
-            aria-label="${isCommitted ? 'Un-commit' : 'Commit'} to ${escapeHtml(c.label)} as your lean"
-          >${isCommitted ? '✓ Your lean — tap to un-commit' : '✓ Commit this config as your lean'}</button>
-          <span class="base-commit-note">Marks this as your favored option. Other configs stay browseable.</span>
+            aria-label="${isCommitted ? 'Change your commit (un-commit)' : 'Commit'} to ${escapeHtml(c.label)} as your lean"
+          >${isCommitted ? '✎ Change my commit (un-commit)' : '✓ Commit this config as your lean'}</button>
+          <span class="base-commit-note">${isCommitted ? 'Tap to free up the commit — then commit a different config.' : 'Marks this as your favored option. Other configs stay browseable.'}</span>
         </div>
       </div>
     </details>`;
@@ -353,16 +388,21 @@ function wireBaseCommitButtons(): void {
 // --- Compare strip (always visible, scan-friendly) ---
 
 function renderCompareStrip(): string {
-  const rows = BASE_CONFIGS.map(
-    (c) => `
-      <a class="compare-card" href="#config-${c.id}">
+  const committed = readCommittedBase();
+  const committedMeta = readCommittedBaseMeta();
+  const rows = BASE_CONFIGS.map((c) => {
+    const isCommitted = committed === c.id;
+    const chips =
+      isCommitted && committedMeta
+        ? formatCommitChip(committedMeta)
+        : `${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}`;
+    return `
+      <a class="compare-card${isCommitted ? ' compare-card--committed' : ''}" href="#config-${c.id}">
         <div class="compare-card-label">${escapeHtml(c.label.replace(/^Config [A-Z] — /, ''))}</div>
-        <div class="compare-card-meta">
-          ${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}
-        </div>
+        <div class="compare-card-meta">${chips}</div>
         <div class="compare-card-pitch">${escapeHtml(c.pitch.slice(0, 140))}…</div>
-      </a>`,
-  ).join('');
+      </a>`;
+  }).join('');
   return `
     <h2 style="margin-bottom:1rem;">The 4 options, at a glance</h2>
     <div class="compare-grid">${rows}</div>`;
@@ -471,3 +511,14 @@ wireBaseCommitButtons();
 initNotesWidget();
 initChatPlanPopup();
 initSharedShortlist();
+
+// Cross-device sync — when Avital commits a base from her phone, Allison's
+// browser should pick it up. shortlist-shared.initSharedShortlist already
+// kicks off startPicksSync(), so we just need to re-render when it lands.
+window.addEventListener('picks-synced', () => {
+  render();
+});
+// Belt-and-suspenders: explicitly kick off a sync in case shortlist-shared's
+// init hasn't run yet (page load order is single-threaded so it has, but
+// this guards against future refactors).
+startPicksSync();

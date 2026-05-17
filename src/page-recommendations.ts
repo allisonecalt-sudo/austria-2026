@@ -21,7 +21,15 @@
 
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
-import { buildRecommendations, typeIcon, mapFocusUrl, type RecommendationGroup, type SearchItem } from './search-index.js';
+import {
+  buildRecommendations,
+  buildIndex,
+  typeIcon,
+  mapFocusUrl,
+  type RecommendationGroup,
+  type SearchItem,
+} from './search-index.js';
+import { getAllPickedItems, startPicksSync, type PickedItem } from './sync-picks.js';
 
 initNotesWidget();
 initChatPlanPopup();
@@ -83,11 +91,128 @@ function renderSection(group: RecommendationGroup): string {
   `;
 }
 
+// "Picked by Allison + Avital" section — sourced live from austria_notes via
+// sync-picks. Spec 2026-05-17: render ABOVE the editorial picks so the
+// human-curated list is the first thing you see when you arrive. Cross-
+// references each picked id back into the search-index so we can reuse the
+// existing card markup (photo, location, "See on map" handoff).
+function renderPickedSection(): string {
+  const picks = getAllPickedItems();
+  if (picks.length === 0) {
+    // Empty state — fail-loud per CLAUDE.md so the gap is honest, not silent.
+    return `
+      <section class="rec-section rec-section--picked">
+        <header class="rec-section__header">
+          <h2 class="rec-section__title">
+            <span aria-hidden="true">✓</span>
+            Picked by Allison + Avital
+          </h2>
+          <p class="rec-section__blurb">
+            Nothing picked yet. Tap "+ Pick this" on a stay, sight, or activity card and it'll show up here on every device.
+          </p>
+        </header>
+      </section>
+    `;
+  }
+
+  // Build an id→SearchItem index so we can resolve a pick to a rich card.
+  const all = buildIndex();
+  const byId = new Map<string, SearchItem>();
+  all.forEach((item) => byId.set(item.id, item));
+  // Also index by the "raw" id without the type prefix — shortlist picks
+  // use raw nature ids (e.g. "wimbachklamm") while the search index uses
+  // prefixed ids (e.g. "place-wimbachklamm"). Build both lookups.
+  function resolve(p: PickedItem): SearchItem | null {
+    // Lodging: search-index id is `lodging-<slug>` and the pick id is the
+    // page-stay slug directly (e.g. "master-linzergasse"). Try both.
+    if (p.type === 'lodging') {
+      return byId.get(`lodging-${p.id}`) ?? byId.get(p.id) ?? null;
+    }
+    // Nature / sunset → search-index ids are `place-<id>` or `sunset-<id>`
+    // OR the raw id (the indexer uses different conventions per type).
+    return (
+      byId.get(p.id) ??
+      byId.get(`place-${p.id}`) ??
+      byId.get(`sunset-${p.id}`) ??
+      byId.get(`activity-${p.id}`) ??
+      null
+    );
+  }
+
+  const enriched = picks.map((p) => ({ pick: p, item: resolve(p) }));
+  const matched = enriched.filter(
+    (e): e is { pick: PickedItem; item: SearchItem } => e.item !== null,
+  );
+  const unmatched = enriched.filter((e) => e.item === null);
+
+  const cards = matched
+    .map(({ pick, item }) => {
+      const who = pick.by === 'allison' ? 'Allison' : 'Avital';
+      const stamp = formatPickStamp(pick.picked_at);
+      return renderCardWithPickBadge(item, `${who} · ${stamp}`);
+    })
+    .join('');
+
+  const unmatchedNote =
+    unmatched.length > 0
+      ? `<p class="rec-section__blurb" style="margin-top:0.8rem; color:var(--ink-soft);">
+           <strong>Fail-loud:</strong> ${unmatched.length} pick${unmatched.length === 1 ? '' : 's'} couldn't be matched to a card (id drift) — ${unmatched.map((u) => escapeHtml(u.pick.label)).join(', ')}. Pin still lives in austria_notes.
+         </p>`
+      : '';
+
+  return `
+    <section class="rec-section rec-section--picked">
+      <header class="rec-section__header">
+        <h2 class="rec-section__title">
+          <span aria-hidden="true">✓</span>
+          Picked by Allison + Avital
+        </h2>
+        <p class="rec-section__blurb">
+          ${matched.length} pick${matched.length === 1 ? '' : 's'} across both devices, synced live from the trip notes feed. Latest at the bottom.
+        </p>
+      </header>
+      <div class="rec-grid">${cards}</div>
+      ${unmatchedNote}
+    </section>
+  `;
+}
+
+function formatPickStamp(iso: string): string {
+  try {
+    const d = new Date(iso);
+    const mo = String(d.getMonth() + 1).padStart(2, '0');
+    const da = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    return `${d.getFullYear()}-${mo}-${da} ${hh}:${mm}`;
+  } catch {
+    return iso;
+  }
+}
+
+// Variant of renderCard that prepends a "Who · When" badge so the picked
+// section communicates source without re-skinning the whole card.
+function renderCardWithPickBadge(item: SearchItem, badge: string): string {
+  const html = renderCard(item);
+  const inject = `<div class="rec-card__pick-badge" aria-label="Picked by ${escapeHtml(badge)}">✓ ${escapeHtml(badge)}</div>`;
+  // Inject the badge as the first child of rec-card__body so it sits above
+  // the title without disturbing card layout.
+  return html.replace('<div class="rec-card__body">', `<div class="rec-card__body">${inject}`);
+}
+
 function init(): void {
   const root = document.getElementById('rec-root');
   if (!root) return;
   const groups = buildRecommendations();
-  root.innerHTML = groups.map(renderSection).join('');
+  // Picked-by section ALWAYS renders first so it's above the fold.
+  root.innerHTML = renderPickedSection() + groups.map(renderSection).join('');
 }
 
 init();
+
+// Cross-device sync — when picks land from Supabase, re-render the page so
+// the "Picked by Allison + Avital" section reflects the latest state.
+window.addEventListener('picks-synced', () => {
+  init();
+});
+startPicksSync();

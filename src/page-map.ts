@@ -29,6 +29,7 @@
 
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
+import { NAV_OPENED_EVENT, NAV_CLOSED_EVENT } from './nav-coordinator.js';
 import {
   NATURE_DESTINATIONS,
   NATURE_COORDS,
@@ -1813,6 +1814,36 @@ function bootMap(): void {
     if (ev.key === 'Escape' && drawerEl?.getAttribute('aria-hidden') === 'false') {
       closeDrawer();
     }
+  });
+
+  // === Mobile nav coordination ===
+  // When the hamburger menu opens, retract any open map overlays so the
+  // slide-over isn't fighting them visually. Restore on nav close ONLY if
+  // they were open before — don't surprise-open something the user closed.
+  // Triggered by body.nav-mobile-open class via nav-coordinator.ts.
+  let sidebarWasOpenBeforeNav = false;
+  let drawerWasOpenBeforeNav = false;
+  window.addEventListener(NAV_OPENED_EVENT, () => {
+    sidebarWasOpenBeforeNav = sidebar?.classList.contains('is-open') ?? false;
+    drawerWasOpenBeforeNav = drawerEl?.getAttribute('aria-hidden') === 'false';
+    if (sidebarWasOpenBeforeNav) {
+      sidebar?.classList.remove('is-open');
+      sidebarToggleBtn?.setAttribute('aria-expanded', 'false');
+    }
+    if (drawerWasOpenBeforeNav) {
+      // closeDrawer() also clears selected-pin highlight + URL focus param.
+      closeDrawer();
+    }
+  });
+  window.addEventListener(NAV_CLOSED_EVENT, () => {
+    // Only restore the sidebar — re-opening the place-drawer would feel
+    // intrusive (Allison closed the nav to look at the map, not the card).
+    if (sidebarWasOpenBeforeNav) {
+      sidebar?.classList.add('is-open');
+      sidebarToggleBtn?.setAttribute('aria-expanded', 'true');
+    }
+    sidebarWasOpenBeforeNav = false;
+    drawerWasOpenBeforeNav = false;
   });
 
   // Wire every marker click → openDrawer.
