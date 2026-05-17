@@ -2,9 +2,9 @@
  * page-map.ts — Leaflet bird's-eye map for the full Austria 2026 trip.
  *
  * Renders:
- *   - 13 nature destinations (color-coded by region: salzkammergut /
+ *   - 21 nature destinations (color-coded by region: salzkammergut /
  *     berchtesgaden / hohe-tauern)
- *   - 22+ lodging picks (color-coded by base: salzburg-shabbat / obertraun
+ *   - 36 lodging picks (color-coded by base: salzburg-shabbat / obertraun
  *     / airport / berchtesgaden / wolfgangsee)
  *   - Salzburg airport (rental-car pickup + Friday 5am departure)
  *   - Chabad Salzburg (Shabbat home, Linzergasse 76)
