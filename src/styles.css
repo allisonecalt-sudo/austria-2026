@@ -11882,7 +11882,10 @@ main.container {
   border-radius: 12px;
   box-shadow: 0 12px 32px rgba(40, 30, 15, 0.18);
   padding: 0.5rem;
-  z-index: 60;
+  /* Bumped from 60 -> 10510 on 2026-05-17 alongside .nav so the panel sits
+     above floating elements (notes fab 99999, search pill, sticky bars,
+     Leaflet popups). */
+  z-index: 10510;
   display: none;
 }
 .nav-group__btn[aria-expanded='true'] + .nav-dropdown {
@@ -12188,4 +12191,413 @@ summary.nav-mobile-section__title::after {
 }
 .nav-mobile-section > .nav-mobile-section__desc {
   display: block;
+}
+
+/* ============================================================
+   Shared shortlist primitives — Mountain Days Execute 2026-05-17
+   Pick buttons + sticky bottom bar + review panel for non-lodging
+   decision pages (nature / activities / water / lake / sunset / base).
+   Storage key: austria-shortlist-shared-v1 (separate from stay picks).
+   ============================================================ */
+
+/* Pick button — small green chip with + → ✓ toggle. Lives inside a card's
+   media frame OR body. Match the visual gesture of stay's lodging-pick-btn
+   so the affordance reads "same gesture site-wide." */
+.pick-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 0.85rem;
+  border: 2px solid var(--green-deep, #2f6c3a);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green-deep, #2f6c3a);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease,
+    color 0.12s ease,
+    border-color 0.12s ease;
+  min-height: 36px;
+  line-height: 1;
+}
+.pick-button:hover {
+  transform: scale(1.04);
+  background: #f1faf2;
+}
+.pick-button:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+.pick-button--on {
+  background: var(--green-deep, #2f6c3a);
+  color: #fff;
+  border-color: var(--green-deep, #2f6c3a);
+}
+.pick-button--on:hover {
+  background: #1f5028;
+}
+
+/* Pick button positioned in a card's media frame — absolute, top-right
+   over the photo. Use this variant when the card has .pick-button--floating. */
+.pick-button--floating {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 5;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* "is-picked" card outline — visual signal a card is in the shortlist */
+.card-is-picked,
+.alt-card.card-is-picked,
+.act-card.card-is-picked,
+.water-card.card-is-picked,
+.lake-card.card-is-picked,
+.sunset-card.card-is-picked {
+  outline: 3px solid var(--green-deep, #2f6c3a);
+  outline-offset: 2px;
+}
+
+/* Sticky bottom bar — cross-page shortlist summary */
+.shortlist-shared-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 79; /* below stay's bottom-shortlist (z 80) so they don't clobber */
+  background: #fff;
+  border-top: 2px solid var(--green-deep, #2f6c3a);
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.1);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.shortlist-shared-bar[hidden] {
+  display: none;
+}
+.shortlist-shared-bar__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1rem;
+  flex-wrap: wrap;
+}
+.shortlist-shared-bar__summary {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+  font-size: 0.88rem;
+  color: var(--ink, #2a2a2a);
+}
+.shortlist-shared-bar__summary strong {
+  color: var(--green-deep, #2f6c3a);
+  font-size: 1rem;
+}
+.shortlist-shared-bar__sub {
+  color: var(--ink-soft, #5a5f63);
+  font-size: 0.78rem;
+}
+.shortlist-shared-bar__chips {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.shortlist-shared-chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #eef7ef;
+  color: var(--green-deep, #2f6c3a);
+  border: 1px solid #c8e2ce;
+  border-radius: 999px;
+  max-width: 180px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.shortlist-shared-chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.shortlist-shared-chip--more {
+  background: var(--paper-soft, #f6f1e6);
+  color: var(--ink-soft, #5a5f63);
+  border-color: var(--line, #d6dade);
+}
+.shortlist-shared-bar__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.shortlist-shared-btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.5rem 0.85rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 38px;
+  background: transparent;
+  color: var(--ink, #2a2a2a);
+  transition:
+    background 0.12s ease,
+    transform 0.12s ease;
+}
+.shortlist-shared-btn:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+.shortlist-shared-btn--primary {
+  background: var(--green-deep, #2f6c3a);
+  color: #fff;
+}
+.shortlist-shared-btn--primary:hover {
+  background: #1f5028;
+}
+.shortlist-shared-btn--ghost {
+  background: transparent;
+  border-color: var(--line, #d6dade);
+}
+.shortlist-shared-btn--ghost:hover {
+  background: var(--paper-soft, #f6f1e6);
+}
+.shortlist-shared-btn--link {
+  background: transparent;
+  color: var(--ink-soft, #5a5f63);
+  text-decoration: underline;
+  padding: 0.5rem 0.45rem;
+}
+.shortlist-shared-btn--link:hover {
+  color: var(--ink, #2a2a2a);
+}
+
+/* When the shared bar is up, pad the body so the last card isn't trapped */
+body:has(.shortlist-shared-bar:not([hidden])) {
+  padding-bottom: 88px;
+}
+body.has-shortlist-shared-bar {
+  padding-bottom: 88px;
+}
+/* When BOTH bars are up (stay page rare but possible), stack the padding */
+body:has(.bottom-shortlist:not([hidden])):has(.shortlist-shared-bar:not([hidden])) {
+  padding-bottom: 156px;
+}
+
+/* Review modal — full-screen on mobile, centered panel on desktop */
+.shortlist-shared-review-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(20, 26, 30, 0.55);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+@media (min-width: 720px) {
+  .shortlist-shared-review-backdrop {
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+.shortlist-shared-review-panel {
+  background: #fff;
+  width: 100%;
+  max-width: 640px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 12px 12px 0 0;
+  padding: 1.2rem 1.3rem 1.5rem;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
+}
+@media (min-width: 720px) {
+  .shortlist-shared-review-panel {
+    border-radius: 12px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  }
+}
+.shortlist-shared-review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+.shortlist-shared-review-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--green-deep, #2f6c3a);
+}
+.shortlist-shared-review-close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--ink-soft, #5a5f63);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  min-height: 38px;
+  min-width: 38px;
+}
+.shortlist-shared-review-close:hover {
+  background: var(--paper-soft, #f6f1e6);
+}
+.shortlist-shared-review-sub {
+  font-size: 0.88rem;
+  color: var(--ink-soft, #5a5f63);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+.shortlist-shared-review-section {
+  margin-bottom: 1.2rem;
+}
+.shortlist-shared-review-head {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: var(--ink, #2a2a2a);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.shortlist-shared-review-count {
+  font-size: 0.78rem;
+  background: #eef7ef;
+  color: var(--green-deep, #2f6c3a);
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  font-weight: 700;
+}
+.shortlist-shared-review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.shortlist-shared-review-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.5rem 0.7rem;
+  background: var(--paper-soft, #f6f1e6);
+  border-radius: 6px;
+}
+.shortlist-shared-review-name {
+  flex: 1 1 auto;
+  font-size: 0.92rem;
+  color: var(--ink, #2a2a2a);
+}
+.shortlist-shared-review-unpick {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--ink-soft, #5a5f63);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  min-height: 34px;
+  min-width: 34px;
+}
+.shortlist-shared-review-unpick:hover {
+  background: #fff;
+  color: #b04a3a;
+}
+.shortlist-shared-review-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.8rem;
+}
+body.shortlist-shared-modal-open {
+  overflow: hidden;
+}
+
+/* ----- Base-config commit button (bases.html) ----- */
+.base-config-commit {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.base-commit-btn {
+  appearance: none;
+  border: 2px solid var(--green-deep, #2f6c3a);
+  background: #fff;
+  color: var(--green-deep, #2f6c3a);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 42px;
+  transition:
+    background 0.12s ease,
+    color 0.12s ease,
+    transform 0.12s ease;
+}
+.base-commit-btn:hover {
+  background: #f1faf2;
+  transform: translateY(-1px);
+}
+.base-commit-btn:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+.base-commit-btn--committed {
+  background: var(--green-deep, #2f6c3a);
+  color: #fff;
+}
+.base-commit-btn--committed:hover {
+  background: #1f5028;
+}
+.base-config--committed > .base-config-summary {
+  background: linear-gradient(to right, #f1faf2, #fff);
+  border-left: 4px solid var(--green-deep, #2f6c3a);
+}
+.base-commit-note {
+  font-size: 0.85rem;
+  color: var(--ink-soft, #5a5f63);
+  font-style: italic;
+}
+.base-commit-toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--green-deep, #2f6c3a);
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  z-index: 300;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.base-commit-toast--show {
+  opacity: 1;
 }
