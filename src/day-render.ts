@@ -29,7 +29,7 @@ function renderAnchors(anchors: DayAnchor[]): string {
     .join('');
   return `
     <div class="anchors-block">
-      <div class="anchors-label">The few times that matter</div>
+      <div class="anchors-label">Time-locked beats · the few things tied to a clock</div>
       <ul class="anchors-list">${rows}</ul>
     </div>`;
 }
@@ -38,7 +38,7 @@ function renderPlanB(planB: string | undefined): string {
   if (!planB) return '';
   return `
     <div class="planb-inline">
-      <div class="planb-label">Easier day — if we don't have the energy</div>
+      <div class="planb-label">Or instead — softer alternate if energy is low</div>
       <p class="planb-text">${escapeHtml(planB)}</p>
     </div>`;
 }
@@ -119,11 +119,11 @@ export function renderDayCard(day: Day, index: number): string {
       </summary>
       <div class="day-body">
         <div class="day-block day-block--doing">
-          <div class="day-block-label">What we're doing (options)</div>
+          <div class="day-block-label">Options for the day · pick what fits the mood</div>
           <p class="day-idea day-idea--doing">${escapeHtml(day.doingSummary)}</p>
         </div>
         <div class="day-block">
-          <div class="day-block-label">Default</div>
+          <div class="day-block-label">Recommended combo · why we'd lean this way</div>
           <p class="day-idea">${escapeHtml(day.generalIdea)}</p>
         </div>
         ${renderPlanB(day.planB)}
