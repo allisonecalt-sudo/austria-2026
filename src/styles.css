@@ -12615,3 +12615,119 @@ body.shortlist-shared-modal-open {
 .base-commit-toast--show {
   opacity: 1;
 }
+
+/* =====================================================================
+   Jewish-sights ranking — priority chips + subcategory tags + cards
+   Added 2026-05-17 by Jewish Sights Ranking Specialist.
+   Holocaust memorials elevated per Allison ("holcausry very important").
+   ===================================================================== */
+
+/* The dedicated Holocaust section gets a darker top accent so it reads
+   "this matters more" without screaming. Used on jewish-sights.html. */
+.jewish-section--holocaust {
+  margin-top: 1.4rem;
+  padding-top: 1.4rem;
+  border-top: 3px solid #6b4040;
+  background:
+    linear-gradient(180deg, rgba(138, 107, 107, 0.06) 0%, transparent 50%);
+  border-radius: 8px 8px 0 0;
+}
+.eyebrow--holocaust {
+  color: #6b4040 !important;
+  font-weight: 700;
+}
+
+/* Card wrapper — shared base. Pairs with .callout. */
+.jewish-card {
+  margin-bottom: 1.4rem;
+  position: relative;
+}
+.jewish-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.55rem;
+}
+
+/* Per-priority left-border accent (overrides .callout default). */
+.jewish-card--top {
+  border-left: 4px solid var(--gold-deep);
+  background: linear-gradient(90deg, #fdf6e2 0%, var(--paper) 32%);
+}
+.jewish-card--recommended {
+  border-left: 4px solid #5b7a52;
+  background: linear-gradient(90deg, #f3f7f0 0%, var(--paper) 32%);
+}
+.jewish-card--alternate {
+  border-left: 4px solid #8a6b6b;
+  background: #faf5f5;
+}
+
+/* Priority chips — small rounded pill, always-visible-on-card.
+   Top = gold, Recommended = sage, Alternate = muted rose. */
+.jewish-priority-chip {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.jewish-priority-chip--top {
+  color: var(--gold-deep);
+  background: rgba(214, 168, 75, 0.2);
+  border: 1px solid rgba(214, 168, 75, 0.45);
+}
+.jewish-priority-chip--recommended {
+  color: #3f5a36;
+  background: rgba(91, 122, 82, 0.16);
+  border: 1px solid rgba(91, 122, 82, 0.42);
+}
+.jewish-priority-chip--alternate {
+  color: #6b4040;
+  background: rgba(138, 107, 107, 0.18);
+  border: 1px solid rgba(138, 107, 107, 0.42);
+}
+
+/* Subcategory tags — quieter than priority. Color-coded by type. */
+.jewish-subcategory {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  line-height: 1.3;
+  background: var(--cream);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.jewish-subcategory--holocaust-memorial {
+  color: #5a3838;
+  background: #f3e8e8;
+  border-color: #d9b8b8;
+}
+.jewish-subcategory--living-community {
+  color: #3f5a36;
+  background: #ecf2e8;
+  border-color: #bccfb1;
+}
+.jewish-subcategory--historical-quarter {
+  color: #6b5320;
+  background: #f7efd9;
+  border-color: #d9c896;
+}
+.jewish-subcategory--cemetery {
+  color: #444;
+  background: #ececec;
+  border-color: #c8c8c8;
+}
+.jewish-subcategory--chabad {
+  color: #1f3a5f;
+  background: #e6edf6;
+  border-color: #aec0d6;
+}
