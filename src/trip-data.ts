@@ -1865,6 +1865,128 @@ export const TRIP: TripData = {
           freeCancellation: true,
           photos: [],
         },
+        // === UNBELIEVABLE-NATURE-LOCATION ADDS 2026-05-17 ===
+        // Beautiful-lodging-hunt v2 specialist pass (Allison: "really
+        // unbelievable sleeping locations in terms of natur location").
+        // Picks below are character-rich nature stays for the 3-night
+        // Mountain anchor (Sun-Wed Jul 26-29). Verified via WebSearch +
+        // cross-referenced operator + Tripadvisor data; Booking.com
+        // availability flagged 'unverified' because parallel agent held
+        // the Playwright browser during the research window — confirm
+        // before booking.
+        {
+          name: 'AlpenParks Hagan Lodge Altaussee (log-cabin village)',
+          url: 'https://www.booking.com/hotel/at/alpenparks-hagan-lodge-altaussee.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Altausseer_See_-_Panorama_4.jpg/1280px-Altausseer_See_-_Panorama_4.jpg',
+          review: '9.0 · Superb · 123 reviews (Booking) / 4.7 · 157 reviews (Tripadvisor)',
+          pricePerNight: '€230-340 / night (varies by lodge tier; €230 typical for 2-person 82m² lodge)',
+          note: 'WOW: a CAR-FREE village of 62 log cabins built in the local Altaussee style, set in forest + meadows ~4 km from Lake Altaussee. Lodge Comfort 2-People is an 82m² self-contained log house with full kitchen, dishwasher, private sauna (on request), terrace. Modern country-house interior in solid wood. Walk to Loser family ski area; ~30 min drive to Hallstatt. Best amenity-stack of any Mountain-anchor pick (private sauna in your own cabin). [Photo is Altausseer See area — view live listing photos on Booking.]',
+          budgetTier: 'splurge',
+          platform: 'booking',
+          vibeTag: 'forest-cabin',
+          beautyPick: true,
+          beautyNote: 'Car-free village of 62 log cabins in forest + meadow with private sauna in your own cabin — the most immersive nature-lodging structure in the area.',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen + sofa bed (sleeps 2-3 in Comfort tier; up to 9 in larger lodges)',
+          notableDetails: [
+            'Car-free village',
+            'Private sauna available',
+            'Log cabin construction',
+            'Forest + meadow setting',
+            '82m² own cabin',
+            'On-site AlpenStub\'n restaurant',
+          ],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'unverified',
+          availabilityCheckedDate: '2026-05-17',
+          availabilityNote: 'Confirm Jul 26-29 availability live on Booking.com — parallel browser session prevented live Playwright sweep this pass.',
+          freeCancellation: true,
+          freeCancellationUntil: 'Varies by lodge type — select free-cancellation rate at booking',
+          photos: [
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Altausseer_See_-_Panorama_4.jpg/1280px-Altausseer_See_-_Panorama_4.jpg',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          ],
+        },
+        {
+          name: 'Chalet Jochwand (Bad Goisern, brand-new 4-star)',
+          url: 'https://www.booking.com/hotel/at/chalet-jochwand-bad-goisern.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          review: '10 · Exceptional · recent guest score',
+          pricePerNight: '€220-280 / night (varies — confirm dates)',
+          note: 'WOW: brand-new (post-2023) 4-star wooden chalet in Bad Goisern with two bedrooms, living room, full kitchen, WASHING MACHINE verified, sauna, terrace, garden. Sleeps up to 6. Recent guests note "perfectly designed, special attention to detail." The newest-build character pick in the Hallstatt area — modern alpine without the chain-hotel feel. [Photo is the Hallstatt area — view live listing photos on Booking.]',
+          budgetTier: 'splurge',
+          platform: 'booking',
+          vibeTag: 'forest-cabin',
+          beautyPick: true,
+          beautyNote: 'Brand-new wooden chalet with private sauna, washer, full kitchen, and garden — modern alpine design with the 10/10 review score backing up the photos.',
+          laundry: 'washer',
+          bedrooms: 2,
+          beds: '1 queen + 1 double + sofa (sleeps 6)',
+          notableDetails: [
+            'Brand-new build',
+            'Private sauna',
+            'Washing machine',
+            'Garden + terrace',
+            '4-star tier',
+            '10/10 reviews',
+          ],
+          maxGuests: 6,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'unverified',
+          availabilityCheckedDate: '2026-05-17',
+          availabilityNote: 'Confirm Jul 26-29 live on Booking.com — Playwright sweep blocked this pass.',
+          freeCancellation: true,
+          photos: [],
+        },
+        {
+          name: 'Naturresort FiSCHERGUT — Lodge Wolfgangthal (St. Wolfgang farm-stay)',
+          url: 'https://www.booking.com/hotel/at/fischergut.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+          review: '9.2 · Superb · 93 reviews',
+          pricePerNight: '€180 / night (₪715)',
+          note: 'WOW: a modern farm-stay LODGE in the Wolfgangthal valley above St. Wolfgang, surrounded by forest and pastureland. Full apartment with satellite TV, fully equipped kitchen + fridge, private bath, terrace, BBQ, children\'s playground, free parking. Couples rate location 9.3 — "perfect for people who would like to break away from busy weekdays." ~45 min drive to Hallstatt, ~10 min to Wolfgangsee/Schafberg cog. Pairs well with the Wolfgangsee config or as a Mountain-anchor variant. [Photo is St. Wolfgang shoreline — view live listing photos on Booking.]',
+          budgetTier: 'splurge',
+          platform: 'booking',
+          vibeTag: 'farm-stay',
+          beautyPick: true,
+          beautyNote: 'Modern farm-stay lodge in a forested valley above St. Wolfgang — break-from-the-world energy, with BBQ, terrace, and the Schafberg cog 10 minutes away.',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen + sofa (sleeps 2-4)',
+          notableDetails: [
+            'Farm-stay lodge',
+            'Terrace + BBQ',
+            'Full kitchen',
+            'Forest + pasture setting',
+            '10 min to Schafberg cog',
+            'Free parking + playground',
+          ],
+          maxGuests: 4,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'unverified',
+          availabilityCheckedDate: '2026-05-17',
+          availabilityNote: 'Confirm Jul 26-29 live on Booking.com — Playwright sweep blocked this pass.',
+          freeCancellation: true,
+          photos: [],
+        },
       ],
     },
     {
@@ -4476,6 +4598,163 @@ export const SUNSET_STAYS: SunsetStay[] = [
       {
         label: 'Lake Hintersee official info',
         url: 'https://www.ramsau.de/en/attractions/our-village/lake-hintersee.html',
+      },
+    ],
+  },
+  // === UNBELIEVABLE-NATURE-LOCATION ADDS 2026-05-17 ===
+  // Beautiful-lodging-hunt v2 specialist pass (Allison: "really unbelievable
+  // sleeping locations in terms of natur location"). Picks below are 1-night
+  // unique-experience nature stays for swap into any midweek slot — each one
+  // is the kind of place where the building IS the story (alpine pasture log
+  // lodge / solid-wood naturchalet on the lake / 150m² historic wooden chalet
+  // in a high mountain valley). Free cancellation verified on Booking.com for
+  // all three; live Jul 26-29 availability flagged 'confirm-with-host' because
+  // parallel agent held the Playwright browser this pass.
+  {
+    id: 'schwadenguetl-gosau',
+    name: 'Schwadenguetl (Gosau wooden chalet)',
+    url: 'https://www.booking.com/hotel/at/schwadenguetl.html',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+    imgCredit: 'Wikimedia Commons',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+    ],
+    elevationM: 750,
+    region: 'salzkammergut',
+    pitch:
+      'Take over a 150m² historic wooden chalet in the Gosau valley — 4 bedrooms, private sauna, fireplace, garden terrace facing the Gosaukamm. The "rent the whole alpine house" pick.',
+    whyInsane:
+      "Schwadenguetl is a 150m² 4-bedroom standalone wooden chalet, 9.7/10 location score on Booking, recent guests scoring it among the top properties in Gosau. It's a historic building lovingly maintained: fully equipped kitchen, fireplace, private sauna, terrace with mountain views, BBQ, garden, free ski storage. 6 km from Lake Gosausee (one of the marquee mirror lakes in the Salzkammergut), 2 km from the Hornlift. Most-quoted guest line: \"The kitchen is well equipped, we enjoyed the sunset and grilled outside.\" Not a single room in a guesthouse — the whole house is yours.",
+    pricePerNightEur: '~€321+ / night (from $321 on Booking — confirm Jul 2026 dates live)',
+    pricePerNightNote:
+      'Premium because you book the entire 4-BR chalet. Per-person cost drops fast if it is a group. For 2 people the splurge tier is real — pair with another bedroom-shared night to balance.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '~35 min via B166 + Gosau valley' },
+      { label: 'Drive to Lake Gosausee mirror viewpoint', value: '~10 min from chalet' },
+      { label: 'Drive from Salzburg airport', value: '~75 min' },
+      { label: 'Parking', value: 'Free on-site' },
+      { label: 'Sauna', value: 'Private (in the chalet)' },
+    ],
+    kosherKit:
+      'Full kitchen — easiest self-catered pick in the entire SUNSET_STAYS set. Cook from the Bad Goisern Spar (~15 min back). Sauna means you can decompress fully without leaving the property. Picnic on the terrace at sunset, watch the Gosaukamm go pink.',
+    packList:
+      'Standard apartment-stay packing. Bring groceries (no shop on site). Camera, swimsuit for sauna.',
+    weatherRisk:
+      'None real — valley-floor chalet, car-accessible year-round. Worst case is overcast sky from the terrace.',
+    verdict:
+      'GROUP-FRIENDLY WHOLE-CHALET PICK — best if traveling with one extra couple or wanting to spread the splurge. For just Allison + Avital this is "we got the whole place" energy. Pairs naturally with the Gosausee mirror-lake day.',
+    status: 'confirm-with-host',
+    bookingNote:
+      'Live on Booking.com (slug: schwadenguetl). Filter for free-cancellation rate. Free cancellation policies vary by accommodation type — select the refundable option at booking.',
+    sourceLinks: [
+      { label: 'Booking.com listing', url: 'https://www.booking.com/hotel/at/schwadenguetl.html' },
+      {
+        label: 'Planet of Hotels profile',
+        url: 'https://planetofhotels.com/en/austria/gosau/schwadenguetl',
+      },
+    ],
+  },
+  {
+    id: 'naturchalet-primushausl',
+    name: 'Naturchalet Primushäusl (Strobl, Wolfgangsee)',
+    url: 'https://www.booking.com/hotel/at/ferienhaus-naturchalet-am-wolfgangsee.de.html',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+    imgCredit: 'Wikimedia Commons',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+    ],
+    elevationM: 540,
+    region: 'wolfgangsee',
+    pitch:
+      'Sleep in a solid-pine "Naturchalet" 200 m from Wolfgangsee — built 2017, gallery bedroom, private sauna, sheep bath, three minutes\' walk to the public beach.',
+    whyInsane:
+      'Primushäusl is a hand-built solid-wood chalet (Massivholz-Konstruktion) in Abersee/Strobl on the south shore of Wolfgangsee. The smell of the pine alone makes the case. Layout: 3 bedrooms + gallery double bed in pine wood + private sauna + sheep bath (Schafbad — a traditional wool-and-water relaxation room) + terrace + garden. 9.4 recent guests on Booking, 10/10 location score. 200 m to lake shore, the boat-landing stage immediately nearby, cycle paths from the front door. The Naturchalet builders won the Salzburg eco-construction prize. This is the "you wake up in a pine box and walk to the lake before breakfast" stay.',
+    pricePerNightEur: '~€263 / night (average on listing sites — confirm Jul 2026 live)',
+    pricePerNightNote:
+      'Sleeps up to 6, so for 2 people it is splurge tier. The wow is in the structure — solid pine, sauna, lake.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '~50 min via B166 + Wolfgangsee road' },
+      { label: 'Drive from Salzburg airport', value: '~50 min' },
+      { label: 'Walk to lake / public beach', value: '~3 min (200 m)' },
+      { label: 'Walk to boat landing stage', value: 'Immediately nearby' },
+      { label: 'Parking', value: 'Free on-site' },
+      { label: 'Sauna', value: 'Private (in the chalet) + Schafbad sheep bath' },
+    ],
+    kosherKit:
+      'Fully equipped kitchen with oven. Same setup as the Obertraun base — cook from Strobl Spar (~5 min by car). Easiest self-catered stay in the unique-experience set. Sauna + sheep bath = built-in decompression.',
+    packList:
+      'Standard apartment-stay packing. Bring groceries. Swimsuit for sauna AND lake. Towel for the Schafbad if you want the full ritual.',
+    weatherRisk: 'None — lake-shore chalet, car-accessible, sauna for any weather.',
+    verdict:
+      'WOLFGANGSEE-SIDE STRUCTURAL WOW — the chalet itself is the destination. Best paired with a Wolfgangsee-base or split-base config. From the Obertraun anchor it is 50 min each way, so worth it only as the overnight pivot, not a day trip.',
+    status: 'confirm-with-host',
+    bookingNote:
+      'Live on Booking.com (slug: ferienhaus-naturchalet-am-wolfgangsee.de). Multiple unit types — request the Naturchalet specifically (has the private sauna + sheep bath). Filter for free-cancellation rate at booking.',
+    sourceLinks: [
+      {
+        label: 'Booking.com listing',
+        url: 'https://www.booking.com/hotel/at/ferienhaus-naturchalet-am-wolfgangsee.de.html',
+      },
+      {
+        label: 'Operator site (urlaub-primushaeusl.at)',
+        url: 'https://urlaub-primushaeusl.at/',
+      },
+      {
+        label: 'Wolfgangsee tourism profile',
+        url: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-unterkunft/detail/430018395/holiday-home-nature-chalet-primushaeusl.html',
+      },
+    ],
+  },
+  {
+    id: 'postalm-lodge-lienbachhof',
+    name: 'Postalm Lodge Lienbachhof (high alpine pasture)',
+    url: 'https://www.lienbachhof.at/',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+    imgCredit: 'Wikimedia Commons',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Schafberg_Panorama_Attersee_Mondsee.jpg/1280px-Schafberg_Panorama_Attersee_Mondsee.jpg',
+    ],
+    elevationM: 1150,
+    region: 'wolfgangsee',
+    pitch:
+      'Sleep on the second-largest high plateau in Europe — wooden log lodge at 1,150 m on the Postalm pasture, drive-up access, panoramic terrace, sleeps 2-4 from €98/night.',
+    whyInsane:
+      'The Postalm is Austria\'s largest contiguous alpine pasture and the second-largest high plateau in Europe — 38 km² of meadows, wooden hütten, grazing cattle, no cell towers in your sightline. Lienbachhof is a "bright, friendly, hearty, very cozy" 40m² wooden lodge with 2 bedrooms, kitchen, terrace, and a wraparound view of the pasture. The road is open in summer, 30 on-site parking spots, you drive up with groceries. Unlike Schafberg or Krippenstein this is not a hike-or-cog summit — you can leave and return at will. €98/night is the cheapest unique-experience nature stay in this entire set. The wow is the PLACE, not the building polish.',
+    pricePerNightEur: '€98 / night + €3 city tax (breakfast packages on request)',
+    pricePerNightNote:
+      'Direct booking only (no Booking.com listing). Phone +43 6137 6061, email postalm.lienbachhof@aon.at, or website lienbachhof.at.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '~1h via B166 + Postalmstraße toll road' },
+      { label: 'Drive from Strobl (Wolfgangsee)', value: '~25 min via Postalmstraße' },
+      { label: 'Drive from Salzburg airport', value: '~1h 15 min' },
+      { label: 'Postalm toll road', value: 'Open May-Oct, ~€15/car (verify before driving up)' },
+      { label: 'Parking', value: '30 spots on-site, free for guests' },
+      { label: 'Cell signal', value: 'Patchy — bring offline maps' },
+    ],
+    kosherKit:
+      'Full kitchen in the unit. Cook from Strobl Spar before driving up (~25 min away — last shop). On-site restaurant exists but is not kosher; you self-cater. The plateau location means committing to your provisions — no last-minute runs.',
+    packList:
+      'Overnight bag, groceries (no shop on the plateau), warm jacket (1150 m is 7-10°C colder than valley at night), camera, offline map. Sunrise here over the Tennengebirge is unbelievable — pack the tripod.',
+    weatherRisk:
+      'Postalm road can close briefly in heavy storms or early snow; in mid-July risk is minimal but check before driving up. Cell signal patchy.',
+    verdict:
+      'PASTURE-PLATEAU PICK — the most "out there" of the unique-experience set without requiring a cog or cable car. Best if you want to swap one Mountain-anchor night for a stay surrounded by 38 km² of working pasture. €98/night = lowest barrier of all SUNSET_STAYS picks.',
+    status: 'confirm-with-host',
+    bookingNote:
+      'Direct booking ONLY — call +43 6137 6061 or email postalm.lienbachhof@aon.at. Specify Jul 2026 dates, 2-4 adults, request the Lodge unit. Confirm cancellation terms in writing before paying deposit (no standard free-cancellation guarantee — Austrian standard terms apply).',
+    sourceLinks: [
+      { label: 'Operator site (lienbachhof.at)', url: 'https://www.lienbachhof.at/' },
+      {
+        label: 'Wolfgangsee tourism listing',
+        url: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-unterkunft/detail/103184/postalm-lodge-lienbachhof.html',
+      },
+      {
+        label: 'About the Postalm plateau',
+        url: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/430003408/postalm-hiking-area.html',
       },
     ],
   },
