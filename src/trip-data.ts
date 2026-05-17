@@ -402,7 +402,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'salzburg',
       doingSummary:
-        'Land 07:50 → Salzburg Old Town. Pick from: Mozart Geburtshaus / Mirabell Gardens / Hohensalzburg fortress / Mondsee detour / café-only (tired). Shabbat prep 17:30, candle-lighting 20:35.',
+        "Land 07:50 → Salzburg Old Town. Pick from: Mozart Geburtshaus / Mirabell Gardens / café-only if tired. Settled by 17:30 (no Hohensalzburg / no Mondsee — both blow the 17:30 prep ceiling). Full Friday menu lives at friday-salzburg.html. Shabbat prep 17:30, candle-lighting 20:35.",
     },
 
     // --- DAY 2 — Sat Jul 25 ---
@@ -4909,3 +4909,37 @@ export const SUNSET_STAYS: SunsetStay[] = [
     ],
   },
 ];
+
+// =====================================================================
+// Derived: total bookable lodging listings shown by the stay page
+// =====================================================================
+// Computed at build time so TLDR copy ("X apartments across the 4 trip
+// bases") can never drift from reality. Counts:
+//   - TRIP.lodgings: 1 pickEntry + N alts per base × 3 bases (Salzburg,
+//     Hallstatt/Obertraun, Airport)
+//   - BASE_CONFIGS for `berchtesgaden` + `wolfgangsee` — the alternate
+//     mountain anchors that page-stay surfaces alongside the canonical 4
+//   - Subtract anything explicitly flagged sold-out (filter hides these).
+//
+// Integration glue, 2026-05-17: replaces five drift-prone hard-coded
+// strings ("22+", "25+", "36 vetted", "36 listings", "54 listings").
+// page-stay.ts can also recompute live from buildListings(), but the
+// number quoted in the TLDR string and footer ships at build via the
+// data-bind="available-count" hook in page-stay.ts.
+function countAvailableLodgings(): number {
+  let n = 0;
+  for (const l of TRIP.lodgings) {
+    if ((l.pickAvailability ?? 'unverified') !== 'sold-out') n += 1;
+    for (const a of l.alts) {
+      if ((a.availability ?? 'unverified') !== 'sold-out') n += 1;
+    }
+  }
+  for (const cfg of BASE_CONFIGS) {
+    if (cfg.id !== 'berchtesgaden' && cfg.id !== 'wolfgangsee') continue;
+    for (const p of cfg.lodging) {
+      if ((p.availability ?? 'unverified') !== 'sold-out') n += 1;
+    }
+  }
+  return n;
+}
+export const AVAILABLE_LODGING_COUNT: number = countAvailableLodgings();

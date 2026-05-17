@@ -124,6 +124,43 @@ function pushLodgingPick(
   });
 }
 
+// Sold-out detector — covers cases where the `availability` boolean wasn't
+// updated but the human-readable price/note text already flags "SOLD OUT" or
+// "delisted". Allison 2026-05-17 04:25: "if booking isn't avai ok then don't
+// show it." Belt-and-suspenders so a mis-set flag in trip-data.ts can't leak
+// a sold-out anchor into the editorial top-picks (the picks-sync section is
+// owned by sync-picks.ts and out of scope).
+function isSoldOutText(...fields: Array<string | undefined>): boolean {
+  for (const f of fields) {
+    if (!f) continue;
+    const s = f.toLowerCase();
+    if (s.includes('sold out')) return true;
+    if (s.includes('sold-out')) return true;
+    if (s.includes('delisted')) return true;
+    if (s.includes('listing appears delisted')) return true;
+    if (s.includes('no availability') && s.includes('verified')) return true;
+  }
+  return false;
+}
+
+// Side-channel log: when a sold-out lodging gets scrubbed from the editorial
+// pool, record its name so page-recommendations.ts can render a visible
+// "auto-substituted from <prev pick>" badge on the next-best card that took
+// its slot. Keyed by base label so the substitution attaches to the right
+// section. Allison 2026-05-17: visible audit trail, no silent re-ranking.
+export interface ScrubbedLodging {
+  name: string;
+  baseLabel: string;
+  reason: string; // human-readable why-scrubbed string
+  weight: number; // the slot weight it would have occupied
+}
+const SCRUBBED_LODGINGS: ScrubbedLodging[] = [];
+export function getScrubbedLodgings(): ScrubbedLodging[] {
+  // Ensure index is built so the log is populated before callers read it.
+  buildIndex();
+  return SCRUBBED_LODGINGS.slice();
+}
+
 function indexLodgings(): SearchItem[] {
   const out: SearchItem[] = [];
   const seen = new Set<string>();
@@ -141,7 +178,10 @@ function indexLodgings(): SearchItem[] {
           ? 'Hallstatt / Obertraun'
           : 'Airport area';
     const baseTag = lodging.baseKey;
-    if (lodging.pickAvailability !== 'sold-out') {
+    const pickSoldOut =
+      lodging.pickAvailability === 'sold-out' ||
+      isSoldOutText(lodging.pickPrice, lodging.pickAvailabilityNote);
+    if (!pickSoldOut) {
       pushLodgingPick(out, seen, lodging.pickName, {
         url: lodgingUrl(lodging.pickName),
         img: lodging.pickImg,
@@ -158,8 +198,27 @@ function indexLodgings(): SearchItem[] {
         ].filter(Boolean) as string[],
         weight: 95, // primary picks rank highest
       });
+    } else {
+      SCRUBBED_LODGINGS.push({
+        name: lodging.pickName,
+        baseLabel,
+        reason: 'sold-out for trip dates (Booking live)',
+        weight: 95,
+      });
     }
-    for (const alt of lodging.alts.filter((a) => a.availability !== 'sold-out')) {
+    for (const alt of lodging.alts) {
+      const altSoldOut =
+        alt.availability === 'sold-out' ||
+        isSoldOutText(alt.pricePerNight, alt.availabilityNote, alt.note);
+      if (altSoldOut) {
+        SCRUBBED_LODGINGS.push({
+          name: alt.name,
+          baseLabel,
+          reason: 'sold-out for trip dates (Booking live)',
+          weight: 70,
+        });
+        continue;
+      }
       pushLodgingPick(out, seen, alt.name, {
         url: lodgingUrl(alt.name),
         img: alt.img,
@@ -181,7 +240,19 @@ function indexLodgings(): SearchItem[] {
   for (const cfg of BASE_CONFIGS) {
     if (cfg.id === 'obertraun') continue; // dedup with TRIP.lodgings hallstatt
     const baseLabel = `${cfg.label} · ${cfg.id === 'berchtesgaden' ? 'Bavaria' : 'Salzkammergut'}`;
-    for (const pick of cfg.lodging.filter((p) => p.availability !== 'sold-out')) {
+    for (const pick of cfg.lodging) {
+      const cfgSoldOut =
+        pick.availability === 'sold-out' ||
+        isSoldOutText(pick.pricePerNight, pick.availabilityNote, pick.note);
+      if (cfgSoldOut) {
+        SCRUBBED_LODGINGS.push({
+          name: pick.name,
+          baseLabel,
+          reason: 'sold-out for trip dates (Booking live)',
+          weight: 65,
+        });
+        continue;
+      }
       pushLodgingPick(out, seen, pick.name, {
         url: `bases.html#cfg-${cfg.id}`,
         // baseKey reference retained via location label so dedup is by name.
@@ -202,10 +273,23 @@ function indexLodgings(): SearchItem[] {
 
   // Pass 3 — SUNSET_STAYS (summit hotels — also indexed as sunset items below).
   for (const stay of SUNSET_STAYS) {
+    const stayLocation = `${formatRegion(stay.region)} · ${stay.elevationM ?? '?'} m summit`;
+    // SUNSET_STAYS has no `availability` field — use text scan + status only.
+    // SunsetStayStatus has no 'sold-out' literal — text scan only.
+    const stayUnbookable = isSoldOutText(stay.pricePerNightEur, stay.pricePerNightNote);
+    if (stayUnbookable) {
+      SCRUBBED_LODGINGS.push({
+        name: stay.name,
+        baseLabel: stayLocation,
+        reason: 'sold-out for trip dates (Booking live)',
+        weight: 90,
+      });
+      continue;
+    }
     pushLodgingPick(out, seen, stay.name, {
       url: `stay.html#sunset-${stay.id}`,
       img: stay.img,
-      location: `${formatRegion(stay.region)} · ${stay.elevationM ?? '?'} m summit`,
+      location: stayLocation,
       description: oneLine(stay.pitch),
       tags: [
         stay.region,
@@ -393,8 +477,12 @@ function indexSunsets(): SearchItem[] {
     });
   }
 
-  // Sunset overnight stays (Schafbergspitze + Krippenstein)
+  // Sunset overnight stays (Schafbergspitze + Krippenstein). Skip any that
+  // are sold-out — same fail-loud rule the lodging pass applies.
   for (const stay of SUNSET_STAYS) {
+    if (isSoldOutText(stay.pricePerNightEur, stay.pricePerNightNote)) {
+      continue;
+    }
     out.push({
       id: `sunset-stay-${stay.id}`,
       type: 'sunset',

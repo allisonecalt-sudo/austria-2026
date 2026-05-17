@@ -26,7 +26,9 @@ import {
   buildIndex,
   typeIcon,
   mapFocusUrl,
+  getScrubbedLodgings,
   type RecommendationGroup,
+  type ScrubbedLodging,
   type SearchItem,
 } from './search-index.js';
 import { getAllPickedItems, startPicksSync, type PickedItem } from './sync-picks.js';
@@ -43,7 +45,7 @@ function escapeHtml(s: string): string {
     .replace(/'/g, '&#39;');
 }
 
-function renderCard(item: SearchItem): string {
+function renderCard(item: SearchItem, substitutedFrom?: string): string {
   const img = item.img
     ? `<img class="rec-card__img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async" />`
     : `<div class="rec-card__img rec-card__img--placeholder">${typeIcon(item.type)}</div>`;
@@ -52,11 +54,19 @@ function renderCard(item: SearchItem): string {
   const mapBtn = mapUrl
     ? `<a href="${escapeHtml(mapUrl)}" class="rec-card__btn rec-card__btn--map">📍 See on map</a>`
     : `<span class="rec-card__btn rec-card__btn--map" aria-disabled="true" title="No map coordinates for this item — fail-loud per Avital trust rule.">📍 No map pin</span>`;
+  // Substitution audit badge — when this card filled an editorial slot that
+  // would have gone to a now-sold-out lodging, render a visible trail so
+  // we never silently re-rank. Per Allison 2026-05-17 04:25: "if booking
+  // isn't avai ok then don't show it" — show the swap, don't hide it.
+  const subBadge = substitutedFrom
+    ? `<div class="rec-card__sub-badge" title="Original pick is sold out for the trip dates; this card was promoted to the slot. Rationale may differ slightly.">↻ Auto-substituted (was: ${escapeHtml(substitutedFrom)} — sold out)</div>`
+    : '';
   return `
     <div class="rec-card-wrap">
       <a class="rec-card" href="${escapeHtml(item.url)}">
         ${img}
         <div class="rec-card__body">
+          ${subBadge}
           <div class="rec-card__top">
             <span class="rec-card__icon" aria-hidden="true">${typeIcon(item.type)}</span>
             <span class="rec-card__name">${escapeHtml(item.name)}</span>
@@ -73,8 +83,67 @@ function renderCard(item: SearchItem): string {
   `;
 }
 
-function renderSection(group: RecommendationGroup): string {
+// Build a per-section map of "this slot was auto-substituted from <prev pick>".
+// search-index.ts records every scrubbed lodging (by base label + weight slot
+// it would have occupied) in SCRUBBED_LODGINGS. For each lodging section we
+// match scrubbed entries to the current top-N items by:
+//   1) Same base label (Salzburg / Hallstatt / Berchtesgaden / Wolfgangsee /
+//      Summit) — derived from `item.location` for the substituted card.
+//   2) Apply substitutions in scrubbed-weight order so the highest-weight
+//      sold-out pick (e.g. the 95-weight primary) gets attributed to the
+//      first promoted card in that base, the 70-weight alts to the next.
+// This stays defensive — if no scrubbed lodgings match a section, no badges
+// render. If MORE were scrubbed than slots exist, the extras are listed in
+// the section blurb as a fail-loud footnote.
+function buildSubstitutionMap(
+  group: RecommendationGroup,
+  scrubbed: ScrubbedLodging[],
+): { byItemId: Map<string, string>; extras: ScrubbedLodging[] } {
+  const byItemId = new Map<string, string>();
+  if (group.type !== 'lodging') return { byItemId, extras: [] };
+
+  // Group scrubbed entries by base label (matches the location field).
+  const scrubbedByBase = new Map<string, ScrubbedLodging[]>();
+  for (const s of scrubbed) {
+    const key = s.baseLabel;
+    if (!scrubbedByBase.has(key)) scrubbedByBase.set(key, []);
+    scrubbedByBase.get(key)!.push(s);
+  }
+  // Sort each base's scrubbed list by weight desc — primary picks (95) first.
+  for (const arr of scrubbedByBase.values()) {
+    arr.sort((a, b) => b.weight - a.weight);
+  }
+
+  // Walk the group items in display order, attribute substitutions per base.
+  for (const item of group.items) {
+    const baseKey = item.location ?? '';
+    const queue = scrubbedByBase.get(baseKey);
+    if (!queue || queue.length === 0) continue;
+    const sub = queue.shift()!;
+    byItemId.set(item.id, sub.name);
+  }
+
+  // Anything left in scrubbedByBase is a "section had more sold-out picks
+  // than the editorial top-N had slots for" overflow — surface as extras.
+  const extras: ScrubbedLodging[] = [];
+  for (const arr of scrubbedByBase.values()) extras.push(...arr);
+  return { byItemId, extras };
+}
+
+function renderSection(group: RecommendationGroup, scrubbed: ScrubbedLodging[]): string {
   if (group.items.length === 0) return '';
+  const { byItemId, extras } = buildSubstitutionMap(group, scrubbed);
+  const subCount = byItemId.size;
+  const auditNote =
+    group.type === 'lodging' && (subCount > 0 || extras.length > 0)
+      ? `<p class="rec-section__blurb rec-section__audit" style="margin-top:0.4rem; color:var(--ink-soft); font-size:0.85rem;">
+           <strong>Availability audit:</strong> ${subCount} card${subCount === 1 ? '' : 's'} auto-substituted because the original pick is sold out for trip dates.${
+             extras.length > 0
+               ? ` Also dropped (no slot to show): ${extras.map((e) => `${escapeHtml(e.name)} (${escapeHtml(e.baseLabel)})`).join('; ')}.`
+               : ''
+           }
+         </p>`
+      : '';
   return `
     <section class="rec-section">
       <header class="rec-section__header">
@@ -83,9 +152,10 @@ function renderSection(group: RecommendationGroup): string {
           ${escapeHtml(group.title)}
         </h2>
         <p class="rec-section__blurb">${escapeHtml(group.blurb)}</p>
+        ${auditNote}
       </header>
       <div class="rec-grid">
-        ${group.items.map(renderCard).join('')}
+        ${group.items.map((it) => renderCard(it, byItemId.get(it.id))).join('')}
       </div>
     </section>
   `;
@@ -204,8 +274,12 @@ function init(): void {
   const root = document.getElementById('rec-root');
   if (!root) return;
   const groups = buildRecommendations();
+  // Pull the scrubbed-lodging audit trail so renderSection can stamp each
+  // promoted card with a visible "auto-substituted from <prev pick>" badge.
+  const scrubbed = getScrubbedLodgings();
   // Picked-by section ALWAYS renders first so it's above the fold.
-  root.innerHTML = renderPickedSection() + groups.map(renderSection).join('');
+  root.innerHTML =
+    renderPickedSection() + groups.map((g) => renderSection(g, scrubbed)).join('');
 }
 
 init();
