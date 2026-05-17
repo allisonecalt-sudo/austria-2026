@@ -124,8 +124,13 @@ img {
      still win. */
   z-index: 2147483640;
   background: rgba(250, 246, 238, 0.94);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  /* backdrop-filter REMOVED 2026-05-17 09:25: it created a CSS containing
+     block that trapped .nav-mobile (position:fixed inset:0) inside the nav,
+     clipping the slide-over to the nav height (64px) instead of the viewport.
+     Allison reported the menu "not above page" repeatedly through 4 z-index
+     bumps before this was diagnosed. Cost: lost the blur effect. Gain: menu
+     actually works on mobile. */
+  /* backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); */
   border-bottom: 1px solid var(--line);
 }
 .nav-inner {
