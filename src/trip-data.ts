@@ -4246,23 +4246,30 @@ export interface LatLng {
 }
 
 // Nature destinations — keyed by NatureDestination.id
+//
+// COORD FACT-CHECK 2026-05-17 (Map Reliability Specialist): all 13 nature
+// pins re-verified against Wikipedia infoboxes + OSM Nominatim. 8 of 13
+// were drift-corrected (range 785m to 6.3km off). The previous coord
+// table was assembled fast in v1 and several entries pointed at the
+// wrong end of a lake, the wrong gorge entry, or a misplaced pass.
+// Per-pin source labelled in the trailing comment after each line.
 export const NATURE_COORDS: Record<string, LatLng> = {
   // Salzkammergut (Austria)
-  gosausee: { lat: 47.5375, lng: 13.495 }, // Vorderer Gosausee
-  'hallstatt-markt': { lat: 47.5622, lng: 13.6493 }, // Hallstatt village square
-  'krippenstein-5fingers': { lat: 47.5147, lng: 13.6907 }, // 5fingers platform on Krippenstein
-  schafbergspitze: { lat: 47.7747, lng: 13.4361 }, // Schafberg summit
-  'wolfgangsee-village': { lat: 47.7397, lng: 13.4475 }, // St. Wolfgang im Salzkammergut
-  attersee: { lat: 47.8467, lng: 13.5197 }, // Nußdorf am Attersee
+  gosausee: { lat: 47.5277, lng: 13.5081 }, // Vorderer Gosausee — OSM 2026-05-17 (was 47.5375/13.495 ≈ 1.4km NW into village)
+  'hallstatt-markt': { lat: 47.5622, lng: 13.6493 }, // Hallstatt village square — Wikipedia infobox 47.562/13.649
+  'krippenstein-5fingers': { lat: 47.5242, lng: 13.692 }, // 5fingers platform — web cross-check 47.524199/13.691955 (was 47.5147 ≈ 1km S of platform)
+  schafbergspitze: { lat: 47.77639, lng: 13.43389 }, // Schafberg summit — Wikipedia infobox (was 47.7747/13.4361, ~250m off, refined)
+  'wolfgangsee-village': { lat: 47.73833, lng: 13.44806 }, // St. Wolfgang — Wikipedia (was 47.7397/13.4475, ~160m, refined)
+  attersee: { lat: 47.88325, lng: 13.52377 }, // Nußdorf am Attersee — OSM (was 47.8467/13.5197 ≈ 4km S into wrong village, MAJOR FIX)
   // Berchtesgaden / Bavarian Alps (Germany)
-  konigssee: { lat: 47.5536, lng: 12.9847 }, // Königssee Schönau dock
-  'hintersee-ramsau': { lat: 47.6, lng: 12.85 }, // Hintersee at Ramsau
-  almbachklamm: { lat: 47.7197, lng: 13.0464 }, // Almbachklamm entrance, Marktschellenberg
+  konigssee: { lat: 47.588, lng: 12.9888 }, // Königssee Seelände dock at Schönau — OSM (was 47.5536/12.9847 ≈ 3.8km S into middle of lake, MAJOR FIX)
+  'hintersee-ramsau': { lat: 47.6065, lng: 12.8537 }, // Hintersee lake — OSM (was 47.6/12.85, ~785m S of lake)
+  almbachklamm: { lat: 47.6706, lng: 13.0309 }, // Almbachklamm Kugelmühle entrance — OSM (was 47.7197/13.0464 ≈ 5.6km N near Salzburg, MAJOR FIX)
   // Hohe Tauern / Pongau (Austria)
-  'eisriesenwelt-werfen': { lat: 47.503, lng: 13.1894 }, // Eisriesenwelt + Hohenwerfen
-  liechtensteinklamm: { lat: 47.3392, lng: 13.2178 }, // Liechtensteinklamm, St. Johann im Pongau
-  'krimml-waterfalls': { lat: 47.2056, lng: 12.1683 }, // Krimml Waterfalls
-  'grossglockner-road': { lat: 47.1342, lng: 12.825 }, // Grossglockner Hochalpenstraße (Hochtor pass)
+  'eisriesenwelt-werfen': { lat: 47.50294, lng: 13.19025 }, // Eisriesenwelt ice cave — Wikipedia infobox (was 47.503/13.1894, ~75m, refined)
+  liechtensteinklamm: { lat: 47.3128, lng: 13.1893 }, // Liechtensteinklamm gorge — OSM (was 47.3392/13.2178 ≈ 3.7km NE, MAJOR FIX)
+  'krimml-waterfalls': { lat: 47.19806, lng: 12.17139 }, // Krimml Waterfalls — Wikipedia infobox (was 47.2056/12.1683 ≈ 870m N)
+  'grossglockner-road': { lat: 47.0812, lng: 12.8426 }, // Grossglockner Hochtor pass — OSM + Wikipedia 47.08333/12.84278 (was 47.1342/12.825 ≈ 6.3km N off-pass, MAJOR FIX)
 };
 
 // Lodging — keyed by exact pickName / alt.name string. Map agent fills as
@@ -4413,8 +4420,10 @@ export const STANDALONE_POIS: MapPOI[] = [
     category: 'jewish',
     priority: 'recommended',
     subcategory: 'cemetery',
-    lat: 47.7886,
-    lng: 13.0681,
+    // Coord re-verified 2026-05-17 against OSM Nominatim for Uferstraße 47
+    // Aigen (was 47.7886/13.0681 ≈ 1.7km NW of actual address — fixed).
+    lat: 47.776,
+    lng: 13.0791,
     link: 'jewish-sights.html#cemetery',
   },
   {
@@ -4425,8 +4434,10 @@ export const STANDALONE_POIS: MapPOI[] = [
     category: 'jewish',
     priority: 'recommended',
     subcategory: 'holocaust-memorial',
-    lat: 47.8073,
-    lng: 13.7906,
+    // Coord re-verified 2026-05-17 against Wikipedia infobox 47.78750/13.75778
+    // (was 47.8073/13.7906 ≈ 3.1km NE of memorial site — fixed).
+    lat: 47.7875,
+    lng: 13.75778,
     link: 'jewish-sights.html#ebensee',
   },
   {
@@ -4437,8 +4448,10 @@ export const STANDALONE_POIS: MapPOI[] = [
     category: 'jewish',
     priority: 'recommended',
     subcategory: 'holocaust-memorial',
-    lat: 47.7108,
-    lng: 13.6225,
+    // Coord re-verified 2026-05-17 against Wikipedia infobox 47.72028/13.63333
+    // (was 47.7108/13.6225 ≈ 1.45km SW of town center — fixed).
+    lat: 47.72028,
+    lng: 13.63333,
     link: 'jewish-sights.html#bad-ischl',
   },
   {
