@@ -4158,12 +4158,12 @@ export const LODGING_COORDS: Record<string, LatLng> = {
   'Ferienwohnung Schmaranzer (Gosau)': { lat: 47.5836, lng: 13.5403 }, // Gosau valley
   'Haus im Grünen (Gosau)': { lat: 47.5853, lng: 13.5328 },
   'Mühlradl Apartments Gosau': { lat: 47.5811, lng: 13.5378 },
-  'Pension Sydler (Bad Goisern)': { lat: 47.6386, lng: 13.6189 },
+  'Pension Sydler (Bad Goisern)': { lat: 47.6439, lng: 13.6167 }, // Konrad-Deubler-Gasse 8 (Nominatim verified 2026-05-17)
   'Weisses Lamm Holiday Home (Hallstatt)': { lat: 47.5614, lng: 13.6486 },
   // AIRPORT (Thu→Fri pre-flight)
   'Hapimag Ferienwohnungen Salzburg': { lat: 47.8164, lng: 13.0014 }, // ~5km from SZG
   'Landhotel Berger (Ainring, just over the German border)': { lat: 47.8056, lng: 12.9614 },
-  'Hotel Astoria': { lat: 47.8061, lng: 13.0064 }, // ~2.3km from terminal
+  'Hotel Astoria': { lat: 47.7963, lng: 13.0257 }, // Maxglaner Hauptstraße 7, Maxglan (Nominatim verified 2026-05-17, was 1.8km off)
   'Goldgasse Apartments de Luxe': { lat: 47.7989, lng: 13.0467 }, // Altstadt / Goldgasse
   'Rock Salzburg': { lat: 47.7989, lng: 13.0436 }, // Altstadt
   // BERCHTESGADEN / RAMSAU (Config B + Split C)
