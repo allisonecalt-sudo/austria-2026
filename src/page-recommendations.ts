@@ -54,13 +54,10 @@ function renderCard(item: SearchItem, substitutedFrom?: string): string {
   const mapBtn = mapUrl
     ? `<a href="${escapeHtml(mapUrl)}" class="rec-card__btn rec-card__btn--map">📍 See on map</a>`
     : `<span class="rec-card__btn rec-card__btn--map" aria-disabled="true" title="No map coordinates for this item — fail-loud per Avital trust rule.">📍 No map pin</span>`;
-  // Substitution audit badge — when this card filled an editorial slot that
-  // would have gone to a now-sold-out lodging, render a visible trail so
-  // we never silently re-rank. Per Allison 2026-05-17 04:25: "if booking
-  // isn't avai ok then don't show it" — show the swap, don't hide it.
-  const subBadge = substitutedFrom
-    ? `<div class="rec-card__sub-badge" title="Original pick is sold out for the trip dates; this card was promoted to the slot. Rationale may differ slightly.">↻ Auto-substituted (was: ${escapeHtml(substitutedFrom)} — sold out)</div>`
-    : '';
+  // Allison 2026-05-17 12:41: "we dotn need to know at all" — substitution
+  // badges removed. Sold-out items are scrubbed from the source data
+  // entirely; nothing to attribute here. Keep param for back-compat.
+  const subBadge = substitutedFrom ? '' : '';
   return `
     <div class="rec-card-wrap">
       <a class="rec-card" href="${escapeHtml(item.url)}">
@@ -130,20 +127,15 @@ function buildSubstitutionMap(
   return { byItemId, extras };
 }
 
-function renderSection(group: RecommendationGroup, scrubbed: ScrubbedLodging[]): string {
+function renderSection(group: RecommendationGroup, _scrubbed: ScrubbedLodging[]): string {
   if (group.items.length === 0) return '';
-  const { byItemId, extras } = buildSubstitutionMap(group, scrubbed);
-  const subCount = byItemId.size;
-  const auditNote =
-    group.type === 'lodging' && (subCount > 0 || extras.length > 0)
-      ? `<p class="rec-section__blurb rec-section__audit" style="margin-top:0.4rem; color:var(--ink-soft); font-size:0.85rem;">
-           <strong>Availability audit:</strong> ${subCount} card${subCount === 1 ? '' : 's'} auto-substituted because the original pick is sold out for trip dates.${
-             extras.length > 0
-               ? ` Also dropped (no slot to show): ${extras.map((e) => `${escapeHtml(e.name)} (${escapeHtml(e.baseLabel)})`).join('; ')}.`
-               : ''
-           }
-         </p>`
-      : '';
+  // Allison 2026-05-17 12:41: "if sold out done even list" / "we dotn need to
+  // know at all". Substitution audit + "Auto-substituted" badges removed — the
+  // sold-out items are already filtered out by search-index (per the earlier
+  // hide-sold-out sweep + delete pass), so the only reason to surface
+  // substitution attribution was traceability. She doesn't want that surfaced.
+  // buildSubstitutionMap + extras logic kept in code for future use but not
+  // rendered. _scrubbed param prefixed with _ to silence unused-var lint.
   return `
     <section class="rec-section">
       <header class="rec-section__header">
@@ -152,10 +144,9 @@ function renderSection(group: RecommendationGroup, scrubbed: ScrubbedLodging[]):
           ${escapeHtml(group.title)}
         </h2>
         <p class="rec-section__blurb">${escapeHtml(group.blurb)}</p>
-        ${auditNote}
       </header>
       <div class="rec-grid">
-        ${group.items.map((it) => renderCard(it, byItemId.get(it.id))).join('')}
+        ${group.items.map((it) => renderCard(it)).join('')}
       </div>
     </section>
   `;
