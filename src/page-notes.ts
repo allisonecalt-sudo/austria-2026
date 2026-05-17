@@ -84,7 +84,7 @@ function noteHtml(n: Note): string {
     ? `<div class="note-summary-thumb"><img loading="lazy" decoding="async" src="${escapeHtml(n.image_url)}" alt="attached photo" /></div>`
     : '';
   const fullImg = n.image_url
-    ? `<div class="note-image"><img loading="lazy" decoding="async" src="${escapeHtml(n.image_url)}" alt="attached photo" data-lightbox="${escapeHtml(n.image_url)}" /></div>`
+    ? `<div class="note-image"><img loading="lazy" decoding="async" src="${escapeHtml(n.image_url)}" alt="attached photo — click to enlarge" role="button" tabindex="0" data-lightbox="${escapeHtml(n.image_url)}" /></div>`
     : '';
   return `
     <details class="note-item status-${escapeHtml(status)}${n.image_url ? ' has-image' : ''}">
@@ -114,14 +114,11 @@ function noteHtml(n: Note): string {
 }
 
 // Lightweight click-to-lightbox. Delegated on body so it survives re-renders.
+// Keyboard parity: Enter/Space on a [data-lightbox] element opens the same
+// backdrop (since the img is role=button + tabindex=0, screen-reader users
+// and keyboard-only users get the same affordance as click).
 function initLightbox(): void {
-  document.body.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement | null;
-    if (!target) return;
-    const src = target.dataset.lightbox;
-    if (!src) return;
-    e.preventDefault();
-    e.stopPropagation();
+  const open = (src: string): void => {
     const backdrop = document.createElement('div');
     backdrop.className = 'lightbox-backdrop';
     backdrop.innerHTML = `<img src="${src.replace(/"/g, '&quot;')}" alt="full-size photo" decoding="async" /><button type="button" class="lightbox-close" aria-label="Close">✕</button>`;
@@ -134,6 +131,25 @@ function initLightbox(): void {
       }
     });
     document.body.appendChild(backdrop);
+  };
+  document.body.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (!target) return;
+    const src = target.dataset.lightbox;
+    if (!src) return;
+    e.preventDefault();
+    e.stopPropagation();
+    open(src);
+  });
+  document.body.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const target = e.target as HTMLElement | null;
+    if (!target) return;
+    const src = target.dataset.lightbox;
+    if (!src) return;
+    e.preventDefault();
+    e.stopPropagation();
+    open(src);
   });
 }
 

@@ -8705,6 +8705,14 @@ details.note-item[open] .note-summary-preview {
   cursor: zoom-in;
   display: block;
 }
+.note-image img:focus-visible {
+  outline: 3px solid var(--gold-deep, #c89938);
+  outline-offset: 2px;
+}
+.lightbox-close:focus-visible {
+  outline: 3px solid var(--gold-deep, #c89938);
+  outline-offset: 2px;
+}
 
 /* Lightbox */
 .lightbox-backdrop {
