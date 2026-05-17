@@ -1,3 +1,34 @@
+// =====================================================================
+// REMOVED-DO-NOT-READD (2026-05-17 12:11 per Allison)
+// "we dont even need to see sold out at all" / "just take it off the site
+// but make sure it doesnt get put back on"
+// The following lodging slugs were SOLD OUT or DELISTED on Booking.com
+// for the trip dates as of 2026-05-17 and have been DELETED from this file.
+// Do NOT re-add them without first re-verifying via Booking.com live with
+// the actual trip dates (Salzburg checkin 2026-07-24 / Mountain anchor
+// 2026-07-26 / Airport 2026-07-30) AND free-cancellation policy.
+//   AlpenParks Hagan Lodge Altaussee (log-cabin village)
+//   Apartment Sunset am Wolfgangsee (Strobl)
+//   Appartements Mair (Strobl, 70m² 2-BR)
+//   Bräugasthof Hallstatt (700-year-old lake-edge inn)
+//   Chalet Jochwand (Bad Goisern, brand-new 4-star)
+//   Ferienwohnung Schmaranzer (Gosau)
+//   Gästehaus Amort (Ramsau)
+//   Gästehaus Hinterponholz (Ramsau)
+//   Haus im Grünen (Gosau)
+//   Heritage.Hotel Hallstatt (3 restored historic houses)
+//   Landhaus Lilly (Obertraun) — Liz & Paul B&B
+//   Mühlradl Apartments Gosau
+//   Pension Sydler (Bad Goisern)
+//   Salzburg Topside Apartments
+//   Wolf & Schaf Apartments (St. Wolfgang)
+//   Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)
+//   Wolfgangsee Appartement (St. Wolfgang)
+//   gasthof-gosausee-stay
+//   naturchalet-primushausl
+//   schwadenguetl-gosau
+// =====================================================================
+
 // Canonical itinerary data — v3 rewrite (2026-05-15 evening).
 // "we dont need every day fully plan mor elike gernal idea and opiton"
 //   — Allison, 2026-05-15 18:45
@@ -912,42 +943,7 @@ export const TRIP: TripData = {
         // === LAUNDRY-FILTER ADDITIONS 2026-05-16 (bases agent) ===
         // Allison's final form: Salzburg base MUST have in-unit laundry.
         // Topside has a verified washing machine.
-        {
-          name: 'Salzburg Topside Apartments',
-          url: 'https://www.booking.com/hotel/at/salzburg-apartment.html',
-          // photo-rehab 2026-05-17: prior signed sig (483551175) was a Wave-4d
-          // hallucination — 401 from Booking CDN. Promoted first carousel photo.
-          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243968147.jpg?k=13a3a448f28ff382c860153f583e48c1a9b683bdb72bc0486bf8c873e71ca3a6&o=&hp=1',
-          review: '9.0 · Superb · 200+ reviews',
-          pricePerNight: '€175 / night (₪695) — SOLD OUT for Jul 24-26 as of 2026-05-17 (PRICE-VERIFIED: no rooms available on Booking live)',
-          note: 'Recently renovated apartments on Lasserstraße 19, ~600m from Mirabell Palace, ~10-min walk to Chabad on Linzergasse. WASHING MACHINE confirmed. Spotless reviews. The "passes the Salzburg laundry filter and is close to shul" pick.',
-          budgetTier: 'splurge',
-          platform: 'booking',
-          walkToChabadMin: 10,
-          laundry: 'washer',
-          bedrooms: 1,
-          beds: '1 queen + sofa option',
-          notableDetails: ['Washing machine', 'Fully equipped kitchen', 'Recently renovated'],
-          maxGuests: 3,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'paid',
-          wifi: true,
-          viewType: 'urban',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243968147.jpg?k=13a3a448f28ff382c860153f583e48c1a9b683bdb72bc0486bf8c873e71ca3a6&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115190.jpg?k=2b02a03633bef3e02f193c89b4399057e057816be0308f464d13037f1e49e168&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115191.jpg?k=f02de9af81519a6e3ec429261eda012435fc7adf91f63e96a53034218febc684&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115189.jpg?k=8efe08875aaec94f753306dd3b0f79fcd07509e9ec2d0f0f7fb09e4b58da54b1&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115408.jpg?k=57096b806bd625b608262f201e4279ee671d0d623afad78121456d3be1c5c1f8&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115403.jpg?k=862a858d9bd293c5605f6eb1b48ebf189fda5168a377cdff62886d1406c8eff1&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115199.jpg?k=5e0ce7eb2e068147473eade01c4da750f841233a0efa3140038c7ca0c40cafa0&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115400.jpg?k=d0ecb66fcbe37d3dfaaae7774d73769466abae48c23175fcfadeb8702c894c6d&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115395.jpg?k=2d1f7700db57ffe69d3c3c72d716df86bc156d78b15bc65701ff3cc996062899&o=',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/584115402.jpg?k=9c9ed672ac292b2e5ad603fe4ab745002731258d00ac5e7451ad46740a09a67a&o=',
-          ],
-        },
+        
         // === 2-BEDROOM / 2-BED+LIVING-ROOM ADDITIONS 2026-05-17 ===
         // Allison 2026-05-17 05:58: "we need more options in Salzburg with 2
         // bedroom, can go a little farther from chabad if needed, or at least
@@ -1286,45 +1282,7 @@ export const TRIP: TripData = {
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/263571289.jpg?k=2acfdcca8bd31bb77f158e0191dbf73c48940ef26af0bce425f91ca9b169c35b&o=&hp=1',
           ],
         },
-        {
-          name: 'Landhaus Lilly (Obertraun) — Liz & Paul B&B',
-          url: 'https://www.booking.com/hotel/at/landhaus-lilly.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/512123581.webp?k=e2ba9e574311d3d4e34fad78c6b44afdb3def39a437821e7ba2bfbb263602c4b&o=',
-          review: '9.8 · Exceptional · 255 reviews',
-          pricePerNight: '€133+ / night (₪530+) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'Liz & Paul (English-speaking hosts) B&B in Obertraun, 5 km from Hallstatt, 3-min drive to Krippenstein cable car. Woodland trails along the Traun river next door. Some rooms have balconies with panoramic mountain views. Renovated 2013-2014. Booking 9.8/255 reviews. (Same hosts also run "River Lilly Apartment" — book that direct via landhauslilly.com if you want the apartment-with-kitchen, since it is not listed on Booking.)',
-          budgetTier: 'splurge',
-          platform: 'booking',
-          vibeTag: 'lake-edge',
-          laundry: 'unknown',
-          bedrooms: 1,
-          beds: '1 queen',
-          notableDetails: [
-            'English-speaking hosts (Liz & Paul)',
-            'Mountain-view balconies',
-            '3-min drive to Krippenstein cable car',
-            'Woodland trails next door',
-          ],
-          maxGuests: 2,
-          kitchen: 'none',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'mountain',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200641506.jpg?k=ab3f801b4831293efaccaf5bac938f4eaaf1f905ff49d773d830bca2c02f1053&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200609122.jpg?k=64365ad0b4d1ecae2b4d5a5b4afffd0ceedcbe3f9f1f40adac0a1a9212062855&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200609133.jpg?k=08c1b310ff18afdb33aae4a20cff04d4b97a49a346e57adff77d379042fa960f&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/43748595.jpg?k=b965cbb97cedb1fc7b3e5361d9e25056b30cb2dca0aeeb8ce4da36b0c354fa64&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200641536.jpg?k=cc66ca5ab903236d386899eef7da90c8c3c1b4fc05ec88aabcae01b20cd818f5&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200641519.jpg?k=be2d2288da47c86679827b3ea9087006d704d06a034379656b9e2ee5f7a488ff&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200612242.jpg?k=7b73f0f427bfaf7620e008bc57b72ec8fd367f378a81746c68a274f100b22a46&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200632357.jpg?k=31005c6623c92245e2d20459fb369ca02acad89d1be6692d8cf413e79aba6e7c&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200641511.jpg?k=4e01a78120c37cfbd1a3fed100f47724704c641433cff581d1c188aef3f3c47f&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/200641524.jpg?k=5924e6eecfb19404b3d0787e6f222a6b0cfdc4bfffa277ba763a0665dbb2fd65&o=&hp=1',
-          ],
-        },
+        
         {
           name: 'Landhaus Osborne (Obertraun)',
           url: 'https://www.booking.com/hotel/at/landhaus-osborne.html',
@@ -1367,149 +1325,10 @@ export const TRIP: TripData = {
         // Bad Goisern + Hallstatt lake-edge. All apartments with working
         // kitchens, paved access, reachable by car after dark. Live Booking
         // prices Jul 26-30 2026, ÷ 4 nights.
-        {
-          name: 'Ferienwohnung Schmaranzer (Gosau)',
-          url: 'https://www.booking.com/hotel/at/ferienwohnung-schmaranzer.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/410661012.webp?k=a7d8da61dca16361127d1ebd451d1d67f1ace40dc4ce543b498610c1691363bb&o=',
-          review: '9.6 · Exceptional · 46 reviews',
-          pricePerNight: '€127 / night (₪504) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'Huge 75m² 1-bedroom apartment with full kitchen + king bed. 4.1km from Gosau village — i.e. closer to the Vorderer Gosausee mirror-lake trailhead than to town. Family-run Ferienwohnung in the Gosau valley, second-highest review score in the area. Forest-edge feel, easy paved drive in.',
-          budgetTier: 'standard',
-          platform: 'booking',
-          vibeTag: 'forest-cabin',
-          beautyPick: true,
-          beautyNote:
-            '75m² forest-edge apartment on the road to the mirror-lake trailhead — Gosau valley quiet.',
-          laundry: 'unknown',
-          bedrooms: 1,
-          beds: '1 king',
-          notableDetails: ['75m² spacious', 'Full kitchen', 'King bed', 'Forest-edge'],
-          maxGuests: 4,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'forest',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/410661012.jpg?k=e365df9a8161d2c596da7e2ee06ad2a52a1883e43f4504f9dd7db9734011d986&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/410662383.jpg?k=6c70a29533e9301d005ced3313de72e99554aeaa3426899e77b76c2edad850b4&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/416102434.jpg?k=2e573dad2620aa11cb6dcb1042e20d08ffdaeb2588ada269aeb6280ae87a7b11&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/410733230.jpg?k=2189e8f2145e49efcfb7cfa173437c043492b7a81a11c9056ce0364efee05548&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/415930538.jpg?k=c6ed62351cb9fc4d230f0ca24aa0ae9e36de9a5ebf6eb6fc396399a7992b282e&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/410797212.jpg?k=bd1ef12df60848be6d57314b4bd64699016a0549446ec000df4c8b6f9cd5e43e&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/415930098.jpg?k=4d892c7f34b8ecc14579651251cac67f973882b7e62e11db20c5530fe0a79576&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/410732904.jpg?k=7b8035f30ce1ef539991ce557d6ae138970d65093b2777e8fbfd5e3433c15975&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/415929512.jpg?k=1c224bab58f56f166227566e6296b4bc1137f9794fcf009e73fa6672aa06cd8e&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/414400202.jpg?k=8cd3dc698679ba72d85e482bc037e4c6553e9f30abbb0c1c31a4fb118a441ea3&o=&hp=1',
-          ],
-        },
-        {
-          name: 'Haus im Grünen (Gosau)',
-          url: 'https://www.booking.com/hotel/at/haus-im-grunen-gosau.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/542231476.webp?k=a44d9c0c33ff9b95296128929efc5c884da9542699fb1ace2edbc46641f92f6b&o=',
-          review: '9.2 · Superb · 26 reviews',
-          pricePerNight: '€127 / night (₪502) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'Name literally means "House in the Green." 65m² 2-bedroom apartment with kitchen, 1.5km from Gosau center, surrounded by green. Newer listing (26 reviews) but uniformly strong. Mountain views, quiet valley floor, paved single-track to the door.',
-          budgetTier: 'standard',
-          platform: 'booking',
-          vibeTag: 'nature-view',
-          laundry: 'unknown',
-          bedrooms: 2,
-          beds: '1 queen + 2 singles',
-          notableDetails: ['65m² 2-BR', 'Full kitchen', 'Mountain views', 'Quiet valley floor'],
-          maxGuests: 4,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'mountain',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/542231476.jpg?k=f3a27de3e8806070fd2dc13ef11786e09e9ac8aa5eea359e1a617010ad678857&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/542231280.jpg?k=6f04cb9081b091b697d531a51b897b9ffa887681d2d6a3be16600a67533bede8&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/542231383.jpg?k=3b1b5318887af756128915a8e12a4e70b435e83c756489e36e649c52cf4a62d3&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/771624993.jpg?k=97b6df493038b2ff1e654396a71afadcb8a8e93626fdd0b7398542665e5425ea&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/542231391.jpg?k=59d5e1cabdc424fdafb2fa96c62c9c94e44db8d49b8d32b1ec3920184e24a385&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/784755213.jpg?k=d6c080f0b01bbd001331e27b47f6c511639e7edc3013eddf95fef8dc1b4316eb&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/602729247.jpg?k=2123d1b42cf2184a144fc8b1259c0d2872b0efdbb7c508b3147b107d2f6e0a68&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/602728193.jpg?k=924af0241e8d389777a34cb49717718fb4b832fb420e6bcd5cce78c06dd66d18&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/632527216.jpg?k=6af69b75f42cd30d102bd31cc7491f43f4383b538db431d09a5817844bf53b7b&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/623008876.jpg?k=a74fd653ffc236c3e7deea351ee7faab6fcc45d83ee79fe5defad2c643615db2&o=&hp=1',
-          ],
-        },
-        {
-          name: 'Mühlradl Apartments Gosau',
-          url: 'https://www.booking.com/hotel/at/ma1-4hlradl-apartments.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/34414377.webp?k=c874faba1d8ff841cc4594569d3b4a90dc70928b8de49917f6dc694a422d3eea&o=',
-          review: '9.4 · Superb · 319 reviews',
-          pricePerNight: '€155 / night (₪614) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: '"Mühlradl" = mill-wheel — old water-mill property converted to apartments. 38m² 1-bedroom apartment with full kitchen, 3.3km from Gosau center on the road toward the Gosausee lakes. 319 reviews = battle-tested. The most "quirky local character" pick in Gosau.',
-          budgetTier: 'mid-high',
-          platform: 'booking',
-          vibeTag: 'forest-cabin',
-          beautyPick: true,
-          beautyNote:
-            'Old water-mill converted to apartments — the mill-wheel still turns outside.',
-          laundry: 'unknown',
-          bedrooms: 1,
-          beds: '1 queen + sofa',
-          notableDetails: ['Old water-mill', 'Full kitchen', '38m²', 'On road to Gosausee'],
-          maxGuests: 3,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'forest',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/34414377.jpg?k=bdc80e3a7a52640345336b92278226eb6656c9eef8b281681742b90af20e582a&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/74135503.jpg?k=27bc5bbf999489171d40e38d9dbe1f2f327619cfede81d65edd1d9379e725808&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/74134905.jpg?k=c80fa6c8795918703bca4b9fe6b9ef11240581d514eafe79fdee21a5abefd212&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/75585825.jpg?k=21644a0a6e0d592fdd538c58e461d3527bc4ac9d57b531a7d43b02de20d66322&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/773660438.jpg?k=e30b547b2ad2e73753c25e562dccc5b9011376cfcad0f382af5928b11c68bbfa&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/85749641.jpg?k=20036666a9eed6a0c5702c6bdc45aad846d466332b93b0a1df47a8eac671c54f&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/773660938.jpg?k=0a87fb052221a3174678258f7c4f41afb75404831a8c6cb91e7d6440864d22b2&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/25100453.jpg?k=e05aa61dc2afdd473ff20661e707722a37ff239f730c9175185fb692a0582769&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/25100409.jpg?k=c73cedecc0b6325ba7ccc68a0614e7ba01d1b1b2e34733e2fe6ec94f4f43bd2b&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/80895830.jpg?k=163207a05a0a9e68776b56e6dfb0036dc8c1217ef78d40066040d4b28e2a83cd&o=&hp=1',
-          ],
-        },
-        {
-          name: 'Pension Sydler (Bad Goisern)',
-          url: 'https://www.booking.com/hotel/at/pension-sydler.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/84702890.webp?k=8b69a5f03c725211bedde9d9024628c2117c11942ace0eb860f9d196a3ad2212&o=',
-          review: '8.8 · Excellent · 597 reviews',
-          pricePerNight: '€80 / night (₪317) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'LEAN-tier find — €80/night for an apartment unit with bathroom and balcony overlooking the garden, 10-min walk from Bad Goisern center, 9.4km from Hallstatt. Garden with BBQ, sauna, table tennis — old-school Austrian guest-house energy. 597 reviews. Verify "kitchen" with host on booking — Booking lists this slot as "Apartment" but description says "some units feature a kitchen," so confirm before paying.',
-          budgetTier: 'lean',
-          platform: 'booking',
-          vibeTag: 'farm-stay',
-          laundry: 'shared',
-          bedrooms: 1,
-          beds: '1 queen',
-          notableDetails: [
-            'Garden BBQ',
-            'Sauna',
-            'Table tennis',
-            '597 reviews',
-            'Kitchen — verify',
-          ],
-          maxGuests: 3,
-          kitchen: 'unknown',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'garden',
-          // PHOTO-FETCH-FAIL 2026-05-17: pension-sydler.html redirects to a
-          // different Salzburg listing — original Bad Goisern listing is
-          // dead. Keeping the existing hero + Wikimedia fallback.
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/square600/84702890.webp?k=8b69a5f03c725211bedde9d9024628c2117c11942ace0eb860f9d196a3ad2212&o=',
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
-          ],
-        },
+        
+        
+        
+        
         {
           name: 'Weisses Lamm Holiday Home (Hallstatt)',
           url: 'https://www.booking.com/hotel/at/weisses-lamm.html',
@@ -1560,97 +1379,8 @@ export const TRIP: TripData = {
         // hotel-not-apartment (no kitchen) — flagged in their notes; the
         // apartment-with-kitchen rule still owns the primary picks. These are
         // here as "if you want to splurge for character" alternates.
-        {
-          name: 'Heritage.Hotel Hallstatt (3 restored historic houses)',
-          url: 'https://www.booking.com/hotel/at/heritage-hallstatt.html',
-          // photo-rehab 2026-05-17: prior signed sig (87693988) was a Wave-4d
-          // hallucination (8e-repeating fake sig) — 401. Promoted carousel[0].
-          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/706447402.jpg?k=9a73362a46ae82837a4a94dc5d5dc8b2c46203b823a1dc43eeab0126a2923fdc&o=&hp=1',
-          review: '8.9 · Fabulous · 600+ reviews',
-          pricePerNight: '€240 / night (₪953) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'Three carefully renovated historic townhouses on the lakeshore — Kainz House (on the jetty), Stocker House (the oldest building in Hallstatt), Seethaler House (perched on the hillside with the postcard view). All rooms face the lake. Boutique, design-led, history you can feel. NO KITCHEN — hotel rooms, not apartments. Above the €180 mid-high cap. Surface as "if you want one or two nights of beautiful, no self-catering" — meals would be cold-cuts/salads brought up from Spar (the room has a fridge but no stove).',
-          budgetTier: 'mid-high',
-          platform: 'booking',
-          vibeTag: 'lake-edge',
-          beautyPick: true,
-          beautyNote:
-            'Three restored centuries-old townhouses on the lake — the most architecturally beautiful stay in Hallstatt.',
-          notableDetails: [
-            'Lake view from every room',
-            'Restored historic building',
-            'Boutique design',
-            'No kitchen (room fridge only)',
-          ],
-          laundry: 'none',
-          bedrooms: 1,
-          beds: '1 queen or 2 singles',
-          maxGuests: 2,
-          kitchen: 'none',
-          bath: 'private',
-          ac: false,
-          parking: 'paid',
-          wifi: true,
-          viewType: 'lake',
-          availability: 'available',
-          availabilityCheckedDate: '2026-05-17',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/706447402.jpg?k=9a73362a46ae82837a4a94dc5d5dc8b2c46203b823a1dc43eeab0126a2923fdc&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/653008289.jpg?k=43a6aff51cee8680624befb434f9dc4ee3889a7c7272c9f593f15a0c099e6206&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/545866009.jpg?k=86b6ea56e6d94d9a899f65ffa49021aa8510f4080cbe23c6b6ee6d784939d669&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/235082674.jpg?k=4c9e63f07f0ef87025f03b7e7810848817300c2e4525f905fe7cc2b31abc6343&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/302277178.jpg?k=f9c335d10065b35234337f470e78abdaa6e6957cf09c3f04cff4d79999baeb58&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/256695342.jpg?k=ac7a1d0c73ad1ea6d03c9a4e0ad14ac9a4e09f43d61910ffe64e79add92f4f34&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/302274979.jpg?k=0585c7473a151ceba31b31518c5144ef14e88a30e720d30b46739fdfd180a23d&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/555878323.jpg?k=7d63dcf50e6e505ac6eba2692ced2afabf400503590de4834786e1c13d1de37e&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/858766319.jpg?k=6d98792583a38aded081ff87fd4d0e40f5e24ab57f2e7e34ea79c57731f53724&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/858766324.jpg?k=9908f45043014d51fe4cead719321c1db0700d077eeed5c31c3560720f7536ac&o=&hp=1',
-          ],
-        },
-        {
-          name: 'Bräugasthof Hallstatt (700-year-old lake-edge inn)',
-          url: 'https://www.booking.com/hotel/at/bra-ugasthof-hallstatt.html',
-          // photo-rehab 2026-05-17: prior signed sig (162531001) was a Wave-4d
-          // hallucination — 401 from Booking CDN. Promoted first carousel photo.
-          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/296543725.jpg?k=a95248bed807efd02bc6b47470ec7a20b2c2c2f36acd9554f389727e0799c028&o=&hp=1',
-          review: '8.7 · Fabulous · 400+ reviews',
-          pricePerNight: '€195 / night (₪774) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: '700-year-old building in the car-free historic centre, original antique furniture, 7 rooms — almost all with a balcony directly over Lake Hallstatt. Family-run, traditional Austrian restaurant on the ground floor with a lakeside terrace. NO KITCHEN in rooms — hotel-style, not apartment. Renovation finished May 2025. The "we want to wake up over the water" pick.',
-          budgetTier: 'mid-high',
-          platform: 'booking',
-          vibeTag: 'lake-edge',
-          beautyPick: true,
-          beautyNote:
-            '15th-century inn with original antique furniture and balconies hanging over the lake — pure character.',
-          notableDetails: [
-            'Lake-balcony rooms',
-            '700-year-old building',
-            'Original antique furniture',
-            'Car-free old town',
-            'No in-room kitchen',
-          ],
-          laundry: 'none',
-          bedrooms: 1,
-          beds: '1 queen',
-          maxGuests: 2,
-          kitchen: 'none',
-          bath: 'private',
-          ac: false,
-          parking: 'paid',
-          wifi: true,
-          viewType: 'lake',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/296543725.jpg?k=a95248bed807efd02bc6b47470ec7a20b2c2c2f36acd9554f389727e0799c028&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/22042409.jpg?k=314378f5b0df27f853da3799bece101c7c6854b299c3e81597dd29185cf0f857&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/258751848.jpg?k=0056f1ae227776d6acb9b7373b4de527a1bd1804030e249f77340b49db8b6752&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/36109062.jpg?k=99d4e0760f65bd458f77ffd983de22bceb8ff1327df51c1c891a419b64978171&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/22042565.jpg?k=9fa79cddd0a73dcc8f7d896d8d1c2dde79273761e6923992942f8a7e7bf4439c&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/22042411.jpg?k=4b6201b5af567593cc48d760303a524b9fb99b0bc5e2c7994b63c33bc2a5254f&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/36109057.jpg?k=932e1cafe6f89a862f4e51e675e8bfe57ee2bbb78bb0377cf712fafe2f08da48&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/258757642.jpg?k=d5c87ea8930e42414ad2243366e5b1b5e5bcb97be9338feb7c4852642a8eb8a3&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/270312360.jpg?k=c596048282360afbe4d8f42695d12ca3b7ad7cd7ff938ff2adf7ede82a55126a&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/258744937.jpg?k=787a832747b6cc430b6c2458ffe92f0117f12c79f800046168c13b93106c5356&o=&hp=1',
-          ],
-        },
+        
+        
         // === MOUNTAIN-ANCHOR DEEP-SEARCH ADDITIONS 2026-05-17 ===
         // Allison 2026-05-17 06:17: "The mountain anchor we haven't chosen
         // where to sleep yet and I want to really be linked to all places and
@@ -1887,87 +1617,8 @@ export const TRIP: TripData = {
         // availability flagged 'unverified' because parallel agent held
         // the Playwright browser during the research window — confirm
         // before booking.
-        {
-          name: 'AlpenParks Hagan Lodge Altaussee (log-cabin village)',
-          url: 'https://www.booking.com/hotel/at/alpenparks-hagan-lodge-altaussee.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
-          // photo-rehab 2026-05-17: prior Altausseer_See_-_Panorama_4 was a
-          // hallucinated Wikimedia file (404 — file does not exist on Commons).
-          // Replaced with verified Lake_Altaussee_and_Dachstein.jpg.
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Lake_Altaussee_and_Dachstein.jpg/1280px-Lake_Altaussee_and_Dachstein.jpg',
-          review: '9.0 · Superb · 123 reviews (Booking) / 4.7 · 157 reviews (Tripadvisor)',
-          pricePerNight: '€230-340 / night (varies by lodge tier; €230 typical for 2-person 82m² lodge) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'WOW: a CAR-FREE village of 62 log cabins built in the local Altaussee style, set in forest + meadows ~4 km from Lake Altaussee. Lodge Comfort 2-People is an 82m² self-contained log house with full kitchen, dishwasher, private sauna (on request), terrace. Modern country-house interior in solid wood. Walk to Loser family ski area; ~30 min drive to Hallstatt. Best amenity-stack of any Mountain-anchor pick (private sauna in your own cabin). [Photo is Altausseer See area — view live listing photos on Booking.]',
-          budgetTier: 'splurge',
-          platform: 'booking',
-          vibeTag: 'forest-cabin',
-          beautyPick: true,
-          beautyNote: 'Car-free village of 62 log cabins in forest + meadow with private sauna in your own cabin — the most immersive nature-lodging structure in the area.',
-          laundry: 'unknown',
-          bedrooms: 1,
-          beds: '1 queen + sofa bed (sleeps 2-3 in Comfort tier; up to 9 in larger lodges)',
-          notableDetails: [
-            'Car-free village',
-            'Private sauna available',
-            'Log cabin construction',
-            'Forest + meadow setting',
-            '82m² own cabin',
-            'On-site AlpenStub\'n restaurant',
-          ],
-          maxGuests: 3,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'mountain',
-          availability: 'unverified',
-          availabilityCheckedDate: '2026-05-17',
-          availabilityNote: 'Confirm Jul 26-29 availability live on Booking.com — parallel browser session prevented live Playwright sweep this pass.',
-          freeCancellation: true,
-          freeCancellationUntil: 'Varies by lodge type — select free-cancellation rate at booking',
-          photos: [
-            // photo-rehab 2026-05-17: replaced 404'd Altausseer_See_-_Panorama_4
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Lake_Altaussee_and_Dachstein.jpg/1280px-Lake_Altaussee_and_Dachstein.jpg',
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
-          ],
-        },
-        {
-          name: 'Chalet Jochwand (Bad Goisern, brand-new 4-star)',
-          url: 'https://www.booking.com/hotel/at/chalet-jochwand-bad-goisern.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
-          review: '10 · Exceptional · recent guest score',
-          pricePerNight: '€220-280 / night (varies) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-          note: 'WOW: brand-new (post-2023) 4-star wooden chalet in Bad Goisern with two bedrooms, living room, full kitchen, WASHING MACHINE verified, sauna, terrace, garden. Sleeps up to 6. Recent guests note "perfectly designed, special attention to detail." The newest-build character pick in the Hallstatt area — modern alpine without the chain-hotel feel. [Photo is the Hallstatt area — view live listing photos on Booking.]',
-          budgetTier: 'splurge',
-          platform: 'booking',
-          vibeTag: 'forest-cabin',
-          beautyPick: true,
-          beautyNote: 'Brand-new wooden chalet with private sauna, washer, full kitchen, and garden — modern alpine design with the 10/10 review score backing up the photos.',
-          laundry: 'washer',
-          bedrooms: 2,
-          beds: '1 queen + 1 double + sofa (sleeps 6)',
-          notableDetails: [
-            'Brand-new build',
-            'Private sauna',
-            'Washing machine',
-            'Garden + terrace',
-            '4-star tier',
-            '10/10 reviews',
-          ],
-          maxGuests: 6,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'free',
-          wifi: true,
-          viewType: 'mountain',
-          availability: 'unverified',
-          availabilityCheckedDate: '2026-05-17',
-          availabilityNote: 'Confirm Jul 26-29 live on Booking.com — Playwright sweep blocked this pass.',
-          freeCancellation: true,
-          photos: [],
-        },
+        
+        
         {
           name: 'Naturresort FiSCHERGUT — Lodge Wolfgangthal (St. Wolfgang farm-stay)',
           url: 'https://www.booking.com/hotel/at/fischergut.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
@@ -4052,115 +3703,9 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
       'https://cf.bstatic.com/xdata/images/hotel/max1280x900/349482038.jpg?k=d023262b1fddc0826f58e7ce487c1d3e13c6c6894e68780664e868ebc3c38eef&o=&hp=1',
     ],
   },
-  {
-    name: 'Gästehaus Hinterponholz (Ramsau)',
-    url: 'https://www.booking.com/hotel/de/ga-stehaus-hinterponholz.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/1280px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
-    review: '9.4 · Superb · 180 reviews',
-    pricePerNight: '€120 / night (₪476) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-    note: 'Alpine-style guest house IN Berchtesgaden National Park with separated living + sleeping area, full kitchen, balcony with mountain views. Family-run. Apartments sleep up to 4. [Photo is the Ramsau area, not the listing — view live photos on Booking.]',
-    budgetTier: 'standard',
-    vibeTag: 'nature-view',
-    laundry: 'shared',
-    bedrooms: 1,
-    beds: '1 queen + sofa bed in living area',
-    notableDetails: [
-      'Alpine-style traditional',
-      'Mountain-view balcony',
-      'Full kitchen',
-      'IN national park',
-    ],
-    maxGuests: 4,
-    kitchen: 'full',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'mountain',
-    photos: [
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190226.jpg?k=5aa7162cba5ae19352ac8a6fa7973050f6a81cd3ef099e6270e5afa2a6b1243b&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/401066080.jpg?k=dad868c4d03ff14ebe913c88cf7c45e946c1edf387f4e731f5f031d90d2696e4&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/425334017.jpg?k=389e067ac49e565aea9dc26734f3a9f7fb4e2928cba584f95a59c85da39865d4&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190223.jpg?k=59cb198f5365861520c27fa2626ee1b476cf7504ab049a6d79c1a8c674241028&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190224.jpg?k=56f3449d4b98023df57611b0ff0d657e463977a69447239a6d17dbfee730b78a&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190228.jpg?k=018fbdeec3341762ca60e75f72f5a6c42f65757778650e7085d9cc62e8c5de31&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190230.jpg?k=c46488aeed332660b68c7bd40b5bbf69d264cb09d8fa13d94ba72c54e8691178&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/401066083.jpg?k=838827a227fbdca06ea5a0e06e3c153e00a19978206cf8a36faf5fa3583f3cd1&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/401066081.jpg?k=908da63d6ecf330e2a68898afc8d7429163df59f3f1de56b75f0813c6d62db97&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190222.jpg?k=a6510e89155513f6cddc39d2e37f6b01e3ac4d4ae18cac888398f6a4bb7065e1&o=&hp=1',
-    ],
-  },
-  {
-    name: 'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)',
-    url: 'https://www.booking.com/hotel/de/ferienwohnung-da-celia.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Rathaus%2C_Berchtesgaden_%28Town_Hall%2C_Berchtesgaden%29_-_geograph.org.uk_-_7935.jpg',
-    review: '8.2 · Very good · 98 reviews',
-    pricePerNight: '€110 / night (₪437) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-    note: '1-bedroom apartment in central Berchtesgaden with fully equipped kitchen + balcony with mountain views. On-site restaurant, free parking. Few minutes walk from town center. 8.2 below ideal 8.5 — kept for value + location + restaurant. [Photo is Berchtesgaden town, not the listing — view live photos on Booking.]',
-    budgetTier: 'standard',
-    vibeTag: 'in-town',
-    laundry: 'unknown',
-    bedrooms: 1,
-    beds: '1 queen',
-    notableDetails: ['Mountain-view balcony', 'On-site restaurant', 'Free parking', 'Town center'],
-    maxGuests: 2,
-    kitchen: 'full',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'mountain',
-    photos: [
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/394674223.jpg?k=ec8860216f21e4b724b2b8ddd9cc1dfecb0e93e33f82a0d463ad38cebdd00a2c&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/399717827.jpg?k=e1b1eb75e9a91fcd134fe5c0bcbf60d7bde344b9fe467908f3d6fdef53f86a39&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775813.jpg?k=2f19e7df04c8edfc647d2c9accb51425ee6f229807dc8c69574e4002d78d5744&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775814.jpg?k=3f501b2d07c4dcdce5559d23f30b97b583246f5b6f86d0a6bdb8612e331b4273&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775815.jpg?k=c0f3848d6d84b78d9cb472fb072fc0347c12105536d2238c8012d0cbf0409f09&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395416363.jpg?k=c42dce9cbeb340d9148cb3de89280c82a75dc13a4f824c35c86a13e9c4be77af&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395430694.jpg?k=fb989d13a62024d1fb736a4a2c61ff0280e485a86b207319e04c9d95ea80c389&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395416321.jpg?k=9939447a45968b45f590e973193021ace66d79f60b04c7a0a86ce3ab424d6e87&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395430701.jpg?k=179943a2c52fa4ed6758a6a1c7ec0fcd5af669a0f0ca9bd79d614f72fbe5fc4a&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775817.jpg?k=c22dda446d65271002fe28e8972dabd19dd86d50314ce9e2cd6c6f10fbb8f638&o=&hp=1',
-    ],
-  },
-  {
-    name: 'Gästehaus Amort (Ramsau)',
-    url: 'https://www.booking.com/hotel/de/gastehaus-amort.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/1280px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
-    review: '9.3 · Superb · 130 reviews',
-    pricePerNight: '€105 / night (₪417) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-    note: 'Family-run pension in Ramsau with private balconies overlooking the Berchtesgaden Alps. Custom breakfast at preferred times. Quiet, homelike. ~10 min drive to Königssee + Hintersee both. [Photo is Ramsau village (St. Sebastian church), not the listing — view live photos on Booking.]',
-    budgetTier: 'standard',
-    vibeTag: 'nature-view',
-    laundry: 'shared',
-    bedrooms: 1,
-    beds: '1 queen + single',
-    notableDetails: [
-      'Alpine-view balcony',
-      'Breakfast included + custom hours',
-      'Family-run',
-      'Quiet Ramsau setting',
-    ],
-    maxGuests: 3,
-    kitchen: 'none',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'mountain',
-    photos: [
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/663995892.jpg?k=de1856f8eb4588a1e2422774ea1f6d08fed73048a481f6855885050ab6053e56&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/289634598.jpg?k=91444a01b507a7bd24a12df2021dc8713104379d4ae1bc14dc2085c00b021eef&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117506688.jpg?k=256206a1a29fdc28a5c7dd7463f6bb352dd4a3007bac946568725a618144682a&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/289637582.jpg?k=60bfd58e27c5f7531a427f99f89c5a33d8d7023dc30fb7b04b645cce6db4be6a&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/71496530.jpg?k=ef2a58bdf03f7a51131aa39bc6f04568517c549534c70e3e183f98841a09b565&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117505683.jpg?k=aa3ed033a1730fc5e2cf2a2fcf97e2a62f082859cabf15bb3a8953a455e97ba7&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117505731.jpg?k=9c3ca5fa24d0397470d5ebe77b20f090eb6d8ba282bee8e048b20cf40962cb81&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/71475708.jpg?k=236c479211d0b583f01c989a8acc395d2e6d22c89c1fd757a5de7fbf306794ce&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/71362247.jpg?k=98ba9e3fcc3bd45b49865dc74310ee3ace1e1c683b6816973ac12d0df80a16f9&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117506642.jpg?k=faaf645db8a31f4e0985288717d59edb3ac22e672019d036da3be80e8ae78bd5&o=&hp=1',
-    ],
-  },
+  
+  
+  
   {
     name: 'Grubenlehen (Ramsau)',
     url: 'https://www.ramsau.de/en/accomodations/self-catering-apartments/grubenlehen.html',
@@ -4199,80 +3744,8 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
 // === St. Wolfgang / Strobl / St. Gilgen lodging set (NEW) ===
 // Verified via WebSearch 2026-05-16. Booking.com slugs confirmed.
 const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
-  {
-    name: 'Wolf & Schaf Apartments (St. Wolfgang)',
-    url: 'https://www.booking.com/hotel/at/harmonie-st-wolfgang.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-    review: '9.4 · Superb · 904 reviews',
-    pricePerNight: '€175 / night (₪695) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability; URL now redirects to "Wolf & Schaf Apartments")',
-    note: 'Modern Alpine-style apartments 200m from Lake Wolfgangsee, 10-min walk to St. Wolfgang center. Kitchenettes, balcony, dining area. Free guest passes to the public lido for swimming. Hosts (Yoni + Bram) actively helpful. Note: bathrooms small per one review. 4-star luxury tier. [Photo is St. Wolfgang lakeshore, not the listing — view live photos on Booking.]',
-    budgetTier: 'mid-high',
-    vibeTag: 'lake-edge',
-    laundry: 'washer',
-    bedrooms: 1,
-    beds: '1 queen',
-    notableDetails: [
-      'Washing machine',
-      '200m to lake',
-      'Free lido pass',
-      'Modern design',
-      'Helpful hosts',
-    ],
-    maxGuests: 2,
-    kitchen: 'kitchenette',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'lake',
-    photos: [
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/516214270.jpg?k=ffb15aec8a945259e166df2eeb91ed4c6228eacb782fa24acf3e7172480d8ad6&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/471204631.jpg?k=1971c002cdab37ccbea9bbeb2b9074db1e26a768d32dd677d939a8c3a569d327&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/296410603.jpg?k=519946cb3a3dfbaacf6caccd5b4fbbd71c8b5b5fd821d89a147030195983a6a3&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/481047434.jpg?k=19d8c37267d22c5fb5914cf6b14f4cecad49e7d44f9694ef9c137370dae11ff9&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/471204666.jpg?k=90acfec0b3d6fe1eb6dea61ec33d87f4f8bd8c710c06968076b4be75b31daf1e&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502442905.jpg?k=c12b2d6ca4a52f6df454dd3a0c87f2fb8963c4a1a6d2781430c392355aeb2700&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/496507057.jpg?k=330917bd2cbbddd0b4377d858dadcc2e05847285d73e670f178150ff3826fa95&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/471210264.jpg?k=c10433e86b4e61708777622fbc8b717bc1a6b6db48292ac1bf5a78172ee40dd6&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/266275817.jpg?k=d430c7dc0558f333c5a9e1741ce2b45ff2b8cd0fe95086957cf170283081056d&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/295000406.jpg?k=2bac88c5a7801ec1f45b747b17cc0333bc4607d1a10998d6e5b5bf508c4118bc&o=&hp=1',
-    ],
-  },
-  {
-    name: 'Wolfgangsee Appartement (St. Wolfgang)',
-    url: 'https://www.booking.com/hotel/at/wolfgangsee-appartement.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
-    review: '9.2 · Superb · 130 reviews · Location 9.5',
-    pricePerNight: '€135 / night (₪536) — LISTING REMOVED FROM BOOKING as of 2026-05-17 (PRICE-VERIFIED: URL returns "page not found"). Treat as unavailable until URL is replaced.',
-    note: "Lake-view apartment with kitchenette, balcony with outdoor dining, mountain + lake views. Stone's-throw from Wolfgangsee shore. Garden, terrace, outdoor fireplace, fitness center. From €120/night per Booking. [Photo is Wolfgangsee panorama, not the listing — view live photos on Booking.]",
-    budgetTier: 'standard',
-    vibeTag: 'lake-edge',
-    laundry: 'unknown',
-    bedrooms: 1,
-    beds: '1 queen + sofa',
-    notableDetails: [
-      'Lake-view balcony',
-      'Outdoor fireplace / picnic area',
-      'Fitness center',
-      "Stone's-throw to lake",
-    ],
-    maxGuests: 3,
-    kitchen: 'kitchenette',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'lake',
-    // PHOTO-FETCH-FAIL 2026-05-17: wolfgangsee-appartement.html returns a
-    // generic Booking landing page — listing appears delisted. Kept the
-    // Wolfgangsee Wikimedia fallback so the carousel still has shots.
-    photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
-    ],
-  },
+  
+  
   {
     name: 'Wolfgangsee Appartements (Strobl, east end of the lake)',
     url: 'https://www.booking.com/hotel/at/wolfgangsee-appartements.html',
@@ -4306,78 +3779,8 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
       'https://cf.bstatic.com/xdata/images/hotel/max1280x900/581145255.jpg?k=d0e2095209c127d364c2d429da3b143848ace2abf7959ea4724f62b4d26a0cd0&o=&hp=1',
     ],
   },
-  {
-    name: 'Appartements Mair (Strobl, 70m² 2-BR)',
-    url: 'https://www.booking.com/hotel/at/70m2-ferienwohnung-am-wolfgangsee-strobl.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/1280px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
-    review: '9.4 · Superb · 80 reviews',
-    pricePerNight: '€160 / night (₪635) — LISTING REMOVED FROM BOOKING as of 2026-05-17 (PRICE-VERIFIED: URL redirects to Strobl search results — property no longer indexed). Treat as unavailable until URL is replaced.',
-    note: '70m² 2-BEDROOM apartment with fully equipped kitchen, lake-close, shop + town center walking distance. Strobl base. The "we want two real bedrooms on the 4-night main" priority pick for Wolfgangsee config. [Photo is Wolfgangsee at Strobl, not the listing — view live photos on Booking.]',
-    budgetTier: 'mid-high',
-    vibeTag: 'in-town',
-    laundry: 'unknown',
-    bedrooms: 2,
-    beds: '1 queen + 2 singles (sleeps 4)',
-    notableDetails: [
-      '70m² spacious',
-      '2-BR priority',
-      'Walking distance to shop + center',
-      'Fully equipped kitchen',
-    ],
-    maxGuests: 4,
-    kitchen: 'full',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'mixed',
-    // PHOTO-FETCH-FAIL 2026-05-17: 70m2-ferienwohnung-am-wolfgangsee-strobl
-    // redirects to a Strobl search with closed_msg — listing closed.
-    // Kept the Strobl-area Wikimedia fallback.
-    photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/1280px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
-    ],
-  },
-  {
-    name: 'Apartment Sunset am Wolfgangsee (Strobl)',
-    url: 'https://www.booking.com/hotel/at/apartment-sunset-am-wolfgangsee.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-    review: '8.8 · Excellent · 100 reviews',
-    pricePerNight: '€115 / night (₪456) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-    note: 'Apartment with terrace + mountain views, dishwasher + oven + microwave in the kitchenette. Sunset name suggests west-facing — verify before booking. Budget-friendly pick. [Photo is the Wolfgangsee at St. Wolfgang, not the listing — view live photos on Booking.]',
-    budgetTier: 'standard',
-    vibeTag: 'nature-view',
-    laundry: 'unknown',
-    bedrooms: 1,
-    beds: '1 queen',
-    notableDetails: [
-      'Mountain-view terrace',
-      'Dishwasher',
-      'Oven + microwave',
-      'Possible sunset orientation',
-    ],
-    maxGuests: 2,
-    kitchen: 'kitchenette',
-    bath: 'private',
-    ac: false,
-    parking: 'free',
-    wifi: true,
-    viewType: 'mountain',
-    photos: [
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/816822610.jpg?k=b625fe068bb0b5d15be457a7828a301265b36d5a54ce48d1ebc04334c98ad16e&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502325429.jpg?k=83cf62310483423e4d8d8139670dd937b2cfd9afc70f3a047caaf09ca06aa33d&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502325203.jpg?k=3fde4bb86fa00a44be3b157f574a25762a26f335a52f74d02f0f888ce625564e&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/525092078.jpg?k=6e9aaad07e36e712240365ae300357d7a164574e17a6e170037b75c20b56d7db&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/708195093.jpg?k=fd22a7c4b99b138c6d5a0c68248dfd1c3efbed2f1ac5aa68091a0551cedcfc8a&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474925273.jpg?k=97e46841e90af9968e9c373f2a0771d1dec63135919722e7d8f21631f3355064&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512024169.jpg?k=e435ef72e754d75efe4f7b37ec1040456f9866910ce14ab6a60285dba87ee4f5&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502328074.jpg?k=cb836916728018756824a35f7d3db051b0a11dd5b50c865ad41fcec4fc9f176e&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/635564892.jpg?k=44c55a61072c5578916bea873aa5c49222cd894f5f6460f8db3e60518396c568&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/812220344.jpg?k=0dcdac9f9a38eeaeacd64aaa424fb58d261d8bd1c3e63754aaf35d55cefef84a&o=&hp=1',
-    ],
-  },
+  
+  
 ];
 
 // === Helper to format Obertraun lodging into BaseConfigLodgingPick (reuse
@@ -4967,62 +4370,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
       },
     ],
   },
-  {
-    id: 'gasthof-gosausee-stay',
-    name: 'Gasthof Gosausee',
-    url: 'https://www.gasthof-gosausee.at/en/guesthouse-gosausee/',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
-    imgCredit: 'Wikimedia Commons / Roman Klementschitz, CC BY-SA 3.0',
-    // Photos sourced live from Booking.com listing 2026-05-17.
-    photos: [
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/6222076.jpg?k=cf20c648026dc3b512808189e9c95e9c7ec81caff418ec98980b93f16efab5b1&o=&hp=1',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/29574102.jpg?k=6e3bb81adc9ca036109a58008507cc6033c4699b8d7ba15cfeb6b6f0adcb2425&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/29574133.jpg?k=c2adb7fac3c79e1018e5eadde6c237639d98fed8de994a3f733f5063e129fba7&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/78490402.jpg?k=1f201a498e179f2c7f2f7184e30ae12ba227787c9cff0dfbdcedb458636d5d81&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/26613157.jpg?k=15b89251d1a9274077b4ae7d6d395aed2375c94ed7517b07f9955aade01daa85&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/131197216.jpg?k=dd5ff39c31128735c005aa3ca80285533e445e355cf417dc525ef95317021bf2&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/317670967.jpg?k=e06ad01cb4747c1426a136db0b3b18297a4e3c6c66514b6f05386a72ad9153f3&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/482778525.jpg?k=7bcbe1490c83da6485b900c20b5c006f0f23e93ac5f1906ae1e37494c750c0f1&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/40556775.jpg?k=c9e475103bf6c160e690423f3f7c388ef4bb12e859804c256bf4ed7098d876e9&o=',
-      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/482779525.jpg?k=d0dcc85daf40c7f9cd1a6c2edc1e5c7675d46df2cdd84f1f2d6c86cc94050b3f&o=',
-    ],
-    elevationM: 933,
-    region: 'salzkammergut',
-    pitch:
-      'The only inn directly on Lake Gosau. Watch the Dachstein glacier go pink in the mirror at sunset from the lakeside terrace — Swiss-pine "Gosausee" rooms have the same view from the in-room balcony.',
-    whyInsane:
-      'Vorderer Gosausee is the marquee mirror-lake of the Salzkammergut — Dachstein\'s glacier face reflected in calm water at golden hour. Day-trippers crowd the trail 11-15:00 then disperse. Gasthof Gosausee is the SOLE lake-level lodging, so by 18:00 you have the lake to yourself + a beer-garden terrace facing the mountain. Swiss-pine furnished "Gosausee" rooms have direct lake + Dachstein view from in-room balcony. Family-run, kitchen, beer garden, snack kiosk.',
-    pricePerNightEur: '~€110-160 / night (varies by room type, breakfast typically included) — SOLD OUT for Jul 29-30 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-    pricePerNightNote: 'Confirm Jul 26-30 dates direct on Booking.com or via the official site.',
-    logistics: [
-      { label: 'Drive from Obertraun apartment', value: '35-40 min via B166 + Gosau valley' },
-      { label: 'Drive from Salzburg airport', value: '~75 min' },
-      { label: 'Parking', value: 'Free on-site (lakeside)' },
-      { label: 'Walk to mirror viewpoint', value: 'Out the door, 200 m to lake-edge bench' },
-    ],
-    kosherKit:
-      'No in-room kitchen (it is a guesthouse, not an apartment). Restaurant not kosher but they will store bagged food in the kitchen fridge — ask at check-in. Realistic plan: bring dinner from the Bad Goisern Spar (15 min back) or eat at the Obertraun apartment before driving up. Breakfast included is bread/dairy/jam — request sealed items in advance.',
-    packList:
-      'Overnight bag, dinner picnic, camera. Lower elevation than the peak picks — summer night ~12-15°C, normal layers.',
-    weatherRisk:
-      'Valley floor lodging — no cable car / cog dependency. Worst case is overcast sunset (forecast morning of). Easy to drive back to Obertraun if it rains all day.',
-    verdict:
-      'VALLEY-LEVEL CHARACTER PICK — easier logistics than the peak picks, but real lake-edge magic. The you-will-stand-still-here spot for the Salzkammergut mirror-lake hour.',
-    status: 'bookable',
-    bookingNote:
-      'Booking.com listing live (search "Gasthof Gosausee"). Specifically request the "Gosausee" Swiss-pine room with the lake-view balcony — not the back-of-house rooms.',
-    sourceLinks: [
-      { label: 'Official site', url: 'https://www.gasthof-gosausee.at/en/guesthouse-gosausee/' },
-      {
-        label: 'Booking.com listing',
-        url: 'https://www.booking.com/hotel/at/gasthof-gosausee.html',
-      },
-      {
-        label: 'Tripadvisor reviews (sunset confirmed)',
-        url: 'https://www.tripadvisor.com/Hotel_Review-g666530-d1583953-Reviews-Guesthouse_Gosausee-Gosau_Upper_Austria.html',
-      },
-    ],
-  },
+  
   {
     id: 'hintersee-lake-edge',
     name: 'Hintersee lake-edge apartments (Ramsau)',
@@ -5083,104 +4431,8 @@ export const SUNSET_STAYS: SunsetStay[] = [
   // in a high mountain valley). Free cancellation verified on Booking.com for
   // all three; live Jul 26-29 availability flagged 'confirm-with-host' because
   // parallel agent held the Playwright browser this pass.
-  {
-    id: 'schwadenguetl-gosau',
-    name: 'Schwadenguetl (Gosau wooden chalet)',
-    url: 'https://www.booking.com/hotel/at/schwadenguetl.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
-    imgCredit: 'Wikimedia Commons',
-    photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
-    ],
-    elevationM: 750,
-    region: 'salzkammergut',
-    pitch:
-      'Take over a 150m² historic wooden chalet in the Gosau valley — 4 bedrooms, private sauna, fireplace, garden terrace facing the Gosaukamm. The "rent the whole alpine house" pick.',
-    whyInsane:
-      "Schwadenguetl is a 150m² 4-bedroom standalone wooden chalet, 9.7/10 location score on Booking, recent guests scoring it among the top properties in Gosau. It's a historic building lovingly maintained: fully equipped kitchen, fireplace, private sauna, terrace with mountain views, BBQ, garden, free ski storage. 6 km from Lake Gosausee (one of the marquee mirror lakes in the Salzkammergut), 2 km from the Hornlift. Most-quoted guest line: \"The kitchen is well equipped, we enjoyed the sunset and grilled outside.\" Not a single room in a guesthouse — the whole house is yours.",
-    pricePerNightEur: '~€321+ / night (from $321 on Booking) — SOLD OUT for Jul 29-30 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
-    pricePerNightNote:
-      'Premium because you book the entire 4-BR chalet. Per-person cost drops fast if it is a group. For 2 people the splurge tier is real — pair with another bedroom-shared night to balance.',
-    logistics: [
-      { label: 'Drive from Obertraun apartment', value: '~35 min via B166 + Gosau valley' },
-      { label: 'Drive to Lake Gosausee mirror viewpoint', value: '~10 min from chalet' },
-      { label: 'Drive from Salzburg airport', value: '~75 min' },
-      { label: 'Parking', value: 'Free on-site' },
-      { label: 'Sauna', value: 'Private (in the chalet)' },
-    ],
-    kosherKit:
-      'Full kitchen — easiest self-catered pick in the entire SUNSET_STAYS set. Cook from the Bad Goisern Spar (~15 min back). Sauna means you can decompress fully without leaving the property. Picnic on the terrace at sunset, watch the Gosaukamm go pink.',
-    packList:
-      'Standard apartment-stay packing. Bring groceries (no shop on site). Camera, swimsuit for sauna.',
-    weatherRisk:
-      'None real — valley-floor chalet, car-accessible year-round. Worst case is overcast sky from the terrace.',
-    verdict:
-      'GROUP-FRIENDLY WHOLE-CHALET PICK — best if traveling with one extra couple or wanting to spread the splurge. For just Allison + Avital this is "we got the whole place" energy. Pairs naturally with the Gosausee mirror-lake day.',
-    status: 'confirm-with-host',
-    bookingNote:
-      'Live on Booking.com (slug: schwadenguetl). Filter for free-cancellation rate. Free cancellation policies vary by accommodation type — select the refundable option at booking.',
-    sourceLinks: [
-      { label: 'Booking.com listing', url: 'https://www.booking.com/hotel/at/schwadenguetl.html' },
-      {
-        label: 'Planet of Hotels profile',
-        url: 'https://planetofhotels.com/en/austria/gosau/schwadenguetl',
-      },
-    ],
-  },
-  {
-    id: 'naturchalet-primushausl',
-    name: 'Naturchalet Primushäusl (Strobl, Wolfgangsee)',
-    url: 'https://www.booking.com/hotel/at/ferienhaus-naturchalet-am-wolfgangsee.de.html',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-    imgCredit: 'Wikimedia Commons',
-    photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-    ],
-    elevationM: 540,
-    region: 'wolfgangsee',
-    pitch:
-      'Sleep in a solid-pine "Naturchalet" 200 m from Wolfgangsee — built 2017, gallery bedroom, private sauna, sheep bath, three minutes\' walk to the public beach.',
-    whyInsane:
-      'Primushäusl is a hand-built solid-wood chalet (Massivholz-Konstruktion) in Abersee/Strobl on the south shore of Wolfgangsee. The smell of the pine alone makes the case. Layout: 3 bedrooms + gallery double bed in pine wood + private sauna + sheep bath (Schafbad — a traditional wool-and-water relaxation room) + terrace + garden. 9.4 recent guests on Booking, 10/10 location score. 200 m to lake shore, the boat-landing stage immediately nearby, cycle paths from the front door. The Naturchalet builders won the Salzburg eco-construction prize. This is the "you wake up in a pine box and walk to the lake before breakfast" stay.',
-    pricePerNightEur: '~€263 / night (average on listing sites) — LISTING REMOVED FROM BOOKING as of 2026-05-17 (PRICE-VERIFIED: URL redirects to Strobl search results — property no longer indexed). Treat as unavailable until URL is replaced.',
-    pricePerNightNote:
-      'Sleeps up to 6, so for 2 people it is splurge tier. The wow is in the structure — solid pine, sauna, lake.',
-    logistics: [
-      { label: 'Drive from Obertraun apartment', value: '~50 min via B166 + Wolfgangsee road' },
-      { label: 'Drive from Salzburg airport', value: '~50 min' },
-      { label: 'Walk to lake / public beach', value: '~3 min (200 m)' },
-      { label: 'Walk to boat landing stage', value: 'Immediately nearby' },
-      { label: 'Parking', value: 'Free on-site' },
-      { label: 'Sauna', value: 'Private (in the chalet) + Schafbad sheep bath' },
-    ],
-    kosherKit:
-      'Fully equipped kitchen with oven. Same setup as the Obertraun base — cook from Strobl Spar (~5 min by car). Easiest self-catered stay in the unique-experience set. Sauna + sheep bath = built-in decompression.',
-    packList:
-      'Standard apartment-stay packing. Bring groceries. Swimsuit for sauna AND lake. Towel for the Schafbad if you want the full ritual.',
-    weatherRisk: 'None — lake-shore chalet, car-accessible, sauna for any weather.',
-    verdict:
-      'WOLFGANGSEE-SIDE STRUCTURAL WOW — the chalet itself is the destination. Best paired with a Wolfgangsee-base or split-base config. From the Obertraun anchor it is 50 min each way, so worth it only as the overnight pivot, not a day trip.',
-    status: 'confirm-with-host',
-    bookingNote:
-      'Live on Booking.com (slug: ferienhaus-naturchalet-am-wolfgangsee.de). Multiple unit types — request the Naturchalet specifically (has the private sauna + sheep bath). Filter for free-cancellation rate at booking.',
-    sourceLinks: [
-      {
-        label: 'Booking.com listing',
-        url: 'https://www.booking.com/hotel/at/ferienhaus-naturchalet-am-wolfgangsee.de.html',
-      },
-      {
-        label: 'Operator site (urlaub-primushaeusl.at)',
-        url: 'https://urlaub-primushaeusl.at/',
-      },
-      {
-        label: 'Wolfgangsee tourism profile',
-        url: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-unterkunft/detail/430018395/holiday-home-nature-chalet-primushaeusl.html',
-      },
-    ],
-  },
+  
+  
   {
     id: 'postalm-lodge-lienbachhof',
     name: 'Postalm Lodge Lienbachhof (high alpine pasture)',
