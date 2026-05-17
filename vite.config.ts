@@ -67,6 +67,7 @@ export default defineConfig(({ command }) => ({
         activities: resolve(__dirname, 'activities.html'),
         recommendations: resolve(__dirname, 'recommendations.html'),
         tripOptions: resolve(__dirname, 'trip-options.html'),
+        schafbergspitze: resolve(__dirname, 'schafbergspitze.html'),
       },
     },
   },
