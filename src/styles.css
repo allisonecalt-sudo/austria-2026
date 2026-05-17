@@ -11979,7 +11979,8 @@ main.container {
 .nav-mobile {
   position: fixed;
   inset: 0;
-  z-index: 9000;
+  /* z=100050: above notes fab (99999) + search pill (99998). Allison 2026-05-17 07:50: "Navigation still not at front when click menu" */
+  z-index: 100050;
   background: rgba(20, 14, 4, 0.45);
   display: none;
 }
