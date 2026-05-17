@@ -32,12 +32,13 @@
 
     <main class="container">
       <header style="margin-bottom: 1.6rem">
-        <div class="eyebrow">The trip · at a glance</div>
+        <div class="eyebrow">The trip · at a glance · what fits where</div>
         <h1>Where we are, what we'll see, how long between.</h1>
         <p class="page-tldr">
           <strong>4 bases, 3 moves, 7 nights.</strong> Salzburg Shabbat (2N) → mountain anchor
-          (3N) → Schafbergspitze summit (1N, the locked unique-experience night) → airport (1N).
-          Locked beats + menu of options per day. Tap any day for hour-by-hour.
+          (3N) → Schafbergspitze summit (1N, the unique-experience night we'd lean into) →
+          airport (1N). Each day below: locked beats + a short menu of options for the open hours.
+          Tap any day for the deep recommendations + alternates.
         </p>
         <p class="lead-block" data-bind="why-short"></p>
 
@@ -76,8 +77,9 @@
         <h2>The 7 days — locked beats + options for the open hours</h2>
         <p class="ts-intro">
           Each row shows the LOCKED parts (move, Shabbat, Schafbergspitze cog) + a SHORT MENU of
-          options for the open hours. Tap any day for the deep view. The site is a catalog of
-          options to browse — not a locked schedule. Pick per energy + weather.
+          options for the open hours. The full itinerary page adds a "what we'd lean toward + why"
+          per day. The site is a catalog of options to browse + recommendations to consider — not
+          a schedule we're handing you. Pick per energy + weather morning-of.
         </p>
         <div class="ts-places" id="ts-places"></div>
         <p style="font-size: 0.9rem; color: var(--ink-soft); margin-top: 1rem">
@@ -219,5 +221,6 @@
     </footer>
 
     <script type="module" src="/src/page-trip-summary.ts"></script>
+    <script type="module" src="/src/page-search.ts"></script>
   </body>
 </html>
