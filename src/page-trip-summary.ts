@@ -139,7 +139,8 @@ interface PlaceRow {
 const SLEEP_LABEL: Record<Day['sleepWhere'], string> = {
   salzburg: 'Salzburg (Linzergasse)',
   hallstatt: 'Mountain anchor (Obertraun / Hallstatt area)',
-  schafbergspitze: 'Berghotel Schafbergspitze (1,783m summit)',
+  schafbergspitze: 'Berghotel Schafbergspitze (1,783m summit) — SUPERSEDED, see Krippenstein',
+  'lodge-am-krippenstein': 'Lodge am Krippenstein (2,063m summit plateau)',
   airport: 'Salzburg airport-side',
 };
 
