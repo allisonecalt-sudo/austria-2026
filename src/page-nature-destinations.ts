@@ -404,7 +404,7 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
 
         ${caveat}
 
-        <div style="margin-top:0.9rem; display:flex; gap:1rem; flex-wrap:wrap; font-size:0.92rem;">
+        <div style="margin-top:0.9rem; display:flex; gap:0.6rem; flex-wrap:wrap; font-size:0.92rem; align-items:center;">
           ${sourceLink}
           ${
             d.links.official && d.links.official !== d.sourceUrl
@@ -412,6 +412,9 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
               : ''
           }
           <a href="${escape(d.links.wikipedia)}" target="_blank" rel="noreferrer noopener">Wikipedia →</a>
+          <a class="video-search-chip" href="https://www.youtube.com/results?search_query=${encodeURIComponent(d.name + ' ' + (d.country === 'AT' ? 'Austria' : 'Germany'))}" target="_blank" rel="noreferrer noopener" aria-label="Search YouTube videos of ${escape(d.name)}">
+            🎥 Videos
+          </a>
         </div>
       </div>
     </article>

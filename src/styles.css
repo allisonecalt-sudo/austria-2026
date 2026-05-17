@@ -13455,3 +13455,28 @@ body.nav-mobile-open {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* Video search chip — Allison 2026-05-17 12:49: Tier 1 video integration
+   (her "add videos" ask). Opens YouTube search for the place in a new tab.
+   Universal across lodging + nature + sunset + water + lake card surfaces. */
+.video-search-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.8rem;
+  background: #fff4e5;
+  border: 1px solid #ecc18a;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  color: #6e4516;
+  text-decoration: none;
+  border-bottom: 1px solid #ecc18a;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+.video-search-chip:hover,
+.video-search-chip:focus {
+  background: #ffe8c5;
+  border-bottom-color: #ecc18a;
+  color: #6e4516;
+}

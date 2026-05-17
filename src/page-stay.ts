@@ -1479,6 +1479,9 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
           <a class="lodging-cta lodging-cta--ghost" href="#card-${escapeHtml(l.id)}" data-map-jump="${escapeHtml(l.id)}">
             Show on map ↑
           </a>
+          <a class="video-search-chip" href="https://www.youtube.com/results?search_query=${encodeURIComponent(l.name + ' Salzburg Austria walkthrough')}" target="_blank" rel="noreferrer noopener" aria-label="Search YouTube videos for ${escapeHtml(l.name)}">
+            🎥 Videos
+          </a>
         </div>
       </div>
     </article>`;
