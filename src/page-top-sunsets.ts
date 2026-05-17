@@ -14,6 +14,7 @@
 import { NATURE_DESTINATIONS, type NatureDestination } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
+import { initSharedShortlist, pickButton } from './shortlist-shared.js';
 
 // =====================================================================
 // Per-pick metadata — the trip-night context not in NATURE_DESTINATIONS
@@ -319,14 +320,18 @@ function pickCard(p: SunsetPick, dest: NatureDestination | undefined): string {
         : 'Hohe Tauern · AT'
     : '';
 
+  const sunsetLabel = dest?.name ?? p.id;
+  const pickBtnHtml = `<div style="position:absolute; top:0.7rem; right:0.7rem; z-index:5;">${pickButton(p.id, 'sunset', sunsetLabel)}</div>`;
+
   return `
-    <article class="sunset-card" id="sunset-${p.id}">
+    <article class="sunset-card" id="sunset-${p.id}" data-pick-card-id="${p.id}" data-pick-card-type="sunset">
       <div class="sunset-card-photo">
         <img
           src="${escape(p.heroPhoto.src)}"
           alt="${escape(p.heroPhoto.alt)}"
           loading="lazy"
         />
+        ${pickBtnHtml}
         <div class="sunset-card-rank">#${p.rank}</div>
         <div class="sunset-card-region">${escape(regionLabel)}</div>
         <div class="sunset-card-verified">Verified 2026-05-16</div>
@@ -495,3 +500,4 @@ function renderPage(): void {
 renderPage();
 initNotesWidget();
 initChatPlanPopup();
+initSharedShortlist();

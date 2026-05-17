@@ -10,6 +10,8 @@
 // (<16°C max). All temps from Salzkammergut.at and seatemperature.info July
 // historical averages, verified 2026-05-16.
 
+import { initSharedShortlist, pickButton } from './shortlist-shared.js';
+
 interface Lake {
   id: string;
   name: string;
@@ -531,10 +533,13 @@ function lakeCard(l: Lake): string {
 
   const chips = l.pairsWith.map((p) => `<span class="lake-chip">${escape(p)}</span>`).join('');
 
+  const pickBtnHtml = `<div style="position:absolute; top:0.7rem; right:0.7rem; z-index:5;">${pickButton(l.id, 'lake', l.name)}</div>`;
+
   return `
-    <article class="lake-card" id="lake-${l.id}">
+    <article class="lake-card" id="lake-${l.id}" data-pick-card-id="${l.id}" data-pick-card-type="lake" style="position:relative;">
       <div class="lake-card-photo">
         <img src="${escape(l.heroPhoto.src)}" alt="${escape(l.heroPhoto.alt)}" loading="lazy" />
+        ${pickBtnHtml}
         <div class="lake-card-region">${escape(regionLabel(l.region))}</div>
         <div class="lake-card-verified">Verified 2026-05-16</div>
         <div class="lake-card-temp-badge">
@@ -635,3 +640,5 @@ const cardsRoot = document.getElementById('lake-cards-root');
 if (cardsRoot) {
   cardsRoot.innerHTML = renderLakeCards();
 }
+
+initSharedShortlist();

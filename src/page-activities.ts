@@ -31,6 +31,7 @@ import {
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
+import { initSharedShortlist, pickButton } from './shortlist-shared.js';
 
 // =====================================================================
 // Base config — drive times sourced from trip-data.ts where present,
@@ -283,11 +284,14 @@ function activityCard(d: NatureDestination, base: BaseSpec): string {
     })
     .join('');
 
+  const pickBtnHtml = `<div style="position:absolute; top:0.6rem; right:0.6rem; z-index:5;">${pickButton(d.id, 'activity', d.name)}</div>`;
+
   return `
-    <article class="act-card" id="${d.id}-${base.key}" data-cats="${cats.join(' ')}">
-      <div class="act-card__media">
+    <article class="act-card" id="${d.id}-${base.key}" data-cats="${cats.join(' ')}" data-pick-card-id="${d.id}" data-pick-card-type="activity">
+      <div class="act-card__media" style="position:relative;">
         <img src="${escape(d.hero.src)}" alt="${escape(d.hero.alt)}" loading="lazy" />
         ${lockedBadge}
+        ${pickBtnHtml}
       </div>
       <div class="act-card__body">
         <div class="act-card__eyebrow">
@@ -500,3 +504,4 @@ function render(): void {
 render();
 initNotesWidget();
 initChatPlanPopup();
+initSharedShortlist();
