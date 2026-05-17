@@ -1627,7 +1627,7 @@ export const TRIP: TripData = {
           name: 'Naturresort FiSCHERGUT — Lodge Wolfgangthal (St. Wolfgang farm-stay)',
           url: 'https://www.booking.com/hotel/at/fischergut.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
           img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-          review: '9.2 · Superb · 93 reviews',
+          review: '8.6 · Excellent · 108 reviews (live-verified 2026-05-17; was 9.2/93 stored, drifted down 0.6 in real reviews)',
           pricePerNight: '€292 / night (₪1,160) — PRICE-VERIFIED 2026-05-17: was €180, now €292 (Booking live, €876 / 3 nights — was 62% understated)',
           note: 'WOW: a modern farm-stay LODGE in the Wolfgangthal valley above St. Wolfgang, surrounded by forest and pastureland. Full apartment with satellite TV, fully equipped kitchen + fridge, private bath, terrace, BBQ, children\'s playground, free parking. Couples rate location 9.3 — "perfect for people who would like to break away from busy weekdays." ~45 min drive to Hallstatt, ~10 min to Wolfgangsee/Schafberg cog. Pairs well with the Wolfgangsee config or as a Mountain-anchor variant. [Photo is St. Wolfgang shoreline — view live listing photos on Booking.]',
           budgetTier: 'splurge',
@@ -4352,7 +4352,7 @@ export const STANDALONE_POIS: MapPOI[] = [
 // "swap one night" picks where you wake up where the sunset happens.
 // Each is a verified-bookable property for Jul 2026.
 
-export type SunsetStayStatus = 'bookable' | 'confirm-with-host' | 'skip-too-hard';
+export type SunsetStayStatus = 'bookable' | 'confirm-with-host' | 'skip-too-hard' | 'superseded';
 
 export interface SunsetStayLogistics {
   label: string;
@@ -4429,10 +4429,10 @@ export const SUNSET_STAYS: SunsetStay[] = [
     weatherRisk:
       'Cog railway runs in summer rain but suspends in thunderstorms / high wind / lightning. If the last train is cancelled you stay an extra night (the hotel accommodates, prepay your 2nd night). Forecast check at 12:00 the day you go up — if a storm is named for the evening, defer.',
     verdict:
-      'LOCKED Wed Jul 29 → Thu Jul 30. The 4th base of the trip (not optional). Restructured 2026-05-17: was a "swap one anchor night" stretch pick; now the canonical Wed-night base across all mountain-anchor configs.',
-    status: 'bookable',
+      'SUPERSEDED 2026-05-17 — pivoted to Lodge am Krippenstein. Reason: Berghotel Schafbergspitze surfaced as 3.6★ across 1,012 Google reviews with persistent complaints about rude/dismissive staff toward overnight guests, very basic 2-star rooms (no TV, no AC, tiny bathrooms), "soulless" overpriced food, cash only. Lodge am Krippenstein is 9.2/10 across 339 Booking reviews, higher elevation (2,063m vs 1,783m), takes cards, same valley as Obertraun anchor.',
+    status: 'superseded',
     bookingNote:
-      'BOOK ~2-3 WEEKS AHEAD — small hotel (~34 person capacity). Book direct: phone +43 (0) 6138 / 35 42 (office hours 08:30-12:00 + 16:00-20:00 daily), or email via the contact form at schafberg.net. Specify "Night on the Schafberg" package + Wed Jul 29 → Thu Jul 30, 2026 + 2 adults double room. Package paid at the cog railway valley station before ascent.',
+      '⚠️ NO LONGER THE PICK as of 2026-05-17. See "Lodge am Krippenstein" below or krippenstein.html. Historical booking process retained for reference: phone +43 (0) 6138 / 35 42 (office hours 08:30-12:00 + 16:00-20:00 daily), or email via the contact form at schafberg.net.',
     sourceLinks: [
       { label: 'Official site (schafberg.net)', url: 'https://schafberg.net/en/' },
       { label: 'Rooms + 2026 prices', url: 'https://schafberg.net/en/rooms/' },
@@ -4457,46 +4457,48 @@ export const SUNSET_STAYS: SunsetStay[] = [
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Krippenstein_Dachstein_panorama.jpg/1280px-Krippenstein_Dachstein_panorama.jpg',
     imgCredit: 'Wikimedia Commons',
     photos: PHOTO_POOL.obertraunDachstein,
-    elevationM: 2050,
+    elevationM: 2063,
     region: 'dachstein',
     pitch:
-      'Sleep next to the 5fingers viewing platform on the Dachstein. Deep-red sunset from the Welterbespirale ("World Heritage Spiral") 5 min from your door.',
+      'Sleep on the Dachstein plateau at 2,063m. After the last cable car DOWN at 19:10, the high plateau empties — you have the 5 Fingers cantilevered viewing platform to yourselves for sunset over Hallstättersee, stars, and sunrise. Modern architectural lodge, 9.2★ on Booking (339 reviews).',
     whyInsane:
-      'At 2,050 m on the Krippenstein plateau, the lodge is 5 min from the Welterbespirale viewpoint and 20 min from the 5fingers cantilevered platform. Hallstättersee sits 1,600 m straight down to the north; the Dachstein glacier 1,500 m up to the south. Sunset paints the entire Dachstein massif red. Section II cable car runs last DOWN at 19:00 in July 2026 (later than Schafberg) — day-trippers leave by 17:00, you have the high plateau to yourself with breakfast at sunrise.',
-    pricePerNightEur: '~€236 / night (per Kayak listing — "Price on request" official)',
+      'At 2,063m on the Krippenstein plateau (280m HIGHER than Schafberg), the lodge sits 5 min from the Welterbespirale viewpoint and 20 min from the 5 Fingers cantilevered platform. Hallstättersee straight down to the north; Dachstein glacier above to the south. Sunset paints the entire Dachstein massif red. Last cable car DOWN at 19:10 (Jul 2026 schedule) — day-trippers leave, you have the high plateau to yourself. Modern Zirben (Swiss stone pine) beds, free infrared sauna, owner is an ex-Olympic ski coach. Cards accepted (unlike Schafberg). Verified live 2026-05-17: Booking 9.2/339, TripAdvisor 4.0/48 — Booking-heavy review base, both green-lit.',
+    pricePerNightEur: '€112-€353 / night (Jul 29-30 2026 live on Booking.com, varies by room)',
     pricePerNightNote:
-      'No 2026 public rate sheet. Standard / Komfort / Panorama / Gallery rooms + bunk beds. Email moni@lodge.at for an exact Jul 2026 quote.',
+      'Six room categories: Standard / Komfort / Panorama / Gallery / Panorama Suite / Bunks (dorm). Gallery + Panorama Doubles (designed around the view) are the sweet spot — roughly €220-280/night. Bookable instantly on Booking.com with cards.',
     logistics: [
       {
         label: 'Cable car up',
-        value: '2 sections from Obertraun valley. Section II (top) operates Jul 4-Sep 13, 2026',
+        value: '2 sections from Obertraun valley (Talstation Krippenstein). Section II (top) operates Jul 4-Sep 13, 2026',
       },
-      { label: 'First cable car', value: '08:40' },
-      { label: 'Last cable car DOWN', value: '19:00' },
+      { label: 'First cable car UP', value: '08:40' },
+      { label: 'Last cable car DOWN', value: '19:10 (after this, plateau belongs to overnight guests)' },
       { label: 'Walk lodge ↔ top station', value: '2 min' },
-      { label: 'Walk lodge ↔ 5fingers', value: '~20 min easy plateau path' },
+      { label: 'Walk lodge ↔ 5 Fingers platform', value: '~20 min easy plateau path' },
       { label: 'Drive from Obertraun apartment', value: '5 min to the valley station' },
     ],
     kosherKit:
-      'Lodge has rooms (no in-room kitchen mentioned). Restaurant on site (not kosher). Same pattern as Schafberg: bring sealed dinner + breakfast (or rely on sealed items in the breakfast spread — call moni@lodge.at to ask what they can isolate). Plus side: only 5 min from your car at the valley station, so worst case you cable-car down to Obertraun for groceries.',
+      'No in-room kitchen. Restaurant on site (not kosher). Plan: bring sealed dinner + breakfast (or rely on sealed items in the included breakfast spread — call stay@lodge.at to ask what they can isolate). Plus side: only 5 min from your car at the valley station, so worst case you cable-car down to Obertraun for groceries.',
     packList:
-      'Same as Schafberg: overnight bag, layers (10-15°C at 2,050 m even in July), sealed kosher dinner + breakfast, headlamp, camera. Plateau is exposed — wind shell mandatory.',
+      'Overnight bag only (rest stays in the Obertraun apartment — checkout isn\'t until Thursday morning). Layers (10-15°C cooler at 2,063m even in July). Sealed kosher dinner + breakfast. Headlamp. Camera + power bank. Plateau is exposed — wind shell mandatory.',
     weatherRisk:
       'Cable car closes in thunderstorms. Plateau exposed — lightning risk REAL if storms develop. Check weather morning of, abort if storms forecast 16:00-22:00.',
     verdict:
-      'STRETCH PICK — easier logistics than Schafberg (you base in Obertraun, 5 min to the cable car). Less of a "world apart" feel because the lodge sits in the ski-area zone, not on a single peak. Strong backup if Schafberg is full.',
-    status: 'confirm-with-host',
+      'LOCKED Wed Jul 29 → Thu Jul 30 (replaced Schafbergspitze 2026-05-17). The 4th base of the trip. 9.2/10 across 339 Booking reviews verified live. Strictly better than Schafbergspitze on every dimension: higher (2,063m vs 1,783m), better reviews (9.2 vs 3.6★), takes cards, modern architectural lodge, 5-min drive (vs 50-min) from the Obertraun anchor.',
+    status: 'bookable',
     bookingNote:
-      'Direct: email moni@lodge.at or phone +43 (0) 664 380 405 4. Ask for a Jul 27-28 or Jul 28-29 2026 double room + breakfast + 2 adults.',
+      'BOOK NOW. Two paths: (1) Booking.com instant confirmation with card — https://www.booking.com/hotel/at/lodge-am-krippenstein.html (preferred — free cancellation often available). (2) Direct email stay@lodge.at or phone +43 664 380 405 4 (Mon-Sun 8:00-21:00 Austria time) — Rosifka KG, Winkl 52, 4831 Obertraun. Gmail draft already in your Drafts folder.',
     sourceLinks: [
+      { label: 'Booking.com listing', url: 'https://www.booking.com/hotel/at/lodge-am-krippenstein.html' },
       { label: 'Official site (lodge.at)', url: 'https://www.lodge.at/en/' },
+      { label: 'Lodge contact + rooms', url: 'https://www.lodge.at/en/contact/' },
       {
         label: 'Krippenstein cable car schedule + pricing',
         url: 'https://www.dachstein-salzkammergut.com/en/summer/operation-times-summer',
       },
       {
-        label: 'Hallstatt.net lodge profile',
-        url: 'https://www.hallstatt.net/about-hallstatt/active-summer-holiday/wanderzeit-en-US/mountain-huts-and-alpine/lodge-am-krippenstein-en-US/',
+        label: 'TripAdvisor cross-check (4.0/48 — Booking-heavy review base)',
+        url: 'https://www.tripadvisor.com/Hotel_Review-g641766-d1819967-Reviews-Krippenstein_Lodge-Obertraun_Upper_Austria.html',
       },
     ],
   },

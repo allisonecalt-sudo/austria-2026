@@ -1563,6 +1563,8 @@ function renderSunsetStayCard(s: SunsetStay): string {
       '<span class="sunset-stay__status sunset-stay__status--warn">Confirm with host</span>',
     'skip-too-hard':
       '<span class="sunset-stay__status sunset-stay__status--bad">Logistics too hard — skip</span>',
+    superseded:
+      '<span class="sunset-stay__status sunset-stay__status--bad">⚠ Superseded — see Lodge am Krippenstein</span>',
   };
   const logisticsRows = s.logistics
     .map(
