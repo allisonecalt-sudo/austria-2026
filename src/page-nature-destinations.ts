@@ -359,7 +359,7 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
 
   return `
     <article class="alt-card" id="${d.id}" data-pick-card-id="${d.id}" data-pick-card-type="nature" style="display:block; padding:0;">
-      <div class="nature-card__media" style="position:relative;">
+      <div class="nature-card__media">
         ${natureCarouselHtml(d)}
         ${typeBadge}
         ${lockedBadge}

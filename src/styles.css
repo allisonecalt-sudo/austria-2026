@@ -5845,6 +5845,7 @@ img.loaded {
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 4px 22px rgba(0, 0, 0, 0.08);
+  position: relative; /* anchors absolute .pick-button-overlay (2026-05-17) */
 }
 .water-card-head {
   padding: 1.2rem 1.2rem 0.8rem;

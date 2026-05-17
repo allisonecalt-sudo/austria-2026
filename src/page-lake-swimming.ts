@@ -536,7 +536,7 @@ function lakeCard(l: Lake): string {
   const pickBtnHtml = pickButtonOverlay(l.id, 'lake', l.name);
 
   return `
-    <article class="lake-card" id="lake-${l.id}" data-pick-card-id="${l.id}" data-pick-card-type="lake" style="position:relative;">
+    <article class="lake-card" id="lake-${l.id}" data-pick-card-id="${l.id}" data-pick-card-type="lake">
       <div class="lake-card-photo">
         <img src="${escape(l.heroPhoto.src)}" alt="${escape(l.heroPhoto.alt)}" loading="lazy" decoding="async" />
         ${pickBtnHtml}

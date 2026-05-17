@@ -288,7 +288,7 @@ function activityCard(d: NatureDestination, base: BaseSpec): string {
 
   return `
     <article class="act-card" id="${d.id}-${base.key}" data-cats="${cats.join(' ')}" data-pick-card-id="${d.id}" data-pick-card-type="activity">
-      <div class="act-card__media" style="position:relative;">
+      <div class="act-card__media">
         <img src="${escape(d.hero.src)}" alt="${escape(d.hero.alt)}" loading="lazy" decoding="async" />
         ${lockedBadge}
         ${pickBtnHtml}

@@ -452,7 +452,7 @@ function regionLabel(r: WaterOption['region']): string {
 function optionCard(o: WaterOption): string {
   const pickBtn = pickButtonOverlay(o.id, 'water', o.name);
   return `
-    <article class="water-card" id="water-${o.id}" data-pick-card-id="${o.id}" data-pick-card-type="water" style="position:relative;">
+    <article class="water-card" id="water-${o.id}" data-pick-card-id="${o.id}" data-pick-card-type="water">
       ${pickBtn}
       <div class="water-card-head">
         <div class="water-card-head-row">
