@@ -509,6 +509,7 @@ function optionCard(o: WaterOption): string {
         <div class="water-card-links">
           <strong>Operator:</strong> ${escape(o.operator)}
           · <a href="${escape(o.operatorUrl)}" target="_blank" rel="noreferrer noopener">Book / info →</a>
+          · <a class="video-search-chip" href="https://www.youtube.com/results?search_query=${encodeURIComponent(o.name + ' ' + o.where + ' Austria')}" target="_blank" rel="noreferrer noopener" aria-label="Search YouTube videos for ${escape(o.name)}">🎥 Videos</a>
         </div>
       </div>
     </article>

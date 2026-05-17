@@ -618,6 +618,7 @@ function lakeCard(l: Lake): string {
         <div class="lake-card-links">
           <a href="${escape(l.officialUrl)}" target="_blank" rel="noreferrer noopener">Official tourism page →</a>
           <a href="${escape(l.bestEntryMapsUrl)}" target="_blank" rel="noreferrer noopener">Open in Google Maps →</a>
+          <a class="video-search-chip" href="https://www.youtube.com/results?search_query=${encodeURIComponent(l.name + ' lake swimming Austria')}" target="_blank" rel="noreferrer noopener" aria-label="Search YouTube videos of ${escape(l.name)}">🎥 Videos</a>
         </div>
       </div>
     </article>

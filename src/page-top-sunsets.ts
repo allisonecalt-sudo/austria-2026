@@ -417,6 +417,7 @@ function pickCard(p: SunsetPick, dest: NatureDestination | undefined): string {
               : ''
           }
           <a href="itinerary.html#${escape(p.tripNightDayId)}">Itinerary · ${escape(p.tripNight)} →</a>
+          <a class="video-search-chip" href="https://www.youtube.com/results?search_query=${encodeURIComponent((dest?.name ?? p.id) + ' sunset Austria')}" target="_blank" rel="noreferrer noopener" aria-label="Search YouTube videos of ${escape(dest?.name ?? p.id)}">🎥 Videos</a>
         </div>
       </div>
     </article>
