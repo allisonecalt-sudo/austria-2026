@@ -118,6 +118,164 @@ function verifBadge(v: NatureDestination['verificationStatus']): string {
   return `<span class="chip" style="${colour}" title="Data not fully verified — call ahead or check official site before going">⚠️ ${escape(label)}</span>`;
 }
 
+// ---------------------------------------------------------------------------
+// Nature photo carousel (added 2026-05-17 by nature-carousel agent).
+// Allison's ask: "I think places to see can have more pictures, picture
+// caresoul". Mirrors Wave 4b's lodging-carousel pattern exactly — pure CSS
+// scroll-snap drives swipe on touch; ◀ ▶ arrows + dot pagination handle
+// desktop. Shares the .lodging-carousel-* selectors that Wave 4b shipped
+// (those styles are generic — width/height/scroll-snap/dots/arrows are not
+// tied to any lodging-specific layout). Adds a thin .nature-carousel
+// alias-class on the outer container so future style overrides have a
+// nature-specific hook without diverging from the proven Wave 4b CSS.
+//
+// Data: concats hero.src as photo[0] then appends d.photos[]. Falls back
+// to single <img> render when total < 2. Hero stays first so the curated
+// alpine-lake hero photo is always the "above the fold" frame, and the
+// auto-fetched Wikimedia extras provide depth on swipe/click.
+// Perf: photos[0] eager + fetchpriority high, rest lazy + decoding async.
+// A11y: aria-roledescription=carousel, "Photo N of M" labels per slide,
+// arrow-key nav when the carousel container has focus.
+// ---------------------------------------------------------------------------
+function natureCarouselHtml(d: NatureDestination): string {
+  const all: string[] = [d.hero.src, ...(d.photos ?? [])].filter(Boolean);
+  const safeAlt = escape(d.hero.alt);
+  if (all.length <= 1) {
+    // Single-photo path — keep the original <img> markup. No carousel
+    // scaffolding for destinations the curation pass didn't reach.
+    return `<img class="alt-img" src="${escape(all[0] ?? d.hero.src)}" alt="${safeAlt}" loading="lazy" />`;
+  }
+  const total = all.length;
+  const slides = all
+    .map((src, i) => {
+      const loading = i === 0 ? 'eager' : 'lazy';
+      const fetchPri = i === 0 ? ' fetchpriority="high"' : '';
+      return `<div class="lodging-carousel__slide" data-slide-index="${i}" role="group" aria-roledescription="slide" aria-label="Photo ${i + 1} of ${total}"><img class="alt-img lodging-carousel__img" loading="${loading}" decoding="async"${fetchPri} src="${escape(src)}" alt="${safeAlt}" /></div>`;
+    })
+    .join('');
+  const dots = all
+    .map(
+      (_, i) =>
+        `<button type="button" class="lodging-carousel__dot${i === 0 ? ' is-active' : ''}" data-dot-index="${i}" aria-label="Go to photo ${i + 1} of ${total}"${i === 0 ? ' aria-current="true"' : ''}></button>`,
+    )
+    .join('');
+  return `
+    <div class="lodging-carousel nature-carousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${safeAlt} photos">
+      <div class="lodging-carousel__track" data-carousel-track>${slides}</div>
+      <button type="button" class="lodging-carousel__arrow lodging-carousel__arrow--prev" aria-label="Previous photo" tabindex="-1">◀</button>
+      <button type="button" class="lodging-carousel__arrow lodging-carousel__arrow--next" aria-label="Next photo" tabindex="-1">▶</button>
+      <div class="lodging-carousel__dots" role="tablist" aria-label="Photo navigation">${dots}</div>
+      <span class="lodging-carousel__counter" aria-hidden="true">1 / ${total}</span>
+    </div>`;
+}
+
+// Carousel init — same scroll-snap + dot-tracking + arrow nav pattern as
+// Wave 4b. Idempotent via data-carousel-ready guard so re-renders don't
+// double-bind. Scoped to .lodging-carousel (NOT .nature-carousel) so we
+// share the exact event-handling code path with the lodging cards — if
+// the Wave 4b init has already wired this DOM, this call is a no-op.
+function initNatureCarousels(root: ParentNode = document): void {
+  const carousels = root.querySelectorAll<HTMLDivElement>('.nature-carousel');
+  carousels.forEach((carousel) => {
+    if (carousel.dataset.carouselReady === '1') return;
+    carousel.dataset.carouselReady = '1';
+    const track = carousel.querySelector<HTMLDivElement>('[data-carousel-track]');
+    if (!track) return;
+    const slides = Array.from(
+      track.querySelectorAll<HTMLDivElement>('.lodging-carousel__slide'),
+    );
+    const dots = Array.from(
+      carousel.querySelectorAll<HTMLButtonElement>('.lodging-carousel__dot'),
+    );
+    const counter = carousel.querySelector<HTMLSpanElement>('.lodging-carousel__counter');
+    const prevBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--prev');
+    const nextBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--next');
+    if (slides.length < 2) return;
+
+    const goTo = (idx: number, smooth = true): void => {
+      const clamped = Math.max(0, Math.min(slides.length - 1, idx));
+      const target = slides[clamped];
+      if (!target) return;
+      track.scrollTo({ left: target.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    };
+
+    const currentIndex = (): number => {
+      const scrollLeft = track.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      return best;
+    };
+
+    const updateActive = (): void => {
+      const best = currentIndex();
+      dots.forEach((dot, i) => {
+        if (i === best) {
+          dot.classList.add('is-active');
+          dot.setAttribute('aria-current', 'true');
+        } else {
+          dot.classList.remove('is-active');
+          dot.removeAttribute('aria-current');
+        }
+      });
+      if (counter) counter.textContent = `${best + 1} / ${slides.length}`;
+    };
+
+    let scrollTimer: number | null = null;
+    track.addEventListener('scroll', () => {
+      if (scrollTimer !== null) window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(updateActive, 60);
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(i);
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(currentIndex() - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(currentIndex() + 1);
+      });
+    }
+
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goTo(currentIndex() - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goTo(currentIndex() + 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goTo(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goTo(slides.length - 1);
+      }
+    });
+
+    updateActive();
+  });
+}
+
 function destinationCard(d: NatureDestination, byId: Map<string, NatureDestination>): string {
   const lockedBadge = d.lockedDay
     ? `<div class="day-hero-badge peak" title="Already in the v1 itinerary">✓ Locked · ${escape(d.lockedDay)}</div>`
@@ -198,8 +356,8 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
 
   return `
     <article class="alt-card" id="${d.id}" style="display:block; padding:0;">
-      <div style="position:relative;">
-        <img class="alt-img" src="${escape(d.hero.src)}" alt="${escape(d.hero.alt)}" loading="lazy" />
+      <div class="nature-card__media" style="position:relative;">
+        ${natureCarouselHtml(d)}
         ${typeBadge}
         ${lockedBadge}
       </div>
@@ -317,6 +475,13 @@ function renderPage(): void {
   );
   const html = hiddenGemsSection(byId) + REGIONS.map((r) => regionSection(r, byId)).join('');
   root.innerHTML = html;
+  // Wire up the swipeable photo carousels (Allison 2026-05-17). Must run
+  // AFTER innerHTML is set so the carousel DOM exists. Each card with
+  // d.photos[] non-empty gets dot/arrow/keyboard navigation; cards without
+  // photos render the plain <img> fallback and this call is a no-op for
+  // them (initNatureCarousels selects on .nature-carousel which is only
+  // emitted when total slides > 1).
+  initNatureCarousels(root);
 }
 
 renderPage();
