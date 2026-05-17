@@ -768,6 +768,10 @@ function sortListings(items: UnifiedListing[]): UnifiedListing[] {
 function applyFilters(): UnifiedListing[] {
   const picks = readPicks();
   const filtered = ALL_LISTINGS.filter((l) => {
+    // Allison 2026-05-17 07:25: "If booking isn't avai ok then don't show it."
+    // Sold-out entries hide entirely. Data is preserved in trip-data.ts for
+    // history + re-verify next pass; the renderer just skips them.
+    if (l.availability === 'sold-out') return false;
     if (state.showShortlistOnly && !picks[l.id]) return false;
     // Booking-style: empty filter set = ALL. Selected = only those.
     if (state.bases.size > 0 && !state.bases.has(l.base)) return false;
