@@ -119,7 +119,7 @@ function renderGroup(type: SearchType, hits: SearchHit[]): string {
       const loc = item.location ? `<span class="search-row__loc">${escapeHtml(item.location)}</span>` : '';
       const cat = item.category ? `<span class="search-row__cat">${escapeHtml(item.category)}</span>` : '';
       const img = item.img
-        ? `<img class="search-row__img" src="${escapeHtml(item.img)}" alt="" loading="lazy" />`
+        ? `<img class="search-row__img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async" />`
         : '<div class="search-row__img search-row__img--placeholder">' + typeIcon(item.type) + '</div>';
       return `
         <a

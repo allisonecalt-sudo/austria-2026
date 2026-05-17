@@ -37,7 +37,7 @@ function escapeHtml(s: string): string {
 
 function renderCard(item: SearchItem): string {
   const img = item.img
-    ? `<img class="rec-card__img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" />`
+    ? `<img class="rec-card__img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async" />`
     : `<div class="rec-card__img rec-card__img--placeholder">${typeIcon(item.type)}</div>`;
   const loc = item.location ? `<div class="rec-card__loc">${escapeHtml(item.location)}</div>` : '';
   const mapUrl = mapFocusUrl(item);

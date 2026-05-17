@@ -752,7 +752,7 @@ function similarSectionHtml(d: NatureDestination): string {
       const thumb = s.photos && s.photos[0] ? s.photos[0] : s.hero?.src ?? '';
       return `
       <button type="button" class="map-similar__card" data-similar-id="${escapeHtml(s.id)}" aria-label="Open ${escapeHtml(s.name)}">
-        ${thumb ? `<img class="map-similar__thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(s.name)}" loading="lazy" />` : '<span class="map-similar__thumb" aria-hidden="true"></span>'}
+        ${thumb ? `<img class="map-similar__thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(s.name)}" loading="lazy" decoding="async" />` : '<span class="map-similar__thumb" aria-hidden="true"></span>'}
         <span class="map-similar__text">
           <span class="map-similar__name">${escapeHtml(s.name)}</span>
           <span class="map-similar__meta">${escapeHtml(driveLine)}</span>
@@ -1837,7 +1837,7 @@ function bootMap(): void {
           ? NATURE_DESTINATIONS.find((d) => `nature-${d.id}` === entry.id)?.feature ?? ''
           : entry.subLabel;
       hoverPreviewEl.innerHTML = `
-        ${photo ? `<img class="place-hover-preview__img" src="${escapeHtml(photo)}" alt="" />` : ''}
+        ${photo ? `<img class="place-hover-preview__img" src="${escapeHtml(photo)}" alt="" decoding="async" />` : ''}
         <div class="place-hover-preview__body">
           <p class="place-hover-preview__name">${escapeHtml(entry.name)}</p>
           <p class="place-hover-preview__teaser">${escapeHtml(teaser)}</p>

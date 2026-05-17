@@ -262,7 +262,7 @@ function bindLanding(): void {
         return `
           <a class="day-strip-card day-strip-card--${escapeHtml(baseKey)}" href="itinerary.html#${escapeHtml(d.id)}">
             <span class="day-strip-basebar" aria-hidden="true"></span>
-            <img class="day-strip-photo" loading="lazy" src="${escapeHtml(d.hero.src)}" alt="${escapeHtml(d.hero.alt)}" />
+            <img class="day-strip-photo" loading="lazy" decoding="async" src="${escapeHtml(d.hero.src)}" alt="${escapeHtml(d.hero.alt)}" />
             <div class="day-strip-body">
               <div class="day-strip-eyebrow">
                 Day ${i + 1} · ${escapeHtml(d.dateLabel)}

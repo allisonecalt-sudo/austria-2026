@@ -144,7 +144,7 @@ function natureCarouselHtml(d: NatureDestination): string {
   if (all.length <= 1) {
     // Single-photo path — keep the original <img> markup. No carousel
     // scaffolding for destinations the curation pass didn't reach.
-    return `<img class="alt-img" src="${escape(all[0] ?? d.hero.src)}" alt="${safeAlt}" loading="lazy" />`;
+    return `<img class="alt-img" src="${escape(all[0] ?? d.hero.src)}" alt="${safeAlt}" loading="lazy" decoding="async" />`;
   }
   const total = all.length;
   const slides = all

@@ -81,10 +81,10 @@ function noteHtml(n: Note): string {
     ? (n.status as NoteStatus)
     : 'pending';
   const thumb = n.image_url
-    ? `<div class="note-summary-thumb"><img loading="lazy" src="${escapeHtml(n.image_url)}" alt="attached photo" /></div>`
+    ? `<div class="note-summary-thumb"><img loading="lazy" decoding="async" src="${escapeHtml(n.image_url)}" alt="attached photo" /></div>`
     : '';
   const fullImg = n.image_url
-    ? `<div class="note-image"><img loading="lazy" src="${escapeHtml(n.image_url)}" alt="attached photo" data-lightbox="${escapeHtml(n.image_url)}" /></div>`
+    ? `<div class="note-image"><img loading="lazy" decoding="async" src="${escapeHtml(n.image_url)}" alt="attached photo" data-lightbox="${escapeHtml(n.image_url)}" /></div>`
     : '';
   return `
     <details class="note-item status-${escapeHtml(status)}${n.image_url ? ' has-image' : ''}">
@@ -124,7 +124,7 @@ function initLightbox(): void {
     e.stopPropagation();
     const backdrop = document.createElement('div');
     backdrop.className = 'lightbox-backdrop';
-    backdrop.innerHTML = `<img src="${src.replace(/"/g, '&quot;')}" alt="full-size photo" /><button type="button" class="lightbox-close" aria-label="Close">✕</button>`;
+    backdrop.innerHTML = `<img src="${src.replace(/"/g, '&quot;')}" alt="full-size photo" decoding="async" /><button type="button" class="lightbox-close" aria-label="Close">✕</button>`;
     const close = (): void => backdrop.remove();
     backdrop.addEventListener('click', close);
     document.addEventListener('keydown', function esc(ev) {

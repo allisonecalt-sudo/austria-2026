@@ -289,7 +289,7 @@ function activityCard(d: NatureDestination, base: BaseSpec): string {
   return `
     <article class="act-card" id="${d.id}-${base.key}" data-cats="${cats.join(' ')}" data-pick-card-id="${d.id}" data-pick-card-type="activity">
       <div class="act-card__media" style="position:relative;">
-        <img src="${escape(d.hero.src)}" alt="${escape(d.hero.alt)}" loading="lazy" />
+        <img src="${escape(d.hero.src)}" alt="${escape(d.hero.alt)}" loading="lazy" decoding="async" />
         ${lockedBadge}
         ${pickBtnHtml}
       </div>
@@ -364,7 +364,7 @@ function baseSection(base: BaseSpec): string {
     return `
       <section class="acts-base" id="base-${base.key}">
         <header class="acts-base__head acts-base__head--${base.key}">
-          <img class="acts-base__hero" src="${escape(base.hero)}" alt="${escape(base.heroAlt)}" loading="lazy" />
+          <img class="acts-base__hero" src="${escape(base.hero)}" alt="${escape(base.heroAlt)}" loading="lazy" decoding="async" />
           <div class="acts-base__headoverlay">
             <div class="acts-base__eyebrow">${escape(base.nightsLabel)}</div>
             <h2 class="acts-base__title">${escape(base.name)}</h2>
@@ -410,7 +410,7 @@ function baseSection(base: BaseSpec): string {
   return `
     <section class="acts-base" id="base-${base.key}">
       <header class="acts-base__head acts-base__head--${base.key}">
-        <img class="acts-base__hero" src="${escape(base.hero)}" alt="${escape(base.heroAlt)}" loading="lazy" />
+        <img class="acts-base__hero" src="${escape(base.hero)}" alt="${escape(base.heroAlt)}" loading="lazy" decoding="async" />
         <div class="acts-base__headoverlay">
           <div class="acts-base__eyebrow">${escape(base.nightsLabel)}</div>
           <h2 class="acts-base__title">${escape(base.name)}</h2>

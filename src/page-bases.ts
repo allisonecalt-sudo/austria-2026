@@ -146,7 +146,7 @@ function renderDriveMatrix(rows: BaseConfigDriveRow[]): string {
 function renderLodgingPick(p: BaseConfigLodgingPick): string {
   return `
     <a class="alt-card" href="${escapeHtml(p.url)}" target="_blank" rel="noreferrer noopener">
-      <img class="alt-img" loading="lazy" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" />
+      <img class="alt-img" loading="lazy" decoding="async" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" />
       <div class="alt-body">
         <div class="alt-name">${escapeHtml(p.name)}</div>
         <div class="alt-meta">${escapeHtml(p.review)} · <strong>${escapeHtml(p.pricePerNight)}</strong></div>

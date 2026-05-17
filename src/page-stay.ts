@@ -1835,7 +1835,7 @@ function renderShortlistModalBody(): string {
       const firstPhoto = l.photos && l.photos.length > 0 ? l.photos[0]! : l.img;
       return `
         <article class="shortlist-row" id="shortlist-row-${escapeHtml(l.id)}">
-          <img class="shortlist-row__thumb" src="${escapeHtml(firstPhoto)}" alt="${escapeHtml(l.name)}" loading="lazy" />
+          <img class="shortlist-row__thumb" src="${escapeHtml(firstPhoto)}" alt="${escapeHtml(l.name)}" loading="lazy" decoding="async" />
           <div class="shortlist-row__body">
             <h3 class="shortlist-row__name">${escapeHtml(l.name)}</h3>
             <p class="shortlist-row__meta">
@@ -1924,7 +1924,7 @@ function renderCompareModalBody(): string {
 
   const photo = (l: UnifiedListing): string => {
     const src = l.photos && l.photos.length > 0 ? l.photos[0]! : l.img;
-    return `<img class="compare-photo" src="${escapeHtml(src)}" alt="${escapeHtml(l.name)}" loading="lazy" />`;
+    return `<img class="compare-photo" src="${escapeHtml(src)}" alt="${escapeHtml(l.name)}" loading="lazy" decoding="async" />`;
   };
 
   const row = (label: string, cellA: string, cellB: string): string =>

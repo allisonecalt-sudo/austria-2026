@@ -538,7 +538,7 @@ function lakeCard(l: Lake): string {
   return `
     <article class="lake-card" id="lake-${l.id}" data-pick-card-id="${l.id}" data-pick-card-type="lake" style="position:relative;">
       <div class="lake-card-photo">
-        <img src="${escape(l.heroPhoto.src)}" alt="${escape(l.heroPhoto.alt)}" loading="lazy" />
+        <img src="${escape(l.heroPhoto.src)}" alt="${escape(l.heroPhoto.alt)}" loading="lazy" decoding="async" />
         ${pickBtnHtml}
         <div class="lake-card-region">${escape(regionLabel(l.region))}</div>
         <div class="lake-card-verified">Verified 2026-05-16</div>

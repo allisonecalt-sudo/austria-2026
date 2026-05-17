@@ -3231,17 +3231,12 @@ img.loaded {
   text-align: center;
   color: var(--ink-soft);
 }
-.stay-empty__clear {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  color: var(--blue-lake);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  border-bottom: 1px dashed var(--blue-lake);
-  padding: 0;
-}
+/* (.stay-empty__clear v1 block removed 2026-05-17 — fully superseded by
+   the v2 button styling defined alongside .stay-empty--lyrical further
+   down. Both blocks targeted the same element with different rules; the
+   later block wins via cascade order, making the earlier definition dead
+   code. Verified: only one usage in page-stay.ts inside .stay-empty--lyrical
+   container, which always hits the later block.) */
 
 /* =====================================================================
    LANDING PITCH-DECK — v5 (2026-05-16)
