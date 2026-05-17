@@ -2465,27 +2465,24 @@ function bindDynamicHandlers(): void {
     });
   }
 
-  // Shortlist modal — row remove buttons
-  document.querySelectorAll<HTMLButtonElement>('[data-shortlist-remove]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-shortlist-remove') ?? '';
+  // Shortlist modal — row remove buttons (event-delegated so re-renders work
+  // without rebinding or infinite-loop bugs).
+  const shortlistModalBody = document.getElementById('shortlist-modal-body');
+  if (shortlistModalBody && shortlistModalBody.dataset.removeWired !== '1') {
+    shortlistModalBody.dataset.removeWired = '1';
+    shortlistModalBody.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement | null;
+      const removeBtn = target?.closest<HTMLButtonElement>('[data-shortlist-remove]');
+      if (!removeBtn) return;
+      const id = removeBtn.getAttribute('data-shortlist-remove') ?? '';
       if (!id) return;
       const picks = readPicks();
       delete picks[id];
       writePicks(picks);
-      // Re-render modal body in place so the user stays on the slideover.
-      const body = document.getElementById('shortlist-modal-body');
-      if (body) body.innerHTML = renderShortlistModalBody();
+      shortlistModalBody.innerHTML = renderShortlistModalBody();
       renderShell();
-      // Re-bind the buttons inside the modal (renderShell binds card-level).
-      const newBody = document.getElementById('shortlist-modal-body');
-      if (newBody) {
-        newBody.querySelectorAll<HTMLButtonElement>('[data-shortlist-remove]').forEach((nb) => {
-          nb.addEventListener('click', () => nb.click());
-        });
-      }
     });
-  });
+  }
 
   // Modal close (delegated, idempotent)
   document.querySelectorAll<HTMLElement>('[data-modal-close]').forEach((el) => {
