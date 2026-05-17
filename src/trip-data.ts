@@ -4167,8 +4167,11 @@ export const LODGING_COORDS: Record<string, LatLng> = {
   'Mühlradl Apartments Gosau': { lat: 47.5811, lng: 13.5378 },
   'Pension Sydler (Bad Goisern)': { lat: 47.6439, lng: 13.6167 }, // Konrad-Deubler-Gasse 8 (Nominatim verified 2026-05-17)
   'Weisses Lamm Holiday Home (Hallstatt)': { lat: 47.5614, lng: 13.6486 },
-  // SUMMIT NIGHT (Wed-Thu) — pivoted 2026-05-17 from Schafbergspitze to Lodge am Krippenstein
+  // SUMMIT NIGHT (Wed-Thu) — 5-option menu added 2026-05-17 (Krippenstein demoted from LOCKED to 1-of-5)
   'Lodge am Krippenstein': { lat: 47.5126, lng: 13.6929 }, // Dachstein Krippenstein summit, 2,063m — same valley as Obertraun base
+  'Post am See, Traunkirchen': { lat: 47.85, lng: 13.7833 }, // Traunkirchen peninsula on Traunsee
+  "Seehotel Brandauer's Villen (Strobl)": { lat: 47.7178, lng: 13.475 }, // East end of Wolfgangsee
+  'Scalaria Sunset Wing (St. Wolfgang)': { lat: 47.7375, lng: 13.4444 }, // St. Wolfgang am Wolfgangsee
   // AIRPORT (Thu→Fri pre-flight)
   'Hapimag Ferienwohnungen Salzburg': { lat: 47.8164, lng: 13.0014 }, // ~5km from SZG
   'Landhotel Berger (Ainring, just over the German border)': { lat: 47.8056, lng: 12.9614 },
@@ -4484,10 +4487,10 @@ export const SUNSET_STAYS: SunsetStay[] = [
     weatherRisk:
       'Cable car closes in thunderstorms. Plateau exposed — lightning risk REAL if storms develop. Check weather morning of, abort if storms forecast 16:00-22:00.',
     verdict:
-      'LOCKED Wed Jul 29 → Thu Jul 30 (replaced Schafbergspitze 2026-05-17). The 4th base of the trip. 9.2/10 across 339 Booking reviews verified live. Strictly better than Schafbergspitze on every dimension: higher (2,063m vs 1,783m), better reviews (9.2 vs 3.6★), takes cards, modern architectural lodge, 5-min drive (vs 50-min) from the Obertraun anchor.',
+      'ONE OF FIVE strong options for the Wed Jul 29 → Thu Jul 30 summit-night decision (see also Seehotel am Hallstättersee, Post am See Traunkirchen, Brandauer\'s Villen Strobl, Scalaria Sunset Wing). Strictly better than the original Schafbergspitze plan on every dimension: higher (2,063m vs 1,783m), better reviews (9.2 vs 3.6★), takes cards, modern architectural lodge, 5-min drive from the Obertraun anchor. Concept: "I slept on a mountain." Pick when ready — all 5 verified available 2026-05-17.',
     status: 'bookable',
     bookingNote:
-      'BOOK NOW. Two paths: (1) Booking.com instant confirmation with card — https://www.booking.com/hotel/at/lodge-am-krippenstein.html (preferred — free cancellation often available). (2) Direct email stay@lodge.at or phone +43 664 380 405 4 (Mon-Sun 8:00-21:00 Austria time) — Rosifka KG, Winkl 52, 4831 Obertraun. Gmail draft already in your Drafts folder.',
+      'Bookable on Booking.com with free-cancellation rate usually available — https://www.booking.com/hotel/at/lodge-am-krippenstein.html — or direct: stay@lodge.at / +43 664 380 405 4 (Mon-Sun 8:00-21:00 Austria), Rosifka KG, Winkl 52, 4831 Obertraun. No need to lock today — one of 5 candidates.',
     sourceLinks: [
       { label: 'Booking.com listing', url: 'https://www.booking.com/hotel/at/lodge-am-krippenstein.html' },
       { label: 'Official site (lodge.at)', url: 'https://www.lodge.at/en/' },
@@ -4502,7 +4505,145 @@ export const SUNSET_STAYS: SunsetStay[] = [
       },
     ],
   },
-  
+
+  // === WED JUL 29 SUMMIT-NIGHT MENU ADDS 2026-05-17 ===
+  // Allison: "I have no time to coordinate this so just put it all in and make
+  // it organized and we'll deal with it later." Job is presenting 5 equally-
+  // good candidates, NOT recommending. Krippenstein demoted from LOCKED to
+  // "1 of 5." Three new entries below + Seehotel am Hallstättersee surfaces
+  // in the krippenstein.html comparison table (not added here — it dissolves
+  // the summit-night concept, lives as an in-Obertraun upgrade alternative).
+  // Notable sold-outs for Jul 29-30: Berghotel Schmittenhöhe + Kempinski
+  // Berchtesgaden both booked solid — not added as options.
+
+  {
+    id: 'post-am-see-traunkirchen',
+    name: 'Post am See, Traunkirchen',
+    url: 'https://www.booking.com/hotel/at/post-traunkirchen.html',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Traunkirchen_-_Panoramablick.JPG/1280px-Traunkirchen_-_Panoramablick.JPG',
+    imgCredit: 'Wikimedia Commons',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Traunkirchen_-_Panoramablick.JPG/1280px-Traunkirchen_-_Panoramablick.JPG',
+    ],
+    elevationM: 0,
+    region: 'salzkammergut',
+    pitch:
+      '4-star Superior on the Traunkirchen peninsula. Infinity pool over the water, Traunstein massif rising directly across the lake. Quiet village, lake-level luxury option for Wed Jul 29.',
+    whyInsane:
+      'Traunkirchen sits on a wooded peninsula jutting into the Traunsee. Post am See is a 4-star Superior with a glass-edged infinity pool that hangs out over the lake — at sunset the pool surface, the lake, and the sky merge. The Traunstein massif (1,691m) rises straight up from the opposite shore, so you have a wall of mountain across the water from your room. Highest Booking score in the 5-option set (9.3/10 across 1,054 reviews). Quietest of the 5 locations — Traunkirchen is a tiny village, not a tourist town.',
+    pricePerNightEur: '€409 / night (Jul 29-30 2026 live on Booking.com, 2 adults)',
+    pricePerNightNote:
+      'Most expensive of the 5 options. 4-star Superior, infinity pool included. Free-cancellation rate usually available on Booking.com — confirm at booking.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '~70 min via B145' },
+      { label: 'Drive from Salzburg airport (Thu morning)', value: '~1h 15 min via A1' },
+      { label: 'Address', value: 'Ortsplatz 5, 4801 Traunkirchen, Austria (to confirm exact)' },
+      { label: 'Star rating', value: '4-star Superior' },
+      { label: 'Check-in / check-out times', value: 'to confirm at booking' },
+    ],
+    kosherKit:
+      'BYO sealed dinner + breakfast — same kit as the other 4 options. Restaurant on site is not kosher. 4-star hotel, no in-room kitchen — pack ready-to-eat sealed items.',
+    packList:
+      'Overnight bag only (rest stays in Obertraun apartment — checkout Thursday). Sealed kosher dinner + breakfast. Swimsuit for the infinity pool. Camera + power bank. Lake-level so no extra layers needed.',
+    weatherRisk:
+      'Lake-level 4-star hotel, no weather sensitivity. Drive on B145 is well-maintained, no mountain passes.',
+    verdict:
+      'LUXURY-LAKE PICK — one of 5 equally-good options for Wed Jul 29. Pick this one if you want the most polished property on the most dramatic lake-and-mountain setting + an infinity pool. Trade-off: most expensive (€409), longest drive from Obertraun (70 min), dissolves the "summit" concept in favor of "luxury lake retreat." Pick when ready — all 5 verified available 2026-05-17.',
+    status: 'bookable',
+    bookingNote:
+      'Bookable on Booking.com — https://www.booking.com/hotel/at/post-traunkirchen.html — free-cancellation rate usually available. No need to lock today — one of 5 candidates.',
+    sourceLinks: [
+      {
+        label: 'Booking.com listing',
+        url: 'https://www.booking.com/hotel/at/post-traunkirchen.html',
+      },
+    ],
+  },
+
+  {
+    id: 'brandauers-villen-strobl',
+    name: "Seehotel Brandauer's Villen (Strobl)",
+    url: 'https://www.booking.com/hotel/at/brandauersvillen.html',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+    imgCredit: 'Wikimedia Commons',
+    photos: PHOTO_POOL.strobl,
+    elevationM: 0,
+    region: 'wolfgangsee',
+    pitch:
+      'Boutique restored historic villas on the Wolfgangsee shore at Strobl. Schafberg view across the water + closest of the 5 options to SZG airport for the Thu morning hand-off.',
+    whyInsane:
+      'Two historic lakeside villas at the east end of the Wolfgangsee, restored as a small boutique property (9.2/10 across 558 Booking reviews). Schafberg rises across the water — so you sleep at lake-level with the same mountain you would have slept ON under the original plan visible from your window. Small property (limited rooms) gives intimate feel vs. resort. Of the 5 options it is also the closest to Salzburg airport (~55 min for Thu morning), which trims the airport-day drive.',
+    pricePerNightEur: '€314-€397 / night (Jul 29-30 2026 live on Booking.com, 2 adults)',
+    pricePerNightNote:
+      'Small property — availability windows can be thin. Free-cancellation rate usually available on Booking.com. Verify exact rate + room type at booking.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '~55 min via B158' },
+      { label: 'Drive from Salzburg airport (Thu morning)', value: '~55 min — closest of the 5' },
+      { label: 'Address', value: 'Strobl, east end of Wolfgangsee (to confirm exact)' },
+      { label: 'Star rating', value: 'Boutique 4-star equivalent' },
+      { label: 'Property size', value: 'Small — restored historic villas, thin availability' },
+    ],
+    kosherKit:
+      'BYO sealed dinner + breakfast — same kit as the other 4 options. Restaurant on site is not kosher. Strobl has a Spar in the village for last-minute groceries (5-min drive).',
+    packList:
+      'Overnight bag only. Sealed kosher dinner + breakfast. Swimsuit (lake swimming from the property shore). Camera. Lake-level so no extra layers.',
+    weatherRisk:
+      'Lake-level boutique hotel, no weather sensitivity. Drive on B158 is well-maintained.',
+    verdict:
+      'LAKE-VILLA PICK — one of 5 equally-good options for Wed Jul 29. Pick this one if you want lake-level boutique with the Schafberg view across the water + the easiest Thu morning airport hand-off (~55 min vs 70-75 min for the others). Trade-off: small property = thin availability, dissolves the summit concept. Pick when ready — all 5 verified available 2026-05-17.',
+    status: 'bookable',
+    bookingNote:
+      'Bookable on Booking.com — https://www.booking.com/hotel/at/brandauersvillen.html — free-cancellation rate usually available. Small property so confirm room type. No need to lock today — one of 5 candidates.',
+    sourceLinks: [
+      {
+        label: 'Booking.com listing',
+        url: 'https://www.booking.com/hotel/at/brandauersvillen.html',
+      },
+    ],
+  },
+
+  {
+    id: 'scalaria-sunset-wing',
+    name: 'Scalaria Sunset Wing (St. Wolfgang)',
+    url: 'https://www.booking.com/hotel/at/sunset-wing-club.html',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+    imgCredit: 'Wikimedia Commons',
+    photos: PHOTO_POOL.stWolfgang,
+    elevationM: 0,
+    region: 'wolfgangsee',
+    pitch:
+      'Literally named for the Wolfgangsee evening light. West-facing lakefront wing of the Scalaria event-resort complex, adults-oriented, 4-star, on the St. Wolfgang shore.',
+    whyInsane:
+      'The Sunset Wing is the adults-oriented lakefront wing of the larger Scalaria complex at St. Wolfgang. West-facing rooms catch the full Wolfgangsee sunset over the lake — the name is literal, not marketing. 9.0/10 across 1,260 Booking reviews (largest review base of the 5 options). Schafberg cog railway is in the same village (you can still ride it as a day trip Wed afternoon before checking in here). 4-star comfort, real lakefront, but you accept being part of a larger event-resort property.',
+    pricePerNightEur: '€352-€391 / night (Jul 29-30 2026 live on Booking.com, 2 adults)',
+    pricePerNightNote:
+      'Mid-range of the 5 options. Free-cancellation rate usually available on Booking.com. Confirm Sunset Wing specifically (not the main Scalaria building) at booking — west-facing lake-view rooms are the reason.',
+    logistics: [
+      { label: 'Drive from Obertraun apartment', value: '~75 min via B158' },
+      { label: 'Drive from Salzburg airport (Thu morning)', value: '~50 min via Wolfgangsee Bundesstraße' },
+      { label: 'Address', value: 'St. Wolfgang am Wolfgangsee (to confirm exact)' },
+      { label: 'Star rating', value: '4-star' },
+      { label: 'Property feel', value: 'Adults-oriented wing of larger Scalaria event-resort complex' },
+    ],
+    kosherKit:
+      'BYO sealed dinner + breakfast — same kit as the other 4 options. Restaurants on the Scalaria complex are not kosher. St. Wolfgang has a Spar in the village for last-minute groceries.',
+    packList:
+      'Overnight bag only. Sealed kosher dinner + breakfast. Swimsuit. Camera (sunset is the point — pack the tripod). Lake-level so no extra layers.',
+    weatherRisk:
+      'Lake-level resort, no weather sensitivity. Drive on B158 is well-maintained. Cloud cover at sunset is the only thing that diminishes the concept.',
+    verdict:
+      'WEST-FACING SUNSET PICK — one of 5 equally-good options for Wed Jul 29. Pick this one if you want a property literally engineered around catching the Wolfgangsee evening light + the largest review base for confidence (1,260 reviews). Trade-off: part of a larger event-resort complex — can feel busy in peak summer, not intimate. Pick when ready — all 5 verified available 2026-05-17.',
+    status: 'bookable',
+    bookingNote:
+      'Bookable on Booking.com — https://www.booking.com/hotel/at/sunset-wing-club.html — free-cancellation rate usually available. Confirm Sunset Wing specifically (west-facing lake-view rooms). No need to lock today — one of 5 candidates.',
+    sourceLinks: [
+      {
+        label: 'Booking.com listing',
+        url: 'https://www.booking.com/hotel/at/sunset-wing-club.html',
+      },
+    ],
+  },
+
   {
     id: 'hintersee-lake-edge',
     name: 'Hintersee lake-edge apartments (Ramsau)',
