@@ -11414,3 +11414,374 @@ body.search-overlay-open {
   height: 100%;
   object-fit: cover;
 }
+
+/* ============================================================
+   Rental-car page v2 polish (2026-05-17 rental-car v2 agent).
+   Decision shortcut, recall summary, verified badges, comparison
+   table, vehicle photos, sticky mobile CTA, compare-mode.
+   ============================================================ */
+
+.rental-car-decision-aid {
+  background: linear-gradient(180deg, var(--green-mist) 0%, transparent 100%);
+  border-radius: 12px;
+  padding: 1.2rem 1.3rem !important;
+  margin-bottom: 1.5rem;
+}
+
+.rental-car-shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.7rem;
+  margin: 0.8rem 0 0.6rem;
+}
+
+.rental-car-shortcut {
+  display: block;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: 1px solid var(--green-deep);
+  border-radius: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rental-car-shortcut:hover,
+.rental-car-shortcut:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  outline: 2px solid var(--green-deep);
+  outline-offset: 2px;
+}
+
+.rental-car-shortcut-q {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--green-deep);
+  margin-bottom: 0.3rem;
+}
+
+.rental-car-shortcut-a {
+  font-size: 0.9rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.rental-car-verified-badge {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.3rem 0.7rem;
+  background: var(--green-mist);
+  border-left: 3px solid var(--green-deep);
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  border-radius: 0 4px 4px 0;
+}
+
+.rental-car-recall-summary {
+  background: #fff7e6;
+  border-left: 3px solid #e8c97a;
+  border-radius: 0 8px 8px 0;
+  padding: 1.2rem 1.3rem !important;
+  margin-bottom: 1.5rem;
+}
+
+.rental-car-recall-table {
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.rental-car-recall-table th {
+  text-align: left;
+  background: #fff;
+}
+
+.rental-car-recall-table td {
+  vertical-align: top;
+}
+
+.rental-car-compare-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 2px solid var(--green-deep);
+  padding: 0.7rem 1rem;
+  display: none;
+  z-index: 100;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.rental-car-compare-bar.is-active {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.rental-car-compare-bar__items {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.rental-car-compare-bar__item {
+  padding: 0.25rem 0.6rem;
+  background: var(--green-mist);
+  border-radius: 14px;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.rental-car-compare-bar__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0 0.15rem;
+  color: var(--ink-soft);
+}
+
+.rental-car-compare-bar__remove:hover {
+  color: var(--ink);
+}
+
+.rental-car-compare-bar__cta {
+  padding: 0.45rem 1rem;
+  background: var(--green-deep);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rental-car-compare-bar__cta:disabled {
+  background: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.rental-car-compare-toggle {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.35rem 0.75rem;
+  background: #fff;
+  border: 1px solid var(--green-deep);
+  border-radius: 14px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.rental-car-compare-toggle.is-active {
+  background: var(--green-deep);
+  color: #fff;
+}
+
+.rental-car-compare-toggle:focus-visible {
+  outline: 2px solid var(--green-deep);
+  outline-offset: 2px;
+}
+
+.rental-car-compare-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.rental-car-compare-modal.is-open {
+  display: flex;
+}
+
+.rental-car-compare-modal__content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.4rem;
+  max-width: 920px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.rental-car-compare-modal__close {
+  float: right;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.rental-car-sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid var(--green-deep);
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  z-index: 90;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+}
+
+.rental-car-sticky-cta__label {
+  flex: 1;
+  min-width: 0;
+}
+
+.rental-car-sticky-cta__label strong {
+  display: block;
+  color: var(--green-deep);
+}
+
+.rental-car-sticky-cta__cta {
+  padding: 0.5rem 1rem;
+  background: var(--green-deep);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (min-width: 769px) {
+  .rental-car-sticky-cta {
+    display: none;
+  }
+}
+
+.rental-car-vehicle-photo {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.7rem;
+  background: var(--green-mist);
+}
+
+.rental-car-vehicle-photo-credit {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: -0.4rem;
+  margin-bottom: 0.5rem;
+  text-align: right;
+}
+
+.rental-car-puretech-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.6rem 0 0.8rem;
+  padding: 0.4rem 0.8rem;
+  background: #fff;
+  border: 1px solid var(--green-deep);
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 0.86rem;
+  user-select: none;
+}
+
+.rental-car-puretech-filter input {
+  margin: 0;
+}
+
+.alt-card.rental-car-hidden-by-filter {
+  display: none;
+}
+
+.rental-car-comparison-table {
+  width: 100%;
+  font-size: 0.88rem;
+  border-collapse: collapse;
+  margin-top: 0.7rem;
+}
+
+.rental-car-comparison-table th,
+.rental-car-comparison-table td {
+  padding: 0.5rem 0.55rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+}
+
+.rental-car-comparison-table th {
+  background: var(--green-mist);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.rental-car-comparison-table th[aria-sort="ascending"]::after {
+  content: " ▲";
+  font-size: 0.7rem;
+}
+
+.rental-car-comparison-table th[aria-sort="descending"]::after {
+  content: " ▼";
+  font-size: 0.7rem;
+}
+
+.rental-car-comparison-table tbody tr.is-recommendation {
+  background: var(--green-mist);
+}
+
+@media (max-width: 720px) {
+  .rental-car-comparison-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+}
+
+.rental-car-austria-addendum {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.7rem;
+}
+
+.rental-car-austria-addendum__item {
+  padding: 0.7rem 0.85rem;
+  background: var(--green-mist);
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+
+.rental-car-austria-addendum__item strong {
+  display: block;
+  color: var(--green-deep);
+  margin-bottom: 0.2rem;
+  font-size: 0.92rem;
+}
+
+main.container {
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 769px) {
+  main.container {
+    padding-bottom: 2rem;
+  }
+}
+
