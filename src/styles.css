@@ -11785,3 +11785,352 @@ main.container {
   }
 }
 
+/* =========================================================================
+ * NAV COORDINATION — 2026-05-17 (Nav Coordination Specialist agent)
+ *
+ * Owns: .nav-group, .nav-dropdown, .nav-hamburger, .nav-mobile,
+ *       .nav-mobile-panel, .nav-mobile-section, .breadcrumb,
+ *       .cross-promo, .cross-promo-card, body.nav-mobile-open.
+ *
+ * Layered ON TOP of existing .nav / .nav-inner / .nav-links / .nav-brand
+ * rules (lines 116-184 + .nav--overlay 3211-3232). Do NOT modify those.
+ *
+ * IA: 4 dropdowns + 2 single links =
+ *   Plan ▾ · Explore ▾ · Stay · Logistics ▾ · Costs · Notes
+ * ========================================================================= */
+
+/* ----- Desktop dropdown trigger button ----- */
+.nav-group {
+  position: relative;
+  display: inline-flex;
+}
+.nav-group__btn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+.nav-group__btn:hover,
+.nav-group__btn[aria-expanded='true'],
+.nav-group.is-active > .nav-group__btn {
+  color: var(--green-deep);
+  background: var(--green-mist);
+}
+.nav-group__caret {
+  font-size: 0.7rem;
+  transition: transform 0.15s ease;
+  display: inline-block;
+}
+.nav-group__btn[aria-expanded='true'] .nav-group__caret {
+  transform: rotate(180deg);
+}
+.nav--overlay .nav-group__btn {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+.nav--overlay .nav-group__btn:hover,
+.nav--overlay .nav-group__btn[aria-expanded='true'],
+.nav--overlay .nav-group.is-active > .nav-group__btn {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ----- Desktop dropdown panel ----- */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 280px;
+  max-width: 360px;
+  background: var(--cream, #faf6ee);
+  border: 1px solid var(--line, #e7e1d3);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(40, 30, 15, 0.18);
+  padding: 0.5rem;
+  z-index: 60;
+  display: none;
+}
+.nav-group__btn[aria-expanded='true'] + .nav-dropdown {
+  display: block;
+}
+.nav-dropdown__title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding: 0.4rem 0.6rem 0.2rem;
+  margin: 0;
+}
+.nav-dropdown a {
+  display: block;
+  padding: 0.55rem 0.6rem;
+  border-radius: 8px;
+  border-bottom: none;
+  color: var(--ink);
+  text-decoration: none;
+}
+.nav-dropdown a:hover,
+.nav-dropdown a:focus {
+  background: var(--green-mist);
+  border-bottom: none;
+}
+.nav-dropdown a.active {
+  background: var(--green-mist);
+  color: var(--green-deep);
+  font-weight: 600;
+}
+.nav-dropdown__name {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+.nav-dropdown__desc {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+  line-height: 1.3;
+}
+
+/* ----- Hamburger trigger (mobile only) ----- */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 0.4rem 0.55rem;
+  border-radius: 8px;
+  min-height: 40px;
+  min-width: 40px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.nav--overlay .nav-hamburger {
+  color: white;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ----- Mobile: hide flat links + group buttons, show hamburger ----- */
+@media (max-width: 720px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-hamburger {
+    display: inline-flex;
+  }
+}
+
+/* ----- Mobile slide-over panel ----- */
+.nav-mobile {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(20, 14, 4, 0.45);
+  display: none;
+}
+.nav-mobile.is-open {
+  display: block;
+}
+body.nav-mobile-open {
+  overflow: hidden;
+}
+.nav-mobile-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(86vw, 360px);
+  background: var(--cream, #faf6ee);
+  box-shadow: -12px 0 32px rgba(40, 30, 15, 0.25);
+  overflow-y: auto;
+  padding: 0.8rem 0 2rem;
+  transform: translateX(100%);
+  transition: transform 0.22s ease;
+}
+.nav-mobile.is-open .nav-mobile-panel {
+  transform: translateX(0);
+}
+.nav-mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 1rem 1rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.4rem;
+}
+.nav-mobile-header__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin: 0;
+}
+.nav-mobile-close {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.2rem 0.55rem;
+  border-radius: 8px;
+  min-height: 40px;
+  min-width: 40px;
+}
+.nav-mobile-section {
+  padding: 0.6rem 0.6rem 0.4rem;
+}
+.nav-mobile-section__title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  padding: 0 0.5rem 0.3rem;
+  margin: 0;
+}
+.nav-mobile-section a {
+  display: block;
+  padding: 0.65rem 0.7rem;
+  border-radius: 8px;
+  border-bottom: none;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.98rem;
+}
+.nav-mobile-section a:hover {
+  background: var(--green-mist);
+}
+.nav-mobile-section a.active {
+  background: var(--green-mist);
+  color: var(--green-deep);
+  font-weight: 600;
+}
+.nav-mobile-section__desc {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.1rem;
+  line-height: 1.3;
+}
+
+/* ----- Breadcrumb (right below the nav) ----- */
+.breadcrumb {
+  max-width: var(--max-w, 1100px);
+  margin: 0 auto;
+  padding: 0.55rem 1.1rem 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+.breadcrumb a {
+  color: var(--ink-soft);
+  border-bottom: none;
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  color: var(--green-deep);
+  text-decoration: underline;
+}
+.breadcrumb__sep {
+  opacity: 0.5;
+}
+.breadcrumb__current {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.nav--overlay + .breadcrumb {
+  display: none;
+}
+
+/* ----- Cross-promo "Where to go next" footer block ----- */
+.cross-promo {
+  max-width: var(--max-w, 1100px);
+  margin: 3rem auto 2rem;
+  padding: 1.5rem 1.1rem 0;
+  border-top: 1px solid var(--line, #e7e1d3);
+}
+.cross-promo__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 0.3rem;
+}
+.cross-promo__sub {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0 0 1.1rem;
+}
+.cross-promo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+@media (max-width: 640px) {
+  .cross-promo__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.cross-promo-card {
+  display: block;
+  padding: 0.95rem 1rem;
+  background: var(--cream, #faf6ee);
+  border: 1px solid var(--line, #e7e1d3);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: none;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.cross-promo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(40, 30, 15, 0.1);
+  border-bottom: none;
+}
+.cross-promo-card__eyebrow {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green-deep);
+  margin: 0 0 0.25rem;
+}
+.cross-promo-card__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  line-height: 1.2;
+}
+.cross-promo-card__desc {
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.35;
+}
+.cross-promo-card__arrow {
+  display: inline-block;
+  margin-left: 0.3rem;
+  transition: transform 0.15s ease;
+}
+.cross-promo-card:hover .cross-promo-card__arrow {
+  transform: translateX(3px);
+}
+
