@@ -12927,7 +12927,9 @@ body.nav-mobile-open {
   text-decoration: none;
   line-height: 1.25;
   white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 .lodging-nearby-chip:hover,
 .lodging-nearby-chip:focus-visible {
@@ -12958,4 +12960,498 @@ body.nav-mobile-open {
     font-size: 0.72rem;
     padding: 0.2rem 0.5rem;
   }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Rental-car vehicle photos (P1 — RentalCarPhotos, 2026-05-17)
+   - .rental-car-vehicle-photo (already declared above) = hero/card image
+   - .rental-car-vehicle-photo-hero = bigger framing for the recommendation
+   - .rental-car-vehicle-photo-thumb = inline 60px thumb in comparison table
+   - .rental-car-hero-figure = wrapper for hero + caption
+   ────────────────────────────────────────────────────────────────── */
+.rental-car-vehicle-photo-hero {
+  max-width: 720px;
+  aspect-ratio: 16 / 9;
+  display: block;
+  margin: 0.4rem 0 0.3rem;
+}
+.rental-car-hero-figure {
+  margin: 0.6rem 0 1rem;
+  padding: 0;
+}
+.rental-car-hero-figure .rental-car-vehicle-photo-credit {
+  display: block;
+  text-align: left;
+  margin-top: 0.25rem;
+}
+.rental-car-vehicle-photo-thumb {
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  object-fit: cover;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  background: var(--green-mist);
+  border: 1px solid var(--line);
+}
+@media (max-width: 540px) {
+  .rental-car-vehicle-photo-thumb {
+    width: 44px;
+    height: 25px;
+    margin-right: 0.35rem;
+  }
+  .rental-car-vehicle-photo-hero {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+/* =========================================================================
+   Trip Options page (2026-05-17 - trip-options.ts)
+   Three trip-shape cards side-by-side (mobile: stacked).
+   ========================================================================= */
+
+.trip-option-compare-h {
+  margin-bottom: 0.8rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  color: var(--green-deep);
+}
+
+.trip-option-compare-wrap {
+  overflow-x: auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 1.8rem;
+}
+
+.trip-option-compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.trip-option-compare th,
+.trip-option-compare td {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.trip-option-compare thead th {
+  background: var(--green-mist);
+  color: var(--green-deep);
+  font-weight: 600;
+  border-bottom: 2px solid var(--green-deep);
+  white-space: nowrap;
+}
+
+.trip-option-compare tbody th {
+  background: var(--cream);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.trip-option-compare tbody tr:last-child td,
+.trip-option-compare tbody tr:last-child th {
+  border-bottom: none;
+}
+
+#trip-options-root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1100px) {
+  #trip-options-root {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.trip-option-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.trip-option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+
+.trip-option-card--committed {
+  border: 2px solid var(--green-deep);
+  box-shadow:
+    0 0 0 3px var(--green-mist),
+    var(--shadow-lift);
+}
+
+.trip-option-card__hero {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.2rem;
+  color: #fff;
+  position: relative;
+}
+
+.trip-option-card__hero-inner {
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.trip-option-card__badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--green-deep);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  text-shadow: none;
+}
+
+.trip-option-card--committed .trip-option-card__badge {
+  background: var(--green-deep);
+  color: #fff;
+}
+
+.trip-option-card__title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.4rem;
+  color: #fff;
+}
+
+.trip-option-card__vibe {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 500;
+}
+
+.trip-option-card__body {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.trip-option-card__tldr {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+}
+
+.trip-option-card__cost {
+  background: var(--green-mist);
+  border-left: 4px solid var(--green-deep);
+  padding: 0.9rem 1rem;
+  border-radius: 6px;
+  margin: 0;
+}
+
+.trip-option-card__cost-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--green-deep);
+  line-height: 1;
+}
+
+.trip-option-card__cost-label {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 0.25rem;
+}
+
+.trip-option-card__section-h {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  margin: 0.4rem 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.trip-option-lodgings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.trip-option-lodging {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: inherit;
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.55rem;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.trip-option-lodging:hover {
+  background: var(--green-mist);
+  border-color: var(--green-soft);
+}
+
+.trip-option-lodging__img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+.trip-option-lodging__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.trip-option-lodging__night {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.trip-option-lodging__name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.trip-option-lodging__meta {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.trip-option-lodging__price {
+  font-size: 0.85rem;
+  color: var(--green-deep);
+}
+
+.trip-option-lodging__total {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  margin-left: 0.2rem;
+}
+
+.trip-option-lodging__vibe {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 0.15rem;
+}
+
+.trip-option-lodging__notable {
+  list-style: disc;
+  padding-left: 1rem;
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.trip-option-lodging__notable li {
+  margin-bottom: 0.1rem;
+}
+
+.trip-option-activities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+@media (max-width: 480px) {
+  .trip-option-activities {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trip-option-activity {
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.82rem;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.trip-option-activity:hover {
+  background: var(--green-mist);
+  border-color: var(--green-soft);
+}
+
+.trip-option-activity--linked {
+  cursor: pointer;
+}
+
+.trip-option-activity__img {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.trip-option-activity__title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.trip-option-activity__day {
+  font-size: 0.7rem;
+  color: var(--gold-deep);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.trip-option-activity__hl {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  line-height: 1.35;
+}
+
+.trip-option-card__why {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--ink);
+}
+
+.trip-option-card__tradeoffs {
+  list-style: disc;
+  padding-left: 1.3rem;
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.trip-option-card__tradeoffs li {
+  margin-bottom: 0.3rem;
+  line-height: 1.45;
+}
+
+.trip-option-card__swap {
+  background: #fff8e7;
+  border-left: 3px solid var(--gold-deep);
+  padding: 0.7rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.trip-option-card__commit-row {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.trip-option-commit-btn {
+  background: var(--green-deep);
+  color: #fff;
+  border: none;
+  padding: 0.85rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition:
+    background 0.12s ease,
+    transform 0.08s ease;
+}
+
+.trip-option-commit-btn:hover {
+  background: var(--green-mid);
+}
+
+.trip-option-commit-btn:active {
+  transform: translateY(1px);
+}
+
+.trip-option-commit-btn--committed {
+  background: var(--gold-deep);
+}
+
+.trip-option-commit-btn--committed:hover {
+  background: var(--gold-sun);
+}
+
+.trip-option-commit-note {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.trip-option-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: #fff;
+  padding: 0.85rem 1.4rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  z-index: 9999;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  max-width: 90vw;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.trip-option-toast--show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
