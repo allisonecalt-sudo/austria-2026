@@ -19,6 +19,7 @@ import {
   BASE_CONFIGS,
   SUNSET_STAYS,
   NATURE_DESTINATIONS,
+  AVAILABLE_LODGING_COUNT,
   type BudgetTier,
   type LodgingPlatform,
   type LodgingVibe,
@@ -1081,6 +1082,123 @@ function distanceChips(l: UnifiedListing): string {
   return chips.length ? `<div class="lodging-distances">${chips.join('')}</div>` : '';
 }
 
+// ---------------------------------------------------------------------------
+// Nearby activity chips (added 2026-05-17 by activities-on-lodging-cards
+// agent). Allison's ask: "Places should also have activities associated with
+// them — say what people do at each place." Each lodging card gets up to 5
+// chips drawn from NATURE_DESTINATIONS, sorted by walking-friendliness +
+// Avital-fit + sunset rating + drive time. Surfaces "what's around" without
+// requiring the user to leave the card.
+// ---------------------------------------------------------------------------
+const NEARBY_TYPE_EMOJI: Record<
+  | 'lake'
+  | 'gorge'
+  | 'waterfall'
+  | 'peak'
+  | 'cave'
+  | 'village'
+  | 'road'
+  | 'platform'
+  | 'meadow'
+  | 'valley',
+  string
+> = {
+  lake: '🌊',
+  gorge: '🏞',
+  waterfall: '💧',
+  peak: '⛰',
+  cave: '🕳',
+  village: '🏘',
+  road: '🛣',
+  platform: '🪜',
+  meadow: '🌾',
+  valley: '🌲',
+};
+
+function avitalFitRank(note: string | undefined): number {
+  // Lower = better. Sort priority for the "Nearby" chip row.
+  if (note === 'good fit') return 0;
+  if (note === 'easy walk-friendly') return 1;
+  if (note === 'mixed — see notes') return 2;
+  if (note === 'may be too strenuous') return 3;
+  return 2; // unknown → middle
+}
+
+function nearbyChipsHtml(l: UnifiedListing): string {
+  // Build candidates: every nature destination with a drive-time from this
+  // base. Skip the trivially-far ones (>120 min — beyond a comfortable
+  // day-out) so the chip row stays relevant. Also skip dests with a 0-min
+  // drive (rare edge case where lodging IS the destination village).
+  const matrix = driveMatrixForListing(l);
+  if (matrix.length === 0) return '';
+  const driveById = new Map<string, number>();
+  for (const r of matrix) driveById.set(r.destinationId, r.fromBaseMin);
+
+  const candidates = NATURE_DESTINATIONS.filter((d) => {
+    const mins = driveById.get(d.id);
+    if (mins === undefined) return false;
+    if (mins > 120) return false;
+    return true;
+  });
+  if (candidates.length === 0) return '';
+
+  // Sort: avitalFit (good first) → walk-from-parking (low first, null last) →
+  // sunset rating (high first) → drive time (low first).
+  const sorted = candidates.slice().sort((a, b) => {
+    const aFit = avitalFitRank(a.avitalFitNote);
+    const bFit = avitalFitRank(b.avitalFitNote);
+    if (aFit !== bFit) return aFit - bFit;
+    const aWalk = typeof a.walkFromParkingMin === 'number' ? a.walkFromParkingMin : 999;
+    const bWalk = typeof b.walkFromParkingMin === 'number' ? b.walkFromParkingMin : 999;
+    if (aWalk !== bWalk) return aWalk - bWalk;
+    if (a.sunset !== b.sunset) return b.sunset - a.sunset;
+    const aDrive = driveById.get(a.id) ?? 999;
+    const bDrive = driveById.get(b.id) ?? 999;
+    return aDrive - bDrive;
+  });
+
+  const MAX = 5;
+  const visible = sorted.slice(0, MAX);
+  const hiddenCount = sorted.length - visible.length;
+
+  const chips = visible
+    .map((d) => {
+      const mins = driveById.get(d.id) ?? 0;
+      const emoji = NEARBY_TYPE_EMOJI[d.type];
+      // Lodging-as-village edge case: 0-min drive means this IS the dest.
+      // Show "on site" instead of "0 min drive".
+      const distLabel =
+        mins === 0
+          ? 'on site'
+          : mins < 6
+            ? `${mins} min away`
+            : `${mins} min drive`;
+      const walkExtra =
+        typeof d.walkFromParkingMin === 'number' && d.walkFromParkingMin > 0 && d.walkFromParkingMin <= 20
+          ? ` + ${d.walkFromParkingMin} min walk`
+          : '';
+      const fitClass =
+        d.avitalFitNote === 'good fit' || d.avitalFitNote === 'easy walk-friendly'
+          ? ' lodging-nearby-chip--good'
+          : '';
+      const sunsetAnnotation = d.sunset === 3 ? ' 🌅' : '';
+      const title = `${d.feature}${d.avitalFitNote ? ` — ${d.avitalFitNote}` : ''}`;
+      return `<a class="lodging-nearby-chip${fitClass}" href="nature-destinations.html#${encodeURIComponent(d.id)}" title="${escapeHtml(title)}">${emoji} ${escapeHtml(d.name)}${sunsetAnnotation} · ${distLabel}${walkExtra}</a>`;
+    })
+    .join('');
+
+  const moreLink =
+    hiddenCount > 0
+      ? `<a class="lodging-nearby-more" href="nature-destinations.html">+ ${hiddenCount} more →</a>`
+      : '';
+
+  return `
+    <div class="lodging-nearby" aria-label="Nearby activities">
+      <span class="lodging-nearby-label">Nearby:</span>
+      <div class="lodging-nearby-chips">${chips}${moreLink}</div>
+    </div>`;
+}
+
 function pickButtonHtml(l: UnifiedListing): string {
   const picked = isPicked(l.id);
   const cls = picked ? 'lodging-pick-btn lodging-pick-btn--on' : 'lodging-pick-btn';
@@ -1335,6 +1453,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
         <div class="stay-card__chips lodging-chips lodging-chips--essential" aria-label="At-a-glance essentials">${essentialPills}</div>
         <div class="stay-card__chips lodging-chips lodging-chips--secondary" aria-label="Comfort + setting">${secondaryPills}</div>
         ${distanceChips(l)}
+        ${nearbyChipsHtml(l)}
         <div class="stay-card__meta">${escapeHtml(l.review)} · <strong>${escapeHtml(l.pricePerNight)}</strong></div>
         ${beautyLine}
         <details class="lodging-details">
@@ -2556,6 +2675,14 @@ function bindDynamicHandlers(): void {
 function init(): void {
   readHash();
   applyPicksFromQuery();
+
+  // Bind the available-lodging count to the TLDR + footer (data-bind hooks
+  // in stay.html). Integration-glue 2026-05-17: kills the "22+ / 36 / 54"
+  // drift between TLDR / footer / lead-block by reading the build-time
+  // derived constant from trip-data.ts.
+  document
+    .querySelectorAll<HTMLElement>('[data-bind="available-count"]')
+    .forEach((el) => (el.textContent = String(AVAILABLE_LODGING_COUNT)));
 
   const sunsetSlot = document.querySelector<HTMLDivElement>('#sunset-stays-slot');
   if (sunsetSlot) {

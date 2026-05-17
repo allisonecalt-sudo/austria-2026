@@ -13,7 +13,7 @@
     <title>Where we sleep · Austria 2026</title>
     <meta
       name="description"
-      content="36 real Booking.com apartments across 5 bases — Salzburg, Obertraun, Berchtesgaden, St. Wolfgang, Airport. Filterable, three views, embedded map."
+      content="54 real Booking.com apartments across the 4 trip bases — Salzburg (Shabbat), Obertraun (mountain anchor, picked), Schafbergspitze (summit night), Airport. Filterable, three views, embedded map. Alternate mountain anchors (Berchtesgaden / St. Wolfgang) shown as group."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -431,9 +431,11 @@
       <header style="margin-bottom: 1.4rem">
         <h1>Where we sleep</h1>
         <p class="page-tldr">
-          <strong>22+ apartments across 5 bases.</strong> All kitchens, all 8.5+ reviews,
-          €80-220/night, all free-cancellation only. Filter chips below — start empty, tap to
-          narrow. Toggle List / Grid / Map. <a href="bases.html">4-base picker →</a>
+          <strong><span data-bind="available-count">54</span> apartments across the 4 trip bases.</strong>
+          Salzburg (Shabbat) · Obertraun (mountain anchor — Avital's pick) · Schafbergspitze
+          (summit night) · Airport. All kitchens, all 8.5+ reviews, all free-cancellation only.
+          Filter chips below — start empty, tap to narrow. Toggle List / Grid / Map.
+          <a href="bases.html">Alternate mountain anchors →</a>
         </p>
         <p
           class="lead-block"
@@ -444,11 +446,12 @@
             font-size: 1rem;
           "
         >
-          <strong>New (2026-05-16):</strong> 36 vetted apartments across 5 bases — Salzburg,
-          Obertraun, Berchtesgaden, St. Wolfgang, and the Airport orbit. Use the filter chips below
-          to narrow by base, budget, vibe, bedrooms, or amenities. Toggle the view (List / Grid /
-          Map) at the top.
-          <a href="bases.html" style="font-weight: 700">See the 4 base options →</a>
+          <strong>4 bases, one mountain-anchor choice locked.</strong>
+          Obertraun is the committed mountain-anchor for the Sun-Wed midweek (Avital's pick).
+          Berchtesgaden and St. Wolfgang remain visible in the filter as
+          <em>alternate mountain anchors</em> in case you ever want to swap — but the trip
+          itinerary, drive matrix, and cost spreadsheet all assume Obertraun.
+          <a href="bases.html" style="font-weight: 700">See the alternate anchors →</a>
         </p>
         <p class="lead-block" style="color: #4b5a62; font-size: 0.95rem">
           Real Booking.com apartments, searched live 2026-05-15 for the actual trip nights. All have
@@ -675,7 +678,8 @@
     </div>
 
     <footer>
-      Booking.com searched 2026-05-15 · 36 listings across 5 bases · Filters AND together · Map ©
+      Booking.com searched 2026-05-15 · <span data-bind="available-count">54</span> listings across
+      the 4 trip bases (mountain-anchor alternates included) · Filters AND together · Map ©
       OpenStreetMap contributors
     </footer>
 
