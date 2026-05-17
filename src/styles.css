@@ -12159,3 +12159,33 @@ body.nav-mobile-open {
 .cross-promo-card:hover .cross-promo-card__arrow {
   transform: translateX(3px);
 }
+
+/* Mobile menu collapse — Allison 2026-05-17 06:52: "menu is a little nuts" */
+.nav-mobile-section {
+  cursor: pointer;
+}
+summary.nav-mobile-section__title {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 1.6rem;
+}
+summary.nav-mobile-section__title::-webkit-details-marker {
+  display: none;
+}
+summary.nav-mobile-section__title::after {
+  content: '▾';
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transition: transform 180ms ease;
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+.nav-mobile-section[open] > summary.nav-mobile-section__title::after {
+  transform: translateY(-50%) rotate(0);
+}
+.nav-mobile-section > .nav-mobile-section__desc {
+  display: block;
+}
