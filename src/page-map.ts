@@ -352,6 +352,422 @@ function poiPopup(poi: MapPOI): string {
 }
 
 // =====================================================================
+// Place drawer (added 2026-05-17 by location-interaction agent)
+// =====================================================================
+//
+// Drawer = mobile bottom sheet (70vh) / desktop right rail (380px).
+// Renders rich place detail with: photo carousel, badges (sunset, fit,
+// hidden-gem, locked-day), drive-time pills, "what people do here"
+// bullets pulled from NATURE_DESTINATIONS Logistics-Wave fields, action
+// row (Open in Google Maps + View full details + source link), and
+// "similar places" footer. Driven by data already in trip-data.ts —
+// nothing fabricated.
+//
+// TODO follow-up agent: a numeric `beautyScore` field on
+// NatureDestination would let us render a single 0-10 chip alongside
+// sunset/fit. Today we only have `sunset: 1|2|3` + `hiddenGem: boolean`
+// which already proxy beauty/uniqueness — render those and leave the
+// dedicated score for a data-pass.
+//
+// Reuses the .lodging-carousel-* selectors (Wave 4b) inside the drawer
+// — same swipe/dots/arrows/keyboard nav, just sized smaller.
+
+type DrawerVariant = 'nature' | 'lodging' | 'poi';
+
+interface DrawerSource {
+  variant: DrawerVariant;
+  id: string;
+  photos: string[];
+  // The rendered HTML body of the drawer.
+  bodyHtml: string;
+  // Eyebrow + title shown in the drawer header.
+  eyebrow: string;
+  title: string;
+  // For "open in google maps" external link.
+  coord: { lat: number; lng: number };
+}
+
+function gmapsLinkForCoord(lat: number, lng: number, label: string): string {
+  const q = encodeURIComponent(label);
+  return `https://www.google.com/maps/search/?api=1&query=${lat.toFixed(5)},${lng.toFixed(5)}&query_place_id=${q}`;
+}
+
+function carouselHtml(photos: string[], alt: string): string {
+  // Inline mini-carousel mirroring page-stay's lodgingCarouselHtml but
+  // adapted for drawer width. Reuses the .lodging-carousel-* classes so
+  // CSS + scroll-snap come for free.
+  if (photos.length === 0) {
+    return '';
+  }
+  if (photos.length === 1) {
+    return `<div class="place-drawer-carousel"><img class="lodging-carousel__img" loading="eager" decoding="async" src="${escapeHtml(photos[0]!)}" alt="${escapeHtml(alt)}" /></div>`;
+  }
+  const total = photos.length;
+  const slides = photos
+    .map((src, i) => {
+      const loading = i === 0 ? 'eager' : 'lazy';
+      return `<div class="lodging-carousel__slide" data-slide-index="${i}" role="group" aria-roledescription="slide" aria-label="Photo ${i + 1} of ${total}"><img class="lodging-carousel__img" loading="${loading}" decoding="async" src="${escapeHtml(src)}" alt="${escapeHtml(alt)} photo ${i + 1}" /></div>`;
+    })
+    .join('');
+  const dots = photos
+    .map(
+      (_, i) =>
+        `<button type="button" class="lodging-carousel__dot${i === 0 ? ' is-active' : ''}" data-dot-index="${i}" aria-label="Go to photo ${i + 1} of ${total}"></button>`,
+    )
+    .join('');
+  return `
+    <div class="place-drawer-carousel">
+      <div class="lodging-carousel" tabindex="0" role="region" aria-roledescription="carousel" aria-label="${escapeHtml(alt)} photos">
+        <div class="lodging-carousel__track" data-carousel-track>${slides}</div>
+        <button type="button" class="lodging-carousel__arrow lodging-carousel__arrow--prev" aria-label="Previous photo" tabindex="-1">◀</button>
+        <button type="button" class="lodging-carousel__arrow lodging-carousel__arrow--next" aria-label="Next photo" tabindex="-1">▶</button>
+        <div class="lodging-carousel__dots" role="tablist" aria-label="Photo navigation">${dots}</div>
+        <span class="lodging-carousel__counter" aria-hidden="true">1 / ${total}</span>
+      </div>
+    </div>`;
+}
+
+function initCarouselsInDrawer(root: ParentNode): void {
+  root.querySelectorAll<HTMLDivElement>('.lodging-carousel').forEach((carousel) => {
+    if (carousel.dataset.carouselReady === '1') return;
+    carousel.dataset.carouselReady = '1';
+    const track = carousel.querySelector<HTMLDivElement>('[data-carousel-track]');
+    if (!track) return;
+    const slides = Array.from(track.querySelectorAll<HTMLDivElement>('.lodging-carousel__slide'));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('.lodging-carousel__dot'));
+    const counter = carousel.querySelector<HTMLSpanElement>('.lodging-carousel__counter');
+    const prevBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--prev');
+    const nextBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--next');
+    if (slides.length < 2) return;
+    const goTo = (idx: number, smooth = true): void => {
+      const clamped = Math.max(0, Math.min(slides.length - 1, idx));
+      const target = slides[clamped];
+      if (!target) return;
+      track.scrollTo({ left: target.offsetLeft, behavior: smooth ? 'smooth' : 'auto' });
+    };
+    const updateActive = (): void => {
+      const scrollLeft = track.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === best);
+      });
+      if (counter) counter.textContent = `${best + 1} / ${slides.length}`;
+    };
+    let scrollTimer: number | null = null;
+    track.addEventListener('scroll', () => {
+      if (scrollTimer !== null) window.clearTimeout(scrollTimer);
+      scrollTimer = window.setTimeout(updateActive, 60);
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(i);
+      });
+    });
+    const currentIndex = (): number => {
+      const scrollLeft = track.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((slide, i) => {
+        const dist = Math.abs(slide.offsetLeft - scrollLeft);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      });
+      return best;
+    };
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(currentIndex() - 1);
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(currentIndex() + 1);
+      });
+    }
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goTo(currentIndex() - 1);
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goTo(currentIndex() + 1);
+      }
+    });
+    updateActive();
+  });
+}
+
+function natureTypeLabel(t: NatureDestination['type']): string {
+  switch (t) {
+    case 'lake':
+      return 'Lake';
+    case 'gorge':
+      return 'Gorge';
+    case 'waterfall':
+      return 'Waterfall';
+    case 'peak':
+      return 'Peak';
+    case 'cave':
+      return 'Cave';
+    case 'village':
+      return 'Village';
+    case 'road':
+      return 'Alpine road';
+    case 'platform':
+      return 'Viewing platform';
+    case 'meadow':
+      return 'Meadow';
+    case 'valley':
+      return 'Valley';
+  }
+}
+
+function regionLabel(r: NatureDestination['region']): string {
+  return r === 'salzkammergut'
+    ? 'Salzkammergut · Austria'
+    : r === 'berchtesgaden'
+      ? 'Berchtesgaden · Germany'
+      : 'Hohe Tauern · Austria';
+}
+
+function natureDrawerSource(d: NatureDestination): DrawerSource {
+  const eyebrow = `${natureTypeLabel(d.type)} · ${regionLabel(d.region)}`;
+  // Photos: use the carousel `photos[]` if the curation agent filled it,
+  // otherwise fall back to the single hero image.
+  const photos: string[] =
+    d.photos && d.photos.length > 0
+      ? d.photos
+      : d.hero?.src
+        ? [d.hero.src]
+        : [];
+  // Badges: sunset (1-3), avitalFit, hidden-gem, locked-day.
+  const sunsetTxt = d.sunset === 3 ? '✶✶✶ epic sunset' : d.sunset === 2 ? '✶✶ good sunset' : '✶ light sunset';
+  const sunsetBadge = `<span class="place-drawer-badge place-drawer-badge--sunset" title="Sunset grade ${d.sunset}/3">${sunsetTxt}</span>`;
+  const fitBadge = d.avitalFitNote
+    ? `<span class="place-drawer-badge place-drawer-badge--fit" title="Avital fit (walk-friendliness)">✓ ${escapeHtml(d.avitalFitNote)}</span>`
+    : '';
+  const hiddenBadge = d.hiddenGem
+    ? `<span class="place-drawer-badge place-drawer-badge--hidden" title="Hidden gem — off the beaten path">◇ hidden gem</span>`
+    : '';
+  const lockedBadge = d.lockedDay
+    ? `<span class="place-drawer-badge place-drawer-badge--locked">✓ ${escapeHtml(d.lockedDay)}</span>`
+    : '';
+  // TODO: when beautyScore field exists, render:
+  //   <span class="place-drawer-badge place-drawer-badge--beauty">★ ${score}/10 beauty</span>
+  const badges = [sunsetBadge, fitBadge, hiddenBadge, lockedBadge].filter(Boolean).join('');
+  // "What people do here" bullets — pulled from existing fields, no fabrication.
+  const bullets: string[] = [];
+  bullets.push(
+    `<li><span class="place-drawer-bullets__icon" aria-hidden="true">🥾</span><span class="place-drawer-bullets__text">${escapeHtml(d.walkNote)}</span></li>`,
+  );
+  if (d.walkFromParkingMin != null && d.walkFromParkingNote) {
+    bullets.push(
+      `<li><span class="place-drawer-bullets__icon" aria-hidden="true">🅿️</span><span class="place-drawer-bullets__text"><strong>${d.walkFromParkingMin} min from parking</strong> — ${escapeHtml(d.walkFromParkingNote)}</span></li>`,
+    );
+  }
+  if (d.openingHours) {
+    bullets.push(
+      `<li><span class="place-drawer-bullets__icon" aria-hidden="true">🕒</span><span class="place-drawer-bullets__text">${escapeHtml(d.openingHours)}</span></li>`,
+    );
+  }
+  if (d.seasonNote) {
+    bullets.push(
+      `<li><span class="place-drawer-bullets__icon" aria-hidden="true">☀️</span><span class="place-drawer-bullets__text">${escapeHtml(d.seasonNote)}</span></li>`,
+    );
+  }
+  if (d.priceEur != null) {
+    const priceTxt =
+      d.priceEur === 0
+        ? 'Free entry'
+        : `€${d.priceEur.toFixed(d.priceEur % 1 === 0 ? 0 : 2)}/person${d.priceNote ? ' · ' + d.priceNote : ''}`;
+    bullets.push(
+      `<li><span class="place-drawer-bullets__icon" aria-hidden="true">€</span><span class="place-drawer-bullets__text">${escapeHtml(priceTxt)}</span></li>`,
+    );
+  }
+  if (d.accessibilityNote) {
+    bullets.push(
+      `<li><span class="place-drawer-bullets__icon" aria-hidden="true">♿</span><span class="place-drawer-bullets__text">${escapeHtml(d.accessibilityNote)}</span></li>`,
+    );
+  }
+  if (d.caveat) {
+    bullets.push(
+      `<li><span class="place-drawer-bullets__icon" aria-hidden="true">⚠️</span><span class="place-drawer-bullets__text"><strong>Heads-up:</strong> ${escapeHtml(d.caveat)}</span></li>`,
+    );
+  }
+  // If after all the above we have nothing concrete, fail-loud per CLAUDE.md.
+  const bulletsHtml =
+    bullets.length > 0
+      ? `<ul class="place-drawer-bullets">${bullets.join('')}</ul>`
+      : `<p class="place-drawer-verify-note">Verify activities on arrival — Logistics enrichment pass hasn't covered this destination yet.</p>`;
+  const sourceUrl = d.sourceUrl ?? d.links?.official ?? d.links?.wikipedia;
+  const sourceHtml = sourceUrl
+    ? `<p class="place-drawer-source">Source: <a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noreferrer noopener">${escapeHtml(new URL(sourceUrl).hostname)}</a> · coords verified 2026-05-16 (Wikipedia / OSM).</p>`
+    : `<p class="place-drawer-source"><span class="place-drawer-verify-note">No official source linked yet — verify on arrival.</span></p>`;
+  const coord = NATURE_COORDS[d.id];
+  const bodyHtml = `
+    ${carouselHtml(photos, d.hero?.alt ?? d.name)}
+    <p class="place-drawer-feature">${escapeHtml(d.feature)}</p>
+    <div class="place-drawer-badges">${badges}</div>
+    <div class="place-drawer-drives">
+      <div class="place-drawer-drive">
+        <div class="place-drawer-drive__label">From Salzburg</div>
+        <div class="place-drawer-drive__time">${d.fromSalzburgMin} min</div>
+      </div>
+      <div class="place-drawer-drive">
+        <div class="place-drawer-drive__label">From Hallstatt anchor</div>
+        <div class="place-drawer-drive__time">${d.fromHallstattMin} min</div>
+      </div>
+    </div>
+    <div class="place-drawer-section">
+      <h3 class="place-drawer-section__title">What people do here</h3>
+      ${bulletsHtml}
+    </div>
+    <div class="place-drawer-actions">
+      <a class="place-drawer-action place-drawer-action--primary" href="nature-destinations.html#${encodeURIComponent(d.id)}">View full details →</a>
+      <a class="place-drawer-action" href="${escapeHtml(d.links?.mapsFromHallstatt ?? gmapsLinkForCoord(coord?.lat ?? 0, coord?.lng ?? 0, d.name))}" target="_blank" rel="noreferrer noopener">📍 Open in Google Maps</a>
+    </div>
+    ${sourceHtml}
+    <div id="place-drawer-similar"></div>
+  `;
+  return {
+    variant: 'nature',
+    id: `nature-${d.id}`,
+    photos,
+    bodyHtml,
+    eyebrow,
+    title: d.name,
+    coord: { lat: coord?.lat ?? 0, lng: coord?.lng ?? 0 },
+  };
+}
+
+function lodgingDrawerSource(l: LodgingPinInput): DrawerSource {
+  const eyebrow = l.baseLabel;
+  const photos: string[] = []; // lodging photos live in trip-data Lodging.photos but
+  // map-side LodgingPinInput doesn't currently carry them — render the popup's
+  // existing image path via `gallery` would require a wider refactor; the
+  // primary discovery + photo flow for lodging is the Stay page. Keep the
+  // map drawer minimal: it acts as a wayfinding card with the link out.
+  const bodyHtml = `
+    <p class="place-drawer-feature">${escapeHtml(l.note)}</p>
+    <div class="place-drawer-badges">
+      <span class="place-drawer-badge place-drawer-badge--locked">${escapeHtml(l.pricePerNight)}</span>
+      <span class="place-drawer-badge place-drawer-badge--fit">${escapeHtml(l.review)}</span>
+    </div>
+    <div class="place-drawer-actions">
+      <a class="place-drawer-action place-drawer-action--primary" href="stay.html#${encodeURIComponent(l.stayAnchor)}">See on Stay page (photos + reviews) →</a>
+      <a class="place-drawer-action" href="${escapeHtml(l.url)}" target="_blank" rel="noreferrer noopener">Booking →</a>
+      <a class="place-drawer-action" href="${gmapsLinkForCoord(l.coord.lat, l.coord.lng, l.name)}" target="_blank" rel="noreferrer noopener">📍 Open in Google Maps</a>
+    </div>
+    <p class="place-drawer-source">Coords verified 2026-05-16 (Booking address + OSM). Full photo gallery + Avital's bedroom/kitchen check are on the <a href="stay.html#${encodeURIComponent(l.stayAnchor)}">Stay page</a>.</p>
+  `;
+  return {
+    variant: 'lodging',
+    id: `lodging-${l.stayAnchor}`,
+    photos,
+    bodyHtml,
+    eyebrow,
+    title: l.name,
+    coord: { lat: l.coord.lat, lng: l.coord.lng },
+  };
+}
+
+function poiDrawerSource(poi: MapPOI): DrawerSource {
+  const eyebrow =
+    poi.category === 'airport'
+      ? 'Salzburg Airport (SZG)'
+      : poi.category === 'chabad'
+        ? 'Chabad Salzburg'
+        : 'Jewish sight';
+  const linkRow = poi.link
+    ? `<a class="place-drawer-action place-drawer-action--primary" href="${escapeHtml(poi.link)}">View details →</a>`
+    : '';
+  const bodyHtml = `
+    <p class="place-drawer-feature">${escapeHtml(poi.description)}</p>
+    <div class="place-drawer-actions">
+      ${linkRow}
+      <a class="place-drawer-action" href="${gmapsLinkForCoord(poi.lat, poi.lng, poi.name)}" target="_blank" rel="noreferrer noopener">📍 Open in Google Maps</a>
+    </div>
+    <p class="place-drawer-source">Coords verified 2026-05-16 (Wikipedia / OSM).</p>
+  `;
+  return {
+    variant: 'poi',
+    id: `other-${poi.id}`,
+    photos: [],
+    bodyHtml,
+    eyebrow,
+    title: poi.name,
+    coord: { lat: poi.lat, lng: poi.lng },
+  };
+}
+
+// Similar-places algorithm (Pattern 6, Booking.com "Others you may like"):
+// 1) Same `type` first (lake → other lakes)
+// 2) Then same region
+// 3) Then nearest by haversine
+// Return up to 3 entries, excluding self.
+function similarNatureDestinations(d: NatureDestination, max = 3): NatureDestination[] {
+  const here: [number, number] = [
+    NATURE_COORDS[d.id]?.lat ?? 0,
+    NATURE_COORDS[d.id]?.lng ?? 0,
+  ];
+  type Scored = { dest: NatureDestination; score: number; km: number };
+  const candidates: Scored[] = [];
+  for (const other of NATURE_DESTINATIONS) {
+    if (other.id === d.id) continue;
+    const oc = NATURE_COORDS[other.id];
+    if (!oc) continue;
+    const km = haversineKm(here, [oc.lat, oc.lng]);
+    // Lower score = better. Type match wins; same region next; distance breaks ties.
+    let score = km;
+    if (other.type === d.type) score -= 1000;
+    if (other.region === d.region) score -= 500;
+    candidates.push({ dest: other, score, km });
+  }
+  candidates.sort((a, b) => a.score - b.score);
+  return candidates.slice(0, max).map((c) => c.dest);
+}
+
+function similarSectionHtml(d: NatureDestination): string {
+  const sims = similarNatureDestinations(d);
+  if (sims.length === 0) return '';
+  const cards = sims
+    .map((s) => {
+      const driveLine = `${natureTypeLabel(s.type)} · Hallstatt ${s.fromHallstattMin}m · SZG ${s.fromSalzburgMin}m`;
+      const thumb = s.photos && s.photos[0] ? s.photos[0] : s.hero?.src ?? '';
+      return `
+      <button type="button" class="map-similar__card" data-similar-id="${escapeHtml(s.id)}" aria-label="Open ${escapeHtml(s.name)}">
+        ${thumb ? `<img class="map-similar__thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(s.name)}" loading="lazy" />` : '<span class="map-similar__thumb" aria-hidden="true"></span>'}
+        <span class="map-similar__text">
+          <span class="map-similar__name">${escapeHtml(s.name)}</span>
+          <span class="map-similar__meta">${escapeHtml(driveLine)}</span>
+        </span>
+      </button>`;
+    })
+    .join('');
+  return `
+    <section class="map-similar" aria-labelledby="map-similar-title">
+      <h3 class="map-similar__title" id="map-similar-title">Similar places nearby</h3>
+      <div class="map-similar__row">${cards}</div>
+    </section>`;
+}
+
+// =====================================================================
 // Lodging gathering — merge TRIP.lodgings (3 bases) + BASE_CONFIGS B & D
 // (Berchtesgaden + Wolfgangsee). De-duplicate by name.
 // =====================================================================
@@ -1263,6 +1679,267 @@ function bootMap(): void {
         : '';
     statsEl.innerHTML = `<strong>${total} pins</strong> on the map · ${natureCount} nature · ${lodging.length} lodging · ${airportCount} airport · ${chabadCount} Chabad · ${jewishCount} Jewish sight${jewishCount === 1 ? '' : 's'}.${ncSuffix} Use filter chips above to focus · open <strong>List view</strong> to search · toggle <strong>Show 7-day route</strong> for the trip shape · shift-click two list rows to draw a distance line.`;
     statsEl.title = `Categories: ${Object.values(PIN_LABEL).join(' · ')}`;
+  }
+
+  // =====================================================================
+  // DRAWER + HOVER + DEEP-LINK WIRING (location-interaction agent, 2026-05-17)
+  // Done at the end of bootMap so it sees the fully-populated pinRegistry.
+  // =====================================================================
+
+  // Build a drawer-source map keyed by pin id. We re-derive nature drawers
+  // from NATURE_DESTINATIONS directly (richer data than the registry row),
+  // lodging from the gatherLodging result we already have, and POIs from
+  // STANDALONE_POIS.
+  const drawerSources = new Map<string, DrawerSource>();
+  for (const dest of NATURE_DESTINATIONS) {
+    if (!NATURE_COORDS[dest.id]) continue;
+    drawerSources.set(`nature-${dest.id}`, natureDrawerSource(dest));
+  }
+  for (const l of lodging) {
+    drawerSources.set(`lodging-${l.stayAnchor}`, lodgingDrawerSource(l));
+  }
+  for (const poi of STANDALONE_POIS) {
+    drawerSources.set(`other-${poi.id}`, poiDrawerSource(poi));
+  }
+
+  const drawerEl = document.getElementById('place-drawer');
+  const drawerBodyEl = document.getElementById('place-drawer-body');
+  const drawerTitleEl = document.getElementById('place-drawer-title');
+  const drawerEyebrowEl = document.getElementById('place-drawer-eyebrow');
+  const drawerCloseBtn = drawerEl?.querySelector<HTMLButtonElement>('[data-close="place-drawer"]');
+  const hoverPreviewEl = document.getElementById('place-hover-preview');
+
+  let lastSelectedPinId: string | null = null;
+  let lastFocusedBeforeDrawer: HTMLElement | null = null;
+
+  function clearSelectedPin(): void {
+    if (!lastSelectedPinId) return;
+    const entry = pinRegistry.find((p) => p.id === lastSelectedPinId);
+    if (entry) {
+      const el = entry.marker.getElement();
+      if (el) el.classList.remove('leaflet-pin-selected');
+    }
+    lastSelectedPinId = null;
+  }
+
+  function setSelectedPin(id: string): void {
+    clearSelectedPin();
+    const entry = pinRegistry.find((p) => p.id === id);
+    if (!entry) return;
+    const el = entry.marker.getElement();
+    if (el) el.classList.add('leaflet-pin-selected');
+    lastSelectedPinId = id;
+  }
+
+  function closeDrawer(): void {
+    if (!drawerEl) return;
+    drawerEl.setAttribute('aria-hidden', 'true');
+    clearSelectedPin();
+    // Restore focus to whatever triggered the open.
+    if (lastFocusedBeforeDrawer) {
+      try {
+        lastFocusedBeforeDrawer.focus();
+      } catch {
+        /* DOM gone — ignore */
+      }
+      lastFocusedBeforeDrawer = null;
+    }
+    // Strip ?focus= so a refresh doesn't reopen.
+    if (window.location.search.includes('focus=')) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('focus');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }
+
+  function openDrawer(pinId: string, opts: { fly?: boolean } = {}): void {
+    if (!drawerEl || !drawerBodyEl || !drawerTitleEl || !drawerEyebrowEl) return;
+    const src = drawerSources.get(pinId);
+    if (!src) return;
+    const entry = pinRegistry.find((p) => p.id === pinId);
+    lastFocusedBeforeDrawer = (document.activeElement as HTMLElement | null) ?? null;
+    drawerEyebrowEl.textContent = src.eyebrow;
+    drawerTitleEl.textContent = src.title;
+    drawerBodyEl.innerHTML = src.bodyHtml;
+    // Inject similar-places footer only for nature pins (lodging belongs on
+    // the Stay page).
+    const similarMount = drawerBodyEl.querySelector<HTMLDivElement>('#place-drawer-similar');
+    if (similarMount && src.variant === 'nature') {
+      const destId = pinId.replace(/^nature-/, '');
+      const dest = NATURE_DESTINATIONS.find((d) => d.id === destId);
+      if (dest) similarMount.innerHTML = similarSectionHtml(dest);
+    }
+    initCarouselsInDrawer(drawerBodyEl);
+    // Wire similar-place card buttons to swap the drawer in place.
+    drawerBodyEl.querySelectorAll<HTMLButtonElement>('.map-similar__card').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const simId = btn.dataset.similarId;
+        if (!simId) return;
+        const targetPinId = `nature-${simId}`;
+        const targetEntry = pinRegistry.find((p) => p.id === targetPinId);
+        if (targetEntry) {
+          map.flyTo([targetEntry.coord.lat, targetEntry.coord.lng], 12, { duration: 0.6 });
+        }
+        openDrawer(targetPinId, { fly: false });
+      });
+    });
+    drawerEl.setAttribute('aria-hidden', 'false');
+    // Scroll drawer body to top — important for similar-place swaps.
+    drawerBodyEl.scrollTop = 0;
+    if (entry) {
+      setSelectedPin(pinId);
+      if (opts.fly) {
+        map.flyTo([entry.coord.lat, entry.coord.lng], 13, { duration: 0.6 });
+      }
+    }
+    // Move keyboard focus to drawer title region for a11y. Title is not
+    // focusable by default, so set tabindex temporarily.
+    drawerTitleEl.setAttribute('tabindex', '-1');
+    try {
+      drawerTitleEl.focus({ preventScroll: true });
+    } catch {
+      /* older browsers */
+    }
+  }
+
+  drawerCloseBtn?.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape' && drawerEl?.getAttribute('aria-hidden') === 'false') {
+      closeDrawer();
+    }
+  });
+
+  // Wire every marker click → openDrawer.
+  for (const entry of pinRegistry) {
+    const markerEl = entry.marker;
+    // Leaflet's marker.on isn't in our narrow type; cast.
+    const m = markerEl as unknown as { on(ev: string, fn: (e: unknown) => void): void };
+    m.on('click', () => {
+      openDrawer(entry.id, { fly: false });
+    });
+    // Hover preview wiring (desktop only — guarded by CSS @media (hover: none)).
+    let hoverTimer: number | null = null;
+    const showPreview = (clientX: number, clientY: number): void => {
+      if (!hoverPreviewEl) return;
+      if (window.matchMedia('(hover: none)').matches) return;
+      // Don't show preview while the drawer is already open for this pin.
+      if (lastSelectedPinId === entry.id) return;
+      const src = drawerSources.get(entry.id);
+      const photo = src?.photos[0] ?? '';
+      const teaser =
+        src?.variant === 'nature'
+          ? NATURE_DESTINATIONS.find((d) => `nature-${d.id}` === entry.id)?.feature ?? ''
+          : entry.subLabel;
+      hoverPreviewEl.innerHTML = `
+        ${photo ? `<img class="place-hover-preview__img" src="${escapeHtml(photo)}" alt="" />` : ''}
+        <div class="place-hover-preview__body">
+          <p class="place-hover-preview__name">${escapeHtml(entry.name)}</p>
+          <p class="place-hover-preview__teaser">${escapeHtml(teaser)}</p>
+          <p class="place-hover-preview__nudge">Click for full details →</p>
+        </div>
+      `;
+      // Position above + slightly right of the cursor. Clamp to viewport.
+      const w = 220;
+      let left = clientX - w / 2;
+      let top = clientY - 160;
+      left = Math.max(8, Math.min(window.innerWidth - w - 8, left));
+      top = Math.max(8, top);
+      hoverPreviewEl.style.left = `${left}px`;
+      hoverPreviewEl.style.top = `${top}px`;
+      hoverPreviewEl.setAttribute('aria-hidden', 'false');
+    };
+    const hidePreview = (): void => {
+      if (!hoverPreviewEl) return;
+      hoverPreviewEl.setAttribute('aria-hidden', 'true');
+    };
+    const onEnter = (e: MouseEvent): void => {
+      if (hoverTimer !== null) window.clearTimeout(hoverTimer);
+      hoverTimer = window.setTimeout(() => showPreview(e.clientX, e.clientY), 120);
+    };
+    const onLeave = (): void => {
+      if (hoverTimer !== null) {
+        window.clearTimeout(hoverTimer);
+        hoverTimer = null;
+      }
+      hidePreview();
+    };
+    // Use Leaflet's DOM element once the marker has been added to the map.
+    // We attach via raw DOM after a tick — markers might not have an element
+    // until they're added.
+    window.setTimeout(() => {
+      const el = entry.marker.getElement();
+      if (!el) return;
+      el.addEventListener('mouseenter', onEnter);
+      el.addEventListener('mouseleave', onLeave);
+    }, 60);
+  }
+
+  // Sidebar rows: re-render sidebar so click handlers (added inside
+  // renderSidebar) also open the drawer in addition to flyTo+popup.
+  // Wrap the existing click flow by listening on the sidebar list and
+  // routing through openDrawer.
+  sidebarList?.addEventListener('click', (ev) => {
+    const target = ev.target as HTMLElement;
+    const rowEl = target.closest<HTMLElement>('.map-sidebar-row[data-pin]');
+    if (!rowEl) return;
+    if ((ev as MouseEvent).shiftKey) return; // measure flow owns shift-click
+    const pinId = rowEl.dataset.pin;
+    if (!pinId) return;
+    // Defer slightly so the existing click handler's flyTo runs first.
+    window.setTimeout(() => openDrawer(pinId, { fly: false }), 150);
+  });
+
+  // Filter-chip pulse (Pattern E) — when the user toggles a chip on,
+  // briefly pulse all newly-visible pins so the change is felt.
+  function pulseVisible(group: GroupKey): void {
+    for (const p of pinRegistry) {
+      if (p.group !== group) continue;
+      const el = p.marker.getElement();
+      if (!el) continue;
+      el.classList.add('leaflet-pin-pulse');
+      window.setTimeout(() => el.classList.remove('leaflet-pin-pulse'), 700);
+    }
+  }
+  document.querySelectorAll<HTMLButtonElement>('.map-chip[data-layer]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (btn.getAttribute('aria-pressed') === 'true') {
+        pulseVisible(btn.dataset.layer as GroupKey);
+      }
+    });
+  });
+
+  // ?focus=<slug> deep-link handling (Pattern 8).
+  // Accept formats: `?focus=gosausee` (bare slug → nature), `?focus=nature-gosausee`
+  // (fully-qualified id), `?focus=lodging-haus-edelweiss-obertraun`,
+  // `?focus=other-salzburg-airport`.
+  const params = new URLSearchParams(window.location.search);
+  const focusSlug = params.get('focus');
+  if (focusSlug) {
+    const tryIds = [focusSlug, `nature-${focusSlug}`, `lodging-${focusSlug}`, `other-${focusSlug}`];
+    let opened = false;
+    for (const candidateId of tryIds) {
+      if (drawerSources.has(candidateId)) {
+        const entry = pinRegistry.find((p) => p.id === candidateId);
+        if (entry) {
+          // Defer to next tick so map fitBounds has run + cluster is ready.
+          window.setTimeout(() => {
+            if (entry.isCluster) {
+              const cluster = entry.layerOwner as LClusterGroup;
+              cluster.zoomToShowLayer(entry.marker, () => openDrawer(candidateId, { fly: true }));
+            } else {
+              map.flyTo([entry.coord.lat, entry.coord.lng], 13, { duration: 0.6 });
+              window.setTimeout(() => openDrawer(candidateId, { fly: false }), 700);
+            }
+          }, 600);
+          opened = true;
+          break;
+        }
+      }
+    }
+    if (!opened) {
+      console.warn(`[map] ?focus=${focusSlug} did not match any pin id`);
+    }
   }
 }
 
