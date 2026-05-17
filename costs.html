@@ -42,8 +42,8 @@
     <main class="container costs-page">
       <p class="page-tldr">
         <strong>₪13,209 all-in (€3,330 / $3,570) · 7 nights · 2 people.</strong> ₪209 over the
-        ₪13,000 soft target — acceptable. Per-person: Allison ~₪6,422 · Avital ~₪6,787 (own
-        flights). Flights billed separately on Splitwise.
+        ₪13,000 soft target — acceptable. Per-person (net of $50 baggage settle): Allison ~₪6,237
+        · Avital ~₪6,972. Flights paid directly; baggage netted at ₪3.70/$.
       </p>
       <!-- ====================================================================
            BLOCK 1 — VERDICT BAR — Status word + total vs target + delta
@@ -65,7 +65,8 @@
            BLOCK 2 — HERO TOTAL with progress bar
            ==================================================================== -->
       <!-- COST-SYNC 2026-05-17: Hero ₪13,209 = combined (2-person) all-in.
-           Reconciled with per-person sum: Allison 6422 + Avital 6787 = 13,209 ✓
+           Reconciled with per-person sum: Allison 6237 + Avital 6972 = 13,209 ✓
+           (Updated 2026-05-17 06:08: $50 baggage netted from settle-strip into per-person columns)
            Categories sum: 4313 + 1162 + 1445 + 2580 + 3337 + 370 = 13,207 — 2-NIS
            rounding gap; hero retained at 13,209 to match per-person view (which
            is the figure shared with Avital and used for Splitwise). -->
@@ -95,22 +96,22 @@
       <!-- ====================================================================
            BLOCK 3 — TWO-PERSON CARDS — side-by-side Allison + Avital
            ==================================================================== -->
-      <!-- COST-SYNC 2026-05-17: Per-person math:
+      <!-- COST-SYNC 2026-05-17: Per-person math (UPDATED 06:08 per Allison note 8693efe8):
            Shared pot = lodging 4313 + car 1162 + activities 1445 + food 2580 + baggage 370 = 9870
-           Shared half = 9870 / 2 = 4935 (rounded up to 4,936 for display — 1 NIS rounding)
-           Allison = 4936 + own flight 1486 = 6,422
-           Avital  = 4936 + own flight 1851 est = 6,787 est
-           Combined = 6422 + 6787 = 13,209 (matches hero)
-           Baggage extras ARE in the shared half — no separate "own baggage" row.
-           Settle-strip just covers cash-flow timing (Allison paid the $100 upfront). -->
+           Shared half = 9870 / 2 = 4935 (rounded to 4,936 for display)
+           Allison = 4936 + own flight 1486 - baggage settle 185 = 6,237
+           Avital  = 4936 + own flight 1851 est + baggage settle 185 = 6,972 est
+           Combined = 6237 + 6972 = 13,209 (matches hero, math preserved)
+           $50 baggage owed by Avital is netted INTO the per-person totals (was a settle-strip
+           line before; Allison wanted it rolled in at day-of-purchase rate ~₪3.70/$). -->
       <section class="people-grid" aria-label="Per-person totals">
         <article class="person-card person-card--allison">
           <div class="person-card-head">
             <span class="person-card-name">Allison</span>
             <span class="person-card-badge person-card-badge--ok">✓ Flight booked</span>
           </div>
-          <div class="person-card-total">₪6,422</div>
-          <div class="person-card-sub">her share of the trip</div>
+          <div class="person-card-total">₪6,237</div>
+          <div class="person-card-sub">her net share of the trip</div>
           <dl class="person-card-rows">
             <div class="person-card-row">
               <dt>Shared half (lodging + car + food + activities + baggage)</dt>
@@ -120,6 +121,10 @@
               <dt>Own flight · El Al ZP96JK</dt>
               <dd>₪1,486</dd>
             </div>
+            <div class="person-card-row">
+              <dt>Baggage credit (Avital reimburses, $50 @ ₪3.70/$)</dt>
+              <dd>−₪185</dd>
+            </div>
           </dl>
         </article>
 
@@ -128,8 +133,8 @@
             <span class="person-card-name">Avital</span>
             <span class="person-card-badge person-card-badge--pending">⏳ Flight TBD</span>
           </div>
-          <div class="person-card-total">~₪6,787</div>
-          <div class="person-card-sub">her share of the trip (est)</div>
+          <div class="person-card-total">~₪6,972</div>
+          <div class="person-card-sub">her net share of the trip (est)</div>
           <dl class="person-card-rows">
             <div class="person-card-row">
               <dt>Shared half (lodging + car + food + activities + baggage)</dt>
@@ -139,19 +144,39 @@
               <dt>Own flight · cash, est</dt>
               <dd>~₪1,851</dd>
             </div>
+            <div class="person-card-row">
+              <dt>Baggage owed to Allison ($50 @ ₪3.70/$)</dt>
+              <dd>+₪185</dd>
+            </div>
           </dl>
+          <p
+            class="person-card-ask"
+            style="
+              margin-top: 0.8rem;
+              padding: 0.6rem 0.8rem;
+              background: #fff8e6;
+              border-left: 3px solid #c89938;
+              border-radius: 0.4rem;
+              font-size: 0.88rem;
+              line-height: 1.45;
+            "
+          >
+            📝 <strong>Avital</strong> — leave a note via the 💬 button with your exact flight
+            price so we can finalize your column (currently estimated at ~₪1,851).
+          </p>
         </article>
       </section>
 
       <!-- ====================================================================
-           BLOCK 4 — SETTLE-UP STRIP (Splitwise punchline)
+           BLOCK 4 — SETTLE-UP STRIP (now reflects netted state)
            ==================================================================== -->
       <div class="settle-strip" role="note">
-        <span class="settle-strip-icon" aria-hidden="true">💸</span>
+        <span class="settle-strip-icon" aria-hidden="true">✅</span>
         <span class="settle-strip-text">
-          <strong>Current balance:</strong> <strong>Avital owes Allison $50 (₪185)</strong> for
-          baggage half (Allison paid the full $100 upfront with El Al). All other shared expenses
-          will split as we go via Splitwise during the trip. Each pays own flight directly.
+          <strong>Baggage settled in the totals above.</strong> The $50 Avital owes Allison for the
+          shared $100 baggage (El Al ZP96JK) is netted into the per-person columns at the
+          day-of-purchase rate ~₪3.70/$ — Allison −₪185, Avital +₪185. All other shared expenses
+          split via Splitwise during the trip. Each pays own flight directly.
         </span>
       </div>
 
@@ -876,11 +901,12 @@
             baggage extras = each-own. Settle at trip end.
           </li>
           <li>
-            <strong>Allison's all-in ₪6,422</strong> = ₪4,936 shared half + ₪1,486 flight.
+            <strong>Allison's net all-in ₪6,237</strong> = ₪4,936 shared half + ₪1,486 flight −
+            ₪185 baggage credit (Avital reimburses at ₪3.70/$).
           </li>
           <li>
-            <strong>Avital's all-in ~₪6,787</strong> = ₪4,936 shared half + ~₪1,851 flight est.
-            She'll confirm her exact flight cost after booking.
+            <strong>Avital's net all-in ~₪6,972</strong> = ₪4,936 shared half + ~₪1,851 flight est
+            + ₪185 baggage owed. She'll confirm her exact flight cost after booking.
           </li>
           <li>
             <strong>Headroom:</strong> upgrade a lodging if a better listing appears, swap in a
