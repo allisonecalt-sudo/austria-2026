@@ -2487,7 +2487,7 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     links: {
       official: 'https://www.dachstein-salzkammergut.com/en/destinations/lakes/gosausee.html',
-      wikipedia: 'https://en.wikipedia.org/wiki/Gosausee',
+      wikipedia: 'https://en.wikipedia.org/wiki/Vorderer_Gosausee',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Vorderer Gosausee'),
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Vorderer Gosausee'),
     },
@@ -4601,6 +4601,15 @@ export const NATURE_COORDS: Record<string, LatLng> = {
   liechtensteinklamm: { lat: 47.3128, lng: 13.1893 }, // Liechtensteinklamm gorge — OSM (was 47.3392/13.2178 ≈ 3.7km NE, MAJOR FIX)
   'krimml-waterfalls': { lat: 47.19806, lng: 12.17139 }, // Krimml Waterfalls — Wikipedia infobox (was 47.2056/12.1683 ≈ 870m N)
   'grossglockner-road': { lat: 47.0812, lng: 12.8426 }, // Grossglockner Hochtor pass — OSM + Wikipedia 47.08333/12.84278 (was 47.1342/12.825 ≈ 6.3km N off-pass, MAJOR FIX)
+  // 8 newly-researched (2026-05-17 12:00) — coords via Wikipedia/OSM
+  'jenner-cable-car': { lat: 47.55706, lng: 12.99917 }, // Jenner valley station Königssee — Wikipedia
+  'untersberg-cable-car': { lat: 47.7269, lng: 13.0144 }, // Untersbergbahn Grödig valley station — OSM
+  'langbathsee-ebensee': { lat: 47.81639, lng: 13.71028 }, // Vorderer Langbathsee — Wikipedia (47.816389/13.710278)
+  'almsee-grunau': { lat: 47.7572, lng: 13.96 }, // Almsee — Wikipedia (47.7572°N, 13.9600°E)
+  'hellbrunn-trick-fountains': { lat: 47.7619, lng: 13.0608 }, // Schloss Hellbrunn — Wikipedia
+  'berchtesgaden-salt-mine': { lat: 47.6308, lng: 13.0094 }, // Salzbergwerk Berchtesgaden — OSM
+  'mondsee-basilika-st-michael': { lat: 47.85694, lng: 13.34556 }, // Basilika St. Michael Mondsee — Wikipedia
+  'kapuzinerberg-salzburg': { lat: 47.80194, lng: 13.05222 }, // Kapuzinerberg Salzburg — Wikipedia
 };
 
 // Lodging — keyed by exact pickName / alt.name string. Map agent fills as
