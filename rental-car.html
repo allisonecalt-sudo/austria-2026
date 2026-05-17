@@ -21,13 +21,396 @@
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
-          <a href="itinerary.html">Trip</a>
+          <div class="nav-group" data-nav-group="plan">
+            <button
+              class="nav-group__btn"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dd-plan"
+            >
+              Plan <span class="nav-group__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown" id="nav-dd-plan" role="menu" aria-label="Plan">
+              <p class="nav-dropdown__title">Plan the week</p>
+              <a href="itinerary.html" role="menuitem"
+                ><span class="nav-dropdown__name">Full day-by-day</span
+                ><span class="nav-dropdown__desc"
+                  >7 days, 1 page. Recommendations + alternates.</span
+                ></a
+              >
+              <a href="trip-summary.html" role="menuitem"
+                ><span class="nav-dropdown__name">Summary view</span
+                ><span class="nav-dropdown__desc"
+                  >High-level — drive times, key places, top views.</span
+                ></a
+              >
+              <a href="bases.html" role="menuitem"
+                ><span class="nav-dropdown__name">The four bases</span
+                ><span class="nav-dropdown__desc"
+                  >Where you sleep each night, in geography order.</span
+                ></a
+              >
+              <a href="shabbat.html" role="menuitem"
+                ><span class="nav-dropdown__name">Shabbat in Salzburg</span
+                ><span class="nav-dropdown__desc"
+                  >Friday-night to Saturday-night, anchored.</span
+                ></a
+              >
+              <a href="friday-salzburg.html" role="menuitem"
+                ><span class="nav-dropdown__name">Friday in Salzburg</span
+                ><span class="nav-dropdown__desc">Daytime Friday before candles.</span></a
+              >
+              <a href="sundays-closed.html" role="menuitem"
+                ><span class="nav-dropdown__name">Sundays = closed</span
+                ><span class="nav-dropdown__desc"
+                  >What's open + closed on Austrian Sundays.</span
+                ></a
+              >
+              <a href="weather-plan-c.html" role="menuitem"
+                ><span class="nav-dropdown__name">Rain swaps</span
+                ><span class="nav-dropdown__desc"
+                  >Indoor + covered swaps if the sky misbehaves.</span
+                ></a
+              >
+            </div>
+          </div>
+          <div class="nav-group" data-nav-group="explore">
+            <button
+              class="nav-group__btn"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dd-explore"
+            >
+              Explore <span class="nav-group__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown" id="nav-dd-explore" role="menu" aria-label="Explore">
+              <p class="nav-dropdown__title">What to see + do</p>
+              <a href="recommendations.html" role="menuitem"
+                ><span class="nav-dropdown__name">Top picks</span
+                ><span class="nav-dropdown__desc"
+                  >Curated favourites across stays + sights + food.</span
+                ></a
+              >
+              <a href="map.html" role="menuitem"
+                ><span class="nav-dropdown__name">Map</span
+                ><span class="nav-dropdown__desc"
+                  >All 41 pins — click base to filter, click pin for details.</span
+                ></a
+              >
+              <a href="nature-destinations.html" role="menuitem"
+                ><span class="nav-dropdown__name">Nature destinations</span
+                ><span class="nav-dropdown__desc">Lakes, summits, gorges, waterfalls.</span></a
+              >
+              <a href="top-sunsets.html" role="menuitem"
+                ><span class="nav-dropdown__name">Top sunsets</span
+                ><span class="nav-dropdown__desc">Ranked + timed for every base.</span></a
+              >
+              <a href="lake-swimming.html" role="menuitem"
+                ><span class="nav-dropdown__name">Lake swimming</span
+                ><span class="nav-dropdown__desc">Best swim spots + temps + access.</span></a
+              >
+              <a href="water-activities.html" role="menuitem"
+                ><span class="nav-dropdown__name">Water activities</span
+                ><span class="nav-dropdown__desc">Boats, SUP, kayak, rafting.</span></a
+              >
+              <a href="activities.html" role="menuitem"
+                ><span class="nav-dropdown__name">All activities</span
+                ><span class="nav-dropdown__desc">Everything tagged + filterable.</span></a
+              >
+              <a href="jewish-sights.html" role="menuitem"
+                ><span class="nav-dropdown__name">Jewish sights</span
+                ><span class="nav-dropdown__desc">Synagogue, Stolpersteine, Judengasse.</span></a
+              >
+            </div>
+          </div>
           <a href="stay.html">Stay</a>
-          <a href="logistics.html" class="active" aria-current="page">Logistics</a>
+          <div class="nav-group is-active" data-nav-group="logistics">
+            <button
+              class="nav-group__btn"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dd-logistics"
+            >
+              Logistics <span class="nav-group__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown" id="nav-dd-logistics" role="menu" aria-label="Logistics">
+              <p class="nav-dropdown__title">How to get around</p>
+              <a href="logistics.html" role="menuitem"
+                ><span class="nav-dropdown__name">Logistics overview</span
+                ><span class="nav-dropdown__desc"
+                  >Flights, drives, timing, the whole picture.</span
+                ></a
+              >
+              <a href="driving-austria.html" role="menuitem"
+                ><span class="nav-dropdown__name">Driving in Austria</span
+                ><span class="nav-dropdown__desc">Vignette, tolls, autobahn, parking.</span></a
+              >
+              <a href="rental-car.html" class="active" aria-current="page" role="menuitem"
+                ><span class="nav-dropdown__name">Rental car</span
+                ><span class="nav-dropdown__desc">Where to book, what to confirm, gotchas.</span></a
+              >
+              <a href="packing.html" role="menuitem"
+                ><span class="nav-dropdown__name">Packing</span
+                ><span class="nav-dropdown__desc"
+                  >Clothes, gear, shabbat kit, what NOT to bring.</span
+                ></a
+              >
+              <a href="pre-trip.html" role="menuitem"
+                ><span class="nav-dropdown__name">Pre-trip checklist</span
+                ><span class="nav-dropdown__desc">Last 14 days, day-of, at-the-gate.</span></a
+              >
+              <a href="cafes.html" role="menuitem"
+                ><span class="nav-dropdown__name">Kosher-friendly cafes</span
+                ><span class="nav-dropdown__desc">Coffee + pastries that work for us.</span></a
+              >
+            </div>
+          </div>
           <a href="costs.html">Costs</a>
           <a href="notes.html">Notes</a>
         </div>
+        <button
+          class="nav-hamburger"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          ☰
+        </button>
       </div>
+      <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-panel" role="dialog" aria-modal="true" aria-label="Site navigation">
+          <div class="nav-mobile-header">
+            <span class="nav-mobile-header__title">Austria · 24-31 Jul</span>
+            <button class="nav-mobile-close" type="button" aria-label="Close menu">✕</button>
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="plan">
+            <p class="nav-mobile-section__title">Plan the week</p>
+            <a href="itinerary.html"
+              ><span>Full day-by-day</span
+              ><span class="nav-mobile-section__desc"
+                >7 days, 1 page. Recommendations + alternates.</span
+              ></a
+            >
+            <a href="trip-summary.html"
+              ><span>Summary view</span
+              ><span class="nav-mobile-section__desc"
+                >High-level — drive times, key places, top views.</span
+              ></a
+            >
+            <a href="bases.html"
+              ><span>The four bases</span
+              ><span class="nav-mobile-section__desc"
+                >Where you sleep each night, in geography order.</span
+              ></a
+            >
+            <a href="shabbat.html"
+              ><span>Shabbat in Salzburg</span
+              ><span class="nav-mobile-section__desc"
+                >Friday-night to Saturday-night, anchored.</span
+              ></a
+            >
+            <a href="friday-salzburg.html"
+              ><span>Friday in Salzburg</span
+              ><span class="nav-mobile-section__desc">Daytime Friday before candles.</span></a
+            >
+            <a href="sundays-closed.html"
+              ><span>Sundays = closed</span
+              ><span class="nav-mobile-section__desc"
+                >What's open + closed on Austrian Sundays.</span
+              ></a
+            >
+            <a href="weather-plan-c.html"
+              ><span>Rain swaps</span
+              ><span class="nav-mobile-section__desc"
+                >Indoor + covered swaps if the sky misbehaves.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="explore">
+            <p class="nav-mobile-section__title">What to see + do</p>
+            <a href="recommendations.html"
+              ><span>Top picks</span
+              ><span class="nav-mobile-section__desc"
+                >Curated favourites across stays + sights + food.</span
+              ></a
+            >
+            <a href="map.html"
+              ><span>Map</span
+              ><span class="nav-mobile-section__desc"
+                >All 41 pins — click base to filter, click pin for details.</span
+              ></a
+            >
+            <a href="nature-destinations.html"
+              ><span>Nature destinations</span
+              ><span class="nav-mobile-section__desc">Lakes, summits, gorges, waterfalls.</span></a
+            >
+            <a href="top-sunsets.html"
+              ><span>Top sunsets</span
+              ><span class="nav-mobile-section__desc">Ranked + timed for every base.</span></a
+            >
+            <a href="lake-swimming.html"
+              ><span>Lake swimming</span
+              ><span class="nav-mobile-section__desc">Best swim spots + temps + access.</span></a
+            >
+            <a href="water-activities.html"
+              ><span>Water activities</span
+              ><span class="nav-mobile-section__desc">Boats, SUP, kayak, rafting.</span></a
+            >
+            <a href="activities.html"
+              ><span>All activities</span
+              ><span class="nav-mobile-section__desc">Everything tagged + filterable.</span></a
+            >
+            <a href="jewish-sights.html"
+              ><span>Jewish sights</span
+              ><span class="nav-mobile-section__desc"
+                >Synagogue, Stolpersteine, Judengasse.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="stay">
+            <p class="nav-mobile-section__title">Lodging</p>
+            <a href="stay.html"
+              ><span>Where you'll stay</span
+              ><span class="nav-mobile-section__desc"
+                >Lodging hub — 25+ options, all with photos + filters.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="logistics">
+            <p class="nav-mobile-section__title">How to get around</p>
+            <a href="logistics.html"
+              ><span>Logistics overview</span
+              ><span class="nav-mobile-section__desc"
+                >Flights, drives, timing, the whole picture.</span
+              ></a
+            >
+            <a href="driving-austria.html"
+              ><span>Driving in Austria</span
+              ><span class="nav-mobile-section__desc">Vignette, tolls, autobahn, parking.</span></a
+            >
+            <a href="rental-car.html" class="active" aria-current="page"
+              ><span>Rental car</span
+              ><span class="nav-mobile-section__desc"
+                >Where to book, what to confirm, gotchas.</span
+              ></a
+            >
+            <a href="packing.html"
+              ><span>Packing</span
+              ><span class="nav-mobile-section__desc"
+                >Clothes, gear, shabbat kit, what NOT to bring.</span
+              ></a
+            >
+            <a href="pre-trip.html"
+              ><span>Pre-trip checklist</span
+              ><span class="nav-mobile-section__desc">Last 14 days, day-of, at-the-gate.</span></a
+            >
+            <a href="cafes.html"
+              ><span>Kosher-friendly cafes</span
+              ><span class="nav-mobile-section__desc">Coffee + pastries that work for us.</span></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="costs">
+            <p class="nav-mobile-section__title">Money</p>
+            <a href="costs.html"
+              ><span>Costs</span
+              ><span class="nav-mobile-section__desc"
+                >Per-person totals + breakdown by bucket.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="notes">
+            <p class="nav-mobile-section__title">Talk to us</p>
+            <a href="notes.html"
+              ><span>Notes & messages</span
+              ><span class="nav-mobile-section__desc"
+                >💬 widget log + replies + chat history.</span
+              ></a
+            >
+          </div>
+        </div>
+      </div>
+      <script>
+        // Nav-coordination dropdown + mobile toggle (inline, no build step).
+        // Owned by Nav Coordination Specialist 2026-05-17.
+        (function () {
+          var nav = document.currentScript.closest('nav.nav');
+          if (!nav) return;
+          var groups = nav.querySelectorAll('.nav-group');
+          function closeAll(except) {
+            groups.forEach(function (g) {
+              var btn = g.querySelector('.nav-group__btn');
+              if (btn && btn !== except) btn.setAttribute('aria-expanded', 'false');
+            });
+          }
+          groups.forEach(function (g) {
+            var btn = g.querySelector('.nav-group__btn');
+            if (!btn) return;
+            btn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              var open = btn.getAttribute('aria-expanded') === 'true';
+              closeAll(btn);
+              btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+            });
+            btn.addEventListener('keydown', function (e) {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                closeAll(btn);
+                btn.setAttribute('aria-expanded', 'true');
+                var first = g.querySelector('.nav-dropdown a');
+                if (first) first.focus();
+              } else if (e.key === 'Escape') {
+                btn.setAttribute('aria-expanded', 'false');
+              }
+            });
+          });
+          document.addEventListener('click', function (e) {
+            if (!nav.contains(e.target)) closeAll(null);
+          });
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeAll(null);
+          });
+
+          // Mobile slide-over
+          var hamburger = nav.querySelector('.nav-hamburger');
+          var mobile = nav.querySelector('.nav-mobile');
+          var closeBtn = mobile ? mobile.querySelector('.nav-mobile-close') : null;
+          if (hamburger && mobile) {
+            function openMobile() {
+              mobile.classList.add('is-open');
+              mobile.setAttribute('aria-hidden', 'false');
+              document.body.classList.add('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'true');
+              if (closeBtn) closeBtn.focus();
+            }
+            function closeMobile() {
+              mobile.classList.remove('is-open');
+              mobile.setAttribute('aria-hidden', 'true');
+              document.body.classList.remove('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'false');
+              hamburger.focus();
+            }
+            hamburger.addEventListener('click', openMobile);
+            if (closeBtn) closeBtn.addEventListener('click', closeMobile);
+            mobile.addEventListener('click', function (e) {
+              if (e.target === mobile) closeMobile();
+            });
+            document.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape' && mobile.classList.contains('is-open')) closeMobile();
+            });
+          }
+        })();
+      </script>
+    </nav>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="./">Austria</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span>Logistics</span>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span class="breadcrumb__current">Rental car</span>
     </nav>
 
     <main class="container" id="main">
@@ -44,17 +427,17 @@
           customs + bag claim is the buffer). Drop-off same airport ~06:15 Friday Jul 31 for
           LY5194's 08:55 departure. Allison drives primary on an Israeli license + International
           Driving Permit (free from MEMSI). Size target is Compact or Compact-SUV —
-          <strong>one notch up from a city subcompact</strong>. Two adults + 2 suitcases +
-          groceries + kitchen kit must fit cleanly.
+          <strong>one notch up from a city subcompact</strong>. Two adults + 2 suitcases + groceries
+          + kitchen kit must fit cleanly.
         </p>
         <p class="lead-block" style="font-size: 0.96rem">
           <strong>The stricter spec on this page:</strong> automatic transmission only (no manuals).
           Gasoline primary, hybrid acceptable, no diesel, no pure electric. Headline price is
           <strong>all-in WITH full coverage</strong> (CDW zero-excess + theft + glass + tire) —
-          single number, no asterisks. Cross-border to <strong>Germany</strong>
-          (Berchtesgaden / Königssee) verified per listing. Every vehicle is quality-vetted — Euro
-          NCAP safety, reliability, Alpine suitability, cargo space. <strong>Pickup logistics
-          clarified:</strong> the
+          single number, no asterisks. Cross-border to <strong>Germany</strong> (Berchtesgaden /
+          Königssee) verified per listing. Every vehicle is quality-vetted — Euro NCAP safety,
+          reliability, Alpine suitability, cargo space.
+          <strong>Pickup logistics clarified:</strong> the
           <a
             href="https://www.salzburg-airport.com/en/flights-arrival/arrival-to-the-airport/car-rentals"
             target="_blank"
@@ -62,8 +445,8 @@
             >Salzburg-airport official page</a
           >
           confirms all 8 majors (Sixt, Hertz, Avis, Europcar, Enterprise, Alamo, Buchbinder,
-          Megadrive) share the same ground-floor pavilion in the car-park opposite the terminal —
-          ~3 min covered walk, no shuttle for any of them.
+          Megadrive) share the same ground-floor pavilion in the car-park opposite the terminal — ~3
+          min covered walk, no shuttle for any of them.
         </p>
         <p
           class="lead-block"
@@ -134,10 +517,10 @@
         <h2 id="recall-h">Two active Stellantis recalls — what to ask at the counter</h2>
         <p class="lead-block" style="font-size: 0.95rem">
           If your pick uses the Stellantis 1.2 PureTech engine (Opel Mokka, Opel Astra, Peugeot
-          2008, Citroën C3, Jeep Avenger, Fiat 600), ASK at the counter whether the specific VIN
-          has been remediated. Get the answer in writing. If they can't confirm, ask for a swap.
-          The recall fix is free + takes ~30 min at a dealer — most rental fleets have completed
-          it, but "most" ≠ "all."
+          2008, Citroën C3, Jeep Avenger, Fiat 600), ASK at the counter whether the specific VIN has
+          been remediated. Get the answer in writing. If they can't confirm, ask for a swap. The
+          recall fix is free + takes ~30 min at a dealer — most rental fleets have completed it, but
+          "most" ≠ "all."
         </p>
         <table class="costs rental-car-recall-table">
           <thead>
@@ -154,24 +537,35 @@
               <td><strong>2022-23 fuel-pipe</strong></td>
               <td>May 9 2022 → Mar 22 2023</td>
               <td>Mokka, Astra, 2008, Corsa, Grandland, C3, Avenger, 600 (gasoline + hybrid)</td>
-              <td>Loose nut on high-pressure fuel pipe; 11 engine fires in France triggered recall</td>
+              <td>
+                Loose nut on high-pressure fuel pipe; 11 engine fires in France triggered recall
+              </td>
               <td>~65%+ remediated by mid-2025; ongoing</td>
             </tr>
             <tr>
               <td><strong>March 2026 MHEV electrical-arc</strong></td>
               <td>2023-2026 builds, 1.2 PureTech 48V MHEV only</td>
-              <td>Mokka Hybrid, Peugeot 2008/3008/308 hybrid, Citroën C3/C4 hybrid, DS, Alfa, Fiat, Jeep, Lancia hybrid (~700k cars globally)</td>
-              <td>Insufficient gap between particulate-filter duct + 48V starter-alternator → electrical arc in high humidity → fire risk</td>
+              <td>
+                Mokka Hybrid, Peugeot 2008/3008/308 hybrid, Citroën C3/C4 hybrid, DS, Alfa, Fiat,
+                Jeep, Lancia hybrid (~700k cars globally)
+              </td>
+              <td>
+                Insufficient gap between particulate-filter duct + 48V starter-alternator →
+                electrical arc in high humidity → fire risk
+              </td>
               <td>Q2 2026 target completion (fresh wave); fix is 30 min, free</td>
             </tr>
           </tbody>
         </table>
-        <p class="lead-block" style="font-size: 0.93rem; color: var(--ink-soft); margin-top: 0.7rem">
+        <p
+          class="lead-block"
+          style="font-size: 0.93rem; color: var(--ink-soft); margin-top: 0.7rem"
+        >
           <strong>PureTech-FREE picks on this page</strong> (skip the conversation entirely):
           <a href="#alt-kamiq">Skoda Kamiq</a> · <a href="#alt-golf">VW Golf</a> ·
-          <a href="#alt-corolla">Toyota Corolla</a> · <a href="#alt-yariscross">Toyota Yaris Cross
-          (NEW)</a> · <a href="#alt-bayon">Hyundai Bayon (NEW)</a> ·
-          <a href="#alt-vitara">Suzuki Vitara</a>.
+          <a href="#alt-corolla">Toyota Corolla</a> ·
+          <a href="#alt-yariscross">Toyota Yaris Cross (NEW)</a> ·
+          <a href="#alt-bayon">Hyundai Bayon (NEW)</a> · <a href="#alt-vitara">Suzuki Vitara</a>.
         </p>
         <p class="lead-block" style="font-size: 0.92rem; color: var(--ink-soft)">
           Sources:
@@ -207,13 +601,12 @@
             excess.</strong
           >
           4★ Euro NCAP. 2021+ Mokka is the reliable generation per What Car?. Compact-SUV class (one
-          notch up from a city subcompact) — higher seating position for alpine hairpins, 350
-          L boot fits two suitcases + kitchen kit. Regular gasoline. With Slovenia off the
-          itinerary, the Sixt cross-border edge no longer earns the €100+ premium — Germany is
-          effectively default at SZG (the border is 2 km from the rental desks), and a compact SUV
-          at this price is the best value-per-shekel pick. One-line take: this is the best-balance
-          choice — right size, right fuel, right coverage, right price, no asterisks you'll actually
-          trip on.
+          notch up from a city subcompact) — higher seating position for alpine hairpins, 350 L boot
+          fits two suitcases + kitchen kit. Regular gasoline. With Slovenia off the itinerary, the
+          Sixt cross-border edge no longer earns the €100+ premium — Germany is effectively default
+          at SZG (the border is 2 km from the rental desks), and a compact SUV at this price is the
+          best value-per-shekel pick. One-line take: this is the best-balance choice — right size,
+          right fuel, right coverage, right price, no asterisks you'll actually trip on.
         </p>
         <table class="costs">
           <tbody>
@@ -281,8 +674,8 @@
             <tr>
               <td><strong>Pickup</strong></td>
               <td>
-                In-carpark pavilion · ~3 min covered walk from terminal (same row as Sixt / Hertz
-                / Avis / Europcar — verified
+                In-carpark pavilion · ~3 min covered walk from terminal (same row as Sixt / Hertz /
+                Avis / Europcar — verified
                 <a
                   href="https://www.salzburg-airport.com/en/flights-arrival/arrival-to-the-airport/car-rentals"
                   target="_blank"
@@ -314,9 +707,9 @@
           With Slovenia dropped from the trip, that advantage disappears — Germany cross-border is
           effectively automatic for any SZG rental. The Mokka is ~₪430 cheaper, in the right
           size-class, and the only real trade-off is 4★ vs 5★ Euro NCAP — both pickups are in the
-          same in-carpark pavilion (3 min walk from terminal, no shuttle for any SZG major). If
-          you want the zero-asterisk pick anyway, the
-          <a href="#alt-golf">VW Golf via Sixt</a> is still on the board below.
+          same in-carpark pavilion (3 min walk from terminal, no shuttle for any SZG major). If you
+          want the zero-asterisk pick anyway, the <a href="#alt-golf">VW Golf via Sixt</a> is still
+          on the board below.
         </p>
       </section>
 
@@ -614,8 +1007,8 @@
           days, paved roads only, two adults in the front, modest cargo, July weather (no cold-start
           issues), and ~₪430 of saved budget that pays for a couple of nice meals. The Golf is the
           right choice if you specifically want zero counter-conversation friction (no recall
-          question, no aggregator broker, no "confirm DE in writing") and you'll sleep
-          better having paid more for it.
+          question, no aggregator broker, no "confirm DE in writing") and you'll sleep better having
+          paid more for it.
         </p>
 
         <h3 style="margin-top: 1.2rem">What I couldn't verify (fail-loud)</h3>
@@ -699,9 +1092,8 @@
               cross-border default-allowed on SZG rentals (border 2 km from airport) — get it in
               writing at the counter before driving toward Berchtesgaden. Pickup is in the same
               in-carpark pavilion as Sixt / Hertz / Avis / Europcar — ~3 min covered walk, no
-              shuttle.
-              <strong>Also ask at counter:</strong> "Has this VIN been through the 2022-2023
-              Stellantis fuel-pipe recall?" — get written confirmation.
+              shuttle. <strong>Also ask at counter:</strong> "Has this VIN been through the
+              2022-2023 Stellantis fuel-pipe recall?" — get written confirmation.
               <a href="#mokka-deep-dive">Full vehicle deep dive ↓</a>
             </p>
             <a
@@ -743,9 +1135,8 @@
               kitchen kit · enviable reliability over 30+ years · light, precise handling on
               Austrian B-roads. <strong>Base $389 + Premium Cover €98 = €471 / ₪1,870.</strong>
               Sixt publishes Germany cross-border permission in writing on the contract (Zone I —
-              fee shown at booking, historically ~€10-15/day for Salzburg-airport rentals) +
-              premium counter service. Pay €430 over the Mokka for the
-              zero-asterisk experience.
+              fee shown at booking, historically ~€10-15/day for Salzburg-airport rentals) + premium
+              counter service. Pay €430 over the Mokka for the zero-asterisk experience.
             </p>
             <a
               class="alt-cta"
@@ -841,7 +1232,12 @@
           </article>
 
           <!-- 3. Opel Mokka Hybrid — DEMOTED 2026-05-17 -->
-          <article class="alt-card" id="alt-mokka-hybrid" data-puretech="true" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-mokka-hybrid"
+            data-puretech="true"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">
               Opel Mokka Hybrid — Compact SUV auto · ⚠ NEW Mar 2026 MHEV recall
             </div>
@@ -874,13 +1270,11 @@
             >
               <strong>Demoted 2026-05-17.</strong> Stellantis launched a NEW recall in
               <strong>March 2026</strong> dedicated specifically to 1.2 PureTech MHEV 48V hybrid
-              versions — insufficient distance between particulate-filter duct and protective
-              cover, electrical-arc risk under high humidity. Stacks on top of the 2022-2023
-              fuel-pipe recall window. Two open recall flags on one drivetrain. If you want a
-              hybrid, the
+              versions — insufficient distance between particulate-filter duct and protective cover,
+              electrical-arc risk under high humidity. Stacks on top of the 2022-2023 fuel-pipe
+              recall window. Two open recall flags on one drivetrain. If you want a hybrid, the
               <a href="#alt-corolla">Toyota Corolla Hybrid</a>
-              has only the older brake / steering recalls (mostly remediated by July 2026)
-              instead.
+              has only the older brake / steering recalls (mostly remediated by July 2026) instead.
               <a
                 href="https://www.media.stellantis.com/uk-en/peugeot/press/stellantis-extends-compensation-policy-for-european-consumers-claims-on-previous-generations-of-puretech-1-0-and-1-2-engines"
                 target="_blank"
@@ -891,10 +1285,10 @@
             <p class="alt-note">
               Same Mokka body, mild-hybrid drivetrain (48V — not plug-in, no charging required).
               <strong>Base $298 + Full Coverage = €356 / ₪1,415.</strong> Fuel saving over the
-              week's ~600 km is real but small (~€12-14 vs straight gasoline) — the
-              "pick hybrid for the principle, not the math" trade no longer pencils once you stack
-              two open recalls onto it. Skip unless the supplier confirms BOTH recalls remediated
-              on the specific VIN at pickup.
+              week's ~600 km is real but small (~€12-14 vs straight gasoline) — the "pick hybrid for
+              the principle, not the math" trade no longer pencils once you stack two open recalls
+              onto it. Skip unless the supplier confirms BOTH recalls remediated on the specific VIN
+              at pickup.
             </p>
             <a
               class="alt-cta"
@@ -994,7 +1388,12 @@
           </article>
 
           <!-- 4. Opel Astra — cheapest credible auto Compact -->
-          <article class="alt-card" id="alt-astra" data-puretech="true" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-astra"
+            data-puretech="true"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">Opel Astra — Compact auto · cheapest legit</div>
             <div class="alt-meta">
               <strong>~₪780 / ~€196 all-in</strong> · DiscoverCars (Sicily By Car) · in-carpark
@@ -1128,7 +1527,12 @@
           </article>
 
           <!-- 5. Toyota Corolla — bulletproof reliability -->
-          <article class="alt-card" id="alt-corolla" data-puretech="false" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-corolla"
+            data-puretech="false"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">Toyota Corolla — Compact auto · bulletproof</div>
             <div class="alt-meta">
               <strong>~₪1,925 / ~€485 all-in</strong> · Wisecars (via Kayak) · in-carpark pavilion
@@ -1259,7 +1663,12 @@
           </article>
 
           <!-- 6. Peugeot 2008 — Sixt premium SUV -->
-          <article class="alt-card" id="alt-2008" data-puretech="true" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-2008"
+            data-puretech="true"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">Peugeot 2008 — Compact SUV auto · Sixt premium</div>
             <div class="alt-meta">
               <strong>~₪2,030 / ~€512 all-in</strong> · Sixt direct · in-carpark pavilion
@@ -1399,7 +1808,12 @@
           </article>
 
           <!-- 7. Suzuki Vitara — bigger SUV, in-carpark like everyone else -->
-          <article class="alt-card" id="alt-vitara" data-puretech="false" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-vitara"
+            data-puretech="false"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">Suzuki Vitara — Intermediate SUV auto · most room</div>
             <div class="alt-meta">
               <strong>~₪1,580 / ~€398 all-in</strong> · EconomyBookings (via Kayak) · in-carpark
@@ -1476,9 +1890,8 @@
                     </li>
                     <li>
                       <strong>In-carpark pavilion pickup at SZG</strong> + ground clearance /
-                      approach angle
-                      that none of the other 6 here can match. Best alpine all-rounder if Erin wants
-                      to chase a sunset down a non-paved track.
+                      approach angle that none of the other 6 here can match. Best alpine
+                      all-rounder if Erin wants to chase a sunset down a non-paved track.
                     </li>
                   </ul>
                 </div>
@@ -1537,13 +1950,17 @@
           </article>
 
           <!-- 8. Skoda Kamiq — NEW · PureTech-free Compact SUV alternate -->
-          <article class="alt-card" id="alt-kamiq" data-puretech="false" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-kamiq"
+            data-puretech="false"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">
               Skoda Kamiq — Compact SUV auto · NEW · PureTech-free alternative
             </div>
             <div class="alt-meta">
-              <strong>~₪1,520 / ~€383 all-in</strong> · DiscoverCars (U-Save) · in-carpark
-              pavilion
+              <strong>~₪1,520 / ~€383 all-in</strong> · DiscoverCars (U-Save) · in-carpark pavilion
             </div>
             <div class="day-meta" style="margin: 0.4rem 0 0.55rem">
               <span class="chip" style="background: #fff7e6; border-color: #e8c97a"
@@ -1583,9 +2000,9 @@
               >
               with Skoda Kamiq as their most-rented SUV (per their own travel-info table).
               <strong>Base ~$310 + Full Coverage ~€65 = €383 / ₪1,520.</strong> The "best of both
-              worlds" pick if the Mokka's PureTech engine notes worry you — same in-carpark
-              pickup, same class, ~₪80 more than the Mokka, none of the wet-belt / fuel-pipe /
-              MHEV recall noise.
+              worlds" pick if the Mokka's PureTech engine notes worry you — same in-carpark pickup,
+              same class, ~₪80 more than the Mokka, none of the wet-belt / fuel-pipe / MHEV recall
+              noise.
             </p>
             <a
               class="alt-cta"
@@ -1602,9 +2019,9 @@
                   <h4>✅ Pros</h4>
                   <ul>
                     <li>
-                      <strong>5★ Euro NCAP (2019)</strong> — still within the 6-year validity
-                      window through 2025; the 2026 facelift inherits the same crash structure.
-                      Centre airbag, AEB cars+pedestrians+cyclists standard.
+                      <strong>5★ Euro NCAP (2019)</strong> — still within the 6-year validity window
+                      through 2025; the 2026 facelift inherits the same crash structure. Centre
+                      airbag, AEB cars+pedestrians+cyclists standard.
                       <a
                         href="https://www.euroncap.com/en/results/skoda/kamiq/37857"
                         target="_blank"
@@ -1614,9 +2031,9 @@
                     </li>
                     <li>
                       <strong>VW Group 1.0 / 1.5 TSI engines</strong> — chain timing (no wet belt),
-                      mature, fewer reported failures than the Stellantis PureTech 1.2 used in
-                      Mokka / Astra / 2008. No 2022-2023 fuel-pipe recall exposure, no March 2026
-                      MHEV recall exposure.
+                      mature, fewer reported failures than the Stellantis PureTech 1.2 used in Mokka
+                      / Astra / 2008. No 2022-2023 fuel-pipe recall exposure, no March 2026 MHEV
+                      recall exposure.
                     </li>
                     <li>
                       <strong>400 L boot</strong> beats Mokka (350) and Vitara (375) — best
@@ -1640,26 +2057,26 @@
                   <h4>⚠️ Cons</h4>
                   <ul>
                     <li>
-                      <strong>DSG dual-clutch hesitation</strong> — same VW-group 7-speed
-                      criticism as the Golf. Smoother on highway than city stop-start. Not
-                      breakdown-level.
+                      <strong>DSG dual-clutch hesitation</strong> — same VW-group 7-speed criticism
+                      as the Golf. Smoother on highway than city stop-start. Not breakdown-level.
                     </li>
                     <li>
-                      <strong>U-Save is a smaller broker brand</strong> — fewer reviews than Sixt
-                      / Hertz; counter-service variance is real. Document pickup thoroughly
+                      <strong>U-Save is a smaller broker brand</strong> — fewer reviews than Sixt /
+                      Hertz; counter-service variance is real. Document pickup thoroughly
                       (timestamped photos every panel + fuel + odometer).
                     </li>
                     <li>
-                      <strong>"Or similar" caveat applies</strong> — DiscoverCars Compact SUV
-                      class may deliver a Hyundai Bayon, VW T-Cross, or Seat Arona instead. All
-                      three are equivalent on size + reliability + safety; not a downgrade either
-                      way.
+                      <strong>"Or similar" caveat applies</strong> — DiscoverCars Compact SUV class
+                      may deliver a Hyundai Bayon, VW T-Cross, or Seat Arona instead. All three are
+                      equivalent on size + reliability + safety; not a downgrade either way.
                     </li>
                     <li>
-                      <strong>2026 Kamiq facelift NCAP not yet retested under 2024 protocols</strong>
+                      <strong
+                        >2026 Kamiq facelift NCAP not yet retested under 2024 protocols</strong
+                      >
                       — the structure is the same as 2019, but Euro NCAP's 2024 rules tightened
-                      vulnerable-road-user thresholds. The "still 5★" claim assumes platform
-                      parity; if Skoda submits the facelift for retest, that's where to confirm.
+                      vulnerable-road-user thresholds. The "still 5★" claim assumes platform parity;
+                      if Skoda submits the facelift for retest, that's where to confirm.
                     </li>
                   </ul>
                 </div>
@@ -1668,7 +2085,12 @@
           </article>
 
           <!-- 9. Toyota Yaris Cross — NEW v2 · PureTech-free hybrid SUV -->
-          <article class="alt-card" id="alt-yariscross" data-puretech="false" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-yariscross"
+            data-puretech="false"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">
               Toyota Yaris Cross — Compact SUV hybrid · NEW v2 · PureTech-free
             </div>
@@ -1730,17 +2152,17 @@
                     </li>
                     <li>
                       <strong>Toyota self-charging hybrid drivetrain</strong> — ~4.5 L/100km real
-                      world. Saves ~€20-25 vs Mokka gas over 600 km. EV crawl at &lt;30 km/h
-                      perfect for Hallstatt parking lots, ferry queues.
+                      world. Saves ~€20-25 vs Mokka gas over 600 km. EV crawl at &lt;30 km/h perfect
+                      for Hallstatt parking lots, ferry queues.
                     </li>
                     <li>
                       <strong>No PureTech recall exposure</strong> — Toyota's hybrid system is
-                      designed in-house; not affected by either the 2022-23 fuel-pipe or March
-                      2026 MHEV electrical-arc campaign. Counter conversation is zero-friction.
+                      designed in-house; not affected by either the 2022-23 fuel-pipe or March 2026
+                      MHEV electrical-arc campaign. Counter conversation is zero-friction.
                     </li>
                     <li>
-                      <strong>Toyota reliability brand-halo</strong> + 5-year warranty on the
-                      hybrid battery. The "it just starts" car after a 5-hour flight.
+                      <strong>Toyota reliability brand-halo</strong> + 5-year warranty on the hybrid
+                      battery. The "it just starts" car after a 5-hour flight.
                     </li>
                   </ul>
                 </div>
@@ -1758,8 +2180,8 @@
                       booking. Worst case: tighter than Mokka.
                     </li>
                     <li>
-                      <strong>eCVT can feel "rubber-band" under hard acceleration</strong> on
-                      Alpine merges — typical Toyota hybrid behaviour. Settles down on cruise.
+                      <strong>eCVT can feel "rubber-band" under hard acceleration</strong> on Alpine
+                      merges — typical Toyota hybrid behaviour. Settles down on cruise.
                     </li>
                     <li>
                       <strong>4★ not 5★ NCAP</strong> — missed centre airbag in test. Same gap as
@@ -1772,7 +2194,12 @@
           </article>
 
           <!-- 10. Hyundai Bayon — NEW v2 · biggest boot in subcompact-SUV class, PureTech-free -->
-          <article class="alt-card" id="alt-bayon" data-puretech="false" style="padding: 1.2rem 1.3rem">
+          <article
+            class="alt-card"
+            id="alt-bayon"
+            data-puretech="false"
+            style="padding: 1.2rem 1.3rem"
+          >
             <div class="alt-name">
               Hyundai Bayon — Subcompact SUV auto · NEW v2 · PureTech-free, big boot
             </div>
@@ -1898,20 +2325,37 @@
           Click any column header to sort. Scrolls horizontally on mobile. Recommendation row is
           highlighted.
         </p>
-        <table class="rental-car-comparison-table" id="rental-car-comparison" aria-label="All vehicle comparison">
+        <table
+          class="rental-car-comparison-table"
+          id="rental-car-comparison"
+          aria-label="All vehicle comparison"
+        >
           <thead>
             <tr>
               <th data-sort="name" aria-sort="none" tabindex="0" role="columnheader">Vehicle</th>
-              <th data-sort="price" aria-sort="ascending" tabindex="0" role="columnheader">All-in (₪)</th>
+              <th data-sort="price" aria-sort="ascending" tabindex="0" role="columnheader">
+                All-in (₪)
+              </th>
               <th data-sort="ncap" aria-sort="none" tabindex="0" role="columnheader">NCAP</th>
               <th data-sort="boot" aria-sort="none" tabindex="0" role="columnheader">Boot (L)</th>
-              <th data-sort="puretech" aria-sort="none" tabindex="0" role="columnheader">PureTech?</th>
-              <th data-sort="counter" aria-sort="none" tabindex="0" role="columnheader">Counter friction</th>
+              <th data-sort="puretech" aria-sort="none" tabindex="0" role="columnheader">
+                PureTech?
+              </th>
+              <th data-sort="counter" aria-sort="none" tabindex="0" role="columnheader">
+                Counter friction
+              </th>
               <th>Jump</th>
             </tr>
           </thead>
           <tbody>
-            <tr data-price="780" data-ncap="4" data-boot="422" data-puretech="true" data-counter="2" data-name="Opel Astra">
+            <tr
+              data-price="780"
+              data-ncap="4"
+              data-boot="422"
+              data-puretech="true"
+              data-counter="2"
+              data-name="Opel Astra"
+            >
               <td>Opel Astra (Compact)</td>
               <td>780</td>
               <td>4★ (5★ w/pack)</td>
@@ -1920,7 +2364,14 @@
               <td>Aggregator broker (Sicily By Car)</td>
               <td><a href="#alt-astra">↓</a></td>
             </tr>
-            <tr data-price="1260" data-ncap="4" data-boot="411" data-puretech="false" data-counter="2" data-name="Hyundai Bayon">
+            <tr
+              data-price="1260"
+              data-ncap="4"
+              data-boot="411"
+              data-puretech="false"
+              data-counter="2"
+              data-name="Hyundai Bayon"
+            >
               <td>Hyundai Bayon (Subcompact SUV)</td>
               <td>1,260</td>
               <td>4★</td>
@@ -1929,7 +2380,14 @@
               <td>Aggregator broker</td>
               <td><a href="#alt-bayon">↓</a></td>
             </tr>
-            <tr data-price="1415" data-ncap="4" data-boot="350" data-puretech="true" data-counter="3" data-name="Opel Mokka Hybrid">
+            <tr
+              data-price="1415"
+              data-ncap="4"
+              data-boot="350"
+              data-puretech="true"
+              data-counter="3"
+              data-name="Opel Mokka Hybrid"
+            >
               <td>Opel Mokka Hybrid</td>
               <td>1,415</td>
               <td>4★</td>
@@ -1938,7 +2396,15 @@
               <td>SKIP unless both recalls confirmed</td>
               <td><a href="#alt-mokka-hybrid">↓</a></td>
             </tr>
-            <tr data-price="1440" data-ncap="4" data-boot="350" data-puretech="true" data-counter="2" data-name="Opel Mokka" class="is-recommendation">
+            <tr
+              data-price="1440"
+              data-ncap="4"
+              data-boot="350"
+              data-puretech="true"
+              data-counter="2"
+              data-name="Opel Mokka"
+              class="is-recommendation"
+            >
               <td>Opel Mokka (Compact SUV) ★ REC</td>
               <td>1,440</td>
               <td>4★</td>
@@ -1947,7 +2413,14 @@
               <td>Aggregator broker</td>
               <td><a href="#alt-mokka">↓</a></td>
             </tr>
-            <tr data-price="1520" data-ncap="5" data-boot="400" data-puretech="false" data-counter="2" data-name="Skoda Kamiq">
+            <tr
+              data-price="1520"
+              data-ncap="5"
+              data-boot="400"
+              data-puretech="false"
+              data-counter="2"
+              data-name="Skoda Kamiq"
+            >
               <td>Skoda Kamiq (Compact SUV)</td>
               <td>1,520</td>
               <td>5★ (2019)</td>
@@ -1956,7 +2429,14 @@
               <td>Aggregator broker (U-Save)</td>
               <td><a href="#alt-kamiq">↓</a></td>
             </tr>
-            <tr data-price="1580" data-ncap="5" data-boot="375" data-puretech="false" data-counter="2" data-name="Suzuki Vitara">
+            <tr
+              data-price="1580"
+              data-ncap="5"
+              data-boot="375"
+              data-puretech="false"
+              data-counter="2"
+              data-name="Suzuki Vitara"
+            >
               <td>Suzuki Vitara (Intermediate SUV)</td>
               <td>1,580</td>
               <td>5★ (2015, expired)</td>
@@ -1965,7 +2445,14 @@
               <td>Aggregator broker</td>
               <td><a href="#alt-vitara">↓</a></td>
             </tr>
-            <tr data-price="1650" data-ncap="4" data-boot="397" data-puretech="false" data-counter="2" data-name="Toyota Yaris Cross">
+            <tr
+              data-price="1650"
+              data-ncap="4"
+              data-boot="397"
+              data-puretech="false"
+              data-counter="2"
+              data-name="Toyota Yaris Cross"
+            >
               <td>Toyota Yaris Cross (Compact SUV hybrid)</td>
               <td>1,650</td>
               <td>4★ (2025, fresh)</td>
@@ -1974,7 +2461,14 @@
               <td>Aggregator broker</td>
               <td><a href="#alt-yariscross">↓</a></td>
             </tr>
-            <tr data-price="1870" data-ncap="5" data-boot="381" data-puretech="false" data-counter="1" data-name="VW Golf">
+            <tr
+              data-price="1870"
+              data-ncap="5"
+              data-boot="381"
+              data-puretech="false"
+              data-counter="1"
+              data-name="VW Golf"
+            >
               <td>VW Golf (Compact)</td>
               <td>1,870</td>
               <td>5★ (2022)</td>
@@ -1983,7 +2477,14 @@
               <td>Sixt direct — zero friction</td>
               <td><a href="#alt-golf">↓</a></td>
             </tr>
-            <tr data-price="1925" data-ncap="5" data-boot="332" data-puretech="false" data-counter="3" data-name="Toyota Corolla">
+            <tr
+              data-price="1925"
+              data-ncap="5"
+              data-boot="332"
+              data-puretech="false"
+              data-counter="3"
+              data-name="Toyota Corolla"
+            >
               <td>Toyota Corolla (Compact)</td>
               <td>1,925</td>
               <td>5★ (2019, expired protocol)</td>
@@ -1992,7 +2493,14 @@
               <td>Wisecars/Kayak — 2× active recalls</td>
               <td><a href="#alt-corolla">↓</a></td>
             </tr>
-            <tr data-price="2030" data-ncap="4" data-boot="434" data-puretech="true" data-counter="1" data-name="Peugeot 2008">
+            <tr
+              data-price="2030"
+              data-ncap="4"
+              data-boot="434"
+              data-puretech="true"
+              data-counter="1"
+              data-name="Peugeot 2008"
+            >
               <td>Peugeot 2008 (Compact SUV)</td>
               <td>2,030</td>
               <td>4★ (5★ w/pack)</td>
@@ -2052,8 +2560,7 @@
                       >sixt.com Salzburg Airport</a
                     >
                     · in-carpark pavilion · cleanest cross-border-to-DE in writing · Premium Cover
-                    €14/day
-                    zero-excess
+                    €14/day zero-excess
                   </td>
                 </tr>
                 <tr>
@@ -2178,12 +2685,12 @@
           <div class="cost-section-body">
             <h3 style="margin-top: 0.5rem">Vignette (Austrian motorway toll sticker)</h3>
             <p class="lead-block" style="font-size: 0.96rem">
-              Austrian motorways require a vignette — <strong>€12.80 for a 10-day digital sticker
-              in 2026</strong> (up from €11.50 in 2025). Most rentals out of Salzburg airport
-              include a digital vignette pre-affixed (tied to the plate, not a windscreen sticker),
-              but it's not
-              automatic — <strong>confirm at the counter</strong>. If yours doesn't include it, buy
-              a 10-day digital vignette from
+              Austrian motorways require a vignette —
+              <strong>€12.80 for a 10-day digital sticker in 2026</strong> (up from €11.50 in 2025).
+              Most rentals out of Salzburg airport include a digital vignette pre-affixed (tied to
+              the plate, not a windscreen sticker), but it's not automatic —
+              <strong>confirm at the counter</strong>. If yours doesn't include it, buy a 10-day
+              digital vignette from
               <a
                 href="https://www.asfinag.at/en/toll/vignette/"
                 target="_blank"
@@ -2206,8 +2713,8 @@
                 target="_blank"
                 rel="noreferrer noopener"
                 >grossglockner.at — Prices &amp; opening times</a
-              >. Not in the current itinerary — but if you swap a day for it, that's a separate
-              cash line.
+              >. Not in the current itinerary — but if you swap a day for it, that's a separate cash
+              line.
             </p>
 
             <h3>International Driving Permit (IDP)</h3>
@@ -2367,9 +2874,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>
-                <strong>DiscoverCars Full Coverage</strong> (bundled, recommended on Mokka)
-              </td>
+              <td><strong>DiscoverCars Full Coverage</strong> (bundled, recommended on Mokka)</td>
               <td>~€60 / ₪240</td>
               <td>
                 You pay the supplier from your held security deposit; DiscoverCars reimburses (~3
@@ -2378,9 +2883,7 @@
               <td>The Mokka pick — already priced into the ₪1,440 headline</td>
             </tr>
             <tr>
-              <td>
-                <strong>Sixt Premium Cover</strong> (bundled, recommended on Golf / Peugeot)
-              </td>
+              <td><strong>Sixt Premium Cover</strong> (bundled, recommended on Golf / Peugeot)</td>
               <td>~€98 / ₪388</td>
               <td>
                 Sixt waives directly at counter — no out-of-pocket deposit drama, no reimbursement
@@ -2407,8 +2910,8 @@
               </td>
               <td>From £4.99/day (iCar) = ~€41 / ₪163 for the week</td>
               <td>
-                Decline counter coverage, you pay the supplier first, the third party reimburses
-                — typically 1-2 weeks
+                Decline counter coverage, you pay the supplier first, the third party reimburses —
+                typically 1-2 weeks
               </td>
               <td>
                 Cheapest path on paper. Best if you're willing to front a ~€1,500-€2,000 excess on
@@ -2419,10 +2922,10 @@
         </table>
         <p class="lead-block" style="font-size: 0.95rem">
           <strong>Important:</strong> not every policy covers tyres / wheels / glass / undercarriage
-          — read the exclusions. RentalCover Austria specifically covers windows / mirrors / lamps
-          / wheels / undercarriage / towing / lost keys (verified 2026-05-17). The counter staff
-          will still try to sell their own Premium Cover after you decline — politely refuse and
-          hand them the third-party policy printout if asked. Cards above assume Path 1 or 2; the
+          — read the exclusions. RentalCover Austria specifically covers windows / mirrors / lamps /
+          wheels / undercarriage / towing / lost keys (verified 2026-05-17). The counter staff will
+          still try to sell their own Premium Cover after you decline — politely refuse and hand
+          them the third-party policy printout if asked. Cards above assume Path 1 or 2; the
           third-party path saves money but adds a week of reimbursement paperwork.
         </p>
       </section>
@@ -2439,12 +2942,11 @@
                 rel="noreferrer noopener"
                 >DiscoverCars</a
               >
-              — <strong>~₪1,440 / €363 all-in</strong> including Full Coverage zero excess. 4★
-              NCAP, 2021+ reliable generation, right size, Germany cross-border default-allowed at
-              SZG. Pickup is in the same in-carpark pavilion as Sixt / Hertz / Avis / Europcar —
-              not shuttle. Full
-              <a href="#mokka-deep-dive">vehicle deep dive</a> · ask at the counter about
-              2022-2023 fuel-pipe recall remediation.
+              — <strong>~₪1,440 / €363 all-in</strong> including Full Coverage zero excess. 4★ NCAP,
+              2021+ reliable generation, right size, Germany cross-border default-allowed at SZG.
+              Pickup is in the same in-carpark pavilion as Sixt / Hertz / Avis / Europcar — not
+              shuttle. Full <a href="#mokka-deep-dive">vehicle deep dive</a> · ask at the counter
+              about 2022-2023 fuel-pipe recall remediation.
             </li>
             <li>
               <strong>If you want zero counter conversation (pay €430 more):</strong> VW Golf via
@@ -2459,30 +2961,30 @@
             </li>
             <li>
               <strong>If you want PureTech-free with no recall noise:</strong> the new
-              <a href="#alt-kamiq">Skoda Kamiq via U-Save</a>, ~₪1,520 / €383. VW-group 1.0/1.5
-              TSI (chain timing), 5★ NCAP, 400 L boot, same in-carpark pavilion. ~₪80 more than
-              the Mokka, no fuel-pipe / wet-belt / MHEV recall exposure.
+              <a href="#alt-kamiq">Skoda Kamiq via U-Save</a>, ~₪1,520 / €383. VW-group 1.0/1.5 TSI
+              (chain timing), 5★ NCAP, 400 L boot, same in-carpark pavilion. ~₪80 more than the
+              Mokka, no fuel-pipe / wet-belt / MHEV recall exposure.
             </li>
             <li>
               <strong>If you want the cheapest legit auto:</strong>
               <a href="#alt-astra">Opel Astra Compact</a> via DiscoverCars (Sicily By Car), ~₪780 /
-              €196. Smaller broker, more counter risk, same PureTech engine notes — but the math
-              is hard to argue with.
+              €196. Smaller broker, more counter risk, same PureTech engine notes — but the math is
+              hard to argue with.
             </li>
             <li>
               <strong>SKIP the Mokka Hybrid</strong> until the March 2026 MHEV recall is confirmed
-              remediated on the specific VIN — two open recalls on one drivetrain is not the bet
-              for a jet-lagged Friday morning.
+              remediated on the specific VIN — two open recalls on one drivetrain is not the bet for
+              a jet-lagged Friday morning.
             </li>
             <li>
               <strong>Pre-trip TO-DO:</strong> issue an IDP at
               <a href="https://memsi.org.il" target="_blank" rel="noreferrer noopener">MEMSI</a>
-              (required, not optional, for the Hebrew license) · book the pick within 2-4 weeks
-              with free cancellation · for the non-Sixt picks, email the supplier in advance
-              asking "does this contract permit driving into Germany, and what are the fees?" —
-              get the answer in writing before pickup day · decide deposit-vs-zero-excess path
-              from the table above · screenshot the 2026 €12.80 ASFINAG vignette page so you can
-              verify it's been pre-included at counter.
+              (required, not optional, for the Hebrew license) · book the pick within 2-4 weeks with
+              free cancellation · for the non-Sixt picks, email the supplier in advance asking "does
+              this contract permit driving into Germany, and what are the fees?" — get the answer in
+              writing before pickup day · decide deposit-vs-zero-excess path from the table above ·
+              screenshot the 2026 €12.80 ASFINAG vignette page so you can verify it's been
+              pre-included at counter.
             </li>
           </ul>
         </div>
@@ -2506,8 +3008,8 @@
           </div>
           <div class="rental-car-austria-addendum__item">
             <strong>Winter tires · N/A in July</strong>
-            Austrian winter-tire mandate runs Nov 1 → Apr 15 in adverse weather. Trip is July —
-            zero exposure. Don't let the counter charge you a "winter tire" surcharge in summer.
+            Austrian winter-tire mandate runs Nov 1 → Apr 15 in adverse weather. Trip is July — zero
+            exposure. Don't let the counter charge you a "winter tire" surcharge in summer.
             <a
               href="https://www.visitaustria.info/en/driving-austria/"
               target="_blank"
@@ -2517,9 +3019,9 @@
           </div>
           <div class="rental-car-austria-addendum__item">
             <strong>No German Maut for Berchtesgaden</strong>
-            Germany has no national motorway toll for passenger cars. No Maut sticker needed. No
-            LEZ (Umweltzone) in Berchtesgaden / Königssee — just drive in. Salzburg city also has
-            no passenger-car LEZ. Munich + Stuttgart DO have LEZs but aren't on this itinerary.
+            Germany has no national motorway toll for passenger cars. No Maut sticker needed. No LEZ
+            (Umweltzone) in Berchtesgaden / Königssee — just drive in. Salzburg city also has no
+            passenger-car LEZ. Munich + Stuttgart DO have LEZs but aren't on this itinerary.
             <a
               href="https://www.tripadvisor.com/ShowTopic-g190441-i391-k14428383-Vehicle_emissions_sticker_for_Germany-Salzburg_Austrian_Alps.html"
               target="_blank"
@@ -2576,17 +3078,45 @@
           >Book →</a
         >
       </div>
+
+      <aside class="cross-promo" aria-label="Where to go next">
+        <h2 class="cross-promo__title">Where to go next</h2>
+        <p class="cross-promo__sub">Three pages Avital + you usually reach for from here.</p>
+        <div class="cross-promo__grid">
+          <a class="cross-promo-card" href="driving-austria.html">
+            <p class="cross-promo-card__eyebrow">Logistics</p>
+            <h3 class="cross-promo-card__name">
+              Driving in Austria<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">Vignette, tolls, autobahn, parking.</p>
+          </a>
+          <a class="cross-promo-card" href="costs.html">
+            <p class="cross-promo-card__eyebrow">Money</p>
+            <h3 class="cross-promo-card__name">
+              Costs<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">Per-person totals + breakdown by bucket.</p>
+          </a>
+          <a class="cross-promo-card" href="logistics.html">
+            <p class="cross-promo-card__eyebrow">Logistics</p>
+            <h3 class="cross-promo-card__name">
+              Logistics overview<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">Flights, drives, timing, the whole picture.</p>
+          </a>
+        </div>
+      </aside>
     </main>
 
     <footer>
       Live DiscoverCars + Kayak pulls 2026-05-16 → 17 · DiscoverCars seasonal multiplier (Nov ₪92 →
       July ₪314, ~3.4×) used to scale May samples to July peak · Sixt cross-border zones verified
-      from their AT public terms · Salzburg-airport.com official rentals page verified all 8
-      majors are in-carpark (not shuttle) · Vignette + Grossglockner prices verified at ASFINAG
-      shop + grossglockner.at on 2026-05-17 · IDP requirement verified at oesterreich.gv.at ·
-      Quality assessments from Euro NCAP official results + Carbuyer + What Car? + Auto Express +
-      Top Gear reliability data + Stellantis recall portal · USD → EUR ≈ 0.93 · USD → ILS ≈ 3.81
-      · EUR → ILS ≈ 3.97 (May 2026)
+      from their AT public terms · Salzburg-airport.com official rentals page verified all 8 majors
+      are in-carpark (not shuttle) · Vignette + Grossglockner prices verified at ASFINAG shop +
+      grossglockner.at on 2026-05-17 · IDP requirement verified at oesterreich.gv.at · Quality
+      assessments from Euro NCAP official results + Carbuyer + What Car? + Auto Express + Top Gear
+      reliability data + Stellantis recall portal · USD → EUR ≈ 0.93 · USD → ILS ≈ 3.81 · EUR → ILS
+      ≈ 3.97 (May 2026)
     </footer>
 
     <script type="module" src="/src/page-rental-car.ts"></script>

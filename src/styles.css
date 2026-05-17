@@ -9452,7 +9452,9 @@ details.note-item[open] .note-summary-preview {
   padding: 0;
   background: rgba(255, 255, 255, 0.55);
   cursor: pointer;
-  transition: background 0.18s ease, transform 0.18s ease;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
   appearance: none;
 }
 .lodging-carousel__dot:hover {
@@ -9480,7 +9482,9 @@ details.note-item[open] .note-summary-preview {
   cursor: pointer;
   z-index: 3;
   opacity: 0;
-  transition: opacity 0.18s ease, background 0.18s ease;
+  transition:
+    opacity 0.18s ease,
+    background 0.18s ease;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
   appearance: none;
 }
@@ -10586,7 +10590,9 @@ body.search-overlay-open {
   color: var(--ink);
   background: transparent;
   border: 1px solid transparent;
-  transition: background 0.12s ease, border-color 0.12s ease;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
   align-items: flex-start;
 }
 .search-row:hover,
@@ -10755,7 +10761,9 @@ body.search-overlay-open {
   overflow: hidden;
   text-decoration: none;
   color: var(--ink);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 .rec-card:hover {
   transform: translateY(-3px);
@@ -10900,12 +10908,20 @@ body.search-overlay-open {
     0 0 0 6px #0033a0,
     0 2px 8px rgba(0, 0, 0, 0.28);
   transform: scale(1.18);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
 }
 @keyframes pin-pulse-kf {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.32); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.32);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 .leaflet-pin-pulse .leaflet-pin {
   animation: pin-pulse-kf 600ms ease-out 1;
@@ -10990,7 +11006,9 @@ body.search-overlay-open {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 .place-drawer__close:hover,
 .place-drawer__close:focus-visible {
@@ -11195,7 +11213,10 @@ body.search-overlay-open {
   background: #fff;
   color: var(--ink, #1c2a32);
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 }
 .place-drawer-action:hover,
 .place-drawer-action:focus-visible {
@@ -11273,7 +11294,10 @@ body.search-overlay-open {
   font-family: inherit;
   color: var(--ink, #1c2a32);
   width: 100%;
-  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.15s;
 }
 .map-similar__card:hover,
 .map-similar__card:focus-visible {
@@ -11322,7 +11346,9 @@ body.search-overlay-open {
   pointer-events: none;
   opacity: 0;
   transform: translateY(4px);
-  transition: opacity 0.16s ease, transform 0.16s ease;
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
   overflow: hidden;
   font-family:
     'Inter',
@@ -11383,8 +11409,6 @@ body.search-overlay-open {
   }
 }
 
-
-
 /* ============================================================
    Nature destinations carousel (2026-05-17 nature-carousel agent).
    Reuses Wave 4b .lodging-carousel-* styles wholesale. This block
@@ -11443,7 +11467,9 @@ body.search-overlay-open {
   border-radius: 10px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .rental-car-shortcut:hover,
@@ -11731,13 +11757,13 @@ body.search-overlay-open {
   white-space: nowrap;
 }
 
-.rental-car-comparison-table th[aria-sort="ascending"]::after {
-  content: " ▲";
+.rental-car-comparison-table th[aria-sort='ascending']::after {
+  content: ' ▲';
   font-size: 0.7rem;
 }
 
-.rental-car-comparison-table th[aria-sort="descending"]::after {
-  content: " ▼";
+.rental-car-comparison-table th[aria-sort='descending']::after {
+  content: ' ▼';
   font-size: 0.7rem;
 }
 
@@ -12133,4 +12159,3 @@ body.nav-mobile-open {
 .cross-promo-card:hover .cross-promo-card__arrow {
   transform: translateX(3px);
 }
-

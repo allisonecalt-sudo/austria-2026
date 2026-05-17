@@ -17,17 +17,400 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
         <div class="nav-links">
-          <a href="itinerary.html">Trip</a>
+          <div class="nav-group" data-nav-group="plan">
+            <button
+              class="nav-group__btn"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dd-plan"
+            >
+              Plan <span class="nav-group__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown" id="nav-dd-plan" role="menu" aria-label="Plan">
+              <p class="nav-dropdown__title">Plan the week</p>
+              <a href="itinerary.html" role="menuitem"
+                ><span class="nav-dropdown__name">Full day-by-day</span
+                ><span class="nav-dropdown__desc"
+                  >7 days, 1 page. Recommendations + alternates.</span
+                ></a
+              >
+              <a href="trip-summary.html" role="menuitem"
+                ><span class="nav-dropdown__name">Summary view</span
+                ><span class="nav-dropdown__desc"
+                  >High-level — drive times, key places, top views.</span
+                ></a
+              >
+              <a href="bases.html" role="menuitem"
+                ><span class="nav-dropdown__name">The four bases</span
+                ><span class="nav-dropdown__desc"
+                  >Where you sleep each night, in geography order.</span
+                ></a
+              >
+              <a href="shabbat.html" role="menuitem"
+                ><span class="nav-dropdown__name">Shabbat in Salzburg</span
+                ><span class="nav-dropdown__desc"
+                  >Friday-night to Saturday-night, anchored.</span
+                ></a
+              >
+              <a href="friday-salzburg.html" role="menuitem"
+                ><span class="nav-dropdown__name">Friday in Salzburg</span
+                ><span class="nav-dropdown__desc">Daytime Friday before candles.</span></a
+              >
+              <a href="sundays-closed.html" role="menuitem"
+                ><span class="nav-dropdown__name">Sundays = closed</span
+                ><span class="nav-dropdown__desc"
+                  >What's open + closed on Austrian Sundays.</span
+                ></a
+              >
+              <a href="weather-plan-c.html" role="menuitem"
+                ><span class="nav-dropdown__name">Rain swaps</span
+                ><span class="nav-dropdown__desc"
+                  >Indoor + covered swaps if the sky misbehaves.</span
+                ></a
+              >
+            </div>
+          </div>
+          <div class="nav-group" data-nav-group="explore">
+            <button
+              class="nav-group__btn"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dd-explore"
+            >
+              Explore <span class="nav-group__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown" id="nav-dd-explore" role="menu" aria-label="Explore">
+              <p class="nav-dropdown__title">What to see + do</p>
+              <a href="recommendations.html" role="menuitem"
+                ><span class="nav-dropdown__name">Top picks</span
+                ><span class="nav-dropdown__desc"
+                  >Curated favourites across stays + sights + food.</span
+                ></a
+              >
+              <a href="map.html" role="menuitem"
+                ><span class="nav-dropdown__name">Map</span
+                ><span class="nav-dropdown__desc"
+                  >All 41 pins — click base to filter, click pin for details.</span
+                ></a
+              >
+              <a href="nature-destinations.html" role="menuitem"
+                ><span class="nav-dropdown__name">Nature destinations</span
+                ><span class="nav-dropdown__desc">Lakes, summits, gorges, waterfalls.</span></a
+              >
+              <a href="top-sunsets.html" role="menuitem"
+                ><span class="nav-dropdown__name">Top sunsets</span
+                ><span class="nav-dropdown__desc">Ranked + timed for every base.</span></a
+              >
+              <a href="lake-swimming.html" role="menuitem"
+                ><span class="nav-dropdown__name">Lake swimming</span
+                ><span class="nav-dropdown__desc">Best swim spots + temps + access.</span></a
+              >
+              <a href="water-activities.html" role="menuitem"
+                ><span class="nav-dropdown__name">Water activities</span
+                ><span class="nav-dropdown__desc">Boats, SUP, kayak, rafting.</span></a
+              >
+              <a href="activities.html" role="menuitem"
+                ><span class="nav-dropdown__name">All activities</span
+                ><span class="nav-dropdown__desc">Everything tagged + filterable.</span></a
+              >
+              <a href="jewish-sights.html" role="menuitem"
+                ><span class="nav-dropdown__name">Jewish sights</span
+                ><span class="nav-dropdown__desc">Synagogue, Stolpersteine, Judengasse.</span></a
+              >
+            </div>
+          </div>
           <a href="stay.html">Stay</a>
-          <a href="logistics.html">Logistics</a>
-          <a href="costs.html" class="active">Costs</a>
+          <div class="nav-group" data-nav-group="logistics">
+            <button
+              class="nav-group__btn"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-controls="nav-dd-logistics"
+            >
+              Logistics <span class="nav-group__caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="nav-dropdown" id="nav-dd-logistics" role="menu" aria-label="Logistics">
+              <p class="nav-dropdown__title">How to get around</p>
+              <a href="logistics.html" role="menuitem"
+                ><span class="nav-dropdown__name">Logistics overview</span
+                ><span class="nav-dropdown__desc"
+                  >Flights, drives, timing, the whole picture.</span
+                ></a
+              >
+              <a href="driving-austria.html" role="menuitem"
+                ><span class="nav-dropdown__name">Driving in Austria</span
+                ><span class="nav-dropdown__desc">Vignette, tolls, autobahn, parking.</span></a
+              >
+              <a href="rental-car.html" role="menuitem"
+                ><span class="nav-dropdown__name">Rental car</span
+                ><span class="nav-dropdown__desc">Where to book, what to confirm, gotchas.</span></a
+              >
+              <a href="packing.html" role="menuitem"
+                ><span class="nav-dropdown__name">Packing</span
+                ><span class="nav-dropdown__desc"
+                  >Clothes, gear, shabbat kit, what NOT to bring.</span
+                ></a
+              >
+              <a href="pre-trip.html" role="menuitem"
+                ><span class="nav-dropdown__name">Pre-trip checklist</span
+                ><span class="nav-dropdown__desc">Last 14 days, day-of, at-the-gate.</span></a
+              >
+              <a href="cafes.html" role="menuitem"
+                ><span class="nav-dropdown__name">Kosher-friendly cafes</span
+                ><span class="nav-dropdown__desc">Coffee + pastries that work for us.</span></a
+              >
+            </div>
+          </div>
+          <a href="costs.html" class="active" aria-current="page">Costs</a>
           <a href="notes.html">Notes</a>
         </div>
+        <button
+          class="nav-hamburger"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          ☰
+        </button>
       </div>
+      <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-panel" role="dialog" aria-modal="true" aria-label="Site navigation">
+          <div class="nav-mobile-header">
+            <span class="nav-mobile-header__title">Austria · 24-31 Jul</span>
+            <button class="nav-mobile-close" type="button" aria-label="Close menu">✕</button>
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="plan">
+            <p class="nav-mobile-section__title">Plan the week</p>
+            <a href="itinerary.html"
+              ><span>Full day-by-day</span
+              ><span class="nav-mobile-section__desc"
+                >7 days, 1 page. Recommendations + alternates.</span
+              ></a
+            >
+            <a href="trip-summary.html"
+              ><span>Summary view</span
+              ><span class="nav-mobile-section__desc"
+                >High-level — drive times, key places, top views.</span
+              ></a
+            >
+            <a href="bases.html"
+              ><span>The four bases</span
+              ><span class="nav-mobile-section__desc"
+                >Where you sleep each night, in geography order.</span
+              ></a
+            >
+            <a href="shabbat.html"
+              ><span>Shabbat in Salzburg</span
+              ><span class="nav-mobile-section__desc"
+                >Friday-night to Saturday-night, anchored.</span
+              ></a
+            >
+            <a href="friday-salzburg.html"
+              ><span>Friday in Salzburg</span
+              ><span class="nav-mobile-section__desc">Daytime Friday before candles.</span></a
+            >
+            <a href="sundays-closed.html"
+              ><span>Sundays = closed</span
+              ><span class="nav-mobile-section__desc"
+                >What's open + closed on Austrian Sundays.</span
+              ></a
+            >
+            <a href="weather-plan-c.html"
+              ><span>Rain swaps</span
+              ><span class="nav-mobile-section__desc"
+                >Indoor + covered swaps if the sky misbehaves.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="explore">
+            <p class="nav-mobile-section__title">What to see + do</p>
+            <a href="recommendations.html"
+              ><span>Top picks</span
+              ><span class="nav-mobile-section__desc"
+                >Curated favourites across stays + sights + food.</span
+              ></a
+            >
+            <a href="map.html"
+              ><span>Map</span
+              ><span class="nav-mobile-section__desc"
+                >All 41 pins — click base to filter, click pin for details.</span
+              ></a
+            >
+            <a href="nature-destinations.html"
+              ><span>Nature destinations</span
+              ><span class="nav-mobile-section__desc">Lakes, summits, gorges, waterfalls.</span></a
+            >
+            <a href="top-sunsets.html"
+              ><span>Top sunsets</span
+              ><span class="nav-mobile-section__desc">Ranked + timed for every base.</span></a
+            >
+            <a href="lake-swimming.html"
+              ><span>Lake swimming</span
+              ><span class="nav-mobile-section__desc">Best swim spots + temps + access.</span></a
+            >
+            <a href="water-activities.html"
+              ><span>Water activities</span
+              ><span class="nav-mobile-section__desc">Boats, SUP, kayak, rafting.</span></a
+            >
+            <a href="activities.html"
+              ><span>All activities</span
+              ><span class="nav-mobile-section__desc">Everything tagged + filterable.</span></a
+            >
+            <a href="jewish-sights.html"
+              ><span>Jewish sights</span
+              ><span class="nav-mobile-section__desc"
+                >Synagogue, Stolpersteine, Judengasse.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="stay">
+            <p class="nav-mobile-section__title">Lodging</p>
+            <a href="stay.html"
+              ><span>Where you'll stay</span
+              ><span class="nav-mobile-section__desc"
+                >Lodging hub — 25+ options, all with photos + filters.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="logistics">
+            <p class="nav-mobile-section__title">How to get around</p>
+            <a href="logistics.html"
+              ><span>Logistics overview</span
+              ><span class="nav-mobile-section__desc"
+                >Flights, drives, timing, the whole picture.</span
+              ></a
+            >
+            <a href="driving-austria.html"
+              ><span>Driving in Austria</span
+              ><span class="nav-mobile-section__desc">Vignette, tolls, autobahn, parking.</span></a
+            >
+            <a href="rental-car.html"
+              ><span>Rental car</span
+              ><span class="nav-mobile-section__desc"
+                >Where to book, what to confirm, gotchas.</span
+              ></a
+            >
+            <a href="packing.html"
+              ><span>Packing</span
+              ><span class="nav-mobile-section__desc"
+                >Clothes, gear, shabbat kit, what NOT to bring.</span
+              ></a
+            >
+            <a href="pre-trip.html"
+              ><span>Pre-trip checklist</span
+              ><span class="nav-mobile-section__desc">Last 14 days, day-of, at-the-gate.</span></a
+            >
+            <a href="cafes.html"
+              ><span>Kosher-friendly cafes</span
+              ><span class="nav-mobile-section__desc">Coffee + pastries that work for us.</span></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="costs">
+            <p class="nav-mobile-section__title">Money</p>
+            <a href="costs.html" class="active" aria-current="page"
+              ><span>Costs</span
+              ><span class="nav-mobile-section__desc"
+                >Per-person totals + breakdown by bucket.</span
+              ></a
+            >
+          </div>
+          <div class="nav-mobile-section" data-mobile-section="notes">
+            <p class="nav-mobile-section__title">Talk to us</p>
+            <a href="notes.html"
+              ><span>Notes & messages</span
+              ><span class="nav-mobile-section__desc"
+                >💬 widget log + replies + chat history.</span
+              ></a
+            >
+          </div>
+        </div>
+      </div>
+      <script>
+        // Nav-coordination dropdown + mobile toggle (inline, no build step).
+        // Owned by Nav Coordination Specialist 2026-05-17.
+        (function () {
+          var nav = document.currentScript.closest('nav.nav');
+          if (!nav) return;
+          var groups = nav.querySelectorAll('.nav-group');
+          function closeAll(except) {
+            groups.forEach(function (g) {
+              var btn = g.querySelector('.nav-group__btn');
+              if (btn && btn !== except) btn.setAttribute('aria-expanded', 'false');
+            });
+          }
+          groups.forEach(function (g) {
+            var btn = g.querySelector('.nav-group__btn');
+            if (!btn) return;
+            btn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              var open = btn.getAttribute('aria-expanded') === 'true';
+              closeAll(btn);
+              btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+            });
+            btn.addEventListener('keydown', function (e) {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                closeAll(btn);
+                btn.setAttribute('aria-expanded', 'true');
+                var first = g.querySelector('.nav-dropdown a');
+                if (first) first.focus();
+              } else if (e.key === 'Escape') {
+                btn.setAttribute('aria-expanded', 'false');
+              }
+            });
+          });
+          document.addEventListener('click', function (e) {
+            if (!nav.contains(e.target)) closeAll(null);
+          });
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeAll(null);
+          });
+
+          // Mobile slide-over
+          var hamburger = nav.querySelector('.nav-hamburger');
+          var mobile = nav.querySelector('.nav-mobile');
+          var closeBtn = mobile ? mobile.querySelector('.nav-mobile-close') : null;
+          if (hamburger && mobile) {
+            function openMobile() {
+              mobile.classList.add('is-open');
+              mobile.setAttribute('aria-hidden', 'false');
+              document.body.classList.add('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'true');
+              if (closeBtn) closeBtn.focus();
+            }
+            function closeMobile() {
+              mobile.classList.remove('is-open');
+              mobile.setAttribute('aria-hidden', 'true');
+              document.body.classList.remove('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'false');
+              hamburger.focus();
+            }
+            hamburger.addEventListener('click', openMobile);
+            if (closeBtn) closeBtn.addEventListener('click', closeMobile);
+            mobile.addEventListener('click', function (e) {
+              if (e.target === mobile) closeMobile();
+            });
+            document.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape' && mobile.classList.contains('is-open')) closeMobile();
+            });
+          }
+        })();
+      </script>
+    </nav>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="./">Austria</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span>Money</span>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span class="breadcrumb__current">Costs</span>
     </nav>
 
     <!-- TODO COST-SYNC 2026-05-17: trip-data.ts has stale aggregate totals:
@@ -42,8 +425,8 @@
     <main class="container costs-page">
       <p class="page-tldr">
         <strong>₪13,209 all-in (€3,330 / $3,570) · 7 nights · 2 people.</strong> ₪209 over the
-        ₪13,000 soft target — acceptable. Per-person (net of $50 baggage settle): Allison ~₪6,237
-        · Avital ~₪6,972. Flights paid directly; baggage netted at ₪3.70/$.
+        ₪13,000 soft target — acceptable. Per-person (net of $50 baggage settle): Allison ~₪6,237 ·
+        Avital ~₪6,972. Flights paid directly; baggage netted at ₪3.70/$.
       </p>
       <!-- ====================================================================
            BLOCK 1 — VERDICT BAR — Status word + total vs target + delta
@@ -161,8 +544,8 @@
               line-height: 1.45;
             "
           >
-            📝 <strong>Avital</strong> — leave a note via the 💬 button with your exact flight
-            price so we can finalize your column (currently estimated at ~₪1,851).
+            📝 <strong>Avital</strong> — leave a note via the 💬 button with your exact flight price
+            so we can finalize your column (currently estimated at ~₪1,851).
           </p>
         </article>
       </section>
@@ -186,8 +569,8 @@
       <section class="cost-block">
         <h2 class="cost-block-h">Where the money goes</h2>
         <p class="cost-block-sub">
-          Six buckets. Hover (or tap) any segment to see the line. Lodging is the biggest;
-          food + activities are flexible; flights are fixed.
+          Six buckets. Hover (or tap) any segment to see the line. Lodging is the biggest; food +
+          activities are flexible; flights are fixed.
         </p>
 
         <div class="cost-bar-wrap">
@@ -195,19 +578,31 @@
             <div class="cost-bar-seg lodging" style="flex-grow: 4313" title="Lodging ₪4,313 (33%)">
               <span class="cost-bar-amt">Lodging ₪4,313</span>
             </div>
-            <div class="cost-bar-seg food" style="flex-grow: 2580" title="Food + gas + buffer ₪2,580 (20%)">
+            <div
+              class="cost-bar-seg food"
+              style="flex-grow: 2580"
+              title="Food + gas + buffer ₪2,580 (20%)"
+            >
               <span class="cost-bar-amt">Food ₪2,580</span>
             </div>
             <div class="cost-bar-seg flight" style="flex-grow: 3337" title="Flights ₪3,337 (25%)">
               <span class="cost-bar-amt">Flights ₪3,337</span>
             </div>
-            <div class="cost-bar-seg activities" style="flex-grow: 1445" title="Activities ₪1,445 (11%)">
+            <div
+              class="cost-bar-seg activities"
+              style="flex-grow: 1445"
+              title="Activities ₪1,445 (11%)"
+            >
               <span class="cost-bar-amt">Activities ₪1,445</span>
             </div>
             <div class="cost-bar-seg car" style="flex-grow: 1162" title="Rental car ₪1,162 (9%)">
               <span class="cost-bar-amt">Car ₪1,162</span>
             </div>
-            <div class="cost-bar-seg baggage" style="flex-grow: 370" title="Baggage extras ₪370 (3%)">
+            <div
+              class="cost-bar-seg baggage"
+              style="flex-grow: 370"
+              title="Baggage extras ₪370 (3%)"
+            >
               <span class="cost-bar-amt">Bag ₪370</span>
             </div>
           </div>
@@ -284,7 +679,9 @@
                  All three tier cards are combined (2-person) totals so they're
                  comparable to ₪13,000 combined target. -->
             <div class="tier-card-total">₪13,209</div>
-            <div class="tier-card-delta tier-card-delta--over">+₪209 over target · soft cap, fine</div>
+            <div class="tier-card-delta tier-card-delta--over">
+              +₪209 over target · soft cap, fine
+            </div>
             <p class="tier-card-note">
               Linzergasse apt + Haus Edelweiss Obertraun + <strong>Schafbergspitze summit</strong> +
               airport apt. Keeps the wow night.
@@ -299,7 +696,9 @@
                  + fixed ₪8,894 = ₪14,807.
                  Was ₪12,658 — old per-person basis (would mean splurge cheaper than current pick, impossible). -->
             <div class="tier-card-total">₪14,807</div>
-            <div class="tier-card-delta tier-card-delta--over">+₪1,807 over target · within "ceiling can pass" rule</div>
+            <div class="tier-card-delta tier-card-delta--over">
+              +₪1,807 over target · within "ceiling can pass" rule
+            </div>
             <p class="tier-card-note">
               Aiola Resort Salzburg + Hallstatt-village holiday home swap. Both nights notably nicer
               for ~₪1,600 more than current pick.
@@ -361,12 +760,12 @@
               <strong>Includes:</strong> cog railway round-trip + breakfast + dinner room rate ·
               €155.80 pp × 2 + tax.
             </p>
-            <p class="base-card-incl" style="color: #b45309; margin-top: 0.4rem;">
+            <p class="base-card-incl" style="color: #b45309; margin-top: 0.4rem">
               <!-- COST-SYNC 2026-05-17: Allison locked "all bookings need free cancellation"
                    as a hard rule. Schafberg.net direct booking is typically non-refundable
                    close to the date — needs re-verification before locking. -->
-              ⚠ <strong>Verify free cancellation</strong> on schafberg.net direct booking —
-              new hard rule. If non-refundable, re-search a refundable alternative.
+              ⚠ <strong>Verify free cancellation</strong> on schafberg.net direct booking — new hard
+              rule. If non-refundable, re-search a refundable alternative.
             </p>
             <a class="base-card-link" href="https://schafberg.net/" target="_blank" rel="noopener"
               >schafberg.net ↗</a
@@ -392,8 +791,8 @@
 
         <p class="cost-source">
           <span class="cost-verified">Verified 2026-05-17</span>
-          Lodging total ₪4,313 (€1,086). Sourced from Booking.com listings + schafberg.net.
-          Full options + lean/splurge alternatives on the <a href="stay.html">Stay page</a>.
+          Lodging total ₪4,313 (€1,086). Sourced from Booking.com listings + schafberg.net. Full
+          options + lean/splurge alternatives on the <a href="stay.html">Stay page</a>.
         </p>
       </section>
 
@@ -403,8 +802,8 @@
       <section class="cost-block cost-block--deep">
         <h2 class="cost-block-h">Deep-dive · every line, every source</h2>
         <p class="cost-block-sub">
-          Tap to expand. Each line cites the live source (Booking URL, El Al PNR, operator
-          ticket page, DiscoverCars quote).
+          Tap to expand. Each line cites the live source (Booking URL, El Al PNR, operator ticket
+          page, DiscoverCars quote).
         </p>
 
         <details class="cost-section">
@@ -463,8 +862,8 @@
                     <td>
                       <strong>Schafbergspitze 1,783m · summit (Wed-Thu)</strong>
                       <br /><span style="font-size: 0.82rem; color: var(--ink-soft)"
-                        >Berghotel Schafbergspitze · €155.80 pp incl. cog round-trip + breakfast ·
-                        2 ppl ≈ €311 + €7 tax</span
+                        >Berghotel Schafbergspitze · €155.80 pp incl. cog round-trip + breakfast · 2
+                        ppl ≈ €311 + €7 tax</span
                       >
                       <br />
                       <a
@@ -509,15 +908,16 @@
             </div>
             <p class="cost-source">
               <span class="cost-verified">Verified 2026-05-17 · Booking.com + schafberg.net</span>
-              Schafbergspitze line is the per-person bundle (cog + breakfast). Lean / splurge
-              swaps live on <a href="stay.html">Stay page</a>.
+              Schafbergspitze line is the per-person bundle (cog + breakfast). Lean / splurge swaps
+              live on <a href="stay.html">Stay page</a>.
             </p>
-            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem;">
-              ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> all 4 lodging
-              bookings must be refundable. Booking.com Salzburg/Obertraun/airport picks already
-              flagged free-cancellation in the data. <strong>Schafbergspitze direct booking
-              needs re-verification</strong> — if non-refundable, swap for a refundable summit
-              option (e.g. base at mountain + early cog up instead of sleep-up).
+            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem">
+              ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> all 4 lodging bookings
+              must be refundable. Booking.com Salzburg/Obertraun/airport picks already flagged
+              free-cancellation in the data.
+              <strong>Schafbergspitze direct booking needs re-verification</strong> — if
+              non-refundable, swap for a refundable summit option (e.g. base at mountain + early cog
+              up instead of sleep-up).
             </p>
           </div>
         </details>
@@ -539,9 +939,7 @@
                   </tr>
                   <tr>
                     <td><strong>Pickup / Drop-off</strong></td>
-                    <td>
-                      Salzburg airport (SZG), Fri 24 Jul ~08:30 → Fri 31 Jul ~06:15
-                    </td>
+                    <td>Salzburg airport (SZG), Fri 24 Jul ~08:30 → Fri 31 Jul ~06:15</td>
                   </tr>
                   <tr>
                     <td><strong>Provider</strong></td>
@@ -578,11 +976,11 @@
               Not included: motorway vignette (~€11.50), per-trip fuel (in food/gas bucket),
               Grossglockner separate toll if driven.
             </p>
-            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem;">
-              ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> when booking the
-              car on DiscoverCars, filter for "free cancellation" suppliers only — quoted
-              $305 likely includes non-refundable suppliers. Refundable rate may be
-              ~10-15% higher; recompute total if so.
+            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem">
+              ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> when booking the car on
+              DiscoverCars, filter for "free cancellation" suppliers only — quoted $305 likely
+              includes non-refundable suppliers. Refundable rate may be ~10-15% higher; recompute
+              total if so.
             </p>
           </div>
         </details>
@@ -776,7 +1174,9 @@
 
         <details class="cost-section">
           <summary>
-            <span class="cost-summary-label">Food, gas, parking, buffer — Israel-pack strategy</span>
+            <span class="cost-summary-label"
+              >Food, gas, parking, buffer — Israel-pack strategy</span
+            >
             <span class="cost-summary-amt">₪2,580 <span class="cost-pill est">estimate</span></span>
           </summary>
           <div class="cost-section-body">
@@ -897,16 +1297,16 @@
             <em>"it can pass the ceiling if needed."</em> Today we're ₪209 over — acceptable.
           </li>
           <li>
-            <strong>Split rule:</strong> lodging, car, food, activities = 50/50. Flights +
-            baggage extras = each-own. Settle at trip end.
+            <strong>Split rule:</strong> lodging, car, food, activities = 50/50. Flights + baggage
+            extras = each-own. Settle at trip end.
           </li>
           <li>
-            <strong>Allison's net all-in ₪6,237</strong> = ₪4,936 shared half + ₪1,486 flight −
-            ₪185 baggage credit (Avital reimburses at ₪3.70/$).
+            <strong>Allison's net all-in ₪6,237</strong> = ₪4,936 shared half + ₪1,486 flight − ₪185
+            baggage credit (Avital reimburses at ₪3.70/$).
           </li>
           <li>
-            <strong>Avital's net all-in ~₪6,972</strong> = ₪4,936 shared half + ~₪1,851 flight est
-            + ₪185 baggage owed. She'll confirm her exact flight cost after booking.
+            <strong>Avital's net all-in ~₪6,972</strong> = ₪4,936 shared half + ~₪1,851 flight est +
+            ₪185 baggage owed. She'll confirm her exact flight cost after booking.
           </li>
           <li>
             <strong>Headroom:</strong> upgrade a lodging if a better listing appears, swap in a
@@ -914,11 +1314,41 @@
           </li>
         </ul>
       </section>
+
+      <aside class="cross-promo" aria-label="Where to go next">
+        <h2 class="cross-promo__title">Where to go next</h2>
+        <p class="cross-promo__sub">Three pages Avital + you usually reach for from here.</p>
+        <div class="cross-promo__grid">
+          <a class="cross-promo-card" href="stay.html">
+            <p class="cross-promo-card__eyebrow">Stay</p>
+            <h3 class="cross-promo-card__name">
+              Where you'll stay<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">
+              Lodging hub — 25+ options, all with photos + filters.
+            </p>
+          </a>
+          <a class="cross-promo-card" href="rental-car.html">
+            <p class="cross-promo-card__eyebrow">Logistics</p>
+            <h3 class="cross-promo-card__name">
+              Rental car<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">Where to book, what to confirm, gotchas.</p>
+          </a>
+          <a class="cross-promo-card" href="logistics.html">
+            <p class="cross-promo-card__eyebrow">Logistics</p>
+            <h3 class="cross-promo-card__name">
+              Logistics overview<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">Flights, drives, timing, the whole picture.</p>
+          </a>
+        </div>
+      </aside>
     </main>
 
     <footer>
-      Shekel-first · EUR/NIS at ₪3.97 · USD/NIS at ₪3.70 · Booking.com verified 2026-05-17 ·
-      Car: DiscoverCars 2026-05-16 · Flight: El Al ZP96JK 2026-05-16
+      Shekel-first · EUR/NIS at ₪3.97 · USD/NIS at ₪3.70 · Booking.com verified 2026-05-17 · Car:
+      DiscoverCars 2026-05-16 · Flight: El Al ZP96JK 2026-05-16
     </footer>
 
     <script type="module" src="/src/page-costs.ts"></script>
