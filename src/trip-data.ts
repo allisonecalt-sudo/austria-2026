@@ -4160,6 +4160,8 @@ export const LODGING_COORDS: Record<string, LatLng> = {
   'Mühlradl Apartments Gosau': { lat: 47.5811, lng: 13.5378 },
   'Pension Sydler (Bad Goisern)': { lat: 47.6439, lng: 13.6167 }, // Konrad-Deubler-Gasse 8 (Nominatim verified 2026-05-17)
   'Weisses Lamm Holiday Home (Hallstatt)': { lat: 47.5614, lng: 13.6486 },
+  // SUMMIT NIGHT (Wed-Thu) — pivoted 2026-05-17 from Schafbergspitze to Lodge am Krippenstein
+  'Lodge am Krippenstein': { lat: 47.5126, lng: 13.6929 }, // Dachstein Krippenstein summit, 2,063m — same valley as Obertraun base
   // AIRPORT (Thu→Fri pre-flight)
   'Hapimag Ferienwohnungen Salzburg': { lat: 47.8164, lng: 13.0014 }, // ~5km from SZG
   'Landhotel Berger (Ainring, just over the German border)': { lat: 47.8056, lng: 12.9614 },

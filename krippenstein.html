@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
+    />
+    <title>Lodge am Krippenstein — Wed Jul 29 summit night · Austria 2026</title>
+    <meta
+      name="description"
+      content="Modern architectural lodge at 2,063m on the Dachstein plateau, same valley as our Obertraun base. 9.2/10 Booking, cards accepted, online bookable. Cable car up from Obertraun, 5 Fingers viewing platform on the same plateau, Zirben-pine rooms. Replaces the Schafbergspitze plan."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <style>
+      .kr-hero {
+        background: linear-gradient(135deg, #1a2733 0%, #2c4258 60%, #4a6378 100%);
+        color: #e7f0f7;
+        padding: 2rem 1.4rem 2.5rem;
+        text-align: center;
+      }
+      .kr-hero h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(1.9rem, 5vw, 2.8rem);
+        line-height: 1.15;
+        margin-bottom: 0.6rem;
+        color: #fff;
+      }
+      .kr-hero-eyebrow {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        opacity: 0.85;
+      }
+      .kr-hero-cta {
+        display: inline-flex;
+        gap: 0.6rem;
+        align-items: center;
+        margin-top: 1.4rem;
+        padding: 0.85rem 1.4rem;
+        background: #4a90c2;
+        color: #fff;
+        border-radius: 999px;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.05rem;
+      }
+      .kr-score-strip {
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        margin-top: 0.8rem;
+      }
+      .kr-score-strip strong {
+        color: #ffd66b;
+        font-size: 1rem;
+      }
+      .kr-pivot-banner {
+        background: #fef6e8;
+        border-left: 5px solid #c89938;
+        padding: 1.4rem 1.6rem;
+        margin: 1.4rem 0;
+        border-radius: 0.5rem;
+      }
+      .kr-pivot-banner h2 {
+        color: #8a6420;
+        margin-top: 0;
+        font-size: 1.3rem;
+      }
+      .kr-compare-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 0;
+        font-size: 0.92rem;
+      }
+      .kr-compare-table th,
+      .kr-compare-table td {
+        padding: 0.55rem 0.7rem;
+        text-align: left;
+        border-bottom: 1px solid #e6dcc7;
+        vertical-align: top;
+      }
+      .kr-compare-table th {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #8a6420;
+        background: #fef0d0;
+      }
+      .kr-compare-table .kr-win {
+        color: #1d5d33;
+        font-weight: 600;
+      }
+      .kr-step {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0.6rem;
+        padding: 1.2rem 1.3rem;
+        margin: 0.8rem 0;
+        box-shadow: var(--shadow-soft);
+      }
+      .kr-step__num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--green-deep);
+        margin-right: 0.4rem;
+      }
+      .kr-step__title {
+        display: inline;
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+      .kr-step__body {
+        margin-top: 0.6rem;
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+      .kr-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+      @media (max-width: 640px) {
+        .kr-grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      .kr-fact-card {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0.6rem;
+        padding: 0.95rem 1.1rem;
+      }
+      .kr-fact-card h3 {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ink-soft);
+        margin-bottom: 0.35rem;
+      }
+      .kr-fact-card p {
+        margin: 0;
+        font-size: 0.95rem;
+      }
+      .kr-fact-card strong {
+        color: var(--green-deep);
+      }
+      .kr-book-now {
+        background: #e8f1f7;
+        border: 2px solid #4a90c2;
+        border-radius: 0.7rem;
+        padding: 1.3rem 1.5rem;
+        margin: 1.8rem 0;
+      }
+      .kr-book-now h2 {
+        color: #2c5d80;
+        margin-top: 0;
+      }
+      .kr-book-now a.primary-link {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.15rem;
+        color: #2c5d80;
+        font-weight: 700;
+        text-decoration: underline;
+      }
+      .kr-room-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 0.8rem;
+        margin: 1rem 0;
+      }
+      .kr-room-card {
+        border: 1px solid var(--line);
+        border-radius: 0.5rem;
+        padding: 0.9rem 1rem;
+        background: var(--paper);
+      }
+      .kr-room-card.kr-room-card--pick {
+        border: 2px solid #2e8a4a;
+        background: #f1f9f4;
+      }
+      .kr-room-card h4 {
+        margin: 0 0 0.3rem;
+        font-size: 1rem;
+        color: var(--green-deep);
+      }
+      .kr-room-card .kr-room-tag {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #1d5d33;
+        font-weight: 700;
+      }
+      .kr-room-card p {
+        margin: 0.35rem 0 0;
+        font-size: 0.88rem;
+        line-height: 1.45;
+      }
+      .kr-5fingers {
+        background: linear-gradient(135deg, #1a2733 0%, #344a5e 100%);
+        color: #e7f0f7;
+        border-radius: 0.7rem;
+        padding: 1.6rem 1.6rem;
+        margin: 1.8rem 0;
+      }
+      .kr-5fingers h2 {
+        color: #fff;
+        margin-top: 0;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+      }
+      .kr-5fingers p {
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+      .kr-risk {
+        background: #fff8e6;
+        border-left: 4px solid #c89938;
+        padding: 0.9rem 1.1rem;
+        border-radius: 0.4rem;
+        margin: 1rem 0;
+      }
+      .kr-checklist {
+        background: var(--gold-soft);
+        padding: 1.2rem 1.4rem;
+        border-radius: 0.5rem;
+        list-style: none;
+        margin: 1rem 0;
+      }
+      .kr-checklist li {
+        padding: 0.4rem 0;
+        font-size: 0.95rem;
+      }
+      .kr-checklist li::before {
+        content: '☐ ';
+        color: #9c6f1f;
+        font-weight: 700;
+        margin-right: 0.3rem;
+      }
+    </style>
+  </head>
+  <body data-option="general">
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-inner">
+        <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="itinerary.html">Trip</a>
+          <a href="stay.html">Stay</a>
+          <a href="logistics.html">Logistics</a>
+          <a href="costs.html">Costs</a>
+          <a href="notes.html">Notes</a>
+        </div>
+        <button class="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">☰</button>
+      </div>
+    </nav>
+
+    <header class="kr-hero">
+      <div class="kr-hero-eyebrow">Wed Jul 29 → Thu Jul 30 · 2,063m on the Dachstein plateau</div>
+      <h1>Lodge am Krippenstein — the summit night</h1>
+      <p style="opacity: 0.92; max-width: 560px; margin: 0.4rem auto 0">
+        Modern architectural lodge at the top of the Dachstein Krippenstein cable car. Same Obertraun
+        valley as our 3-night base — zero routing detour. Cards accepted. Bookable online. The
+        5 Fingers viewing platform is a 15-minute walk on the same plateau.
+      </p>
+      <div class="kr-score-strip">
+        <strong>9.2/10</strong> Booking · Cleanliness 9.4 · Location 9.9 · Staff 9.6
+      </div>
+      <div style="margin-top: 1rem">
+        <a class="kr-hero-cta" href="#book-now">Book on Booking.com ↓</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <p class="page-tldr">
+        <strong>1 night, 2 people. Book on Booking.com (primary) or email stay@lodge.at.</strong>
+        Drive Obertraun → Dachstein Krippenstein cable car valley station (10 min). Last cable car
+        UP is around 18:45 in summer, last DOWN is 19:10 — so check-in is daytime, not late-evening.
+        Ride two gondola stages to the summit station (2,063m). Walk ~10 min on the plateau to the
+        lodge. Sunset from the 5 Fingers cantilevered platform a short walk away. Sleep on
+        Zirben-pine beds. First cable car down 08:40 → drive to airport-area apartment.
+      </p>
+
+      <!-- WHY WE PIVOTED -->
+      <section class="kr-pivot-banner">
+        <h2>Why we pivoted here from Berghotel Schafbergspitze</h2>
+        <p style="margin: 0.3rem 0 0.6rem; font-size: 0.93rem">
+          Original plan was the Schafbergspitze summit hotel. On closer look the reviews flagged it
+          as basic 2-star with service issues. Krippenstein is in our actual valley anyway —
+          same drive, better stay.
+        </p>
+        <table class="kr-compare-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Schafbergspitze</th>
+              <th>Lodge am Krippenstein</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Reviews</strong></td>
+              <td>3.6★ / 1,012 reviews — basic, service complaints</td>
+              <td class="kr-win">9.2/10 Booking — modern architectural lodge</td>
+            </tr>
+            <tr>
+              <td><strong>Payment</strong></td>
+              <td>Cash preferred at reception</td>
+              <td class="kr-win">Cards accepted</td>
+            </tr>
+            <tr>
+              <td><strong>Booking</strong></td>
+              <td>Phone / email only, no online</td>
+              <td class="kr-win">Booking.com + direct email</td>
+            </tr>
+            <tr>
+              <td><strong>Elevation</strong></td>
+              <td>1,783m</td>
+              <td class="kr-win">2,063m</td>
+            </tr>
+            <tr>
+              <td><strong>Drive from Obertraun</strong></td>
+              <td>~1h30 (out-of-valley detour to St. Wolfgang)</td>
+              <td class="kr-win">~10 min (same valley)</td>
+            </tr>
+            <tr>
+              <td><strong>Sunset platform</strong></td>
+              <td>Summit terrace, lake panorama</td>
+              <td class="kr-win">5 Fingers cantilevered deck, omni-view</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin: 0.8rem 0 0; font-size: 0.85rem; color: #8a6420">
+          The Schafbergspitze runbook is kept for reference at
+          <a href="schafbergspitze.html" style="color: #8a6420">schafbergspitze.html</a> — marked
+          superseded. Schafberg itself is still a beautiful day trip (cog ride + panorama from
+          St. Wolfgang) — we're just not sleeping there.
+        </p>
+      </section>
+
+      <!-- BOOK NOW -->
+      <section class="kr-book-now" id="book-now">
+        <h2>Book the room</h2>
+        <p>
+          Lodge am Krippenstein takes online bookings. Booking.com is the simplest route — instant
+          confirmation, free-cancellation rates, cards on file. Direct email is fine too if you'd
+          rather skip the OTA cut.
+        </p>
+        <p style="margin: 0.8rem 0 0.5rem">
+          <strong>Booking.com:</strong>
+          <a
+            class="primary-link"
+            href="https://www.booking.com/hotel/at/lodge-am-krippenstein.html"
+            target="_blank"
+            rel="noreferrer noopener"
+            >booking.com/hotel/at/lodge-am-krippenstein →</a
+          >
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Direct email:</strong>
+          <a href="mailto:stay@lodge.at" style="font-size: 1.1rem">stay@lodge.at</a>
+          (see TLDR email block at the bottom of this page — copy-paste ready)
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Phone (mobile):</strong>
+          <a href="tel:+436643804054">+43 664 380 405 4</a>
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Phone (landline):</strong>
+          <a href="tel:+43613121801">+43 6131 21801</a>
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Office hours:</strong> Mon-Sun 8:00-21:00 (Austria CET = 09:00-22:00 Israel time)
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Operator:</strong> Rosifka KG · Office: Winkl 52, 4831 Obertraun, Austria.
+          (The lodge itself is at the summit — office is in the valley.)
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Payment:</strong> Cards accepted.
+        </p>
+        <p style="margin: 0.5rem 0 0">
+          <strong>Official site:</strong>
+          <a href="https://www.lodge.at/en/" target="_blank" rel="noreferrer noopener"
+            >lodge.at/en</a
+          >
+        </p>
+      </section>
+
+      <!-- ROOM CATEGORIES -->
+      <h2 style="margin-top: 2.2rem">Six room categories — what to ask for</h2>
+      <p style="font-size: 0.93rem">
+        The lodge has six tiers from dorm bunks up to a full Panorama Suite. Beds are Zirben (Swiss
+        stone pine) — a real Alpine tradition with claimed sleep-quality benefits. For two
+        adults wanting the view, the sweet spot is a <strong>Gallery Room</strong> or
+        <strong>Panorama Room</strong>.
+      </p>
+      <div class="kr-room-grid">
+        <div class="kr-room-card">
+          <div class="kr-room-tag">Top tier</div>
+          <h4>Panorama Suite</h4>
+          <p>Largest layout, full-window panorama. Splurge above the splurge.</p>
+        </div>
+        <div class="kr-room-card kr-room-card--pick">
+          <div class="kr-room-tag">⭐ Sweet spot</div>
+          <h4>Gallery Room</h4>
+          <p>Designed around the view. Mezzanine / loft feel. Our default ask.</p>
+        </div>
+        <div class="kr-room-card kr-room-card--pick">
+          <div class="kr-room-tag">⭐ Sweet spot</div>
+          <h4>Panorama Room</h4>
+          <p>Big window onto the Dachstein massif. Alternative if Gallery is full.</p>
+        </div>
+        <div class="kr-room-card">
+          <div class="kr-room-tag">Mid</div>
+          <h4>Komfort Room</h4>
+          <p>Comfortable, less window real estate. Decent fallback.</p>
+        </div>
+        <div class="kr-room-card">
+          <div class="kr-room-tag">Entry double</div>
+          <h4>Standard Room</h4>
+          <p>The basic double — clean lodge bones, less view.</p>
+        </div>
+        <div class="kr-room-card">
+          <div class="kr-room-tag">Dorm</div>
+          <h4>Bunks</h4>
+          <p>Shared dorm room. Cheapest. Not what we want for the splurge night.</p>
+        </div>
+      </div>
+      <p style="font-size: 0.88rem; color: var(--ink-soft); font-style: italic">
+        Indicative July 2026 price range for a double: roughly €220-360/night depending on tier —
+        confirm exact rate per room type with the hotel.
+      </p>
+
+      <!-- 5 FINGERS -->
+      <section class="kr-5fingers">
+        <h2>5 Fingers — the sunset platform</h2>
+        <p>
+          A cantilevered viewing deck on the same plateau as the lodge — five steel "fingers" jutting
+          straight out over the cliff. Omni-view across Hallstättersee, the painted village far
+          below, and the full Dachstein massif behind. ~15 minutes' easy walk from the lodge.
+        </p>
+        <p>
+          For Wed Jul 29 sunset (~20:48 in this region), be on the platform by ~20:15 to catch the
+          last gold. Bring a windproof layer — the wind on the plateau is real, even in July. After
+          sunset, walk back to the lodge in dusk and have dinner.
+        </p>
+        <p style="font-size: 0.88rem; opacity: 0.85; margin-bottom: 0">
+          The plateau also has the Welterbespirale (heritage spiral viewpoint) and several easy
+          paths. The lodge offers free snowshoe + avalanche kit rental in winter — not relevant in
+          July, but tells you what kind of place this is.
+        </p>
+      </section>
+
+      <!-- THE 7 STEPS -->
+      <h2 style="margin-top: 2.2rem">The 7 steps, in order</h2>
+
+      <div class="kr-step">
+        <span class="kr-step__num">1.</span>
+        <span class="kr-step__title">Book the room (this week)</span>
+        <div class="kr-step__body">
+          Easiest path: Booking.com, instant confirm. Or send the email template at the bottom of
+          this page to <a href="mailto:stay@lodge.at">stay@lodge.at</a>. Ask for Gallery Room or
+          Panorama Room. 2 adults, Wed Jul 29 → Thu Jul 30 (1 night).
+        </div>
+      </div>
+
+      <div class="kr-step">
+        <span class="kr-step__num">2.</span>
+        <span class="kr-step__title">Pack one small overnight bag each</span>
+        <div class="kr-step__body">
+          Sleeping clothes, fresh layer for sunset + sunrise (it's ~10°C cooler than the valley at
+          2,063m, plateau wind), camera. Leave main suitcases in the car at the cable car valley
+          station — there's parking right there in Obertraun.
+        </div>
+      </div>
+
+      <div class="kr-step">
+        <span class="kr-step__num">3.</span>
+        <span class="kr-step__title">Pack kosher dinner + breakfast</span>
+        <div class="kr-step__body">
+          Bring BYO food up — sealed kosher meat (Vienna Va'ad or Israel-brought), bread, fruit,
+          breakfast for the morning. The lodge does have a kitchen/restaurant but not kosher; some
+          guests may opt in for breakfast as a non-kosher dairy/coffee option (your call —
+          ask at booking if you want to drop the lodge breakfast and reduce the rate).
+        </div>
+      </div>
+
+      <div class="kr-step">
+        <span class="kr-step__num">4.</span>
+        <span class="kr-step__title">Drive Obertraun apartment → cable car valley station</span>
+        <div class="kr-step__body">
+          ~10 min drive. Same valley as the 3-night Obertraun base — this is the "zero detour"
+          part. Cable car operator: Dachstein Salzkammergut Bergbahnen.
+          <a
+            href="https://www.dachstein-salzkammergut.com/en/summer/operation-times-summer"
+            target="_blank"
+            rel="noreferrer noopener"
+            >Operation times →</a
+          >
+        </div>
+      </div>
+
+      <div class="kr-step">
+        <span class="kr-step__num">5.</span>
+        <span class="kr-step__title">Ride the cable car up (two stages)</span>
+        <div class="kr-step__body">
+          Cable car runs every 15 minutes in summer. First UP 08:40, last UP around 18:45, last
+          DOWN 19:10. Buy lodge-guest tickets at the valley counter (lodge will confirm whether
+          included in the rate). Two gondola stages get you to the Krippenstein summit station at
+          2,063m. ~10 min walk on the plateau to the lodge.
+        </div>
+      </div>
+
+      <div class="kr-step">
+        <span class="kr-step__num">6.</span>
+        <span class="kr-step__title">Check in + sunset at 5 Fingers</span>
+        <div class="kr-step__body">
+          Drop the bag at the lodge. Walk ~15 min on the plateau to the 5 Fingers platform.
+          Sunset Wed Jul 29 ~20:48 — omni-view over Hallstättersee and the Dachstein. After the
+          last gondola down at 19:10, the plateau empties out and it's just overnight guests.
+          Dinner BYO at the lodge, Zirben-pine beds, stars without light pollution.
+        </div>
+      </div>
+
+      <div class="kr-step">
+        <span class="kr-step__num">7.</span>
+        <span class="kr-step__title">Sunrise + descent (Thu morning)</span>
+        <div class="kr-step__body">
+          Sunrise Thu Jul 30 ~05:30 — first light on the Dachstein face. Worth setting an alarm.
+          Breakfast (BYO or lodge), pack out. First cable car down at 08:40. Drive ~1h15 to the
+          airport-area apartment (last night before the Fri morning flight).
+        </div>
+      </div>
+
+      <!-- FACTS GRID -->
+      <h2 style="margin-top: 2.2rem">Key facts at a glance</h2>
+      <div class="kr-grid-2">
+        <div class="kr-fact-card">
+          <h3>Elevation</h3>
+          <p><strong>2,063m</strong> — ~10°C cooler than the valley</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Drive from Obertraun apartment</h3>
+          <p><strong>~10 min</strong> to cable car valley station</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>First cable car UP (summer)</h3>
+          <p><strong>08:40</strong> · cars every 15 min</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Last cable car DOWN</h3>
+          <p><strong>19:10</strong> — check-in before this</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Sunset Wed Jul 29</h3>
+          <p><strong>~20:48</strong> at 5 Fingers platform</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Sunrise Thu Jul 30</h3>
+          <p><strong>~05:30</strong> on the Dachstein face</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Review score</h3>
+          <p><strong>9.2/10</strong> Booking · Location 9.9</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Room rate (est)</h3>
+          <p><strong>~€220-360</strong> / night double, by tier</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Payment</h3>
+          <p><strong>Cards accepted</strong></p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Booking</h3>
+          <p><strong>Booking.com</strong> or email stay@lodge.at</p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Phone (mobile)</h3>
+          <p><strong>+43 664 380 405 4</strong></p>
+        </div>
+        <div class="kr-fact-card">
+          <h3>Children under 3</h3>
+          <p><strong>Free</strong> · Zirben-pine beds throughout</p>
+        </div>
+      </div>
+
+      <!-- AMENITIES -->
+      <h2 style="margin-top: 2.2rem">Amenities on the plateau</h2>
+      <ul style="line-height: 1.7">
+        <li>Physiotherm infrared sauna (lodge in-house)</li>
+        <li>Ski room + drying room (winter)</li>
+        <li>Free snowshoe + avalanche kit rental (winter — not relevant Jul)</li>
+        <li>5 Fingers cantilevered viewing platform, ~15 min walk</li>
+        <li>Easy plateau paths (Welterbespirale, Heilbronner Kreuz)</li>
+        <li>Cable car runs every 15 min — easy access to valley</li>
+      </ul>
+
+      <!-- AVITAL PITCH -->
+      <section
+        style="
+          margin-top: 2rem;
+          padding: 1.5rem 1.6rem;
+          background: #fef6e8;
+          border-left: 5px solid #d4a04a;
+          border-radius: 0.6rem;
+        "
+      >
+        <h2 style="color: #8a6420; margin-top: 0">💬 Pitch to Avital — WhatsApp lock-in</h2>
+        <p style="margin: 0.3rem 0 0.5rem; font-size: 0.9rem">
+          Updated version after we swapped Schafbergspitze → Krippenstein. Send this so she can
+          commit before we book — it's her name + 1 night of her trip + a chunk of money.
+        </p>
+        <pre
+          style="
+            background: #fff;
+            padding: 1rem 1.2rem;
+            border-radius: 0.5rem;
+            border: 2px solid #d4a04a;
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 1rem;
+          "
+>avital — small upgrade on the summit night for austria 🏔️
+
+quick context: I'd originally pitched sleeping at Schafbergspitze. on closer look the reviews were
+rough (3.6★, basic service). I found a much better swap that's actually IN our Obertraun valley —
+no extra driving.
+
+🌅 sleeping at LODGE AM KRIPPENSTEIN, wed jul 29 → thu jul 30
+— modern architectural lodge at 2,063m on the Dachstein plateau
+— 9.2/10 on Booking, takes cards, books online (no phone-only nonsense)
+— two gondolas up from a 10-min drive from our Obertraun base
+— 5 Fingers cantilevered viewing platform a 15-min walk from the lodge for sunset
+— Zirben-pine beds (the Alpine sleep-quality thing)
+— sunrise over the Dachstein face thurs morning before we head to the airport
+
+honest details:
+💰 ~€220-360/night for the room (depends on which of 6 categories — I'd ask for Gallery or Panorama)
+🥖 food = still BYO (their kitchen isn't kosher — bread/cheese/fruit + breakfast stuff up with us)
+🛏️ NOT a basic alpine hut this time — modern lodge vibe, sauna, real architecture
+📅 night before we're in Obertraun anyway, morning after we head to the airport hotel
+🚠 first gondola down at 08:40, plenty of time for the airport hand-off
+
+you in? I can book on Booking.com today once you say yes 🗻</pre>
+      </section>
+
+      <!-- BOOKING INQUIRY EMAIL -->
+      <section
+        style="
+          margin-top: 2rem;
+          padding: 1.5rem 1.6rem;
+          background: #e8f1f7;
+          border-left: 5px solid #4a90c2;
+          border-radius: 0.6rem;
+        "
+      >
+        <h2 style="color: #2c5d80; margin-top: 0">✉️ Booking inquiry email — copy-paste ready</h2>
+        <p style="margin: 0.3rem 0 0.5rem; font-size: 0.9rem">
+          Send to <a href="mailto:stay@lodge.at" style="color: #2c5d80; font-weight: 600">stay@lodge.at</a>
+          — bilingual EN + DE, formal Austrian register. They're a professional online-booking
+          operation so this is a solid backup if you prefer not to go through Booking.com.
+        </p>
+        <pre
+          style="
+            background: #fff;
+            padding: 1rem 1.2rem;
+            border-radius: 0.5rem;
+            border: 2px solid #4a90c2;
+            white-space: pre-wrap;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0 0 1rem;
+          "
+>Subject: Reservation inquiry — 1 night, 29-30 July 2026, 2 adults
+
+Sehr geehrte Damen und Herren,
+
+I would like to request a one-night reservation at Lodge am Krippenstein:
+
+• Wednesday 29 July → Thursday 30 July 2026 (1 night)
+• 2 adults (Allison Alt + Avital)
+• Preferred: Gallery Room or Panorama Room — the view is the reason we're coming
+
+Before confirming, could you please let me know:
+
+1. Availability for the dates above
+2. Rate per night for a Gallery Room and a Panorama Room
+3. Cancellation policy and any deposit required
+4. Payment method (we understand you accept cards — please confirm)
+5. Latest cable car UP we can use as overnight guests on 29 July
+6. Late check-in process if we miss the daytime cable cars
+7. Breakfast option / opt-out (we bring our own food due to kosher dietary needs)
+
+Many thanks, and I look forward to your reply. Either English or German is fine — English is
+easier for me.
+
+Mit freundlichen Grüßen,
+Allison Alt
+allisonecalt@gmail.com
++972 58 728 5868
+
+— — — — — — — — — — — — — — —
+(Deutsche Übersetzung folgt — KI-übersetzt, bitte um Nachsicht bei Fehlern.)
+
+Sehr geehrte Damen und Herren,
+
+ich möchte gerne eine Reservierung für eine Nacht im Lodge am Krippenstein anfragen:
+
+• Mittwoch 29. Juli → Donnerstag 30. Juli 2026 (1 Nacht)
+• 2 Erwachsene (Allison Alt + Avital)
+• Bevorzugt: Gallery Room oder Panorama Room — die Aussicht ist der Grund für unseren Aufenthalt
+
+Vor der Bestätigung wäre ich Ihnen dankbar, wenn Sie mir Folgendes mitteilen könnten:
+
+1. Verfügbarkeit für die genannten Daten
+2. Zimmerpreis pro Nacht für ein Gallery Room und ein Panorama Room
+3. Stornierungsbedingungen und etwaige Anzahlung
+4. Zahlungsmethode (wir gehen davon aus, dass Kartenzahlung möglich ist — bitte um Bestätigung)
+5. Letzte Bergfahrt der Seilbahn für Übernachtungsgäste am 29. Juli
+6. Verfahren für späten Check-in, falls wir die letzte Bergfahrt verpassen
+7. Frühstücksoption / Abwahl-Möglichkeit (wir bringen aus koscheren Gründen eigenes Essen mit)
+
+Vielen Dank im Voraus.
+
+Mit freundlichen Grüßen,
+Allison Alt
+allisonecalt@gmail.com
++972 58 728 5868</pre>
+      </section>
+
+      <!-- RISKS -->
+      <h2 style="margin-top: 2.2rem">What can go wrong</h2>
+      <div class="kr-risk">
+        <strong>Miss the last cable car UP.</strong> Summer last UP is around 18:45. If you arrive
+        later, you need the lodge's late-check-in instruction (ask in advance — there may be a
+        service gondola for guests). Padding > scrambling.
+      </div>
+      <div class="kr-risk">
+        <strong>Weather closes the cable car.</strong> High winds can close the Dachstein
+        Seilbahn. Lodge will refund or rebook. Plan B = sleep extra night at the Obertraun base
+        and lose the summit night.
+      </div>
+      <div class="kr-risk">
+        <strong>Low cloud at sunset.</strong> Even if the cable car runs, plateau can be in cloud.
+        Sunrise is typically clearer than sunset in July (less afternoon convective build-up) so
+        it's almost-impossible to lose both moments.
+      </div>
+      <div class="kr-risk">
+        <strong>Forgetting the kosher dinner.</strong> No kosher option on the mountain. If you
+        arrive without packed food, you're eating room snacks. Pre-pack at the Obertraun apartment
+        Wed morning.
+      </div>
+
+      <!-- CHECKLIST -->
+      <h2 style="margin-top: 2.2rem">Book-it-today checklist</h2>
+      <ul class="kr-checklist">
+        <li>Pitch Avital → get her yes/no</li>
+        <li>Book via Booking.com (instant) OR email stay@lodge.at</li>
+        <li>Ask for Gallery Room or Panorama Room, 2 adults, Wed Jul 29 → Thu Jul 30</li>
+        <li>Confirm cable car ticket — included in rate or paid separately?</li>
+        <li>Confirm latest cable car UP for overnight guests on 29 Jul</li>
+        <li>Confirm cancellation policy + payment method</li>
+        <li>Opt out of breakfast if you prefer (kosher BYO)</li>
+        <li>Get confirmation email and save it</li>
+      </ul>
+
+      <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--ink-soft); font-style: italic">
+        Facts verified 2026-05-17 via lodge.at + Booking.com + Dachstein Salzkammergut operator
+        page. Cable car timetable for July 2026 specifically should be re-confirmed week-of via
+        <a href="https://www.dachstein-salzkammergut.com/en/summer/operation-times-summer" target="_blank" rel="noreferrer noopener"
+          >dachstein-salzkammergut.com</a
+        >.
+      </p>
+    </main>
+
+    <footer>
+      Lodge am Krippenstein summit night runbook · pivot from Schafbergspitze 2026-05-17 ·
+      re-verify cable car times week of trip
+    </footer>
+  </body>
+</html>

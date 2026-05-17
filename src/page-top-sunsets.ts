@@ -76,33 +76,37 @@ const PICKS: SunsetPick[] = [
     sunsetTimeSource: 'https://www.timeanddate.com/sun/germany/berchtesgaden?month=7&year=2026',
   },
   {
-    id: 'schafbergspitze',
+    // Pivoted 2026-05-17 from Schafbergspitze → Lodge am Krippenstein. Same trip
+    // night, better hotel, same valley as Obertraun base, cantilevered 5 Fingers
+    // platform on the same plateau is the actual sunset spot. Full runbook on
+    // krippenstein.html. Schafbergspitze.html kept as superseded archive.
+    id: 'krippenstein-5fingers',
     rank: 2,
     tagline:
-      'Top of the cog railway, 1,783m, terrace facing west. Thirteen Salzkammergut lakes catch the last gold at once — Wolfgangsee, Mondsee, Attersee, Fuschlsee, all visible in one sweep.',
-    tldr: '13 lakes lit at once from the summit terrace at 20:48. Cog railway does the climbing.',
+      'Dachstein plateau, 2,063m, 5 Fingers cantilevered viewing deck. Omni-view across Hallstättersee + the full Dachstein massif. Modern lodge, Zirben-pine beds, cards accepted, books online.',
+    tldr: 'Lodge am Krippenstein summit night → 5 Fingers platform at 20:48. Same valley as our base.',
     tripNight: 'Wed Jul 29',
     tripNightDayId: 'wed-jul-29',
     sunsetTime: '20:48',
     whereYouWatch:
-      'From the Schafbergspitze hotel TERRACE on the summit, looking west-northwest over Wolfgangsee. Walk ~10 min along the easy ridge from the cog top-station to reach it. The terrace is at 1,783m — full 360° but the gold side is west.',
+      'From the 5 Fingers cantilevered viewing platform — five steel "fingers" jutting straight over the cliff on the Krippenstein plateau, ~15 min easy walk from Lodge am Krippenstein. Omni-view across Hallstättersee (the painted village far below) and the full Dachstein massif behind. Plateau is at 2,063m.',
     whyThisOne:
-      'Summit + 13 lakes + no real hiking required. The Schafbergbahn cog (1893, steam-traction) does the 1,000m climb in 40 minutes. You earn the panorama via €46pp ticket, not via legs. Only summit sunset on this trip.',
+      'Summit + omni-view + zero routing detour. The Dachstein Krippenstein cable car (two gondola stages, every 15 min) does the climbing from a 10-min drive from our Obertraun base. Lodge has 9.2/10 reviews, takes cards, books on Booking.com. The 5 Fingers platform is the photographer-famous spot. Only summit sunset on this trip.',
     practical:
-      'OVERNIGHT-GUEST path (your locked plan): LAST cog UP for hotel guests is 16:30 daily — NON-NEGOTIABLE. Be at St. Wolfgang valley station by 16:00. Park free at Parkplatz Nr. 7 (overnight guests only). 40-min cog up, check into Berghotel Schafbergspitze, sunset 20:48 on the terrace, sleep at 1,783m, sunrise 05:30, first cog down. Hotel: NO online booking — call +43 6138 3542 ASAP. Full runbook: schafbergspitze.html.',
+      'OVERNIGHT-GUEST path (your locked plan): cable car summer schedule first UP 08:40, last UP ~18:45, last DOWN 19:10. Drive ~10 min from Obertraun → cable car valley station. Two gondolas up, ~10 min walk to the lodge, drop bag, 15 min walk to 5 Fingers for sunset 20:48. Sleep on Zirben-pine beds at 2,063m, sunrise 05:30 on the Dachstein, first cable car down 08:40. Book on Booking.com or email stay@lodge.at. Full runbook: krippenstein.html.',
     pairsWithBefore:
-      'St. Wolfgang lakeside promenade walk + Strandbad swim in the afternoon → coffee in town → cog up at 18:00 → easy summit walk → terrace at sunset.',
+      'Slow morning at the Obertraun apartment → pack one overnight bag each + kosher dinner → mid-afternoon drive to cable car valley station → cable car up by 16:00-17:00 → check into the lodge → easy plateau walk → 5 Fingers platform by 20:15 → sunset.',
     driveFromBases: {
-      obertraun: '50 min',
-      berchtesgaden: '85 min',
-      stWolfgang: '5 min to cog base',
-      salzburg: '60 min',
+      obertraun: '10 min to cable car base',
+      berchtesgaden: '100 min',
+      stWolfgang: '50 min',
+      salzburg: '85 min',
     },
     heroPhoto: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Schafberg_Summit.jpg/1280px-Schafberg_Summit.jpg',
-      alt: 'Schafberg summit with Salzkammergut lakes visible below',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+      alt: '5 Fingers cantilevered viewing platform on the Dachstein Krippenstein plateau',
       credit: 'Wikimedia Commons, CC BY-SA',
-      sourceUrl: 'https://commons.wikimedia.org/wiki/File:Schafberg_Summit.jpg',
+      sourceUrl: 'https://commons.wikimedia.org/wiki/File:A-Krippenstein-5fingers-2.jpg',
     },
     sunsetTimeSource: 'https://www.timeanddate.com/sun/austria/salzburg?month=7&year=2026',
   },
@@ -224,6 +228,12 @@ const HONORABLE_MENTIONS: HonorableMention[] = [
       'Lakeside promenade sunset — pair with the Schafbergbahn day if you skip the summit cog. Gentler than the summit version.',
   },
   {
+    id: 'schafberg-daytrip',
+    name: 'Schafberg summit · day-trip cog (no overnight)',
+    oneLine:
+      'Still a beautiful panorama from 1,783m — 13 Salzkammergut lakes in one sweep. Day-trip only since we pivoted the summit-sleep night to Lodge am Krippenstein. Cog from St. Wolfgang.',
+  },
+  {
     id: 'grossglockner-road',
     name: 'Grossglockner High Alpine Road pull-offs',
     oneLine:
@@ -293,8 +303,8 @@ const TRIP_SUNSETS: TripNightSunset[] = [
   {
     day: 'Wed Jul 29',
     time: '20:48',
-    place: 'Schafberg summit ridge',
-    note: 'Pick #2 — book the cog ahead.',
+    place: '5 Fingers platform · Lodge am Krippenstein',
+    note: 'Pick #2 — book the lodge ahead (pivoted from Schafbergspitze 2026-05-17).',
   },
   { day: 'Thu Jul 30', time: '20:47', place: 'Mönchsberg ridge above Salzburg' },
 ];
