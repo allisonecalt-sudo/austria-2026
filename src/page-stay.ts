@@ -782,6 +782,13 @@ function applyFilters(): UnifiedListing[] {
     // Sold-out entries hide entirely. Data is preserved in trip-data.ts for
     // history + re-verify next pass; the renderer just skips them.
     if (l.availability === 'sold-out') return false;
+    // 2026-05-17 12:05 defensive: PriceVerify agent set some sold-outs by
+    // writing "SOLD OUT" into pricePerNight text but leaving availability
+    // as 'available' — caught via map walk (Haus Edelweiss, Schmaranzer,
+    // Mühlradl all still on map with SOLD OUT in popup). Catches both cases.
+    if (l.pricePerNight && /SOLD OUT/i.test(l.pricePerNight)) return false;
+    // Also catch delisted ("REMOVED FROM BOOKING" pattern from PriceVerify).
+    if (l.pricePerNight && /REMOVED FROM BOOKING|DELISTED/i.test(l.pricePerNight)) return false;
     if (state.showShortlistOnly && !picks[l.id]) return false;
     // Booking-style: empty filter set = ALL. Selected = only those.
     if (state.bases.size > 0 && !state.bases.has(l.base)) return false;
