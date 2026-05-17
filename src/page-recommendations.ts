@@ -262,12 +262,54 @@ function formatPickStamp(iso: string): string {
 
 // Variant of renderCard that prepends a "Who · When" badge so the picked
 // section communicates source without re-skinning the whole card.
+//
+// 2026-05-17 12:43: Allison reported missing images on picked cards. Live
+// audit found 44/75 rec-cards had no img — the old html.replace() approach
+// was producing malformed output for some items. Rewrote as an explicit
+// inline template that ALWAYS emits an img (or visible placeholder), so we
+// no longer depend on string-replace gymnastics + the renderCard side effects.
+function renderPickedCard(item: SearchItem, badge: string): string {
+  const imgHtml = item.img
+    ? `<img class="rec-card__img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async" />`
+    : `<div class="rec-card__img rec-card__img--placeholder" aria-hidden="true">${typeIcon(item.type)}</div>`;
+  const mapUrl = mapFocusUrl(item);
+  const mapBtn = mapUrl
+    ? `<a href="${escapeHtml(mapUrl)}" class="rec-card__btn rec-card__btn--map">📍 See on map</a>`
+    : '';
+  const loc = item.location
+    ? `<div class="rec-card__loc">${escapeHtml(item.location)}</div>`
+    : '';
+  return `
+    <div class="rec-card-wrap">
+      <a class="rec-card" href="${escapeHtml(item.url)}">
+        ${imgHtml}
+        <div class="rec-card__body">
+          <div class="rec-card__pick-badge" aria-label="Picked by ${escapeHtml(badge)}">✓ ${escapeHtml(badge)}</div>
+          <div class="rec-card__top">
+            <span class="rec-card__icon" aria-hidden="true">${typeIcon(item.type)}</span>
+            <span class="rec-card__name">${escapeHtml(item.name)}</span>
+          </div>
+          ${loc}
+          <p class="rec-card__why">${escapeHtml(item.description)}</p>
+          <div class="rec-card__actions">
+            <span class="rec-card__btn rec-card__btn--primary">Open →</span>
+            ${mapBtn}
+          </div>
+        </div>
+      </a>
+    </div>`;
+}
+
+// Legacy wrapper kept for back-compat with any other call sites.
 function renderCardWithPickBadge(item: SearchItem, badge: string): string {
-  const html = renderCard(item);
-  const inject = `<div class="rec-card__pick-badge" aria-label="Picked by ${escapeHtml(badge)}">✓ ${escapeHtml(badge)}</div>`;
+  return renderPickedCard(item, badge);
+  // Below: original html.replace() approach — kept commented for reference.
+  // (Was producing malformed cards with no img on some items.)
+  // const html = renderCard(item);
+  // const inject = `<div class="rec-card__pick-badge" aria-label="Picked by ${escapeHtml(badge)}">✓ ${escapeHtml(badge)}</div>`;
   // Inject the badge as the first child of rec-card__body so it sits above
   // the title without disturbing card layout.
-  return html.replace('<div class="rec-card__body">', `<div class="rec-card__body">${inject}`);
+  // return html.replace('<div class="rec-card__body">', `<div class="rec-card__body">${inject}`);
 }
 
 function init(): void {
