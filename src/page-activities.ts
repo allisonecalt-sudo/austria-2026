@@ -31,7 +31,7 @@ import {
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
-import { initSharedShortlist, pickButton } from './shortlist-shared.js';
+import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 // =====================================================================
 // Base config — drive times sourced from trip-data.ts where present,
@@ -284,7 +284,7 @@ function activityCard(d: NatureDestination, base: BaseSpec): string {
     })
     .join('');
 
-  const pickBtnHtml = `<div style="position:absolute; top:0.6rem; right:0.6rem; z-index:5;">${pickButton(d.id, 'activity', d.name)}</div>`;
+  const pickBtnHtml = pickButtonOverlay(d.id, 'activity', d.name);
 
   return `
     <article class="act-card" id="${d.id}-${base.key}" data-cats="${cats.join(' ')}" data-pick-card-id="${d.id}" data-pick-card-type="activity">

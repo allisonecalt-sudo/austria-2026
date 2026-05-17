@@ -19,7 +19,7 @@
 // scripts that also define `escape()`, `regionLabel()`, etc.
 export {};
 
-import { initSharedShortlist, pickButton } from './shortlist-shared.js';
+import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 interface WaterOption {
   id: string;
@@ -450,10 +450,10 @@ function regionLabel(r: WaterOption['region']): string {
 }
 
 function optionCard(o: WaterOption): string {
-  const pickBtn = pickButton(o.id, 'water', o.name);
+  const pickBtn = pickButtonOverlay(o.id, 'water', o.name);
   return `
     <article class="water-card" id="water-${o.id}" data-pick-card-id="${o.id}" data-pick-card-type="water" style="position:relative;">
-      <div style="position:absolute; top:0.7rem; right:0.7rem; z-index:5;">${pickBtn}</div>
+      ${pickBtn}
       <div class="water-card-head">
         <div class="water-card-head-row">
           <span class="water-type-pill">${typeLabel(o.type)}</span>

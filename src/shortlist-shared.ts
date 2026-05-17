@@ -176,6 +176,17 @@ export function pickButton(id: string, type: ShortlistType, label: string): stri
   return `<button type="button" class="${cls}" data-pick-id="${escapeHtml(id)}" data-pick-type="${type}" data-pick-label="${escapeHtml(label)}" role="button" aria-pressed="${picked ? 'true' : 'false'}" aria-label="${escapeHtml(aria)}">${text}</button>`;
 }
 
+/**
+ * Wrap pickButton() output in a top-right overlay container suitable for
+ * sitting on top of a card's media (photo) area. Replaces the repeated
+ * `<div style="position:absolute; top:0.7rem; right:0.7rem; z-index:5;">`
+ * inline-style that lived in 5 different page-*.ts files. Card needs to
+ * be `position: relative` for the absolute positioning to anchor.
+ */
+export function pickButtonOverlay(id: string, type: ShortlistType, label: string): string {
+  return `<div class="pick-button-overlay">${pickButton(id, type, label)}</div>`;
+}
+
 const TYPE_GROUP_LABEL: Record<ShortlistType, string> = {
   nature: 'Nature',
   activity: 'Activities',

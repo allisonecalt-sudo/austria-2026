@@ -12314,6 +12314,18 @@ summary.nav-mobile-section__title::after {
   background: rgba(255, 255, 255, 0.95);
 }
 
+/* Wrapper for a pick-button overlaid on a card's media frame. Same
+   absolute-positioning rules as .pick-button--floating but applied to
+   the wrapping <div>, so consumers can pass the existing pickButton()
+   output through pickButtonOverlay() instead of re-stamping the same
+   inline-style div in every page-*.ts. (2026-05-17 polish.) */
+.pick-button-overlay {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 5;
+}
+
 /* "is-picked" card outline — visual signal a card is in the shortlist */
 .card-is-picked,
 .alt-card.card-is-picked,

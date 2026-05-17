@@ -10,7 +10,7 @@
 // (<16°C max). All temps from Salzkammergut.at and seatemperature.info July
 // historical averages, verified 2026-05-16.
 
-import { initSharedShortlist, pickButton } from './shortlist-shared.js';
+import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 interface Lake {
   id: string;
@@ -533,7 +533,7 @@ function lakeCard(l: Lake): string {
 
   const chips = l.pairsWith.map((p) => `<span class="lake-chip">${escape(p)}</span>`).join('');
 
-  const pickBtnHtml = `<div style="position:absolute; top:0.7rem; right:0.7rem; z-index:5;">${pickButton(l.id, 'lake', l.name)}</div>`;
+  const pickBtnHtml = pickButtonOverlay(l.id, 'lake', l.name);
 
   return `
     <article class="lake-card" id="lake-${l.id}" data-pick-card-id="${l.id}" data-pick-card-type="lake" style="position:relative;">

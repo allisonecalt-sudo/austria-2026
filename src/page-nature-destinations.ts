@@ -12,7 +12,7 @@ import {
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
-import { initSharedShortlist, pickButton } from './shortlist-shared.js';
+import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 interface RegionSpec {
   key: NatureRegion;
@@ -355,7 +355,7 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
     ? `<a href="${escape(sourceHref)}" target="_blank" rel="noreferrer noopener">Source →</a>`
     : '';
 
-  const pickBtnHtml = `<div style="position:absolute; top:0.7rem; right:0.7rem; z-index:5;">${pickButton(d.id, 'nature', d.name)}</div>`;
+  const pickBtnHtml = pickButtonOverlay(d.id, 'nature', d.name);
 
   return `
     <article class="alt-card" id="${d.id}" data-pick-card-id="${d.id}" data-pick-card-type="nature" style="display:block; padding:0;">
