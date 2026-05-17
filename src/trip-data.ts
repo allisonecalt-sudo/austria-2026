@@ -537,7 +537,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'hallstatt',
       doingSummary:
-        'Pick from: Königssee boat + Hintersee sunset / Krippenstein 5fingers + Hallstatt evening / Werfen ice cave / SUP on Hallstättersee.',
+        'Pick from 4 fully-built shapes for this day — each is a complete combo, not just a name. Tap any to jump to its detail page. (1) Krippenstein 5fingers + Hallstatt evening (recommended above — gondolas up, photo-platform, lake town golden hour). (2) Königssee boat + Hintersee sunset (full-day Berchtesgaden — save for Tue if you want pacing). (3) Werfen ice cave (1,400 stairs, 0°C — flagged strenuous, see avitalFit; whole-day commitment). (4) SUP / lake swim at Hallstättersee Strandbad (low-key recovery day if Sun moved you too much). Or invent your own with the activities + nature menus.',
     },
 
     // --- DAY 5 — Tue Jul 28 ---
@@ -576,7 +576,7 @@ export const TRIP: TripData = {
       tarabridgeMoment:
         'Last boat back at sunset = the peak moment of the trip. See peak-moment note.',
       doingSummary:
-        'Pick from: Königssee boat (if not Mon) / Krimml waterfalls / Liechtensteinklamm gorge / lake-swim day / Schafberg practice ride.',
+        'Pick from 5 fully-built shapes — each is a complete combo. (1) Königssee electric boat + St. Bartholomä + Obersee walk + golden-hour return (recommended above — the trip peak). (2) Krimml waterfalls full-day (1h45 drive, 380m falls, top section flagged mixed-fit). (3) Liechtensteinklamm gorge (1hr drive, dramatic narrow gorge walk, ~1.5hr). (4) Lake-swim day at Hallstättersee Strandbad + SUP rental + slow shore reading (recovery if Mon was big). (5) Schafberg "practice ride" cog up-and-back — not the summit night, just a day taste (skip if doing the full overnight Wed). Mix and match via activities + nature menus.',
     },
 
     // --- DAY 6 — Wed Jul 29 — SCHAFBERGSPITZE SUMMIT NIGHT ---
