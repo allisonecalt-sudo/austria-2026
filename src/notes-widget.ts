@@ -48,14 +48,11 @@ function buildModal(): HTMLDivElement {
       <textarea id="note-text" placeholder="e.g. 'Skip the ice cave — I don't want to do 1400 stairs.'"></textarea>
       <div class="modal-row note-photo-row">
         <label for="note-photo" class="note-photo-label">
-          <span>📷 Attach photo (optional)</span>
-          <span class="note-photo-hint">screenshot something to show, or a photo of what's wrong</span>
+          <span>📷 Attach photos (optional, up to 8)</span>
+          <span class="note-photo-hint">screenshots / photos of what's wrong — multi-select supported</span>
         </label>
-        <input type="file" id="note-photo" accept="image/*" />
-        <div id="note-photo-preview" class="note-photo-preview" hidden>
-          <img id="note-photo-preview-img" alt="preview" />
-          <button type="button" id="note-photo-clear" class="note-photo-clear" aria-label="Remove photo">✕</button>
-        </div>
+        <input type="file" id="note-photo" accept="image/*" multiple />
+        <div id="note-photo-preview" class="note-photo-preview" hidden></div>
       </div>
       <div class="modal-row">
         <label>Day (optional) <select id="note-day">
@@ -165,8 +162,6 @@ export function initNotesWidget(): void {
   const submitBtn = modal.querySelector<HTMLButtonElement>('#note-submit');
   const photoInput = modal.querySelector<HTMLInputElement>('#note-photo');
   const photoPreview = modal.querySelector<HTMLDivElement>('#note-photo-preview');
-  const photoPreviewImg = modal.querySelector<HTMLImageElement>('#note-photo-preview-img');
-  const photoClearBtn = modal.querySelector<HTMLButtonElement>('#note-photo-clear');
 
   if (
     !textarea ||
@@ -175,36 +170,56 @@ export function initNotesWidget(): void {
     !cancelBtn ||
     !submitBtn ||
     !photoInput ||
-    !photoPreview ||
-    !photoPreviewImg ||
-    !photoClearBtn
+    !photoPreview
   ) {
     return;
   }
 
-  // Photo preview + clear logic. Object URLs revoked on clear/submit to avoid leaks.
-  let currentPreviewUrl: string | null = null;
+  // Multi-photo upload (Allison 2026-05-17 07:23: "I want to add multiple photos at once").
+  // Internal accumulator separate from photoInput.files so user can add files across
+  // multiple picks. Hard cap at MAX_PHOTOS to avoid runaway uploads. Object URLs are
+  // revoked on remove/clear to avoid memory leaks.
+  const MAX_PHOTOS = 8;
+  const pendingPhotos: { file: File; url: string }[] = [];
+  const renderPhotoGrid = (): void => {
+    photoPreview.hidden = pendingPhotos.length === 0;
+    photoPreview.innerHTML = '';
+    pendingPhotos.forEach((entry, idx) => {
+      const cell = document.createElement('div');
+      cell.className = 'note-photo-cell';
+      const img = document.createElement('img');
+      img.alt = `preview ${idx + 1}`;
+      img.src = entry.url;
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'note-photo-clear';
+      remove.setAttribute('aria-label', `Remove photo ${idx + 1}`);
+      remove.textContent = '✕';
+      remove.addEventListener('click', () => {
+        URL.revokeObjectURL(entry.url);
+        pendingPhotos.splice(idx, 1);
+        renderPhotoGrid();
+      });
+      cell.appendChild(img);
+      cell.appendChild(remove);
+      photoPreview.appendChild(cell);
+    });
+  };
   const clearPhoto = (): void => {
     photoInput.value = '';
-    photoPreview.hidden = true;
-    photoPreviewImg.removeAttribute('src');
-    if (currentPreviewUrl) {
-      URL.revokeObjectURL(currentPreviewUrl);
-      currentPreviewUrl = null;
-    }
+    pendingPhotos.forEach((e) => URL.revokeObjectURL(e.url));
+    pendingPhotos.length = 0;
+    renderPhotoGrid();
   };
   photoInput.addEventListener('change', () => {
-    const file = photoInput.files?.[0] ?? null;
-    if (!file) {
-      clearPhoto();
-      return;
+    const files = photoInput.files ? Array.from(photoInput.files) : [];
+    for (const file of files) {
+      if (pendingPhotos.length >= MAX_PHOTOS) break;
+      pendingPhotos.push({ file, url: URL.createObjectURL(file) });
     }
-    if (currentPreviewUrl) URL.revokeObjectURL(currentPreviewUrl);
-    currentPreviewUrl = URL.createObjectURL(file);
-    photoPreviewImg.src = currentPreviewUrl;
-    photoPreview.hidden = false;
+    photoInput.value = ''; // allow re-picking the same file or adding more
+    renderPhotoGrid();
   });
-  photoClearBtn.addEventListener('click', clearPhoto);
 
   // Per Allison 2026-05-17 01:13: author toggle + persist last choice
   try {
@@ -267,17 +282,21 @@ export function initNotesWidget(): void {
     submitBtn.textContent = 'Sending…';
     try {
       let imageUrl: string | null = null;
-      const file = photoInput.files?.[0] ?? null;
-      if (file) {
-        submitBtn.textContent = 'Uploading photo…';
-        try {
-          imageUrl = await uploadNotePhoto(file);
-        } catch (uploadErr) {
-          // Fail-loud: tell Avital the photo didn't go through. Don't silently submit text-only.
-          const msg = uploadErr instanceof Error ? uploadErr.message : 'Unknown error';
-          showToast(`Photo upload failed: ${msg}. Note not sent — try again or remove the photo.`, 5000);
-          return;
+      if (pendingPhotos.length > 0) {
+        const uploaded: string[] = [];
+        for (let i = 0; i < pendingPhotos.length; i++) {
+          submitBtn.textContent = `Uploading ${i + 1}/${pendingPhotos.length}…`;
+          try {
+            const url = await uploadNotePhoto(pendingPhotos[i].file);
+            uploaded.push(url);
+          } catch (uploadErr) {
+            const msg = uploadErr instanceof Error ? uploadErr.message : 'Unknown error';
+            showToast(`Photo ${i + 1} upload failed: ${msg}. Note not sent — try again or remove that photo.`, 5000);
+            return;
+          }
         }
+        // Multiple URLs joined with comma — admin/notes.html splits on comma for grid display
+        imageUrl = uploaded.join(',');
       }
       submitBtn.textContent = 'Sending…';
       const inserted = await insertNote({

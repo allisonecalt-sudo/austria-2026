@@ -8586,15 +8586,23 @@ details.note-item[open] .note-summary-preview {
   font-size: 0.85rem;
   padding: 0.3rem 0;
 }
+/* Multi-photo grid (Allison 2026-05-17 07:23: add multiple at once) */
 .note-photo-preview {
-  position: relative;
-  display: inline-block;
-  margin-top: 0.4rem;
-  max-width: 180px;
-}
-.note-photo-preview img {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.5rem;
   max-width: 100%;
-  max-height: 160px;
+}
+.note-photo-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+}
+.note-photo-cell img,
+.note-photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 0.4rem;
   border: 1px solid #c7b89c;
   display: block;
