@@ -128,6 +128,10 @@ function indexLodgings(): SearchItem[] {
   const out: SearchItem[] = [];
   const seen = new Set<string>();
 
+  // Allison 2026-05-17 09:00: "never show sold out". Treat sold-out as "not
+  // in the dataset" for search + recommendations. Listings stay in
+  // trip-data.ts for history; renderers just skip them.
+
   // Pass 1 — TRIP.lodgings primary picks + alts.
   for (const lodging of TRIP.lodgings) {
     const baseLabel =
@@ -137,23 +141,25 @@ function indexLodgings(): SearchItem[] {
           ? 'Hallstatt / Obertraun'
           : 'Airport area';
     const baseTag = lodging.baseKey;
-    pushLodgingPick(out, seen, lodging.pickName, {
-      url: lodgingUrl(lodging.pickName),
-      img: lodging.pickImg,
-      location: baseLabel,
-      description: oneLine(lodging.pickWhy),
-      tags: [
-        baseTag,
-        lodging.pickBudgetTier ?? '',
-        lodging.pickVibeTag ?? '',
-        lodging.pickKitchen ?? '',
-        lodging.pickPlatform ?? '',
-        'apartment',
-        'kitchen',
-      ].filter(Boolean) as string[],
-      weight: 95, // primary picks rank highest
-    });
-    for (const alt of lodging.alts) {
+    if (lodging.pickAvailability !== 'sold-out') {
+      pushLodgingPick(out, seen, lodging.pickName, {
+        url: lodgingUrl(lodging.pickName),
+        img: lodging.pickImg,
+        location: baseLabel,
+        description: oneLine(lodging.pickWhy),
+        tags: [
+          baseTag,
+          lodging.pickBudgetTier ?? '',
+          lodging.pickVibeTag ?? '',
+          lodging.pickKitchen ?? '',
+          lodging.pickPlatform ?? '',
+          'apartment',
+          'kitchen',
+        ].filter(Boolean) as string[],
+        weight: 95, // primary picks rank highest
+      });
+    }
+    for (const alt of lodging.alts.filter((a) => a.availability !== 'sold-out')) {
       pushLodgingPick(out, seen, alt.name, {
         url: lodgingUrl(alt.name),
         img: alt.img,
@@ -175,7 +181,7 @@ function indexLodgings(): SearchItem[] {
   for (const cfg of BASE_CONFIGS) {
     if (cfg.id === 'obertraun') continue; // dedup with TRIP.lodgings hallstatt
     const baseLabel = `${cfg.label} · ${cfg.id === 'berchtesgaden' ? 'Bavaria' : 'Salzkammergut'}`;
-    for (const pick of cfg.lodging) {
+    for (const pick of cfg.lodging.filter((p) => p.availability !== 'sold-out')) {
       pushLodgingPick(out, seen, pick.name, {
         url: `bases.html#cfg-${cfg.id}`,
         // baseKey reference retained via location label so dedup is by name.

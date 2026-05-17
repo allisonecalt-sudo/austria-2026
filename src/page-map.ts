@@ -830,26 +830,31 @@ function gatherLodging(): GatherLodgingResult {
     // The dataset owner adds coords when verified.
   };
 
+  // Allison 2026-05-17 09:00: "never show sold out". Sold-out lodgings are
+  // skipped entirely from map pins (matches the same rule applied in
+  // page-stay.ts applyFilters + search-index.ts indexLodgings).
   for (const lod of TRIP.lodgings) {
     const cat = baseToCategory(lod.baseKey);
     const label = baseLabel(lod.baseKey);
-    const pickCoord = LODGING_COORDS[lod.pickName];
-    if (pickCoord) {
-      push({
-        name: lod.pickName,
-        url: lod.pickUrl,
-        pricePerNight: lod.pickPrice,
-        review: lod.pickReview,
-        note: lod.pickWhy,
-        baseLabel: `${label} · TOP PICK`,
-        category: cat,
-        coord: pickCoord,
-        stayAnchor: slugifyName(lod.pickName),
-      });
-    } else {
-      noteNoCoord(lod.pickName, cat, `${label} · TOP PICK`, `stay.html#${slugifyName(lod.pickName)}`);
+    if (lod.pickAvailability !== 'sold-out') {
+      const pickCoord = LODGING_COORDS[lod.pickName];
+      if (pickCoord) {
+        push({
+          name: lod.pickName,
+          url: lod.pickUrl,
+          pricePerNight: lod.pickPrice,
+          review: lod.pickReview,
+          note: lod.pickWhy,
+          baseLabel: `${label} · TOP PICK`,
+          category: cat,
+          coord: pickCoord,
+          stayAnchor: slugifyName(lod.pickName),
+        });
+      } else {
+        noteNoCoord(lod.pickName, cat, `${label} · TOP PICK`, `stay.html#${slugifyName(lod.pickName)}`);
+      }
     }
-    for (const alt of lod.alts) {
+    for (const alt of lod.alts.filter((a) => a.availability !== 'sold-out')) {
       const c = LODGING_COORDS[alt.name];
       if (!c) {
         noteNoCoord(alt.name, cat, label, `stay.html#${slugifyName(alt.name)}`);
@@ -877,7 +882,7 @@ function gatherLodging(): GatherLodgingResult {
       cfg.id === 'berchtesgaden'
         ? 'Berchtesgaden / Ramsau · Config B option'
         : 'St. Wolfgang / Strobl · Config C option';
-    for (const pick of cfg.lodging) {
+    for (const pick of cfg.lodging.filter((p) => p.availability !== 'sold-out')) {
       const c = LODGING_COORDS[pick.name];
       if (!c) {
         noteNoCoord(pick.name, cat, label, `stay.html#${slugifyName(pick.name)}`);

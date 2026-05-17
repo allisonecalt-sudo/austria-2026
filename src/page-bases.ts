@@ -234,8 +234,8 @@ function renderConfigCard(c: BaseConfig, idx: number): string {
         <h3 class="base-config-section-head">Daily flow under this config</h3>
         <div class="flow-grid">${renderFlow(c.flow)}</div>
 
-        <h3 class="base-config-section-head">Lodging picks for this config (${c.lodging.length})</h3>
-        <div class="alts-grid">${c.lodging.map(renderLodgingPick).join('')}</div>
+        <h3 class="base-config-section-head">Lodging picks for this config (${c.lodging.filter((p) => p.availability !== 'sold-out').length})</h3>
+        <div class="alts-grid">${c.lodging.filter((p) => p.availability !== 'sold-out').map(renderLodgingPick).join('')}</div>
 
         ${renderProsCons(c.pros, c.cons)}
 
@@ -378,15 +378,24 @@ function renderSalzburgLaundryStatus(): string {
   const salzburg = TRIP.lodgings.find((l) => l.baseKey === 'salzburg');
   if (!salzburg) return '';
 
+  // Allison 2026-05-17 09:00: "never show sold out". Skip sold-out listings
+  // from the laundry-status callout — if it can't be booked, no point
+  // surfacing it as a swap option.
   // Build a list of all Salzburg listings (pick + alts) with their laundry.
   type Row = { name: string; laundry?: LodgingLaundry; url: string };
+  const pickRow: Row | null =
+    salzburg.pickAvailability !== 'sold-out'
+      ? {
+          name: salzburg.pickName + ' (current pick)',
+          laundry: salzburg.pickLaundry,
+          url: salzburg.pickUrl,
+        }
+      : null;
   const rows: Row[] = [
-    {
-      name: salzburg.pickName + ' (current pick)',
-      laundry: salzburg.pickLaundry,
-      url: salzburg.pickUrl,
-    },
-    ...salzburg.alts.map((a) => ({ name: a.name, laundry: a.laundry, url: a.url })),
+    ...(pickRow ? [pickRow] : []),
+    ...salzburg.alts
+      .filter((a) => a.availability !== 'sold-out')
+      .map((a) => ({ name: a.name, laundry: a.laundry, url: a.url })),
   ];
 
   const pass = rows.filter((r) => r.laundry === 'washer' || r.laundry === 'washer+dryer');
