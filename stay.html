@@ -104,6 +104,36 @@
         </div>
       </section>
 
+      <!-- Emoji legend (Allison note 548e6b63 2026-05-17 06:10: "What does this mean?
+           Maybe tooltips by emojis?") — visible inline legend, sourced from the actual
+           pill emojis used in renderListingCard. Quick win while UX agent ships
+           per-pill title= tooltips in a later commit. -->
+      <details class="emoji-legend" style="margin: 0.8rem 0 1.2rem; padding: 0.7rem 0.95rem; background: #f4f7f0; border-left: 3px solid #6b8e4e; border-radius: 0.45rem;">
+        <summary style="cursor: pointer; font-weight: 600; font-size: 0.92rem; color: #2e4a26;">
+          🔑 What do the emojis mean? Tap to expand
+        </summary>
+        <div style="margin-top: 0.65rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 0.4rem 1.1rem; font-size: 0.85rem; line-height: 1.5;">
+          <span>📅 Trip dates pre-filled</span>
+          <span>✓ Verified live</span>
+          <span>🛏 Beds</span>
+          <span>👥 Sleeps</span>
+          <span>🍳 Kitchen</span>
+          <span>🧺 Laundry (washer)</span>
+          <span>🚿 Bathroom (private)</span>
+          <span>❄ Air conditioning</span>
+          <span>🅿 Parking</span>
+          <span>📶 Wi-Fi</span>
+          <span>🌊 Lake view</span>
+          <span>🏔 Mountain view</span>
+          <span>🚶 Walk to Chabad (Salzburg only)</span>
+          <span>🚗 Drive to mountain base</span>
+          <span>🐎 Farm-stay vibe</span>
+          <span>🌅 Sunset stay</span>
+          <span>⭐ Picked / shortlisted</span>
+          <span>💸 Price per night (€)</span>
+        </div>
+      </details>
+
       <!-- PINNED: Sunset stays — "sleep where the sunset happens". Added
            2026-05-16 by beautiful-lodging-hunt agent. Allison's directive:
            "if theres a place to sleep with an insane sunset wotht noting". -->
@@ -144,6 +174,36 @@
       <!-- Rendered view (list / grid / map) -->
       <div id="stay-listings"></div>
     </main>
+
+    <!-- Sticky filter summary bar (stay-ux 2026-05-17 deliverable E) -->
+    <div id="stay-filter-summary" class="filter-summary-bar" hidden aria-hidden="true"></div>
+
+    <!-- Sticky bottom shortlist bar (stay-ux 2026-05-17 deliverable A) -->
+    <div id="stay-bottom-shortlist" class="bottom-shortlist" hidden aria-hidden="true"></div>
+
+    <!-- Slideover modal — shortlist review (stay-ux 2026-05-17 deliverable A) -->
+    <div id="stay-shortlist-modal" class="ux-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="shortlist-modal-title">
+      <div class="ux-modal__backdrop" data-modal-close></div>
+      <div class="ux-modal__panel ux-modal__panel--right" role="document">
+        <header class="ux-modal__head">
+          <h2 id="shortlist-modal-title" class="ux-modal__title">Your shortlist</h2>
+          <button type="button" class="ux-modal__close" data-modal-close aria-label="Close shortlist">✕</button>
+        </header>
+        <div class="ux-modal__body" id="shortlist-modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Modal — compare 2 stays (stay-ux 2026-05-17 deliverable B) -->
+    <div id="stay-compare-modal" class="ux-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="compare-modal-title">
+      <div class="ux-modal__backdrop" data-modal-close></div>
+      <div class="ux-modal__panel ux-modal__panel--center" role="document">
+        <header class="ux-modal__head">
+          <h2 id="compare-modal-title" class="ux-modal__title">Compare</h2>
+          <button type="button" class="ux-modal__close" data-modal-close aria-label="Close comparison">✕</button>
+        </header>
+        <div class="ux-modal__body" id="compare-modal-body"></div>
+      </div>
+    </div>
 
     <footer>
       Booking.com searched 2026-05-15 · 36 listings across 5 bases · Filters AND together · Map ©
