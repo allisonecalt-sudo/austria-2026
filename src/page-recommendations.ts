@@ -92,6 +92,8 @@ function renderCard(item: SearchItem, substitutedFrom?: string): string {
 // This stays defensive — if no scrubbed lodgings match a section, no badges
 // render. If MORE were scrubbed than slots exist, the extras are listed in
 // the section blurb as a fail-loud footnote.
+// @ts-expect-error kept for back-compat / future re-enable per Allison
+// 12:41 'we dotn need to know at all' — no current call site, TS6133.
 function buildSubstitutionMap(
   group: RecommendationGroup,
   scrubbed: ScrubbedLodging[],
