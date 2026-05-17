@@ -981,7 +981,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/villa-maxglan.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/223324389.jpg?k=24521820d894f821151f00fe61c826b8791610c89c285c031b8de9605b6138b8&o=&hp=1',
           review: '9.8 · Exceptional · 267 reviews',
-          pricePerNight: '€178 / night (₪707)',
+          pricePerNight: '€456 / night (₪1,548) — PRICE-VERIFIED 2026-05-17: was €178, now €456 (Booking live, €912 / 2 nights standard rate). €416/night with 10% Genius discount.',
           note: 'HUGE 144m² THREE-BEDROOM Apartment with Terrace: Bedroom 1 (king) + Bedroom 2 (king) + Bedroom 3 (king) — sleeps up to 6. Garden + mountain views, private terrace, washer + dishwasher + full kitchen. 9.8 review = highest in Salzburg apartments. Riedenburg side, Haslbergerweg 26 — ~22-min walk to Chabad. Free cancellation. Splurge size on a mid-high price.',
           budgetTier: 'mid-high',
           platform: 'booking',
