@@ -23,6 +23,8 @@ import {
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
+import { initSharedShortlist } from './shortlist-shared.js';
+import { insertNote } from './supabase.js';
 
 function escapeHtml(s: string): string {
   return s
@@ -208,12 +210,16 @@ function recommendedBadge(rec?: boolean): string {
 // --- Per-config card ---
 
 function renderConfigCard(c: BaseConfig, idx: number): string {
-  const openAttr = idx === 0 ? 'open' : ''; // First card expanded by default
+  // Open the committed one if any, else first card by default
+  const committed = readCommittedBase();
+  const openAttr = (committed ? committed === c.id : idx === 0) ? 'open' : '';
+  const isCommitted = committed === c.id;
+  const committedCls = isCommitted ? ' base-config--committed' : '';
   return `
-    <details class="base-config" id="config-${c.id}" ${openAttr}>
+    <details class="base-config${committedCls}" id="config-${c.id}" data-base-id="${c.id}" ${openAttr}>
       <summary class="base-config-summary">
         <div class="base-config-head">
-          <div class="base-config-label">${escapeHtml(c.label)}</div>
+          <div class="base-config-label">${escapeHtml(c.label)}${isCommitted ? ' <span class="chip chip-good" style="margin-left:0.4rem;">✓ Your lean</span>' : ''}</div>
           <div class="base-config-town">${escapeHtml(c.baseTown)} · ${escapeHtml(c.nightsAtBase)}</div>
           <div class="base-config-chips">${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}</div>
         </div>
@@ -244,8 +250,104 @@ function renderConfigCard(c: BaseConfig, idx: number): string {
           </a>
           <p class="map-pin-note">${escapeHtml(c.mapPinNote)}</p>
         </div>
+
+        <div class="base-config-commit">
+          <button
+            type="button"
+            class="base-commit-btn${isCommitted ? ' base-commit-btn--committed' : ''}"
+            data-base-commit-id="${c.id}"
+            data-base-commit-label="${escapeHtml(c.label)}"
+            aria-pressed="${isCommitted ? 'true' : 'false'}"
+            aria-label="${isCommitted ? 'Un-commit' : 'Commit'} to ${escapeHtml(c.label)} as your lean"
+          >${isCommitted ? '✓ Your lean — tap to un-commit' : '✓ Commit this config as your lean'}</button>
+          <span class="base-commit-note">Marks this as your favored option. Other configs stay browseable.</span>
+        </div>
       </div>
     </details>`;
+}
+
+// --- Commit-this-config (localStorage + Supabase mirror) ---
+const COMMITTED_BASE_KEY = 'austria-committed-base-config';
+
+function readCommittedBase(): string | null {
+  try {
+    return localStorage.getItem(COMMITTED_BASE_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeCommittedBase(id: string | null): void {
+  try {
+    if (id == null) localStorage.removeItem(COMMITTED_BASE_KEY);
+    else localStorage.setItem(COMMITTED_BASE_KEY, id);
+  } catch {
+    /* ignore quota / private mode */
+  }
+}
+
+function authorFor(): 'avital' | 'allison' {
+  try {
+    const raw = localStorage.getItem('austria-note-author');
+    if (raw === 'avital' || raw === 'allison') return raw;
+  } catch {
+    /* ignore */
+  }
+  return 'avital';
+}
+
+function showBaseCommitToast(text: string): void {
+  const t = document.createElement('div');
+  t.className = 'base-commit-toast';
+  t.textContent = text;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('base-commit-toast--show'));
+  setTimeout(() => {
+    t.classList.remove('base-commit-toast--show');
+    setTimeout(() => t.remove(), 300);
+  }, 3200);
+}
+
+function wireBaseCommitButtons(): void {
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    if (!target) return;
+    const btn = target.closest<HTMLButtonElement>('.base-commit-btn[data-base-commit-id]');
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const id = btn.dataset.baseCommitId;
+    const label = btn.dataset.baseCommitLabel ?? id ?? '';
+    if (!id) return;
+    const currently = readCommittedBase();
+    if (currently === id) {
+      writeCommittedBase(null);
+      showBaseCommitToast(`Un-committed ${label}.`);
+      void insertNote({
+        option: 'general',
+        day_id: null,
+        activity_id: `base-config:${id}`,
+        note_text: `[base-config-uncommitted] ${label}`,
+        author: authorFor(),
+      }).catch(() => {
+        /* silent */
+      });
+    } else {
+      writeCommittedBase(id);
+      showBaseCommitToast(`✓ ${label} marked as your lean. Other base options stay browseable.`);
+      void insertNote({
+        option: 'general',
+        day_id: null,
+        activity_id: `base-config:${id}`,
+        note_text: `[base-config-committed] ${label}`,
+        author: authorFor(),
+      }).catch(() => {
+        /* silent */
+      });
+    }
+    // Re-render to update visual state on all cards
+    render();
+  });
 }
 
 // --- Compare strip (always visible, scan-friendly) ---
@@ -356,5 +458,7 @@ function render(): void {
 }
 
 render();
+wireBaseCommitButtons();
 initNotesWidget();
 initChatPlanPopup();
+initSharedShortlist();
