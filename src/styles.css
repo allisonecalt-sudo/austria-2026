@@ -2796,6 +2796,15 @@ img.loaded {
   border: 3px solid var(--paper);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
+/* Mobile pinch-zoom fix (Allison note 2026-05-17 05:50):
+   without touch-action: none, browser intercepts pinch and zooms the page
+   while Leaflet's pins stay at fixed pixel positions -> pins appear to
+   "drift" relative to the underlying map tiles. Setting touch-action:none
+   delegates all touch gestures (pan + pinch) to Leaflet itself. */
+.stay-map,
+.leaflet-container {
+  touch-action: none;
+}
 .stay-pin-popup {
   font-family: 'Inter', sans-serif;
   font-size: 0.88rem;
