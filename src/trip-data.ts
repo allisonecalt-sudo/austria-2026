@@ -1722,7 +1722,7 @@ export const TRIP: TripData = {
       pickFreeCancellation: true,
       pickUrl: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
       pickImg:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/585968658.jpg?k=c7d214bd1ba98238c62526e870a402b0ae3ab58d9a4df7be7e4873a7eee97efb&o=&hp=1',
       pickReview: '8.1 · Very good · 1,639 reviews',
       pickPrice: '€71 / night (₪282) — PRICE-VERIFIED 2026-05-17: was €105, now €71 (Booking live for Jul 30-31 — cheapest non-refundable rate; free-cancel rates start €77)',
       pickWhy:
@@ -1750,14 +1750,14 @@ export const TRIP: TripData = {
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
       pickPhotos: carousel(
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/585968658.jpg?k=c7d214bd1ba98238c62526e870a402b0ae3ab58d9a4df7be7e4873a7eee97efb&o=&hp=1',
         ...PHOTO_POOL.salzburgOldTown,
       ),
       alts: [
         {
           name: 'soom Salzburg Capsule Hotel',
           url: 'https://www.booking.com/hotel/at/soom-salzburg.html',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/585968658.jpg?k=c7d214bd1ba98238c62526e870a402b0ae3ab58d9a4df7be7e4873a7eee97efb&o=&hp=1',
           review: '8.9 · Excellent · 758 reviews',
           pricePerNight: '€96 / night (₪383)',
           note: 'CHEAPEST + highest-reviewed budget option — 4.5 km from airport. Modern capsule-style sleep pods (Japanese-inspired). 8.9 score across 758 reviews. FLAG: it IS a capsule — sleep pod, not a private room. Surface this so Allison/Avital know what they are booking. Perfect for "just need a clean bed for 5 hours before a 5am flight". Free cancellation. Modern design + clean reviews = nice enough for Allison taste per the directive.',
@@ -1794,7 +1794,7 @@ export const TRIP: TripData = {
         {
           name: 'Hey Lou Hotel Piding',
           url: 'https://www.booking.com/hotel/de/hey-lou-hotel-piding.html',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/693757778.jpg?k=ef4b226506ad9dbd1f65bf30fada1bc8f80152e99acd37cf86c8a8d5a72cd563&o=&hp=1',
           review: '8.4 · Very good · 2,119 reviews',
           pricePerNight: '€113 / night (₪451)',
           note: 'Just over the German border in Piding (7.4 km from SZG). 2,119 reviews = extremely battle-tested. Modern small-hotel chain, design-forward, clean+functional. Free cancellation. Drive crosses the border so leave 5-10 extra min buffer for the 5am drive — Schengen so no passport check, just an extra junction.',
@@ -1831,7 +1831,7 @@ export const TRIP: TripData = {
         {
           name: 'B&B Hotel Salzburg-Nord',
           url: 'https://www.booking.com/hotel/at/ibis-salzburg-nord.html',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
           review: '8.1 · Very good · 2,496 reviews',
           pricePerNight: '€124 / night (₪496)',
           note: 'B&B Hotels chain (German-owned, ~600 properties). 6.2 km / ~10-min drive to SZG. 2,496 reviews = the most-stayed-at budget option in the airport orbit. Free cancellation. The "I just want chain-level predictability" pick — nothing memorable, but you know exactly what you are getting.',
@@ -1868,7 +1868,7 @@ export const TRIP: TripData = {
         {
           name: 'Landhotel Berger (Ainring, just over the German border)',
           url: 'https://www.booking.com/hotel/de/landhaus-berger-ainring.html',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/487668919.jpg?k=871fbd40859af271168ca250fd8b76861be52672d6a5c5f253b1a5d222594d98&o=&hp=1',
           review: '8.4 · Very good · 421 reviews',
           pricePerNight: '€135 / night (₪536) — apartment-with-kitchen room type',
           note: '28m² apartment with kitchen + BREAKFAST INCLUDED. 8km southwest of SZG (12-min drive). Free cancellation, no prepayment. The "if Avital wants self-catering instead of a plain hotel room" pick. Apartment-tier price is higher than the chains above but still budget — kitchen + breakfast is the extra value.',
@@ -1903,7 +1903,7 @@ export const TRIP: TripData = {
         {
           name: 'Hapimag Ferienwohnungen Salzburg (upmarket alt — full apartment, above budget)',
           url: 'https://www.booking.com/hotel/at/hapimag-resort-salzburg.html',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/139217677.jpg?k=ebc0c828c528549905c9c09bbe92ccc4e2a9f32aaf5cfa7c5d2372e7cd7ca11c&o=&hp=1',
           review: '9.4 · Superb · 304 reviews',
           pricePerNight: '€442 / night (₪1,755) — PRICE-VERIFIED 2026-05-17: was €320, now €442 (Booking live, €442 / 1 night)',
           note: 'PREVIOUS pick — moved to bench because the budget directive (Allison 2026-05-17 22:33) says cheaper end. Kept here in case the budget chains feel too sterile and you want the full studio-apartment-with-kitchen experience even for one night. 34m² studio, 9.4 score, free cancellation. WARNING: above the budget tier — only book if Allison/Avital explicitly choose to splurge.',
