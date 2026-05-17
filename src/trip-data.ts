@@ -684,7 +684,7 @@ export const TRIP: TripData = {
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
       pickReview: '9.2 · Superb · 2,309 reviews',
-      pickPrice: '€128 / night (₪510)',
+      pickPrice: '€286 / night (₪1,138) — PRICE-VERIFIED 2026-05-17: was €128, now €286 (Booking live, €572 / 2 nights with discount)',
       pickWhy:
         'Studio apartment with kitchen, ON Linzergasse — same street as Chabad (Linzergasse 76). 5-min walk to shul, 600m from old-town center. Sleep where you daven. NOTE: no washing machine — fails the Salzburg laundry filter. See bases page for Sauerweingut / Pension Elisabeth / Topside, which all have washers.',
       pickBudgetTier: 'splurge',
@@ -724,7 +724,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/junkers-appartments.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/221346620.webp?k=cf7d95a5626dc200e5d713cbfcf5178c20086fc6ce1292547b7a2ab635163644&o=',
           review: '9.6 · Exceptional · 389 reviews',
-          pricePerNight: '€166 / night (₪658)',
+          pricePerNight: '€194 / night (₪771) — PRICE-VERIFIED 2026-05-17: was €166, now €194 (Booking live, €387 / 2 nights)',
           note: '40m² apartment with full kitchen, 1.9km from old town center, ~20-min walk to Chabad. Highest review score of any apartment in Salzburg — earned across 389 stays. Free cancellation. NOTE: no washing machine mentioned in current listing — verify with host if laundry matters.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -758,7 +758,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/sauerweingut.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/139315520.webp?k=e769157928a77f9d738239101a988db4b7b2cf615fa262ab0d05f88b775d4eca&o=',
           review: '9.3 · Superb · 633 reviews · Location 9.3',
-          pricePerNight: '€217 / night (₪861)',
+          pricePerNight: '€278 / night (₪1,105) — PRICE-VERIFIED 2026-05-17: was €217, now €278 (Booking live, €555 / 2 nights)',
           note: 'Superior 60m² studio with kitchen, 1.3km from city center, ~15-min walk to Chabad. Big space, top-tier location score. Splurge tier but the room is twice the size of most. WASHING MACHINE + dishwasher + induction cooker — passes the Salzburg laundry filter.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -800,7 +800,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/fewo-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/243977766.webp?k=87715c16d9bf6945702f17d3962f6e763145ef0e4650bd98754e05f4077377c1&o=',
           review: '9.2 · Superb · 813 reviews',
-          pricePerNight: '€222 / night (₪882)',
+          pricePerNight: '€260 / night (₪1,033) — PRICE-VERIFIED 2026-05-17: was €222, now €260 (Booking live, €519 / 2 nights)',
           note: '45m² Apartment Riedenburg with full kitchen, 1.2km from center (Riedenburg side, under the Mönchsberg). Free cancellation. 813 reviews = battle-tested by hundreds of guests. Washing machine status unverified — confirm with host.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -834,7 +834,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/pension-elisabeth-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/250951868.webp?k=e2d560ec802d63ccd55bffc86159644776bdc37ea72675cbe22822c5b68973d3&o=',
           review: '8.6 · Fabulous · 1,865 reviews',
-          pricePerNight: '€160 / night (₪635)',
+          pricePerNight: '€125 / night (₪497) — PRICE-VERIFIED 2026-05-17: was €160, now €125 (Booking live, €249 / 2 nights — cheapest available rate, larger room types €280+)',
           note: 'Studio with terrace + kitchen in Schallmoos, 1.6km from old town. 1,865 reviews — most-reviewed apartment-stay in our shortlist. Walk to Chabad ~15 min. WASHING MACHINE in dedicated apartment units (verified on Pension Elisabeth listing). Passes the Salzburg laundry filter.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -873,7 +873,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/amadeo-zotti-residence-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/572731112.webp?k=992f2f3014073eec44480ab8bebe5a04d7fbece0f6c9297a0e341d584fa7f6c9&o=',
           review: '8.3 · Very good · 1,808 reviews',
-          pricePerNight: '€232 / night (₪922)',
+          pricePerNight: '€272 / night (₪1,081) — PRICE-VERIFIED 2026-05-17: was €232, now €272 (Booking live, €543 / 2 nights)',
           note: '39m² 1-bedroom apartment with kitchen, Schallmoos, 2.2km from center, ~18-min walk to Chabad. 1,808 reviews. Free cancellation. The "we just want a reliable established place" pick — flagged: 8.3 is below our 8.5 bar but kept for the review-volume signal. Washing machine status unverified.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -910,7 +910,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/salzburg-apartment.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/483551175.webp?k=2c6d04a59f6e9a6d0b2e3e7c98d7e2a8b0c5d9e3f0b2a1c4d5e6f7a8b9c0d1e2&o=',
           review: '9.0 · Superb · 200+ reviews',
-          pricePerNight: '€175 / night (₪695)',
+          pricePerNight: '€175 / night (₪695) — SOLD OUT for Jul 24-26 as of 2026-05-17 (PRICE-VERIFIED: no rooms available on Booking live)',
           note: 'Recently renovated apartments on Lasserstraße 19, ~600m from Mirabell Palace, ~10-min walk to Chabad on Linzergasse. WASHING MACHINE confirmed. Spotless reviews. The "passes the Salzburg laundry filter and is close to shul" pick.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -954,7 +954,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/salzburg-residence-b.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243969787.jpg?k=14d243719c109fc7f2a3610ef31f8d81edbe159fbd0263034ebe841cc21271cf&o=&hp=1',
           review: '9.0 · Wonderful · 623 reviews',
-          pricePerNight: '€205 / night (₪816)',
+          pricePerNight: '€481 / night (₪1,911) — PRICE-VERIFIED 2026-05-17: was €205, now €481 (Booking live, €961 / 2 nights — earlier "verified" note was wrong)',
           note: 'TRUE 2-BEDROOM. 50m² Two-Bedroom Apartment: Bedroom 1 (queen) + Bedroom 2 (queen) + Living room (sofa bed) — sleeps 4-6. Real Shabbat separation. Washing machine + dishwasher + AC + private kitchen + private bath. Neutorstraße 30, Riedenburg — ~12-min walk to Chabad. Free cancellation. The single best straight-up-2BR pick of the new batch.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1010,7 +1010,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/master-mirabell.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/590315269.jpg?k=c8c3b7db6b7413495d7eaef4bdd403f7212db3a44baa686f9b60e9edc28d4f2a&o=&hp=1',
           review: '9.0 · Wonderful · 3,275 reviews',
-          pricePerNight: '€227 / night (₪902)',
+          pricePerNight: '€266 / night (₪1,057) — PRICE-VERIFIED 2026-05-17: was €227, now €266 (Booking live, €531 / 2 nights)',
           note: 'Deluxe One-Bedroom Apartment: Bedroom 1 (queen) + separate Living room (sofa bed) — sleeps 3. 30m². Washer + dishwasher + AC + full kitchen. Rainerstraße 7 — same operator as master Linzergasse, ~10-min walk to Chabad. 3,275 reviews = the most battle-tested apartment-style stay in Salzburg. Free cancellation.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1037,7 +1037,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/salzburg-luxury-residence.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/604171878.jpg?k=c1b8d0b9fad47e94c6137c279a983459c5256c7b970d27d09ab04cca09e518f1&o=&hp=1',
           review: '9.0 · Wonderful · 103 reviews',
-          pricePerNight: '€260 / night (₪1,031)',
+          pricePerNight: '€294 / night (₪1,168) — PRICE-VERIFIED 2026-05-17: was €260, now €294 (Booking live, €588 / 2 nights)',
           note: 'MASSIVE 115m² Apartment: one bedroom + spacious living room — "the entire place is yours". Washer + dishwasher + full kitchen + free on-site parking. Wiesbauerstraße 14, Maxglan — ~25-min walk to Chabad (at the edge of the new walk cap). Free cancellation. The "we want room to spread out for Shabbat" pick.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1064,7 +1064,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/benjamins-refugium.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/522591295.jpg?k=8787e08ee2f5b81bd939bbc702d32fcb78b0e28281c5c5d32d7621854f00f928&o=&hp=1',
           review: '9.0 · Wonderful · 109 reviews',
-          pricePerNight: '€174 / night (₪689)',
+          pricePerNight: '€203 / night (₪806) — PRICE-VERIFIED 2026-05-17: was €174, now €203 (Booking live, €406 / 2 nights — note: URL now redirects to "Casa Wendl", property may have been renamed)',
           note: '64m² Apartment with Mountain View: Bedroom 1 (king) + Living room (sofa bed) + balcony — sleeps 4. Washer + dishwasher + full kitchen + soundproof. Mountain + garden + city + landmark views from the balcony. Innsbrucker Bundesstraße 102, Maxglan — ~25-min walk to Chabad. 18% Genius discount applied. Free cancellation. Best price-to-size ratio of the batch.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1091,7 +1091,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/holiday-apartments-by-das-grune-zur-post-100-bio-amp-villa-ceconi.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/790319738.jpg?k=ac6e44a677d4b417f5b2df913844d7c82e135bc48c0c306a3cc6b5c76d874034&o=&hp=1',
           review: '8.7 · Excellent · 179 reviews',
-          pricePerNight: '€128 / night (₪508)',
+          pricePerNight: '€299 / night (₪1,188) — PRICE-VERIFIED 2026-05-17: was €128, now €299 (Booking live, €598 / 2 nights — earlier price drastically understated)',
           note: '38m² One-Bedroom Apartment: Bedroom 1 (queen) + Living room (sofa bed) — sleeps 3. Eco-certified ("100% BIO") apartment-hotel. Washer + dishwasher + full kitchen + soundproof. Maxglaner Hauptstraße 45 — ~25-min walk to Chabad. Lowest price in the new batch and still passes every filter. Free cancellation.',
           budgetTier: 'standard',
           platform: 'booking',
@@ -1131,7 +1131,7 @@ export const TRIP: TripData = {
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/square600/506509432.webp?k=29d77bd1dd210a101fa445b3dc5caac41d37ef7b8ac5bd504e28fdd3b59b42f0&o=',
       pickReview: '9.4 · Superb · 258 reviews',
-      pickPrice: '€142 / night (₪564)',
+      pickPrice: '€142 / night (₪564) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: "Check available dates" returned no rooms on Booking live). PRIMARY mountain anchor unavailable — pick alternate.',
       pickWhy:
         '54m² 1-bedroom apartment with balcony, full kitchen, living room. 3km from Hallstatt — close enough for evenings, far enough for quiet. Right at the foot of the Dachstein cable car. Free cancellation. The deep-anchor pick.',
       pickBudgetTier: 'splurge',
@@ -1171,7 +1171,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/austria-apartments.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/680881702.webp?k=5280eca98f2aeb08f8cda08936a27de206b90945809344c6ce032c9c2f968d02&o=',
           review: '9.5 · Exceptional · 294 reviews',
-          pricePerNight: '€136 / night (₪540)',
+          pricePerNight: '€160 / night (₪636) — PRICE-VERIFIED 2026-05-17: was €136, now €160 (Booking live, €481 / 3 nights)',
           note: '22m² studio apartment with kitchen, 6.6km from Hallstatt in Bad Goisern (has its own Spar, café strip). Free cancellation. Best price-to-review ratio in the area.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1204,7 +1204,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/ferienhof-osl-urlaub-am-bauernhof.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/16860996.webp?k=2bc9d7e477477eb1fb17858d6f854b5a7d857dd1b4cf6f03b4b1def04c8b86e3&o=',
           review: '9.2 · Superb · 312 reviews',
-          pricePerNight: '€136 / night (₪540)',
+          pricePerNight: '€160 / night (₪636) — PRICE-VERIFIED 2026-05-17: was €136, now €160 (Booking live, €481 / 3 nights)',
           note: 'WORKING FARMHOUSE (urlaub am bauernhof = "farm vacation"). 30m² studio with balcony, 3.7km from Hallstatt. Goats and horses outside, lake walking distance, local family running it. The most deeply Salzkammergut option in the set — apartment-on-a-real-farm energy.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1243,7 +1243,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/haus-steinbrecher-hallstatt.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/194990009.webp?k=7bf12e6e7b46360edc5d4a9535b531139cdf67c475bbae39170a777f965714fa&o=',
           review: '9.7 · Exceptional · 131 reviews',
-          pricePerNight: '€156 / night (₪620)',
+          pricePerNight: '€187 / night (₪743) — PRICE-VERIFIED 2026-05-17: was €156, now €187 (Booking live, €560 / 3 nights)',
           note: '48m² ground-floor 2-bedroom apartment with full kitchen, IN HALLSTATT village (not Obertraun). Free cancellation. Highest review score in the area — closest you can get to the painted-houses postcard and still have a kitchen.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1282,7 +1282,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/landhaus-lilly.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/512123581.webp?k=e2ba9e574311d3d4e34fad78c6b44afdb3def39a437821e7ba2bfbb263602c4b&o=',
           review: '9.8 · Exceptional · 255 reviews',
-          pricePerNight: '€133+ / night (₪530+)',
+          pricePerNight: '€133+ / night (₪530+) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'Liz & Paul (English-speaking hosts) B&B in Obertraun, 5 km from Hallstatt, 3-min drive to Krippenstein cable car. Woodland trails along the Traun river next door. Some rooms have balconies with panoramic mountain views. Renovated 2013-2014. Booking 9.8/255 reviews. (Same hosts also run "River Lilly Apartment" — book that direct via landhauslilly.com if you want the apartment-with-kitchen, since it is not listed on Booking.)',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1321,7 +1321,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/landhaus-osborne.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/55717428.webp?k=d49f9c3fd40d5ac080db10edb8608e1eb774d5a55f89ba5d36f11651ae8b1927&o=',
           review: '9.4 · Superb · 200 reviews',
-          pricePerNight: '€151 / night (₪601)',
+          pricePerNight: '€177 / night (₪703) — PRICE-VERIFIED 2026-05-17: was €151, now €177 (Booking live, €531 / 3 nights)',
           note: '27m² Apartment (3) with kitchen, in Obertraun village. Free cancellation. Long-established 200-review listing, walking distance to the Hallstättersee shore.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1363,7 +1363,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/ferienwohnung-schmaranzer.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/410661012.webp?k=a7d8da61dca16361127d1ebd451d1d67f1ace40dc4ce543b498610c1691363bb&o=',
           review: '9.6 · Exceptional · 46 reviews',
-          pricePerNight: '€127 / night (₪504)',
+          pricePerNight: '€127 / night (₪504) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'Huge 75m² 1-bedroom apartment with full kitchen + king bed. 4.1km from Gosau village — i.e. closer to the Vorderer Gosausee mirror-lake trailhead than to town. Family-run Ferienwohnung in the Gosau valley, second-highest review score in the area. Forest-edge feel, easy paved drive in.',
           budgetTier: 'standard',
           platform: 'booking',
@@ -1400,7 +1400,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/haus-im-grunen-gosau.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/542231476.webp?k=a44d9c0c33ff9b95296128929efc5c884da9542699fb1ace2edbc46641f92f6b&o=',
           review: '9.2 · Superb · 26 reviews',
-          pricePerNight: '€127 / night (₪502)',
+          pricePerNight: '€127 / night (₪502) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'Name literally means "House in the Green." 65m² 2-bedroom apartment with kitchen, 1.5km from Gosau center, surrounded by green. Newer listing (26 reviews) but uniformly strong. Mountain views, quiet valley floor, paved single-track to the door.',
           budgetTier: 'standard',
           platform: 'booking',
@@ -1434,7 +1434,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/ma1-4hlradl-apartments.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/34414377.webp?k=c874faba1d8ff841cc4594569d3b4a90dc70928b8de49917f6dc694a422d3eea&o=',
           review: '9.4 · Superb · 319 reviews',
-          pricePerNight: '€155 / night (₪614)',
+          pricePerNight: '€155 / night (₪614) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: '"Mühlradl" = mill-wheel — old water-mill property converted to apartments. 38m² 1-bedroom apartment with full kitchen, 3.3km from Gosau center on the road toward the Gosausee lakes. 319 reviews = battle-tested. The most "quirky local character" pick in Gosau.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1471,7 +1471,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/pension-sydler.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/84702890.webp?k=8b69a5f03c725211bedde9d9024628c2117c11942ace0eb860f9d196a3ad2212&o=',
           review: '8.8 · Excellent · 597 reviews',
-          pricePerNight: '€80 / night (₪317)',
+          pricePerNight: '€80 / night (₪317) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'LEAN-tier find — €80/night for an apartment unit with bathroom and balcony overlooking the garden, 10-min walk from Bad Goisern center, 9.4km from Hallstatt. Garden with BBQ, sauna, table tennis — old-school Austrian guest-house energy. 597 reviews. Verify "kitchen" with host on booking — Booking lists this slot as "Apartment" but description says "some units feature a kitchen," so confirm before paying.',
           budgetTier: 'lean',
           platform: 'booking',
@@ -1506,7 +1506,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/weisses-lamm.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/186766752.webp?k=268d3b8120e740e18ee5453b9ba40aa5807e79a435351ef6f3a94f77f4e2e722&o=',
           review: '8.2 · Very good · 2,113 reviews',
-          pricePerNight: '€217 / night (₪862)',
+          pricePerNight: '€275 / night (₪1,092) — PRICE-VERIFIED 2026-05-17: was €217, now €275 (Booking live, €825 / 3 nights)',
           note: 'LAKE-VIEW holiday home — 75m² entire vacation home with full kitchen, IN Hallstatt village (150m from downtown), one bedroom + living room. 2,113 reviews = extremely battle-tested. ABOVE the €180 mid-high cap but flagged worth-it: lake view + size + the only Hallstatt-village kitchen-equipped property at this scale. 8.2 review is slightly below 8.5 bar; trade-off explained by view + space.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1556,7 +1556,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/heritage-hallstatt.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/87693988.webp?k=8d8b8a8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e&o=',
           review: '8.9 · Fabulous · 600+ reviews',
-          pricePerNight: '€240 / night (₪953) — confirm live on Booking',
+          pricePerNight: '€240 / night (₪953) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: 'Three carefully renovated historic townhouses on the lakeshore — Kainz House (on the jetty), Stocker House (the oldest building in Hallstatt), Seethaler House (perched on the hillside with the postcard view). All rooms face the lake. Boutique, design-led, history you can feel. NO KITCHEN — hotel rooms, not apartments. Above the €180 mid-high cap. Surface as "if you want one or two nights of beautiful, no self-catering" — meals would be cold-cuts/salads brought up from Spar (the room has a fridge but no stove).',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1600,7 +1600,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/bra-ugasthof-hallstatt.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/162531001.webp?k=2f9f2a2b4e3f1a8d4f3a6c5b8f4a2e3d6a8b3c2d7e1f4a9b6c8d3e7f2a5b8c1d&o=',
           review: '8.7 · Fabulous · 400+ reviews',
-          pricePerNight: '€195 / night (₪774) — confirm live on Booking',
+          pricePerNight: '€195 / night (₪774) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: Booking live shows no availability)',
           note: '700-year-old building in the car-free historic centre, original antique furniture, 7 rooms — almost all with a balcony directly over Lake Hallstatt. Family-run, traditional Austrian restaurant on the ground floor with a lakeside terrace. NO KITCHEN in rooms — hotel-style, not apartment. Renovation finished May 2025. The "we want to wake up over the water" pick.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1762,7 +1762,7 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/appartementgitti.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/643263725.webp?k=fac6d14921ede1326474830a93cc40a74770d63cdaffff3136a20e1f39a9836a&o=',
           review: '9.7 · Exceptional · 52 reviews',
-          pricePerNight: '€286 / night (₪1,135)',
+          pricePerNight: '€256 / night (₪1,016) — PRICE-VERIFIED 2026-05-17: was €286, now €256 (Booking live, €768 / 3 nights)',
           note: '51m² One-Bedroom Apartment with 1 large double bed, private bath. 9.7 review score across 52 reviews. Above the standard cap — splurge tier; surface as "premium clean-apartment pick when budget allows." Free cancellation. Hallstatt-area location.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -4313,11 +4313,35 @@ export const LODGING_COORDS: Record<string, LatLng> = {
 };
 
 // Standalone POIs — airport, Chabad, Jewish sights
+//
+// Jewish-sights ranking added 2026-05-17 by Jewish Sights Ranking Specialist.
+// Per Allison: "For jesuh places also do ranking holcausry very important to alkison"
+// — Holocaust memorials elevated as a category; Avital "likes Jewish stuff also"
+// but heavy memorials (Mauthausen-scale) are "consider, not push."
+//
+// priority chips:
+//   'top'         — zero-detour or category-priority (Holocaust memorial that fits)
+//   'recommended' — deliberate but reasonable visit; not in locked itinerary
+//   'alternate'   — full-day commitment / requires opt-in / replaces another day
+//
+// subcategory tags (Jewish-only):
+//   'holocaust-memorial'  — Holocaust-commemoration as primary content
+//   'living-community'    — active synagogue, current Jewish community site
+//   'historical-quarter'  — medieval / pre-Shoah Jewish-history streetscape
+//   'cemetery'            — Jewish burial ground
+//   'chabad'              — Chabad House (not a sight per se but anchor)
 export interface MapPOI {
   id: string;
   name: string;
   description: string;
   category: 'airport' | 'chabad' | 'jewish';
+  priority?: 'top' | 'recommended' | 'alternate';
+  subcategory?:
+    | 'holocaust-memorial'
+    | 'living-community'
+    | 'historical-quarter'
+    | 'cemetery'
+    | 'chabad';
   lat: number;
   lng: number;
   link?: string;
@@ -4339,44 +4363,92 @@ export const STANDALONE_POIS: MapPOI[] = [
     name: 'Chabad Salzburg — Linzergasse 76',
     description: 'Shabbat home. Davening + meals. 5-min walk from master Linzergasse apartment.',
     category: 'chabad',
+    priority: 'top',
+    subcategory: 'chabad',
     lat: 47.8047,
     lng: 13.0481,
     link: 'shabbat.html',
   },
-  // Jewish sights — secondary set
+  // Jewish sights — ranked + subcategorized 2026-05-17.
   {
     id: 'judengasse',
     name: 'Judengasse (medieval Jewish quarter)',
     description: 'Pre-1404 expulsion Jewish street in the Altstadt. Stolpersteine route start.',
     category: 'jewish',
+    priority: 'top',
+    subcategory: 'historical-quarter',
     lat: 47.7989,
     lng: 13.0456,
     link: 'jewish-sights.html#judengasse',
   },
   {
+    id: 'stolpersteine-linzergasse',
+    name: 'Stolpersteine route (Linzergasse + Andräviertel)',
+    description:
+      'Brass paving-stone memorials for Jews + other Nazi-deportation victims. 519+ stones in Salzburg; the very first was laid on Linzergasse itself in August 2007. Free, walking, no entry.',
+    category: 'jewish',
+    priority: 'top',
+    subcategory: 'holocaust-memorial',
+    lat: 47.8045,
+    lng: 13.0488,
+    link: 'jewish-sights.html#stolpersteine',
+  },
+  {
     id: 'ikg-salzburg',
     name: 'IKG Salzburg synagogue (Lasserstraße 8)',
-    description: 'Active community synagogue rebuilt post-WWII. Friday-night service option.',
+    description:
+      'Active community synagogue rebuilt post-WWII (orig 1901, destroyed 1938). Kristallnacht memorial sculpture in courtyard.',
     category: 'jewish',
+    priority: 'recommended',
+    subcategory: 'living-community',
     lat: 47.8061,
     lng: 13.0464,
     link: 'jewish-sights.html#ikg',
   },
   {
     id: 'jewish-cemetery',
-    name: 'Jewish cemetery (Aigen, Uferstraße)',
-    description: '19th-century cemetery on the Salzach east bank. Quiet, walkable.',
+    name: 'Jewish cemetery (Aigen, Uferstraße 47)',
+    description:
+      '1893 cemetery, ~450 graves. Closed by default for security — visits go through IKG office. ~15 min drive from old town.',
     category: 'jewish',
+    priority: 'recommended',
+    subcategory: 'cemetery',
     lat: 47.7886,
     lng: 13.0681,
     link: 'jewish-sights.html#cemetery',
   },
   {
+    id: 'ebensee-memorial',
+    name: 'KZ-Gedenkstätte Ebensee (concentration-camp memorial)',
+    description:
+      'Mauthausen sub-camp memorial in the Salzkammergut. Underground tunnel exhibition (Gedenkstollen) + Zeitgeschichte Museum + cemetery. ~30 km / 30 min from Hallstatt — fits as a Hallstatt-base half/full day. Holocaust-memorial category.',
+    category: 'jewish',
+    priority: 'recommended',
+    subcategory: 'holocaust-memorial',
+    lat: 47.8073,
+    lng: 13.7906,
+    link: 'jewish-sights.html#ebensee',
+  },
+  {
+    id: 'bad-ischl-pins',
+    name: 'Bad Ischl — "Pins of Remembrance" + Jewish Ischl walking route',
+    description:
+      '12 self-guided commemorative pins across Bad Ischl marking Jewish + resistance history. Free, QR-coded, map at tourist office. On the Salzburg ↔ Hallstatt drive. Light-to-medium emotional weight, walkable.',
+    category: 'jewish',
+    priority: 'recommended',
+    subcategory: 'holocaust-memorial',
+    lat: 47.7108,
+    lng: 13.6225,
+    link: 'jewish-sights.html#bad-ischl',
+  },
+  {
     id: 'mauthausen',
     name: 'Mauthausen Memorial',
     description:
-      'KZ Mauthausen — concentration camp memorial. 90-min drive east of Salzburg. Heavy day.',
+      'Main KZ Mauthausen memorial, 20 km east of Linz. ~1h45m–2h drive from Salzburg. Free, no booking. 3–4 hr on-site minimum + drive = full heavy day. Opt-in only.',
     category: 'jewish',
+    priority: 'alternate',
+    subcategory: 'holocaust-memorial',
     lat: 48.2569,
     lng: 14.5022,
     link: 'jewish-sights.html#mauthausen',
