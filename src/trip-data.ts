@@ -1980,6 +1980,12 @@ export interface NatureDestination {
   seasonNote?: string;
   priceEur?: number; // per-person entry/transit cost; 0 = free
   priceNote?: string;
+  // Carousel photos (added 2026-05-17 by location-interaction agent —
+  // ride-along: photo-curation agent had already populated `photos: [...]`
+  // on several entries below without declaring the field, which broke
+  // `tsc --noEmit`. First entry is the hero / fallback when hero.src is
+  // empty. Wikimedia stable URLs only (same convention as LodgingAlt.photos).
+  photos?: string[];
 }
 
 const NIMG = {
@@ -2060,6 +2066,11 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Best May-Oct. Snow possible at the lake edge into late April.',
     priceEur: 0,
     priceNote: 'Free access to lake. Parking ~€5/day.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Vorderer_Gosausee_mit_Dachstein.jpg/1280px-Vorderer_Gosausee_mit_Dachstein.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/1957-09-28_Vorderer_Gosausee_mit_Dachstein.jpg/1280px-1957-09-28_Vorderer_Gosausee_mit_Dachstein.jpg',
+    ],
   },
   {
     id: 'hallstatt-markt',
@@ -2098,6 +2109,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'July = peak season + biggest crowds. Best light at sunset when day-tour buses leave.',
     priceEur: 0,
     priceNote: 'Free to walk. Parking €14/day (P1 or P2).',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Hallstatt_Austria_Bergsee_Lake_Alpine_Summer.jpg/1280px-Hallstatt_Austria_Bergsee_Lake_Alpine_Summer.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Hallstatt_at_Lake_Hallstatt_-_1.jpg/1280px-Hallstatt_at_Lake_Hallstatt_-_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Hallstatt_at_Lake_Hallstatt_-_2.jpg/1280px-Hallstatt_at_Lake_Hallstatt_-_2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Hallstatt_lake.jpg/1280px-Hallstatt_lake.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Hallstatt_Aug2020.jpg/1280px-Hallstatt_Aug2020.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Houses_in_Hallstatt.jpg/1280px-Houses_in_Hallstatt.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Hallstatt_Hallst%C3%A4tter_See_361.jpg/1280px-Hallstatt_Hallst%C3%A4tter_See_361.jpg',
+    ],
   },
   {
     id: 'krippenstein-5fingers',
@@ -2138,6 +2158,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Summer season mid-May to late-Oct. 5fingers platform itself is year-round if gondola runs.',
     priceEur: 44.5,
     priceNote: 'Round-trip Panorama Ticket €44.50pp (2025 rate, both gondola sections). Salzkammergut card discount available.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/A-Krippenstein-5fingers.jpg/1280px-A-Krippenstein-5fingers.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/5/5f/5_fingers.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/5_fingers_29-07-2013.jpg/1280px-5_fingers_29-07-2013.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/5-Fingers-Glasboden_29-07-2013.jpg/1280px-5-Fingers-Glasboden_29-07-2013.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/5-Fingers-Sprungbrett_29-07-2013.jpg/1280px-5-Fingers-Sprungbrett_29-07-2013.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/A-Krippenstein-hallstatter-see.jpg/1280px-A-Krippenstein-hallstatter-see.jpg',
+    ],
   },
   {
     id: 'schafbergspitze',
@@ -2177,6 +2206,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April. Last departure depends on month — verify on schafbergbahn.at before locking sunset plan.',
     priceEur: 51,
     priceNote: 'Round-trip cog €51pp (2025 adult fare). Reservation €1 extra, strongly recommended for July weekends.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Wolfgangsee_und_Schafberg_vom_Elferstein.jpg/1280px-Wolfgangsee_und_Schafberg_vom_Elferstein.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Blick_auf_Schafberg_und_Wolfgangsee_-_panoramio.jpg/1280px-Blick_auf_Schafberg_und_Wolfgangsee_-_panoramio.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Schafberg_Panorama_-_panoramio.jpg/1280px-Schafberg_Panorama_-_panoramio.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Berg_Schafberg_II.jpg/1280px-Berg_Schafberg_II.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/WolfgangseePanorama110425-1.jpg/1280px-WolfgangseePanorama110425-1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/WolfgangseePanorama110425-2.jpg/1280px-WolfgangseePanorama110425-2.jpg',
+    ],
   },
   {
     id: 'wolfgangsee-village',
@@ -2215,6 +2253,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'July = peak swim + Strandbad season. Sunsets late (~21:00) in late July.',
     priceEur: 0,
     priceNote: 'Free to walk. Strandbad day-pass ~€5pp. Parking €1-2/hr.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/St_Wolfgang%2C_Austria.jpg/1280px-St_Wolfgang%2C_Austria.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/St._Wolfgang_im_Salzkammergut_Wolfgangsee_2.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_2.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/St._Wolfgang_im_Salzkammergut_Wolfgangsee_3.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_3.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/St._Wolfgang_im_Salzkammergut_Wolfgangsee_4.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_4.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Wolfgangsee_mit_St._Wolfgang.jpg/1280px-Wolfgangsee_mit_St._Wolfgang.jpg',
+    ],
   },
   {
     id: 'attersee',
@@ -2249,6 +2296,13 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Best July-Aug for swim + sunset combo. West-shore villages (Nußdorf, Weyregg) face the sunset.',
     priceEur: 0,
     priceNote: 'Free lake access. Boat day-ticket ~€21pp if you want the lake-tour ferry.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg/1280px-Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Attersee-Luftaufnahme3.jpg/1280px-Attersee-Luftaufnahme3.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Attersee-Luftaufnahme3_retouched.jpg/1280px-Attersee-Luftaufnahme3_retouched.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Attersee-Flugzeug2.jpg/1280px-Attersee-Flugzeug2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Gustav_Mahler%27s%2C_House_at_Attersee_lake_%28reflection_in_window%29%2CSalzkammergut%2CUpper_Austria.JPG/1280px-Gustav_Mahler%27s%2C_House_at_Attersee_lake_%28reflection_in_window%29%2CSalzkammergut%2CUpper_Austria.JPG',
+    ],
   },
   {
     id: 'konigssee',
@@ -2288,6 +2342,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-March (lake freezes). Peak crowds Jul-Aug — first boat at 08:00 is the quiet option.',
     priceEur: 22.5,
     priceNote: 'Round-trip boat to Salet €22.50pp (St. Bartholomä-only round-trip €19.50pp). Cash + card accepted.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Aerial_image_of_K%C3%B6nigssee_%28view_from_the_south%29.jpg/1280px-Aerial_image_of_K%C3%B6nigssee_%28view_from_the_south%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Aerial_image_of_Watzmann_and_K%C3%B6nigssee_%28view_from_the_south%29.jpg/1280px-Aerial_image_of_Watzmann_and_K%C3%B6nigssee_%28view_from_the_south%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/4/4a/Bartholomaevonoben.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Koenigssee_-_St._Bartholomew%27s_Church_02.jpg/1280px-Koenigssee_-_St._Bartholomew%27s_Church_02.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/StBartholom%C3%A4.jpg/1280px-StBartholom%C3%A4.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Spiegelung_im_Obersee_%28Nationalpark_Berchtesgaden%29.jpg/1280px-Spiegelung_im_Obersee_%28Nationalpark_Berchtesgaden%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/5/54/Obersee_01aug2020.jpg',
+    ],
   },
   {
     id: 'hintersee-ramsau',
@@ -2326,6 +2389,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Late-July glassy water + alpenglow conditions are why photographers come. Calmest at dawn.',
     priceEur: 0,
     priceNote: 'Free lake access. Parking €4/day.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Hintersee-Hochkalter.jpg/1280px-Hintersee-Hochkalter.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/c/c5/Hintersee_%28Ramsau_bei_Berchtesgaden%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Zauberwald_am_Hintersee_in_Ramsau.jpg/1280px-Zauberwald_am_Hintersee_in_Ramsau.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Green_Hintersee_slopes_%28Unsplash%29.jpg/1280px-Green_Hintersee_slopes_%28Unsplash%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Hintersee_Ramsau_Berchtesgaden_.jpg/1280px-Hintersee_Ramsau_Berchtesgaden_.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Nationalpark_Berchtesgaden_Hintersee_Ramsau_2.jpg/1280px-Nationalpark_Berchtesgaden_Hintersee_Ramsau_2.jpg',
+    ],
   },
   {
     id: 'almbachklamm',
@@ -2363,6 +2435,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April due to ice/landslide risk.',
     priceEur: 4,
     priceNote: 'Entry €4pp adult. Pay cash at the booth.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Almbachklamm_8_Wasserfall_1.jpg/1280px-Almbachklamm_8_Wasserfall_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Almbachklamm_1.JPG/1280px-Almbachklamm_1.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Almbachklamm_1.jpg/1280px-Almbachklamm_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/f/f6/Almbachklamm_2.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Almbachklamm_3.JPG/1280px-Almbachklamm_3.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Almbachklamm_08_Schlund.jpg/1280px-Almbachklamm_08_Schlund.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Almbachklamm_14_Mittelteil.jpg/1280px-Almbachklamm_14_Mittelteil.jpg',
+    ],
   },
   {
     id: 'eisriesenwelt-werfen',
@@ -2403,6 +2484,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'CLOSED Nov-April. Tour is the only way in — book online to skip queue.',
     priceEur: 38,
     priceNote: 'Combo ticket €38pp (cable car + tour). Cable-car-only €30pp. Pay cash or card at booth.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Entrance_of_Eisriesenwelt_ice_cave_Werfen_Austria.jpg/1280px-Entrance_of_Eisriesenwelt_ice_cave_Werfen_Austria.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Eisriesenwelt_Werfen_Austria_01.jpg/1280px-Eisriesenwelt_Werfen_Austria_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Eisriesenwelt_Werfen_Austria_02.jpg/1280px-Eisriesenwelt_Werfen_Austria_02.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/0/02/IceCaveEntrance.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Eisriesenwelt_trail.jpg/1280px-Eisriesenwelt_trail.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Eisriesenwelt_orgel.jpg/1280px-Eisriesenwelt_orgel.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Hohenwerfen_castle.jpg/1280px-Hohenwerfen_castle.jpg',
+    ],
   },
   {
     id: 'liechtensteinklamm',
@@ -2440,6 +2530,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April due to ice + rockfall risk.',
     priceEur: 9,
     priceNote: 'Entry €9pp adult (2025). Cash or card. Helmet provided.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Liechtensteinklamm_gorge_%2824277176943%29.jpg/1280px-Liechtensteinklamm_gorge_%2824277176943%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Liechtensteinklamm_%2824856512015%29.jpg/1280px-Liechtensteinklamm_%2824856512015%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/f/f4/Liechtensteinklamm%2C_Bild_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Liechtensteinklamm_03.JPG/1280px-Liechtensteinklamm_03.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Liechtensteinklamm_11.JPG/1280px-Liechtensteinklamm_11.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Liechtensteinklamm_14.JPG/1280px-Liechtensteinklamm_14.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Liechtensteinklamm_22.JPG/1280px-Liechtensteinklamm_22.JPG',
+    ],
   },
   {
     id: 'krimml-waterfalls',
@@ -2481,6 +2580,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed/limited Nov-March. Peak flow May-July.',
     priceEur: 5,
     priceNote: 'Entry €5pp during paid hours (free early morning / late evening).',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Krimml_Waterfalls%2C_2014_%2802%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2802%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Krimml_Waterfalls%2C_2014_%2801%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2801%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Krimml_Waterfalls%2C_2014_%2803%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2803%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Krimml_Waterfalls%2C_2014_%2804%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2804%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Krimml_Waterfalls%2C_2014_%2805%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2805%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Krimml_Waterfalls%2C_2014_%2808%29.JPG/1280px-Krimml_Waterfalls%2C_2014_%2808%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/KRIMML_WATERFALLS_-_AUSTRIA.jpg/1280px-KRIMML_WATERFALLS_-_AUSTRIA.jpg',
+    ],
   },
   {
     id: 'grossglockner-road',
@@ -2521,6 +2629,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'CLOSED Nov-April. Best clear-weather days only — clouds erase the views.',
     priceEur: 46.5,
     priceNote: 'Day-ticket toll €46.50/car (incl. up to 9 occupants). On top of Austrian vignette. No discounts.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_2.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_2.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_1.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_1.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_3.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_3.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_4.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_4.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Gro%C3%9Fglockner_Hochalpenstra%C3%9Fe_21082018_97.jpg/1280px-Gro%C3%9Fglockner_Hochalpenstra%C3%9Fe_21082018_97.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Gro%C3%9Fglockner_Hochalpenstra%C3%9Fe_21082018_102.jpg/1280px-Gro%C3%9Fglockner_Hochalpenstra%C3%9Fe_21082018_102.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Gro%C3%9Fglockner_Hochalpenstra%C3%9Fe_21082018_186.jpg/1280px-Gro%C3%9Fglockner_Hochalpenstra%C3%9Fe_21082018_186.jpg',
+    ],
   },
   // =====================================================================
   // HIDDEN GEMS (added 2026-05-16) — 8 stunning nature picks beyond the
@@ -2578,6 +2695,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed mid-Oct to mid-May for safety (ice/rockfall).',
     priceEur: 5,
     priceNote: 'Entry €5pp adult (€2.50 kids). Cash only at the booth.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/In_der_Wimbachklamm_%2826%29.JPG/1280px-In_der_Wimbachklamm_%2826%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/In_der_Wimbachklamm_%2822%29.JPG/1280px-In_der_Wimbachklamm_%2822%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/In_der_Wimbachklamm_%2823%29.JPG/1280px-In_der_Wimbachklamm_%2823%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Wimbachklamm_2.JPG/1280px-Wimbachklamm_2.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Wimbachklamm_05.JPG/1280px-Wimbachklamm_05.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Wimbachklamm_08.JPG/1280px-Wimbachklamm_08.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Wimbachklamm_Ramsau.jpg/1280px-Wimbachklamm_Ramsau.jpg',
+    ],
   },
   {
     id: 'filzmoos-bachlalm',
@@ -2618,6 +2744,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April (toll road shut for snow). Confirm road status before driving.',
     priceEur: 6,
     priceNote: 'Toll road €6/car. Loop trail itself free. Drinks at the hut €3-5.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/West_view_of_Bischofsm%C3%BCtze_%282009%29.jpg/1280px-West_view_of_Bischofsm%C3%BCtze_%282009%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Bischofsm%C3%BCtze_3-2017_10.jpg/1280px-Bischofsm%C3%BCtze_3-2017_10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Bischofsm%C3%BCtze_1234_07-09-30.JPG/1280px-Bischofsm%C3%BCtze_1234_07-09-30.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Bischofsm%C3%BCtze_1245_11-09-11.JPG/1280px-Bischofsm%C3%BCtze_1245_11-09-11.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bischofsm%C3%BCtze_1248_11-09-11.JPG/1280px-Bischofsm%C3%BCtze_1248_11-09-11.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Bischofsm%C3%BCtze_1260_11-09-11.JPG/1280px-Bischofsm%C3%BCtze_1260_11-09-11.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Bischofsm%C3%BCtze_im_Gosaukamm_des_Dachsteinmassivs.jpg/1280px-Bischofsm%C3%BCtze_im_Gosaukamm_des_Dachsteinmassivs.jpg',
+    ],
   },
   {
     id: 'zwoelferhorn',
@@ -2658,6 +2793,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April for summer ops. Sunset trips require advance check — gondola usually stops 17:00.',
     priceEur: 33,
     priceNote: 'Round-trip €33pp (2025 adult fare). Cash or card at booth.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Zw%C3%B6lferhorn_von_St.Gilgen.JPG/1280px-Zw%C3%B6lferhorn_von_St.Gilgen.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Sankt_Gilgen%2C_Wolfgangsee_and_Schafberg%2C_Salzkammergut%2C_Austria_from_Zw%C3%B6lferhorn.jpg/1280px-Sankt_Gilgen%2C_Wolfgangsee_and_Schafberg%2C_Salzkammergut%2C_Austria_from_Zw%C3%B6lferhorn.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Sankt_Gilgen%2C_Salzkammergut%2C_Austria_from_cable_car_to_Zw%C3%B6lferhorn.jpg/1280px-Sankt_Gilgen%2C_Salzkammergut%2C_Austria_from_cable_car_to_Zw%C3%B6lferhorn.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Sankt_Gilgen_and_Wolfgangsee%2C_Salzkammergut%2C_Austria_from_cable_car_to_Zw%C3%B6lferhorn.jpg/1280px-Sankt_Gilgen_and_Wolfgangsee%2C_Salzkammergut%2C_Austria_from_cable_car_to_Zw%C3%B6lferhorn.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Sankt_Gilgen_Zw%C3%B6lferhorn_01.jpg/1280px-Sankt_Gilgen_Zw%C3%B6lferhorn_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Sankt_Gilgen_Zw%C3%B6lferhorn_02.jpg/1280px-Sankt_Gilgen_Zw%C3%B6lferhorn_02.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Zw%C3%B6lferhorn%2C_St._Gilgen%2C_Salzburg%2C_Austria_-_panoramio.jpg/1280px-Zw%C3%B6lferhorn%2C_St._Gilgen%2C_Salzburg%2C_Austria_-_panoramio.jpg',
+    ],
   },
   {
     id: 'postalm',
@@ -2699,6 +2843,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April (toll road shut for snow). Best clear weather days only.',
     priceEur: 14,
     priceNote: 'Toll €14/car (day-pass, all occupants included). Free walking on the plateau itself.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg/1280px-Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Postalm_-_Austria_%28Unsplash%29.jpg/1280px-Postalm_-_Austria_%28Unsplash%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Postalm.jpg/1280px-Postalm.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Auf_der_Postalm_-_panoramio.jpg/1280px-Auf_der_Postalm_-_panoramio.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/7/7b/Auf_der_Postalm_-_panoramio_-_holger_mohaupt.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/4/43/Auf_der_Postalm_-_panoramio_-_holger_mohaupt_%281%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Schafbergblickh%C3%BCtte_auf_der_Postalm_-_panoramio.jpg/1280px-Schafbergblickh%C3%BCtte_auf_der_Postalm_-_panoramio.jpg',
+    ],
   },
   {
     id: 'klausbachtal',
@@ -2746,6 +2899,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Best May-Oct for golden-eagle viewing season. Bring binoculars.',
     priceEur: 0,
     priceNote: 'Free trail + free park shuttle. Parking €4/day if driving.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Klausbachtal.jpg/1280px-Klausbachtal.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Klausbachtal%2C_H%C3%A4ngebr%C3%BCcke.jpg/1280px-Klausbachtal%2C_H%C3%A4ngebr%C3%BCcke.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Klausbach%2C_Ramsau.jpg/1280px-Klausbach%2C_Ramsau.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Klausbach01.JPG/1280px-Klausbach01.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Bindalm%2C_Klausbachtal.jpg/1280px-Bindalm%2C_Klausbachtal.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Klausbach-Hirschbichlklausgraben_H%C3%A4ngebr%C3%BCcke.JPG/1280px-Klausbach-Hirschbichlklausgraben_H%C3%A4ngebr%C3%BCcke.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Lahnwald-Diensth%C3%BCtte_01.JPG/1280px-Lahnwald-Diensth%C3%BCtte_01.JPG',
+    ],
   },
   {
     id: 'seisenbergklamm',
@@ -2789,6 +2951,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Closed Nov-April due to ice + rockfall risk.',
     priceEur: 6,
     priceNote: 'Entry €6pp adult (€3 kids). Cash at booth.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Seisenberg_Klamm_006.jpg/1280px-Seisenberg_Klamm_006.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_01.jpg/1280px-Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_02.jpg/1280px-Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_02.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_09.jpg/1280px-Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_09.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_10.jpg/1280px-Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_10.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_16.jpg/1280px-Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_16.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_22.jpg/1280px-Wei%C3%9Fbach_bei_Lofer_Seisenbergklamm_22.jpg',
+    ],
   },
   {
     id: 'bluntautal-golling',
@@ -2829,6 +3000,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'Best May-Oct. Waterfall paid-entry section closes Nov-March.',
     priceEur: 5,
     priceNote: 'Gollinger Wasserfall €5pp entry (cash). Bluntautal loop free.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Golling-waterfall.jpg/1280px-Golling-waterfall.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Beautiful_Gollinger_Wasserfall.jpg/1280px-Beautiful_Gollinger_Wasserfall.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Gollinger_Wasserfall%2C_AT.jpg/1280px-Gollinger_Wasserfall%2C_AT.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gollinger_Wasserfall_02.jpg/1280px-Gollinger_Wasserfall_02.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Gollinger_Wasserfall_04.jpg/1280px-Gollinger_Wasserfall_04.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Gollinger_Wasserfall_3.jpg/1280px-Gollinger_Wasserfall_3.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Bluntautal_-_Land_Salzburg_%281%29.jpg/1280px-Bluntautal_-_Land_Salzburg_%281%29.jpg',
+    ],
   },
   {
     id: 'fuschlsee',
@@ -2869,6 +3049,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     seasonNote: 'July = peak swim + SUP season. West-facing sunsets best from the Fuschl village shore.',
     priceEur: 0,
     priceNote: 'Free lake access. Strandbad day-pass ~€4pp. SUP rental ~€15/hr at Fuschl Aqua-Center.',
+    photos: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Fuschlsee_Lake_looking_back_to_Fuschl_%286902760829%29.jpg/1280px-Fuschlsee_Lake_looking_back_to_Fuschl_%286902760829%29.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Fuschlsee_-_Osts%C3%BCdostansicht.JPG/1280px-Fuschlsee_-_Osts%C3%BCdostansicht.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Fuschlsee_%28DFdB%29.JPG/1280px-Fuschlsee_%28DFdB%29.JPG',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Fuschlsee_as_seen_from_Bauernhof_Unterh%C3%B6fner_01.jpg/1280px-Fuschlsee_as_seen_from_Bauernhof_Unterh%C3%B6fner_01.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Fuschlsee_as_seen_from_Bauernhof_Unterh%C3%B6fner_02.jpg/1280px-Fuschlsee_as_seen_from_Bauernhof_Unterh%C3%B6fner_02.jpg',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Frauenkopf_Fuschlsee.jpg/1280px-Frauenkopf_Fuschlsee.jpg',
+    ],
   },
 ];
 
@@ -3102,10 +3291,16 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     availabilityNote:
       'Booking.com shows no availability Sun Jul 26 → Wed Jul 29, 2026 (verified live 2026-05-17). Pick a different Berchtesgaden stay or different dates.',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/499609382.jpg?k=0474875d8c2bcfadee661df6a9ac5d92c2a49fb51d57a87ea225b8d58323388e&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/435762808.jpg?k=36c58947aca63d5a6e0521506d6dca2c2705e80689bf28f74a72e30b8f6e0e69&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/435762810.jpg?k=a5e57a1623c5778bbd6f3cf99a339733e7cf09bd2460fb0254caff67dfdaccb9&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/348845909.jpg?k=870e822bcb1db9fe9fd973349d735b5fb187587dade4a2989e71fb8f087ec270&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/435762797.jpg?k=9a79997e3ddf00d5eb5c5c24c9f04fa85fd2fdfafbaeecaae07507dbea5634bd&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/688930481.jpg?k=61645e4d6b3d73e5b98aa9488620fd2730b81910699817b645b3870cb06dbb45&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/349481338.jpg?k=7251090ef9b8d2aaf92f316f9130b2832b2007e1f4db5777293941deeb5fe9c4&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/435762800.jpg?k=179e3c6570feaa30ff8602a6af4210df1b935627f7fb4ecd4a819adaad6617ee&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/349481337.jpg?k=525755a934e46fdcb44abf47fffdf0e4387ed01d6a37ea708a2ce0e3e8122b82&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/349482038.jpg?k=d023262b1fddc0826f58e7ce487c1d3e13c6c6894e68780664e868ebc3c38eef&o=&hp=1',
     ],
   },
   {
@@ -3134,10 +3329,16 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg/1280px-Ramsau_bei_Berchtesgaden_%28DE%29%2C_Milchstra%C3%9Fe_%C3%BCber_Hochkalter_%26_Hintersee_--_2024_--_1018-50.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190226.jpg?k=5aa7162cba5ae19352ac8a6fa7973050f6a81cd3ef099e6270e5afa2a6b1243b&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/401066080.jpg?k=dad868c4d03ff14ebe913c88cf7c45e946c1edf387f4e731f5f031d90d2696e4&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/425334017.jpg?k=389e067ac49e565aea9dc26734f3a9f7fb4e2928cba584f95a59c85da39865d4&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190223.jpg?k=59cb198f5365861520c27fa2626ee1b476cf7504ab049a6d79c1a8c674241028&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190224.jpg?k=56f3449d4b98023df57611b0ff0d657e463977a69447239a6d17dbfee730b78a&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190228.jpg?k=018fbdeec3341762ca60e75f72f5a6c42f65757778650e7085d9cc62e8c5de31&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190230.jpg?k=c46488aeed332660b68c7bd40b5bbf69d264cb09d8fa13d94ba72c54e8691178&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/401066083.jpg?k=838827a227fbdca06ea5a0e06e3c153e00a19978206cf8a36faf5fa3583f3cd1&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/401066081.jpg?k=908da63d6ecf330e2a68898afc8d7429163df59f3f1de56b75f0813c6d62db97&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/330190222.jpg?k=a6510e89155513f6cddc39d2e37f6b01e3ac4d4ae18cac888398f6a4bb7065e1&o=&hp=1',
     ],
   },
   {
@@ -3161,10 +3362,16 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/8/82/Rathaus%2C_Berchtesgaden_%28Town_Hall%2C_Berchtesgaden%29_-_geograph.org.uk_-_7935.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/394674223.jpg?k=ec8860216f21e4b724b2b8ddd9cc1dfecb0e93e33f82a0d463ad38cebdd00a2c&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/399717827.jpg?k=e1b1eb75e9a91fcd134fe5c0bcbf60d7bde344b9fe467908f3d6fdef53f86a39&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775813.jpg?k=2f19e7df04c8edfc647d2c9accb51425ee6f229807dc8c69574e4002d78d5744&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775814.jpg?k=3f501b2d07c4dcdce5559d23f30b97b583246f5b6f86d0a6bdb8612e331b4273&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775815.jpg?k=c0f3848d6d84b78d9cb472fb072fc0347c12105536d2238c8012d0cbf0409f09&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395416363.jpg?k=c42dce9cbeb340d9148cb3de89280c82a75dc13a4f824c35c86a13e9c4be77af&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395430694.jpg?k=fb989d13a62024d1fb736a4a2c61ff0280e485a86b207319e04c9d95ea80c389&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395416321.jpg?k=9939447a45968b45f590e973193021ace66d79f60b04c7a0a86ce3ab424d6e87&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/395430701.jpg?k=179943a2c52fa4ed6758a6a1c7ec0fcd5af669a0f0ca9bd79d614f72fbe5fc4a&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/396775817.jpg?k=c22dda446d65271002fe28e8972dabd19dd86d50314ce9e2cd6c6f10fbb8f638&o=&hp=1',
     ],
   },
   {
@@ -3193,10 +3400,16 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg/1280px-Pfarrkirche_St._Sebastian_%28Ramsau%29.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg/1280px-Ramsau_Kirche_mit_Wagendrischelhorn_2.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/663995892.jpg?k=de1856f8eb4588a1e2422774ea1f6d08fed73048a481f6855885050ab6053e56&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/289634598.jpg?k=91444a01b507a7bd24a12df2021dc8713104379d4ae1bc14dc2085c00b021eef&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117506688.jpg?k=256206a1a29fdc28a5c7dd7463f6bb352dd4a3007bac946568725a618144682a&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/289637582.jpg?k=60bfd58e27c5f7531a427f99f89c5a33d8d7023dc30fb7b04b645cce6db4be6a&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/71496530.jpg?k=ef2a58bdf03f7a51131aa39bc6f04568517c549534c70e3e183f98841a09b565&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117505683.jpg?k=aa3ed033a1730fc5e2cf2a2fcf97e2a62f082859cabf15bb3a8953a455e97ba7&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117505731.jpg?k=9c3ca5fa24d0397470d5ebe77b20f090eb6d8ba282bee8e048b20cf40962cb81&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/71475708.jpg?k=236c479211d0b583f01c989a8acc395d2e6d22c89c1fd757a5de7fbf306794ce&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/71362247.jpg?k=98ba9e3fcc3bd45b49865dc74310ee3ace1e1c683b6816973ac12d0df80a16f9&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/117506642.jpg?k=faaf645db8a31f4e0985288717d59edb3ac22e672019d036da3be80e8ae78bd5&o=&hp=1',
     ],
   },
   {
@@ -3264,10 +3477,16 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'lake',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/516214270.jpg?k=ffb15aec8a945259e166df2eeb91ed4c6228eacb782fa24acf3e7172480d8ad6&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/471204631.jpg?k=1971c002cdab37ccbea9bbeb2b9074db1e26a768d32dd677d939a8c3a569d327&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/296410603.jpg?k=519946cb3a3dfbaacf6caccd5b4fbbd71c8b5b5fd821d89a147030195983a6a3&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/481047434.jpg?k=19d8c37267d22c5fb5914cf6b14f4cecad49e7d44f9694ef9c137370dae11ff9&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/471204666.jpg?k=90acfec0b3d6fe1eb6dea61ec33d87f4f8bd8c710c06968076b4be75b31daf1e&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502442905.jpg?k=c12b2d6ca4a52f6df454dd3a0c87f2fb8963c4a1a6d2781430c392355aeb2700&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/496507057.jpg?k=330917bd2cbbddd0b4377d858dadcc2e05847285d73e670f178150ff3826fa95&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/471210264.jpg?k=c10433e86b4e61708777622fbc8b717bc1a6b6db48292ac1bf5a78172ee40dd6&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/266275817.jpg?k=d430c7dc0558f333c5a9e1741ce2b45ff2b8cd0fe95086957cf170283081056d&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/295000406.jpg?k=2bac88c5a7801ec1f45b747b17cc0333bc4607d1a10998d6e5b5bf508c4118bc&o=&hp=1',
     ],
   },
   {
@@ -3295,6 +3514,9 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'lake',
+    // PHOTO-FETCH-FAIL 2026-05-17: wolfgangsee-appartement.html returns a
+    // generic Booking landing page — listing appears delisted. Kept the
+    // Wolfgangsee Wikimedia fallback so the carousel still has shots.
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
@@ -3323,9 +3545,16 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'lake',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/545303073.jpg?k=96411e726587d0266c157db063ada61235a65973cc445ee51e9a75bdce086070&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/686018868.jpg?k=579e8e9660cfe29e83e4c94ff7c9c722f41e2fbf96ba826fbf89f5dd656275ee&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/581145247.jpg?k=26a5572e25efc3a81df50f9f66fcb2bf542c31ed81de164584bd100d5fa50785&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/409374639.jpg?k=19584c6bf5716cd78abc9486a6b9933fce18ab8526f7432801dc4e8f167edde9&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/478022452.jpg?k=31b0aad106aa36c08ac640d922b969193f465eaf18270efd66f4377c1c849ff8&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/581145084.jpg?k=e6838160dd6b2c1320817f85bc0c2342e5418d65ed3ef90caac5a20c6175d425&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/545302891.jpg?k=d7237eeafda7d8787ec05a9747f55b1eb3ae30e61fe059a079b219e10f3b4364&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/820212363.jpg?k=e3e3a3620d2ff9198b417826cb758c94e1b2185e23723ce7777774b835aa9f04&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/478022350.jpg?k=b31f04f4f37a2a981f9c64d759147b8049faf14da37c1f015c7f6766553db382&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/581145255.jpg?k=d0e2095209c127d364c2d429da3b143848ace2abf7959ea4724f62b4d26a0cd0&o=&hp=1',
     ],
   },
   {
@@ -3353,6 +3582,9 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     parking: 'free',
     wifi: true,
     viewType: 'mixed',
+    // PHOTO-FETCH-FAIL 2026-05-17: 70m2-ferienwohnung-am-wolfgangsee-strobl
+    // redirects to a Strobl search with closed_msg — listing closed.
+    // Kept the Strobl-area Wikimedia fallback.
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg/1280px-Wolfgangsee_bei_Strobl_nach_Norden_-_panoramio.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
@@ -3385,9 +3617,16 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
     wifi: true,
     viewType: 'mountain',
     photos: [
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Panorama_Wolfgangsee.jpg/1280px-Panorama_Wolfgangsee.jpg',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/816822610.jpg?k=b625fe068bb0b5d15be457a7828a301265b36d5a54ce48d1ebc04334c98ad16e&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502325429.jpg?k=83cf62310483423e4d8d8139670dd937b2cfd9afc70f3a047caaf09ca06aa33d&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502325203.jpg?k=3fde4bb86fa00a44be3b157f574a25762a26f335a52f74d02f0f888ce625564e&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/525092078.jpg?k=6e9aaad07e36e712240365ae300357d7a164574e17a6e170037b75c20b56d7db&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/708195093.jpg?k=fd22a7c4b99b138c6d5a0c68248dfd1c3efbed2f1ac5aa68091a0551cedcfc8a&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474925273.jpg?k=97e46841e90af9968e9c373f2a0771d1dec63135919722e7d8f21631f3355064&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512024169.jpg?k=e435ef72e754d75efe4f7b37ec1040456f9866910ce14ab6a60285dba87ee4f5&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/502328074.jpg?k=cb836916728018756824a35f7d3db051b0a11dd5b50c865ad41fcec4fc9f176e&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/635564892.jpg?k=44c55a61072c5578916bea873aa5c49222cd894f5f6460f8db3e60518396c568&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/812220344.jpg?k=0dcdac9f9a38eeaeacd64aaa424fb58d261d8bd1c3e63754aaf35d55cefef84a&o=&hp=1',
     ],
   },
 ];
@@ -3891,7 +4130,19 @@ export const SUNSET_STAYS: SunsetStay[] = [
     url: 'https://www.gasthof-gosausee.at/en/guesthouse-gosausee/',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
     imgCredit: 'Wikimedia Commons / Roman Klementschitz, CC BY-SA 3.0',
-    photos: PHOTO_POOL.gosauValley,
+    // Photos sourced live from Booking.com listing 2026-05-17.
+    photos: [
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/6222076.jpg?k=cf20c648026dc3b512808189e9c95e9c7ec81caff418ec98980b93f16efab5b1&o=&hp=1',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/29574102.jpg?k=6e3bb81adc9ca036109a58008507cc6033c4699b8d7ba15cfeb6b6f0adcb2425&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/29574133.jpg?k=c2adb7fac3c79e1018e5eadde6c237639d98fed8de994a3f733f5063e129fba7&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/78490402.jpg?k=1f201a498e179f2c7f2f7184e30ae12ba227787c9cff0dfbdcedb458636d5d81&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/26613157.jpg?k=15b89251d1a9274077b4ae7d6d395aed2375c94ed7517b07f9955aade01daa85&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/131197216.jpg?k=dd5ff39c31128735c005aa3ca80285533e445e355cf417dc525ef95317021bf2&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/317670967.jpg?k=e06ad01cb4747c1426a136db0b3b18297a4e3c6c66514b6f05386a72ad9153f3&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/482778525.jpg?k=7bcbe1490c83da6485b900c20b5c006f0f23e93ac5f1906ae1e37494c750c0f1&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/40556775.jpg?k=c9e475103bf6c160e690423f3f7c388ef4bb12e859804c256bf4ed7098d876e9&o=',
+      'https://cf.bstatic.com/xdata/images/hotel/max1280x900/482779525.jpg?k=d0dcc85daf40c7f9cd1a6c2edc1e5c7675d46df2cdd84f1f2d6c86cc94050b3f&o=',
+    ],
     elevationM: 933,
     region: 'salzkammergut',
     pitch:
