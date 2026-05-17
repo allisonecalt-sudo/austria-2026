@@ -351,9 +351,16 @@ export const TRIP: TripData = {
     "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — mountain anchor for 3 deep nights, the heart of the week. Day trips from there to Königssee, Gosausee, Wolfgangsee, Dachstein 5fingers. Wednesday afternoon we pack a small overnight bag and take the cog railway up to Berghotel Schafbergspitze (1,783m) for sunset above 13 lakes + sunrise over the Dachstein. Thursday we come down and drive to a quiet apartment near Salzburg airport for Friday's early flight. Four bases, three moves. Every night ends at a named sunset spot with a real time.",
   natureAnchor:
     'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay where most of the midweek happens, before the Wed-night summit pivot.',
-  totalCostEur: 3330,
-  totalCostNis: 13209,
-  ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target
+  // COST-SYNC 2026-05-17 (PriceVerify wave 4n): lodging prices spiked overnight on
+  // Booking.com. Master Linzergasse €128→€286/nt (Salzburg pick locked-in even at higher
+  // price). Villa Maxglan €178→€456/nt. Haus Edelweiss (primary mountain anchor) SOLD OUT
+  // for Jul 26-29 — new mountain pick = Austrian Apartments (Bad Goisern) or Ferienhof Osl,
+  // both €160/nt. Airport pick Best Western Walserberg €105→€71/nt (price DROPPED).
+  // Standard pick recomputed: keep master Linzergasse (Allison hasn't unlocked it) + swap
+  // mountain to Austrian Apartments. Cheapest viable scenario also surfaced in costs.html.
+  totalCostEur: 3686, // was 3330; +€356 from lodging spike
+  totalCostNis: 14620, // was 13209; +₪1,411 from lodging spike
+  ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target (NOT updated; this is the target, not the actual)
   peakMoment: {
     day: 'Tuesday Jul 28',
     spot: 'Königssee — last electric boat back from St. Bartholomä at sunset',

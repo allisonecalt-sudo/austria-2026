@@ -6,7 +6,7 @@
     <title>Costs · Austria 2026</title>
     <meta
       name="description"
-      content="Trip cost at a glance — ₪13,209 total, split fairly, every line sourced."
+      content="Trip cost at a glance — ₪14,620 total (was ₪13,209; lodging prices spiked 2026-05-17), split fairly, every line sourced."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -413,50 +413,75 @@
       <span class="breadcrumb__current">Costs</span>
     </nav>
 
-    <!-- TODO COST-SYNC 2026-05-17: trip-data.ts has stale aggregate totals:
-         TRIP.totalCostEur = 2699 (should be ~3330)
-         TRIP.totalCostNis = 10750 (should be 13209)
-         TRIP.ceilingEur   = 3275 (target ₪13,000 = €3,275 OK)
-         index.html line 214 data-bind="total-eur"/"total-nis" pulls these stale
-         numbers — landing page Costs CTA card shows €2,699 / ₪10,750 while
-         costs.html says ₪13,209. Defer to Booking EXPERTISE agent (owns
-         lodging cost fields in trip-data.ts) to update these to match real
-         all-in: totalCostEur 3330, totalCostNis 13209. -->
+    <!-- COST-SYNC 2026-05-17 (Wave 4n re-verify): trip-data.ts aggregates updated to
+         match new lodging reality. PriceVerify pass found master Linzergasse €128→€286,
+         Villa Maxglan €178→€456, Haus Edelweiss SOLD OUT, Walserberg €105→€71 (drop).
+         New standard pick = master Linzergasse (kept until Allison unlocks) + Austrian
+         Apartments Bad Goisern (cheapest available mountain alt) + Schafbergspitze +
+         Walserberg. Old ₪13,209 hero replaced with ₪14,620 + visible delta surfacing. -->
     <main class="container costs-page">
       <p class="page-tldr">
-        <strong>₪13,209 all-in (€3,330 / $3,570) · 7 nights · 2 people.</strong> ₪209 over the
-        ₪13,000 soft target — acceptable. Per-person (net of $50 baggage settle): Allison ~₪6,237 ·
-        Avital ~₪6,972. Flights paid directly; baggage netted at ₪3.70/$.
+        <strong>₪14,620 all-in (€3,686 / $3,948) · 7 nights · 2 people.</strong>
+        <strong style="color: #b45309">
+          ⚠ Up ₪1,411 since 2026-05-15 — lodging prices spiked on Booking overnight.</strong
+        >
+        Cheapest still-viable mix is ₪13,337 (Pension Elisabeth + Austrian Apartments). See the
+        "Lodging pick matrix" block below for the full re-pick math. Per-person (net of $50 baggage
+        settle): Allison ~₪6,942 · Avital ~₪7,678 at the new total. Re-verify Booking + DiscoverCars
+        before locking anything.
       </p>
       <!-- ====================================================================
            BLOCK 1 — VERDICT BAR — Status word + total vs target + delta
            ==================================================================== -->
+      <!-- COST-SYNC 2026-05-17 (Wave 4n): verdict flipped from "On plan" to "Over"
+           after PriceVerify found lodging prices spiked. Cheapest viable scenario
+           (Pension Elisabeth + Austrian Apts) brings it back near plan at ₪13,337. -->
       <div class="verdict-bar" role="status" aria-label="Trip budget status">
-        <span class="verdict-pill verdict-pill--ok">
-          <span class="verdict-dot" aria-hidden="true"></span>
-          On plan
+        <span class="verdict-pill verdict-pill--over" style="background: #fef3c7; color: #92400e">
+          <span class="verdict-dot" aria-hidden="true" style="background: #c89938"></span>
+          Over (re-verify)
         </span>
         <span class="verdict-divider" aria-hidden="true"></span>
         <span class="verdict-detail">
-          <strong>₪13,209</strong> of <strong>₪13,000</strong> target
+          <strong>₪14,620</strong> of <strong>₪13,000</strong> target
         </span>
         <span class="verdict-divider" aria-hidden="true"></span>
-        <span class="verdict-delta">₪209 over · soft cap, acceptable</span>
+        <span class="verdict-delta">+₪1,620 over · lodging spike (was ₪13,209 on 2026-05-15)</span>
       </div>
 
       <!-- ====================================================================
            BLOCK 2 — HERO TOTAL with progress bar
            ==================================================================== -->
-      <!-- COST-SYNC 2026-05-17: Hero ₪13,209 = combined (2-person) all-in.
-           Reconciled with per-person sum: Allison 6237 + Avital 6972 = 13,209 ✓
-           (Updated 2026-05-17 06:08: $50 baggage netted from settle-strip into per-person columns)
-           Categories sum: 4313 + 1162 + 1445 + 2580 + 3337 + 370 = 13,207 — 2-NIS
-           rounding gap; hero retained at 13,209 to match per-person view (which
-           is the figure shared with Avital and used for Splitwise). -->
+      <!-- COST-SYNC 2026-05-17 Wave 4n: Hero ₪14,620 = combined (2-person) all-in at
+           NEW post-spike lodging prices. Breakdown:
+           Lodging 5,726 (was 4,313, +1,413) + Car 1,162 + Acts 1,445 + Food 2,580 +
+           Flights 3,337 + Bag 370 = 14,620. Old ₪13,209 was based on €128 Linzergasse +
+           €142 Edelweiss which no longer reflect reality. Surfaced delta loud per
+           fail-loud rule. Cheapest still-viable mix = ₪13,337 (see matrix below). -->
       <section class="hero-total" aria-labelledby="hero-total-num">
-        <div class="hero-eyebrow">All-in · 7 nights · 2 people</div>
-        <div class="hero-total-num" id="hero-total-num">₪13,209</div>
-        <div class="hero-total-sub">≈ €3,330 · ≈ $3,570</div>
+        <div class="hero-eyebrow">All-in · 7 nights · 2 people · current pick</div>
+        <div class="hero-total-num" id="hero-total-num">₪14,620</div>
+        <div class="hero-total-sub">≈ €3,686 · ≈ $3,948</div>
+        <div
+          class="hero-total-delta"
+          style="
+            margin-top: 0.6rem;
+            padding: 0.6rem 0.9rem;
+            background: #fef3c7;
+            border-left: 3px solid #c89938;
+            border-radius: 0.4rem;
+            font-size: 0.92rem;
+            line-height: 1.45;
+            color: #78350f;
+            text-align: left;
+          "
+        >
+          <strong>+₪1,411 over previous total of ₪13,209.</strong> Lodging prices rose since
+          2026-05-15: master Linzergasse €128→€286/nt; Haus Edelweiss (primary mountain anchor) SOLD
+          OUT, swapped to Austrian Apartments Bad Goisern €160/nt; Walserberg airport pick actually
+          DROPPED €105→€71/nt. Pick a cheaper Salzburg alt (Pension Elisabeth €125/nt) and total
+          drops to ₪13,337. See "Lodging pick matrix" below.
+        </div>
 
         <div class="cost-progress" aria-label="Spend against ₪13,000 target">
           <div class="cost-progress-track">
@@ -464,14 +489,14 @@
             <div
               class="cost-progress-marker"
               style="left: 100%"
-              title="Actual ₪13,209"
+              title="Actual ₪14,620"
               aria-hidden="true"
             ></div>
           </div>
           <div class="cost-progress-labels">
             <span class="cost-progress-start">₪0</span>
             <span class="cost-progress-target">Target ₪13K</span>
-            <span class="cost-progress-actual">Actual ₪13.2K</span>
+            <span class="cost-progress-actual">Actual ₪14.6K</span>
           </div>
         </div>
       </section>
@@ -479,26 +504,24 @@
       <!-- ====================================================================
            BLOCK 3 — TWO-PERSON CARDS — side-by-side Allison + Avital
            ==================================================================== -->
-      <!-- COST-SYNC 2026-05-17: Per-person math (UPDATED 06:08 per Allison note 8693efe8):
-           Shared pot = lodging 4313 + car 1162 + activities 1445 + food 2580 + baggage 370 = 9870
-           Shared half = 9870 / 2 = 4935 (rounded to 4,936 for display)
-           Allison = 4936 + own flight 1486 - baggage settle 185 = 6,237
-           Avital  = 4936 + own flight 1851 est + baggage settle 185 = 6,972 est
-           Combined = 6237 + 6972 = 13,209 (matches hero, math preserved)
-           $50 baggage owed by Avital is netted INTO the per-person totals (was a settle-strip
-           line before; Allison wanted it rolled in at day-of-purchase rate ~₪3.70/$). -->
+      <!-- COST-SYNC 2026-05-17 Wave 4n: Per-person math RECOMPUTED at new lodging prices:
+           Shared pot = lodging 5,726 + car 1,162 + activities 1,445 + food 2,580 + baggage 370 = 11,283
+           Shared half = 11,283 / 2 = 5,641.50 (rounded to 5,642 for display)
+           Allison = 5,642 + own flight 1,486 - baggage settle 185 = 6,943 (display 6,942)
+           Avital  = 5,642 + own flight 1,851 est + baggage settle 185 = 7,678 est
+           Combined = 6,942 + 7,678 = 14,620 (matches hero) -->
       <section class="people-grid" aria-label="Per-person totals">
         <article class="person-card person-card--allison">
           <div class="person-card-head">
             <span class="person-card-name">Allison</span>
             <span class="person-card-badge person-card-badge--ok">✓ Flight booked</span>
           </div>
-          <div class="person-card-total">₪6,237</div>
-          <div class="person-card-sub">her net share of the trip</div>
+          <div class="person-card-total">₪6,942</div>
+          <div class="person-card-sub">her net share of the trip (was ₪6,237)</div>
           <dl class="person-card-rows">
             <div class="person-card-row">
               <dt>Shared half (lodging + car + food + activities + baggage)</dt>
-              <dd>₪4,936</dd>
+              <dd>₪5,642</dd>
             </div>
             <div class="person-card-row">
               <dt>Own flight · El Al ZP96JK</dt>
@@ -516,12 +539,12 @@
             <span class="person-card-name">Avital</span>
             <span class="person-card-badge person-card-badge--pending">⏳ Flight TBD</span>
           </div>
-          <div class="person-card-total">~₪6,972</div>
-          <div class="person-card-sub">her net share of the trip (est)</div>
+          <div class="person-card-total">~₪7,678</div>
+          <div class="person-card-sub">her net share of the trip (est, was ~₪6,972)</div>
           <dl class="person-card-rows">
             <div class="person-card-row">
               <dt>Shared half (lodging + car + food + activities + baggage)</dt>
-              <dd>₪4,936</dd>
+              <dd>₪5,642</dd>
             </div>
             <div class="person-card-row">
               <dt>Own flight · cash, est</dt>
@@ -575,33 +598,33 @@
 
         <div class="cost-bar-wrap">
           <div class="cost-bar" aria-label="Cost breakdown by category">
-            <div class="cost-bar-seg lodging" style="flex-grow: 4313" title="Lodging ₪4,313 (33%)">
-              <span class="cost-bar-amt">Lodging ₪4,313</span>
+            <div class="cost-bar-seg lodging" style="flex-grow: 5726" title="Lodging ₪5,726 (39%)">
+              <span class="cost-bar-amt">Lodging ₪5,726</span>
             </div>
             <div
               class="cost-bar-seg food"
               style="flex-grow: 2580"
-              title="Food + gas + buffer ₪2,580 (20%)"
+              title="Food + gas + buffer ₪2,580 (18%)"
             >
               <span class="cost-bar-amt">Food ₪2,580</span>
             </div>
-            <div class="cost-bar-seg flight" style="flex-grow: 3337" title="Flights ₪3,337 (25%)">
+            <div class="cost-bar-seg flight" style="flex-grow: 3337" title="Flights ₪3,337 (23%)">
               <span class="cost-bar-amt">Flights ₪3,337</span>
             </div>
             <div
               class="cost-bar-seg activities"
               style="flex-grow: 1445"
-              title="Activities ₪1,445 (11%)"
+              title="Activities ₪1,445 (10%)"
             >
               <span class="cost-bar-amt">Activities ₪1,445</span>
             </div>
-            <div class="cost-bar-seg car" style="flex-grow: 1162" title="Rental car ₪1,162 (9%)">
+            <div class="cost-bar-seg car" style="flex-grow: 1162" title="Rental car ₪1,162 (8%)">
               <span class="cost-bar-amt">Car ₪1,162</span>
             </div>
             <div
               class="cost-bar-seg baggage"
               style="flex-grow: 370"
-              title="Baggage extras ₪370 (3%)"
+              title="Baggage extras ₪370 (2%)"
             >
               <span class="cost-bar-amt">Bag ₪370</span>
             </div>
@@ -611,32 +634,34 @@
             <div class="cost-legend-item">
               <span class="cost-legend-dot lodging"></span>
               <strong>Lodging</strong>
-              <span class="cost-legend-num">₪4,313 · 33%</span>
+              <span class="cost-legend-num"
+                >₪5,726 · 39% <em style="color: #b45309">(+₪1,413)</em></span
+              >
             </div>
             <div class="cost-legend-item">
               <span class="cost-legend-dot flight"></span>
               <strong>Flights (both)</strong>
-              <span class="cost-legend-num">₪3,337 · 25%</span>
+              <span class="cost-legend-num">₪3,337 · 23%</span>
             </div>
             <div class="cost-legend-item">
               <span class="cost-legend-dot food"></span>
               <strong>Food, gas, buffer</strong>
-              <span class="cost-legend-num">₪2,580 · 20%</span>
+              <span class="cost-legend-num">₪2,580 · 18%</span>
             </div>
             <div class="cost-legend-item">
               <span class="cost-legend-dot activities"></span>
               <strong>Activities</strong>
-              <span class="cost-legend-num">₪1,445 · 11%</span>
+              <span class="cost-legend-num">₪1,445 · 10%</span>
             </div>
             <div class="cost-legend-item">
               <span class="cost-legend-dot car"></span>
               <strong>Rental car</strong>
-              <span class="cost-legend-num">₪1,162 · 9%</span>
+              <span class="cost-legend-num">₪1,162 · 8%</span>
             </div>
             <div class="cost-legend-item">
               <span class="cost-legend-dot baggage"></span>
               <strong>Baggage extras</strong>
-              <span class="cost-legend-num">₪370 · 3%</span>
+              <span class="cost-legend-num">₪370 · 2%</span>
             </div>
           </div>
         </div>
@@ -650,58 +675,58 @@
         <p class="cost-block-sub">
           Same 7-night, 2-person shape. Only the lodging tier shifts the total — all three numbers
           are combined (2-person) totals vs the ₪13,000 combined target. Car, food, activities,
-          flights, baggage all hold fixed at ₪8,894. Current pick is starred.
+          flights, baggage all hold fixed at ₪8,894. Current pick is starred. All three tiers
+          recomputed 2026-05-17 at new Booking prices.
         </p>
 
         <div class="tier-grid">
           <article class="tier-card">
             <div class="tier-card-label">Lean</div>
-            <!-- COST-SYNC 2026-05-17: Lean = swap to cheapest mid-range lodging
-                 + skip Schafbergspitze (loses summit night, gain 1 extra night at mountain).
-                 Salz 2N @ ~€95 ≈ ₪754 · Mtn 4N @ ~€80 ≈ ₪1,270 · Airport 1N @ ~€70 ≈ ₪278
-                 = lodging ~₪2,302 + fixed ₪8,894 = ₪11,196.
-                 Was ₪9,658 — old per-person figure, mixed-basis error.
-                 Fixed (non-lodging) = car 1162 + activities 1445 + food 2580 + flights 3337 + bag 370 = 8894. -->
-            <div class="tier-card-total">₪11,196</div>
-            <div class="tier-card-delta tier-card-delta--ok">−₪1,804 under target</div>
+            <!-- COST-SYNC 2026-05-17 Wave 4n: Lean = Pension Elisabeth (€125/nt × 2 = ₪989)
+                 + Austrian Apts Bad Goisern (€160/nt × 4 = ₪2,541; skip summit, add a 4th
+                 mountain night) + Walserberg airport (€71/nt = ₪282) = lodging ₪3,812.
+                 + fixed ₪8,894 (food/car/acts/flights/bag) − cog ₪92 (not at summit) = ₪8,802.
+                 Total = ₪12,614. -->
+            <div class="tier-card-total">₪12,614</div>
+            <div class="tier-card-delta tier-card-delta--ok">−₪386 under target</div>
             <p class="tier-card-note">
-              Mid-range Booking picks · <strong>skip Schafbergspitze</strong> summit night, add a
-              4th night at the mountain base instead. Loses the marquee sunset experience.
+              Pension Elisabeth (€125/nt, has washer) + Austrian Apts Bad Goisern (€160/nt) +
+              <strong>skip Schafbergspitze</strong>, add 4th mountain night instead. Loses the
+              marquee sunset experience but stays under ₪13K.
             </p>
           </article>
 
           <article class="tier-card tier-card--current">
             <div class="tier-card-pick">★ Current pick</div>
             <div class="tier-card-label">Standard</div>
-            <!-- COST-SYNC 2026-05-17: Standard card MUST match hero combined total
-                 (4,936 shared half × 2 + 1,486 flight + 1,851 flight = 13,209).
-                 Was 11,171 — that was a per-person figure mixed into a combined row.
-                 All three tier cards are combined (2-person) totals so they're
-                 comparable to ₪13,000 combined target. -->
-            <div class="tier-card-total">₪13,209</div>
+            <!-- COST-SYNC 2026-05-17 Wave 4n: Standard = master Linzergasse (€286/nt × 2 = ₪2,272)
+                 + Austrian Apts Bad Goisern (€160/nt × 3 = ₪1,909; Haus Edelweiss SOLD OUT)
+                 + Schafbergspitze ₪1,263 + Walserberg ₪282 = lodging ₪5,726.
+                 + fixed ₪8,894 = ₪14,620. Was ₪13,209 before lodging spike. -->
+            <div class="tier-card-total">₪14,620</div>
             <div class="tier-card-delta tier-card-delta--over">
-              +₪209 over target · soft cap, fine
+              +₪1,620 over target · ↑ ₪1,411 since 2026-05-15
             </div>
             <p class="tier-card-note">
-              Linzergasse apt + Haus Edelweiss Obertraun + <strong>Schafbergspitze summit</strong> +
-              airport apt. Keeps the wow night.
+              master Linzergasse <em>(price ↑)</em> + Austrian Apts Bad Goisern
+              <em>(Haus Edelweiss sold out)</em> + <strong>Schafbergspitze summit</strong> +
+              Walserberg. Keeps the wow night. See matrix below for alternate Salzburg picks.
             </p>
           </article>
 
           <article class="tier-card">
             <div class="tier-card-label">Splurge</div>
-            <!-- COST-SYNC 2026-05-17: Splurge = Aiola Resort Salzburg (€217/nt × 2 = ₪1,723) +
-                 Hallstatt-village lake-view holiday home (€217/nt × 3 = ₪2,584) +
-                 keep summit ₪1,263 + keep airport ₪343 = lodging ₪5,913.
-                 + fixed ₪8,894 = ₪14,807.
-                 Was ₪12,658 — old per-person basis (would mean splurge cheaper than current pick, impossible). -->
-            <div class="tier-card-total">₪14,807</div>
+            <!-- COST-SYNC 2026-05-17 Wave 4n: Splurge = Sauerweingut (€278/nt × 2 = ₪2,210; washer +
+                 60m² studio) + Apartment Vespa (€187/nt × 3 = ₪2,224; cheapest mountain alt with
+                 character) + Schafbergspitze ₪1,263 + Hapimag Resort Salzburg-airport (€442/nt =
+                 ₪1,755) = lodging ₪7,452. + fixed ₪8,894 = ₪16,346. -->
+            <div class="tier-card-total">₪16,346</div>
             <div class="tier-card-delta tier-card-delta--over">
-              +₪1,807 over target · within "ceiling can pass" rule
+              +₪3,346 over target · ceiling stretch
             </div>
             <p class="tier-card-note">
-              Aiola Resort Salzburg + Hallstatt-village holiday home swap. Both nights notably nicer
-              for ~₪1,600 more than current pick.
+              Sauerweingut (washer, 60m²) + Apartment Vespa mountain + summit + Hapimag airport. Bumps
+              the airport night to splurge tier; mountain and Salzburg both larger units.
             </p>
           </article>
         </div>
@@ -721,10 +746,15 @@
           <article class="base-card">
             <div class="base-card-icon" aria-hidden="true">🏛</div>
             <div class="base-card-name">Salzburg</div>
-            <div class="base-card-stay">Linzergasse apt</div>
-            <div class="base-card-total">₪1,016</div>
-            <div class="base-card-meta">2 nts · €128/nt · Fri 24 → Sun 26</div>
-            <p class="base-card-incl">Lodging only.</p>
+            <div class="base-card-stay">master Linzergasse</div>
+            <div class="base-card-total">₪2,272</div>
+            <div class="base-card-meta">
+              2 nts · €286/nt · Fri 24 → Sun 26 · <em style="color: #b45309">was €128/nt</em>
+            </div>
+            <p class="base-card-incl">
+              Lodging only. <strong>Price ↑ from €128.</strong> See matrix above for cheaper Salzburg
+              alternates (Pension Elisabeth €125/nt drops total by ₪1,283).
+            </p>
             <a
               class="base-card-link"
               href="https://www.booking.com/searchresults.html?ss=Salzburg&checkin=2026-07-24&checkout=2026-07-26"
@@ -736,11 +766,17 @@
 
           <article class="base-card">
             <div class="base-card-icon" aria-hidden="true">🏔</div>
-            <div class="base-card-name">Mountain · Obertraun</div>
-            <div class="base-card-stay">Haus Edelweiss</div>
-            <div class="base-card-total">₪1,691</div>
-            <div class="base-card-meta">3 nts · €142/nt · Sun 26 → Wed 29</div>
-            <p class="base-card-incl">Lodging only. Hallstatt + Krippenstein from here.</p>
+            <div class="base-card-name">Mountain · Obertraun area</div>
+            <div class="base-card-stay">Austrian Apts (Bad Goisern)</div>
+            <div class="base-card-total">₪1,909</div>
+            <div class="base-card-meta">
+              3 nts · €160/nt · Sun 26 → Wed 29 ·
+              <em style="color: #b45309">Haus Edelweiss SOLD OUT</em>
+            </div>
+            <p class="base-card-incl">
+              Lodging only. Hallstatt + Krippenstein from here. Haus Edelweiss (former pick @ €142/nt)
+              is sold out for these dates — Austrian Apts is the cheapest available swap.
+            </p>
             <a
               class="base-card-link"
               href="https://www.booking.com/searchresults.html?ss=Obertraun&checkin=2026-07-26&checkout=2026-07-29"
@@ -775,10 +811,15 @@
           <article class="base-card">
             <div class="base-card-icon" aria-hidden="true">✈</div>
             <div class="base-card-name">Airport</div>
-            <div class="base-card-stay">Salzburg-airport pick</div>
-            <div class="base-card-total">₪343</div>
-            <div class="base-card-meta">1 nt · €86/nt · Thu 30 → Fri 31</div>
-            <p class="base-card-incl">Lodging only. Required for the 08:55 Fri morning flight.</p>
+            <div class="base-card-stay">Best Western Walserberg</div>
+            <div class="base-card-total">₪282</div>
+            <div class="base-card-meta">
+              1 nt · €71/nt · Thu 30 → Fri 31 · <em style="color: #047857">was €105/nt — ↓</em>
+            </div>
+            <p class="base-card-incl">
+              Lodging only. Required for the 08:55 Fri morning flight. <strong>Price ↓</strong> —
+              Walserberg dropped €34/nt overnight (rare bright spot in this re-verify).
+            </p>
             <a
               class="base-card-link"
               href="https://www.booking.com/searchresults.html?ss=Salzburg+Airport&checkin=2026-07-30&checkout=2026-07-31"
@@ -790,9 +831,10 @@
         </div>
 
         <p class="cost-source">
-          <span class="cost-verified">Verified 2026-05-17</span>
-          Lodging total ₪4,313 (€1,086). Sourced from Booking.com listings + schafberg.net. Full
-          options + lean/splurge alternatives on the <a href="stay.html">Stay page</a>.
+          <span class="cost-verified">Verified 2026-05-17 — re-verify before booking</span>
+          Lodging total ₪5,726 (€1,442) — up ₪1,413 from ₪4,313 since 2026-05-15. Sourced from
+          Booking.com live + schafberg.net. Full options + lean/splurge alternatives on the
+          <a href="stay.html">Stay page</a>.
         </p>
       </section>
 
@@ -809,7 +851,11 @@
         <details class="cost-section">
           <summary>
             <span class="cost-summary-label">Lodging — 4 bookings, 7 nights</span>
-            <span class="cost-summary-amt">₪4,313 <span class="cost-pill ok">on plan</span></span>
+            <span class="cost-summary-amt"
+              >₪5,726 <span class="cost-pill" style="background: #fef3c7; color: #92400e"
+                >+₪1,413 spike</span
+              ></span
+            >
           </summary>
           <div class="cost-section-body">
             <div class="costs-scroll">
@@ -828,6 +874,10 @@
                     <td>
                       Salzburg · master Linzergasse (Fri-Sun)
                       <br />
+                      <span style="font-size: 0.82rem; color: #b45309"
+                        >⚠ Price ↑ €128 → €286/nt since 2026-05-15</span
+                      >
+                      <br />
                       <a
                         href="https://www.booking.com/searchresults.html?ss=Salzburg&checkin=2026-07-24&checkout=2026-07-26"
                         target="_blank"
@@ -836,14 +886,19 @@
                         >Booking ↗</a
                       >
                     </td>
-                    <td class="num">128</td>
+                    <td class="num">286</td>
                     <td class="num">2</td>
-                    <td class="num">256</td>
-                    <td class="num">1,016</td>
+                    <td class="num">572</td>
+                    <td class="num">2,272</td>
                   </tr>
                   <tr>
                     <td>
-                      Mountain anchor · Haus Edelweiss Obertraun (Sun-Wed)
+                      Mountain anchor · Austrian Apartments Bad Goisern (Sun-Wed)
+                      <br />
+                      <span style="font-size: 0.82rem; color: #b45309"
+                        >⚠ Haus Edelweiss (former pick @ €142/nt) SOLD OUT — swapped to cheapest
+                        available alt</span
+                      >
                       <br />
                       <a
                         href="https://www.booking.com/searchresults.html?ss=Obertraun&checkin=2026-07-26&checkout=2026-07-29"
@@ -853,10 +908,10 @@
                         >Booking ↗</a
                       >
                     </td>
-                    <td class="num">142</td>
+                    <td class="num">160</td>
                     <td class="num">3</td>
-                    <td class="num">426</td>
-                    <td class="num">1,691</td>
+                    <td class="num">481</td>
+                    <td class="num">1,909</td>
                   </tr>
                   <tr>
                     <td>
@@ -881,7 +936,11 @@
                   </tr>
                   <tr>
                     <td>
-                      Salzburg-airport · final-night pick (Thu-Fri)
+                      Salzburg-airport · Best Western Walserberg (Thu-Fri)
+                      <br />
+                      <span style="font-size: 0.82rem; color: #047857"
+                        >✓ Price ↓ €105 → €71/nt since 2026-05-15 (rare bright spot)</span
+                      >
                       <br />
                       <a
                         href="https://www.booking.com/searchresults.html?ss=Salzburg+Airport&checkin=2026-07-30&checkout=2026-07-31"
@@ -891,25 +950,35 @@
                         >Booking ↗</a
                       >
                     </td>
-                    <td class="num">86</td>
+                    <td class="num">71</td>
                     <td class="num">1</td>
-                    <td class="num">86</td>
-                    <td class="num">343</td>
+                    <td class="num">71</td>
+                    <td class="num">282</td>
                   </tr>
                   <tr class="total">
-                    <td>Lodging total</td>
+                    <td>Lodging total (was €1,086 / ₪4,313 on 2026-05-15)</td>
                     <td class="num">—</td>
                     <td class="num">7</td>
-                    <td class="num">1,086</td>
-                    <td class="num">4,313</td>
+                    <td class="num">1,442</td>
+                    <td class="num">5,726</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <p class="cost-source">
-              <span class="cost-verified">Verified 2026-05-17 · Booking.com + schafberg.net</span>
+              <span class="cost-verified"
+                >Verified 2026-05-17 — re-verify before booking · Booking.com live +
+                schafberg.net</span
+              >
               Schafbergspitze line is the per-person bundle (cog + breakfast). Lean / splurge swaps
               live on <a href="stay.html">Stay page</a>.
+            </p>
+            <p class="cost-source" style="color: #b45309; margin-top: 0.6rem">
+              ⚠ <strong>Lodging price spike (2026-05-17):</strong> overnight Booking re-verify
+              found master Linzergasse €128→€286/nt, Villa Maxglan €178→€456/nt, Haus Edelweiss SOLD
+              OUT. Walserberg airport pick dropped €105→€71 (the only price-down). Net lodging
+              impact: <strong>+₪1,413</strong>. See "Lodging pick matrix" block above for cheaper
+              Salzburg swaps.
             </p>
             <p class="cost-source" style="color: #b45309; margin-top: 0.6rem">
               ⚠ <strong>Free-cancellation rule (locked 2026-05-17):</strong> all 4 lodging bookings
@@ -971,7 +1040,8 @@
             </div>
             <p class="cost-source">
               <span class="cost-verified"
-                >Verified 2026-05-16 · DiscoverCars via Kayak live quote</span
+                >Verified 2026-05-17 — re-verify before booking · DiscoverCars via Kayak live
+                quote</span
               >
               Not included: motorway vignette (~€11.50), per-trip fuel (in food/gas bucket),
               Grossglockner separate toll if driven.
@@ -1166,7 +1236,9 @@
               </table>
             </div>
             <p class="cost-source">
-              <span class="cost-verified">Verified 2026-05-16 · operator ticket pages</span>
+              <span class="cost-verified"
+                >Verified 2026-05-17 — re-verify before booking · operator ticket pages</span
+              >
               Per-person entry fees only. Free hikes (Vorderer Gosausee, lake walks) aren't here.
             </p>
           </div>
@@ -1294,23 +1366,32 @@
         <ul>
           <li>
             <strong>Target ₪13,000.</strong> Soft cap. Allison's rule:
-            <em>"it can pass the ceiling if needed."</em> Today we're ₪209 over — acceptable.
+            <em>"it can pass the ceiling if needed."</em> Today we're <strong>₪1,620 over</strong>
+            after the 2026-05-17 lodging spike — Allison's call whether to absorb or swap to cheaper
+            Salzburg pick (Pension Elisabeth scenario brings total to ₪13,337, ₪337 over).
           </li>
           <li>
             <strong>Split rule:</strong> lodging, car, food, activities = 50/50. Flights + baggage
             extras = each-own. Settle at trip end.
           </li>
           <li>
-            <strong>Allison's net all-in ₪6,237</strong> = ₪4,936 shared half + ₪1,486 flight − ₪185
-            baggage credit (Avital reimburses at ₪3.70/$).
+            <strong>Allison's net all-in ₪6,942</strong> = ₪5,642 shared half + ₪1,486 flight − ₪185
+            baggage credit (Avital reimburses at ₪3.70/$). <em>Was ₪6,237 pre-spike.</em>
           </li>
           <li>
-            <strong>Avital's net all-in ~₪6,972</strong> = ₪4,936 shared half + ~₪1,851 flight est +
+            <strong>Avital's net all-in ~₪7,678</strong> = ₪5,642 shared half + ~₪1,851 flight est +
             ₪185 baggage owed. She'll confirm her exact flight cost after booking.
+            <em>Was ~₪6,972 pre-spike.</em>
           </li>
           <li>
-            <strong>Headroom:</strong> upgrade a lodging if a better listing appears, swap in a
-            higher-end activity, or bank for splurges on the day.
+            <strong>What spiked:</strong> master Linzergasse €128→€286/nt (+₪1,256 over 2N) · Haus
+            Edelweiss SOLD OUT, swapped to Austrian Apts €160/nt (+₪218 over 3N) · Walserberg
+            €105→€71/nt (−₪61 over 1N). Net: <strong>+₪1,413 in lodging</strong>.
+          </li>
+          <li>
+            <strong>Headroom:</strong> swap Salzburg pick to Pension Elisabeth (€125/nt, has washer)
+            — drops total by ₪1,283. Or wait + re-verify Booking in a week; prices move both
+            directions.
           </li>
         </ul>
       </section>
@@ -1347,8 +1428,8 @@
     </main>
 
     <footer>
-      Shekel-first · EUR/NIS at ₪3.97 · USD/NIS at ₪3.70 · Booking.com verified 2026-05-17 · Car:
-      DiscoverCars 2026-05-16 · Flight: El Al ZP96JK 2026-05-16
+      Shekel-first · EUR/NIS at ₪3.97 · USD/NIS at ₪3.70 · Booking.com verified 2026-05-17 —
+      re-verify before booking · Car: DiscoverCars 2026-05-17 · Flight: El Al ZP96JK 2026-05-16
     </footer>
 
     <script type="module" src="/src/page-costs.ts"></script>
