@@ -703,10 +703,21 @@ export const TRIP: TripData = {
       pickViewType: 'urban',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
-      pickPhotos: carousel(
-        'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
-        ...PHOTO_POOL.salzburgOldTown,
-      ),
+      // Master-pick photos sourced live from Booking.com 2026-05-17 — 10 real
+      // listing shots instead of the carousel() helper that mixed the hero
+      // with Wikimedia area photos.
+      pickPhotos: [
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474092866.jpg?k=986634218fc93628f2d52c8ad8e3a29b81db08747371da66f9d861a5c1d8b08d&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189965.jpg?k=a1ac6798e4a3719fa5438391411cbdef0a325981cfbc98bfab15e33f982b7c31&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190876.jpg?k=0bf8d877adad096e225e7a29ecba7563c4954cff4b63fe1915d59ebeb1624df7&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189924.jpg?k=f6bc9bfa3cddb6d9cb4f07cdbea582d310f2fd408b1666ad328b1468dcf1e440&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190855.jpg?k=92365936f9794a339dd266c65b7b6ab546cecdf6e1eb00aa01b9022375ca7506&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/776498811.jpg?k=2a119953b7bbddf5930209b7647fbc8768f8ce454a0b3393388c55066df1e7e5&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/661109556.jpg?k=7d7491adf7e5bde8284076ec70438306ea3e6af3213510cad13bd4cdc7fa68ea&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/776498791.jpg?k=07e75cd098fe54f38964b4659f88d054ea091fbfcbc036384397ce8ebd079516&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/493260152.jpg?k=86cec665b63c61873842dbf2335b5640a0d8aee6c1337e986de09f5b5dff477d&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/493260204.jpg?k=8116818e0cf15afc814f321af727752f8042d3ad152ba3da0d6b7c142306aa1d&o=',
+      ],
       alts: [
         {
           name: "Junker's Apartments",
@@ -1139,11 +1150,21 @@ export const TRIP: TripData = {
       pickViewType: 'mountain',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-17',
-      pickPhotos: carousel(
-        'https://cf.bstatic.com/xdata/images/hotel/square600/506509432.webp?k=29d77bd1dd210a101fa445b3dc5caac41d37ef7b8ac5bd504e28fdd3b59b42f0&o=',
-        ...PHOTO_POOL.obertraunDachstein,
-        ...PHOTO_POOL.hallstattVillage,
-      ),
+      // Master-pick photos sourced live from Booking.com 2026-05-17 — 10 real
+      // listing shots instead of the carousel() helper that mixed the hero
+      // with Wikimedia area photos.
+      pickPhotos: [
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/506509432.jpg?k=10c2bf42576ef96c8a14743e4349a0cd6e154fcf2c3ce64a107b8fe66e9cab2e&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/506509650.jpg?k=ee9e0cecd809a6cc515e5e48a9563d5984e45e007115cef357bfbfbe94bbc980&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/506533919.jpg?k=5e1e39dfd10e21cc8efafbee43aee23c75c6b6d76f3dd075f2ae70d7fa1564e1&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/506509603.jpg?k=9c7500f3f51584b2442ea1b7c598ef795ab6a2802d1c925c667f346931a770f1&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512121245.jpg?k=f5049e965c579b2fc08f99a520dfa96df13f2bb1d0e69268e1f3f881aa0a414c&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512121251.jpg?k=63041b7d565b4bb84943f6b68dc271fef7e584242778d15340723cd92e14b867&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512121253.jpg?k=fa9a3fcf8bb07d9468424ec2cc253bd5d85791322029c24c7330fb090742142b&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512121256.jpg?k=1138c85ca38a151dd7a10362602b7e9fe0d790005c8d6b77ec43855c99a593c3&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512121260.jpg?k=d8076661e019d5dd3828d15262a1fa0745b1b21ed515bd029ebd3b51f61b386a&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/512121262.jpg?k=edbe4f8801df37a7b66a9538a79e28998f436a15bfea86c73cb9a7bd2e7a5230&o=&hp=1',
+      ],
       alts: [
         {
           name: 'Austrian Apartments (Bad Goisern)',
