@@ -260,6 +260,8 @@ const BASE_COLORS: Record<BaseKey, string> = {
 // Click a chip = ADD to the set = NARROW. Click again = REMOVE = WIDEN.
 // (Old behavior: bases pre-populated, must un-click — Avital pushed back.)
 // ---------------------------------------------------------------------------
+type SortKey = 'best-fit' | 'price-low' | 'score-high' | 'walk-chabad' | 'closest-nature';
+
 interface FilterState {
   view: 'list' | 'grid' | 'map';
   showShortlistOnly: boolean;
@@ -269,6 +271,35 @@ interface FilterState {
   bedrooms: Set<'studio' | '1' | '2' | '3+'>;
   amenities: Set<'washer' | 'washer-dryer' | 'ac' | 'parking'>;
   platforms: Set<LodgingPlatform>;
+  sort: SortKey;
+}
+
+const SORT_STORAGE_KEY = 'austria-lodging-sort';
+const TOOLTIP_STORAGE_KEY = 'austria-lodging-filter-tooltip-seen';
+
+function loadStoredSort(): SortKey {
+  try {
+    const raw = localStorage.getItem(SORT_STORAGE_KEY);
+    if (
+      raw === 'best-fit' ||
+      raw === 'price-low' ||
+      raw === 'score-high' ||
+      raw === 'walk-chabad' ||
+      raw === 'closest-nature'
+    )
+      return raw;
+  } catch {
+    /* ignore */
+  }
+  return 'best-fit';
+}
+
+function storeSort(s: SortKey): void {
+  try {
+    localStorage.setItem(SORT_STORAGE_KEY, s);
+  } catch {
+    /* ignore */
+  }
 }
 
 const state: FilterState = {
@@ -280,7 +311,13 @@ const state: FilterState = {
   bedrooms: new Set(),
   amenities: new Set(),
   platforms: new Set(),
+  sort: loadStoredSort(),
 };
+
+// Compare-2 mode: holds up to 2 listing ids the user has selected via the
+// 📊 Compare icon on the card. When length hits 2, the compare modal opens
+// automatically. Reset on close. Per stay-ux deliverable B (2026-05-17).
+const compareSelection: string[] = [];
 
 // ---------------------------------------------------------------------------
 // PICKS — localStorage primary, Supabase mirror.
@@ -673,9 +710,64 @@ function bedroomBucket(b: UnifiedListing['bedrooms']): 'studio' | '1' | '2' | '3
   return null;
 }
 
+// Parse e.g. "€95-120" or "€78" → 95 (low end). Falls back to Infinity for sort.
+function parsePriceLow(price: string): number {
+  const m = /(\d{2,4})/.exec(price.replace(/[,\s]/g, ''));
+  if (!m || !m[1]) return Infinity;
+  return parseInt(m[1], 10);
+}
+
+// Parse e.g. "8.7 · 412 reviews" → 8.7. Falls back to -1 for sort.
+function parseReviewScore(review: string): number {
+  const m = /(\d{1,2}\.\d)/.exec(review);
+  if (!m || !m[1]) return -1;
+  return parseFloat(m[1]);
+}
+
+// Closest nature destination drive-time in minutes (min across the matrix).
+// Used by "Closest to nature" sort. Returns Infinity if no matrix.
+function closestNatureMin(l: UnifiedListing): number {
+  const matrix = driveMatrixForListing(l);
+  if (matrix.length === 0) return Infinity;
+  return matrix.reduce((m, r) => Math.min(m, r.fromBaseMin), Infinity);
+}
+
+function sortListings(items: UnifiedListing[]): UnifiedListing[] {
+  const out = items.slice();
+  switch (state.sort) {
+    case 'price-low':
+      out.sort((a, b) => parsePriceLow(a.pricePerNight) - parsePriceLow(b.pricePerNight));
+      break;
+    case 'score-high':
+      out.sort((a, b) => parseReviewScore(b.review) - parseReviewScore(a.review));
+      break;
+    case 'walk-chabad':
+      // Salzburg-only sort; non-Salzburg sink to bottom.
+      out.sort((a, b) => {
+        const aw = a.walkToChabadMin ?? Infinity;
+        const bw = b.walkToChabadMin ?? Infinity;
+        return aw - bw;
+      });
+      break;
+    case 'closest-nature':
+      out.sort((a, b) => closestNatureMin(a) - closestNatureMin(b));
+      break;
+    case 'best-fit':
+    default:
+      // Default = picks first, then beauty picks, then everything in source order.
+      out.sort((a, b) => {
+        const aRank = a.isPick ? 0 : a.isBeauty ? 1 : 2;
+        const bRank = b.isPick ? 0 : b.isBeauty ? 1 : 2;
+        return aRank - bRank;
+      });
+      break;
+  }
+  return out;
+}
+
 function applyFilters(): UnifiedListing[] {
   const picks = readPicks();
-  return ALL_LISTINGS.filter((l) => {
+  const filtered = ALL_LISTINGS.filter((l) => {
     if (state.showShortlistOnly && !picks[l.id]) return false;
     // Booking-style: empty filter set = ALL. Selected = only those.
     if (state.bases.size > 0 && !state.bases.has(l.base)) return false;
@@ -694,6 +786,7 @@ function applyFilters(): UnifiedListing[] {
     if (state.platforms.size > 0 && !state.platforms.has(l.platform)) return false;
     return true;
   });
+  return sortListings(filtered);
 }
 
 // Counter per filter option (Booking-style "Washer (12)") — counts listings
@@ -976,6 +1069,21 @@ function pickButtonHtml(l: UnifiedListing): string {
   return `<button type="button" class="${cls}" data-pick-id="${escapeHtml(l.id)}" aria-pressed="${picked}" aria-label="${aria}">${label}</button>`;
 }
 
+// Compare-2 icon — sits inside the media frame next to the pick button.
+// Click toggles inclusion in compareSelection. At 2 selected, the compare
+// modal opens. Per stay-ux deliverable B (2026-05-17).
+function compareButtonHtml(l: UnifiedListing): string {
+  const selected = compareSelection.includes(l.id);
+  const cls = selected
+    ? 'lodging-compare-btn lodging-compare-btn--on'
+    : 'lodging-compare-btn';
+  const label = selected ? '✓ In compare' : '📊 Compare';
+  const aria = selected
+    ? `Remove ${l.name} from comparison`
+    : `Add ${l.name} to comparison (pick 2)`;
+  return `<button type="button" class="${cls}" data-compare-id="${escapeHtml(l.id)}" aria-pressed="${selected}" aria-label="${aria}" title="Pick 2 to compare side-by-side">${label}</button>`;
+}
+
 // ---------------------------------------------------------------------------
 // Lodging photo carousel (added 2026-05-17 by lodging-carousel agent).
 // Avital's ask: "Can we have multiple picture for sleeping where we can swipe
@@ -1179,6 +1287,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
     variant === 'grid' ? 'stay-card--grid' : 'stay-card--list',
     l.isBeauty ? 'stay-card--beauty' : '',
     isPicked(l.id) ? 'lodging-card--picked' : '',
+    compareSelection.includes(l.id) ? 'lodging-card--in-compare' : '',
     l.availability === 'sold-out' ? 'lodging-card--sold-out' : '',
   ]
     .filter(Boolean)
@@ -1198,6 +1307,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
       <div class="lodging-card__media">
         ${lodgingCarouselHtml(l.photos, l.img, l.name, 'stay-card__img')}
         ${pickButtonHtml(l)}
+        ${compareButtonHtml(l)}
       </div>
       <div class="stay-card__body lodging-card__body">
         ${soldOutBadge(l)}
@@ -1256,6 +1366,7 @@ function renderListView(items: UnifiedListing[]): string {
             <span class="stay-group__count">${groups[b].length} listing${groups[b].length === 1 ? '' : 's'}</span>
             <span class="stay-group__dates">${escapeHtml(d.short)}</span>
           </header>
+          ${megaCtaHtml(b)}
           <div class="stay-list">${cards}</div>
         </section>`;
     })
@@ -1283,10 +1394,14 @@ function renderMapView(items: UnifiedListing[]): string {
 }
 
 function emptyStateHtml(): string {
+  // Per stay-ux deliverable H (2026-05-17): friendlier copy, single clear CTA,
+  // soft illustration vibe. "No picks match" — invitational, not scolding.
   return `
-    <div class="stay-empty">
-      <p><strong>No listings match these filters.</strong></p>
-      <p>Try removing a filter, or <button type="button" class="stay-empty__clear" id="empty-clear">clear all filters</button>.</p>
+    <div class="stay-empty stay-empty--lyrical">
+      <div class="stay-empty__icon" aria-hidden="true">🌲</div>
+      <p class="stay-empty__title"><strong>No stays match those filters.</strong></p>
+      <p class="stay-empty__body">Try widening your shortlist — the right place is usually one chip away.</p>
+      <button type="button" class="stay-empty__clear" id="empty-clear">↺ Reset filters</button>
     </div>`;
 }
 
@@ -1566,6 +1681,485 @@ function renderMapPins(items: UnifiedListing[]): void {
 }
 
 // ---------------------------------------------------------------------------
+// Sort dropdown (stay-ux deliverable C — 2026-05-17)
+// ---------------------------------------------------------------------------
+function renderSortDropdown(): string {
+  // Salzburg-only / Mountain-only sorts are conditional. We hide them when
+  // the current filter set makes them irrelevant.
+  const salzActive = state.bases.size === 0 || state.bases.has('salzburg');
+  const natureActive =
+    state.bases.size === 0 ||
+    state.bases.has('obertraun') ||
+    state.bases.has('berchtesgaden') ||
+    state.bases.has('wolfgangsee');
+  const opts: { value: SortKey; label: string; show: boolean }[] = [
+    { value: 'best-fit', label: 'Best fit', show: true },
+    { value: 'price-low', label: 'Lowest price', show: true },
+    { value: 'score-high', label: 'Highest review score', show: true },
+    { value: 'walk-chabad', label: 'Closest to Chabad', show: salzActive },
+    { value: 'closest-nature', label: 'Closest to nature', show: natureActive },
+  ];
+  const items = opts
+    .filter((o) => o.show)
+    .map(
+      (o) =>
+        `<option value="${o.value}"${state.sort === o.value ? ' selected' : ''}>${escapeHtml(o.label)}</option>`,
+    )
+    .join('');
+  return `
+    <label class="stay-sort">
+      <span class="stay-sort__label">Sort:</span>
+      <select class="stay-sort__select" id="stay-sort-select" aria-label="Sort listings">${items}</select>
+    </label>`;
+}
+
+// ---------------------------------------------------------------------------
+// Per-base mega CTA (stay-ux deliverable D — 2026-05-17)
+// "Open all <Base> picks on Booking.com with our filters." Pre-builds the
+// Booking.com search URL with dates · 2 adults · free-cancel · score≥8.5 ·
+// 2+ bedrooms (Salzburg only — Avital wants 2BR for the longest stays).
+// ---------------------------------------------------------------------------
+const BASE_BOOKING_DEST_ID: Record<BaseKey, string> = {
+  salzburg: 'Salzburg', // ss=Salzburg
+  obertraun: 'Obertraun',
+  berchtesgaden: 'Berchtesgaden',
+  wolfgangsee: 'St.+Wolfgang+im+Salzkammergut',
+  airport: 'Salzburg+Airport',
+};
+
+function bookingSearchUrlForBase(base: BaseKey): string {
+  const d = BASE_DATES[base];
+  const ss = BASE_BOOKING_DEST_ID[base];
+  // nflt=fc%3D2 = free cancellation; review_score=85 = ≥8.5; ht_id=204 = apartments;
+  // entire_place=1 = entire-home filter. Salzburg gets a 2+ BR filter too.
+  // Booking.com encodes multi-filter as semicolon-separated within nflt.
+  const filters: string[] = ['fc=2', 'review_score=85', 'ht_id=204', 'entire_place=1'];
+  if (base === 'salzburg') filters.push('min_bedrooms=2');
+  const nflt = encodeURIComponent(filters.join(';'));
+  return `https://www.booking.com/searchresults.html?ss=${ss}&checkin=${d.bookingCheckIn}&checkout=${d.bookingCheckOut}&group_adults=2&no_rooms=1&group_children=0&nflt=${nflt}&order=review_score_and_price`;
+}
+
+function megaCtaHtml(base: BaseKey): string {
+  const url = bookingSearchUrlForBase(base);
+  const label = BASE_LABELS[base];
+  const filterDesc =
+    base === 'salzburg'
+      ? 'free-cancel · ≥ 8.5 score · 2+ BR · entire apt'
+      : 'free-cancel · ≥ 8.5 score · entire apt';
+  return `
+    <a class="lodging-mega-cta" href="${escapeHtml(url)}" target="_blank" rel="noreferrer noopener"
+       aria-label="Open all ${escapeHtml(label)} picks on Booking.com with our filters">
+      <span class="lodging-mega-cta__icon" aria-hidden="true">🔍</span>
+      <span class="lodging-mega-cta__text">
+        <strong>Open all ${escapeHtml(label)} picks on Booking.com</strong>
+        <span class="lodging-mega-cta__filters">${escapeHtml(filterDesc)}</span>
+      </span>
+      <span class="lodging-mega-cta__chev" aria-hidden="true">↗</span>
+    </a>`;
+}
+
+// ---------------------------------------------------------------------------
+// Bottom sticky shortlist bar (stay-ux deliverable A — 2026-05-17)
+// Shows chips for picked stays (max 5 visible + "+N more"), Review/Clear/Share.
+// Persists via existing PICKS_STORAGE_KEY. Share copies a URL with pick IDs.
+// ---------------------------------------------------------------------------
+function pickedListings(): UnifiedListing[] {
+  const picks = readPicks();
+  return ALL_LISTINGS.filter((l) => picks[l.id]);
+}
+
+function pickChipHtml(l: UnifiedListing): string {
+  // Avatar initials from first letters of name words, max 2 chars.
+  const initials = l.name
+    .replace(/[^A-Za-z\s]/g, '')
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w.charAt(0).toUpperCase())
+    .join('') || '?';
+  const color = BASE_COLORS[l.base];
+  return `
+    <span class="bottom-shortlist__chip" style="background:${color}1f;border-color:${color}7a;color:${color}"
+          title="${escapeHtml(l.name)} — ${escapeHtml(BASE_LABELS[l.base])}">
+      <span class="bottom-shortlist__chip-initials">${escapeHtml(initials)}</span>
+      <span class="bottom-shortlist__chip-name">${escapeHtml(l.name)}</span>
+    </span>`;
+}
+
+function renderBottomShortlistBar(): string {
+  const picks = pickedListings();
+  if (picks.length === 0) return '';
+  const visible = picks.slice(0, 5);
+  const overflow = picks.length - visible.length;
+  const chips = visible.map(pickChipHtml).join('');
+  const moreChip =
+    overflow > 0
+      ? `<span class="bottom-shortlist__chip bottom-shortlist__chip--more">+${overflow} more</span>`
+      : '';
+  return `
+    <div class="bottom-shortlist__inner" role="region" aria-label="Your shortlist (${picks.length})">
+      <div class="bottom-shortlist__chips" aria-label="Picked stays">
+        ${chips}${moreChip}
+      </div>
+      <div class="bottom-shortlist__actions">
+        <button type="button" class="bottom-shortlist__btn bottom-shortlist__btn--primary"
+                id="bottom-shortlist-review" aria-haspopup="dialog">
+          Review picks (${picks.length})
+        </button>
+        <button type="button" class="bottom-shortlist__btn bottom-shortlist__btn--ghost"
+                id="bottom-shortlist-share" aria-label="Copy shareable link to this shortlist">
+          🔗 Share
+        </button>
+        <button type="button" class="bottom-shortlist__btn bottom-shortlist__btn--link"
+                id="bottom-shortlist-clear" aria-label="Clear all picks">
+          Clear
+        </button>
+      </div>
+    </div>`;
+}
+
+// Shortlist modal body — one row per picked stay with name, photo, link, remove.
+function renderShortlistModalBody(): string {
+  const picks = pickedListings();
+  if (picks.length === 0) {
+    return `
+      <p class="ux-modal__empty">Nothing picked yet. Tap <strong>+ Pick this</strong> on any stay to add it here.</p>`;
+  }
+  const rows = picks
+    .map((l) => {
+      const bookingUrl = bookingUrlWithDates(l.url, l.base);
+      const firstPhoto = l.photos && l.photos.length > 0 ? l.photos[0]! : l.img;
+      return `
+        <article class="shortlist-row" id="shortlist-row-${escapeHtml(l.id)}">
+          <img class="shortlist-row__thumb" src="${escapeHtml(firstPhoto)}" alt="${escapeHtml(l.name)}" loading="lazy" />
+          <div class="shortlist-row__body">
+            <h3 class="shortlist-row__name">${escapeHtml(l.name)}</h3>
+            <p class="shortlist-row__meta">
+              <span class="shortlist-row__base" style="color:${BASE_COLORS[l.base]}">${escapeHtml(BASE_LABELS[l.base])}</span>
+              · ${escapeHtml(l.pricePerNight)} · ${escapeHtml(l.review)}
+            </p>
+            <p class="shortlist-row__meta shortlist-row__meta--dates">📅 ${escapeHtml(BASE_DATES[l.base].short)}</p>
+            <div class="shortlist-row__actions">
+              <a class="shortlist-row__link" href="${escapeHtml(bookingUrl)}" target="_blank" rel="noreferrer noopener">
+                Open on Booking.com →
+              </a>
+              <button type="button" class="shortlist-row__remove" data-shortlist-remove="${escapeHtml(l.id)}"
+                      aria-label="Remove ${escapeHtml(l.name)} from shortlist">
+                Remove
+              </button>
+            </div>
+          </div>
+        </article>`;
+    })
+    .join('');
+  return `
+    <p class="ux-modal__lede">${picks.length} stay${picks.length === 1 ? '' : 's'} picked. Tap to open on Booking.com or remove.</p>
+    <div class="shortlist-rows">${rows}</div>`;
+}
+
+function openShortlistModal(): void {
+  const modal = document.getElementById('stay-shortlist-modal');
+  const body = document.getElementById('shortlist-modal-body');
+  if (!modal || !body) return;
+  body.innerHTML = renderShortlistModalBody();
+  modal.hidden = false;
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('ux-modal-open');
+  // Focus close for keyboard.
+  const close = modal.querySelector<HTMLButtonElement>('.ux-modal__close');
+  close?.focus();
+}
+
+function closeAllUxModals(): void {
+  document.querySelectorAll<HTMLDivElement>('.ux-modal').forEach((m) => {
+    m.hidden = true;
+    m.setAttribute('aria-hidden', 'true');
+  });
+  document.body.classList.remove('ux-modal-open');
+}
+
+// ---------------------------------------------------------------------------
+// Compare modal body (stay-ux deliverable B — 2026-05-17)
+// ---------------------------------------------------------------------------
+function deltaFlag(condition: boolean): string {
+  return condition ? ' compare-cell--better' : '';
+}
+
+function compareCell(value: string, better: boolean): string {
+  return `<td class="compare-cell${deltaFlag(better)}">${better ? '<span class="compare-cell__check" aria-hidden="true">✓ </span>' : ''}${value}</td>`;
+}
+
+function bedroomsNumeric(b: UnifiedListing['bedrooms']): number {
+  if (b === 'studio') return 0;
+  if (typeof b === 'number') return b;
+  return -1;
+}
+
+function renderCompareModalBody(): string {
+  const [aId, bId] = compareSelection;
+  if (!aId || !bId) {
+    return `<p class="ux-modal__empty">Pick 2 stays to compare. Tap the <strong>📊 Compare</strong> icon on any card.</p>`;
+  }
+  const a = ALL_LISTINGS.find((x) => x.id === aId);
+  const b = ALL_LISTINGS.find((x) => x.id === bId);
+  if (!a || !b) {
+    return `<p class="ux-modal__empty">Couldn't load one of the stays. Try again?</p>`;
+  }
+
+  // Delta flags
+  const aPriceLow = parsePriceLow(a.pricePerNight);
+  const bPriceLow = parsePriceLow(b.pricePerNight);
+  const aScore = parseReviewScore(a.review);
+  const bScore = parseReviewScore(b.review);
+  const aBR = bedroomsNumeric(a.bedrooms);
+  const bBR = bedroomsNumeric(b.bedrooms);
+  const aWalkChabad = a.walkToChabadMin ?? Infinity;
+  const bWalkChabad = b.walkToChabadMin ?? Infinity;
+  const aNature = closestNatureMin(a);
+  const bNature = closestNatureMin(b);
+
+  const photo = (l: UnifiedListing): string => {
+    const src = l.photos && l.photos.length > 0 ? l.photos[0]! : l.img;
+    return `<img class="compare-photo" src="${escapeHtml(src)}" alt="${escapeHtml(l.name)}" loading="lazy" />`;
+  };
+
+  const row = (label: string, cellA: string, cellB: string): string =>
+    `<tr><th scope="row">${escapeHtml(label)}</th>${cellA}${cellB}</tr>`;
+
+  const kitchenLabel = (k: LodgingKitchen): string =>
+    k === 'full' ? 'Full' : k === 'kitchenette' ? 'Kitchenette' : k === 'shared' ? 'Shared' : k === 'none' ? 'None' : 'Unknown';
+  const laundryLabel = (l: LodgingLaundry): string =>
+    l === 'washer+dryer' ? 'Washer + dryer' : l === 'washer' ? 'Washer' : l === 'shared' ? 'Shared' : l === 'none' ? 'None' : 'Unknown';
+  const bathLabel = (b: LodgingBath): string =>
+    b === 'private' ? 'Private' : b === 'shared' ? 'Shared' : 'Unknown';
+  const parkingLabel = (p: LodgingParking): string =>
+    p === 'free' ? 'Free' : p === 'paid' ? 'Paid' : p === 'street' ? 'Street' : p === 'none' ? 'None' : 'Unknown';
+  const brLabel = (l: UnifiedListing): string =>
+    l.bedrooms === 'studio' ? 'Studio' : typeof l.bedrooms === 'number' ? `${l.bedrooms} BR` : '—';
+
+  const aBookingUrl = bookingUrlWithDates(a.url, a.base);
+  const bBookingUrl = bookingUrlWithDates(b.url, b.base);
+
+  return `
+    <div class="compare-grid">
+      <table class="compare-table" aria-label="Side-by-side comparison">
+        <thead>
+          <tr>
+            <th scope="col" class="compare-rowlabel"></th>
+            <th scope="col">
+              ${photo(a)}
+              <p class="compare-name">${escapeHtml(a.name)}</p>
+              <p class="compare-sub" style="color:${BASE_COLORS[a.base]}">${escapeHtml(BASE_LABELS[a.base])}</p>
+            </th>
+            <th scope="col">
+              ${photo(b)}
+              <p class="compare-name">${escapeHtml(b.name)}</p>
+              <p class="compare-sub" style="color:${BASE_COLORS[b.base]}">${escapeHtml(BASE_LABELS[b.base])}</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          ${row('Beds + bedrooms', compareCell(`${brLabel(a)}${a.beds ? ' · ' + escapeHtml(a.beds) : ''}`, aBR > bBR), compareCell(`${brLabel(b)}${b.beds ? ' · ' + escapeHtml(b.beds) : ''}`, bBR > aBR))}
+          ${row('Bath', compareCell(bathLabel(a.bath), a.bath === 'private' && b.bath !== 'private'), compareCell(bathLabel(b.bath), b.bath === 'private' && a.bath !== 'private'))}
+          ${row('Kitchen', compareCell(kitchenLabel(a.kitchen), a.kitchen === 'full' && b.kitchen !== 'full'), compareCell(kitchenLabel(b.kitchen), b.kitchen === 'full' && a.kitchen !== 'full'))}
+          ${row('Laundry', compareCell(laundryLabel(a.laundry), (a.hasWasherDryer && !b.hasWasherDryer) || (a.hasWasher && !b.hasWasher && !b.hasWasherDryer)), compareCell(laundryLabel(b.laundry), (b.hasWasherDryer && !a.hasWasherDryer) || (b.hasWasher && !a.hasWasher && !a.hasWasherDryer)))}
+          ${row('AC', compareCell(a.hasAc ? 'Yes' : 'No', a.hasAc && !b.hasAc), compareCell(b.hasAc ? 'Yes' : 'No', b.hasAc && !a.hasAc))}
+          ${row('Parking', compareCell(parkingLabel(a.parking), a.parking === 'free' && b.parking !== 'free'), compareCell(parkingLabel(b.parking), b.parking === 'free' && a.parking !== 'free'))}
+          ${row('Walk to Chabad', compareCell(a.walkToChabadMin ? `${a.walkToChabadMin} min` : '—', aWalkChabad < bWalkChabad && aWalkChabad < Infinity), compareCell(b.walkToChabadMin ? `${b.walkToChabadMin} min` : '—', bWalkChabad < aWalkChabad && bWalkChabad < Infinity))}
+          ${row('Closest nature anchor', compareCell(aNature < Infinity ? `${aNature} min drive` : '—', aNature < bNature && aNature < Infinity), compareCell(bNature < Infinity ? `${bNature} min drive` : '—', bNature < aNature && bNature < Infinity))}
+          ${row('Score · reviews', compareCell(escapeHtml(a.review), aScore > bScore), compareCell(escapeHtml(b.review), bScore > aScore))}
+          ${row('Price / night', compareCell(escapeHtml(a.pricePerNight), aPriceLow < bPriceLow), compareCell(escapeHtml(b.pricePerNight), bPriceLow < aPriceLow))}
+          ${row('Free cancellation', compareCell(a.freeCancellation ? 'Yes' : 'No', a.freeCancellation && !b.freeCancellation), compareCell(b.freeCancellation ? 'Yes' : 'No', b.freeCancellation && !a.freeCancellation))}
+        </tbody>
+      </table>
+      <div class="compare-ctas">
+        <a class="lodging-cta lodging-cta--primary" href="${escapeHtml(aBookingUrl)}" target="_blank" rel="noreferrer noopener">Open ${escapeHtml(a.name)} ↗</a>
+        <a class="lodging-cta lodging-cta--primary" href="${escapeHtml(bBookingUrl)}" target="_blank" rel="noreferrer noopener">Open ${escapeHtml(b.name)} ↗</a>
+      </div>
+      <p class="compare-hint">Green ✓ = better on that row. Tap × to close + pick a different pair.</p>
+    </div>`;
+}
+
+function openCompareModal(): void {
+  const modal = document.getElementById('stay-compare-modal');
+  const body = document.getElementById('compare-modal-body');
+  if (!modal || !body) return;
+  body.innerHTML = renderCompareModalBody();
+  modal.hidden = false;
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('ux-modal-open');
+  modal.querySelector<HTMLButtonElement>('.ux-modal__close')?.focus();
+}
+
+// ---------------------------------------------------------------------------
+// Sticky filter summary (stay-ux deliverable E — 2026-05-17)
+// Slim bar that appears when any filter is active AND user has scrolled past
+// the filter bar. Mounted at body root; toggled via scroll listener.
+// ---------------------------------------------------------------------------
+function describeActiveFilters(): string {
+  const bits: string[] = [];
+  if (state.bases.size > 0) {
+    bits.push(
+      Array.from(state.bases)
+        .map((b) => BASE_LABELS[b])
+        .join(' / '),
+    );
+  }
+  if (state.bedrooms.size > 0) {
+    bits.push(
+      Array.from(state.bedrooms)
+        .map((b) => (b === 'studio' ? 'Studio' : `${b} BR`))
+        .join(' / '),
+    );
+  }
+  if (state.amenities.size > 0) {
+    const aMap: Record<string, string> = {
+      washer: 'Washer',
+      'washer-dryer': 'Washer+dryer',
+      ac: 'AC',
+      parking: 'Free parking',
+    };
+    bits.push(
+      Array.from(state.amenities)
+        .map((a) => aMap[a] ?? a)
+        .join(' + '),
+    );
+  }
+  if (state.tiers.size > 0) {
+    bits.push(
+      Array.from(state.tiers)
+        .map((t) => (t === 'lean' ? 'Lean' : t === 'standard' ? 'Standard' : 'Mid-high'))
+        .join(' / '),
+    );
+  }
+  if (state.vibes.size > 0) {
+    bits.push(Array.from(state.vibes).join(' / '));
+  }
+  if (state.platforms.size > 0) {
+    bits.push(Array.from(state.platforms).join(' / '));
+  }
+  if (state.showShortlistOnly) bits.push('Shortlist only');
+  return bits.join(' · ');
+}
+
+function renderFilterSummary(): string {
+  const total =
+    state.bases.size +
+    state.tiers.size +
+    state.vibes.size +
+    state.bedrooms.size +
+    state.amenities.size +
+    state.platforms.size +
+    (state.showShortlistOnly ? 1 : 0);
+  if (total === 0) return '';
+  const matched = applyFilters().length;
+  const desc = describeActiveFilters();
+  return `
+    <div class="filter-summary-bar__inner" role="status" aria-live="polite">
+      <span class="filter-summary-bar__label">Filtering:</span>
+      <span class="filter-summary-bar__desc">${escapeHtml(desc)}</span>
+      <span class="filter-summary-bar__count">${matched} result${matched === 1 ? '' : 's'}</span>
+      <button type="button" class="filter-summary-bar__clear" id="filter-summary-clear">Clear filters</button>
+    </div>`;
+}
+
+function updateFilterSummaryVisibility(): void {
+  const bar = document.getElementById('stay-filter-summary');
+  if (!bar) return;
+  const filterAside = document.querySelector<HTMLElement>('.filter-bar');
+  if (!filterAside) {
+    bar.hidden = true;
+    return;
+  }
+  const total =
+    state.bases.size +
+    state.tiers.size +
+    state.vibes.size +
+    state.bedrooms.size +
+    state.amenities.size +
+    state.platforms.size +
+    (state.showShortlistOnly ? 1 : 0);
+  if (total === 0) {
+    bar.hidden = true;
+    bar.setAttribute('aria-hidden', 'true');
+    return;
+  }
+  // Visible when the filter bar's bottom edge has scrolled above the viewport.
+  const rect = filterAside.getBoundingClientRect();
+  const scrolledPast = rect.bottom < 4;
+  bar.hidden = !scrolledPast;
+  bar.setAttribute('aria-hidden', scrolledPast ? 'false' : 'true');
+}
+
+// ---------------------------------------------------------------------------
+// First-time filter tooltip (stay-ux deliverable F — 2026-05-17)
+// Shown once near the filter chips; dismissable, auto-fades after 5s.
+// ---------------------------------------------------------------------------
+function maybeShowFilterTooltip(): void {
+  try {
+    if (localStorage.getItem(TOOLTIP_STORAGE_KEY) === '1') return;
+  } catch {
+    return;
+  }
+  // Find the bases chip group as anchor.
+  const anchor = document.querySelector<HTMLDivElement>('[data-group-label="bases"]');
+  if (!anchor) return;
+  // Don't duplicate.
+  if (document.getElementById('filter-first-tooltip')) return;
+  const tip = document.createElement('div');
+  tip.id = 'filter-first-tooltip';
+  tip.className = 'filter-tooltip';
+  tip.setAttribute('role', 'status');
+  tip.innerHTML = `
+    <span class="filter-tooltip__arrow" aria-hidden="true"></span>
+    <span class="filter-tooltip__text">All stays shown. Tap a chip to narrow.</span>
+    <button type="button" class="filter-tooltip__close" aria-label="Dismiss tip">✕</button>`;
+  anchor.appendChild(tip);
+  const dismiss = (): void => {
+    try {
+      localStorage.setItem(TOOLTIP_STORAGE_KEY, '1');
+    } catch {
+      /* ignore */
+    }
+    tip.classList.add('filter-tooltip--gone');
+    window.setTimeout(() => tip.remove(), 220);
+  };
+  tip.querySelector<HTMLButtonElement>('.filter-tooltip__close')?.addEventListener('click', dismiss);
+  // Auto-fade after 5s
+  window.setTimeout(dismiss, 5000);
+}
+
+// ---------------------------------------------------------------------------
+// Share — copy a URL with picks=<id,id,...> query param.
+// ---------------------------------------------------------------------------
+function buildShareUrl(): string {
+  const ids = Object.keys(readPicks());
+  const url = new URL(window.location.href);
+  url.searchParams.set('picks', ids.join(','));
+  url.hash = '#grid';
+  return url.toString();
+}
+
+function applyPicksFromQuery(): void {
+  const url = new URL(window.location.href);
+  const raw = url.searchParams.get('picks');
+  if (!raw) return;
+  const ids = raw.split(',').filter(Boolean);
+  if (ids.length === 0) return;
+  const picks = readPicks();
+  let added = 0;
+  for (const id of ids) {
+    if (ALL_LISTINGS.find((l) => l.id === id) && !picks[id]) {
+      picks[id] = { picked_at: new Date().toISOString(), by: whoIsPicking() };
+      added++;
+    }
+  }
+  if (added > 0) writePicks(picks);
+  // Strip the query param so refreshes don't re-add.
+  url.searchParams.delete('picks');
+  history.replaceState(null, '', url.toString());
+}
+
+// ---------------------------------------------------------------------------
 // Wiring + render loop
 // ---------------------------------------------------------------------------
 function readHash(): void {
@@ -1588,10 +2182,13 @@ function renderViewToggle(): string {
   const opt = (v: 'list' | 'grid' | 'map', label: string, icon: string) =>
     `<button type="button" class="view-toggle__btn${state.view === v && !state.showShortlistOnly ? ' is-on' : ''}" data-view="${v}" aria-pressed="${state.view === v && !state.showShortlistOnly}">${icon} ${label}</button>`;
   return `
-    <div class="view-toggle" role="tablist" aria-label="View mode">
-      ${opt('list', 'List', '☰')}
-      ${opt('grid', 'Grid', '▦')}
-      ${opt('map', 'Map', '📍')}
+    <div class="view-toggle-row">
+      <div class="view-toggle" role="tablist" aria-label="View mode">
+        ${opt('list', 'List', '☰')}
+        ${opt('grid', 'Grid', '▦')}
+        ${opt('map', 'Map', '📍')}
+      </div>
+      ${renderSortDropdown()}
     </div>`;
 }
 
@@ -1613,6 +2210,28 @@ function renderShell(): void {
     else if (state.view === 'grid' || state.showShortlistOnly) listEl.innerHTML = renderGridView(matched);
     else listEl.innerHTML = renderMapView(matched);
   }
+
+  // Bottom sticky shortlist bar (stay-ux deliverable A — 2026-05-17).
+  const bottomEl = document.getElementById('stay-bottom-shortlist');
+  if (bottomEl) {
+    const html = renderBottomShortlistBar();
+    if (html) {
+      bottomEl.innerHTML = html;
+      bottomEl.hidden = false;
+      bottomEl.setAttribute('aria-hidden', 'false');
+    } else {
+      bottomEl.innerHTML = '';
+      bottomEl.hidden = true;
+      bottomEl.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  // Sticky filter summary bar — render content (visibility handled by scroll).
+  const summaryEl = document.getElementById('stay-filter-summary');
+  if (summaryEl) {
+    summaryEl.innerHTML = renderFilterSummary();
+  }
+  updateFilterSummaryVisibility();
 
   ensureMap();
   renderMapPins(matched);
@@ -1756,10 +2375,144 @@ function bindDynamicHandlers(): void {
       document.body.classList.remove('filter-sheet-open');
     });
   }
+
+  // Sort dropdown (stay-ux deliverable C — 2026-05-17)
+  const sortSelect = document.querySelector<HTMLSelectElement>('#stay-sort-select');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+      const v = sortSelect.value as SortKey;
+      state.sort = v;
+      storeSort(v);
+      renderShell();
+    });
+  }
+
+  // Compare buttons on cards (stay-ux deliverable B — 2026-05-17)
+  document.querySelectorAll<HTMLButtonElement>('[data-compare-id]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = btn.getAttribute('data-compare-id') ?? '';
+      if (!id) return;
+      const idx = compareSelection.indexOf(id);
+      if (idx >= 0) {
+        compareSelection.splice(idx, 1);
+      } else {
+        if (compareSelection.length >= 2) {
+          // Boot the oldest selection — FIFO.
+          compareSelection.shift();
+        }
+        compareSelection.push(id);
+      }
+      if (compareSelection.length === 2) {
+        openCompareModal();
+      }
+      renderShell();
+    });
+  });
+
+  // Bottom shortlist bar — Review / Share / Clear
+  const reviewBtn = document.getElementById('bottom-shortlist-review');
+  if (reviewBtn) {
+    reviewBtn.addEventListener('click', () => openShortlistModal());
+  }
+  const shareBtn = document.getElementById('bottom-shortlist-share');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      const url = buildShareUrl();
+      const fallback = (): void => {
+        // Old-school copy fallback for iOS/older Safari.
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+        } catch {
+          /* ignore */
+        }
+        document.body.removeChild(ta);
+      };
+      const flash = (msg: string): void => {
+        shareBtn.textContent = msg;
+        window.setTimeout(() => {
+          shareBtn.textContent = '🔗 Share';
+        }, 1800);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard
+          .writeText(url)
+          .then(() => flash('✓ Link copied'))
+          .catch(() => {
+            fallback();
+            flash('✓ Link copied');
+          });
+      } else {
+        fallback();
+        flash('✓ Link copied');
+      }
+    });
+  }
+  const bottomClear = document.getElementById('bottom-shortlist-clear');
+  if (bottomClear) {
+    bottomClear.addEventListener('click', () => {
+      if (!confirm('Clear all picked stays?')) return;
+      writePicks({});
+      state.showShortlistOnly = false;
+      renderShell();
+    });
+  }
+
+  // Shortlist modal — row remove buttons
+  document.querySelectorAll<HTMLButtonElement>('[data-shortlist-remove]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-shortlist-remove') ?? '';
+      if (!id) return;
+      const picks = readPicks();
+      delete picks[id];
+      writePicks(picks);
+      // Re-render modal body in place so the user stays on the slideover.
+      const body = document.getElementById('shortlist-modal-body');
+      if (body) body.innerHTML = renderShortlistModalBody();
+      renderShell();
+      // Re-bind the buttons inside the modal (renderShell binds card-level).
+      const newBody = document.getElementById('shortlist-modal-body');
+      if (newBody) {
+        newBody.querySelectorAll<HTMLButtonElement>('[data-shortlist-remove]').forEach((nb) => {
+          nb.addEventListener('click', () => nb.click());
+        });
+      }
+    });
+  });
+
+  // Modal close (delegated, idempotent)
+  document.querySelectorAll<HTMLElement>('[data-modal-close]').forEach((el) => {
+    if (el.dataset.modalCloseWired === '1') return;
+    el.dataset.modalCloseWired = '1';
+    el.addEventListener('click', () => closeAllUxModals());
+  });
+
+  // Filter summary clear (sticky bar)
+  const summaryClear = document.getElementById('filter-summary-clear');
+  if (summaryClear) {
+    summaryClear.addEventListener('click', () => {
+      state.bases.clear();
+      state.tiers.clear();
+      state.vibes.clear();
+      state.bedrooms.clear();
+      state.amenities.clear();
+      state.platforms.clear();
+      state.showShortlistOnly = false;
+      renderShell();
+    });
+  }
 }
 
 function init(): void {
   readHash();
+  applyPicksFromQuery();
 
   const sunsetSlot = document.querySelector<HTMLDivElement>('#sunset-stays-slot');
   if (sunsetSlot) {
@@ -1771,6 +2524,8 @@ function init(): void {
   const poll = (): void => {
     if (typeof L !== 'undefined' || tries++ > 20) {
       renderShell();
+      // First-time filter tooltip after the filter bar exists.
+      window.setTimeout(maybeShowFilterTooltip, 600);
     } else {
       setTimeout(poll, 100);
     }
@@ -1780,6 +2535,28 @@ function init(): void {
   window.addEventListener('hashchange', () => {
     readHash();
     renderShell();
+  });
+
+  // Scroll listener — toggles the sticky filter summary visibility.
+  // Throttled to ~60fps via rAF.
+  let scrollRaf = 0;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (scrollRaf) return;
+      scrollRaf = window.requestAnimationFrame(() => {
+        scrollRaf = 0;
+        updateFilterSummaryVisibility();
+      });
+    },
+    { passive: true },
+  );
+
+  // ESC closes any open UX modal.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openModal = document.querySelector<HTMLDivElement>('.ux-modal:not([hidden])');
+    if (openModal) closeAllUxModals();
   });
 }
 

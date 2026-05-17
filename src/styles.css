@@ -9531,3 +9531,830 @@ details.note-item[open] .note-summary-preview {
     scroll-behavior: auto;
   }
 }
+
+/* ============================================================
+   STAY-UX additions — Mini-Booking.com agent (2026-05-17)
+   Deliverables A–H: sticky bottom shortlist, compare modal,
+   smart sort, mega CTA, sticky filter summary, first-time
+   tooltip, hover lift, empty-state polish.
+   BEM-prefixed where possible. Append-only — never edit the
+   .lodging-carousel-* rules above (owned by Wave 4b).
+   ============================================================ */
+
+/* ----- view-toggle row layout (host for new sort select) ----- */
+.view-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ----- Smart sort dropdown (deliverable C) ----- */
+.stay-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: auto;
+  font-size: 0.92rem;
+  color: var(--ink, #2a2a2a);
+}
+.stay-sort__label {
+  font-weight: 600;
+  color: var(--ink-soft, #5a5f63);
+}
+.stay-sort__select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'><path fill='%23556' d='M6 8 0 0h12z'/></svg>")
+    no-repeat right 0.6rem center / 10px 7px;
+  padding: 0.45rem 1.8rem 0.45rem 0.7rem;
+  border: 1px solid var(--line, #d6dade);
+  border-radius: 6px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  min-height: 36px;
+}
+.stay-sort__select:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+
+/* ----- Per-base mega CTA (deliverable D) ----- */
+.lodging-mega-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.4rem 0 1rem;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(180deg, #1f8a4a 0%, #146f3a 100%);
+  color: #fff;
+  border-radius: 9px;
+  text-decoration: none !important;
+  border-bottom: 0 !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(20, 111, 58, 0.22);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.lodging-mega-cta:hover,
+.lodging-mega-cta:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(20, 111, 58, 0.3);
+  color: #fff;
+  border-bottom: 0 !important;
+}
+.lodging-mega-cta:focus-visible {
+  outline: 3px solid #ffd76b;
+  outline-offset: 2px;
+}
+.lodging-mega-cta__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.lodging-mega-cta__text {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.lodging-mega-cta__text strong {
+  font-size: 0.98rem;
+}
+.lodging-mega-cta__filters {
+  font-size: 0.78rem;
+  opacity: 0.9;
+  font-weight: 500;
+  margin-top: 0.1rem;
+}
+.lodging-mega-cta__chev {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+@media (max-width: 540px) {
+  .lodging-mega-cta {
+    padding: 0.7rem 0.8rem;
+    gap: 0.55rem;
+  }
+  .lodging-mega-cta__text strong {
+    font-size: 0.92rem;
+  }
+  .lodging-mega-cta__filters {
+    font-size: 0.75rem;
+  }
+}
+
+/* ----- Compare button on cards (deliverable B) ----- */
+.lodging-compare-btn {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.55rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--ink, #2a2a2a);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  cursor: pointer;
+  z-index: 6;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition:
+    background 0.12s ease,
+    transform 0.12s ease;
+}
+.lodging-compare-btn:hover,
+.lodging-compare-btn:focus-visible {
+  background: #fff;
+  transform: translateY(-1px);
+}
+.lodging-compare-btn:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+.lodging-compare-btn--on {
+  background: var(--blue-lake, #2d6a90);
+  color: #fff;
+  border-color: var(--blue-lake, #2d6a90);
+}
+.lodging-compare-btn--on:hover {
+  background: #235879;
+  color: #fff;
+}
+.lodging-card--in-compare {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+
+/* ----- Bottom sticky shortlist bar (deliverable A) ----- */
+.bottom-shortlist {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  background: #fff;
+  border-top: 1px solid var(--line, #d6dade);
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.08);
+  /* Leave breathing room above the floating chat widget if present. */
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.bottom-shortlist[hidden] {
+  display: none;
+}
+.bottom-shortlist__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+}
+.bottom-shortlist__chips {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.bottom-shortlist__chip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: var(--blue-mist, #eaf1f8);
+  color: var(--ink, #2a2a2a);
+  border: 1px solid var(--line, #d6dade);
+  border-radius: 999px;
+  max-width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.bottom-shortlist__chip-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  font-size: 0.7rem;
+  flex: 0 0 auto;
+}
+.bottom-shortlist__chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bottom-shortlist__chip--more {
+  background: var(--paper-soft, #f6f1e6);
+  color: var(--ink-soft, #5a5f63);
+}
+.bottom-shortlist__actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.bottom-shortlist__btn {
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0.5rem 0.85rem;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 38px;
+  background: transparent;
+  color: var(--ink, #2a2a2a);
+  transition:
+    background 0.12s ease,
+    transform 0.12s ease;
+}
+.bottom-shortlist__btn:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+.bottom-shortlist__btn--primary {
+  background: var(--gold-deep, #c89938);
+  color: #fff;
+}
+.bottom-shortlist__btn--primary:hover {
+  background: var(--gold-sun, #d8aa3a);
+}
+.bottom-shortlist__btn--ghost {
+  background: transparent;
+  border-color: var(--line, #d6dade);
+}
+.bottom-shortlist__btn--ghost:hover {
+  background: var(--paper-soft, #f6f1e6);
+}
+.bottom-shortlist__btn--link {
+  background: transparent;
+  color: var(--ink-soft, #5a5f63);
+  text-decoration: underline;
+  padding: 0.5rem 0.45rem;
+}
+.bottom-shortlist__btn--link:hover {
+  color: var(--ink, #2a2a2a);
+}
+
+/* Body needs bottom padding when the bar is up so floating chat doesn't overlap and
+   so the last card isn't trapped. The bar is ~62px tall; pad slightly more. */
+body:has(.bottom-shortlist:not([hidden])) {
+  padding-bottom: 86px;
+}
+/* Fallback (Safari without :has) — manual class added by body when bar shows. */
+body.has-bottom-shortlist {
+  padding-bottom: 86px;
+}
+
+@media (max-width: 540px) {
+  .bottom-shortlist__inner {
+    padding: 0.55rem 0.7rem;
+    gap: 0.5rem;
+  }
+  .bottom-shortlist__chip {
+    max-width: 140px;
+    font-size: 0.78rem;
+  }
+  .bottom-shortlist__chip-name {
+    /* On mobile, chips collapse to initials-only when very tight. */
+    display: none;
+  }
+  .bottom-shortlist__btn {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.82rem;
+    min-height: 36px;
+  }
+  body:has(.bottom-shortlist:not([hidden])) {
+    padding-bottom: 76px;
+  }
+}
+
+/* ----- Sticky filter summary (deliverable E) ----- */
+.filter-summary-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 70;
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line, #d6dade);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-size: 0.9rem;
+  animation: filter-summary-in 0.2s ease;
+}
+.filter-summary-bar[hidden] {
+  display: none;
+}
+@keyframes filter-summary-in {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.filter-summary-bar__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+}
+.filter-summary-bar__label {
+  font-weight: 700;
+  color: var(--blue-lake, #2d6a90);
+  flex: 0 0 auto;
+}
+.filter-summary-bar__desc {
+  flex: 1 1 auto;
+  color: var(--ink, #2a2a2a);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.filter-summary-bar__count {
+  flex: 0 0 auto;
+  font-weight: 600;
+  color: var(--ink-soft, #5a5f63);
+}
+.filter-summary-bar__clear {
+  flex: 0 0 auto;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line, #d6dade);
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink, #2a2a2a);
+  cursor: pointer;
+  min-height: 32px;
+}
+.filter-summary-bar__clear:hover {
+  background: var(--paper-soft, #f6f1e6);
+}
+.filter-summary-bar__clear:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+@media (max-width: 540px) {
+  .filter-summary-bar__inner {
+    padding: 0.45rem 0.7rem;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+  }
+  .filter-summary-bar__desc {
+    font-size: 0.78rem;
+  }
+}
+
+/* ----- First-time filter tooltip (deliverable F) ----- */
+.filter-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0.5rem;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: min(94vw, 360px);
+  padding: 0.55rem 0.7rem 0.55rem 0.85rem;
+  background: var(--ink, #2a2a2a);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  animation: filter-tooltip-in 0.22s ease;
+}
+.filter-tooltip--gone {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+@keyframes filter-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.filter-tooltip__arrow {
+  position: absolute;
+  top: -6px;
+  left: 1.2rem;
+  width: 12px;
+  height: 12px;
+  background: var(--ink, #2a2a2a);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.filter-tooltip__text {
+  flex: 1 1 auto;
+}
+.filter-tooltip__close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  opacity: 0.8;
+}
+.filter-tooltip__close:hover {
+  opacity: 1;
+}
+.filter-tooltip__close:focus-visible {
+  outline: 2px solid #ffd76b;
+  outline-offset: 2px;
+}
+/* Anchor — the bases chip group needs relative positioning for the tip. */
+.filter-group[data-group-label='bases'] {
+  position: relative;
+}
+
+/* ----- Hover/focus lift on cards (deliverable G) ----- */
+@media (hover: hover) {
+  .lodging-card {
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
+  }
+  .lodging-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  }
+  .lodging-card:hover .lodging-carousel__img,
+  .lodging-card:hover .stay-card__img {
+    transform: scale(1.02);
+    transition: transform 0.25s ease;
+  }
+  .lodging-card:focus-within {
+    box-shadow: 0 8px 20px rgba(45, 106, 144, 0.18);
+  }
+}
+
+/* ----- Empty state polish (deliverable H) ----- */
+.stay-empty--lyrical {
+  text-align: center;
+  padding: 2.2rem 1.2rem;
+  background: var(--paper-soft, #f6f1e6);
+  border: 1px dashed var(--line, #d6dade);
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+.stay-empty__icon {
+  font-size: 2.4rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stay-empty__title {
+  font-size: 1.05rem;
+  margin: 0.3rem 0 0.4rem;
+}
+.stay-empty__body {
+  color: var(--ink-soft, #5a5f63);
+  margin: 0 0 1rem;
+  font-style: italic;
+}
+.stay-empty__clear {
+  appearance: none;
+  background: var(--blue-lake, #2d6a90);
+  color: #fff;
+  border: 0;
+  border-radius: 7px;
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 40px;
+}
+.stay-empty__clear:hover {
+  background: #235879;
+}
+.stay-empty__clear:focus-visible {
+  outline: 2px solid var(--gold-deep, #c89938);
+  outline-offset: 2px;
+}
+
+/* ----- UX modal (shortlist review + compare) ----- */
+.ux-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: block;
+}
+.ux-modal[hidden] {
+  display: none;
+}
+.ux-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 24, 30, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: ux-modal-fade 0.18s ease;
+}
+@keyframes ux-modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.ux-modal__panel {
+  position: absolute;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 28px rgba(0, 0, 0, 0.2);
+  animation: ux-modal-slide 0.22s ease;
+  max-height: 100vh;
+}
+.ux-modal__panel--right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(420px, 100vw);
+}
+.ux-modal__panel--center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(820px, 96vw);
+  max-height: 92vh;
+  border-radius: 12px;
+  animation: ux-modal-pop 0.22s ease;
+}
+@keyframes ux-modal-slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes ux-modal-pop {
+  from {
+    transform: translate(-50%, -45%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+.ux-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--line, #d6dade);
+  flex: 0 0 auto;
+}
+.ux-modal__title {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.ux-modal__close {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  color: var(--ink-soft, #5a5f63);
+  border-radius: 6px;
+}
+.ux-modal__close:hover {
+  background: var(--paper-soft, #f6f1e6);
+  color: var(--ink, #2a2a2a);
+}
+.ux-modal__close:focus-visible {
+  outline: 2px solid var(--blue-lake, #2d6a90);
+  outline-offset: 2px;
+}
+.ux-modal__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem 1.1rem 1.4rem;
+}
+.ux-modal__empty {
+  color: var(--ink-soft, #5a5f63);
+  text-align: center;
+  padding: 1.5rem 0.5rem;
+}
+.ux-modal__lede {
+  color: var(--ink-soft, #5a5f63);
+  font-size: 0.9rem;
+  margin: 0 0 0.8rem;
+}
+body.ux-modal-open {
+  overflow: hidden;
+}
+
+/* Shortlist rows */
+.shortlist-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.shortlist-row {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.6rem;
+  background: var(--paper-soft, #f6f1e6);
+  border: 1px solid var(--line, #d6dade);
+  border-radius: 9px;
+}
+.shortlist-row__thumb {
+  flex: 0 0 96px;
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.shortlist-row__body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.shortlist-row__name {
+  margin: 0 0 0.2rem;
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+.shortlist-row__meta {
+  margin: 0 0 0.2rem;
+  font-size: 0.83rem;
+  color: var(--ink-soft, #5a5f63);
+}
+.shortlist-row__base {
+  font-weight: 700;
+}
+.shortlist-row__meta--dates {
+  font-size: 0.78rem;
+}
+.shortlist-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+  flex-wrap: wrap;
+}
+.shortlist-row__link {
+  font-weight: 700;
+  color: var(--gold-deep, #c89938);
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+.shortlist-row__link:hover {
+  text-decoration: underline;
+}
+.shortlist-row__remove {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line, #d6dade);
+  border-radius: 6px;
+  padding: 0.35rem 0.6rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--ink-soft, #5a5f63);
+  cursor: pointer;
+}
+.shortlist-row__remove:hover {
+  background: #fff;
+  color: var(--ink, #2a2a2a);
+}
+
+/* Compare table */
+.compare-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  table-layout: fixed;
+}
+.compare-table thead th {
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+  vertical-align: top;
+  background: var(--paper-soft, #f6f1e6);
+  border: 1px solid var(--line, #d6dade);
+}
+.compare-table th.compare-rowlabel {
+  background: transparent;
+  border: 0;
+  width: 28%;
+}
+.compare-photo {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+.compare-name {
+  margin: 0 0 0.15rem;
+  font-size: 0.92rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.compare-sub {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.compare-table tbody th {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid var(--line, #d6dade);
+  background: #fafafa;
+  color: var(--ink-soft, #5a5f63);
+  font-size: 0.84rem;
+}
+.compare-cell {
+  padding: 0.45rem 0.5rem;
+  border: 1px solid var(--line, #d6dade);
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.88rem;
+}
+.compare-cell--better {
+  background: #e8f5ec;
+  color: #1d5d33;
+  font-weight: 700;
+}
+.compare-cell__check {
+  color: #1d5d33;
+  font-weight: 700;
+  margin-right: 0.15rem;
+}
+.compare-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.compare-ctas .lodging-cta--primary {
+  flex: 1 1 220px;
+}
+.compare-hint {
+  font-size: 0.8rem;
+  color: var(--ink-soft, #5a5f63);
+  margin: 0;
+  text-align: center;
+}
+@media (max-width: 540px) {
+  .compare-table {
+    font-size: 0.78rem;
+  }
+  .compare-photo {
+    height: 80px;
+  }
+  .compare-cell,
+  .compare-table tbody th {
+    padding: 0.35rem 0.3rem;
+  }
+  .compare-name {
+    font-size: 0.82rem;
+  }
+  .ux-modal__panel--center {
+    width: 96vw;
+    max-height: 94vh;
+  }
+}
