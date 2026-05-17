@@ -2811,6 +2811,44 @@ img.loaded {
 .leaflet-container {
   touch-action: none;
 }
+/* DEEPER PINCH-DRIFT FIX (2026-05-17 09:30, Map Reliability Specialist):
+   Earlier fix targeted only .leaflet-container + .stay-map. Bug persisted
+   because (a) Leaflet's children panes (.leaflet-tile-pane, .leaflet-marker-
+   pane, .leaflet-popup-pane, .leaflet-pane, etc.) receive touch events
+   directly and don't automatically inherit touch-action, and (b) iOS Safari
+   was still intercepting two-finger gestures as PAGE zoom because the
+   viewport meta on map.html / stay.html did not lock page zoom. So pins
+   visually drifted because the browser was scaling the entire page CSS
+   while the Leaflet tile layer re-rendered at its own correct LatLng grid.
+
+   Fix in two layers:
+   1) CSS: force touch-action:none on every Leaflet descendant pane so
+      the browser never tries to interpret pinch on any of them as page
+      zoom or scroll. The universal selector inside .leaflet-container
+      is safe because Leaflet's internal panes are all positioned by JS
+      transform — they don't need browser-native touch behavior.
+   2) HTML viewport meta on map.html + stay.html ONLY locks user-scalable
+      so iOS Safari's pinch-zoom-the-page reflex is fully disabled on
+      pages where the map IS the content. Other pages keep zoom for a11y. */
+.leaflet-container,
+.leaflet-container *,
+.leaflet-container .leaflet-pane,
+.leaflet-container .leaflet-tile-pane,
+.leaflet-container .leaflet-marker-pane,
+.leaflet-container .leaflet-popup-pane,
+.leaflet-container .leaflet-overlay-pane,
+.leaflet-container .leaflet-shadow-pane,
+.leaflet-container .leaflet-tooltip-pane {
+  touch-action: none;
+}
+/* Prevent iOS callouts + selection during map gestures (the long-press +
+   tap-and-hold can be interpreted as zoom on some Safari builds). */
+.leaflet-container {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 .stay-pin-popup {
   font-family: 'Inter', sans-serif;
   font-size: 0.88rem;

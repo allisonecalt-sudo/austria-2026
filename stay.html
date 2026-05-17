@@ -2,7 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Stay page hosts a Leaflet map (.stay-map) — viewport locked the
+         same way as map.html so two-finger pinch is captured by Leaflet
+         and never by the browser. Page-specific so other pages keep
+         a11y zoom. (Map Reliability Specialist 2026-05-17.) -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
     <title>Where we sleep · Austria 2026</title>
     <meta
       name="description"

@@ -2,7 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Map page locks page-zoom (user-scalable=no + maximum-scale=1) so
+         iOS Safari's two-finger pinch is delegated to Leaflet instead of
+         the browser. Without this, pinch was zooming the page CSS while
+         Leaflet re-rendered tiles, causing pin "drift". Page-specific:
+         other pages keep zoom for a11y. (Map Reliability Specialist
+         2026-05-17.) -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
     <title>Map · Austria 2026</title>
     <meta
       name="description"
