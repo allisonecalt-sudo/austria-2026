@@ -673,13 +673,13 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.werfen,
       },
       generalIdea:
-        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at B&B Villa Verde (2.7 km from SZG, 9.7/1562 reviews) late afternoon. Open afternoon — pick from: lazy day at the apartment / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). RETURN THE RENTAL CAR THURSDAY NIGHT so there's no morning scramble (see rental-car page for return-time options at your chosen supplier).",
+        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at Landhaus Grünau (3.4 km from SZG, 9.5/585 reviews, €176 — Allison's cheapest-wins pick for the one-night pre-flight) late afternoon. Open afternoon — pick from: lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). RETURN THE RENTAL CAR THURSDAY NIGHT so there's no morning scramble (see rental-car page for return-time options at your chosen supplier).",
       planB:
         'If Wed was big and you need recovery: drive Gosau → SZG directly, lazy afternoon at the apartment, walk to a nearby café for sunset, in bed early for the 5am wake.',
       anchors: [
         { label: 'Slow morning in Gosau', time: 'until ~10:00' },
         { label: 'Leave Gosau', time: '~10:30' },
-        { label: 'Check in B&B Villa Verde', time: '~13:00' },
+        { label: 'Check in Landhaus Grünau', time: '~13:00' },
         { label: 'Return rental car (Thu evening)', time: 'per supplier' },
         { label: 'Sunset (Mönchsberg or apartment area)', time: '20:47' },
       ],
@@ -700,7 +700,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'salzburg-airport',
       doingSummary:
-        'Drive Gosau → SZG ~1h20. Check in B&B Villa Verde afternoon. Return rental car Thu night. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
+        'Drive Gosau → SZG ~1h20. Check in Landhaus Grünau afternoon. Return rental car Thu night. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
     },
 
     // --- DAY 8 — Fri Jul 31 ---
@@ -716,7 +716,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
-        'Early wake at B&B Villa Verde. Rental car already returned Thu night so the morning is just a 5-min taxi / shuttle to the terminal — no car-return scramble. Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
+        'Early wake at Landhaus Grünau. Rental car already returned Thu night so the morning is just a short taxi / shuttle to the terminal — no car-return scramble. Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
       anchors: [
         { label: 'Wake', time: '05:30' },
         { label: 'Taxi / shuttle to SZG (car already returned Thu)', time: '06:30' },
@@ -1400,24 +1400,28 @@ export const TRIP: TripData = {
       baseKey: 'salzburg-airport',
       nights: 'Thu Jul 30 – Fri Jul 31 (1 night)',
       area: 'Salzburg airport orbit — within 5 km / ~10-min drive of W. A. Mozart airport (SZG) for the Friday 08:55 LY5194 departure. 1 bed OK per the airport-night rule.',
-      pickName: 'B&B Villa Verde',
+      // 2026-05-19 PM: Allison swapped the recommended pick to Landhaus Grünau
+      // ("airport night cheaper is better just one night"). Villa Verde + Gabi
+      // demoted to alts. All 3 are gold-stamped, free-cancel — pick is reversible.
+      pickName: 'Landhaus Grünau',
       pickFreeCancellation: true,
-      pickUrl: 'https://www.booking.com/hotel/at/villa-verde.html',
+      pickUrl: 'https://www.booking.com/hotel/at/landhaus-grunau.html',
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
-      pickReview: '9.7 · Exceptional · 1,562 reviews',
-      pickPrice: '€207 / night (₪822) — Double Room (1 queen) + breakfast, free cancel + pay-at-property',
+      pickReview: '9.5 · Exceptional · 585 reviews',
+      pickPrice: '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast, free cancel + pay-at-property',
       pickWhy:
-        '9.7 / 1,562 reviews — the highest review count + highest score of any qualifying airport-area property, most statistically reliable pick. ~5 km from SZG, sits near Salzburg Old Town side (not airport-closest — that title belongs to Hotel Gabi at 1.5 km, framing corrected 2026-05-19 fact-check). Free cancellation + pay-at-property. Breakfast included. Old Town vibes if you want one Salzburg evening pre-flight. Trade: a bit further from the terminal than Gabi or Grünau. See the 3-card comparison on Stay → Airport for side-by-side.',
+        'Allison\'s pick (2026-05-19 PM, "airport night cheaper is better just one night") — cheapest gold-stamped option at €176, €89 less than Gabi and €31 less than Villa Verde. 9.5 / 585 reviews is gold-stamped on both Booking and Google. 3.4 km from SZG, ~7-min drive at 06:15 — still well under the 10-min airport-orbit ceiling. Double Room with Balcony (1 king), breakfast included, free cancellation + pay-at-property so it can be locked today and changed later. See the 3-card comparison on Stay → Airport for the Gabi/Villa Verde alts side-by-side.',
       pickBudgetTier: 'standard',
       pickPlatform: 'booking',
-      pickDriveToAirportMin: 10,
+      pickDriveToAirportMin: 7,
       pickLaundry: 'none',
       pickBedrooms: 1,
-      pickBeds: '1 queen',
+      pickBeds: '1 king',
       pickNotableDetails: [
-        '9.7 / 1,562 reviews',
-        '~5 km from SZG · Old Town side',
+        'Cheapest gold-stamped pick',
+        '9.5 / 585 reviews',
+        '3.4 km from SZG · ~7-min drive',
         'Breakfast included',
         'Free cancel + pay-at-property',
       ],
@@ -1440,7 +1444,7 @@ export const TRIP: TripData = {
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
           review: '9.5 · Exceptional · 1,140 reviews',
           pricePerNight: '€265 / night (₪1,052) — Double Room (1 queen) + breakfast',
-          note: '**1.5 km from SZG — the actual closest airport hotel** (km figure corrected 2026-05-19 fact-check; was previously 2.8). Same Wals zone as the Best Western that was previously the airport pick. 9.5 / 1,140 reviews. Free cancellation + pay-at-property. Best for the Thursday-night car-drop logic per Avital.',
+          note: '**1.5 km from SZG — the actual closest airport hotel** (km figure corrected 2026-05-19 fact-check; was previously 2.8). Same Wals zone as the Best Western that was previously the airport pick. 9.5 / 1,140 reviews. Free cancellation + pay-at-property. Best if you want zero friction Friday morning — €89 premium over Grünau for the ~2-km closer position.',
           budgetTier: 'standard',
           platform: 'booking',
           driveToAirportMin: 3,
@@ -1461,19 +1465,19 @@ export const TRIP: TripData = {
           photos: [],
         },
         {
-          name: 'Landhaus Grünau',
-          url: 'https://www.booking.com/hotel/at/landhaus-grunau.html',
+          name: 'B&B Villa Verde',
+          url: 'https://www.booking.com/hotel/at/villa-verde.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
-          review: '9.5 · Exceptional · 585 reviews',
-          pricePerNight: '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast',
-          note: '3.4 km from SZG. **Cheapest of the gold-stamped picks — €89 less than Gabi, €31 less than Villa Verde.** 9.5 / 585 reviews. Free cancellation + pay-at-property. Slightly farther from the airport than Gabi but still convenient for a 06:15 morning drop.',
+          review: '9.7 · Exceptional · 1,562 reviews',
+          pricePerNight: '€207 / night (₪822) — Double Room (1 queen) + breakfast',
+          note: 'Highest review score AND highest review count of the 3 (9.7 / 1,562). ~5 km from SZG, sits near Salzburg Old Town side (NOT airport-closest — framing corrected 2026-05-19). Free cancellation + pay-at-property. Best if you want Old Town vibes for one Salzburg evening pre-flight — €31 more than Grünau for the highest-rated room.',
           budgetTier: 'standard',
           platform: 'booking',
-          driveToAirportMin: 7,
+          driveToAirportMin: 10,
           laundry: 'none',
           bedrooms: 1,
-          beds: '1 king',
-          notableDetails: ['Cheapest strong pick', '585 reviews', 'Free cancel'],
+          beds: '1 queen',
+          notableDetails: ['9.7 / 1,562 reviews', '~5 km from SZG · Old Town side', 'Free cancel'],
           maxGuests: 2,
           kitchen: 'none',
           bath: 'private',

@@ -67,7 +67,7 @@ function buildStayCards(): StayCard[] {
     'salzburg-airport': 'Salzburg airport-side · last night',
     // deprecated 2026-05-19 — kept for archived blocks
     hallstatt: 'Mountain anchor (Obertraun) — ARCHIVED 2026-05-19, see Zell am See + Gosau',
-    airport: 'Salzburg airport-side (legacy entry) — ARCHIVED 2026-05-19, see B&B Villa Verde',
+    airport: 'Salzburg airport-side (legacy entry) — ARCHIVED 2026-05-19, see Landhaus Grünau',
   };
   // Filter out archived/deprecated lodgings from the active stay-cards view.
   // The archived entries still live in TRIP.lodgings (pullable archives rule)
@@ -140,7 +140,7 @@ const SLEEP_LABEL: Record<Day['sleepWhere'], string> = {
   salzburg: 'Salzburg (Linzergasse)',
   'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
   gosau: 'Gosau (Der Ulmenhof)',
-  'salzburg-airport': 'Salzburg airport-side (B&B Villa Verde)',
+  'salzburg-airport': 'Salzburg airport-side (Landhaus Grünau)',
   // --- deprecated 2026-05-19, kept so archived rows still render ---
   hallstatt: 'Mountain anchor (Obertraun) — ARCHIVED 2026-05-19',
   schafbergspitze: 'Berghotel Schafbergspitze — SUPERSEDED 2026-05-17',

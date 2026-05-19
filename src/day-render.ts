@@ -51,7 +51,7 @@ function renderMetaChips(day: Day): string {
     salzburg: 'Salzburg (Linzergasse)',
     'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
     gosau: 'Gosau (Der Ulmenhof)',
-    'salzburg-airport': 'Salzburg airport-side (B&B Villa Verde)',
+    'salzburg-airport': 'Salzburg airport-side (Landhaus Grünau)',
     // deprecated 2026-05-19, fallback only
     hallstatt: 'Mountain anchor (Obertraun) — archived',
     schafbergspitze: 'Berghotel Schafbergspitze — superseded',
