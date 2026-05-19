@@ -31,10 +31,18 @@ interface Lake {
   modesty: string; // shvimkleid friendliness + quieter back-shore notes
   pairsWith: string[]; // chips: nearby hike / restaurant / sunset
   driveFromBases: {
+    // Legacy keys (v3 base shape — kept so existing lake data still type-checks
+    // and we don't have to rewrite 8 lake entries during the v4 polish pass).
+    // The renderer maps Obertraun→Gosau (~25 min apart) and Salzburg→SZG
+    // airport (~15 min apart) when the new-key value isn't supplied.
     obertraun: string;
     berchtesgaden: string;
     stWolfgang: string;
     salzburg: string;
+    // v4 base shape — populate when the per-lake drive-time research lands.
+    zellAmSee?: string;
+    gosau?: string;
+    salzburgAirport?: string;
   };
   heroPhoto: { src: string; alt: string; credit: string; sourceUrl: string };
   officialUrl: string;
@@ -195,10 +203,13 @@ const LAKES: Lake[] = [
       'Lake-loop bike path',
     ],
     driveFromBases: {
-      obertraun: '0 min (this IS the Obertraun base lake)',
+      obertraun: '0 min (legacy archive — Obertraun was the v3 anchor here)',
       berchtesgaden: '95 min',
       stWolfgang: '40 min',
       salzburg: '75 min',
+      zellAmSee: '1h45',
+      gosau: '20 min',
+      salzburgAirport: '~1h20',
     },
     heroPhoto: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
@@ -324,6 +335,9 @@ const LAKES: Lake[] = [
       berchtesgaden: '110 min',
       stWolfgang: '55 min',
       salzburg: '85 min',
+      zellAmSee: '1h55',
+      gosau: '5 min walk / 2 min drive (the Gosau base lake)',
+      salzburgAirport: '~1h35',
     },
     heroPhoto: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Vorderer_Gosausee_mit_Dachstein.jpg/1280px-Vorderer_Gosausee_mit_Dachstein.jpg',
@@ -608,10 +622,10 @@ function lakeCard(l: Lake): string {
         <div class="lake-drive-grid">
           <div class="lake-drive-label">Drive from base</div>
           <div class="lake-drive-cells">
-            <div class="lake-drive-cell"><strong>Obertraun</strong><span>${escape(l.driveFromBases.obertraun)}</span></div>
-            <div class="lake-drive-cell"><strong>Berchtesgaden</strong><span>${escape(l.driveFromBases.berchtesgaden)}</span></div>
-            <div class="lake-drive-cell"><strong>St. Wolfgang</strong><span>${escape(l.driveFromBases.stWolfgang)}</span></div>
             <div class="lake-drive-cell"><strong>Salzburg</strong><span>${escape(l.driveFromBases.salzburg)}</span></div>
+            <div class="lake-drive-cell"><strong>Zell am See</strong><span>${escape(l.driveFromBases.zellAmSee ?? 'approx — see Salzburg + 1h20')}</span></div>
+            <div class="lake-drive-cell"><strong>Gosau</strong><span>${escape(l.driveFromBases.gosau ?? l.driveFromBases.obertraun)}</span></div>
+            <div class="lake-drive-cell"><strong>SZG airport</strong><span>${escape(l.driveFromBases.salzburgAirport ?? l.driveFromBases.salzburg)}</span></div>
           </div>
         </div>
 

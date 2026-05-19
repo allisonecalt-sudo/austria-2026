@@ -474,8 +474,8 @@ function renderHonorableMentions(): string {
     <h2>Other sunset spots worth knowing</h2>
     <p class="lead-block">
       Not Tara-Bridge tier but still worth the detour — especially if weather, tiredness, or kosher
-      timing rules out the top 5 on a given night. The Obertraun-dock + Mönchsberg-ridge picks are
-      the "no plan required" defaults already built into the
+      timing rules out the top 5 on a given night. The Gosau-base lakefront + Mönchsberg-ridge
+      picks are the "no plan required" defaults already built into the
       <a href="itinerary.html">Itinerary</a>.
     </p>
     <ul class="honorable-list">${items}</ul>

@@ -11,8 +11,9 @@
 // the bottom of the page. The live cards above are rendered from
 // TRIP.lodgings which IS the v4 source of truth.
 //
-// Live picks pulled at render time:
-//   1. Salzburg                       (Fri-Sun, 2 nights)   pickName='master Linzergasse'
+// Live picks pulled at render time (pulled from TRIP.lodgings — re-check there
+// for latest, do NOT trust this header as SSOT):
+//   1. Salzburg                       (Fri-Sun, 2 nights)   pickName='Bergland Hotel - Adults only'  (swapped 2026-05-19 PM)
 //   2. Zell am See                    (Sun-Tue, 2 nights)   pickName='Aparthotel Zell am See'
 //   3. Gosau                          (Tue-Thu, 2 nights)   pickName='Der Ulmenhof (Gosau)'
 //   4. Salzburg airport-side          (Thu-Fri, 1 night)    pickName='Landhaus Grünau'
@@ -115,7 +116,7 @@ const V4_CARDS: V4BaseCard[] = [
     label: 'Base 1 — Salzburg (Shabbat anchor)',
     nightsLine: 'Fri Jul 24 → Sun Jul 26 · 2 nights',
     pitch:
-      'Old-town apartment 5 min walk from Chabad. Land Friday morning, settle in, candles 20:35. Shabbat 100% walkable — Linzergasse + Andräviertel + the river. Sunday morning is the move day east.',
+      'Right-bank Schallmoos apartment 4-9 min walk from Chabad (Bergland Hotel = 4 min, Villa Flöckner = 9 min). Land Friday morning, settle in, candles 20:35. Shabbat 100% walkable — Linzergasse + Andräviertel + the river. Sunday morning is the move day east.',
     whyHere:
       'Closest practical Shabbat plan to Israel. Chabad on the same street, kosher grocery options scoped, Stolpersteine + Judengasse + Mönchsberg ridge all in walking range. No driving needed for the whole 2 nights.',
     dayShape:
@@ -125,7 +126,7 @@ const V4_CARDS: V4BaseCard[] = [
       'Salzburg → Zell am See: ~1h20 (~90 km via B311)',
     ],
     nearby: [
-      'Chabad Salzburg (Linzergasse 76) — 5 min walk',
+      'Chabad Salzburg (Linzergasse 76) — 4-9 min walk from picks',
       'Festung Hohensalzburg — 15 min walk',
       'Mirabell Gardens — 10 min walk',
       'Mönchsberg ridge sunset — 15 min climb',
