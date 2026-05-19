@@ -94,6 +94,7 @@ function renderCard(item: SearchItem, substitutedFrom?: string): string {
 // the section blurb as a fail-loud footnote.
 // @ts-expect-error kept for back-compat / future re-enable per Allison
 // 12:41 'we dotn need to know at all' — no current call site, TS6133.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function buildSubstitutionMap(
   group: RecommendationGroup,
   scrubbed: ScrubbedLodging[],
