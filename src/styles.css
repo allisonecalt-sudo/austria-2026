@@ -1574,6 +1574,62 @@ table.costs {
   font-weight: 600;
 }
 
+/* Per-card location line — town + walk/drive to nearest anchor activity.
+   Sits above .alt-meta so the user can skim "where is this property"
+   without expanding details. Added 2026-05-19 per Allison's "say which
+   town in area how far etc". */
+.pick-location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin-bottom: 0.45rem;
+  color: var(--ink);
+}
+.pick-location__town {
+  font-weight: 600;
+  color: var(--green-deep);
+}
+.pick-location__dist {
+  color: var(--ink-soft);
+}
+.pick-location__dist::before {
+  content: '·';
+  margin-right: 0.45rem;
+  color: var(--ink-softer);
+}
+
+/* Leg-section header drive-time matrix — one-line drive times from THIS
+   base to the leg's key anchor activities. Lives inside .leg-drive-matrix
+   so the user knows what each leg is FOR before scanning the cards. */
+.leg-drive-matrix {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.85rem;
+  margin: 0.55rem 0 0;
+  padding: 0.55rem 0.75rem;
+  background: var(--green-mist);
+  border-radius: 8px;
+  font-size: 0.86rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.leg-drive-matrix__label {
+  font-weight: 600;
+  color: var(--green-deep);
+  margin-right: 0.2rem;
+}
+.leg-drive-matrix__item {
+  white-space: nowrap;
+}
+.leg-drive-matrix__item + .leg-drive-matrix__item::before {
+  content: '·';
+  margin-right: 0.7rem;
+  color: var(--ink-softer);
+}
+
 .logistics-grid {
   display: grid;
   gap: 1.1rem;
@@ -13632,4 +13688,231 @@ body.nav-mobile-open {
   background: #ffe8c5;
   border-bottom-color: #ecc18a;
   color: #6e4516;
+}
+
+/* =====================================================================
+   PER-LEG MINI MAPS — appended to map.html below the 4-cluster overview.
+   Added 2026-05-19 per Allison's "maybe make a map of all locations we
+   want to visit near leg so get idea of where town is".
+   ===================================================================== */
+
+#per-leg-maps {
+  padding-top: 0.5rem;
+}
+
+.leg-map-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.95rem;
+  align-items: center;
+  padding: 0.55rem 0.75rem;
+  margin: 0.6rem 0 1rem;
+  background: var(--green-mist, #eef5f0);
+  border-radius: 8px;
+  font-size: 0.86rem;
+  color: var(--ink, #1a2730);
+  line-height: 1.45;
+}
+.leg-map-key__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+.leg-map-key__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+  flex: 0 0 auto;
+}
+.leg-map-key__dot--lead {
+  background: #d4a017;
+}
+.leg-map-key__dot--allison {
+  background: #2a6cb5;
+}
+.leg-map-key__dot--avital {
+  background: #7e3f9b;
+}
+.leg-map-key__dot--bonus {
+  background: #7f8c95;
+}
+.leg-map-key__dot--rejected {
+  background: #b5b5b5;
+}
+.leg-map-key__dot--activity {
+  background: #2f7a4f;
+}
+
+.leg-map-section {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1rem 1.1rem;
+  background: #fff;
+  border: 1px solid var(--line, #e3ebe6);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft, 0 1px 4px rgba(0, 0, 0, 0.05));
+}
+.leg-map-section__head {
+  margin: 0 0 0.7rem;
+}
+.leg-map-section__eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green-deep, #2f7a4f);
+}
+.leg-map-section__title {
+  margin: 0.2rem 0 0.25rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  color: var(--ink, #1a2730);
+}
+.leg-map-section__summary {
+  margin: 0;
+  font-size: 0.94rem;
+  color: var(--ink-soft, #4b5a62);
+}
+
+.leg-map {
+  width: 100%;
+  height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line, #e3ebe6);
+  background: #e8eef1;
+  z-index: 0;
+}
+@media (min-width: 700px) {
+  .leg-map {
+    height: 400px;
+  }
+}
+@media (min-width: 1100px) {
+  .leg-map {
+    height: 460px;
+  }
+}
+
+.leg-map-legend {
+  margin-top: 0.7rem;
+}
+.leg-map-legend__hint {
+  margin: 0 0 0.4rem;
+  font-size: 0.86rem;
+  color: var(--ink-soft, #4b5a62);
+}
+.leg-map-legend__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink, #1a2730);
+}
+.leg-map-legend__list li {
+  margin-bottom: 0.18rem;
+}
+.leg-map-legend__list strong {
+  color: var(--green-deep, #2f7a4f);
+}
+
+/* Leaflet pin overrides for the per-leg maps. Keep them visually distinct
+   from the main page-map pins but share the same divIcon scaffolding so
+   they sit well on the same page. */
+.leg-map-pin-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+.leg-map-pin {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2.5px solid #fff;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 700;
+}
+.leg-map-pin--lead {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #fff;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.45),
+    0 0 0 2px rgba(212, 160, 23, 0.55);
+}
+.leg-map-pin--activity {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+.leg-map-pin--rejected {
+  opacity: 0.55;
+}
+.leg-map-pin-glyph {
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Popup styling — inherits .leaflet-popup-content but adds a slim card
+   wrapper so titles read as cards, not raw HTML. */
+.leg-map-pop {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  min-width: 180px;
+}
+.leg-map-pop-cat {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft, #4b5a62);
+  margin-bottom: 0.2rem;
+}
+.leg-map-pop-cat--lead {
+  color: #b07b0a;
+}
+.leg-map-pop-cat--allison {
+  color: #2a6cb5;
+}
+.leg-map-pop-cat--avital {
+  color: #7e3f9b;
+}
+.leg-map-pop-cat--bonus {
+  color: #6b757d;
+}
+.leg-map-pop-cat--rejected {
+  color: #b5b5b5;
+}
+.leg-map-pop-cat--activity {
+  color: #2f7a4f;
+}
+.leg-map-pop-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink, #1a2730);
+  margin-bottom: 0.15rem;
+}
+.leg-map-pop-town {
+  font-size: 0.85rem;
+  color: var(--ink-soft, #4b5a62);
+  margin-bottom: 0.2rem;
+}
+.leg-map-pop-note {
+  font-size: 0.82rem;
+  color: var(--ink-soft, #4b5a62);
+  font-style: italic;
 }
