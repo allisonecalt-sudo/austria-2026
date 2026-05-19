@@ -88,7 +88,24 @@ export interface Day {
   driveFrom?: DriveLeg;
   driveTo?: DriveLeg;
   sunset: SunsetSpot;
-  sleepWhere: 'salzburg' | 'hallstatt' | 'schafbergspitze' | 'lodge-am-krippenstein' | 'airport';
+  // sleepWhere — kept as union string literal. Legacy values 'hallstatt',
+  // 'schafbergspitze', 'lodge-am-krippenstein' are DEPRECATED 2026-05-19
+  // when the trip restructured to drop the summit overnight (Avital
+  // counter-proposal + Allison's relaxed-lakes-radius course correction).
+  // New values 'zell-am-see', 'gosau', 'salzburg-airport' added — Salzburg
+  // stays 'salzburg'. Keep deprecated values in the union so old data still
+  // type-checks; SLEEP_LABEL renders them with a "(deprecated)" tag for
+  // pull-back visibility per the pullable-archives rule.
+  sleepWhere:
+    | 'salzburg'
+    | 'zell-am-see'
+    | 'gosau'
+    | 'salzburg-airport'
+    // --- deprecated 2026-05-19, kept for archive/pullable ---
+    | 'hallstatt'
+    | 'schafbergspitze'
+    | 'lodge-am-krippenstein'
+    | 'airport';
   tarabridgeMoment?: string;
   // Options-first per-day summary (added 2026-05-17 per the 4-base restructure).
   // Different from `headline` (short title) and `generalIdea` (paragraph). One
@@ -212,7 +229,22 @@ export interface LodgingAlt {
 }
 
 export interface Lodging {
-  baseKey: 'salzburg' | 'hallstatt' | 'airport';
+  // baseKey extended 2026-05-19 trip restructure. Legacy keys 'hallstatt' +
+  // 'airport' are DEPRECATED and only kept in the archived lodging blocks at
+  // the bottom of TRIP.lodgings so the prior decisions remain pullable.
+  // Active keys for the v4 (Avital counter-proposal) plan are:
+  //   'salzburg'         — Sat-Sun (2 nights, includes Shabbat)
+  //   'zell-am-see'      — Sun-Tue (2 nights, main #1+#2)
+  //   'gosau'            — Tue-Thu (2 nights, main #3+#4)
+  //   'salzburg-airport' — Thu-Fri (1 night)
+  baseKey:
+    | 'salzburg'
+    | 'zell-am-see'
+    | 'gosau'
+    | 'salzburg-airport'
+    // --- deprecated 2026-05-19, kept for archived blocks ---
+    | 'hallstatt'
+    | 'airport';
   nights: string;
   area: string;
   pickName: string;
@@ -377,11 +409,11 @@ function dirUrl(origin: string, destination: string): string {
 
 export const TRIP: TripData = {
   intro:
-    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat, with one unique-experience night on a 1,783m summit. Apartments with kitchens, picnics on rocks, sunsets every single night.',
+    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat, then an alpine-lake leg at Zell am See and a Salzkammergut-lakes leg at Gosau. Apartments with kitchens, picnics on rocks, sunsets every single night.',
   whyThisPlan:
-    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move east into the Salzkammergut lakes — mountain anchor for 3 deep nights, the heart of the week. Day trips from there to Königssee, Gosausee, Wolfgangsee, Dachstein 5fingers. Wednesday afternoon we pack a small overnight bag and take the cog railway up to Berghotel Schafbergspitze (1,783m) for sunset above 13 lakes + sunrise over the Dachstein. Thursday we come down and drive to a quiet apartment near Salzburg airport for Friday's early flight. Four bases, three moves. Every night ends at a named sunset spot with a real time.",
+    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move south to Zell am See — alpine-lake anchor for 2 nights, foot of the Schmittenhöhe + Hohe Tauern. Tuesday we move northeast to Gosau (via Bad Ischl) — Salzkammergut-lakes anchor for 2 nights, with Vorderer Gosausee out the door, Hallstatt 20 min away, and the Krippenstein cable car 25 min as a day-trip. Thursday we drive to a quiet apartment near Salzburg airport and return the rental car Thursday night for Friday's early flight. Four bases, three moves. Every night ends at a named sunset spot with a real time.",
   natureAnchor:
-    'Hallstatt / Obertraun / Bad Goisern (Salzkammergut). 1h15m east of Salzburg. From this base, day-trip range covers Königssee (1h15m), Gosausee (35min), Wolfgangsee (45min), Dachstein 5fingers (15min by gondola), Werfen ice caves (1h). The deep-immersion stay where most of the midweek happens, before the Wed-night summit pivot.',
+    'Two-anchor lakes plan: Zell am See (Pinzgau alpine lake, Schmittenhöhe + Kitzsteinhorn glacier) Sun-Tue, then Gosau (Salzkammergut, Vorderer Gosausee + Hallstatt + Dachstein-Krippenstein cluster) Tue-Thu. The Avital-counter-proposal shape (v4 May 19) — Salzburg → alpine lake → Salzkammergut lakes → airport.',
   // COST-SYNC 2026-05-17 (PriceVerify wave 4n): lodging prices spiked overnight on
   // Booking.com. Master Linzergasse €128→€286/nt (Salzburg pick locked-in even at higher
   // price). Villa Maxglan €178→€456/nt. Haus Edelweiss (primary mountain anchor) SOLD OUT
@@ -394,9 +426,9 @@ export const TRIP: TripData = {
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target (NOT updated; this is the target, not the actual)
   peakMoment: {
     day: 'Tuesday Jul 28',
-    spot: 'Königssee — last electric boat back from St. Bartholomä at sunset',
+    spot: 'Vorderer Gosausee — Dachstein mirror lake at sunset',
     description:
-      "The Königssee is the only lake in Germany serviced exclusively by silent electric boats — strict no-combustion rule since 1909. Last boat from St. Bartholomä leaves around 19:30. Watzmann's east wall goes gold over your right shoulder, the lake goes silver, and you glide back through a fjord-shaped natural cathedral. This is the you-will-stand-still spot of the trip — the one you'll remember in 20 years. Sunset 20:50 — boat docks at Schönau just as the sky lights.",
+      "Move day Zell am See → Gosau, ~1h45 via Bad Ischl. We check into Der Ulmenhof in the afternoon and walk straight to the Vorderer Gosausee — one of the most-photographed lakes in Austria. The Dachstein glacier mirrors in the water, the gravel loop is flat and easy, and we get the lake almost to ourselves after the day-tripper buses leave. Lakeside picnic, sunset 20:51. The 'we're really here' moment of the trip — three bases in, the alpine quiet sinks in.",
   },
   days: [
     // --- DAY 1 — Fri Jul 24 ---
@@ -468,210 +500,207 @@ export const TRIP: TripData = {
     },
 
     // --- DAY 3 — Sun Jul 26 ---
+    // REWRITTEN 2026-05-19 — Avital counter-proposal + relaxed-lakes course
+    // correction. Old 'Obertraun via Gosausee' narrative archived in git.
+    // New plan: Salzburg → Zell am See (2 nights, the alpine-lake anchor).
     {
       id: 'sun-jul-26',
       date: '2026-07-26',
       dayOfWeek: 'Sunday',
       dateLabel: 'Sunday Jul 26',
-      headline: 'Move east — Gosausee mirror lake on the way to Hallstatt',
+      headline: 'Havdalah on the road → Zell am See',
+      hero: {
+        src: IMG.wolfgangsee,
+        alt: 'Alpine lake town with peaks rising behind — Zell am See on the Pinzgau',
+        credit: IMG_CREDIT.wolfgangsee,
+      },
+      generalIdea:
+        "Slow Salzburg morning. Pack out after Havdalah / late checkout. Drive south to Zell am See (~90 km, ~1h20 via the Salzach valley B311). Check in at Aparthotel Zell am See — 2 nights here Sun-Tue, the alpine-lake first half of the week. Drop bags, walk to the Zeller See shore. The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk + sunset from the Esplanade promenade, 5 minutes from the apartment.",
+      planB:
+        'If Shabbat tired the legs: skip the lake walk, settle into the apartment for a long balcony afternoon, sunset over the lake from the window.',
+      anchors: [
+        { label: 'Leave Salzburg', time: '~10:30 (after slow morning)' },
+        { label: 'Check in Aparthotel Zell am See', time: '~14:00' },
+        { label: 'Zeller See lake walk', time: '17:00' },
+        { label: 'Sunset (Esplanade promenade)', time: '20:53' },
+      ],
+      driveFrom: {
+        place: 'Salzburg',
+        minutes: 80,
+        mapsUrl: dirUrl('Salzburg, Austria', 'Zell am See, Austria'),
+      },
+      driveTo: {
+        place: 'Zell am See',
+        minutes: 80,
+        mapsUrl: dirUrl('Salzburg, Austria', 'Zell am See, Austria'),
+      },
+      sunset: {
+        place: 'Zeller See Esplanade promenade',
+        time: '20:53',
+        mapsUrl: searchUrl('Esplanade Zell am See lakeshore'),
+      },
+      sleepWhere: 'zell-am-see',
+      doingSummary:
+        'Move to Zell am See ~1h20. Day options: lakeshore walk / Schmittenhöhe cable car peek / café in town / settle into apartment.',
+    },
+
+    // --- DAY 4 — Mon Jul 27 ---
+    // REWRITTEN 2026-05-19 — Mon is the FULL DAY at Zell am See. Pick from
+    // Schmittenhöhe / Kitzsteinhorn glacier / Kaprun / Krimml waterfalls.
+    {
+      id: 'mon-jul-27',
+      date: '2026-07-27',
+      dayOfWeek: 'Monday',
+      dateLabel: 'Monday Jul 27',
+      headline: 'Full day Zell am See — peaks, glacier, or waterfalls',
+      hero: {
+        src: IMG.alpineSunset,
+        alt: 'High-alpine peaks above Zell am See — Schmittenhöhe ridge and Hohe Tauern',
+        credit: IMG_CREDIT.alpineSunset,
+      },
+      generalIdea:
+        'The full day at the alpine-lake base. Top picks: ride the Schmittenhöhe cable car (1,965 m, panorama deck over the lake) for an easy peak day; OR drive 25 min south to Kaprun and ride the Kitzsteinhorn glacier gondola to 3,029 m (snow + glacier + 360° Hohe Tauern view, even in July); OR commit the full day to the Krimml Waterfalls (~1h10 west, Austria\'s tallest at 380 m, three-tier walk-up trail). Evening back at Zell — swim from the Strandbad if it\'s warm, sunset on the Esplanade.',
+      planB:
+        'Low-energy version: stay in Zell, slow morning, Strandbad swim at the lake lido, café on the Esplanade, sunset right out the door.',
+      anchors: [
+        { label: 'Cable-car / drive out', time: '~09:00 (depends on pick)' },
+        { label: 'Back at Zell apartment', time: '~17:00' },
+        { label: 'Sunset (Esplanade)', time: '20:52' },
+      ],
+      sunset: {
+        place: 'Zell am See Esplanade promenade',
+        time: '20:52',
+        mapsUrl: searchUrl('Esplanade Zell am See lakeshore'),
+      },
+      sleepWhere: 'zell-am-see',
+      doingSummary:
+        'Full Zell am See day. Pick from: (1) Schmittenhöhe cable car panorama (easy, half-day). (2) Kitzsteinhorn glacier at Kaprun — 3,029 m, snow in July (25-min drive, half-day). (3) Krimml Waterfalls full-day (1h10 west, 380 m tallest in Austria). (4) Lake swim + Esplanade café slow-day (recovery). Sunset on the Zeller See either way.',
+    },
+
+    // --- DAY 5 — Tue Jul 28 ---
+    // REWRITTEN 2026-05-19 — move day from Zell am See → Gosau. Old Königssee
+    // boat day archived in git; Königssee is now too far for either base and
+    // was dropped when the trip structure swung south + east.
+    {
+      id: 'tue-jul-28',
+      date: '2026-07-28',
+      dayOfWeek: 'Tuesday',
+      dateLabel: 'Tuesday Jul 28',
+      headline: 'Move to Gosau — Vorderer Gosausee mirror lake + sunset',
       hero: {
         src: IMG.gosausee,
         alt: 'Vorderer Gosausee with the Dachstein massif reflected in the water',
         credit: IMG_CREDIT.gosausee,
       },
       generalIdea:
-        'Pack out of Salzburg after a slow morning. Drive east via Bad Ischl (Spar restock). Stop at Vorderer Gosausee — a flat hour-long loop around the lake with the Dachstein glacier mirrored in the water. Lakeside picnic. Continue to the Obertraun apartment — 3 nights here Sun-Wed, the deep mountain anchor for the midweek (Wed-night base shifts UP to Lodge am Krippenstein at 2,063m via the cable car right out of Obertraun). Sunset over Lake Hallstatt from the Obertraun dock, 5 minutes from the door.',
+        "Slow Zell morning, pack out, drive northeast to Gosau (~100 km, ~1h45 via the Tauern A10 + B166 through Bad Ischl). Stop in Bad Ischl mid-route for a Spar restock + café break. Check in at Der Ulmenhof — 2 nights here Tue-Thu, the lakes-region second half of the week. Gosau village sits right next to the Vorderer Gosausee — one of the most-photographed lakes in Austria, with the Dachstein glacier mirrored in the water. Easy 1-hour gravel loop around the lake before sunset. Lakeside picnic.",
       planB:
-        'If Shabbat tired the legs: skip Gosausee, drive direct via Bad Ischl for coffee, settle into the apartment for a long balcony afternoon.',
+        'If the drive tired the legs: skip the lake loop, settle into the apartment for a long balcony afternoon, walk to the Gosausee just for the sunset.',
       anchors: [
-        { label: 'Leave Salzburg', time: '09:30' },
+        { label: 'Leave Zell am See', time: '~10:00' },
+        { label: 'Bad Ischl Spar + coffee', time: '~11:30 (mid-route stop)' },
+        { label: 'Check in Der Ulmenhof Gosau', time: '~14:30' },
         { label: 'Gosausee loop walk', time: '~1 hr, flat gravel' },
-        { label: 'Check in Obertraun', time: '15:00' },
-        { label: 'Sunset (Obertraun dock)', time: '20:53' },
+        { label: 'Sunset (Gosausee shore)', time: '20:51' },
       ],
       driveFrom: {
-        place: 'Salzburg',
-        minutes: 70,
-        mapsUrl: dirUrl('Salzburg, Austria', 'Vorderer Gosausee'),
+        place: 'Zell am See',
+        minutes: 105,
+        mapsUrl: dirUrl('Zell am See, Austria', 'Gosau, Austria'),
       },
       driveTo: {
-        place: 'Obertraun (Hallstatt area)',
-        minutes: 35,
-        mapsUrl: dirUrl('Vorderer Gosausee', 'Obertraun, Austria'),
+        place: 'Gosau (Dachstein West)',
+        minutes: 105,
+        mapsUrl: dirUrl('Zell am See, Austria', 'Gosau, Austria'),
       },
       sunset: {
-        place: 'Lake Hallstatt dock at Obertraun',
-        time: '20:53',
-        mapsUrl: searchUrl('Obertraun Hallstätter See'),
+        place: 'Vorderer Gosausee — Dachstein mirror lake',
+        time: '20:51',
+        mapsUrl: searchUrl('Vorderer Gosausee Dachstein'),
       },
-      sleepWhere: 'hallstatt',
+      sleepWhere: 'gosau',
       doingSummary:
-        'Move to mountain anchor ~1h15m. Day options: Hallstatt village afternoon / Gosausee mirror-lake / Wolfgangsee swim / settle in on the balcony.',
+        'Move to Gosau ~1h45 (via Bad Ischl). Check in Der Ulmenhof afternoon. Gosausee loop walk + sunset on the mirror lake out the apartment door.',
     },
 
-    // --- DAY 4 — Mon Jul 27 ---
+    // --- DAY 6 — Wed Jul 29 — full day from Gosau base ---
+    // REWRITTEN 2026-05-19 — summit overnight DROPPED in v4 restructure.
+    // Wed is now the full day at Gosau base — Hallstatt is 15-20 min away
+    // and Krippenstein cable car is 25 min away as a DAY TRIP, not an
+    // overnight. Old summit-overnight narrative archived in git.
     {
-      id: 'mon-jul-27',
-      date: '2026-07-27',
-      dayOfWeek: 'Monday',
-      dateLabel: 'Monday Jul 27',
-      headline: 'Dachstein 5fingers + Hallstatt evening',
+      id: 'wed-jul-29',
+      date: '2026-07-29',
+      dayOfWeek: 'Wednesday',
+      dateLabel: 'Wednesday Jul 29',
+      headline: 'Full day from Gosau — Hallstatt, Krippenstein, or deeper Gosausee',
       hero: {
         src: IMG.hallstattLake,
         alt: 'Hallstatt village boathouses along the lake at the foot of alpine slopes',
         credit: IMG_CREDIT.hallstattLake,
       },
       generalIdea:
-        'Two gondolas up to Krippenstein (2,109 m) — gondolas do the climbing. Flat 20-min walk to the 5fingers viewing platform jutting 400 m straight out over the Hallstatt valley. Photo paradise, no real hiking. Down for lunch and an afternoon in Hallstatt Markt; ride the Skywalk funicular for the 360° view; sunset on the lakeside walkway as the painted houses go gold. Combo ticket €43pp for Krippenstein, €20pp for the Skywalk.',
+        'The full day from the Gosau base — and almost everything in the Salzkammergut cluster is <25 min from here. Top picks: drive ~20 min to Hallstatt Markt, ride the Skywalk funicular for the 360° view, walk the lakeside promenade. OR ~25 min to the Dachstein-Krippenstein cable car valley station at Obertraun, gondolas to 2,109 m for the 5 Fingers cantilevered viewing platform (the famous photo). OR go deeper on the Gosausee — walk to the Hinterer Gosausee for the dramatic back-of-valley view (longer day, harder terrain). Sunset back at Vorderer Gosausee or from a Hallstatt viewpoint.',
       planB:
-        'Skip the gondolas: Hallstatt Markt + Skywalk only, then a long balcony afternoon at the apartment, sunset from the Obertraun dock.',
+        'Low-energy day: stay near Gosau, slow morning, balcony coffee, a second loop around the Vorderer Gosausee, café in Gosau village, sunset out the door.',
       anchors: [
-        { label: 'Krippenstein gondolas up', time: '10:00' },
-        { label: 'Hallstatt Markt afternoon', time: '15:30' },
-        { label: 'Sunset (Hallstatt Markt)', time: '20:51' },
+        { label: 'Day-trip out', time: '~09:30 (depends on pick)' },
+        { label: 'Back at Gosau apartment', time: '~17:00' },
+        { label: 'Sunset (varies)', time: '20:50' },
       ],
       sunset: {
-        place: 'Hallstatt Markt lakeside walkway',
-        time: '20:51',
-        mapsUrl: searchUrl('Hallstatt Markt'),
-      },
-      sleepWhere: 'hallstatt',
-      doingSummary:
-        'Pick from 4 fully-built shapes for this day — each is a complete combo, not just a name. Tap any to jump to its detail page. (1) Krippenstein 5fingers + Hallstatt evening (recommended above — gondolas up, photo-platform, lake town golden hour). (2) Königssee boat + Hintersee sunset (full-day Berchtesgaden — save for Tue if you want pacing). (3) Werfen ice cave (1,400 stairs, 0°C — flagged strenuous, see avitalFit; whole-day commitment). (4) SUP / lake swim at Hallstättersee Strandbad (low-key recovery day if Sun moved you too much). Or invent your own with the activities + nature menus.',
-    },
-
-    // --- DAY 5 — Tue Jul 28 ---
-    {
-      id: 'tue-jul-28',
-      date: '2026-07-28',
-      dayOfWeek: 'Tuesday',
-      dateLabel: 'Tuesday Jul 28',
-      headline: 'Königssee + sunset on the last electric boat',
-      hero: {
-        src: IMG.konigssee,
-        alt: 'St. Bartholomä church on the Königssee with the Watzmann east wall behind',
-        credit: IMG_CREDIT.konigssee,
-      },
-      generalIdea:
-        "Drive west into Germany (Berchtesgaden National Park) early. Buy the full round-trip ticket all the way to Salet (€24pp). Silent electric boat into the fjord — first stop St. Bartholomä with the famous onion-domed church; continue to Salet, then a flat 20-min walk to Obersee, the dramatic quieter back-of-the-fjord lake. Picnic there. The peak moment is the last boat back: Watzmann east wall goes gold, lake goes silver. Book the return so you're on the late one.",
-      planB:
-        'Cut the Obersee leg — boat round-trip to St. Bartholomä only (€18pp). Lakeside meadow picnic, back to Hallstatt by mid-afternoon, sunset from the Obertraun dock.',
-      anchors: [
-        { label: 'Leave Hallstatt', time: '08:00' },
-        { label: 'First boat from Schönau', time: '10:00' },
-        { label: 'Last boat back from St. Bartholomä', time: '~19:30' },
-        { label: 'Sunset on the boat', time: '20:50' },
-      ],
-      driveFrom: {
-        place: 'Obertraun',
-        minutes: 75,
-        mapsUrl: dirUrl('Obertraun, Austria', 'Schönau am Königssee, Germany'),
-      },
-      sunset: {
-        place: 'On the last electric boat returning from St. Bartholomä',
+        place: 'Vorderer Gosausee OR Hallstatt Markt lakeside walkway',
         time: '20:50',
-        mapsUrl: searchUrl('St. Bartholomä Königssee'),
+        mapsUrl: searchUrl('Vorderer Gosausee Dachstein'),
       },
-      sleepWhere: 'hallstatt',
-      tarabridgeMoment:
-        'Last boat back at sunset = the peak moment of the trip. See peak-moment note.',
+      sleepWhere: 'gosau',
       doingSummary:
-        'Pick from 5 fully-built shapes — each is a complete combo. (1) Königssee electric boat + St. Bartholomä + Obersee walk + golden-hour return (recommended above — the trip peak). (2) Krimml waterfalls full-day (1h45 drive, 380m falls, top section flagged mixed-fit). (3) Liechtensteinklamm gorge (1hr drive, dramatic narrow gorge walk, ~1.5hr). (4) Lake-swim day at Hallstättersee Strandbad + SUP rental + slow shore reading (recovery if Mon was big). (5) Schafberg "practice ride" cog up-and-back — not the summit night, just a day taste (skip if doing the full overnight Wed). Mix and match via activities + nature menus.',
-    },
-
-    // --- DAY 6 — Wed Jul 29 — KRIPPENSTEIN SUMMIT NIGHT ---
-    // Restructured 2026-05-17 (Schafbergspitze pivot): originally planned
-    // around Berghotel Schafbergspitze, but reviews surfaced a 3.6★/1,012
-    // problem (rude staff, basic 2-star rooms). Pivoted same-day to Lodge
-    // am Krippenstein — 9.2/10 across 339 reviews (live-verified on
-    // Booking.com 2026-05-17), 2,063m (HIGHER than Schafberg), modern
-    // architectural lodge, cards accepted, ex-Olympic-coach owner, same
-    // valley as the Obertraun anchor (5-min drive vs 50-min to St. Wolfgang).
-    {
-      id: 'wed-jul-29',
-      date: '2026-07-29',
-      dayOfWeek: 'Wednesday',
-      dateLabel: 'Wednesday Jul 29',
-      headline: 'Krippenstein summit night — sleep at 2,063m above Hallstättersee',
-      hero: {
-        src: IMG.wolfgangsee,
-        alt: 'Dachstein-Krippenstein plateau with the 5 Fingers viewing platform above Hallstättersee',
-        credit: IMG_CREDIT.wolfgangsee,
-      },
-      generalIdea:
-        "Pack a small overnight bag (rest stays in the apartment in Obertraun — checkout isn't until Thursday morning, you can leave most of your stuff). Slow morning, optional Hallstättersee dip, lakeside coffee. Drive 5 minutes to the Dachstein-Krippenstein cable car valley station. Ride the cable car up (~20 min, two sections via Schönbergalm). Check in to Lodge am Krippenstein on the summit plateau (2,063m — 280m higher than Schafberg). Late afternoon: short walk (5 min) to the Welterbespirale viewpoint, or the 20-min walk to the 5 Fingers cantilevered viewing platform (the famous one — 5 steel \"fingers\" jutting out into space over the Hallstättersee valley). The day-trippers leave on the last cable car DOWN at 19:10; you have the high plateau to yourselves. Sunset over the entire Dachstein massif from the 5 Fingers platform — Hallstättersee straight down to the north, glaciers above to the south. Sleep at 2,063m. Sunrise from the same plateau at ~05:50.",
-      planB:
-        "Skip the summit overnight if weather is wrong (low cloud blanking the view = no point being up there). Stay the extra night at the Obertraun apartment, do a lake day at Hallstättersee Strandbad instead. The unique-experience night IS this one, so abort only if storms are named for the evening — Krippenstein cable car closes in lightning.",
-      anchors: [
-        { label: 'Slow morning at Obertraun', time: 'until ~14:00' },
-        { label: 'Drive to Krippenstein valley station', time: '~5 min' },
-        { label: 'Cable car UP (Section I + II)', time: '~20 min ride' },
-        { label: 'Check in at Lodge am Krippenstein', time: '~16:00' },
-        { label: 'Last cable car DOWN (day-trippers leave)', time: '19:10' },
-        { label: 'Sunset at the 5 Fingers platform', time: '20:48' },
-        { label: 'Sleep at 2,063m', time: 'overnight' },
-      ],
-      driveFrom: {
-        place: 'Obertraun apartment',
-        minutes: 5,
-        mapsUrl: dirUrl('Obertraun, Austria', 'Dachstein Krippenstein Talstation Obertraun'),
-      },
-      sunset: {
-        place: '5 Fingers viewing platform — cantilevered over Hallstättersee',
-        time: '20:48',
-        mapsUrl: searchUrl('5 Fingers Krippenstein Dachstein viewing platform'),
-      },
-      sleepWhere: 'lodge-am-krippenstein',
-      doingSummary:
-        'Slow morning in Obertraun → 5-min drive to Krippenstein cable car → up to 2,063m → check in at Lodge am Krippenstein → 5 Fingers platform for sunset → sleep on the high plateau. (Skip only if storms are forecast.)',
+        'Full day from Gosau base — all the Salzkammergut anchors are <25 min. Pick from: (1) Hallstatt Markt + Skywalk (20 min). (2) Dachstein-Krippenstein 5 Fingers cable car day (25 min). (3) Hinterer Gosausee hike (deeper, harder). (4) Slow recovery day — second Gosausee loop + Gosau café. Sunset on the mirror lake or Hallstatt promenade.',
     },
 
     // --- DAY 7 — Thu Jul 30 ---
-    // Restructured 2026-05-17 (Krippenstein pivot): morning comes off the
-    // Lodge am Krippenstein summit plateau (first cable car down 08:40) back
-    // to the Obertraun valley station, swing through the Obertraun apartment
-    // to collect main bags, then drive to the airport-area apartment. Werfen
-    // ice cave remains an optional open-afternoon pick.
+    // REWRITTEN 2026-05-19 — Gosau → SZG airport-side. No more summit
+    // descent narrative — that disappeared with the v4 restructure.
     {
       id: 'thu-jul-30',
       date: '2026-07-30',
       dayOfWeek: 'Thursday',
       dateLabel: 'Thursday Jul 30',
-      headline: 'First cable car down → drive to airport-side',
+      headline: 'Morning Gosau → drive to Salzburg airport-side',
       hero: {
         src: IMG.werfen,
         alt: 'Hohenwerfen castle perched on a rocky crag above the Salzach valley near Werfen',
         credit: IMG_CREDIT.werfen,
       },
       generalIdea:
-        "Sunrise at 2,063m from the Krippenstein plateau, breakfast at the lodge, first cable car DOWN at 08:40. Back at the car in Obertraun by 09:10. Pick up the main bags from the apartment, check out. Easy drive to the airport-area apartment (~1h10). Open afternoon — pick from: a lazy day in the airport apartment / one last Salzburg café + Altstadt loop / Eisriesenwelt ice cave at Werfen (the world's largest ice cave, 75-min underground tour, €42pp combo, BOOK the night before — July sells out) / Mauthausen if it's a Jewish-interest day. Finish with the Mönchsberg ridge from Toscaninihof for the final sunset.",
+        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at B&B Villa Verde (2.7 km from SZG, 9.7/1562 reviews) late afternoon. Open afternoon — pick from: lazy day at the apartment / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). RETURN THE RENTAL CAR THURSDAY NIGHT so there's no morning scramble (see rental-car page for return-time options at your chosen supplier).",
       planB:
-        'If the cable car is weathered out and you slept the extra night at Krippenstein, scratch the airport night and drive straight to the airport apartment the moment the cable car reopens.',
+        'If Wed was big and you need recovery: drive Gosau → SZG directly, lazy afternoon at the apartment, walk to a nearby café for sunset, in bed early for the 5am wake.',
       anchors: [
-        { label: 'Sunrise on the plateau', time: '~05:50' },
-        { label: 'First cable car DOWN', time: '08:40' },
-        { label: 'At car in Obertraun', time: '~09:10' },
-        { label: 'Check in airport apt', time: '~11:30' },
-        { label: 'Sunset (Mönchsberg)', time: '20:47' },
+        { label: 'Slow morning in Gosau', time: 'until ~10:00' },
+        { label: 'Leave Gosau', time: '~10:30' },
+        { label: 'Check in B&B Villa Verde', time: '~13:00' },
+        { label: 'Return rental car (Thu evening)', time: 'per supplier' },
+        { label: 'Sunset (Mönchsberg or apartment area)', time: '20:47' },
       ],
       driveFrom: {
-        place: 'Obertraun (Krippenstein valley station)',
-        minutes: 70,
-        mapsUrl: dirUrl('Obertraun, Austria', 'Salzburg Airport'),
+        place: 'Gosau',
+        minutes: 80,
+        mapsUrl: dirUrl('Gosau, Austria', 'Salzburg Airport'),
       },
       driveTo: {
         place: 'Salzburg Airport area',
-        minutes: 70,
-        mapsUrl: dirUrl('Obertraun, Austria', 'Salzburg Airport'),
+        minutes: 80,
+        mapsUrl: dirUrl('Gosau, Austria', 'Salzburg Airport'),
       },
       sunset: {
         place: 'Mönchsberg ridge above Salzburg',
         time: '20:47',
         mapsUrl: searchUrl('Mönchsberg Salzburg'),
       },
-      sleepWhere: 'airport',
+      sleepWhere: 'salzburg-airport',
       doingSummary:
-        'First cog down ~09:00 → drive airport area. Pick from: lazy day / one last Salzburg café / Eisriesenwelt ice cave (Werfen) / Mauthausen.',
+        'Drive Gosau → SZG ~1h20. Check in B&B Villa Verde afternoon. Return rental car Thu night. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
     },
 
     // --- DAY 8 — Fri Jul 31 ---
@@ -687,10 +716,10 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
-        'Early wake. Last coffee in the same kitchen you started in. Ten-minute drive to the terminal, drop the rental car, board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
+        'Early wake at B&B Villa Verde. Rental car already returned Thu night so the morning is just a 5-min taxi / shuttle to the terminal — no car-return scramble. Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
       anchors: [
         { label: 'Wake', time: '05:30' },
-        { label: 'Drop car at SZG', time: '06:15' },
+        { label: 'Taxi / shuttle to SZG (car already returned Thu)', time: '06:30' },
         { label: 'At terminal (LY5194)', time: '06:55' },
         { label: 'Depart SZG', time: '08:55' },
         { label: 'Land TLV', time: '13:25' },
@@ -705,8 +734,8 @@ export const TRIP: TripData = {
         time: '19:45',
         mapsUrl: searchUrl('Jerusalem'),
       },
-      sleepWhere: 'airport',
-      doingSummary: 'Drop car at SZG 06:15 → LY5194 08:55 → land TLV 13:25.',
+      sleepWhere: 'salzburg-airport',
+      doingSummary: 'Taxi to SZG 06:30 (car already returned Thu) → LY5194 08:55 → land TLV 13:25.',
     },
   ],
 
@@ -1124,13 +1153,389 @@ export const TRIP: TripData = {
         },
       ],
     },
+    // =====================================================================
+    // v4 ACTIVE LODGINGS (2026-05-19 restructure) — Zell am See + Gosau + SZG airport
+    // =====================================================================
+    // Per Avital's structural counter-proposal (Sun May 17) + Allison's two
+    // course corrections (factual-override-with-facts Mon May 18 + relaxed-
+    // lakes-radius Tue May 19): the trip restructured to 2nt Salzburg → 2nt
+    // Zell am See → 2nt Gosau → 1nt SZG airport. Lodging picks below come
+    // from the lodging research pass at
+    // `projects/austria-2026/lodging-research-2026-05-19.md`. The old 3-night
+    // Obertraun anchor + old 1-night airport block remain below as ARCHIVED
+    // (pullable-archives rule) so prior decisions stay visible.
+
     {
-      // OBERTRAUN / HALLSTATT — Sun Jul 26 – Wed Jul 29, 3 nights.
+      // ZELL AM SEE — Sun Jul 26 → Tue Jul 28, 2 nights. Main-night base #1.
+      // 2 beds mandatory (Allison + Avital are friends, not couple).
+      // Verified 2-bed configs only — see lodging-research-2026-05-19.md.
+      baseKey: 'zell-am-see',
+      nights: 'Sun Jul 26 – Tue Jul 28 (2 nights)',
+      area: 'Zell am See town — Pinzgau, foot of the Schmittenhöhe + Hohe Tauern. Apartments with full kitchens, 2-bed configurations verified for Jul 26-28.',
+      pickName: 'Aparthotel Zell am See',
+      pickFreeCancellation: true,
+      pickFreeCancellationUntil: '2026-07-12',
+      pickUrl: 'https://www.booking.com/hotel/at/aparthotel-zell-am-see.html',
+      pickImg:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+      pickReview: '9.2 · Wonderful · 408 reviews',
+      pickPrice: '€483 / 2 nights (₪1,918) — Two-Bedroom Apartment with View, 63m², free cancel until Jul 12, 2026',
+      pickWhy:
+        '63m² Two-Bedroom Apartment with View — Bedroom 1: 1 king / Bedroom 2: 2 twin beds / Living room: 1 sofa bed. 2 separate rooms (Avital-Allison friends-not-couple constraint passes cleanly). 408 reviews is the deepest review base of any qualifying Zell pick. Full kitchen + free parking + Imbachhornstraße 17 (2.8 km from downtown). Cheapest 2-bedroom Zell option found in the broad search.',
+      pickBudgetTier: 'mid-high',
+      pickPlatform: 'booking',
+      pickVibeTag: 'in-town',
+      pickLaundry: 'unknown',
+      pickBedrooms: 2,
+      pickBeds: '1 king + 2 twins (separate bedrooms) + 1 sofa bed (living room)',
+      pickNotableDetails: [
+        'TRUE 2-bedroom',
+        '2 separate bedrooms',
+        '1 king + 2 twins',
+        'Full kitchen',
+        'Free parking',
+        'Free cancel until Jul 12',
+        '408 reviews',
+      ],
+      pickMaxGuests: 5,
+      pickKitchen: 'full',
+      pickBath: 'private',
+      pickAc: false,
+      pickParking: 'free',
+      pickWifi: true,
+      pickViewType: 'mountain',
+      pickAvailability: 'available',
+      pickAvailabilityCheckedDate: '2026-05-19',
+      pickPhotos: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+      ],
+      alts: [
+        {
+          name: 'der Sonnberg Alpinlodges (Two-Bedroom)',
+          url: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+          review: '8.5 · Very good · 439 reviews',
+          pricePerNight: '€548 / 2 nights (₪2,176) — Two-Bedroom (Schönwieskopf or Kröndlhorn), free cancel until Jul 12',
+          note: "Avital's URL pick — book the Two-Bedroom specifically (Schönwieskopf or Kröndlhorn, both 58-66m²). Bedroom 1: 1 king / Bedroom 2: 2 twin beds (separate rooms). Kitchenette + private sauna + lake-view balcony + self check-in. Booking score 8.5 is below the original 9.0 floor but clears Allison's relaxed 8.5 floor. The 'honor Avital's pick + still 2-bed compliant' option, only €65 over the primary.",
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'nature-view',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '1 king + 2 twins (separate bedrooms)',
+          notableDetails: [
+            "Avital's URL pick",
+            'TRUE 2-bedroom',
+            'Private sauna',
+            'Lake + mountain view',
+            'Kitchenette',
+            'Self check-in',
+            'Free cancel until Jul 12',
+          ],
+          maxGuests: 4,
+          kitchen: 'kitchenette',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'lake',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-12',
+          photos: [],
+        },
+        {
+          name: 'Sunny Ferienwohnungen (Deluxe Two-Bedroom)',
+          url: 'https://www.booking.com/hotel/at/sunny-ferienwohnung.html',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+          review: '9.6 · Exceptional · 182 reviews',
+          pricePerNight: '€889 / 2 nights (₪3,529) — Deluxe Two-Bedroom Apartment 70m², free cancel until Jun 26',
+          note: '70m² Deluxe Two-Bedroom. Bedroom 1: 1 queen / Bedroom 2: 1 queen + bunk (separate rooms). Highest review score of any qualifying Zell pick (9.6). Self check-in, full kitchen, 2 km from downtown.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '1 queen + 1 queen+bunk (separate bedrooms) + 1 sofa bed',
+          notableDetails: ['9.6 score', 'Self check-in', '70m²', '2 separate bedrooms'],
+          maxGuests: 6,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-06-26',
+          photos: [],
+        },
+        {
+          name: 'Schönblick Residence Apartments (Two-Bedroom)',
+          url: 'https://www.booking.com/hotel/at/schonblick-residence-absolut-alpine-apartments.html',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
+          review: '9.5 · Exceptional · 464 reviews',
+          pricePerNight: '€1,015 / 2 nights (₪4,030) — Two-Bedroom Apartment with Balcony "TOP 12", 60m², free cancel until Jun 26',
+          note: '60m² Two-Bedroom. Bedroom 1: 1 king / Bedroom 2: 1 king (2 separate KING bedrooms — best privacy of the four). 464 reviews. Summercard included (free local transport / cable car). Most expensive Zell option but the cleanest 2-bed config.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '2 kings (separate bedrooms) + 1 sofa bed',
+          notableDetails: ['2 separate king bedrooms', 'Best privacy', 'Summercard included', '464 reviews'],
+          maxGuests: 5,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-06-26',
+          photos: [],
+        },
+      ],
+    },
+
+    {
+      // GOSAU — Tue Jul 28 → Thu Jul 30, 2 nights. Main-night base #2.
+      // 2 separate ROOMS preferred (not just 2 beds). Verified Jul 28-30
+      // via broad Salzkammergut lakes-region search 2026-05-19.
+      // Avital's URL Landhaus Osborne (Obertraun) REJECTED — only 1-queen
+      // Apartment (3) left for the dates = fails 2-bed mandatory.
+      baseKey: 'gosau',
+      nights: 'Tue Jul 28 – Thu Jul 30 (2 nights)',
+      area: 'Gosau village (Dachstein West / Hallstattersee cluster) — next to Vorderer Gosausee, ~20 min to Hallstatt, ~25 min to Krippenstein cable car. 2-bedroom apartments with private kitchens.',
+      pickName: 'Der Ulmenhof (Gosau)',
+      pickFreeCancellation: true,
+      pickFreeCancellationUntil: '2026-06-28',
+      pickUrl: 'https://www.booking.com/hotel/at/ulmenhof-gosau-at.html',
+      pickImg:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+      pickReview: '9.0 · Wonderful · 251 reviews',
+      pickPrice: '€513-€590 / 2 nights (₪2,037-₪2,343) — three 2-bedroom apartments available, free cancel until Jun 28',
+      pickWhy:
+        "The only verified Salzkammergut-region property with multiple 2-actual-separate-bedroom apartments + private kitchen + free cancel + a score (9.0) and review count (251) both well above the relaxed 8.5 floor. Three 2BR apartments available for Jul 28-30 — recommended room: Apartment 51m² (€513), Bedroom 1: 1 queen / Bedroom 2: 1 twin + 1 bunk (cleanest 'one person per room' structure for friends-not-couple). Gosau village is compact and walkable to the Vorderer Gosausee trailhead — Avital's lakes-region anchor pick, structurally cleaner than the Obertraun URL she sent (which only had a 1-queen apartment left).",
+      pickBudgetTier: 'mid-high',
+      pickPlatform: 'booking',
+      pickVibeTag: 'nature-view',
+      pickLaundry: 'unknown',
+      pickBedrooms: 2,
+      pickBeds: '1 queen + 1 twin+bunk (separate bedrooms) + 1 sofa bed (51m² unit, recommended)',
+      pickNotableDetails: [
+        'TRUE 2-bedroom',
+        '2 separate rooms',
+        'Private kitchen',
+        'Gosausee 3 km',
+        'Hallstatt 20 min',
+        'Krippenstein cable car 25 min',
+        'Free cancel until Jun 28',
+        '251 reviews',
+      ],
+      pickMaxGuests: 4,
+      pickKitchen: 'full',
+      pickBath: 'private',
+      pickAc: false,
+      pickParking: 'free',
+      pickWifi: true,
+      pickViewType: 'mountain',
+      pickAvailability: 'limited',
+      pickAvailabilityCheckedDate: '2026-05-19',
+      pickAvailabilityNote:
+        'Three 2BR apartments showing "We have 1 left" — book within a week or lose the option. Lakes-region inventory thin for Jul 28-30.',
+      pickPhotos: [
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
+      ],
+      alts: [
+        {
+          name: 'Auszeit Salzkammergut Appartements (Bad Ischl)',
+          url: 'https://www.booking.com/hotel/at/auszeit-salzkammergut-appartements.html',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
+          review: '9.3 · Wonderful · 138 reviews',
+          pricePerNight: '€334 / 2 nights (₪1,326) — Apartment with Balcony 36m², free cancel until Jun 16',
+          note: 'Cheapest qualifying option by a wide margin (€334 vs €513). 9.3 score. Bedroom: 1 twin + 1 queen (same room, NOT separate rooms) + 1 sofa bed in living room. Qualifies under Allison\'s "2 separate beds" allow-list but is NOT "2 separate rooms" — flag if separate-rooms is a hard requirement. Bad Ischl is centrally positioned: ~25 min to Hallstatt and ~25 min to Strobl/Wolfgangsee. Only 1 room left for the dates — book fast.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 twin + 1 queen (same bedroom) + 1 sofa bed (living room)',
+          notableDetails: [
+            'Cheapest qualifying',
+            'Bad Ischl central',
+            '1 BEDROOM (not 2 rooms)',
+            'Equidistant Hallstatt + Wolfgangsee',
+            'Free cancel until Jun 16',
+            'Only 1 left',
+          ],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'street',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'limited',
+          availabilityCheckedDate: '2026-05-19',
+          availabilityNote: 'Only 1 apartment type left for Jul 28-30 as of 2026-05-19. Book within days to lock.',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-06-16',
+          photos: [],
+        },
+      ],
+    },
+
+    {
+      // SALZBURG AIRPORT (v4 restructure 2026-05-19) — Thu Jul 30 → Fri Jul 31, 1 night.
+      // 1 bed OK (Allison: "shabbat can be one bed and airport but not main nights").
+      // Replaces the old airport block (Best Western Walserberg + 5 alts) — all
+      // 6 of the original candidates except Hapimag failed the relaxed 8.5 floor;
+      // the broad SZG-orbit search surfaced three stronger picks.
+      baseKey: 'salzburg-airport',
+      nights: 'Thu Jul 30 – Fri Jul 31 (1 night)',
+      area: 'Salzburg airport orbit — within 5 km / ~10-min drive of W. A. Mozart airport (SZG) for the Friday 08:55 LY5194 departure. 1 bed OK per the airport-night rule.',
+      pickName: 'B&B Villa Verde',
+      pickFreeCancellation: true,
+      pickUrl: 'https://www.booking.com/hotel/at/villa-verde.html',
+      pickImg:
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+      pickReview: '9.7 · Exceptional · 1,562 reviews',
+      pickPrice: '€207 / night (₪822) — Double Room (1 queen) + breakfast, free cancel + pay-at-property',
+      pickWhy:
+        '9.7 / 1,562 reviews — the highest review count of any high-scoring airport-area property, most statistically reliable pick. 2.7 km from SZG (closest of the strong candidates). Free cancellation + pay-at-property. Breakfast included. All 5 of the previous airport-block candidates (Best Western Walserberg 7.5, Hotel Astoria 8.1, B&B Salzburg-Nord 8.1, Hey Lou Piding 8.2, Landhotel Berger 8.5) failed the 8.5 floor; Hapimag passes but is in old town not airport-side. Villa Verde wins on every dimension.',
+      pickBudgetTier: 'standard',
+      pickPlatform: 'booking',
+      pickDriveToAirportMin: 5,
+      pickLaundry: 'none',
+      pickBedrooms: 1,
+      pickBeds: '1 queen',
+      pickNotableDetails: [
+        '9.7 / 1,562 reviews',
+        '2.7 km from SZG',
+        'Breakfast included',
+        'Free cancel + pay-at-property',
+      ],
+      pickMaxGuests: 2,
+      pickKitchen: 'none',
+      pickBath: 'private',
+      pickAc: true,
+      pickParking: 'free',
+      pickWifi: true,
+      pickViewType: 'urban',
+      pickAvailability: 'available',
+      pickAvailabilityCheckedDate: '2026-05-19',
+      pickPhotos: [
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+      ],
+      alts: [
+        {
+          name: 'Hotel Gabi (Wals)',
+          url: 'https://www.booking.com/hotel/at/gabiwals.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '9.5 · Exceptional · 1,140 reviews',
+          pricePerNight: '€265 / night (₪1,052) — Double Room (1 queen) + breakfast',
+          note: '2.8 km from SZG. Same Wals zone as the Best Western that was previously the airport pick. 9.5 / 1,140 reviews. Free cancellation + pay-at-property. Solid second choice if Villa Verde is full.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          driveToAirportMin: 6,
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '1 queen',
+          notableDetails: ['Same zone as old Best Western pick', '1,140 reviews', 'Free cancel'],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          freeCancellation: true,
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          photos: [],
+        },
+        {
+          name: 'Landhaus Grünau',
+          url: 'https://www.booking.com/hotel/at/landhaus-grunau.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '9.5 · Exceptional · 585 reviews',
+          pricePerNight: '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast',
+          note: '3.4 km from SZG. Cheapest of the strong picks. 9.5 / 585 reviews. Free cancellation + pay-at-property. Slightly farther from the airport than Villa Verde + Hotel Gabi but cheaper.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          driveToAirportMin: 7,
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '1 king',
+          notableDetails: ['Cheapest strong pick', '585 reviews', 'Free cancel'],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          freeCancellation: true,
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          photos: [],
+        },
+        {
+          name: 'Hapimag Ferienwohnungen Salzburg (old town fallback)',
+          url: 'https://www.booking.com/hotel/at/hapimag-resort-salzburg.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/139217677.jpg?k=ebc0c828c528549905c9c09bbe92ccc4e2a9f32aaf5cfa7c5d2372e7cd7ca11c&o=&hp=1',
+          review: '9.4 · Superb · 304 reviews',
+          pricePerNight: '€442 / night (₪1,755)',
+          note: 'Old town fallback only — kept from the previous airport-block as the apartment-style splurge option. NOT airport-side (5 km from SZG, in old town). 34m² studio with full kitchen. Above budget for a 1-night airport stay.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          driveToAirportMin: 10,
+          laundry: 'unknown',
+          bedrooms: 'studio',
+          beds: '1 queen',
+          notableDetails: ['Old town NOT airport-side', 'Studio + kitchen', 'Above budget'],
+          maxGuests: 2,
+          kitchen: 'full',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          freeCancellation: true,
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-17',
+          photos: [],
+        },
+      ],
+    },
+
+    // =====================================================================
+    // ARCHIVED LODGINGS — kept for pull-back (Allison's pullable-archives rule)
+    // =====================================================================
+    // These two blocks below (the 3-night Obertraun anchor + the original
+    // 6-candidate airport block) were ACTIVE through 2026-05-17 and dropped
+    // 2026-05-19 when the trip restructured. They remain in TRIP.lodgings
+    // so the data structure stays whole and decisions are reviewable, but
+    // the active trip pages filter them out via the ACTIVE allowlist in
+    // page-trip-summary.ts buildStayCards + page-stay.ts FILTER. To restore
+    // either, swap their baseKey back to 'zell-am-see' or 'gosau' or
+    // 'salzburg-airport' and remove the matching active block above.
+
+    {
+      // OBERTRAUN / HALLSTATT — ARCHIVED 2026-05-19. Sun Jul 26 – Wed Jul 29, 3 nights.
       // The deep-anchor stay. Lake-adjacent, quiet, full apartment.
       // Restructured 2026-05-17: shortened from 4 → 3 nights so Wed night
       // can be the Berghotel Schafbergspitze summit overnight (new base 3
       // of 4). See SUNSET_STAYS[schafbergspitze-stay] for the Wed night.
       // Live Booking.com prices for Jul 26-29, ÷ 3 nights for per-night.
+      // ARCHIVED 2026-05-19 — superseded by Zell am See + Gosau split per
+      // Avital counter-proposal + Allison's relaxed-lakes correction.
       baseKey: 'hallstatt',
       nights: 'Sun Jul 26 – Wed Jul 29 (3 nights)',
       area: 'Obertraun & Hallstatt-area (Salzkammergut) — full apartments, lake-adjacent, at the foot of the Dachstein',
@@ -1710,7 +2115,14 @@ export const TRIP: TripData = {
       ],
     },
     {
-      // SALZBURG AIRPORT — Thu Jul 30 – Fri Jul 31, 1 night.
+      // SALZBURG AIRPORT — ARCHIVED 2026-05-19. Thu Jul 30 – Fri Jul 31, 1 night.
+      // Original 6-candidate budget-tier block (Best Western Walserberg pick +
+      // 5 alts including soom Capsule, Hey Lou, B&B Salzburg-Nord, Landhotel
+      // Berger, Hapimag). Replaced 2026-05-19 by B&B Villa Verde + Hotel Gabi
+      // + Landhaus Grünau active block above — all 5 of the original alts
+      // except Hapimag failed the relaxed ≥8.5 floor on Booking score.
+      // Pullable-archives rule: kept here in case a re-check ever wants any
+      // of the budget chains back.
       // REBUILT 2026-05-17 by booking-genius agent per Allison's directive:
       // "Airport sleeping night should be cheaper end just sleeping bf airport
       // but nice enough for Allison taste and good reviews". Target ≤€150/night
@@ -4147,6 +4559,23 @@ export const NATURE_COORDS: Record<string, LatLng> = {
 // many as could be verified; entries without a coord get filtered out at
 // render with a console.warn.
 export const LODGING_COORDS: Record<string, LatLng> = {
+  // v4 RESTRUCTURE 2026-05-19 — Zell am See + Gosau + B&B Villa Verde
+  // active picks. Coordinates are address-derived (Zell am See town
+  // center / Gosau village / Salzburg airport orbit).
+  // ZELL AM SEE (Sun-Tue, 2 nights)
+  'Aparthotel Zell am See': { lat: 47.3252, lng: 12.795 }, // Imbachhornstraße 17, 2.8 km from downtown
+  'der Sonnberg Alpinlodges (Two-Bedroom)': { lat: 47.327, lng: 12.799 }, // Sonnbergstraße 57a — hilltop above town
+  'Sunny Ferienwohnungen (Deluxe Two-Bedroom)': { lat: 47.326, lng: 12.797 }, // ~2 km from downtown
+  'Schönblick Residence Apartments (Two-Bedroom)': { lat: 47.3285, lng: 12.7935 }, // 2.3 km from downtown
+  // GOSAU (Tue-Thu, 2 nights)
+  'Der Ulmenhof (Gosau)': { lat: 47.5856, lng: 13.5286 }, // Gosau village
+  'Auszeit Salzkammergut Appartements (Bad Ischl)': { lat: 47.7117, lng: 13.6228 }, // Bad Ischl town center
+  // SALZBURG AIRPORT (Thu-Fri, 1 night)
+  'B&B Villa Verde': { lat: 47.7933, lng: 13.0043 }, // 2.7 km from SZG
+  'Hotel Gabi (Wals)': { lat: 47.795, lng: 13.0025 }, // 2.8 km from SZG
+  'Landhaus Grünau': { lat: 47.79, lng: 12.99 }, // 3.4 km from SZG
+  'Hapimag Ferienwohnungen Salzburg (old town fallback)': { lat: 47.8164, lng: 13.0014 }, // ~5 km from SZG, old town
+  // --- legacy / archived coords below (kept for pullable archives) ---
   // SALZBURG (Shabbat base) — Linzergasse / Andräviertel / Altstadt / Schallmoos
   'master Linzergasse': { lat: 47.8049, lng: 13.0476 }, // Linzergasse, Andräviertel
   "Junker's Apartments": { lat: 47.8003, lng: 13.0289 }, // ~1.9km from old town
@@ -4487,10 +4916,10 @@ export const SUNSET_STAYS: SunsetStay[] = [
     weatherRisk:
       'Cable car closes in thunderstorms. Plateau exposed — lightning risk REAL if storms develop. Check weather morning of, abort if storms forecast 16:00-22:00.',
     verdict:
-      'ONE OF FIVE strong options for the Wed Jul 29 → Thu Jul 30 summit-night decision (see also Seehotel am Hallstättersee, Post am See Traunkirchen, Brandauer\'s Villen Strobl, Scalaria Sunset Wing). Strictly better than the original Schafbergspitze plan on every dimension: higher (2,063m vs 1,783m), better reviews (9.2 vs 3.6★), takes cards, modern architectural lodge, 5-min drive from the Obertraun anchor. Concept: "I slept on a mountain." Pick when ready — all 5 verified available 2026-05-17.',
-    status: 'bookable',
+      'FULL for Jul 29-30 as of 2026-05-18 — no overnight in revised plan. Cable car remains as a day-trip from Gosau (25-min drive). Original concept was "I slept on a mountain" — dissolved when the v4 restructure (2nt Zell am See + 2nt Gosau + 1nt SZG airport) dropped the summit-overnight slot entirely. Lodge stays here as a reference / pullable archive.',
+    status: 'superseded',
     bookingNote:
-      'Bookable on Booking.com with free-cancellation rate usually available — https://www.booking.com/hotel/at/lodge-am-krippenstein.html — or direct: stay@lodge.at / +43 664 380 405 4 (Mon-Sun 8:00-21:00 Austria), Rosifka KG, Winkl 52, 4831 Obertraun. No need to lock today — one of 5 candidates.',
+      'NO LONGER THE PICK as of 2026-05-19 — full for Jul 29-30 + summit-overnight slot dropped from the v4 plan. Cable car day-trip from Gosau is the new shape (25-min drive). If a future trip re-enables the overnight, the lodge is bookable at https://www.booking.com/hotel/at/lodge-am-krippenstein.html or direct stay@lodge.at / +43 664 380 405 4.',
     sourceLinks: [
       { label: 'Booking.com listing', url: 'https://www.booking.com/hotel/at/lodge-am-krippenstein.html' },
       { label: 'Official site (lodge.at)', url: 'https://www.lodge.at/en/' },

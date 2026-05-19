@@ -45,11 +45,18 @@ function renderPlanB(planB: string | undefined): string {
 
 function renderMetaChips(day: Day): string {
   const chips: string[] = [];
+  // Updated 2026-05-19 for v4 4-base restructure. Deprecated keys still
+  // mapped so any old data renders (fallback chain catches missing too).
   const sleepLabel: Record<string, string> = {
     salzburg: 'Salzburg (Linzergasse)',
-    hallstatt: 'Mountain anchor (Obertraun)',
-    schafbergspitze: 'Berghotel Schafbergspitze (1,783m)',
-    airport: 'Salzburg airport-side',
+    'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
+    gosau: 'Gosau (Der Ulmenhof)',
+    'salzburg-airport': 'Salzburg airport-side (B&B Villa Verde)',
+    // deprecated 2026-05-19, fallback only
+    hallstatt: 'Mountain anchor (Obertraun) — archived',
+    schafbergspitze: 'Berghotel Schafbergspitze — superseded',
+    'lodge-am-krippenstein': 'Lodge am Krippenstein — archived',
+    airport: 'Salzburg airport-side (legacy)',
   };
   const where = sleepLabel[day.sleepWhere] ?? day.sleepWhere;
 

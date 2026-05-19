@@ -37,7 +37,7 @@ function bindWhyShort(): void {
   const el = document.querySelector<HTMLParagraphElement>('[data-bind="why-short"]');
   if (!el) return;
   el.textContent =
-    'Friday Jul 24 — Friday Jul 31, 2026. Salzburg for Shabbat (2 nights), then a mountain anchor (3 nights) with day-trip options to Königssee / Hallstatt / Gosausee / Wolfgangsee. Wed-night summit overnight at Berghotel Schafbergspitze (1,783m, locked). Thu airport-side. 4 bases, 3 moves. Each open day shows OPTIONS — Avital picks per energy + weather.';
+    'Friday Jul 24 — Friday Jul 31, 2026. Salzburg for Shabbat (2 nights), then Zell am See for the alpine-lake first half (2 nights), then Gosau for the Salzkammergut lakes second half (2 nights — Hallstatt + Krippenstein as day-trips), then 1 night at Salzburg airport-side before the Friday 08:55 flight. 4 bases, 3 moves. Each open day shows OPTIONS — Avital picks per energy + weather.';
 }
 
 // ---------------------------------------------------------------
@@ -55,45 +55,41 @@ interface StayCard {
 }
 
 function buildStayCards(): StayCard[] {
+  // Rewritten 2026-05-19 — old labelMap drove the deprecated 3-base shape
+  // (salzburg / hallstatt / airport + injected Schafberg summit). v4
+  // restructure is straight 4-base: salzburg / zell-am-see / gosau /
+  // salzburg-airport. Deprecated keys kept in the map so any archived
+  // lodgings still render with a flagged label if they re-appear.
   const labelMap: Record<Lodging['baseKey'], string> = {
     salzburg: 'Salzburg · Shabbat base',
-    hallstatt: 'Mountain anchor · the 3-night midweek',
-    airport: 'Salzburg airport-side · last night',
+    'zell-am-see': 'Zell am See · alpine-lake anchor (2 nights)',
+    gosau: 'Gosau · Salzkammergut lakes anchor (2 nights)',
+    'salzburg-airport': 'Salzburg airport-side · last night',
+    // deprecated 2026-05-19 — kept for archived blocks
+    hallstatt: 'Mountain anchor (Obertraun) — ARCHIVED 2026-05-19, see Zell am See + Gosau',
+    airport: 'Salzburg airport-side (legacy entry) — ARCHIVED 2026-05-19, see B&B Villa Verde',
   };
-  const fromTrip: StayCard[] = TRIP.lodgings.map((lod) => ({
-    baseKey: lod.baseKey,
-    label: labelMap[lod.baseKey],
-    nightsLabel: lod.nights,
-    area: lod.area,
-    pickName: lod.pickName,
-    pickPrice: lod.pickPrice,
-    pickWhy: lod.pickWhy,
-    pickUrl: lod.pickUrl,
-  }));
-
-  // Insert Schafbergspitze (Base #3 of 4) between mountain anchor and airport.
-  // It lives in SUNSET_STAYS, not TRIP.lodgings — pull the canonical info from
-  // there. This is a locked Wed-night base added 2026-05-17 per the 4-base
-  // restructure.
-  const schafbergStay: StayCard = {
-    baseKey: 'hallstatt', // closest existing base-key — visually styled like the mountain anchor
-    label: 'Schafbergspitze 1,783m · Wed-night summit (locked)',
-    nightsLabel: 'Wed Jul 29 → Thu Jul 30 (1 night)',
-    area: 'Berghotel Schafbergspitze · 1,783m summit · accessed via Schafbergbahn cog railway from St. Wolfgang am Wolfgangsee',
-    pickName: 'Berghotel Schafbergspitze (the only hotel up there)',
-    pickPrice: '€155.80 / person (incl. cog + breakfast)',
-    pickWhy:
-      "Austria's oldest mountain hotel (1862). After the last cog down at ~17:00 the summit empties to ~34 overnight guests. 360° panorama: Wolfgangsee, Mondsee, Attersee, Fuschlsee — 13 lakes visible at sunset. Sunrise over the Dachstein. BOOK ~2-3 weeks ahead by phone (+43 6138 35 42) or schafberg.net.",
-    pickUrl: 'https://schafberg.net/en/',
-  };
-
-  // Place: salzburg, hallstatt (mountain anchor), schafbergspitze, airport.
-  // TRIP.lodgings order is salzburg → hallstatt → airport. Insert at index 2.
-  const out = [...fromTrip];
-  const airportIdx = out.findIndex((s) => s.baseKey === 'airport');
-  if (airportIdx >= 0) out.splice(airportIdx, 0, schafbergStay);
-  else out.push(schafbergStay);
-  return out;
+  // Filter out archived/deprecated lodgings from the active stay-cards view.
+  // The archived entries still live in TRIP.lodgings (pullable archives rule)
+  // but the trip-summary page only shows the v4 active 4-base set.
+  const ACTIVE: Lodging['baseKey'][] = [
+    'salzburg',
+    'zell-am-see',
+    'gosau',
+    'salzburg-airport',
+  ];
+  return TRIP.lodgings
+    .filter((lod) => ACTIVE.includes(lod.baseKey))
+    .map((lod) => ({
+      baseKey: lod.baseKey,
+      label: labelMap[lod.baseKey],
+      nightsLabel: lod.nights,
+      area: lod.area,
+      pickName: lod.pickName,
+      pickPrice: lod.pickPrice,
+      pickWhy: lod.pickWhy,
+      pickUrl: lod.pickUrl,
+    }));
 }
 
 function renderStays(): void {
@@ -136,12 +132,20 @@ interface PlaceRow {
   driveFromLabel: string;
 }
 
+// SLEEP_LABEL map — kept IN-SYNC with the sleepWhere enum in trip-data.ts.
+// CRITICAL: every literal in Day['sleepWhere'] must have a key here, or
+// SLEEP_LABEL[d.sleepWhere] is `undefined` and rendering breaks. Deprecated
+// values are still listed so archived data still renders gracefully.
 const SLEEP_LABEL: Record<Day['sleepWhere'], string> = {
   salzburg: 'Salzburg (Linzergasse)',
-  hallstatt: 'Mountain anchor (Obertraun / Hallstatt area)',
-  schafbergspitze: 'Berghotel Schafbergspitze (1,783m summit) — SUPERSEDED, see Krippenstein',
-  'lodge-am-krippenstein': 'Lodge am Krippenstein (2,063m summit plateau)',
-  airport: 'Salzburg airport-side',
+  'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
+  gosau: 'Gosau (Der Ulmenhof)',
+  'salzburg-airport': 'Salzburg airport-side (B&B Villa Verde)',
+  // --- deprecated 2026-05-19, kept so archived rows still render ---
+  hallstatt: 'Mountain anchor (Obertraun) — ARCHIVED 2026-05-19',
+  schafbergspitze: 'Berghotel Schafbergspitze — SUPERSEDED 2026-05-17',
+  'lodge-am-krippenstein': 'Lodge am Krippenstein — ARCHIVED 2026-05-19',
+  airport: 'Salzburg airport-side (legacy) — ARCHIVED 2026-05-19',
 };
 
 function buildPlaceRows(): PlaceRow[] {

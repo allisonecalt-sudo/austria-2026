@@ -30,6 +30,7 @@ import {
   type LodgingViewType,
   type LodgingAvailability,
   type SunsetStay,
+  type Lodging,
 } from './trip-data.js';
 import { insertNote } from './supabase.js';
 import { initNotesWidget } from './notes-widget.js';
@@ -122,7 +123,18 @@ const COORDS: Record<string, [number, number]> = {
 // salzburg is shabbat thats it" — non-Salzburg listings get the plain night
 // count, no Shabbat language.
 // ---------------------------------------------------------------------------
-type BaseKey = 'salzburg' | 'obertraun' | 'berchtesgaden' | 'wolfgangsee' | 'airport';
+// Extended 2026-05-19 for v4 4-base restructure. 'zell-am-see' + 'gosau'
+// are the new mountain anchors; legacy 'obertraun' kept so archived
+// hallstatt-block entries still classify (they're filtered out of the
+// active stay page via FILTER below).
+type BaseKey =
+  | 'salzburg'
+  | 'zell-am-see'
+  | 'gosau'
+  | 'obertraun'
+  | 'berchtesgaden'
+  | 'wolfgangsee'
+  | 'airport';
 
 interface BaseDateInfo {
   short: string; // pill on card
@@ -142,9 +154,25 @@ const BASE_DATES: Record<BaseKey, BaseDateInfo> = {
     bookingCheckOut: '2026-07-26',
     shabbat: true,
   },
+  'zell-am-see': {
+    short: 'Sun Jul 26 → Tue Jul 28 (2N) · alpine-lake anchor',
+    long: 'Sunday Jul 26 → Tuesday Jul 28, 2026 — 2 nights. Alpine-lake first half of the week — Zell am See on the Pinzgau, foot of the Schmittenhöhe + Kitzsteinhorn. Main-night base — 2 separate beds mandatory.',
+    nights: 2,
+    bookingCheckIn: '2026-07-26',
+    bookingCheckOut: '2026-07-28',
+    shabbat: false,
+  },
+  gosau: {
+    short: 'Tue Jul 28 → Thu Jul 30 (2N) · Salzkammergut lakes anchor',
+    long: 'Tuesday Jul 28 → Thursday Jul 30, 2026 — 2 nights. Salzkammergut lakes second half of the week — Gosau village, next to Vorderer Gosausee + 20 min from Hallstatt + 25 min from the Krippenstein cable car. Main-night base — 2 separate beds + 2 separate rooms preferred.',
+    nights: 2,
+    bookingCheckIn: '2026-07-28',
+    bookingCheckOut: '2026-07-30',
+    shabbat: false,
+  },
   obertraun: {
-    short: 'Sun Jul 26 → Wed Jul 29 (3N)',
-    long: 'Sunday Jul 26 → Wednesday Jul 29, 2026 — 3 nights. The deep midweek anchor for the Salzkammergut. (Wed Jul 29 night is the Schafbergspitze summit overnight — separate booking, see Sunset stays.)',
+    short: 'ARCHIVED 2026-05-19 — see Gosau',
+    long: 'ARCHIVED 2026-05-19. The old 3-night Obertraun mountain anchor was dropped when the trip restructured into 2nt Zell am See + 2nt Gosau. Old listings remain in the data for pull-back reference.',
     nights: 3,
     bookingCheckIn: '2026-07-26',
     bookingCheckOut: '2026-07-29',
@@ -243,7 +271,9 @@ interface UnifiedListing {
 
 const BASE_LABELS: Record<BaseKey, string> = {
   salzburg: 'Salzburg',
-  obertraun: 'Obertraun / Hallstatt',
+  'zell-am-see': 'Zell am See',
+  gosau: 'Gosau',
+  obertraun: 'Obertraun / Hallstatt (archived)',
   berchtesgaden: 'Berchtesgaden',
   wolfgangsee: 'St. Wolfgang',
   airport: 'Airport',
@@ -251,6 +281,8 @@ const BASE_LABELS: Record<BaseKey, string> = {
 
 const BASE_COLORS: Record<BaseKey, string> = {
   salzburg: '#3a6f8f',
+  'zell-am-see': '#c66b3a', // warm alpine-lake orange
+  gosau: '#2e5d4f', // Salzkammergut green (same family as the legacy Obertraun shade)
   obertraun: '#2e5d4f',
   berchtesgaden: '#7a4f8f',
   wolfgangsee: '#2a8a8a',
@@ -447,10 +479,27 @@ function detectAmenityAcross(l: { notableDetails: string[]; note: string }, kw: 
 function buildListings(): UnifiedListing[] {
   const out: UnifiedListing[] = [];
 
-  // 1) TRIP.lodgings — Salzburg / Hallstatt / Airport
+  // 1) TRIP.lodgings — Salzburg / Zell am See / Gosau / Salzburg-airport.
+  // v4 RESTRUCTURE 2026-05-19: archived blocks (baseKey 'hallstatt' for the
+  // old Obertraun anchor + baseKey 'airport' for the original 6-candidate
+  // budget airport block) are SKIPPED here to keep the active stay page
+  // showing only the current trip plan. They remain in TRIP.lodgings so
+  // future re-checks can pull them back (Allison's pullable-archives rule).
+  const ACTIVE_BASE_KEYS: Lodging['baseKey'][] = [
+    'salzburg',
+    'zell-am-see',
+    'gosau',
+    'salzburg-airport',
+  ];
   for (const l of TRIP.lodgings) {
+    if (!ACTIVE_BASE_KEYS.includes(l.baseKey)) continue;
+    // Map Lodging baseKey → BaseKey (page-stay's wider classification space).
+    // 'salzburg-airport' (new v4 key) maps to legacy 'airport' so existing
+    // airport rendering keeps working.
     const base: BaseKey =
-      l.baseKey === 'hallstatt' ? 'obertraun' : (l.baseKey as 'salzburg' | 'airport');
+      l.baseKey === 'salzburg-airport'
+        ? 'airport'
+        : (l.baseKey as 'salzburg' | 'zell-am-see' | 'gosau' | 'airport');
 
     const pickDetails = l.pickNotableDetails ?? [];
     const pickEntry: UnifiedListing = {
@@ -1493,6 +1542,8 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
 function renderListView(items: UnifiedListing[]): string {
   const groups: Record<BaseKey, UnifiedListing[]> = {
     salzburg: [],
+    'zell-am-see': [],
+    gosau: [],
     obertraun: [],
     berchtesgaden: [],
     wolfgangsee: [],
@@ -1868,6 +1919,8 @@ function renderSortDropdown(): string {
 // ---------------------------------------------------------------------------
 const BASE_BOOKING_DEST_ID: Record<BaseKey, string> = {
   salzburg: 'Salzburg', // ss=Salzburg
+  'zell-am-see': 'Zell+am+See',
+  gosau: 'Gosau',
   obertraun: 'Obertraun',
   berchtesgaden: 'Berchtesgaden',
   wolfgangsee: 'St.+Wolfgang+im+Salzkammergut',

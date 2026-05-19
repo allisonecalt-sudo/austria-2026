@@ -792,14 +792,25 @@ function gatherLodging(): GatherLodgingResult {
   const out: LodgingPinInput[] = [];
   const noCoord: NoCoordEntry[] = [];
 
+  // Updated 2026-05-19 for v4 4-base restructure. New baseKeys
+  // 'zell-am-see' + 'gosau' both map to the lodging-obertraun visual
+  // category (teal) — they're the new "mountain anchor" equivalents and
+  // the Leaflet palette only has the one slot. 'salzburg-airport' merges
+  // with the legacy 'airport' category.
   const baseToCategory = (baseKey: Lodging['baseKey']): PinCategory => {
     if (baseKey === 'salzburg') return 'lodging-salzburg';
+    if (baseKey === 'zell-am-see') return 'lodging-wolfgangsee'; // orange — alpine-lake first half
+    if (baseKey === 'gosau') return 'lodging-obertraun'; // teal — Salzkammergut second half
     if (baseKey === 'hallstatt') return 'lodging-obertraun';
+    if (baseKey === 'salzburg-airport') return 'lodging-airport';
     return 'lodging-airport';
   };
   const baseLabel = (baseKey: Lodging['baseKey']): string => {
-    if (baseKey === 'salzburg') return 'Salzburg · Shabbat base (Fri-Sun)';
-    if (baseKey === 'hallstatt') return 'Mountain anchor · 3-night midweek (Sun-Wed)';
+    if (baseKey === 'salzburg') return 'Salzburg · Shabbat base (Sat-Sun)';
+    if (baseKey === 'zell-am-see') return 'Zell am See · alpine-lake anchor (Sun-Tue, 2 nights)';
+    if (baseKey === 'gosau') return 'Gosau · Salzkammergut lakes anchor (Tue-Thu, 2 nights)';
+    if (baseKey === 'hallstatt') return 'Mountain anchor · 3-night midweek (Sun-Wed) — ARCHIVED 2026-05-19';
+    if (baseKey === 'salzburg-airport') return 'Airport-area · Thu-Fri pre-flight';
     return 'Airport-area · Thu-Fri pre-flight';
   };
 
@@ -834,7 +845,18 @@ function gatherLodging(): GatherLodgingResult {
   // Allison 2026-05-17 09:00: "never show sold out". Sold-out lodgings are
   // skipped entirely from map pins (matches the same rule applied in
   // page-stay.ts applyFilters + search-index.ts indexLodgings).
+  // v4 RESTRUCTURE 2026-05-19: also skip archived 'hallstatt' + legacy
+  // 'airport' baseKey blocks (their replacements are zell-am-see + gosau +
+  // salzburg-airport). The archived rows still live in TRIP.lodgings for
+  // pull-back; they just don't get map pins.
+  const ACTIVE_BASE_KEYS: Lodging['baseKey'][] = [
+    'salzburg',
+    'zell-am-see',
+    'gosau',
+    'salzburg-airport',
+  ];
   for (const lod of TRIP.lodgings) {
+    if (!ACTIVE_BASE_KEYS.includes(lod.baseKey)) continue;
     const cat = baseToCategory(lod.baseKey);
     const label = baseLabel(lod.baseKey);
     if (lod.pickAvailability !== 'sold-out') {

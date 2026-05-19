@@ -249,10 +249,16 @@ function bindLanding(): void {
   // (Allison 2026-05-17 — IA rethink: "show base pin color per day").
   const strip = document.querySelector<HTMLDivElement>('#day-strip');
   if (strip) {
+    // Updated 2026-05-19 for v4 4-base restructure.
     const baseLabel: Record<string, string> = {
       salzburg: 'Salzburg',
+      'zell-am-see': 'Zell am See',
+      gosau: 'Gosau',
+      'salzburg-airport': 'Airport',
+      // deprecated 2026-05-19, fallback only
       hallstatt: 'Mountain anchor',
       schafbergspitze: 'Summit',
+      'lodge-am-krippenstein': 'Summit',
       airport: 'Airport',
     };
     strip.innerHTML = TRIP.days

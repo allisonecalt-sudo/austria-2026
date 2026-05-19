@@ -31,7 +31,7 @@ import {
   TRIP,
   BASE_CONFIGS,
 } from './trip-data.js';
-import type { NatureDestination, MapPOI, LatLng } from './trip-data.js';
+import type { NatureDestination, MapPOI, LatLng, Lodging } from './trip-data.js';
 
 // =====================================================================
 // Shared item shape — every search result + every recommendation uses it.
@@ -170,13 +170,24 @@ function indexLodgings(): SearchItem[] {
   // trip-data.ts for history; renderers just skip them.
 
   // Pass 1 — TRIP.lodgings primary picks + alts.
+  // v4 RESTRUCTURE 2026-05-19: skip archived 'hallstatt' + legacy 'airport'
+  // baseKey blocks so search results show only the active 4-base set.
+  const ACTIVE_LODGING_KEYS: Lodging['baseKey'][] = [
+    'salzburg',
+    'zell-am-see',
+    'gosau',
+    'salzburg-airport',
+  ];
   for (const lodging of TRIP.lodgings) {
+    if (!ACTIVE_LODGING_KEYS.includes(lodging.baseKey)) continue;
     const baseLabel =
       lodging.baseKey === 'salzburg'
         ? 'Salzburg · Shabbat base'
-        : lodging.baseKey === 'hallstatt'
-          ? 'Hallstatt / Obertraun'
-          : 'Airport area';
+        : lodging.baseKey === 'zell-am-see'
+          ? 'Zell am See · alpine-lake anchor'
+          : lodging.baseKey === 'gosau'
+            ? 'Gosau · Salzkammergut lakes anchor'
+            : 'Airport area';
     const baseTag = lodging.baseKey;
     const pickSoldOut =
       lodging.pickAvailability === 'sold-out' ||
