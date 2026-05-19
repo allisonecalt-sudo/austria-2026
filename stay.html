@@ -13,7 +13,7 @@
     <title>Where we sleep · Austria 2026</title>
     <meta
       name="description"
-      content="54 real Booking.com apartments across the 4 trip bases — Salzburg (Shabbat), Obertraun (mountain anchor, picked), Lodge am Krippenstein (summit night), Airport. Filterable, three views, embedded map. Alternate mountain anchors (Berchtesgaden / St. Wolfgang) shown as group."
+      content="Lodging options for Avital's 4-base plan — Salzburg (Shabbat) · Zell am See (alpine lake) · Salzkammergut (Gosau / Bad Mitterndorf) · SZG airport. Fri Jul 24 → Fri Jul 31, 7 nights. Attribution-tagged picks, real Booking.com listings, embedded leg-color map."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -501,24 +501,22 @@
         </p>
       </header>
 
-      <!-- Embedded map (lodging-only — color-coded by base) -->
+      <!-- Embedded map (lodging-only — color-coded by base).
+           v4 RESTRUCTURE 2026-05-19: legend updated to new 4-base shape.
+           Old labels (Obertraun, Berchtesgaden, St. Wolfgang) retained in
+           page-stay.ts pin colors for pull-back of archived listings; we
+           collapse them under "Salzkammergut" in the visible legend. -->
       <section class="stay-map-wrap" aria-label="Lodging map">
         <div id="stay-map" class="stay-map"></div>
         <div class="stay-map-legend">
           <span
-            ><span class="stay-map-legend__dot" style="background: #3a6f8f"></span>Salzburg</span
+            ><span class="stay-map-legend__dot" style="background: #3a6f8f"></span>Salzburg (Shabbat)</span
           >
           <span
-            ><span class="stay-map-legend__dot" style="background: #2e5d4f"></span>Obertraun /
-            Hallstatt</span
+            ><span class="stay-map-legend__dot" style="background: #c66b3a"></span>Zell am See</span
           >
           <span
-            ><span class="stay-map-legend__dot" style="background: #7a4f8f"></span
-            >Berchtesgaden</span
-          >
-          <span
-            ><span class="stay-map-legend__dot" style="background: #2a8a8a"></span>St.
-            Wolfgang</span
+            ><span class="stay-map-legend__dot" style="background: #2e5d4f"></span>Salzkammergut (Gosau / Aussee)</span
           >
           <span><span class="stay-map-legend__dot" style="background: #777b7e"></span>Airport</span>
         </div>
