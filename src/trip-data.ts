@@ -761,6 +761,7 @@ export const TRIP: TripData = {
       // Linzergasse pick stays in the alts/archive list (pullable-archives rule).
       pickName: 'Bergland Hotel - Adults only',
       pickFreeCancellation: true,
+      pickFreeCancellationUntil: '2026-07-21',
       pickUrl:
         'https://www.booking.com/hotel/at/bergland-salzburg.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
       // Bergland front-of-property photo (Booking listing). Family-run since
@@ -804,6 +805,88 @@ export const TRIP: TripData = {
       // master Linzergasse pick (was primary May 16-19) is preserved here as
       // the first alt so the prior decision is recoverable. ===
       alts: [
+        // === NEW 2026-05-19 PM — Salzburg 2-bed re-search additions per
+        // Allison's "do another lap of research" + need true-2BR options.
+        // Only Arenberg PAUL is a real 2-separate-bedroom apartment under €1k;
+        // Frauenschuh is the only true 2-twin-bed hotel match. Both surface
+        // as alts (not primary) because the Chabad-Shabbat plan locks
+        // Bergland Hotel as the closest gold-stamp option to Chabad. ===
+        {
+          name: 'Arenberg 29b PAUL (Two-Bedroom Apartment)',
+          url: 'https://www.booking.com/hotel/at/arenberg-29b-paul.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '9.5 · Exceptional · 45 reviews · Location 9.8',
+          pricePerNight:
+            '€784 / 2 nights (₪3,113) — Two-Bedroom Apartment 95m², free cancel until May 25, 2026',
+          note: 'ONLY true two-separate-bedroom apartment under €1k in Salzburg city. Arenbergstraße 29B, near Kapuzinerberg — Altstadt right-bank, same side of the Salzach as Chabad, ~10-15 min walk to Linzer Gasse 76. 95m² 2-bedroom: Bedroom 1: 1 queen / Bedroom 2: 1 queen + Living room: 1 sofa bed. Full kitchen (dishwasher + oven + stovetop + microwave + toaster). Washing machine + dryer. Balcony, garden/mountain/city view. Trade-off: free-cancel deadline May 25 is TIGHT (~6 days). 45 reviews is bonus-tier (below 50 floor) but Location 9.8 is exceptional. Stock: 1 left.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          walkToChabadMin: 13,
+          laundry: 'washer+dryer',
+          bedrooms: 2,
+          beds: '2 queens (separate bedrooms) + 1 sofa bed (living room)',
+          notableDetails: [
+            'TRUE 2-bedroom (queen + queen, separate rooms)',
+            '95m² — biggest Salzburg apt',
+            'Same right-bank as Chabad',
+            'Washer + dryer',
+            'Full kitchen + dishwasher',
+            'Balcony',
+            'Location 9.8',
+          ],
+          maxGuests: 5,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'limited',
+          availabilityCheckedDate: '2026-05-19',
+          availabilityNote: 'Stock: 1 left for Jul 24-26. Free-cancel deadline May 25 is ~6 days out — lock to hold flex.',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-05-25',
+          photos: [],
+        },
+        {
+          name: 'Design Hotel Frauenschuh — Deluxe Family Room',
+          url: 'https://www.booking.com/hotel/at/frauenschuh.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '9.1 · Wonderful · 960 reviews',
+          pricePerNight:
+            '€652 / 2 nights (₪2,589) — Deluxe Family Room 32m² (2 twins + 1 queen), free cancel until Jul 21, 2026',
+          note: 'ONLY Salzburg listing with literal "2 twin beds" structured wording (not "queen + sofa bed pretender"). Moosstraße 92, Leopoldskron-Moos — south Salzburg near Leopoldskron Palace + lake. 32m² Deluxe Family Room: 2 twin beds + 1 queen bed. AC + soundproof + balcony + minibar. Breakfast included (NOT kosher-certified). Trade-off: ~35-45 min walk to Chabad (south-west side, opposite Chabad) — bus needed for Shabbat services. 960 reviews is the deepest review-N of any 2-bed Salzburg pick. Strong free-cancel until Jul 21.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          walkToChabadMin: 40,
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '2 twins + 1 queen (same room)',
+          notableDetails: [
+            'TRUE twin beds (structured)',
+            '960 reviews — deep review-N',
+            'AC + soundproof',
+            'Balcony',
+            'Breakfast included (not kosher)',
+            'Leopoldskron palace + lake area',
+            'Free cancel Jul 21',
+          ],
+          maxGuests: 4,
+          kitchen: 'none',
+          bath: 'private',
+          ac: true,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
+          availability: 'limited',
+          availabilityCheckedDate: '2026-05-19',
+          availabilityNote: 'Family Room: 1 left for Jul 24-26.',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-21',
+          photos: [],
+        },
         // --- New 2026-05-19 alts surfaced by the Chabad-Shabbat lodging
         // research pass (lodging-research-2026-05-19.md). ---
         {
@@ -838,6 +921,7 @@ export const TRIP: TripData = {
           availability: 'available',
           availabilityCheckedDate: '2026-05-19',
           freeCancellation: true,
+          freeCancellationUntil: '2026-07-19',
           photos: [
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/322932008.jpg',
             'https://cf.bstatic.com/xdata/images/hotel/max500/322932012.jpg',
@@ -920,6 +1004,7 @@ export const TRIP: TripData = {
           availability: 'available',
           availabilityCheckedDate: '2026-05-19',
           freeCancellation: true,
+          freeCancellationUntil: '2026-07-19',
           photos: [
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/221346620.jpg?k=3037d0239b0c4b87fe4f820beac9aec5866a3d1fdcf2da49b402ec44c82a1f11&o=&hp=1',
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/505565494.jpg?k=9f3d9deecc8eeb200b94f7a9dc3e60be71d2aa72b320bd957003584dbb86bff7&o=&hp=1',
@@ -1385,6 +1470,89 @@ export const TRIP: TripData = {
           freeCancellationUntil: '2026-06-26',
           photos: [],
         },
+        // === NEW 2026-05-19 PM — broad-Pinzgau Kaprun finds (from lodging
+        // research broad-search agent). Both walk to Kitzsteinhorn cable car
+        // and clear the 9.0 + 50-review hard floor. ===
+        {
+          name: 'Aparthotel Waidmannsheil (Kaprun)',
+          url: 'https://www.booking.com/hotel/at/aparthotel-waidmansheil.en-gb.html?checkin=2026-07-26&checkout=2026-07-28&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2&aid=304142',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/17190204.jpg',
+          review: '9.1 · Superb · 833 reviews · Location 9.7',
+          pricePerNight:
+            '€431 / 2 nights (₪1,710) — One-Bedroom Apartment 30m², free cancel until Jul 12, 2026',
+          note: '30m² One-Bedroom Apartment: 1 large double bed + 1 sofa bed. Salzburger Platz 13, Kaprun town center — walks to Kitzsteinhorn cable car (~3-5 min), drives to Zell town in 9 min. 833 reviews is 2x Aparthotel Zell am See\'s review base — the most statistically reliable rating of any new Pinzgau pick. Most complete kitchen of any new pick (oven + stovetop + dishwasher + microwave). Trade-off: 1-bedroom + sofa bed configuration, not a true 2-bedroom — the sofa is the second sleep zone.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 large double + 1 sofa bed (living room)',
+          notableDetails: [
+            'Kaprun town center',
+            'Walks to Kitzsteinhorn cable car',
+            'Full kitchen + oven + dishwasher + microwave',
+            '833 reviews — highest review-N of new picks',
+            'Location 9.7',
+            'Free cancel Jul 12',
+            'Free parking',
+          ],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-12',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/17190204.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/17192434.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/17190350.jpg',
+          ],
+        },
+        {
+          name: 'Apartment Charly (Kaprun)',
+          url: 'https://www.booking.com/hotel/at/apartment-charly.en-gb.html?checkin=2026-07-26&checkout=2026-07-28&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474265189.jpg',
+          review: '9.2 · Superb · 83 reviews · Location 9.0',
+          pricePerNight:
+            '€391 / 2 nights (₪1,552) — One-Bedroom Apartment 32m², free cancel until Jul 21, 2026',
+          note: '32m² One-Bedroom Apartment: 1 large double bed + 1 sofa bed. 13 Eßreithweg 28, Kaprun. Walks to Kitzsteinhorn cable car (~3 min), drives to Zell town in 9 min. Cheaper than Aparthotel Zell am See by €5, with a stronger free-cancel window (Jul 21 vs Jul 12). Full kitchen with oven + stovetop + dishwasher (no microwave). Balcony + ensuite bathroom + Netflix. No washing machine. Best price-per-quality of in-Kaprun apartments — but smaller review base than Waidmannsheil.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '1 large double + 1 sofa bed (living room)',
+          notableDetails: [
+            'Kaprun village',
+            'Walks to Kitzsteinhorn cable car',
+            'Full kitchen + oven + dishwasher',
+            'Balcony + Netflix',
+            'Cheapest Kaprun pick',
+            'Free cancel Jul 21',
+            'Free parking',
+          ],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-21',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474265189.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474265303.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474265351.jpg',
+          ],
+        },
         {
           name: 'Schönblick Residence Apartments (Two-Bedroom)',
           url: 'https://www.booking.com/hotel/at/schonblick-residence-absolut-alpine-apartments.html',
@@ -1466,6 +1634,133 @@ export const TRIP: TripData = {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
       ],
       alts: [
+        // === NEW 2026-05-19 PM — Almsternderl 2.0 surfaced by broad-search
+        // agent. Same Gosau village as Der Ulmenhof — STRONG potential
+        // displacement (€296-327 vs Ulmenhof €513-590 + washing machine + AC).
+        // Placed FIRST in alts list so it surfaces immediately alongside the
+        // primary. Framed as leading-candidate-tier, NOT a ★ replacement —
+        // Allison hasn't decided which one tops the leg. ===
+        {
+          name: 'Almsternderl 2.0 (Gosau village) — LEADING CANDIDATE',
+          url: 'https://www.booking.com/hotel/at/almsternderl-2-0-gemutliches-appartment-in-gosau.en-gb.html?checkin=2026-07-28&checkout=2026-07-30&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/519830697.jpg',
+          review: '9.2 · Superb · 213 reviews · Location 9.5',
+          pricePerNight:
+            '€327 / 2 nights (₪1,298) — One-Bedroom Apt 38m², free cancel until Jul 23, 2026 (€296 non-refundable rate also available)',
+          note: 'NEW leading-candidate alongside Der Ulmenhof. €296 non-refundable or €327 with free cancel — both well under the Ulmenhof €513 floor. Higher review-N than Ulmenhof (213 vs 251 — comparable; both gold-stamped). 9 Stötzlgasse Top 35, Gosau — 500m from village center, same Gosau-village address area as Der Ulmenhof. 38m² apartment: 1 double bed + 1 bunk bed + 1 sofa bed (3 sleep zones in 1 bedroom — bunk + double = ideal for friends-not-couple, each with own bed). Full kitchen with oven + stovetop + dishwasher. WASHING MACHINE confirmed (only new Anchor #2 pick with one). AC (rare in alpine apts). Drives 25 min to Hallstatt, 10 min to Gosausee. Trade-off vs Ulmenhof: 1 bedroom vs 2 separate rooms — Ulmenhof has the structural edge if 2 separate bedrooms is hard requirement.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          vibeTag: 'nature-view',
+          laundry: 'washer',
+          bedrooms: 1,
+          beds: '1 double + 1 bunk bed + 1 sofa bed (1 bedroom)',
+          notableDetails: [
+            'Gosau village',
+            'Cheapest qualifying Gosau pick',
+            'Full kitchen + oven + dishwasher',
+            'Washing machine (only NEW pick with one)',
+            'AC',
+            'Netflix',
+            '500m from village center',
+            'Free cancel Jul 23',
+          ],
+          maxGuests: 5,
+          kitchen: 'full',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-23',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/519830697.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/480165092.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/519830882.jpg',
+          ],
+        },
+        {
+          name: 'Pension Edelweiss Apartment Amsterdam (Gosau)',
+          url: 'https://www.booking.com/hotel/at/pension-edelweiss-apartment-amsterdam.en-gb.html?checkin=2026-07-28&checkout=2026-07-30&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/391738608.jpg',
+          review: '9.1 · Superb · 67 reviews · Location 9.6',
+          pricePerNight:
+            '€405 / 2 nights (₪1,608) — TRUE Two-Bedroom Apt 75m², free cancel until Jul 14, 2026',
+          note: 'Only NEW pick that is a TRUE 2-bedroom apartment (matches the original 2-separate-rooms criterion). Stötzlgasse 9, Gosau (same street as Almsternderl 2.0, center of village). 75m² — biggest of any new pick. Bedroom 1: 4 bunk beds / Bedroom 2: 2 double beds. Full kitchen with oven + dishwasher + microwave. Fireplace (rare). Streaming + Blu-ray + soundproofing + hardwood floors. Drives 25 min to Hallstatt, 10 min to Gosausee. Trade-off: bedroom 1 is 4 bunks (family-oriented configuration), so 2 adults have masses of space + lots of unused beds. €405 is well within budget.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'nature-view',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '4 bunks (Bedroom 1) + 2 doubles (Bedroom 2) — TRUE 2-bedroom',
+          notableDetails: [
+            'Gosau village center',
+            'TRUE 2-bedroom (only new pick with separate rooms)',
+            '75m² — biggest of new picks',
+            'Full kitchen + oven + dishwasher + microwave',
+            'Fireplace',
+            'Netflix + Blu-ray + soundproofing',
+            'Free cancel Jul 14',
+          ],
+          maxGuests: 6,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-14',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/391738608.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/239970533.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/239752384.jpg',
+          ],
+        },
+        {
+          name: 'Sunside Apartments (Bad Mitterndorf)',
+          url: 'https://www.booking.com/hotel/at/sunside-apartments-bad-mitterndorf1.en-gb.html?checkin=2026-07-28&checkout=2026-07-30&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/591470847.jpg',
+          review: '8.5 · Very good · 99 reviews · Location 9.3',
+          pricePerNight:
+            '€304 / 2 nights (₪1,206) — One-Bedroom Apt with Garden View or Balcony 48m², free cancel until Jul 23, 2026',
+          note: 'Cheapest in-Bad-Mitterndorf option (the corridor Allison\'s been gravitating to). 48m² apartment (largest of new Anchor #2 picks) — 1 double bed + 1 sofa bed. Most complete kitchen of new Anchor #2 picks: oven + stovetop + dishwasher + microwave. 150m from Bad Mitterndorf center. Drives 30 min to Hallstatt, 15 min to Tauplitz lifts, 25 min to Altaussee. Trade-off: 8.5 review score is below the strict 9.0 floor (passes the relaxed 8.5 floor). 99 reviews + Location 9.3 makes the rating stable, not noisy.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          vibeTag: 'in-town',
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 double + 1 sofa bed (living room)',
+          notableDetails: [
+            'Bad Mitterndorf in-village',
+            '48m² (largest of new Anchor #2 picks)',
+            'Full kitchen + oven + dishwasher + microwave',
+            'Terrace or balcony',
+            'Cheapest qualifying NEW pick',
+            'Free cancel Jul 23',
+            'Free parking',
+          ],
+          maxGuests: 3,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-07-23',
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/591470847.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/801007099.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/591470723.jpg',
+          ],
+        },
         {
           name: 'Auszeit Salzkammergut Appartements (Bad Ischl)',
           url: 'https://www.booking.com/hotel/at/auszeit-salzkammergut-appartements.html',
@@ -1591,6 +1886,84 @@ export const TRIP: TripData = {
           bedrooms: 1,
           beds: '1 queen',
           notableDetails: ['9.7 / 1,562 reviews', '~5 km from SZG · Old Town side', 'Free cancel'],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          freeCancellation: true,
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          photos: [],
+        },
+        // === NEW 2026-05-19 PM — additional Wals-area airport lap per
+        // Allison's "do another lap of research" + "search for cheaper than
+        // €200 alternatives to compete with Landhaus Grünau." Sorted by price
+        // ascending on Booking + free-cancel + 8+ score. Two strongest:
+        // - Hotel Königgut €199 / 8.9 / 470 reviews — under-€200 with
+        //   gold-tier-adjacent score
+        // - Best Western Hotel am Walserberg €123 / 8.1 / 1640 reviews — well
+        //   under €200, deep review-N, but below 9.0 floor (badge surfaces)
+        // ===
+        {
+          name: 'Hotel Königgut (Wals)',
+          url: 'https://www.booking.com/hotel/at/koniggut.html?aid=304142&checkin=2026-07-30&checkout=2026-07-31&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '8.9 · Excellent · 470 reviews',
+          pricePerNight:
+            '€199 / night (₪790) — Deluxe Double or Twin Room + breakfast, free cancel + pay-at-property',
+          note: 'Under-€200 option (€23 over Landhaus Grünau, €66 under Villa Verde). Wals town, 400m from Wals downtown. Deluxe Double or Twin Room (multiple bed types — twin available). Breakfast included. Free cancellation + pay-at-property. Trade-off: 8.9 score is just under the 9.0 strict floor (would clear an 8.5 relaxed floor easily). 470 reviews — solid sample. 4-star hotel.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          driveToAirportMin: 6,
+          laundry: 'none',
+          bedrooms: 1,
+          beds: 'Multiple types (queen or twins)',
+          notableDetails: [
+            'Wals — 400m from downtown',
+            'Twin OR queen bed configurable',
+            'Breakfast included',
+            '4-star hotel',
+            'Free cancel + pay-at-property',
+            '470 reviews',
+          ],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          freeCancellation: true,
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          photos: [],
+        },
+        {
+          name: 'Best Western Hotel am Walserberg',
+          url: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html?aid=304142&checkin=2026-07-30&checkout=2026-07-31&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '8.1 · Very Good · 1,640 reviews',
+          pricePerNight:
+            '€123 / night (₪488) — Standard Twin Room (2 twin beds), free cancel + pay-at-property',
+          note: 'Cheapest gold-discount option in the Wals airport zone (€53 under Landhaus Grünau, €142 under Hotel Gabi). 2.8 km from downtown Wals. Standard Twin Room with 2 twin beds — clean twin config. Free cancellation + pay-at-property. Trade-off: 8.1 score is well below Allison\'s 9.0 strict floor — flagged with caveat badge. 1,640 reviews is deepest sample of all airport-zone picks (the rating is statistically stable, not noisy). Prior research flagged motorway noise reports — confirm with host if light sleeping matters.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          driveToAirportMin: 5,
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '2 twin beds (same room)',
+          notableDetails: [
+            'Wals airport zone',
+            'TRUE 2 twins',
+            'Cheapest gold-discount in Wals',
+            'Free cancel + pay-at-property',
+            '1,640 reviews — deepest sample',
+            '⚠ Score 8.1 below 9.0 floor',
+            '⚠ Motorway noise reports',
+          ],
           maxGuests: 2,
           kitchen: 'none',
           bath: 'private',
@@ -4463,7 +4836,15 @@ function obertraunPicks(): BaseConfigLodgingPick[] {
 }
 
 export const BASE_CONFIGS: BaseConfig[] = [
-  // --- CONFIG A: OBERTRAUN (3-night mountain anchor) ---
+  // === ARCHIVED — v3 3-night-mountain-anchor configs ===
+  // SUPERSEDED 2026-05-19 by Avital's 4-base counter-proposal. The 4 live
+  // bases are now Salzburg / Zell am See / Gosau / Salzburg-airport — see
+  // V4_CARDS in src/page-bases.ts for the current shape. These configs are
+  // kept under a <details>-collapsible archive on bases.html per the
+  // pullable-archives rule. Do NOT use as a source of truth for the current
+  // trip shape. The 'recommended: true' flag below is historical (v3 era).
+  //
+  // --- CONFIG A: OBERTRAUN (3-night mountain anchor) [ARCHIVED] ---
   // Restructured 2026-05-17: was a 4-night anchor; now 3 nights Sun-Wed.
   // Wed night is the Lodge am Krippenstein summit overnight (LOCKED across
   // all configs — not optional). Krippenstein cable car runs OUT of Obertraun

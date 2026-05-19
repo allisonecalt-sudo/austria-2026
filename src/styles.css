@@ -7115,6 +7115,38 @@ details.note-item[open] .note-summary-preview {
   padding: 0.18rem 0.55rem;
 }
 
+/* === Caveats — surface the things Avital should not miss ===
+   Added 2026-05-19 by card-completeness pass. Per Allison's "make sure those 4
+   squares have everything I'd want to see" + "caveats prominently displayed".
+   Visually distinct from the green/amber amenity pills so they READ AS
+   WARNINGS, not as compliments. Sits below distance chips, above the meta
+   price line — directly in the scan path. */
+.lodging-caveats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.45rem 0;
+}
+.lodging-caveat {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.28rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+.lodging-caveat--warn {
+  background: #fff4e2;
+  color: #8a4815;
+  border-color: #e8a766;
+}
+.lodging-caveat--bad {
+  background: #fde7e3;
+  color: #8a2415;
+  border-color: #d97b6a;
+}
+
 /* Amenity icons */
 .lodging-amenities {
   display: flex;

@@ -266,6 +266,9 @@ interface UnifiedListing {
   // vast majority of properties; we filter out non-FC rates at booking time
   // via URL params). Explicit `freeCancellation: false` opts out per listing.
   freeCancellation: boolean;
+  // Deadline (ISO YYYY-MM-DD). Surfaced inline on the free-cancel chip + as
+  // a "tight cancel deadline" caveat badge when ≤14 days from today.
+  freeCancellationUntil?: string;
   // Distance chips
   walkToChabadMin?: number;
   driveToAirportMin?: number;
@@ -547,6 +550,7 @@ function buildListings(): UnifiedListing[] {
       // vast majority of rates — URL filter below applies it at booking time).
       // Explicit false in trip-data.ts opts out.
       freeCancellation: l.pickFreeCancellation ?? true,
+      freeCancellationUntil: l.pickFreeCancellationUntil,
       walkToChabadMin: l.pickWalkToChabadMin,
       driveToAirportMin: l.pickDriveToAirportMin,
     };
@@ -599,6 +603,7 @@ function buildListings(): UnifiedListing[] {
         hasFarmAnimals: false,
         hasLakeView: false,
         freeCancellation: a.freeCancellation ?? true,
+        freeCancellationUntil: a.freeCancellationUntil,
         walkToChabadMin: a.walkToChabadMin,
         driveToAirportMin: a.driveToAirportMin,
       };
@@ -656,6 +661,7 @@ function buildListings(): UnifiedListing[] {
         hasFarmAnimals: false,
         hasLakeView: false,
         freeCancellation: p.freeCancellation ?? true,
+        freeCancellationUntil: p.freeCancellationUntil,
       };
       entry.hasFarmAnimals = detectAmenityAcross(entry, /farm|goat|horse|bauernhof/i);
       entry.hasLakeView = detectAmenityAcross(entry, /lake[-\s]?view|lakefront|lake[-\s]?edge/i);
@@ -1057,11 +1063,158 @@ function verifiedPill(): string {
 // orange warning when false (the rare opt-out case). Booking URL filter
 // (bookingUrlWithDates above) also pre-filters the property page to
 // free-cancel rates only.
-function freeCancellationPill(fc: boolean): string {
+function freeCancellationPill(fc: boolean, until?: string): string {
   if (fc) {
-    return '<span class="lodging-chip lodging-chip--good" title="Free cancellation rate available — Allison\'s hard rule">✓ Free cancellation</span>';
+    // Surface the deadline inline (Allison's "4 squares have everything I'd
+    // want to see" — free-cancel-deadline is a load-bearing field).
+    const label = until ? `✓ Free cancel until ${formatCancelDate(until)}` : '✓ Free cancellation';
+    return `<span class="lodging-chip lodging-chip--good" title="Free cancellation rate available — Allison's hard rule">${label}</span>`;
   }
-  return '<span class="lodging-chip lodging-chip--warn" title="No free-cancellation rate visible — verify with host before booking">⚠ No free cancel</span>';
+  return '<span class="lodging-chip lodging-chip--warn" title="No free-cancellation rate visible — verify with host before booking">⚠ Non-refundable</span>';
+}
+
+// Render an ISO YYYY-MM-DD as "Jul 12" — for the free-cancel chip + caveat
+// badge. Falls back to raw value if parse fails.
+function formatCancelDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const monthIdx = Number(m[2]) - 1;
+  if (monthIdx < 0 || monthIdx > 11) return iso;
+  return `${months[monthIdx]} ${Number(m[3])}`;
+}
+
+// Days from today's date (UTC-naive) to an ISO deadline. Negative = past.
+function daysUntil(iso: string): number {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return Number.POSITIVE_INFINITY;
+  const deadline = new Date(`${m[1]}-${m[2]}-${m[3]}T12:00:00Z`).getTime();
+  const today = Date.now();
+  return Math.floor((deadline - today) / 86400000);
+}
+
+// CAVEATS — surface the things Avital should NOT miss when scanning a card.
+// Per Allison's "make sure those 4 squares have everything I'd want to see"
+// + "caveats prominently displayed". Returns up to ~3 badges; non-empty
+// returns wrap in a labelled .lodging-caveats container so they're visually
+// distinct from the green/blue amenity pills.
+function caveatsHtml(l: UnifiedListing): string {
+  const caveats: { label: string; tone: 'warn' | 'bad'; title: string }[] = [];
+
+  // 1. Non-refundable / locked rate
+  if (l.freeCancellation === false) {
+    caveats.push({
+      label: '🔒 Non-refundable',
+      tone: 'bad',
+      title: 'This rate is non-refundable — you cannot get money back if plans change.',
+    });
+  }
+
+  // 2. Tight cancel deadline (≤14 days from today)
+  else if (l.freeCancellationUntil) {
+    const d = daysUntil(l.freeCancellationUntil);
+    if (d >= 0 && d <= 14) {
+      caveats.push({
+        label: `⏰ Cancel deadline ${formatCancelDate(l.freeCancellationUntil)} (${d}d)`,
+        tone: 'warn',
+        title: `Free-cancellation expires in ${d} days — lock or release this option soon.`,
+      });
+    }
+  }
+
+  // 3. Sold-out / limited inventory
+  if (l.availability === 'sold-out') {
+    caveats.push({
+      label: '🚫 Sold out',
+      tone: 'bad',
+      title:
+        l.availabilityNote ?? 'Booking shows no availability on our trip dates for this property.',
+    });
+  } else if (l.availability === 'limited') {
+    caveats.push({
+      label: '⚠ Only 1 left',
+      tone: 'warn',
+      title:
+        l.availabilityNote ?? 'Booking is showing limited inventory for our dates — book soon.',
+    });
+  }
+
+  // 4. Kitchen below "full kitchen" expectation
+  if (l.kitchen === 'kitchenette') {
+    caveats.push({
+      label: '⚠ Kitchenette (no oven)',
+      tone: 'warn',
+      title:
+        'Kitchenette, not a full kitchen — typically no oven. Verify the appliance list before assuming Shabbat-cookable.',
+    });
+  } else if (l.kitchen === 'shared') {
+    caveats.push({
+      label: '⚠ Shared kitchen',
+      tone: 'warn',
+      title: 'Kitchen is shared with other guests, not private.',
+    });
+  } else if (l.kitchen === 'none' && l.base !== 'airport' && l.base !== 'salzburg') {
+    caveats.push({
+      label: '⚠ No kitchen',
+      tone: 'warn',
+      title:
+        'This property has no kitchen — fine for an airport night but limits self-catering on main nights.',
+    });
+  }
+
+  // 5. Booking score under the strict 9.0 floor (still surfaced as an option,
+  // but flagged so it doesn't pass silently). Parse from the review string.
+  const score = parseReviewScore(l.review);
+  if (score > 0 && score < 9.0) {
+    caveats.push({
+      label: `⚠ Score ${score.toFixed(1)} below 9.0 floor`,
+      tone: 'warn',
+      title: `Booking score is ${score.toFixed(1)} — under Allison's preferred 9.0 floor. Kept as an option, not as a leading pick.`,
+    });
+  }
+
+  // 6. Review count under 50 (bonus tier)
+  const reviewCountMatch = /·\s*([\d,]+)\s*reviews?/i.exec(l.review);
+  if (reviewCountMatch) {
+    const count = Number(reviewCountMatch[1].replace(/,/g, ''));
+    if (count > 0 && count < 50) {
+      caveats.push({
+        label: `⚠ Only ${count} reviews`,
+        tone: 'warn',
+        title: `Bonus-tier review count (${count} < 50). Rating is less statistically reliable.`,
+      });
+    }
+  }
+
+  // 7. 2-beds-mandatory legs with only 1 bedroom AND no separate sleeping zone
+  // (Zell + Gosau — Allison's friends-not-couple constraint). Hotel rooms or
+  // single-queen apartments earn the badge; "1 BR + sofa bed" is excused
+  // because it sleeps separately.
+  if ((l.base === 'zell-am-see' || l.base === 'gosau') && l.bedrooms === 1) {
+    const beds = (l.beds ?? '').toLowerCase();
+    const hasSecondSleep =
+      /(sofa[-\s]?bed|two\s+twins?|2\s+twins?|twin[s]?\b.*\bqueen|bunk|\+\s*1\s+twin|\+\s*1\s+single)/.test(
+        beds,
+      );
+    if (!hasSecondSleep) {
+      caveats.push({
+        label: '⚠ 1 bedroom only',
+        tone: 'warn',
+        title:
+          'Zell + Gosau legs prefer 2 beds (friends-not-couple). This listing is a 1-bed room — flag if 2-bed config matters.',
+      });
+    }
+  }
+
+  if (caveats.length === 0) return '';
+
+  const chips = caveats
+    .map(
+      (c) =>
+        `<span class="lodging-caveat lodging-caveat--${c.tone}" title="${escapeHtml(c.title)}">${escapeHtml(c.label)}</span>`,
+    )
+    .join('');
+  return `<div class="lodging-caveats" aria-label="Important caveats">${chips}</div>`;
 }
 
 function datePill(base: BaseKey): string {
@@ -1446,8 +1599,13 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
     .join('');
 
   // Date + verification + free-cancel row (above the essential pills). Free-
-  // cancel pill added 2026-05-17 evening per Allison's hard rule.
-  const dateRow = [datePill(l.base), verifiedPill(), freeCancellationPill(l.freeCancellation)]
+  // cancel pill added 2026-05-17 evening per Allison's hard rule. Deadline
+  // surfaced inline 2026-05-19 PM per the card-completeness pass.
+  const dateRow = [
+    datePill(l.base),
+    verifiedPill(),
+    freeCancellationPill(l.freeCancellation, l.freeCancellationUntil),
+  ]
     .filter(Boolean)
     .join('');
 
@@ -1511,6 +1669,7 @@ function renderListingCard(l: UnifiedListing, variant: 'list' | 'grid'): string 
         <div class="stay-card__chips lodging-chips lodging-chips--essential" aria-label="At-a-glance essentials">${essentialPills}</div>
         <div class="stay-card__chips lodging-chips lodging-chips--secondary" aria-label="Comfort + setting">${secondaryPills}</div>
         ${distanceChips(l)}
+        ${caveatsHtml(l)}
         ${nearbyChipsHtml(l)}
         <div class="stay-card__meta">${escapeHtml(l.review)} · <strong>${escapeHtml(l.pricePerNight)}</strong></div>
         ${beautyLine}
