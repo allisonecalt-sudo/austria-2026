@@ -429,17 +429,12 @@
 
     <main id="main" class="container">
       <header style="margin-bottom: 1.6rem">
-        <div class="eyebrow">2 weeks out · countdown</div>
+        <div class="eyebrow">What to book + when</div>
         <h1>Pre-trip checklist</h1>
         <p class="page-tldr">
-          <strong>Phased checklist: T-2 weeks → T-3 days → Friday-of.</strong> Long-lead asks first
-          (WhatsApp Chabad, email Kosher Tirol, IDP from MEMSI). Boxes save in browser. Progress
-          pill below tracks completion.
-        </p>
-        <p class="lead-block">
-          The compressed timeline — what needs to happen and when. Check boxes sync to the
-          Allison+Claude shared database, so progress persists across devices and Claude can see
-          how far you've got. Reset at the bottom if you need a clean start.
+          <strong>Lean checklist:</strong> one row per booking · price · cancel-by deadline
+          · Book button. The implicit "book by" date is the free-cancel cutoff — lock
+          today, change your mind later.
         </p>
         <div class="checklist-progress" data-progress-pill>
           <span data-progress-text>0 / 0 done</span>
@@ -458,136 +453,149 @@
               class="timeline-stage-date"
               style="background: #c85b3a; color: white; padding: 0.3rem 0.7rem; border-radius: 999px; display: inline-block"
             >
-              📞 BOOK NOW
+              📞 Book this week
             </div>
-            <h2 style="color: #8a3c20">T-Now · urgent bookings (this week)</h2>
+            <h2 style="color: #8a3c20">Bookings · in trip order</h2>
           </div>
-          <p style="margin: 0.4rem 0 0.9rem; font-size: 0.93rem; color: #8a3c20">
-            These are the calls / decisions that block the trip if missed. Do them
-            before any of the T-2 week items below.
+          <p style="margin: 0.4rem 0 0.9rem; font-size: 0.9rem; color: #8a3c20">
+            Avital proposed the 4-base structure Sun May 17. Each row is the current
+            leading candidate — all free-cancellation. Implicit "book by" = the cancel
+            deadline.
           </p>
           <ul class="checklist">
-            <li class="checklist-item">
-              <label>
-                <input type="checkbox" data-key="tnow-zell-am-see-book" />
-                <span>
-                  <strong>Book Aparthotel Zell am See</strong> (Sun Jul 26 → Tue Jul 28, 2N).
-                  €483 / 2 nights — Two-Bedroom Apartment with View (1 king + 2 twins,
-                  separate bedrooms). Free cancellation until Jul 12, 2026. 2-bed / 2-room
-                  config CONFIRMED for the friends-not-couple constraint.
-                  Book on Booking:
-                  <a href="https://www.booking.com/hotel/at/aparthotel-zell-am-see.html"
-                    target="_blank" rel="noreferrer noopener">aparthotel-zell-am-see</a>.
-                </span>
-              </label>
-            </li>
-            <li class="checklist-item">
-              <label>
-                <input type="checkbox" data-key="tnow-gosau-book" />
-                <span>
-                  <strong>Book Der Ulmenhof Gosau</strong> (Tue Jul 28 → Thu Jul 30, 2N).
-                  €513-€590 / 2 nights — 2-bedroom apartment with separate rooms + private
-                  kitchen. Free cancellation until Jun 28, 2026. Recommended room: Apartment
-                  51m² (€513), Bedroom 1: 1 queen / Bedroom 2: 1 twin + 1 bunk. Three 2BR
-                  apartments showing "1 left" — lakes-region inventory thin, book within
-                  the week.
-                  Book on Booking:
-                  <a href="https://www.booking.com/hotel/at/ulmenhof-gosau-at.html"
-                    target="_blank" rel="noreferrer noopener">ulmenhof-gosau-at</a>.
-                </span>
-              </label>
-            </li>
-            <li class="checklist-item">
-              <label>
-                <input type="checkbox" data-key="tnow-airport-night-book" />
-                <span>
-                  <strong>Book Landhaus Grünau</strong> (Thu Jul 30, 1N, airport).
-                  €176 / night — Double Room with Balcony (1 king) + breakfast. 9.5 / 585
-                  reviews, 3.4 km from SZG (~7-min drive). Free cancellation +
-                  pay-at-property. Allison's cheapest-wins pick (2026-05-19 PM, "airport
-                  night cheaper is better just one night"). See the 3-card comparison on
-                  <a href="stay.html#airport-picks">stay → airport picks</a> for the
-                  Gabi (€265, 1.5 km closest) / Villa Verde (€207, 9.7 score Old Town) alts.
-                  Book on Booking:
-                  <a href="https://www.booking.com/hotel/at/landhaus-grunau.html"
-                    target="_blank" rel="noreferrer noopener">landhaus-grunau</a>.
-                </span>
-              </label>
-            </li>
+            <!-- Base 1: Salzburg (Allison's pick — Chabad plan) -->
             <li class="checklist-item">
               <label>
                 <input type="checkbox" data-key="tnow-salzburg-book-bergland" />
                 <span>
-                  <strong>Book Bergland Hotel</strong> (Fri Jul 24 → Sun Jul 26, 2N).
-                  Rupertgasse 15 — 4-min walk to Chabad of Salzburg (Linzer Gasse 76).
-                  €452 / 2 nights, free cancellation + pay-at-property. Recommended
-                  Salzburg pick as of Tue May 19 (Chabad-Shabbat plan locked). Browse
-                  alts on <a href="stay.html#salzburg-picks">stay.html</a> — Villa
-                  Flöckner (€405, highest review count) or Junker's Apartments (€387,
-                  full-kitchen backup). All three free-cancel until Jul 19-21.
+                  <strong>1 · Salzburg · Bergland Hotel</strong>
+                  <span style="display: inline-block; padding: 0.1rem 0.45rem; background: #3a6f8f; color: white; font-size: 0.7rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle;">Allison's pick</span>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Fri Jul 24 → Sun Jul 26 · 2 nt · <strong>€452</strong> · cancel by
+                    Jul 19 · 4-min walk to Chabad
+                  </span>
+                  <br />
+                  <a href="https://www.booking.com/hotel/at/bergland-salzburg.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2"
+                    target="_blank" rel="noreferrer noopener"
+                    style="display: inline-block; padding: 0.3rem 0.7rem; background: var(--green-deep); color: white; border-radius: 6px; font-size: 0.85rem; margin-top: 0.3rem; text-decoration: none;"
+                    >Book on Booking →</a>
+                  <a href="stay.html#salzburg-picks" style="margin-left: 0.5rem; font-size: 0.85rem; color: var(--ink-soft);">Compare alts →</a>
                 </span>
               </label>
             </li>
+            <!-- Base 2: Zell am See (Allison's pick — leading) + Avital's URL noted -->
             <li class="checklist-item">
               <label>
-                <input type="checkbox" data-key="tnow-chabad-confirm-meals" />
+                <input type="checkbox" data-key="tnow-zell-am-see-book" />
                 <span>
-                  <strong>Confirm Chabad Shabbat meals</strong> with Rabbi Menachem
-                  Gruzman at Chabad of Salzburg. Allison emailed
-                  <a href="mailto:ChabadSalzburg@gmail.com">ChabadSalzburg@gmail.com</a>
-                  Tue May 19 13:23 JDT — awaiting reply. <strong>If no reply by Sun
-                  May 24,</strong> follow up via WhatsApp at
-                  <a href="https://wa.me/4367683181555" target="_blank" rel="noreferrer noopener"
-                    >+43 676 8318 1555</a
-                  >. Confirm Fri-night dinner + Sat morning davening + lunch + seudah
-                  shlishit. Candle-lighting Fri 20:35 / Havdalah Sat 21:10 (Geonim
-                  8.5°). Backup plan if Chabad can't host: switch to Junker's
-                  Apartments (full kitchen, cook food packed from Jerusalem).
+                  <strong>2 · Zell am See · Aparthotel Zell am See</strong>
+                  <span style="display: inline-block; padding: 0.1rem 0.45rem; background: #3a6f8f; color: white; font-size: 0.7rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle;">Allison's pick</span>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Sun Jul 26 → Tue Jul 28 · 2 nt · <strong>€396</strong> · cancel by
+                    Jul 12 · 1 king + 2 twins separate rooms · oven ✓
+                  </span>
+                  <br />
+                  <a href="https://www.booking.com/hotel/at/aparthotel-zell-am-see.html?checkin=2026-07-26&checkout=2026-07-28&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2"
+                    target="_blank" rel="noreferrer noopener"
+                    style="display: inline-block; padding: 0.3rem 0.7rem; background: var(--green-deep); color: white; border-radius: 6px; font-size: 0.85rem; margin-top: 0.3rem; text-decoration: none;"
+                    >Book on Booking →</a>
+                  <a href="stay.html#zell-picks" style="margin-left: 0.5rem; font-size: 0.85rem; color: var(--ink-soft);">Compare alts (incl. Avital's pick) →</a>
                 </span>
               </label>
             </li>
+            <!-- Base 3: Salzkammergut lakes — leading candidate framing -->
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="tnow-gosau-book" />
+                <span>
+                  <strong>3 · Salzkammergut · Der Ulmenhof, Gosau</strong>
+                  <span style="display: inline-block; padding: 0.1rem 0.45rem; background: #3a6f8f; color: white; font-size: 0.7rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle;">Allison's pick</span>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Tue Jul 28 → Thu Jul 30 · 2 nt · <strong>€513-590</strong> · cancel
+                    by Jun 28 · 2-bedroom + full kitchen · Avital's Landhaus Osborne
+                    retired (1-queen only)
+                  </span>
+                  <br />
+                  <a href="https://www.booking.com/hotel/at/ulmenhof-gosau-at.html?checkin=2026-07-28&checkout=2026-07-30&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2"
+                    target="_blank" rel="noreferrer noopener"
+                    style="display: inline-block; padding: 0.3rem 0.7rem; background: var(--green-deep); color: white; border-radius: 6px; font-size: 0.85rem; margin-top: 0.3rem; text-decoration: none;"
+                    >Book on Booking →</a>
+                  <a href="stay.html#salzkammergut-picks" style="margin-left: 0.5rem; font-size: 0.85rem; color: var(--ink-soft);">Compare alts →</a>
+                </span>
+              </label>
+            </li>
+            <!-- Base 4: Airport (Allison's pick — Avital's plan-leg) -->
+            <li class="checklist-item">
+              <label>
+                <input type="checkbox" data-key="tnow-airport-night-book" />
+                <span>
+                  <strong>4 · Salzburg airport · Landhaus Grünau</strong>
+                  <span style="display: inline-block; padding: 0.1rem 0.45rem; background: #b07a3f; color: white; font-size: 0.7rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle;">Both — Avital's plan-leg, Allison's pick</span>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Thu Jul 30 → Fri Jul 31 · 1 nt · <strong>€176</strong> · 3.4 km
+                    SZG · drop the car Thursday night (Avital's logistics)
+                  </span>
+                  <br />
+                  <a href="https://www.booking.com/hotel/at/landhaus-grunau.html?checkin=2026-07-30&checkout=2026-07-31&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2"
+                    target="_blank" rel="noreferrer noopener"
+                    style="display: inline-block; padding: 0.3rem 0.7rem; background: var(--green-deep); color: white; border-radius: 6px; font-size: 0.85rem; margin-top: 0.3rem; text-decoration: none;"
+                    >Book on Booking →</a>
+                  <a href="stay.html#airport-picks" style="margin-left: 0.5rem; font-size: 0.85rem; color: var(--ink-soft);">Compare alts →</a>
+                </span>
+              </label>
+            </li>
+            <!-- Car rental -->
             <li class="checklist-item">
               <label>
                 <input type="checkbox" data-key="tnow-rental-car" />
                 <span>
-                  <strong>Book the rental car</strong> — see
-                  <a href="rental-car.html">rental-car.html</a> for current Mokka / Sixt
-                  Golf / Avis options + gotchas. Pickup SZG ~08:30 Fri Jul 24, drop
-                  THURSDAY NIGHT Jul 30 (no morning scramble).
+                  <strong>5 · Rental car · discovercars.com direct</strong>
+                  <span style="display: inline-block; padding: 0.1rem 0.45rem; background: #a05a8f; color: white; font-size: 0.7rem; border-radius: 999px; margin-left: 0.4rem; vertical-align: middle;">Avital's pick</span>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Pickup SZG ~08:30 Fri Jul 24 · drop Thursday night Jul 30 · verify
+                    after-hours key drop with supplier ·
+                    <em>"links to the cars don't filter properly anyway — let's just go on discovercars and book"</em>
+                  </span>
+                  <br />
+                  <a href="rental-car.html"
+                    style="display: inline-block; padding: 0.3rem 0.7rem; background: var(--blue-lake); color: white; border-radius: 6px; font-size: 0.85rem; margin-top: 0.3rem; text-decoration: none;"
+                    >Rental car page →</a>
                 </span>
               </label>
             </li>
+            <!-- Chabad confirmation -->
             <li class="checklist-item">
               <label>
-                <input type="checkbox" data-key="tnow-car-return-time" />
+                <input type="checkbox" data-key="tnow-chabad-confirm-meals" />
                 <span>
-                  <strong>Confirm Thu-night car return time</strong> with your chosen
-                  supplier. Drop the rental Thursday evening (after check-in at
-                  Landhaus Grünau) so Friday morning is just a short taxi to the
-                  terminal — no 06:15 rental-desk handoff. Some suppliers have
-                  after-hours key drop, some don't — verify before booking.
+                  <strong>6 · Chabad · confirm Shabbat meals</strong>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Email sent Tue May 19 to
+                    <a href="mailto:ChabadSalzburg@gmail.com">ChabadSalzburg@gmail.com</a>
+                    · if no reply by Sun May 24 WhatsApp
+                    <a href="https://wa.me/4367683181555" target="_blank" rel="noreferrer noopener">+43 676 8318 1555</a>
+                    · backup: Junker's full-kitchen home-Shabbat
+                  </span>
                 </span>
               </label>
             </li>
-            <li class="checklist-item">
-              <label>
-                <input type="checkbox" data-key="tnow-avital-reply" />
-                <span>
-                  <strong>Reply to Avital confirming the final picks</strong> — Gosau
-                  Der Ulmenhof (NOT Obertraun Landhaus Osborne — her URL only had a
-                  1-queen Apartment (3) left for the dates, which fails the 2-bed
-                  mandatory for main nights). Zell am See Aparthotel + airport Landhaus
-                  Grünau are the other locked picks. Restructure is final.
-                </span>
-              </label>
-            </li>
+            <!-- Avital's flight -->
             <li class="checklist-item">
               <label>
                 <input type="checkbox" data-key="tnow-avital-flight" />
                 <span>
-                  <strong>Avital's flight</strong> — same El Al Jul 24-31 schedule, her
-                  ticket runs ~$100 more than Allison's (estimate). Once booked, post the
-                  exact price via 💬 widget so costs.html updates.
+                  <strong>7 · Avital's flight</strong>
+                  <br />
+                  <span style="font-size: 0.9rem; color: var(--ink-soft);">
+                    Same El Al Jul 24-31 · ~$100 more than Allison's · post exact
+                    price via 💬 once booked
+                  </span>
                 </span>
               </label>
             </li>

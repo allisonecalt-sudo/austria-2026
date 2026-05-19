@@ -82,14 +82,14 @@ const BEATS: JourneyBeat[] = [
   },
   {
     id: 'v4-avital-restructure',
-    badge: 'v4 · current',
+    badge: "v4 · Avital's plan (verified + refined)",
     status: 'current',
-    shape: 'Salzburg (2N) → Zell am See (2N) → Gosau (2N) → Salzburg airport-side (1N)',
+    shape: 'Salzburg (2N) → Zell am See (2N) → Salzkammergut lakes (2N) → Salzburg airport-side (1N)',
     when: 'Accepted 2026-05-18 ~12:21 · shipped 2026-05-19',
     what:
-      'The clean Avital-counter-proposal shape. 2 nights Salzburg (Shabbat). 2 nights Zell am See for the alpine-lake half (Pinzgau + Schmittenhöhe + Kitzsteinhorn glacier + Krimml falls). 2 nights Gosau for the Salzkammergut-lakes half (Vorderer Gosausee at the door, Hallstatt 20 min, Krippenstein cable car as day-trip). 1 night near Salzburg airport — return the rental car Thursday evening per Avital\'s logistics ("not have to worry about returning the car in the morning"). Schafberg cog + Krippenstein cable car retained as day-trip options from Gosau, just not as overnight bases.',
+      'Avital\'s structural counter-proposal — accepted as the spine of the trip. 2 nights Salzburg (Shabbat). 2 nights Zell am See for the alpine-lake half ("In general I am seeing Zell am See as a good area to stay — thinking 2 nights Sunday-Tuesday"). 2 nights Salzkammergut lakes for the lake-mirror half ("Next stay Tuesday-Thursday in Wolfgangsee region seems like St. Gilgen or St. Wolfgang") — Gosau Der Ulmenhof leading after Avital\'s Landhaus Osborne retired (1-queen only). 1 night near Salzburg airport — return the rental car Thursday evening per Avital\'s logistics ("not have to worry about returning the car in the morning"). Schafberg cog + Krippenstein cable car retained as day-trips, just not overnight bases.',
     whyChanged:
-      'Current shape. Bases booked / pending-book. No further restructure planned unless something gets re-flagged on a verification pass.',
+      'Current shape — Avital\'s plan verified against the 2-bed mandatory + free-cancellation + ≥9.0 Booking floor, refined where verification failed (Landhaus Osborne dropped, Der Ulmenhof up). All bases options-not-locked — still exploring within the 4-base spine.',
     artifactLink: { href: 'bases.html', label: 'bases.html (live 4-base detail)' },
   },
 ];
