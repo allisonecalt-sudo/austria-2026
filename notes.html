@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <header class="site-header">
     <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
@@ -422,6 +424,7 @@
       <span class="breadcrumb__sep" aria-hidden="true">›</span>
       <span class="breadcrumb__current">Notes & messages</span>
     </nav>
+    </header>
 
     <!-- Sticky status pill: counts + latest note status. Polls every 15s. -->
     <div class="notes-statusbar" id="notes-statusbar" role="status" aria-live="polite">
@@ -436,7 +439,7 @@
       </div>
     </div>
 
-    <main class="container">
+    <main id="main" class="container">
       <h1>Notes from Avital</h1>
       <p class="page-tldr">
         <strong>Live feed of Avital's notes</strong> + status pill above (pending → seen → applied).

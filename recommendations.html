@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
+    <a href="#main" class="skip-link">Skip to main content</a>
     <nav class="nav" aria-label="Primary">
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
@@ -426,7 +427,7 @@
       <span class="breadcrumb__current">Top picks</span>
     </nav>
 
-    <main class="rec-page">
+    <main id="main" class="rec-page">
       <header class="rec-page__header">
         <h1 class="rec-page__title">⭐ Top picks across the trip</h1>
         <p class="rec-page__sub">
@@ -474,6 +475,10 @@
         </div>
       </aside>
     </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <p>Built for Avital · v7 (4-base restructure) · Last verified 2026-05-19</p>
+    </footer>
 
     <script type="module" src="/src/page-recommendations.ts"></script>
     <script type="module" src="/src/page-search.ts"></script>

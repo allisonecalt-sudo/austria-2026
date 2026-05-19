@@ -5,6 +5,51 @@
    + anchors. Landing gets a horizontal day-strip carousel that IS the trip.
 */
 
+/* Skip-to-content link — WCAG 2.4.1 Bypass Blocks.
+   Hidden until keyboard-focused. First element in every <body>. */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 100000;
+  padding: 0.75rem 1.1rem;
+  background: #1a2429;
+  color: #faf6ee;
+  font-weight: 700;
+  text-decoration: none;
+  border: 2px solid #f4d9a4;
+  border-radius: 0 0 8px 0;
+  transition: top 0.15s ease-in;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #f4d9a4;
+  outline-offset: 2px;
+}
+
+/* site-header is a transparent landmark wrapper around the nav. The nav
+   itself owns its visual treatment (overlay / opaque). The wrapper exists
+   for screen-reader landmark navigation (WCAG 1.3.1). */
+.site-header {
+  display: contents;
+}
+/* site-footer is the small per-page provenance / version line landmark. */
+.site-footer {
+  padding: 1.5rem 1.25rem 2.5rem;
+  color: var(--ink-softer);
+  font-size: 0.82rem;
+  text-align: center;
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+}
+.site-footer p {
+  margin: 0;
+  max-width: var(--max-prose);
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.55;
+}
+
 :root {
   --cream: #faf6ee;
   --paper: #ffffff;

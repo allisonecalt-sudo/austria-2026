@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <header class="site-header">
     <nav class="nav nav--overlay" id="top-nav" aria-label="Primary">
       <div class="nav-inner">
         <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
@@ -425,8 +427,9 @@
         })();
       </script>
     </nav>
+    </header>
 
-    <main class="pitch">
+    <main id="main" class="pitch">
       <!-- MOMENT 1 — HERO -->
       <section class="moment moment--hero" id="m-hero">
         <img
@@ -763,6 +766,13 @@
         </div>
       </section>
     </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <p>
+        Built for Avital · 2026-05-19 · v7 (4-base restructure) · Photos: Wikimedia Commons
+        (CC BY-SA) + Booking.com listings · Sunset times: timeanddate.com
+      </p>
+    </footer>
 
     <!-- Leaflet JS — loaded before page-landing.ts so the moment-3 mini-map can init. -->
     <script
