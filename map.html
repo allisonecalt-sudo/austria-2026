@@ -921,6 +921,123 @@
         </div>
       </section>
 
+      <section class="section" id="per-leg-maps">
+        <h2>Per-leg detail maps</h2>
+        <p class="lead-block" style="font-size: 0.96rem">
+          Each leg of the trip has its own zoomed-in map showing every lodging
+          candidate (★ = the leading pick) and the activity anchors for that
+          base. Tap any pin for the property name, town, and walk/drive to
+          the anchor. Per Allison Tue May 19: <em>"maybe make a map of all
+          locations we want to visit near leg so get idea of where town is."</em>
+        </p>
+        <p class="leg-map-key" aria-label="Pin colour key">
+          <span class="leg-map-key__item"
+            ><span class="leg-map-key__dot leg-map-key__dot--lead"></span> Leading pick ★</span
+          >
+          <span class="leg-map-key__item"
+            ><span class="leg-map-key__dot leg-map-key__dot--allison"></span> Allison's pick</span
+          >
+          <span class="leg-map-key__item"
+            ><span class="leg-map-key__dot leg-map-key__dot--avital"></span> Avital's pick</span
+          >
+          <span class="leg-map-key__item"
+            ><span class="leg-map-key__dot leg-map-key__dot--bonus"></span> Bonus / pending</span
+          >
+          <span class="leg-map-key__item"
+            ><span class="leg-map-key__dot leg-map-key__dot--rejected"></span> Rejected</span
+          >
+          <span class="leg-map-key__item"
+            ><span class="leg-map-key__dot leg-map-key__dot--activity"></span> Activity 🏔</span
+          >
+        </p>
+
+        <article class="leg-map-section" id="leg-salzburg">
+          <header class="leg-map-section__head">
+            <p class="leg-map-section__eyebrow">Fri Jul 24 → Sun Jul 26</p>
+            <h3 class="leg-map-section__title">Anchor #1 — Salzburg (Shabbat)</h3>
+            <p class="leg-map-section__summary">
+              Chabad-walkable Shabbat + Old Town · Hohensalzburg · Mirabell · Mönchsberg
+            </p>
+          </header>
+          <div class="leg-map" id="leg-map-salzburg" aria-label="Salzburg leg map"></div>
+          <div class="leg-map-legend">
+            <p class="leg-map-legend__hint">🛏️ Lodging candidates · 🏔 Activities · tap any pin for popup</p>
+            <ul class="leg-map-legend__list">
+              <li><strong>Bergland Hotel ★</strong> — Rupertgasse 15 · 6 min walk to Chabad</li>
+              <li><strong>Junker's Apartments</strong> — Morzg · home-Shabbat backup, full kitchen</li>
+              <li><strong>Villa Flöckner B&amp;B</strong> — right-bank near Mirabell · top reviews</li>
+              <li><strong>Arenberg 29b PAUL</strong> — Arenberg · true 2-bedroom apartment</li>
+              <li><strong>Frauenschuh</strong> — Schwarzstraße · 2 twins + 1 queen</li>
+              <li><strong>Sauerweingut</strong> — Aigen · kitchen studio</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="leg-map-section" id="leg-zell">
+          <header class="leg-map-section__head">
+            <p class="leg-map-section__eyebrow">Sun Jul 26 → Tue Jul 28</p>
+            <h3 class="leg-map-section__title">Anchor #2 — Zell am See</h3>
+            <p class="leg-map-section__summary">
+              Schmittenhöhe + Kitzsteinhorn glacier + Krimml + Grossglockner
+            </p>
+          </header>
+          <div class="leg-map" id="leg-map-zell" aria-label="Zell am See leg map"></div>
+          <div class="leg-map-legend">
+            <p class="leg-map-legend__hint">🛏️ Lodging candidates · 🏔 Activities · tap any pin for popup</p>
+            <ul class="leg-map-legend__list">
+              <li><strong>Aparthotel Zell am See ★</strong> — Zell town centre · 5 min walk to Schmittenhöhe</li>
+              <li><strong>der Sonnberg Alpinlodges</strong> — Schüttdorf · Avital pick · ~10 min Schmittenhöhe</li>
+              <li><strong>Sunny Ferienwohnungen</strong> — Zell area · Allison premium alt</li>
+              <li><strong>Schönblick Residence</strong> — Zell area · Allison premium alt</li>
+              <li><strong>Unterberger</strong> — Saalfelden, ~25 min north · bonus tier</li>
+              <li><strong>Cuckoo's Nest</strong> — Niedernsill, ~15 min west · bonus tier</li>
+              <li><strong>Wildkogelblick</strong> — Bramberg area · pending verification (placeholder coords)</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="leg-map-section" id="leg-salzkammergut">
+          <header class="leg-map-section__head">
+            <p class="leg-map-section__eyebrow">Tue Jul 28 → Thu Jul 30</p>
+            <h3 class="leg-map-section__title">Anchor #3 — Salzkammergut (Gosau / Aussee)</h3>
+            <p class="leg-map-section__summary">
+              Hallstatt + Krippenstein + Gosausee + Altausseer — the lake cluster
+            </p>
+          </header>
+          <div class="leg-map" id="leg-map-salzkammergut" aria-label="Salzkammergut leg map"></div>
+          <div class="leg-map-legend">
+            <p class="leg-map-legend__hint">🛏️ Lodging candidates · 🏔 Activities · tap any pin for popup</p>
+            <ul class="leg-map-legend__list">
+              <li><strong>Der Ulmenhof ★</strong> — Gosau village · 10 min to Gosausee</li>
+              <li><strong>Greenheart Aussee</strong> — Obersdorf / Bad Mitterndorf · NEW</li>
+              <li><strong>Alpine Loft Grimming</strong> — Zauchen / Bad Mitterndorf · NEW</li>
+              <li><strong>Auszeit Salzkammergut</strong> — Bad Ischl · cheap 1-BR</li>
+              <li><strong>Haus Obweg</strong> — Postalm pasture · marginal access</li>
+              <li><strong>Landhaus Osborne</strong> — Obertraun · REJECTED (1 queen only)</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="leg-map-section" id="leg-airport">
+          <header class="leg-map-section__head">
+            <p class="leg-map-section__eyebrow">Thu Jul 30 → Fri Jul 31</p>
+            <h3 class="leg-map-section__title">Anchor #4 — Salzburg Airport (last night)</h3>
+            <p class="leg-map-section__summary">
+              Buffer night before Friday 08:55 departure (LY5194)
+            </p>
+          </header>
+          <div class="leg-map" id="leg-map-airport" aria-label="Salzburg airport leg map"></div>
+          <div class="leg-map-legend">
+            <p class="leg-map-legend__hint">🛏️ Lodging candidates · 🏔 Activities · tap any pin for popup</p>
+            <ul class="leg-map-legend__list">
+              <li><strong>Landhaus Grünau ★</strong> — 3.4 km from SZG · 9.5/585 reviews</li>
+              <li><strong>Hotel Gabi</strong> — 1.5 km from SZG · closer + more expensive</li>
+              <li><strong>B&amp;B Villa Verde</strong> — near Old Town · evening visit possible</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
       <section class="section">
         <h2>The drive matrix</h2>
         <p style="color: #4b5a62; font-size: 0.9rem">
@@ -1026,6 +1143,7 @@
     ></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script type="module" src="/src/page-map.ts"></script>
+    <script type="module" src="/src/page-map-legs.ts"></script>
     <script type="module" src="/src/page-search.ts"></script>
   </body>
 </html>
