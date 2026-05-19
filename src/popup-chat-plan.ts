@@ -1,8 +1,33 @@
 // First-visit popup for Avital explaining the chat plan.
-// Shows once per browser (localStorage flag), dismissible via X / "Got it" / backdrop click / ESC.
+// Shows once per browser, dismissible via X / "Got it" / backdrop click / ESC.
 // Built 2026-05-16 in response to Avital asking for live chat — real chat ships tomorrow.
+//
+// 2026-05-19 — migrated dismissal flag from localStorage → cookie per tandem
+// rule (CLAUDE.md): localStorage is invisible to Claude, document.cookie is
+// readable via Playwright / extension. UX assessment P1 also caught this
+// modal auto-opening on every page load because the prior storage was being
+// blocked / cleared in some browsers; cookie is simpler + visible.
 
-const STORAGE_KEY = 'austria-chat-popup-seen-v1';
+const COOKIE_KEY = 'austria_modal_dismissed';
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
+
+function hasDismissedCookie(): boolean {
+  try {
+    return document.cookie.split(';').some((c) => c.trim().startsWith(`${COOKIE_KEY}=1`));
+  } catch {
+    return false;
+  }
+}
+
+function setDismissedCookie(): void {
+  try {
+    // SameSite=Lax so it survives same-site navigation. No Secure flag —
+    // GitHub Pages is HTTPS but cookie works fine without Secure declared.
+    document.cookie = `${COOKIE_KEY}=1; max-age=${COOKIE_MAX_AGE}; path=/; SameSite=Lax`;
+  } catch {
+    // Cookies blocked — fall back to in-memory only.
+  }
+}
 
 function buildBackdrop(): HTMLDivElement {
   const backdrop = document.createElement('div');
@@ -36,11 +61,7 @@ function buildBackdrop(): HTMLDivElement {
 }
 
 function close(backdrop: HTMLDivElement): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, '1');
-  } catch {
-    // Ignore — storage unavailable (private mode, etc.). Popup just won't be sticky.
-  }
+  setDismissedCookie();
   backdrop.classList.remove('open');
   // Allow CSS fade before removing.
   setTimeout(() => {
@@ -52,13 +73,9 @@ function close(backdrop: HTMLDivElement): void {
 let escHandler: (e: KeyboardEvent) => void = () => {};
 
 export function initChatPlanPopup(): void {
-  // Skip if already seen.
-  try {
-    if (localStorage.getItem(STORAGE_KEY)) {
-      return;
-    }
-  } catch {
-    // If storage throws, still show once per page-load.
+  // Skip if already dismissed.
+  if (hasDismissedCookie()) {
+    return;
   }
 
   // Avoid double-mount if some page imports/inits twice.
