@@ -7,7 +7,7 @@
     <title>Activities by base · Austria 2026</title>
     <meta
       name="description"
-      content="What to do FROM each base. Salzburg, Obertraun (mountain anchor), Schafbergspitze summit, airport. Per-base activity menu — pick or browse, never locked."
+      content="What to do FROM each base. Salzburg (Shabbat), Zell am See (alpine), Gosau (Salzkammergut lakes — Schafberg cog + Krippenstein cable car as day-trips), Salzburg airport-side. Per-base activity menu — pick or browse, never locked."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -428,20 +428,21 @@
 
     <main class="container">
       <header style="margin-bottom: 1.6rem">
-        <div class="eyebrow">Menu, not a schedule · pick or browse</div>
+        <div class="eyebrow">Menu, not a schedule · pick or browse · v4 (2026-05-19)</div>
         <h1>Activities by base</h1>
         <p class="page-tldr">
           <strong
             >Everything sorted by base — what's at your door, what's a half-day, what's a
             day-trip.</strong
           >
-          Four bases. Filter pills start empty — tap to narrow. Sunset headliners on top. Sources
-          link out so you can verify.
+          Four bases (Salzburg / Zell am See / Gosau / Airport). Filter pills start empty — tap to
+          narrow. Sunset headliners on top. Sources link out so you can verify.
         </p>
         <p class="lead-block">
           Everything <strong>"from where you sleep that night."</strong> Four bases this week. Each
           section shows what's at your door, what's an easy half-day, and what's a "make a plan for
-          it" day trip — sorted with the breathtaking ones on top.
+          it" day trip — sorted with the breathtaking ones on top. Schafberg cog + Krippenstein
+          cable car appear as day-trip options from Gosau, not as bases.
         </p>
         <p class="lead-block" style="font-size: 0.95rem; color: var(--ink-soft)">
           Use the filter pills to narrow by type. Click a base name to jump to its menu. Sources
@@ -456,24 +457,24 @@
           <span class="acts-basechip__dot"></span>
           <span class="acts-basechip__body">
             <span class="acts-basechip__name">Salzburg</span>
-            <span class="acts-basechip__sub">Fri-Sun · 2N</span>
+            <span class="acts-basechip__sub">Fri-Sun · 2N · Shabbat</span>
           </span>
         </a>
-        <a href="#base-obertraun" class="acts-basechip acts-basechip--obertraun">
+        <a href="#base-zell-am-see" class="acts-basechip acts-basechip--obertraun">
           <span class="acts-basechip__dot"></span>
           <span class="acts-basechip__body">
-            <span class="acts-basechip__name">Mountain anchor</span>
-            <span class="acts-basechip__sub">Sun-Wed · 3N</span>
+            <span class="acts-basechip__name">Zell am See</span>
+            <span class="acts-basechip__sub">Sun-Tue · 2N · alpine</span>
           </span>
         </a>
-        <a href="#base-summit" class="acts-basechip acts-basechip--summit">
+        <a href="#base-gosau" class="acts-basechip acts-basechip--summit">
           <span class="acts-basechip__dot"></span>
           <span class="acts-basechip__body">
-            <span class="acts-basechip__name">Schafbergspitze</span>
-            <span class="acts-basechip__sub">Wed-Thu · 1N peak</span>
+            <span class="acts-basechip__name">Gosau</span>
+            <span class="acts-basechip__sub">Tue-Thu · 2N · lakes</span>
           </span>
         </a>
-        <a href="#base-airport" class="acts-basechip acts-basechip--airport">
+        <a href="#base-salzburg-airport" class="acts-basechip acts-basechip--airport">
           <span class="acts-basechip__dot"></span>
           <span class="acts-basechip__body">
             <span class="acts-basechip__name">Airport</span>
@@ -481,6 +482,36 @@
           </span>
         </a>
       </nav>
+
+      <!-- Day-trip framing callout — cog + cable car are NOT bases -->
+      <section class="section" style="margin-top: 0;">
+        <div class="callout" style="border-left: 3px solid var(--gold-deep, #b9892a);">
+          <h3 style="margin-top: 0;">🚠 Schafberg cog + Krippenstein cable car — day-trip framing</h3>
+          <p>
+            Both are reachable as <strong>day-trips from the Gosau base</strong>, NOT overnight
+            stays. The summit hotel (Schafbergspitze) was rejected on a 3.6★ rating; Lodge am
+            Krippenstein went FULL Jul 29-30. The cable car / cog are still iconic experiences
+            — they just happen between breakfast and dinner now, not overnight.
+          </p>
+          <ul>
+            <li>
+              <strong>Krippenstein cable car</strong> from Gosau: 25 min drive to valley station,
+              two gondola stages up to 2,063m plateau, 5 Fingers cantilevered platform + Eishöhle
+              ice cave. Last gondola down 19:10 — sunset at the platform 20:48 means committing
+              to descent timing.
+            </li>
+            <li>
+              <strong>Schafberg cog</strong> from Gosau: ~50 min drive to St. Wolfgang valley
+              station, ~40 min cog ride up to 1,732m, 360° panorama across 13 Salzkammergut lakes.
+              Cog usually stops running ~19:30 — sunset is a day-trip option, not the headliner.
+            </li>
+          </ul>
+          <p>
+            See <a href="krippenstein.html">krippenstein.html</a> +
+            <a href="schafbergspitze.html">schafbergspitze.html</a> for the decisions log.
+          </p>
+        </div>
+      </section>
 
       <!-- Category filter pills (start empty / no filter applied) -->
       <section class="acts-filterbar" aria-label="Filter by category">
@@ -631,7 +662,7 @@
 
     <footer>
       Activities consolidated from NATURE_DESTINATIONS · Wikimedia Commons photos (CC BY-SA) · drive
-      times from Google Maps · last rebuild 2026-05-17
+      times from Google Maps · v4 restructure 2026-05-19 (Salzburg / Zell am See / Gosau / Airport)
     </footer>
 
     <script type="module" src="/src/page-activities.ts"></script>

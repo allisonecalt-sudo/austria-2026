@@ -204,43 +204,43 @@ interface SunsetPick {
 const TOP_5_SUNSETS: SunsetPick[] = [
   {
     rank: 1,
-    spot: 'Königssee — last electric boat from St. Bartholomä',
+    spot: 'Vorderer Gosausee — Dachstein mirror lake',
     day: 'Tue Jul 28',
-    time: '20:50',
+    time: '20:51',
     oneLine:
-      "Silent electric boat back as Watzmann's east wall goes gold and the lake goes silver. The trip's peak moment — hours, not minutes.",
+      "5-min walk from the Gosau apartment. Dachstein glacier mirrors in the water at sunset, gravel loop is flat + easy, lake quiet after the bus crowds leave. The 'we're really here' moment of the trip.",
   },
   {
     rank: 2,
-    spot: 'Schafbergspitze summit — SLEEP at 1,783m (Wed Jul 29 base)',
-    day: 'Wed Jul 29',
-    time: '20:48',
+    spot: 'Schmittenhöhe peak above Zell am See',
+    day: 'Mon Jul 27',
+    time: '20:52',
     oneLine:
-      "Cog rail up at ~17:00 → after last train down the summit empties to ~34 overnight guests. Sleep at Austria's oldest mountain hotel (1862). 360° panorama: 13 lakes at sunset, Dachstein at sunrise. Locked base, not a day trip.",
+      "Cable car up to ~2,000m, 360° panorama across the Hohe Tauern + Zeller See far below. The alpine-half sunset. Last cable car down ~18:00 — check the day-of timetable for evening rides.",
   },
   {
     rank: 3,
     spot: 'Hallstatt Markt lakeside walkway',
-    day: 'Mon Jul 27',
-    time: '20:51',
+    day: 'Wed Jul 29',
+    time: '20:50',
     oneLine:
-      'The painted boathouses go amber as the sun drops behind the Salzberg ridge. The iconic Hallstatt photo at the iconic Hallstatt hour.',
+      'Day-trip from Gosau (20 min). The painted boathouses go amber as the sun drops behind the Salzberg ridge. The iconic Hallstatt photo at the iconic Hallstatt hour.',
   },
   {
     rank: 4,
-    spot: 'Mönchsberg ridge above Salzburg',
-    day: 'Thu Jul 30',
-    time: '20:47',
+    spot: 'Krippenstein 5 Fingers cantilevered platform',
+    day: 'Wed Jul 29 (alt)',
+    time: '20:48',
     oneLine:
-      'Last sunset of the trip — old town spread below, fortress catching the light. Climb from Toscaninihof after Eisriesenwelt.',
+      "Day-trip cable car from Gosau (~25 min drive). Five steel fingers jutting over the cliff at 2,063m, omni-view across Hallstättersee + the Dachstein. Last cable car down 19:10 — sunset here means committing to the descent timing.",
   },
   {
     rank: 5,
-    spot: 'Lake Hallstatt dock at Obertraun',
-    day: 'Sun Jul 26',
-    time: '20:53',
+    spot: 'Mönchsberg ridge above Salzburg',
+    day: 'Sat Jul 25',
+    time: '20:54',
     oneLine:
-      'Five minutes from the apartment door. The arrival sunset — settle in, exhale, watch the lake light up the day you move east.',
+      'Shabbat-legal climb from the apartment — old town spread below, fortress catching the light. The Sat-night unwind sunset before Havdalah at 21:49.',
   },
 ];
 

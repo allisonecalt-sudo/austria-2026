@@ -1,15 +1,21 @@
-// Entry script for /bases.html — 4 base configuration options.
+// Entry script for /bases.html — 4-base v4 trip structure.
 //
-// Allison (2026-05-16 22:13): "give options!!! thats the ideas always optiposn"
-// Allison (2026-05-16 22:14): "everyhting options!!!! an dpresent it so its
-// eay to digest and use map"
+// REWRITTEN 2026-05-19 by sweep agent. The previous page rendered
+// BASE_CONFIGS (3 mountain-anchor alternates + a LOCKED Schafbergspitze
+// summit night). That model is obsolete after the Mon May 18 restructure:
+// Avital's structural counter-proposal moved the trip to a clean
+// Salzburg → Zell am See → Gosau → Airport shape with no summit overnight.
 //
-// Renders:
-//   1. Compare-strip: 4 small cards with one line each, scan at a glance
-//   2. Salzburg laundry filter status callout (which Salzburg listings pass)
-//   3. The 4 base-config cards — collapsed by default, expand on tap
-//      Each expanded card has: pitch, drive matrix (bucketed), lodging picks,
-//      daily flow, pros + cons, cost delta, map link
+// BASE_CONFIGS in trip-data.ts still exists (pullable-archives rule) and
+// powers an "Archived: previously considered" `<details>` collapsible at
+// the bottom of the page. The live cards above are rendered from
+// TRIP.lodgings which IS the v4 source of truth.
+//
+// Live picks pulled at render time:
+//   1. Salzburg                       (Fri-Sun, 2 nights)   pickName='master Linzergasse'
+//   2. Zell am See                    (Sun-Tue, 2 nights)   pickName='Aparthotel Zell am See'
+//   3. Gosau                          (Tue-Thu, 2 nights)   pickName='Der Ulmenhof (Gosau)'
+//   4. Salzburg airport-side          (Thu-Fri, 1 night)    pickName='Landhaus Grünau'
 
 import {
   BASE_CONFIGS,
@@ -18,14 +24,14 @@ import {
   type BaseConfigDriveRow,
   type BaseConfigLodgingPick,
   type BudgetTier,
+  type Lodging,
   type LodgingLaundry,
   type LodgingVibe,
 } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
 import { initSharedShortlist } from './shortlist-shared.js';
-import { insertNote } from './supabase.js';
-import { readCommittedBaseMeta, startPicksSync, type BaseCommitMeta } from './sync-picks.js';
+import { startPicksSync } from './sync-picks.js';
 
 function escapeHtml(s: string): string {
   return s
@@ -35,7 +41,7 @@ function escapeHtml(s: string): string {
     .replace(/"/g, '&quot;');
 }
 
-// --- Badge helpers (reused from page-stay.ts pattern) ---
+// --- Badge helpers (kept for the archived BASE_CONFIGS rendering) ---
 
 function tierBadge(tier?: BudgetTier): string {
   if (!tier) return '';
@@ -88,13 +94,206 @@ function chipRow(chips: string[]): string {
   return `<div class="day-meta" style="margin-top:0.6rem;">${non.join('')}</div>`;
 }
 
-function notableDetailsRow(details?: string[]): string {
-  if (!details || details.length === 0) return '';
-  const items = details.map((d) => `<li>${escapeHtml(d)}</li>`).join('');
-  return `<ul class="notable-details">${items}</ul>`;
+// =====================================================================
+// LIVE v4 base cards — Salzburg / Zell am See / Gosau / Airport
+// =====================================================================
+
+interface V4BaseCard {
+  key: Lodging['baseKey'];
+  label: string;
+  nightsLine: string;
+  pitch: string;
+  whyHere: string;
+  dayShape: string;
+  driveNotes: string[];
+  nearby: string[];
 }
 
-// --- Drive-matrix rendering ---
+const V4_CARDS: V4BaseCard[] = [
+  {
+    key: 'salzburg',
+    label: 'Base 1 — Salzburg (Shabbat anchor)',
+    nightsLine: 'Fri Jul 24 → Sun Jul 26 · 2 nights',
+    pitch:
+      'Old-town apartment 5 min walk from Chabad. Land Friday morning, settle in, candles 20:35. Shabbat 100% walkable — Linzergasse + Andräviertel + the river. Sunday morning is the move day east.',
+    whyHere:
+      'Closest practical Shabbat plan to Israel. Chabad on the same street, kosher grocery options scoped, Stolpersteine + Judengasse + Mönchsberg ridge all in walking range. No driving needed for the whole 2 nights.',
+    dayShape:
+      'Fri AM land → check in afternoon → light Friday menu (Mönchsberg / Mirabell / Festung). Sat = Shabbat full day in Salzburg. Sun AM pack out post-Havdalah, drive ~1h20 south to Zell am See.',
+    driveNotes: [
+      'SZG airport → Salzburg apartment: 15 min',
+      'Salzburg → Zell am See: ~1h20 (~90 km via B311)',
+    ],
+    nearby: [
+      'Chabad Salzburg (Linzergasse 76) — 5 min walk',
+      'Festung Hohensalzburg — 15 min walk',
+      'Mirabell Gardens — 10 min walk',
+      'Mönchsberg ridge sunset — 15 min climb',
+    ],
+  },
+  {
+    key: 'zell-am-see',
+    label: 'Base 2 — Zell am See (alpine-lake anchor)',
+    nightsLine: 'Sun Jul 26 → Tue Jul 28 · 2 nights',
+    pitch:
+      'Pinzgau alpine lake at the foot of the Schmittenhöhe + the Hohe Tauern. Different feel from the lush Salzkammergut — bigger sky, glacier in view. Two full days to pick from: cable-car peak, glacier at Kaprun, Krimml waterfalls, or a recovery lake-swim day.',
+    whyHere:
+      "Avital's Booking pick (Sun May 17 note) — free cancellation, lake view. Confirmed 2026-05-19: Aparthotel Zell am See €396 total for the 2 nights, 2.8 km from downtown. Free-cancellation window respected.",
+    dayShape:
+      'Sun afternoon arrival → Esplanade walk + lakeside sunset. Mon = full day: Schmittenhöhe panorama OR Kitzsteinhorn glacier (25-min drive) OR Krimml falls (1h10 west) OR lake-swim recovery day. Tue AM pack out, ~1h45 NE to Gosau via Bad Ischl.',
+    driveNotes: [
+      'Salzburg → Zell am See: ~1h20 (~90 km)',
+      'Zell am See → Schmittenhöhe valley station: 5 min',
+      'Zell am See → Kitzsteinhorn (Kaprun): 25 min',
+      'Zell am See → Krimml Waterfalls: 1h10',
+      'Zell am See → Gosau (next base): ~1h45 via Bad Ischl',
+    ],
+    nearby: [
+      'Schmittenhöhe peak (2,000m, cable car)',
+      'Kitzsteinhorn glacier at Kaprun (3,029m, snow in July)',
+      'Krimml Waterfalls (Austria\'s tallest, 380m)',
+      'Zeller See — lake swim from the Strandbad',
+    ],
+  },
+  {
+    key: 'gosau',
+    label: 'Base 3 — Gosau (Salzkammergut lakes anchor)',
+    nightsLine: 'Tue Jul 28 → Thu Jul 30 · 2 nights',
+    pitch:
+      'Right next to the Vorderer Gosausee — the Dachstein-mirror lake that anchors so many of the trip photos. Hallstatt is 20 min north, the Krippenstein cable-car valley station is 25 min, and the Schafberg cog (sunset day-trip option, NOT overnight) is about 50 min back west.',
+    whyHere:
+      "Lakes-region anchor for the second half. Der Ulmenhof €513 total for 2 nights — 2026-05-19 verified. Gosausee is a 5-min walk from the apartment. Hallstatt + Dachstein-Krippenstein cluster is here. Schafberg cog is reachable as a day-trip but not the centerpiece — cable car at Krippenstein gets the headliner sunset day-trip.",
+    dayShape:
+      'Tue afternoon arrival → Gosausee loop + lakeside sunset. Wed = pick ONE day-trip headliner (Krippenstein cable car + 5 Fingers OR Hallstatt village + Skywalk OR Schafberg cog as a sunset day-trip) and pair with a slower second pick. Thu AM pack out, ~1h20 SW to airport hotel.',
+    driveNotes: [
+      'Zell am See → Gosau: ~1h45 via Bad Ischl',
+      'Gosau → Vorderer Gosausee: 5 min',
+      'Gosau → Hallstatt village: 20 min',
+      'Gosau → Krippenstein cable car valley station: 25 min',
+      'Gosau → Schafbergbahn valley station (St. Wolfgang): ~50 min',
+      'Gosau → Salzburg airport (next base): ~1h20',
+    ],
+    nearby: [
+      'Vorderer Gosausee — Dachstein mirror lake (5 min)',
+      'Hallstatt village + Skywalk (20 min)',
+      'Krippenstein 5 Fingers platform (cable car day-trip, 25 min to valley station)',
+      'Dachstein Eishöhle ice cave (cable car + walk)',
+      'Schafberg cog railway from St. Wolfgang (~50 min — day-trip sunset option)',
+    ],
+  },
+  {
+    key: 'salzburg-airport',
+    label: 'Base 4 — Salzburg airport-side',
+    nightsLine: 'Thu Jul 30 → Fri Jul 31 · 1 night',
+    pitch:
+      "Last night near SZG so the Friday 08:55 LY5194 is a quiet 10-min drive instead of a panicked dash. Landhaus Grünau €176 — 3.4 km from the terminal, free parking, free cancellation. Drop the rental car Thursday night per Avital's logic (no morning-of return scramble).",
+    whyHere:
+      "Avital's specific logistics idea (voice note Sun May 17, 23:25): \"return the car Thursday night... we could just stay at a hotel in the airport and then not have to worry about returning the car in the morning.\" Friday morning we walk/cab the 3.4 km to the gate.",
+    dayShape:
+      'Thu afternoon drive from Gosau (~1h20) → check in → return rental car to airport Thursday evening → quick airport-area dinner. Fri AM 06:30 wake → 06:55 at gate (2-hr international check-in) → fly TLV.',
+    driveNotes: [
+      'Gosau → SZG airport hotel: ~1h20',
+      'Airport hotel → SZG terminal: 10 min (or short cab on Friday AM)',
+    ],
+    nearby: [
+      'SZG terminal (3.4 km)',
+      'Salzburg Altstadt — 15 min back into town if Thu evening feels open',
+    ],
+  },
+];
+
+function liveLodgingFor(baseKey: Lodging['baseKey']): Lodging | undefined {
+  return TRIP.lodgings.find((l) => l.baseKey === baseKey);
+}
+
+function renderV4Card(c: V4BaseCard): string {
+  const lod = liveLodgingFor(c.key);
+  const lodgingBlock = lod
+    ? `
+        <div class="alts-grid" style="grid-template-columns: 1fr; gap: 0.8rem;">
+          <a class="alt-card" href="${escapeHtml(lod.pickUrl)}" target="_blank" rel="noreferrer noopener">
+            <img class="alt-img" loading="lazy" decoding="async" src="${escapeHtml(lod.pickImg)}" alt="${escapeHtml(lod.pickName)}" />
+            <div class="alt-body">
+              <div class="alt-name">${escapeHtml(lod.pickName)} <span class="chip chip-recommended">⭐ Current pick</span></div>
+              <div class="alt-meta">${escapeHtml(lod.pickReview)} · <strong>${escapeHtml(lod.pickPrice)}</strong></div>
+              ${chipRow([
+                vibeBadge(lod.pickVibeTag),
+                tierBadge(lod.pickBudgetTier),
+                bedroomBadge(lod.pickBedrooms),
+                bedsBadge(lod.pickBeds),
+                laundryBadge(lod.pickLaundry),
+              ])}
+              <p class="alt-note">${escapeHtml(lod.pickWhy.slice(0, 240))}${lod.pickWhy.length > 240 ? '…' : ''}</p>
+              <div class="alt-cta">View on Booking.com →</div>
+            </div>
+          </a>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem;">
+          ${lod.alts.length} alternate apartments for this base — see
+          <a href="stay.html#base-${escapeHtml(c.key)}"><strong>Stay page</strong></a> for the full list.
+        </p>`
+    : `
+        <p style="font-size: 0.9rem; color: var(--ink-soft);">
+          Live lodging pick not found for <code>${escapeHtml(c.key)}</code>. See
+          <a href="stay.html"><strong>Stay page</strong></a> for the full lodging hub.
+        </p>`;
+
+  const driveList = c.driveNotes
+    .map((n) => `<li>${escapeHtml(n)}</li>`)
+    .join('');
+  const nearList = c.nearby.map((n) => `<li>${escapeHtml(n)}</li>`).join('');
+
+  return `
+    <details class="base-config" id="config-${escapeHtml(c.key)}" open>
+      <summary class="base-config-summary">
+        <div class="base-config-head">
+          <div class="base-config-label">${escapeHtml(c.label)}</div>
+          <div class="base-config-town">${escapeHtml(c.nightsLine)}</div>
+        </div>
+        <div class="base-config-expand">Tap to collapse ▾</div>
+      </summary>
+      <div class="base-config-body">
+        <p class="base-config-pitch">${escapeHtml(c.pitch)}</p>
+
+        <h3 class="base-config-section-head">Why this base</h3>
+        <p>${escapeHtml(c.whyHere)}</p>
+
+        <h3 class="base-config-section-head">Day shape</h3>
+        <p>${escapeHtml(c.dayShape)}</p>
+
+        <h3 class="base-config-section-head">Where you stay</h3>
+        ${lodgingBlock}
+
+        <h3 class="base-config-section-head">Drive times</h3>
+        <ul>${driveList}</ul>
+
+        <h3 class="base-config-section-head">In range from this base</h3>
+        <ul>${nearList}</ul>
+      </div>
+    </details>`;
+}
+
+function renderV4Compare(): string {
+  const rows = V4_CARDS.map((c) => {
+    const lod = liveLodgingFor(c.key);
+    return `
+      <a class="compare-card" href="#config-${escapeHtml(c.key)}">
+        <div class="compare-card-label">${escapeHtml(c.label.replace(/^Base \d+ — /, ''))}</div>
+        <div class="compare-card-meta">${escapeHtml(c.nightsLine)}</div>
+        <div class="compare-card-pitch">
+          ${lod ? `<strong>${escapeHtml(lod.pickName)}</strong> · ${escapeHtml(lod.pickPrice)}<br />` : ''}
+          ${escapeHtml(c.pitch.slice(0, 140))}…
+        </div>
+      </a>`;
+  }).join('');
+  return `
+    <h2 style="margin-bottom:1rem;">The 4 bases · at a glance</h2>
+    <div class="compare-grid">${rows}</div>`;
+}
+
+// =====================================================================
+// Archived section — old BASE_CONFIGS preserved per pullable-archives rule
+// =====================================================================
 
 function bucketLabel(b: BaseConfigDriveRow['bucket']): string {
   switch (b) {
@@ -114,7 +313,6 @@ function bucketClass(b: BaseConfigDriveRow['bucket']): string {
 }
 
 function renderDriveMatrix(rows: BaseConfigDriveRow[]): string {
-  // Group by bucket
   const buckets: Record<BaseConfigDriveRow['bucket'], BaseConfigDriveRow[]> = {
     'at-door': [],
     easy: [],
@@ -142,9 +340,7 @@ function renderDriveMatrix(rows: BaseConfigDriveRow[]): string {
     .join('');
 }
 
-// --- Lodging-pick card ---
-
-function renderLodgingPick(p: BaseConfigLodgingPick): string {
+function renderArchivedLodgingPick(p: BaseConfigLodgingPick): string {
   return `
     <a class="alt-card" href="${escapeHtml(p.url)}" target="_blank" rel="noreferrer noopener">
       <img class="alt-img" loading="lazy" decoding="async" src="${escapeHtml(p.img)}" alt="${escapeHtml(p.name)}" />
@@ -159,366 +355,89 @@ function renderLodgingPick(p: BaseConfigLodgingPick): string {
           laundryBadge(p.laundry),
         ])}
         <p class="alt-note">${escapeHtml(p.note)}</p>
-        ${notableDetailsRow(p.notableDetails)}
         <div class="alt-cta">View on Booking.com →</div>
       </div>
     </a>`;
 }
 
-// --- Pros / cons / flow ---
-
-function renderProsCons(pros: string[], cons: string[]): string {
-  const pros_li = pros.map((p) => `<li>${escapeHtml(p)}</li>`).join('');
-  const cons_li = cons.map((c) => `<li>${escapeHtml(c)}</li>`).join('');
+function renderArchivedConfigCard(c: BaseConfig): string {
   return `
-    <div class="pros-cons">
-      <div class="pros-block">
-        <h4>What works</h4>
-        <ul>${pros_li}</ul>
-      </div>
-      <div class="cons-block">
-        <h4>The trade-offs</h4>
-        <ul>${cons_li}</ul>
-      </div>
-    </div>`;
-}
-
-function renderFlow(flow: BaseConfig['flow']): string {
-  return flow
-    .map(
-      (f) => `
-        <div class="flow-row">
-          <div class="flow-label">${escapeHtml(f.label)}</div>
-          <div class="flow-text">${escapeHtml(f.text)}</div>
-        </div>`,
-    )
-    .join('');
-}
-
-// --- Cost-delta badge ---
-
-function costDeltaBadge(eur: number): string {
-  if (eur === 0) return '<span class="chip chip-good">📊 Baseline (€0)</span>';
-  if (eur < 0) return `<span class="chip chip-good">📊 ${eur} (cheaper)</span>`;
-  return `<span class="chip chip-warn">📊 +${eur} (pricier)</span>`;
-}
-
-function recommendedBadge(rec?: boolean): string {
-  if (!rec) return '';
-  return '<span class="chip chip-recommended">⭐ Current default</span>';
-}
-
-// Format the committed-base meta as a single "★ COMMITTED · <author> · <local time>"
-// chip. Replaces the recommended/cost chips on the committed card so the
-// commit announces itself loudly. Author is capitalized for visual weight.
-function formatCommitChip(meta: BaseCommitMeta): string {
-  const who = meta.by === 'allison' ? 'Allison' : 'Avital';
-  let when = meta.committed_at;
-  try {
-    const d = new Date(meta.committed_at);
-    // YYYY-MM-DD HH:mm in user-local time, falling back to the raw ISO if
-    // Date parsing fails for any reason.
-    const y = d.getFullYear();
-    const mo = String(d.getMonth() + 1).padStart(2, '0');
-    const da = String(d.getDate()).padStart(2, '0');
-    const hh = String(d.getHours()).padStart(2, '0');
-    const mm = String(d.getMinutes()).padStart(2, '0');
-    when = `${y}-${mo}-${da} ${hh}:${mm}`;
-  } catch {
-    /* keep raw */
-  }
-  return `<span class="chip chip-recommended" title="Committed via the Commit button on this page">★ COMMITTED · ${who} · ${when}</span>`;
-}
-
-// --- Per-config card ---
-
-function renderConfigCard(c: BaseConfig, idx: number): string {
-  // Open the committed one if any, else first card by default
-  const committed = readCommittedBase();
-  const committedMeta = readCommittedBaseMeta();
-  const openAttr = (committed ? committed === c.id : idx === 0) ? 'open' : '';
-  const isCommitted = committed === c.id;
-  const committedCls = isCommitted ? ' base-config--committed' : '';
-  // When THIS card is committed, replace the recommended/cost chips with the
-  // single loud "★ COMMITTED · author · time" chip. Spec (2026-05-17): "show
-  // the strip as ★ COMMITTED · <author> · <local time> instead of ⭐ Current
-  // default · 📊 Baseline (€0)".
-  const headChips =
-    isCommitted && committedMeta
-      ? formatCommitChip(committedMeta)
-      : `${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}`;
-  return `
-    <details class="base-config${committedCls}" id="config-${c.id}" data-base-id="${c.id}" ${openAttr}>
+    <details class="base-config" id="archived-config-${escapeHtml(c.id)}">
       <summary class="base-config-summary">
         <div class="base-config-head">
-          <div class="base-config-label">${escapeHtml(c.label)}${isCommitted ? ' <span class="chip chip-good" style="margin-left:0.4rem;">✓ Your lean</span>' : ''}</div>
+          <div class="base-config-label">${escapeHtml(c.label)} <span class="chip chip-warn">Archived</span></div>
           <div class="base-config-town">${escapeHtml(c.baseTown)} · ${escapeHtml(c.nightsAtBase)}</div>
-          <div class="base-config-chips">${headChips}</div>
         </div>
-        <div class="base-config-expand">Tap to expand ▾</div>
+        <div class="base-config-expand">Tap to expand the archived plan ▾</div>
       </summary>
       <div class="base-config-body">
         <p class="base-config-pitch">${escapeHtml(c.pitch)}</p>
 
-        <h3 class="base-config-section-head">Drive matrix — distance from this base to each of the 21 nature destinations</h3>
+        <h3 class="base-config-section-head">Drive matrix (archived)</h3>
         <div class="drive-matrix">${renderDriveMatrix(c.driveMatrix)}</div>
 
-        <h3 class="base-config-section-head">Daily flow under this config</h3>
-        <div class="flow-grid">${renderFlow(c.flow)}</div>
-
-        <h3 class="base-config-section-head">Lodging picks for this config (${c.lodging.filter((p) => p.availability !== 'sold-out').length})</h3>
+        <h3 class="base-config-section-head">Lodging picks (archived)</h3>
         <div class="alts-grid">${c.lodging
           .filter((p) => p.availability !== 'sold-out')
-          .map(renderLodgingPick)
+          .map(renderArchivedLodgingPick)
           .join('')}</div>
-
-        ${renderProsCons(c.pros, c.cons)}
-
-        <div class="cost-delta-block">
-          <h4>Cost delta vs Config A baseline</h4>
-          <p>${escapeHtml(c.costDeltaNote)}</p>
-        </div>
-
-        <div class="base-config-map">
-          <a class="map-link-btn" href="${escapeHtml(c.mapEmbedUrl)}" target="_blank" rel="noreferrer noopener">
-            📍 Open ${escapeHtml(c.baseTown)} on Google Maps →
-          </a>
-          <p class="map-pin-note">${escapeHtml(c.mapPinNote)}</p>
-        </div>
-
-        <div class="base-config-commit">
-          <button
-            type="button"
-            class="base-commit-btn${isCommitted ? ' base-commit-btn--committed' : ''}"
-            data-base-commit-id="${c.id}"
-            data-base-commit-label="${escapeHtml(c.label)}"
-            aria-pressed="${isCommitted ? 'true' : 'false'}"
-            aria-label="${isCommitted ? 'Change your commit (un-commit)' : 'Commit'} to ${escapeHtml(c.label)} as your lean"
-          >${isCommitted ? '✎ Change my commit (un-commit)' : '✓ Commit this config as your lean'}</button>
-          <span class="base-commit-note">${isCommitted ? 'Tap to free up the commit — then commit a different config.' : 'Marks this as your favored option. Other configs stay browseable.'}</span>
-        </div>
       </div>
     </details>`;
 }
 
-// --- Commit-this-config (localStorage + Supabase mirror) ---
-const COMMITTED_BASE_KEY = 'austria-committed-base-config';
-
-function readCommittedBase(): string | null {
-  try {
-    return localStorage.getItem(COMMITTED_BASE_KEY);
-  } catch {
-    return null;
-  }
-}
-
-function writeCommittedBase(id: string | null): void {
-  try {
-    if (id == null) localStorage.removeItem(COMMITTED_BASE_KEY);
-    else localStorage.setItem(COMMITTED_BASE_KEY, id);
-  } catch {
-    /* ignore quota / private mode */
-  }
-}
-
-function authorFor(): 'avital' | 'allison' {
-  try {
-    const raw = localStorage.getItem('austria-note-author');
-    if (raw === 'avital' || raw === 'allison') return raw;
-  } catch {
-    /* ignore */
-  }
-  return 'avital';
-}
-
-function showBaseCommitToast(text: string): void {
-  const t = document.createElement('div');
-  t.className = 'base-commit-toast';
-  t.textContent = text;
-  document.body.appendChild(t);
-  requestAnimationFrame(() => t.classList.add('base-commit-toast--show'));
-  setTimeout(() => {
-    t.classList.remove('base-commit-toast--show');
-    setTimeout(() => t.remove(), 300);
-  }, 3200);
-}
-
-function wireBaseCommitButtons(): void {
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement | null;
-    if (!target) return;
-    const btn = target.closest<HTMLButtonElement>('.base-commit-btn[data-base-commit-id]');
-    if (!btn) return;
-    e.preventDefault();
-    e.stopPropagation();
-    const id = btn.dataset.baseCommitId;
-    const label = btn.dataset.baseCommitLabel ?? id ?? '';
-    if (!id) return;
-    const currently = readCommittedBase();
-    if (currently === id) {
-      writeCommittedBase(null);
-      showBaseCommitToast(`Un-committed ${label}.`);
-      void insertNote({
-        option: 'general',
-        day_id: null,
-        activity_id: `base-config:${id}`,
-        note_text: `[base-config-uncommitted] ${label}`,
-        author: authorFor(),
-      }).catch(() => {
-        /* silent */
-      });
-    } else {
-      writeCommittedBase(id);
-      showBaseCommitToast(`✓ ${label} marked as your lean. Other base options stay browseable.`);
-      void insertNote({
-        option: 'general',
-        day_id: null,
-        activity_id: `base-config:${id}`,
-        note_text: `[base-config-committed] ${label}`,
-        author: authorFor(),
-      }).catch(() => {
-        /* silent */
-      });
-    }
-    // Re-render to update visual state on all cards
-    render();
-  });
-}
-
-// --- Compare strip (always visible, scan-friendly) ---
-
-function renderCompareStrip(): string {
-  const committed = readCommittedBase();
-  const committedMeta = readCommittedBaseMeta();
-  const rows = BASE_CONFIGS.map((c) => {
-    const isCommitted = committed === c.id;
-    const chips =
-      isCommitted && committedMeta
-        ? formatCommitChip(committedMeta)
-        : `${recommendedBadge(c.recommended)}${costDeltaBadge(c.costDeltaEur)}`;
-    return `
-      <a class="compare-card${isCommitted ? ' compare-card--committed' : ''}" href="#config-${c.id}">
-        <div class="compare-card-label">${escapeHtml(c.label.replace(/^Config [A-Z] — /, ''))}</div>
-        <div class="compare-card-meta">${chips}</div>
-        <div class="compare-card-pitch">${escapeHtml(c.pitch.slice(0, 140))}…</div>
-      </a>`;
-  }).join('');
+function renderArchivedSection(): string {
   return `
-    <h2 style="margin-bottom:1rem;">The 4 options, at a glance</h2>
-    <div class="compare-grid">${rows}</div>`;
+    <details class="callout" style="margin-top: 2rem;">
+      <summary style="cursor: pointer; font-weight: 600;">
+        📁 Archived: the 3-night mountain-anchor configs we previously considered (Obertraun / Berchtesgaden / Wolfgangsee)
+      </summary>
+      <div style="margin-top: 1rem;">
+        <p>
+          Before Avital's Mon May 18 restructure, the trip was shaped as
+          <em>Salzburg → 3-night mountain anchor (Obertraun / Berchtesgaden / St. Wolfgang)
+          → 1-night Schafbergspitze summit → airport</em>. Schafbergspitze was rejected
+          (3.6★ Google, rude-staff complaints — see
+          <a href="schafbergspitze.html">schafbergspitze.html archive</a>). Lodge am
+          Krippenstein replaced it briefly, then went FULL for Jul 29-30 — see
+          <a href="krippenstein.html">krippenstein.html decisions log</a>. Avital then
+          proposed the cleaner 4-base shape that's live above. The 3 archived
+          mountain-anchor configs are kept here so we can pull the work back if we
+          ever want to revisit.
+        </p>
+        ${BASE_CONFIGS.map(renderArchivedConfigCard).join('')}
+      </div>
+    </details>`;
 }
 
-// --- Salzburg laundry filter status ---
-//
-// Renders a callout at the top showing which Salzburg listings pass the
-// in-unit-washer filter. This addresses the spec's "Salzburg lodging filter"
-// requirement and fail-louds the gap.
-
-function renderSalzburgLaundryStatus(): string {
-  const salzburg = TRIP.lodgings.find((l) => l.baseKey === 'salzburg');
-  if (!salzburg) return '';
-
-  // Allison 2026-05-17 09:00: "never show sold out". Skip sold-out listings
-  // from the laundry-status callout — if it can't be booked, no point
-  // surfacing it as a swap option.
-  // Build a list of all Salzburg listings (pick + alts) with their laundry.
-  type Row = { name: string; laundry?: LodgingLaundry; url: string };
-  const pickRow: Row | null =
-    salzburg.pickAvailability !== 'sold-out'
-      ? {
-          name: salzburg.pickName + ' (current pick)',
-          laundry: salzburg.pickLaundry,
-          url: salzburg.pickUrl,
-        }
-      : null;
-  const rows: Row[] = [
-    ...(pickRow ? [pickRow] : []),
-    ...salzburg.alts
-      .filter((a) => a.availability !== 'sold-out')
-      .map((a) => ({ name: a.name, laundry: a.laundry, url: a.url })),
-  ];
-
-  const pass = rows.filter((r) => r.laundry === 'washer' || r.laundry === 'washer+dryer');
-  const fail = rows.filter((r) => r.laundry === 'none');
-  const unknown = rows.filter(
-    (r) => !r.laundry || r.laundry === 'unknown' || r.laundry === 'shared',
-  );
-
-  const passLi = pass
-    .map(
-      (r) =>
-        `<li><a href="${escapeHtml(r.url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(r.name)}</a> — washer confirmed</li>`,
-    )
-    .join('');
-  const failLi = fail
-    .map(
-      (r) =>
-        `<li><a href="${escapeHtml(r.url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(r.name)}</a> — <strong>no washer</strong></li>`,
-    )
-    .join('');
-  const unkLi = unknown
-    .map(
-      (r) =>
-        `<li><a href="${escapeHtml(r.url)}" target="_blank" rel="noreferrer noopener">${escapeHtml(r.name)}</a> — verify with host</li>`,
-    )
-    .join('');
-
-  return `
-    <div class="callout callout-laundry">
-      <h3>🧺 Salzburg laundry filter — status</h3>
-      <p>
-        Per Allison's final form (2026-05-16): Salzburg base MUST have in-unit laundry. Washer
-        alone = acceptable; washer + dryer = ideal. Listings below are split by status.
-      </p>
-      <h4 style="color: var(--green-deep); margin-top: 0.8rem;">✅ Passes filter (${pass.length})</h4>
-      ${pass.length > 0 ? `<ul>${passLi}</ul>` : '<p><strong>Gap: none of the Salzburg picks have confirmed washers yet — see Unknown list below.</strong></p>'}
-      ${
-        fail.length > 0
-          ? `<h4 style="color: #b04a3a; margin-top: 0.8rem;">❌ Fails filter (${fail.length})</h4><ul>${failLi}</ul>`
-          : ''
-      }
-      ${
-        unknown.length > 0
-          ? `<h4 style="color: var(--ink-soft); margin-top: 0.8rem;">❓ Unknown / shared (${unknown.length})</h4><ul>${unkLi}</ul>`
-          : ''
-      }
-      <p style="margin-top: 0.8rem; font-size: 0.9rem; color: var(--ink-soft);">
-        <strong>Recommendation:</strong> swap the Salzburg pick from <em>master Linzergasse</em>
-        (no washer) to <em>Sauerweingut</em>, <em>Pension Elisabeth</em>, or
-        <em>Salzburg Topside Apartments</em> — all 3 have washers verified. master Linzergasse
-        is great for Chabad proximity but fails the laundry filter.
-      </p>
-    </div>`;
-}
-
-// --- Render ---
+// =====================================================================
+// Render
+// =====================================================================
 
 function render(): void {
   const compare = document.querySelector<HTMLElement>('#bases-compare');
-  if (compare) compare.innerHTML = renderCompareStrip();
+  if (compare) compare.innerHTML = renderV4Compare();
 
+  // Salzburg laundry-status callout has been retired with the restructure.
+  // Active Salzburg pick (master Linzergasse) is the locked Shabbat anchor;
+  // the in-unit-washer decision is handled on the Stay page now.
   const laundry = document.querySelector<HTMLElement>('#salzburg-laundry-status');
-  if (laundry) laundry.innerHTML = renderSalzburgLaundryStatus();
+  if (laundry) laundry.innerHTML = '';
 
   const root = document.querySelector<HTMLDivElement>('#bases-root');
   if (root) {
-    root.innerHTML = BASE_CONFIGS.map((c, i) => renderConfigCard(c, i)).join('');
+    root.innerHTML = V4_CARDS.map(renderV4Card).join('') + renderArchivedSection();
   }
 }
 
 render();
-wireBaseCommitButtons();
 initNotesWidget();
 initChatPlanPopup();
 initSharedShortlist();
 
-// Cross-device sync — when Avital commits a base from her phone, Allison's
-// browser should pick it up. shortlist-shared.initSharedShortlist already
-// kicks off startPicksSync(), so we just need to re-render when it lands.
+// Cross-device sync — keep wiring intact so any committed-base note from
+// other surfaces still triggers re-render even though we don't surface a
+// commit button on the v4 layout (the 4 bases are locked, no choice).
 window.addEventListener('picks-synced', () => {
   render();
 });
-// Belt-and-suspenders: explicitly kick off a sync in case shortlist-shared's
-// init hasn't run yet (page load order is single-threaded so it has, but
-// this guards against future refactors).
 startPicksSync();

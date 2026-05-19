@@ -428,13 +428,14 @@
 
     <main class="container">
       <header style="margin-bottom: 1.6rem">
-        <div class="eyebrow">The trip · at a glance · what fits where</div>
+        <div class="eyebrow">The trip · at a glance · what fits where · v4 restructure 2026-05-19</div>
         <h1>Where we are, what we'll see, how long between.</h1>
         <p class="page-tldr">
-          <strong>4 bases, 3 moves, 7 nights.</strong> Salzburg Shabbat (2N) → mountain anchor (3N)
-          → Schafbergspitze summit (1N, the unique-experience night we'd lean into) → airport (1N).
-          Each day below: locked beats + a short menu of options for the open hours. Tap any day for
-          the deep recommendations + alternates.
+          <strong>4 bases, 3 moves, 7 nights.</strong> Salzburg for Shabbat (2N) → Zell am See for
+          the alpine-lake half (2N) → Gosau for the Salzkammergut-lakes half (2N) → Salzburg
+          airport-side (1N) before the Friday flight. No summit overnight — Schafberg cog +
+          Krippenstein cable car are day-trip options from Gosau. Each day below: headline +
+          options. Tap any day for the deep recommendations.
         </p>
         <p class="lead-block" data-bind="why-short"></p>
 
@@ -454,28 +455,29 @@
       <section class="section ts-section">
         <h2>Where we sleep — 4 bases, 3 moves</h2>
         <p class="ts-intro">
-          Salzburg for Shabbat (2 nights) · mountain anchor for the midweek (3 nights) · Berghotel
-          Schafbergspitze on the summit for one locked unique-experience night · airport-side for
-          the early Friday flight.
+          Salzburg for Shabbat (2 nights) · Zell am See for the alpine-lake half (2 nights) ·
+          Gosau for the Salzkammergut-lakes half (2 nights, with Hallstatt + Krippenstein as
+          day-trips) · Salzburg airport-side for the early Friday flight (1 night, rental car
+          returned Thursday evening).
         </p>
         <div class="ts-stays-grid" id="ts-stays"></div>
         <p style="font-size: 0.9rem; color: var(--ink-soft); margin-top: 1rem">
-          For all 36 apartment options across the bases, open the
+          For the full apartment list across the 4 bases, open the
           <a href="stay.html"><strong>Stay page</strong></a>
           or the
-          <a href="bases.html"><strong>Bases page</strong></a> (3 mountain-anchor options + the
-          locked Schafbergspitze summit night).
+          <a href="bases.html"><strong>Bases page</strong></a> (live picks + drive times + day
+          shape per base).
         </p>
       </section>
 
       <!-- 2. Per-day OPTIONS-FIRST summary -->
       <section class="section ts-section">
-        <h2>The 7 days — locked beats + options for the open hours</h2>
+        <h2>The 7 days — headlines + options for the open hours</h2>
         <p class="ts-intro">
-          Each row shows the LOCKED parts (move, Shabbat, Schafbergspitze cog) + a SHORT MENU of
-          options for the open hours. The full itinerary page adds a "what we'd lean toward + why"
-          per day. The site is a catalog of options to browse + recommendations to consider — not a
-          schedule we're handing you. Pick per energy + weather morning-of.
+          Each row shows the locked spine (move, Shabbat, the named sunset spot) + a short menu
+          of options for the open hours. The full itinerary page adds a "what we'd lean toward + why"
+          per day. The site is a catalog of options + recommendations — not a schedule we're
+          handing you. Pick per energy + weather morning-of.
         </p>
         <div class="ts-places" id="ts-places"></div>
         <p style="font-size: 0.9rem; color: var(--ink-soft); margin-top: 1rem">
@@ -514,9 +516,9 @@
       <section class="section ts-section">
         <h2>Drive times — the matrix</h2>
         <p class="ts-intro">
-          Google Maps consensus, late-July traffic. Mountain-anchor-to-destination distances are
-          what bound the midweek day shapes. The Wed cog up + Thu drive down are the locked transit
-          moves.
+          Google Maps consensus, late-July traffic. The 3 base-to-base moves frame the week;
+          everything else is day-trip from the active base. Schafberg cog + Krippenstein cable car
+          are reachable as day-trips from Gosau — no overnight on either.
         </p>
         <table class="costs ts-drive-table">
           <thead>
@@ -533,53 +535,57 @@
               <td class="num">5</td>
             </tr>
             <tr>
-              <td>Salzburg → Obertraun (via Bad Ischl)</td>
-              <td class="num">1h15m</td>
-              <td class="num">85</td>
+              <td><strong>Move 1: Salzburg → Zell am See (Sun)</strong></td>
+              <td class="num"><strong>~1h20</strong></td>
+              <td class="num"><strong>90</strong></td>
             </tr>
             <tr>
-              <td>Obertraun → Hallstatt Markt</td>
+              <td>Zell am See → Schmittenhöhe valley station</td>
               <td class="num">5 min</td>
               <td class="num">3</td>
             </tr>
             <tr>
-              <td>Obertraun → Vorderer Gosausee</td>
-              <td class="num">35 min</td>
-              <td class="num">28</td>
+              <td>Zell am See → Kitzsteinhorn glacier (Kaprun)</td>
+              <td class="num">25 min</td>
+              <td class="num">18</td>
             </tr>
             <tr>
-              <td>Obertraun → Königssee (Schönau)</td>
-              <td class="num">1h15m</td>
-              <td class="num">95</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Obertraun → St. Wolfgang (Schafbergbahn valley station)</strong>
-              </td>
-              <td class="num"><strong>~50 min</strong></td>
-              <td class="num"><strong>53</strong></td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Schafbergbahn cog UP (St. Wolfgang → 1,732m summit)</strong>
-              </td>
-              <td class="num"><strong>~40 min</strong></td>
-              <td class="num">—</td>
-            </tr>
-            <tr>
-              <td>
-                <strong>Schafberg summit → Salzburg airport (Thu morning, post-cog)</strong>
-              </td>
-              <td class="num"><strong>~55 min</strong></td>
-              <td class="num"><strong>52</strong></td>
-            </tr>
-            <tr>
-              <td>Obertraun → Werfen (Eisriesenwelt)</td>
-              <td class="num">1h15m</td>
+              <td>Zell am See → Krimml Waterfalls</td>
+              <td class="num">1h10m</td>
               <td class="num">75</td>
             </tr>
             <tr>
-              <td>Airport apartment → SZG terminal</td>
+              <td><strong>Move 2: Zell am See → Gosau (Tue, via Bad Ischl)</strong></td>
+              <td class="num"><strong>~1h45</strong></td>
+              <td class="num"><strong>100</strong></td>
+            </tr>
+            <tr>
+              <td>Gosau → Vorderer Gosausee</td>
+              <td class="num">5 min</td>
+              <td class="num">3</td>
+            </tr>
+            <tr>
+              <td>Gosau → Hallstatt village</td>
+              <td class="num">20 min</td>
+              <td class="num">14</td>
+            </tr>
+            <tr>
+              <td>Gosau → Krippenstein cable car valley station</td>
+              <td class="num">25 min</td>
+              <td class="num">18</td>
+            </tr>
+            <tr>
+              <td>Gosau → Schafbergbahn valley station (St. Wolfgang)</td>
+              <td class="num">~50 min</td>
+              <td class="num">40</td>
+            </tr>
+            <tr>
+              <td><strong>Move 3: Gosau → Salzburg airport hotel (Thu)</strong></td>
+              <td class="num"><strong>~1h20</strong></td>
+              <td class="num"><strong>80</strong></td>
+            </tr>
+            <tr>
+              <td>Airport hotel → SZG terminal</td>
               <td class="num">10 min</td>
               <td class="num">4</td>
             </tr>
@@ -600,12 +606,12 @@
             <span class="ts-cta-p">52 pins — every place on one geography view.</span>
           </a>
           <a href="stay.html" class="ts-cta-card">
-            <span class="ts-cta-h">Stay (36 apartments) →</span>
+            <span class="ts-cta-h">Stay (all apartments) →</span>
             <span class="ts-cta-p">All the lodging options across the 4 bases.</span>
           </a>
           <a href="bases.html" class="ts-cta-card">
-            <span class="ts-cta-h">Bases (3 mountain-anchor options + Schafbergspitze) →</span>
-            <span class="ts-cta-p">Pick the 3-night mountain anchor (Wed summit is locked).</span>
+            <span class="ts-cta-h">Bases (4 live · Salzburg / Zell / Gosau / Airport) →</span>
+            <span class="ts-cta-p">Live detail per base — pick + day shape + drives + range.</span>
           </a>
         </div>
       </section>

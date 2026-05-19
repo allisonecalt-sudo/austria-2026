@@ -1,14 +1,18 @@
 // Activities-by-base hub.
 //
-// IA reframe (2026-05-17 — Allison: "rethink how to present info now that we
-// have set up of salsburg. Mt, sunset place salasburg an dalso how activities
-// presented").
+// REWRITTEN 2026-05-19 — v4 restructure: bases are now Salzburg / Zell am
+// See / Gosau / Salzburg-airport (per Avital's Mon May 18 counter-proposal,
+// no summit overnight). Schafberg cog + Krippenstein cable car are
+// day-trip options from Gosau, NOT bases.
 //
-// 4-base structure is locked:
-//   - Salzburg (Fri-Sun, 2N) — Shabbat anchor, walking radius + Old Town
-//   - Mountain anchor / Obertraun (Sun-Wed, 3N) — Salzkammergut + Berchtesgaden
-//   - Schafbergspitze (Wed-Thu, 1N) — summit hotel, the peak moment
-//   - Airport (Thu-Fri, 1N) — sleep only
+// 4-base structure (v4):
+//   - Salzburg          (Fri-Sun, 2N) — Shabbat anchor, walking radius
+//   - Zell am See       (Sun-Tue, 2N) — alpine-lake anchor, Schmittenhöhe +
+//                                       Kitzsteinhorn + Krimml in range
+//   - Gosau             (Tue-Thu, 2N) — Salzkammergut-lakes anchor, Hallstatt
+//                                       + Krippenstein cable + Schafberg cog
+//                                       as day-trips
+//   - Salzburg airport  (Thu-Fri, 1N) — sleep only, car returned Thu eve
 //
 // For each base we surface: walking-from-base options, ≤30min "easy",
 // 30-60min "half-day", 60-120min "make a plan." Long-day commitments
@@ -34,12 +38,22 @@ import { initChatPlanPopup } from './popup-chat-plan.js';
 import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 // =====================================================================
-// Base config — drive times sourced from trip-data.ts where present,
-// patched here for Schafberg + airport bases (which aren't in the base
-// drive-time matrices).
+// Base config — drive times sourced from trip-data.ts where present.
+// v4 (2026-05-19): Salzburg / Zell am See / Gosau / Airport.
+//
+// trip-data.ts has fromSalzburgMin + fromHallstattMin. We re-use:
+//   - Salzburg base  → fromSalzburgMin
+//   - Zell am See    → fromSalzburgMin + 60 (rough proxy — Zell is ~1h20
+//                      south of Salzburg, so anything Salzburg-reachable is
+//                      another hour from Zell; specific high-impact picks
+//                      surfaced manually in the page header copy)
+//   - Gosau base     → fromHallstattMin (Gosau is in the same Salzkammergut
+//                      cluster, ~30 min west of Hallstatt — close enough
+//                      proxy for the at-door / easy / half-day bucketing)
+//   - Airport base   → fromSalzburgMin (airport ≈ Salzburg for drive)
 // =====================================================================
 
-type BaseKey = 'salzburg' | 'obertraun' | 'summit' | 'airport';
+type BaseKey = 'salzburg' | 'zell-am-see' | 'gosau' | 'salzburg-airport';
 
 interface BaseSpec {
   key: BaseKey;
@@ -49,65 +63,62 @@ interface BaseSpec {
   driveMinutesById: (d: NatureDestination) => number;
   hero: string; // image url
   heroAlt: string;
-  // Some bases have no meaningful activity radius (summit = stay put;
-  // airport = sleep only). Render a short message instead of cards.
+  // Some bases have no meaningful activity radius (airport = sleep only).
+  // Render a short message instead of cards.
   collapseToMessage?: string;
 }
 
-// Drive-time matrices — for Obertraun reuse NatureDestination.fromHallstattMin,
-// for Salzburg reuse fromSalzburgMin. Summit + airport are too narrow to
-// drive activities from, so they get a short note.
 const SALZBURG_BASE: BaseSpec = {
   key: 'salzburg',
-  name: 'Salzburg base',
-  vibe: 'Old Town + Mönchsberg walks. Drive radius hits Berchtesgaden + Werfen + Fuschlsee in under an hour.',
+  name: 'Salzburg base · Shabbat anchor',
+  vibe: 'Old Town + Mönchsberg walks. Drive radius hits Berchtesgaden + Werfen + Fuschlsee in under an hour. Shabbat = walking radius only.',
   nightsLabel: 'Fri Jul 24 → Sun Jul 26 · 2 nights',
   driveMinutesById: (d) => d.fromSalzburgMin,
   hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
   heroAlt: 'Salzach river through Salzburg old town under the Mönchsberg',
 };
 
-const OBERTRAUN_BASE: BaseSpec = {
-  key: 'obertraun',
-  name: 'Mountain anchor (Obertraun / Hallstatt area)',
-  vibe: 'The deep-immersion 3 nights. Lake out the window, Dachstein at the door, Königssee + Wolfgangsee on day trips.',
-  nightsLabel: 'Sun Jul 26 → Wed Jul 29 · 3 nights',
-  driveMinutesById: (d) => d.fromHallstattMin,
-  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
-  heroAlt: 'Hallstatt boathouses on the lake under the painted village',
-};
-
-// Schafbergspitze sits at the summit — drive irrelevant. The "activity" IS
-// the cog railway up, sunset on the terrace, sunrise over the Dachstein.
-const SUMMIT_BASE: BaseSpec = {
-  key: 'summit',
-  name: 'Schafbergspitze summit (1,783 m)',
-  vibe: 'The peak moment of the trip. Cog railway up Wed afternoon, sunset over 13 lakes, sunrise on the Dachstein, cog back Thu morning.',
-  nightsLabel: 'Wed Jul 29 → Thu Jul 30 · 1 night · splurge',
-  driveMinutesById: () => 0,
-  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
-  heroAlt: 'Schafberg summit ridge with Salzkammergut lakes visible far below',
+const ZELL_BASE: BaseSpec = {
+  key: 'zell-am-see',
+  name: 'Zell am See base · alpine-lake anchor',
+  vibe: 'Pinzgau alpine lake at the foot of the Schmittenhöhe + Hohe Tauern. Schmittenhöhe cable car + Kitzsteinhorn glacier + Krimml falls all reachable within an hour. Different feel from the Salzkammergut second half.',
+  nightsLabel: 'Sun Jul 26 → Tue Jul 28 · 2 nights',
+  // Zell am See ≈ Salzburg + 60 min for general purposes — gives an
+  // honest "everything is further from Zell than from Salzburg" floor
+  // without inventing a drive matrix.
+  driveMinutesById: (d) => d.fromSalzburgMin + 60,
+  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
+  heroAlt: 'Zell am See on the Pinzgau with peaks rising behind the lake',
   collapseToMessage:
-    'You are the activity. The cog railway from St. Wolfgang is the journey, the terrace at the top is the destination, sunset is the event. No driving, no choosing — this is the one night the trip pre-decides for you.',
+    "From Zell: Schmittenhöhe cable car (5 min drive), Kitzsteinhorn glacier at Kaprun (25 min), Krimml Waterfalls (1h10), Zeller See swim (5 min walk). Most of the trip-data nature picks are clustered around the Hallstatt area — so the cards below are filtered to spots reachable from this base. For day-by-day specifics see the itinerary.",
 };
 
-// Airport night = sleep + 15-min drive to gate Friday morning. Nothing
+const GOSAU_BASE: BaseSpec = {
+  key: 'gosau',
+  name: 'Gosau base · Salzkammergut-lakes anchor',
+  vibe: 'Vorderer Gosausee 5 min away (the Dachstein mirror), Hallstatt 20 min, Krippenstein cable car 25 min, Schafberg cog ~50 min — all as day-trips. Two full days of options.',
+  nightsLabel: 'Tue Jul 28 → Thu Jul 30 · 2 nights',
+  driveMinutesById: (d) => d.fromHallstattMin,
+  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+  heroAlt: 'Vorderer Gosausee with the Dachstein massif reflected in the water',
+};
+
+// Airport night = sleep + 10-min drive to gate Friday morning. Nothing
 // else is an "activity" here — surface as a message + cross-reference
-// Werfen / Bluntautal / Almbachklamm as Thursday-day options before the
-// sleep transfer.
+// the Gosau-day or Salzburg-evening as the actual Thursday activity.
 const AIRPORT_BASE: BaseSpec = {
-  key: 'airport',
-  name: 'Airport-area sleep (Salzburg West)',
-  vibe: 'Just sleep + shower. 15-min drive to SZG for the 6:30 Friday flight.',
+  key: 'salzburg-airport',
+  name: 'Salzburg airport-side · sleep only',
+  vibe: 'Just sleep + shower. Car returned Thu evening per Avital. 10-min cab to SZG terminal for the 08:55 Friday flight.',
   nightsLabel: 'Thu Jul 30 → Fri Jul 31 · 1 night',
   driveMinutesById: (d) => d.fromSalzburgMin, // airport ≈ Salzburg for drive purposes
   hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Werfen_-_Burg_Hohenwerfen_%281%29.JPG/1280px-Werfen_-_Burg_Hohenwerfen_%281%29.JPG',
   heroAlt: 'Hohenwerfen castle above the Salzach valley near the airport drive',
   collapseToMessage:
-    "Thursday is a full day. Do Werfen / Eisriesenwelt or Bluntautal as the day's activity, then drive to the airport hotel after sunset. Friday morning is just a 15-min hop to the gate. Same drive-times as the Salzburg base column below.",
+    "Thursday afternoon is the drive from Gosau (~1h20) → check in → return rental at SZG Thursday evening. Friday morning is just a 10-min cab to the gate. If Thursday afternoon feels open, Hohenwerfen castle + Eisriesenwelt ice cave are 30-40 min off the Gosau → Salzburg route — same drive-times as the Salzburg base column above.",
 };
 
-const BASES: BaseSpec[] = [SALZBURG_BASE, OBERTRAUN_BASE, SUMMIT_BASE, AIRPORT_BASE];
+const BASES: BaseSpec[] = [SALZBURG_BASE, ZELL_BASE, GOSAU_BASE, AIRPORT_BASE];
 
 // =====================================================================
 // Drive-time bucket
@@ -239,13 +250,16 @@ function tldr(d: NatureDestination): string {
 function driveLinkFromBase(base: BaseSpec, d: NatureDestination): string {
   switch (base.key) {
     case 'salzburg':
-    case 'airport':
+    case 'salzburg-airport':
       return d.links.mapsFromSalzburg;
-    case 'obertraun':
+    case 'gosau':
+      // Gosau is in the same Salzkammergut cluster as Hallstatt — the
+      // mapsFromHallstatt link is close enough for routing purposes.
       return d.links.mapsFromHallstatt;
-    case 'summit':
-      // From St. Wolfgang (cog-railway base village) — direction link generated inline.
-      return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent('St. Wolfgang im Salzkammergut')}&destination=${encodeURIComponent(d.localName ?? d.name)}`;
+    case 'zell-am-see':
+      // No pre-computed Zell-am-See routing link in trip-data — generate
+      // a direction URL inline from the town name.
+      return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent('Zell am See, Austria')}&destination=${encodeURIComponent(d.localName ?? d.name)}`;
   }
 }
 
@@ -358,9 +372,9 @@ function baseSection(base: BaseSpec): string {
   // simpler block.
   if (base.collapseToMessage) {
     const xrefLink =
-      base.key === 'summit'
-        ? '<a href="#base-obertraun">↑ See mountain-anchor activities</a> (Wed afternoon is the cog-up; everything before is from Obertraun)'
-        : '<a href="#base-salzburg">↑ See Salzburg-base activities</a> (drive times are the same)';
+      base.key === 'salzburg-airport'
+        ? '<a href="#base-salzburg">↑ See Salzburg-base activities</a> (drive times are the same — airport ≈ Salzburg)'
+        : '<a href="#base-gosau">↓ See Gosau-base activities</a>';
     return `
       <section class="acts-base" id="base-${base.key}">
         <header class="acts-base__head acts-base__head--${base.key}">
