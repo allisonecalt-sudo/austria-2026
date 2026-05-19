@@ -50,6 +50,60 @@
   line-height: 1.55;
 }
 
+/* Pre-trip migration banner (May 19 localStorage → Supabase). */
+.pretrip-bankruptcy-banner {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.2rem;
+  background: #fdf6e0;
+  border: 2px solid #d4a04a;
+  border-radius: 0.7rem;
+  color: #5a4a1a;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.pretrip-bankruptcy-banner p {
+  margin: 0;
+  flex: 1 1 280px;
+}
+.pretrip-bankruptcy-dismiss {
+  flex: 0 0 auto;
+  padding: 0.5rem 1rem;
+  background: #d4a04a;
+  color: #1a2429;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 44px;
+}
+.pretrip-bankruptcy-dismiss:hover {
+  background: #b88835;
+}
+
+/* Pre-trip sync badge — visible signal that the row hit Supabase. */
+.checklist-sync {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-softer);
+}
+.checklist-sync [data-sync-badge] {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: var(--green-mist);
+  color: var(--green-deep);
+  font-weight: 600;
+}
+.checklist-sync [data-sync-badge][data-sync-state='err'] {
+  background: #fdecec;
+  color: #b03030;
+}
+
 :root {
   --cream: #faf6ee;
   --paper: #ffffff;
