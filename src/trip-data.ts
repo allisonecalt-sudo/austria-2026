@@ -753,69 +753,173 @@ export const TRIP: TripData = {
       // for per-night, EUR computed at ₪3.97/€1.
       baseKey: 'salzburg',
       nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
-      area: 'Andräviertel / Altstadt — all walking distance to Chabad Salzburg (Linzergasse 76)',
-      pickName: 'master Linzergasse',
+      area: 'Schallmoos / Elisabeth-Vorstadt — Chabad-Shabbat plan, walking distance to Chabad of Salzburg (Linzer Gasse 76, Rabbi Gruzman)',
+      // PRIMARY pick swapped 2026-05-19 PM per Allison's Chabad-Shabbat plan
+      // (decision locked 13:13 JDT, email to Rabbi Gruzman sent 13:23). Bergland
+      // Hotel is the closest gold-stamp property to Chabad (4-min walk, same
+      // right-bank side). Replaces master Linzergasse as primary — the
+      // Linzergasse pick stays in the alts/archive list (pullable-archives rule).
+      pickName: 'Bergland Hotel - Adults only',
       pickFreeCancellation: true,
-      pickUrl: 'https://www.booking.com/hotel/at/master-linzergasse.html',
+      pickUrl:
+        'https://www.booking.com/hotel/at/bergland-salzburg.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+      // Bergland front-of-property photo (Booking listing). Family-run since
+      // 1912; Adults-only; 15 individually-decorated rooms.
       pickImg:
-        'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
-      pickReview: '9.2 · Superb · 2,309 reviews',
-      pickPrice: '€286 / night (₪1,138) — PRICE-VERIFIED 2026-05-17: was €128, now €286 (Booking live, €572 / 2 nights with discount)',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+      pickReview: '9.0 · Wonderful · 1,092 reviews',
+      pickPrice:
+        '€452 / 2 nights (₪1,795) — Double Room, free cancellation + pay-at-property, verified live 2026-05-19',
       pickWhy:
-        'Studio apartment with kitchen, ON Linzergasse — same street as Chabad (Linzergasse 76). 5-min walk to shul, 600m from old-town center. Sleep where you daven. NOTE: no washing machine — fails the Salzburg laundry filter. See bases page for Sauerweingut / Pension Elisabeth / Topside, which all have washers.',
-      pickBudgetTier: 'splurge',
+        'Closest gold-stamp property to Chabad (4-min walk to Linzer Gasse 76, 6-min to IKG synagogue at Lasserstraße 8). Same right-bank Schallmoos side — matches the locked Chabad-Shabbat plan (Allison emailed Rabbi Menachem Gruzman Tue May 19 13:23 JDT, awaiting reply). Adults-only, family-run since 1912, 15 individually-decorated rooms. Quiet residential area (NOT the Linzergasse bar strip). Trade-offs: no kitchen + slightly lower Google rating than Villa Flöckner. Free cancellation + pay-at-property.',
+      pickBudgetTier: 'mid-high',
       pickPlatform: 'booking',
-      pickWalkToChabadMin: 5,
+      pickWalkToChabadMin: 4,
       pickLaundry: 'none',
-      pickBedrooms: 'studio',
+      pickBedrooms: 1,
       pickBeds: '1 queen',
-      pickNotableDetails: ['Dishwasher', 'Microwave', 'Coffee machine', 'No washer'],
+      pickNotableDetails: [
+        '4-min walk to Chabad',
+        '6-min walk to synagogue',
+        'Adults-only',
+        'Family-run since 1912',
+        'Quiet residential Schallmoos',
+        'Free cancellation',
+      ],
       pickMaxGuests: 2,
-      pickKitchen: 'full',
+      pickKitchen: 'none',
       pickBath: 'private',
       pickAc: false,
       pickParking: 'paid',
       pickWifi: true,
       pickViewType: 'urban',
       pickAvailability: 'available',
-      pickAvailabilityCheckedDate: '2026-05-17',
-      // Master-pick photos sourced live from Booking.com 2026-05-17 — 10 real
-      // listing shots instead of the carousel() helper that mixed the hero
-      // with Wikimedia area photos.
+      pickAvailabilityCheckedDate: '2026-05-19',
+      // Bergland Hotel listing photos (Booking 2026-05-19). Family-run
+      // adults-only property — front-of-building + room interior shots.
       pickPhotos: [
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474092866.jpg?k=986634218fc93628f2d52c8ad8e3a29b81db08747371da66f9d861a5c1d8b08d&o=&hp=1',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189965.jpg?k=a1ac6798e4a3719fa5438391411cbdef0a325981cfbc98bfab15e33f982b7c31&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190876.jpg?k=0bf8d877adad096e225e7a29ecba7563c4954cff4b63fe1915d59ebeb1624df7&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189924.jpg?k=f6bc9bfa3cddb6d9cb4f07cdbea582d310f2fd408b1666ad328b1468dcf1e440&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190855.jpg?k=92365936f9794a339dd266c65b7b6ab546cecdf6e1eb00aa01b9022375ca7506&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/776498811.jpg?k=2a119953b7bbddf5930209b7647fbc8768f8ce454a0b3393388c55066df1e7e5&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/661109556.jpg?k=7d7491adf7e5bde8284076ec70438306ea3e6af3213510cad13bd4cdc7fa68ea&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/776498791.jpg?k=07e75cd098fe54f38964b4659f88d054ea091fbfcbc036384397ce8ebd079516&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/493260152.jpg?k=86cec665b63c61873842dbf2335b5640a0d8aee6c1337e986de09f5b5dff477d&o=',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/493260204.jpg?k=8116818e0cf15afc814f321af727752f8042d3ad152ba3da0d6b7c142306aa1d&o=',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
       ],
+      // === ARCHIVED PRIMARY — kept for pullable-archives rule. The prior
+      // master Linzergasse pick (was primary May 16-19) is preserved here as
+      // the first alt so the prior decision is recoverable. ===
       alts: [
+        // --- New 2026-05-19 alts surfaced by the Chabad-Shabbat lodging
+        // research pass (lodging-research-2026-05-19.md). ---
         {
-          name: "Junker's Apartments",
-          url: 'https://www.booking.com/hotel/at/junkers-appartments.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/221346620.webp?k=cf7d95a5626dc200e5d713cbfcf5178c20086fc6ce1292547b7a2ab635163644&o=',
-          review: '9.6 · Exceptional · 389 reviews',
-          pricePerNight: '€194 / night (₪771) — PRICE-VERIFIED 2026-05-17: was €166, now €194 (Booking live, €387 / 2 nights)',
-          note: '40m² apartment with full kitchen, 1.9km from old town center, ~20-min walk to Chabad. Highest review score of any apartment in Salzburg — earned across 389 stays. Free cancellation. NOTE: no washing machine mentioned in current listing — verify with host if laundry matters.',
-          budgetTier: 'splurge',
+          name: 'Villa Flöckner Bed & Breakfast',
+          url: 'https://www.booking.com/hotel/at/villa-flockner-bed-amp-breakfast.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/322932008.jpg',
+          review: '9.1 · Wonderful · 3,253 reviews · 4.8★ Google (391)',
+          pricePerNight:
+            '€203 / night (₪806) — €405 / 2 nights, breakfast included (not kosher-certified), free cancel until Jul 19, 2026',
+          note: 'Highest review-volume of any 9+ Salzburg property — 3,253 reviews is noise-free signal. Double Room with 1 king, breakfast included (for non-Shabbat meals — not kosher-certified). Elisabeth-Vorstadt right-bank side, 9-min walk to Chabad, 20-min walk to Old Town. Free parking on site. Free cancel until Jul 19.',
+          budgetTier: 'mid-high',
           platform: 'booking',
-          walkToChabadMin: 20,
+          vibeTag: 'in-town',
+          walkToChabadMin: 9,
           laundry: 'unknown',
           bedrooms: 1,
-          beds: '1 queen (sofa bed available)',
-          notableDetails: ['Coffee machine', 'Fridge', 'Garden views'],
+          beds: '1 king',
+          notableDetails: [
+            'Highest review count in Salzburg (3,253)',
+            '9-min walk to Chabad',
+            'Free parking',
+            'Breakfast included (not kosher)',
+            'Right-bank, quiet residential',
+          ],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/322932008.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max500/322932012.jpg',
+            'https://cf.bstatic.com/xdata/images/hotel/max500/850241812.jpg',
+          ],
+        },
+        // === Legacy primary — master Linzergasse (was the recommended pick
+        // May 16-19, replaced by Bergland Hotel when the Chabad-Shabbat
+        // plan locked Tue May 19). Kept here per pullable-archives rule. ===
+        {
+          name: 'master Linzergasse (legacy primary — pre-Chabad-Shabbat plan)',
+          url: 'https://www.booking.com/hotel/at/master-linzergasse.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
+          review: '9.2 · Superb · 2,309 reviews',
+          pricePerNight:
+            '€286 / night (₪1,138) — €572 / 2 nights with discount, no washer (PRICE-VERIFIED 2026-05-17)',
+          note: 'Studio apartment ON Linzergasse — same street as Chabad. 5-min walk to shul. Was the recommended pick May 16-19; superseded by Bergland Hotel (closer to Chabad + non-apartment B&B style) when Chabad-Shabbat plan locked. Still a strong pick if you want an apartment vs hotel. No washing machine.',
+          budgetTier: 'splurge',
+          platform: 'booking',
+          walkToChabadMin: 5,
+          laundry: 'none',
+          bedrooms: 'studio',
+          beds: '1 queen',
+          notableDetails: ['Dishwasher', 'Microwave', 'Coffee machine', 'No washer'],
+          maxGuests: 2,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-17',
+          freeCancellation: true,
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474092866.jpg?k=986634218fc93628f2d52c8ad8e3a29b81db08747371da66f9d861a5c1d8b08d&o=&hp=1',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189965.jpg?k=a1ac6798e4a3719fa5438391411cbdef0a325981cfbc98bfab15e33f982b7c31&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190876.jpg?k=0bf8d877adad096e225e7a29ecba7563c4954cff4b63fe1915d59ebeb1624df7&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189924.jpg?k=f6bc9bfa3cddb6d9cb4f07cdbea582d310f2fd408b1666ad328b1468dcf1e440&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190855.jpg?k=92365936f9794a339dd266c65b7b6ab546cecdf6e1eb00aa01b9022375ca7506&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/776498811.jpg?k=2a119953b7bbddf5930209b7647fbc8768f8ce454a0b3393388c55066df1e7e5&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/661109556.jpg?k=7d7491adf7e5bde8284076ec70438306ea3e6af3213510cad13bd4cdc7fa68ea&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/776498791.jpg?k=07e75cd098fe54f38964b4659f88d054ea091fbfcbc036384397ce8ebd079516&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/493260152.jpg?k=86cec665b63c61873842dbf2335b5640a0d8aee6c1337e986de09f5b5dff477d&o=',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/493260204.jpg?k=8116818e0cf15afc814f321af727752f8042d3ad152ba3da0d6b7c142306aa1d&o=',
+          ],
+        },
+        // Junker's Apartments — surfaced as Card 3 in #salzburg-picks (full-kitchen
+        // backup if Chabad meals can't be arranged). Moved up here so it's still
+        // visible early in the filter/grid view.
+        {
+          name: "Junker's Apartments",
+          url: 'https://www.booking.com/hotel/at/junkers-appartments.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/221346620.webp?k=cf7d95a5626dc200e5d713cbfcf5178c20086fc6ce1292547b7a2ab635163644&o=',
+          review: '9.6 · Exceptional · 389 reviews',
+          pricePerNight:
+            '€194 / night (₪771) — €387 / 2 nights, full kitchen, free cancel until Jul 19, 2026',
+          note: '40m² apartment with full kitchen (coffee machine, fridge, dishwasher), 1 king bed. Adults-only, soundproofed, hypoallergenic bedding, free bikes, free private parking. Nonntal-Morzg side, 1.9 km from Old Town, 3.5 km from Chabad — NOT walkable for Shabbat services. Highest-scored full-kitchen apartment in Salzburg. Pick this if "cook our own Shabbat" is the plan AND skipping Chabad services is acceptable.',
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          walkToChabadMin: 35,
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 king (sofa bed available)',
+          notableDetails: [
+            'Full kitchen',
+            'Adults-only',
+            'Soundproofed',
+            'Free bikes',
+            'Free private parking',
+            'NOT walkable to Chabad',
+          ],
           maxGuests: 3,
           kitchen: 'full',
           bath: 'private',
           ac: false,
-          parking: 'street',
+          parking: 'free',
           wifi: true,
           viewType: 'garden',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
           photos: [
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/221346620.jpg?k=3037d0239b0c4b87fe4f820beac9aec5866a3d1fdcf2da49b402ec44c82a1f11&o=&hp=1',
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/505565494.jpg?k=9f3d9deecc8eeb200b94f7a9dc3e60be71d2aa72b320bd957003584dbb86bff7&o=&hp=1',
@@ -4588,6 +4692,9 @@ export const LODGING_COORDS: Record<string, LatLng> = {
   'Hotel Gabi (Wals)': { lat: 47.795, lng: 13.0025 }, // 2.8 km from SZG
   'Landhaus Grünau': { lat: 47.79, lng: 12.99 }, // 3.4 km from SZG
   'Hapimag Ferienwohnungen Salzburg (old town fallback)': { lat: 47.8164, lng: 13.0014 }, // ~5 km from SZG, old town
+  // SALZBURG (Shabbat base) — Chabad-Shabbat plan picks added 2026-05-19 PM
+  'Bergland Hotel - Adults only': { lat: 47.8064, lng: 13.0494 }, // Rupertgasse 15, Schallmoos — 4-min walk to Chabad (Linzer Gasse 76)
+  'Villa Flöckner Bed & Breakfast': { lat: 47.8113, lng: 13.052 }, // Jahnstraße 13, Elisabeth-Vorstadt
   // --- legacy / archived coords below (kept for pullable archives) ---
   // SALZBURG (Shabbat base) — Linzergasse / Andräviertel / Altstadt / Schallmoos
   'master Linzergasse': { lat: 47.8049, lng: 13.0476 }, // Linzergasse, Andräviertel

@@ -1040,14 +1040,17 @@ function getDaySegments(): DaySegment[] {
 }
 
 function getRouteAnchors(): Record<string, [number, number]> {
-  const linz = LODGING_COORDS['master Linzergasse'];
+  // Salzburg primary pick swapped to Bergland Hotel 2026-05-19 PM (Chabad-Shabbat
+  // plan locked). Falls back to master Linzergasse coord if Bergland missing.
+  const salzburgPrimary =
+    LODGING_COORDS['Bergland Hotel - Adults only'] ?? LODGING_COORDS['master Linzergasse'];
   const zellLodging = LODGING_COORDS['Aparthotel Zell am See'];
   const gosauLodging = LODGING_COORDS['Der Ulmenhof (Gosau)'];
   const airportLodging = LODGING_COORDS['Landhaus Grünau'];
   const airport = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
   return {
     airport: airport ? [airport.lat, airport.lng] : [47.7933, 13.0043],
-    salzburg: linz ? [linz.lat, linz.lng] : [47.8049, 13.0476],
+    salzburg: salzburgPrimary ? [salzburgPrimary.lat, salzburgPrimary.lng] : [47.8064, 13.0494],
     zell: zellLodging ? [zellLodging.lat, zellLodging.lng] : [47.3252, 12.795],
     gosau: gosauLodging ? [gosauLodging.lat, gosauLodging.lng] : [47.5856, 13.5286],
     airportApt: airportLodging ? [airportLodging.lat, airportLodging.lng] : [47.79, 12.99],

@@ -137,7 +137,7 @@ interface PlaceRow {
 // SLEEP_LABEL[d.sleepWhere] is `undefined` and rendering breaks. Deprecated
 // values are still listed so archived data still renders gracefully.
 const SLEEP_LABEL: Record<Day['sleepWhere'], string> = {
-  salzburg: 'Salzburg (Linzergasse)',
+  salzburg: 'Salzburg (Bergland Hotel — 4-min to Chabad)',
   'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
   gosau: 'Gosau (Der Ulmenhof)',
   'salzburg-airport': 'Salzburg airport-side (Landhaus Grünau)',

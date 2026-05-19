@@ -71,6 +71,8 @@ interface LeafletBounds {
 // ---------------------------------------------------------------------------
 const COORDS: Record<string, [number, number]> = {
   // === SALZBURG ===
+  'Bergland Hotel - Adults only': [47.8064, 13.0494], // Rupertgasse 15, Schallmoos (4-min walk to Chabad)
+  'Villa Flöckner Bed & Breakfast': [47.8113, 13.052], // Jahnstraße 13, Elisabeth-Vorstadt
   'master Linzergasse': [47.8056, 13.0464],
   "Junker's Apartments": [47.811, 13.022],
   Sauerweingut: [47.7944, 13.0357],

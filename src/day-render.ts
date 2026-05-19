@@ -48,7 +48,7 @@ function renderMetaChips(day: Day): string {
   // Updated 2026-05-19 for v4 4-base restructure. Deprecated keys still
   // mapped so any old data renders (fallback chain catches missing too).
   const sleepLabel: Record<string, string> = {
-    salzburg: 'Salzburg (Linzergasse)',
+    salzburg: 'Salzburg (Bergland Hotel — 4-min to Chabad)',
     'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
     gosau: 'Gosau (Der Ulmenhof)',
     'salzburg-airport': 'Salzburg airport-side (Landhaus Grünau)',
