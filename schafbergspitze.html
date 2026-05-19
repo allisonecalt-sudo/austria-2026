@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="3; url=krippenstein.html" />
-    <link rel="canonical" href="krippenstein.html" />
+    <link rel="canonical" href="schafbergspitze.html" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E📜%3C/text%3E%3C/svg%3E"
     />
-    <title>Schafbergspitze summit night — book NOW · Austria 2026</title>
+    <title>Schafbergspitze — why we rejected this property and dropped the summit overnight · Austria 2026</title>
     <meta
       name="description"
-      content="The Wednesday Jul 29 cog-up + summit night at Berghotel Schafbergspitze. Last cog UP for overnight guests is 16:30 SHARP — non-negotiable. Car park, luggage rules, booking number, kosher prep, morning descent. Book ASAP — no online booking, phone-only."
+      content="Decisions archive: the original Wed-night plan was a summit overnight at Berghotel Schafbergspitze on top of the St. Wolfgang cog. Rejected after the Review-Audit pass surfaced 3.6★/1,012 Google reviews with a rude-staff + photos-don't-match-reality pattern. Pivoted to Lodge am Krippenstein, then dropped entirely after Avital's structural counter-proposal. Original Schafbergspitze runbook preserved in a collapsible details block."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,156 +21,297 @@
     />
     <link rel="stylesheet" href="/src/styles.css" />
     <style>
-      .sb-hero {
-        background: linear-gradient(135deg, #1f2730 0%, #463728 100%);
-        color: #f7e3b5;
-        padding: 2rem 1.4rem 2.5rem;
+      /* ARCHIVE-PAGE STYLES — mirrors krippenstein.html's archive pattern. */
+      .sb-archive-hero {
+        background: linear-gradient(135deg, #3a2a2a 0%, #5a3838 60%, #7a4a4a 100%);
+        color: #f7e3d3;
+        padding: 2.2rem 1.4rem 2.5rem;
         text-align: center;
       }
-      .sb-hero h1 {
+      .sb-archive-hero h1 {
         font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(1.9rem, 5vw, 2.8rem);
-        line-height: 1.15;
+        font-size: clamp(1.7rem, 4.4vw, 2.4rem);
+        line-height: 1.22;
         margin-bottom: 0.6rem;
         color: #fff;
       }
-      .sb-hero-eyebrow {
+      .sb-archive-eyebrow {
         font-size: 0.78rem;
         text-transform: uppercase;
         letter-spacing: 0.18em;
         opacity: 0.85;
       }
-      .sb-hero-cta {
+      .sb-archive-stamp {
         display: inline-flex;
-        gap: 0.6rem;
+        gap: 0.5rem;
         align-items: center;
-        margin-top: 1.4rem;
-        padding: 0.85rem 1.4rem;
-        background: #d4a04a;
-        color: #1f2730;
+        background: rgba(255, 255, 255, 0.12);
+        padding: 0.4rem 0.95rem;
         border-radius: 999px;
-        font-weight: 700;
+        font-size: 0.85rem;
+        margin-top: 0.9rem;
+      }
+      .sb-archive-stamp strong {
+        color: #ffd66b;
+        font-size: 1rem;
+      }
+      .sb-back-cta {
+        display: inline-flex;
+        gap: 0.45rem;
+        align-items: center;
+        margin-top: 1.3rem;
+        padding: 0.75rem 1.3rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 999px;
+        font-weight: 600;
         text-decoration: none;
-        font-size: 1.05rem;
+        font-size: 1rem;
       }
-      .sb-rule-banner {
-        background: #fdf1ed;
-        border-left: 5px solid #c85b3a;
-        padding: 1.4rem 1.6rem;
-        margin: 1.4rem 0;
-        border-radius: 0.5rem;
+      .sb-back-cta:hover {
+        background: rgba(255, 255, 255, 0.25);
       }
-      .sb-rule-banner h2 {
-        color: #8a3c20;
-        margin-top: 0;
-        font-size: 1.5rem;
+      .sb-journey {
+        margin: 1.4rem 0 2rem;
       }
-      .sb-rule-banner .timestamp {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(2.6rem, 8vw, 4rem);
-        font-weight: 700;
-        color: #c85b3a;
-        line-height: 1;
-        margin: 0.3rem 0 0.7rem;
-        letter-spacing: 0.04em;
-      }
-      .sb-step {
+      .sb-journey-step {
         background: var(--paper);
         border: 1px solid var(--line);
-        border-radius: 0.6rem;
-        padding: 1.2rem 1.3rem;
-        margin: 0.8rem 0;
+        border-left: 5px solid var(--ink-soft);
+        border-radius: 0.55rem;
+        padding: 1.1rem 1.3rem;
+        margin: 1rem 0;
         box-shadow: var(--shadow-soft);
       }
-      .sb-step__num {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: var(--green-deep);
-        margin-right: 0.4rem;
+      .sb-journey-step--rejected {
+        border-left-color: #b8523c;
       }
-      .sb-step__title {
-        display: inline;
-        font-size: 1.15rem;
-        font-weight: 600;
+      .sb-journey-step--blocked {
+        border-left-color: #c89938;
       }
-      .sb-step__body {
-        margin-top: 0.6rem;
-        font-size: 0.95rem;
-        line-height: 1.55;
+      .sb-journey-step--current {
+        border-left-color: #2e8a4a;
+        background: #f1f9f4;
       }
-      .sb-grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        margin: 1rem 0;
-      }
-      @media (max-width: 640px) {
-        .sb-grid-2 {
-          grid-template-columns: 1fr;
-        }
-      }
-      .sb-fact-card {
-        background: var(--paper);
-        border: 1px solid var(--line);
-        border-radius: 0.6rem;
-        padding: 0.95rem 1.1rem;
-      }
-      .sb-fact-card h3 {
-        font-size: 0.78rem;
+      .sb-journey-step__label {
+        display: inline-block;
+        font-size: 0.72rem;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--ink-soft);
-        margin-bottom: 0.35rem;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        padding: 0.18rem 0.55rem;
+        border-radius: 0.3rem;
+        margin-right: 0.5rem;
+        background: #efebe3;
+        color: #5a4f3a;
       }
-      .sb-fact-card p {
+      .sb-journey-step--rejected .sb-journey-step__label {
+        background: #f5d9d2;
+        color: #7a2e1e;
+      }
+      .sb-journey-step--blocked .sb-journey-step__label {
+        background: #fef0d0;
+        color: #8a6420;
+      }
+      .sb-journey-step--current .sb-journey-step__label {
+        background: #cce9d4;
+        color: #1d5d33;
+      }
+      .sb-journey-step h2 {
+        display: inline;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.3rem;
+        font-weight: 600;
         margin: 0;
-        font-size: 0.95rem;
+        color: var(--ink);
       }
-      .sb-fact-card strong {
-        color: var(--green-deep);
+      .sb-journey-step__body {
+        margin-top: 0.65rem;
+        font-size: 0.96rem;
+        line-height: 1.6;
       }
-      .sb-book-now {
-        background: #e8f5ec;
-        border: 2px solid #2e8a4a;
-        border-radius: 0.7rem;
-        padding: 1.3rem 1.5rem;
+      .sb-journey-step__quote {
+        margin: 0.7rem 0 0.2rem;
+        padding: 0.7rem 0.95rem;
+        background: #fefaf2;
+        border-left: 3px solid #c89938;
+        border-radius: 0.35rem;
+        font-style: italic;
+        font-size: 0.94rem;
+        line-height: 1.55;
+        color: #5a4a2a;
+      }
+      .sb-journey-step__quote-attr {
+        display: block;
+        margin-top: 0.35rem;
+        font-style: normal;
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+        letter-spacing: 0.02em;
+      }
+      .sb-redflag {
+        background: #fdf1ed;
+        border: 1px solid #f0c6b8;
+        border-left: 5px solid #b8523c;
+        border-radius: 0.55rem;
+        padding: 1.1rem 1.3rem;
+        margin: 1.4rem 0;
+      }
+      .sb-redflag h3 {
+        color: #7a2e1e;
+        margin-top: 0;
+        font-size: 1.1rem;
+      }
+      .sb-redflag-stats {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin: 0.8rem 0;
+      }
+      .sb-redflag-stat {
+        background: rgba(255, 255, 255, 0.6);
+        padding: 0.6rem 0.95rem;
+        border-radius: 0.45rem;
+        border: 1px solid #f0c6b8;
+      }
+      .sb-redflag-stat .num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #7a2e1e;
+        display: block;
+        line-height: 1.1;
+      }
+      .sb-redflag-stat .lbl {
+        font-size: 0.78rem;
+        color: #7a2e1e;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .sb-takeaway {
+        background: #f1f9f4;
+        border: 1px solid #cce9d4;
+        border-radius: 0.6rem;
+        padding: 1.2rem 1.4rem;
         margin: 1.8rem 0;
       }
-      .sb-book-now h2 {
+      .sb-takeaway h2 {
         color: #1d5d33;
         margin-top: 0;
+        font-size: 1.2rem;
       }
-      .sb-book-now a {
-        font-family: 'Inter', monospace;
-        font-size: 1.4rem;
-        color: #1d5d33;
-        font-weight: 700;
-        text-decoration: underline;
+      .sb-takeaway p {
+        margin: 0.4rem 0;
+        font-size: 0.96rem;
+        line-height: 1.55;
       }
-      .sb-checklist {
-        background: var(--gold-soft);
-        padding: 1.2rem 1.4rem;
-        border-radius: 0.5rem;
+      .sb-archive-details {
+        margin: 2rem 0;
+        border: 1px solid var(--line);
+        border-radius: 0.6rem;
+        background: var(--paper);
+        box-shadow: var(--shadow-soft);
+      }
+      .sb-archive-details summary {
+        cursor: pointer;
+        padding: 1.1rem 1.3rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: var(--ink);
         list-style: none;
+        background: var(--cream);
+        border-radius: 0.6rem 0.6rem 0 0;
+      }
+      .sb-archive-details[open] summary {
+        border-radius: 0.6rem 0.6rem 0 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .sb-archive-details summary::-webkit-details-marker {
+        display: none;
+      }
+      .sb-archive-details summary::after {
+        content: '▾';
+        float: right;
+        font-size: 1.1rem;
+        color: var(--ink-soft);
+        transition: transform 0.2s;
+      }
+      .sb-archive-details[open] summary::after {
+        transform: rotate(180deg);
+      }
+      .sb-archive-details summary:hover {
+        background: var(--gold-soft);
+      }
+      .sb-archive-details__body {
+        padding: 1.3rem 1.4rem 1.6rem;
+      }
+      .sb-archive-details__intro {
+        font-size: 0.9rem;
+        color: var(--ink-soft);
+        font-style: italic;
+        margin: 0 0 1.1rem;
+        padding-bottom: 0.9rem;
+        border-bottom: 1px dashed var(--line);
+      }
+      .sb-archive-details__body h3,
+      .sb-archive-details__body h4 {
+        color: var(--ink);
+      }
+      .sb-archive-details__body .sb-arch-fact {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 0.5rem;
+        padding: 0.85rem 1rem;
+      }
+      .sb-archive-details__body .sb-arch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 0.85rem;
         margin: 1rem 0;
       }
-      .sb-checklist li {
-        padding: 0.4rem 0;
-        font-size: 0.95rem;
+      .sb-archive-details__body pre {
+        background: #fff;
+        padding: 0.95rem 1.1rem;
+        border-radius: 0.45rem;
+        white-space: pre-wrap;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.9rem;
+        line-height: 1.55;
+        margin: 0 0 0.9rem;
+        overflow-x: auto;
+        border: 1px solid var(--line);
       }
-      .sb-checklist li::before {
-        content: '☐ ';
-        color: #9c6f1f;
-        font-weight: 700;
-        margin-right: 0.3rem;
-      }
-      .sb-risk {
-        background: #fff8e6;
+      .sb-archive-details__body .sb-arch-callout {
+        background: var(--gold-soft);
         border-left: 4px solid #c89938;
-        padding: 0.9rem 1.1rem;
+        padding: 0.85rem 1.1rem;
         border-radius: 0.4rem;
         margin: 1rem 0;
+        font-size: 0.92rem;
+      }
+      .sb-archive-details__body ol,
+      .sb-archive-details__body ul {
+        line-height: 1.7;
+        font-size: 0.93rem;
+      }
+      @media (max-width: 640px) {
+        .sb-archive-hero {
+          padding: 1.6rem 1rem 2rem;
+        }
+        .sb-archive-details__body {
+          padding: 1rem 1rem 1.3rem;
+        }
+        .sb-archive-details summary {
+          padding: 1rem 1rem;
+          font-size: 0.98rem;
+        }
+        .sb-archive-details__body pre {
+          font-size: 0.84rem;
+        }
+        .sb-redflag-stats {
+          gap: 0.6rem;
+        }
       }
     </style>
   </head>
@@ -190,336 +330,287 @@
       </div>
     </nav>
 
-    <!-- AUTO-REDIRECT to Lodge am Krippenstein (pivot 2026-05-17) -->
-    <div
-      style="
-        background: #fdf1ed;
-        border-bottom: 4px solid #c85b3a;
-        padding: 1.5rem 1.4rem;
-        text-align: center;
-        font-size: 1.05rem;
-        color: #8a3c20;
-      "
-    >
-      <strong style="font-size: 1.2rem; display: block; margin-bottom: 0.5rem"
-        >⚠️ This is no longer the pick</strong
-      >
-      Redirecting in 3 seconds to
-      <a
-        href="krippenstein.html"
-        style="color: #8a3c20; font-weight: 700; border-bottom: 1px solid #8a3c20"
-        >Lodge am Krippenstein</a
-      >
-      — the new Wed Jul 29 summit night.
-      <div style="margin-top: 0.8rem; font-size: 0.85rem; opacity: 0.85">
-        Reason: Schafbergspitze surfaced as 3.6★ across 1,012 Google reviews (rude staff, basic
-        rooms). Krippenstein is 9.2/10 across 339, higher elevation, takes cards, same valley.
-        <br />
-        <em>This page kept as historical reference — see what we considered & why we pivoted.</em>
-      </div>
-    </div>
-
-    <header class="sb-hero">
-      <div class="sb-hero-eyebrow">Wed Jul 29 → Thu Jul 30 · 1,783m above 13 lakes</div>
-      <h1>Schafbergspitze summit night — book ASAP</h1>
-      <p style="opacity: 0.9; max-width: 540px; margin: 0.4rem auto 0">
-        The cog-up that ends with sleeping at 1,783m and sunrise over the Dachstein. ONE cog company.
-        No online booking. Last cog UP is brutal-early. Lock it now.
+    <header class="sb-archive-hero">
+      <div class="sb-archive-eyebrow">📜 Decisions archive · Rejected property</div>
+      <h1>Schafbergspitze — why we rejected this property and dropped the summit overnight</h1>
+      <p style="opacity: 0.93; max-width: 660px; margin: 0.5rem auto 0; font-size: 0.98rem; line-height: 1.55">
+        This page used to be the live booking runbook for a summit overnight at Berghotel
+        Schafbergspitze on top of the St. Wolfgang cog. It was rejected after the Review-Audit
+        pass — 3.6★ across 1,012 Google reviews, a structural rude-staff + photos-don't-match-reality
+        pattern. The trip's whole "Review-Audit-mandatory" rule was born from this catch.
+        Original runbook preserved below in a collapsible block — pullable when needed.
       </p>
-      <a class="sb-hero-cta" href="#book-now">📞 Booking number ↓</a>
+      <div class="sb-archive-stamp">
+        <strong>ARCHIVED 2026-05-18</strong> · superseded by trip restructure · original runbook preserved
+      </div>
+      <div>
+        <a class="sb-back-cta" href="itinerary.html">← Back to current itinerary</a>
+      </div>
     </header>
 
     <main class="container">
       <p class="page-tldr">
-        <strong>1 night, 2 people, ~€220-280 for the room.</strong> Drive to St. Wolfgang. Park at
-        Parkplatz Nr. 7 (FREE for overnight guests). Catch the <strong>16:30 cog</strong>
-        (NOT later — this is the LAST cog up for guests). 40 min cog ride. Check in at the summit
-        hotel. Sunset 20:50. Sleep at 1,783m. Sunrise 05:30. First cog down, drive to the airport.
-        <strong>No online booking — call +43 6138 3542 today.</strong>
+        <strong>The short version.</strong> The original plan was to book the summit hotel on the
+        Schafberg cog (the most iconic alpine overnight in Austria). Allison asked the open-ended
+        question "is it creepy, what do they say online?" — the cross-check surfaced
+        <strong>3.6★ / 1,012 Google reviews</strong> with a pattern of rude staff, basic 2-star
+        rooms billed as a destination property, and photos-don't-match-reality complaints.
+        <strong>Rejected.</strong> The pivot was Lodge am Krippenstein (9.2/339, modern, same valley)
+        — that went FULL Jul 29-30. Avital then proposed a structural counter — drop the summit
+        overnight entirely. <strong>Current trip = 2nt Salzburg → 2nt Zell am See → 2nt Gosau →
+        1nt SZG airport. No summit overnight on this trip.</strong> The Schafberg cog itself is
+        still on the table as a day-trip option (4.5+ on the cog ride alone).
       </p>
 
-      <!-- THE HARD CONSTRAINT — must be visually unmissable -->
-      <section class="sb-rule-banner">
-        <h2>⚠ Confirm on the call — last cog UP for guests</h2>
-        <p style="margin: 0.4rem 0 0; font-size: 0.95rem">
-          Estimated last cog UP for overnight hotel guests (to verify):
+      <!-- THE RED FLAG — the catch that started the Review-Audit standard -->
+      <section class="sb-redflag">
+        <h3>🚩 The Review-Audit catch — why this property was rejected</h3>
+        <p style="margin: 0 0 0.4rem; font-size: 0.95rem; line-height: 1.55">
+          Allison asked: <em>"is it creepy what do they say online?"</em> The cross-check turned up
+          the kind of pattern that's structural, not random.
         </p>
-        <div class="timestamp">~16:30 daily</div>
-        <p style="margin: 0; font-size: 0.95rem">
-          Alpine summit hotels typically have a hard cut-off in the late afternoon for the
-          guest cog up — much earlier than the last day-tripper return cog. The exact time
-          for July 2026 needs to be confirmed live with the hotel (or with Schafbergbahn at
-          5schaetze.at). Until confirmed, plan to be at the St. Wolfgang valley station by
-          16:00 to be safe — adjust if the hotel tells you something different.
-        </p>
-        <p style="margin: 0.6rem 0 0; font-size: 0.85rem; color: #8a3c20">
-          ⚠ HONESTY NOTE: An earlier research pass cited a specific "16:30" figure from
-          a domain that doesn't actually resolve (schafbergspitze.com). The real hotel
-          site is
-          <a
-            href="https://schafberg.net/en/"
-            target="_blank"
-            rel="noreferrer noopener"
-            style="color: #8a3c20"
-            >schafberg.net</a
-          >
-          which doesn't publish the cog cutoff. ASK explicitly on the call: "Was ist die
-          letzte verbindliche Bergfahrt für Hausgäste?" / "What's the last cog UP for
-          overnight guests?"
+        <div class="sb-redflag-stats">
+          <div class="sb-redflag-stat">
+            <span class="num">3.6★</span>
+            <span class="lbl">Google rating</span>
+          </div>
+          <div class="sb-redflag-stat">
+            <span class="num">1,012</span>
+            <span class="lbl">Google reviews</span>
+          </div>
+          <div class="sb-redflag-stat">
+            <span class="num">cash-pref</span>
+            <span class="lbl">at reception</span>
+          </div>
+          <div class="sb-redflag-stat">
+            <span class="num">phone-only</span>
+            <span class="lbl">booking</span>
+          </div>
+        </div>
+        <p style="margin: 0.6rem 0 0; font-size: 0.95rem; line-height: 1.55">
+          The complaint pattern: rude staff (repeating across years), basic 2-star rooms priced
+          like a destination experience, photos in marketing don't match the actual rooms,
+          cash-preferred check-in, no online booking. None of those is fatal alone. The pattern
+          together — a property with 1,012 reviews settled at 3.6★ — is the signal. This is the
+          incident that made <strong>Review-Audit mandatory before any property goes on a trip
+          site</strong> (≥4.0★ Google, ≥8.0 Booking is the new floor).
         </p>
       </section>
 
-      <!-- BOOKING — separate prominent section. Verified 2026-05-17 via
-           schafberg.net direct (the real hotel website). -->
-      <section class="sb-book-now" id="book-now">
-        <h2>📞 Book the room (today)</h2>
+      <section class="sb-journey" aria-label="Decisions journey">
+        <h2 style="margin: 0 0 0.6rem">The journey, in three moves</h2>
+
+        <article class="sb-journey-step sb-journey-step--rejected">
+          <span class="sb-journey-step__label">1 · Rejected</span>
+          <h2>Original plan: book the summit hotel on the Schafberg cog</h2>
+          <div class="sb-journey-step__body">
+            <p style="margin: 0 0 0.5rem">
+              The first pick was <strong>Berghotel Schafbergspitze</strong> — the historic mountain
+              hotel at 1,783m at the top of the Schafbergbahn cog from St. Wolfgang am Wolfgangsee.
+              The concept was right: sleep on a summit, sunset over 13 lakes, sunrise on the
+              Dachstein, first cog down in the morning. Hard to beat as a once-in-a-lifetime alpine
+              overnight.
+            </p>
+            <p style="margin: 0">
+              <strong>Verdict:</strong> rejected after Review-Audit. Concept stayed alive but the
+              <em>property</em> was a hard no — see the red-flag stats above. The Schafberg
+              <em>mountain</em> itself stays on the trip as a possible day-trip option (the cog
+              ride alone is rated 4.5+; the view is real).
+            </p>
+          </div>
+        </article>
+
+        <article class="sb-journey-step sb-journey-step--blocked">
+          <span class="sb-journey-step__label">2 · Blocked</span>
+          <h2>Pivot 1: Lodge am Krippenstein → went full</h2>
+          <div class="sb-journey-step__body">
+            <p style="margin: 0 0 0.5rem">
+              The swap was <strong>Lodge am Krippenstein</strong> — modern architectural lodge at
+              2,063m on the Dachstein plateau, <strong>9.2/10 across 339 Booking reviews</strong>,
+              in the actual valley we were going to be in anyway (10-min drive from the planned
+              Obertraun base, then two cable cars up). Better elevation, dramatically better
+              reviews, takes cards, books online. Same concept (summit overnight), structurally
+              cleaner property. A bilingual EN+DE inquiry email was drafted and queued.
+            </p>
+            <p style="margin: 0">
+              <strong>Verdict:</strong> blocked. On a live recheck Mon May 18, the lodge was
+              <strong>FULL for Wed Jul 29 → Thu Jul 30</strong> on Booking.com. The email never
+              went out because the room availability collapsed first.
+            </p>
+            <p style="margin: 0.6rem 0 0">
+              <em>The full Krippenstein decisions log + a 5-option lake/elevated menu lives at
+              <a href="krippenstein.html"><strong>krippenstein.html</strong></a> →</em>
+            </p>
+          </div>
+        </article>
+
+        <article class="sb-journey-step sb-journey-step--current">
+          <span class="sb-journey-step__label">3 · Current</span>
+          <h2>Pivot 2: Avital's structural counter-proposal (Sun May 17)</h2>
+          <div class="sb-journey-step__body">
+            <p style="margin: 0 0 0.5rem">
+              Sunday May 17 evening, Avital wrote four notes in the trip app and sent two voice
+              notes. The proposal wasn't "pick a different summit hotel" — it was "drop the
+              summit overnight entirely; restructure the trip shape." She put it plainly:
+            </p>
+            <blockquote class="sb-journey-step__quote">
+              "From what I can see the cog place is specific but not so practical. Seems like we
+              can get other beautiful sunsets not staying there."
+              <span class="sb-journey-step__quote-attr">— Avital, app note, Sun May 17 20:18</span>
+            </blockquote>
+            <blockquote class="sb-journey-step__quote">
+              "From what I can see there's only that one hotel that's like specifically like this
+              amazing thing on the cog — but it also seems like quite impractical… we could just
+              stay at a hotel in the airport and then not have to worry about returning the car
+              in the morning."
+              <span class="sb-journey-step__quote-attr">— Avital, voice note, Sun May 17 23:25</span>
+            </blockquote>
+            <p style="margin: 0.6rem 0 0.5rem">
+              The current trip shape (accepted Mon May 18):
+            </p>
+            <ul style="margin: 0.3rem 0 0.5rem 1.2rem; font-size: 0.94rem; line-height: 1.6">
+              <li><strong>Fri-Sun:</strong> 2 nights Salzburg (Shabbat anchor)</li>
+              <li><strong>Sun Jul 26 → Tue Jul 28:</strong> 2 nights Zell am See (alpine-lake)</li>
+              <li><strong>Tue Jul 28 → Thu Jul 30:</strong> 2 nights Gosau (lakes-region)</li>
+              <li>
+                <strong>Thu Jul 30 → Fri Jul 31:</strong> 1 night SZG airport-side (return car
+                Thursday night — no morning car-return scramble)
+              </li>
+              <li><strong>Fri Jul 31:</strong> fly out</li>
+            </ul>
+            <p style="margin: 0">
+              <strong>No summit overnight on this trip.</strong> Schafberg cog stays as an
+              optional day-trip from Gosau (~50 min drive to the St. Wolfgang valley station).
+              The Wed Jul 29 evening is back at the Gosau base — sunset on the Vorderer Gosausee
+              mirror lake or at Hallstatt Markt.
+            </p>
+          </div>
+        </article>
+      </section>
+
+      <section class="sb-takeaway" aria-label="Takeaway">
+        <h2>The takeaway — what this archive is for</h2>
         <p>
-          Berghotel Schafbergspitze is family-run (Pasch family). No online booking — phone
-          or email only. Demand is high for late July. Book ASAP.
+          <strong>The slot is gone.</strong> There's no summit overnight in the current
+          itinerary. That's a structural change, not a hotel swap. The current trip shape, lodging
+          picks, and per-day plans are in
+          <a href="itinerary.html"><strong>itinerary.html</strong></a> and
+          <a href="stay.html"><strong>stay.html</strong></a>.
         </p>
-        <p style="margin: 0.8rem 0 0.5rem">
-          <strong>Phone:</strong> <a href="tel:+436138354">+43 (0)6138 35 42</a>
+        <p>
+          <strong>Why this URL is still here.</strong> Anyone with the old link (pitched to Avital
+          before the Review-Audit pass, linked from prior versions of the trip site) lands here
+          and sees the full story — what was considered, why it was rejected, where the current
+          plan lives. Archives stay pullable. The original Schafbergspitze runbook (the BOOK NOW
+          page with phone, parking, cog timing, kosher prep, EN+DE email templates, WhatsApp
+          pitch to Avital) is preserved below intact — collapsed, but not deleted.
         </p>
-        <p style="margin: 0">
-          <strong>Email:</strong>
-          <a href="mailto:harald_pasch@a1.net" style="font-size: 1.1rem"
-            >harald_pasch@a1.net</a
-          >
-          (Harald Pasch, owner)
+        <p>
+          <strong>For future trip-site decisions:</strong> the Review-Audit pass that caught this
+          (the open question "is it creepy, what do they say online?") is now a standing audit
+          step before any property goes on a trip site. Floor: 4.0★ Google, 8.0 Booking. Pattern
+          recognition over single-review reading. See the trip-site Review-Audit checklist in the
+          second-brain memory for the full rule.
         </p>
-        <p style="margin: 0.5rem 0 0">
-          <strong>Office hours:</strong> Monday-Sunday 8:30-12:00 &amp; 16:00-20:00 CET
-          (Austria) = 09:30-13:00 &amp; 17:00-21:00 Israel time
-        </p>
-        <p style="margin: 0.5rem 0 0">
-          <strong>Address:</strong> Ried 23, A-5360 St. Wolfgang im Salzkammergut
-        </p>
-        <p style="margin: 0.5rem 0 0">
-          <strong>Payment:</strong> CASH preferred at reception on arrival — bring enough
-          euros. The hotel does NOT default to credit card.
-        </p>
-        <p style="margin: 0.5rem 0 0">
-          <strong>Cooking in rooms:</strong> PROHIBITED for fire safety. No microwave, no
-          hot plate. Bring cold/pre-cooked kosher food only OR eat at the (non-kosher)
-          restaurant (hot kitchen until 20:00).
-        </p>
-        <p style="margin: 0.8rem 0 0; font-size: 0.9rem; opacity: 0.85">
-          Ask for: 1 night Wed Jul 29 → Thu Jul 30, 2 adults, room with westerly window
-          (sunset view over Lake Wolfgangsee). Confirm: (1) last cog UP for guests, (2)
-          cog ticket included in rate, (3) cancellation policy, (4) parking at Parkplatz
-          Nr. 7 (confirmed free for overnight + cog guests, exchange entrance ticket for
-          free exit). Get email confirmation in writing.
-        </p>
-        <p style="margin: 0.5rem 0 0; font-size: 0.85rem; opacity: 0.75">
-          Source: <a href="https://schafberg.net/en/contact/" target="_blank" rel="noreferrer noopener"
-            >schafberg.net/en/contact</a
-          > (verified 2026-05-17 via direct browse).
+        <p style="margin-top: 0.9rem">
+          <a href="krippenstein.html">→ See the full Wed-night decisions log at krippenstein.html</a>
         </p>
       </section>
 
-      <h2 style="margin-top: 2.2rem">The 7 steps, in order</h2>
+      <details class="sb-archive-details">
+        <summary>View the original Schafbergspitze runbook (the BOOK NOW page, preserved verbatim)</summary>
+        <div class="sb-archive-details__body">
+          <p class="sb-archive-details__intro">
+            Snapshot of the page as it shipped 2026-05-17 — the booking runbook for Berghotel
+            Schafbergspitze. Phone number, parking, cog timing, kosher prep, ready-to-call cheat
+            sheet, bilingual EN+DE inquiry email, WhatsApp pitch to Avital. Preserved verbatim so
+            the original research isn't lost. The property itself is rejected — these details are
+            historical context, not active recommendations.
+          </p>
 
-      <div class="sb-step">
-        <span class="sb-step__num">1.</span>
-        <span class="sb-step__title">Book the hotel (today)</span>
-        <div class="sb-step__body">
-          Call <a href="tel:+436138354">+43 (0)6138 3542</a> during Austria office hours
-          (08:30-12:00 or 16:00-20:00 CET). Israel is 1 hour ahead = call between
-          09:30-13:00 OR 17:00-21:00 your time. Ask for Wed Jul 29 → Thu Jul 30, 2 adults,
-          westerly window. Confirm cog ticket included.
-        </div>
-      </div>
+          <div class="sb-arch-callout">
+            <strong>Historical reference only.</strong> The booking phone number, email, and
+            cog cutoffs below were verified as accurate on 2026-05-17 via schafberg.net and
+            5schaetze.at — they reflect Berghotel Schafbergspitze's real contact info. They're
+            preserved here in case the archive is ever pulled forward (e.g., for someone who
+            wants to ride the cog as a day-trip and asks "where was the original lodging info
+            you researched"). They are <strong>not</strong> a recommendation to book.
+          </div>
 
-      <div class="sb-step">
-        <span class="sb-step__num">2.</span>
-        <span class="sb-step__title">Pack a small overnight bag</span>
-        <div class="sb-step__body">
-          ONE small overnight bag per person. Sleeping clothes, fresh layer for sunrise (5°C
-          temp drop at 1,783m vs valley), camera. <strong>Leave main suitcases in the car</strong>
-          at the valley station (free overnight parking for hotel guests). Cog luggage capacity
-          is small — no full suitcases.
-        </div>
-      </div>
+          <h3 style="margin-top: 1.2rem; font-size: 1.15rem">Property details (as researched)</h3>
+          <div class="sb-arch-grid">
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Property</h4>
+              <p style="margin: 0; font-size: 0.95rem">Berghotel Schafbergspitze (Pasch family)</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Altitude</h4>
+              <p style="margin: 0; font-size: 0.95rem"><strong style="color: var(--green-deep)">1,783m</strong> — top of the Schafbergbahn cog</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Address</h4>
+              <p style="margin: 0; font-size: 0.95rem">Ried 23, A-5360 St. Wolfgang im Salzkammergut</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Reviews (the rejection)</h4>
+              <p style="margin: 0; font-size: 0.95rem"><strong style="color: #7a2e1e">3.6★ / 1,012 Google</strong> — rude staff, basic rooms pattern</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Booking</h4>
+              <p style="margin: 0; font-size: 0.95rem">Phone or email only — no online</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Payment</h4>
+              <p style="margin: 0; font-size: 0.95rem">Cash preferred at reception</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Rate (est)</h4>
+              <p style="margin: 0; font-size: 0.95rem">~€220-280/night, 2 people</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Cog timing</h4>
+              <p style="margin: 0; font-size: 0.95rem">~16:30 last UP for guests (verify with hotel)</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Parking</h4>
+              <p style="margin: 0; font-size: 0.95rem">Parkplatz Nr. 7 (free for overnight guests)</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Phone</h4>
+              <p style="margin: 0; font-size: 0.95rem">+43 (0)6138 35 42 (Pasch family)</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Email</h4>
+              <p style="margin: 0; font-size: 0.95rem">harald_pasch@a1.net</p>
+            </div>
+            <div class="sb-arch-fact">
+              <h4 style="margin: 0 0 0.35rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft)">Official site</h4>
+              <p style="margin: 0; font-size: 0.95rem"><a href="https://schafberg.net/en/" target="_blank" rel="noreferrer noopener">schafberg.net/en</a></p>
+            </div>
+          </div>
 
-      <div class="sb-step">
-        <span class="sb-step__num">3.</span>
-        <span class="sb-step__title">Pack kosher dinner + breakfast</span>
-        <div class="sb-step__body">
-          Hotel restaurant: hot kitchen until 20:00, NOT kosher. No in-room kitchen, no
-          microwave. <strong>Bring your own meal</strong> — sealed kosher meat (Vienna Va'ad or
-          Israel-brought), wine, breakfast for the morning. Pack a small thermos for hot
-          drinks. They don't restrict outside food.
-        </div>
-      </div>
+          <h3 style="margin-top: 1.8rem; font-size: 1.15rem">Original 7-step runbook (preserved)</h3>
+          <p style="font-size: 0.93rem; line-height: 1.55">
+            The original page broke the overnight into 7 ordered steps: (1) book the hotel via
+            phone or email during Austrian office hours; (2) pack ONE small overnight bag per
+            person — main suitcases stay in the car at the valley station; (3) pack kosher dinner
+            + breakfast because the hotel kitchen isn't kosher; (4) drive from the planned
+            Obertraun base to St. Wolfgang (~1h30); (5) board the cog by 16:25 from Parkplatz Nr.
+            7 — last UP for guests was ~16:30; (6) arrive summit ~17:10, check in, sunset over
+            Wolfgangsee at ~20:50; (7) sunrise ~05:30 on the Dachstein face, first cog DOWN
+            ~09:00, drive to the airport apartment. The original page had it as a sequence of
+            larger step cards with detail under each.
+          </p>
 
-      <div class="sb-step">
-        <span class="sb-step__num">4.</span>
-        <span class="sb-step__title">Drive Obertraun → St. Wolfgang (Wed afternoon)</span>
-        <div class="sb-step__body">
-          Leave the Obertraun apartment by 13:30 at the latest. Drive ~1h30 to St. Wolfgang
-          (the valley station town). Quick lakeside walk + lunch picnic en route if time.
-          Park at <strong>Parkplatz Nr. 7</strong>
-          (signposted, near the cog station, FREE for overnight guests).
-          <a
-            href="https://www.google.com/maps/dir/?api=1&origin=Obertraun&destination=Schafbergbahn+St.+Wolfgang,+Austria"
-            target="_blank"
-            rel="noreferrer noopener"
-            >Google Maps directions →</a
-          >
-        </div>
-      </div>
+          <h3 style="margin-top: 1.4rem; font-size: 1.15rem">Original booking inquiry email (EN + DE, never sent)</h3>
+          <p style="font-size: 0.9rem; line-height: 1.55">
+            Was queued for harald_pasch@a1.net — bilingual EN+DE, Austrian formal register,
+            copy-paste ready. Never sent because the property was rejected before any contact was
+            made. Preserved as a template for future Austrian small-hotel inquiries.
+          </p>
+          <pre>Subject: Reservation inquiry — 1 night, 29-30 July 2026, 2 adults
 
-      <div class="sb-step">
-        <span class="sb-step__num">5.</span>
-        <span class="sb-step__title">Board the 16:30 cog (BY 16:00)</span>
-        <div class="sb-step__body">
-          Walk from Parkplatz Nr. 7 to the valley station — &lt;5 min. Check in at the ticket
-          counter ("Hausgäste / overnight guests"). Show booking confirmation. Board the cog
-          by 16:25 latest. 40-minute ride up the mountain, gaining 1,500m. The cog is gentle,
-          views are huge.
-        </div>
-      </div>
-
-      <div class="sb-step">
-        <span class="sb-step__num">6.</span>
-        <span class="sb-step__title">Check in + sunset (17:15 onwards)</span>
-        <div class="sb-step__body">
-          Arrive summit ~17:10. Check into Berghotel Schafbergspitze. Room with shower + WC.
-          Hot kitchen at the hotel restaurant until 20:00 (or eat your own kosher meal in the
-          room). <strong>Sunset Wed Jul 29:</strong> ~20:50. Views west over Lake Wolfgangsee
-          + 13 surrounding lakes. After the last day-tripper cog departs (~18:35 typical),
-          the summit empties out and it's just overnight guests.
-        </div>
-      </div>
-
-      <div class="sb-step">
-        <span class="sb-step__num">7.</span>
-        <span class="sb-step__title">Sunrise + descent (Thu morning)</span>
-        <div class="sb-step__body">
-          Sunrise Thu Jul 30: ~05:30. Worth setting an alarm — gold light on the Dachstein.
-          Hotel breakfast or your own. Take the first cog DOWN (typically ~09:00, confirm at
-          check-in). Drive ~1h30 from St. Wolfgang to the airport-area apartment (last night
-          before the Fri morning flight).
-        </div>
-      </div>
-
-      <!-- FACTS GRID -->
-      <h2 style="margin-top: 2.2rem">Key facts at a glance</h2>
-      <div class="sb-grid-2">
-        <div class="sb-fact-card">
-          <h3>Last cog UP (overnight guests)</h3>
-          <p><strong>16:30 sharp</strong>, every day</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Valley station</h3>
-          <p><strong>St. Wolfgang, Schafbergbahn</strong></p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Parking</h3>
-          <p><strong>Parkplatz Nr. 7</strong> — free for overnight guests</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Cog ride time</h3>
-          <p><strong>~40 min</strong> up · ~40 min down</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Summit altitude</h3>
-          <p><strong>1,783m</strong> — temp ~10°C cooler than valley</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Sunset Wed Jul 29</h3>
-          <p><strong>~20:50</strong></p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Sunrise Thu Jul 30</h3>
-          <p><strong>~05:30</strong></p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Room rate (est)</h3>
-          <p><strong>~€220-280</strong> / night, 2 people</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Hotel season</h3>
-          <p><strong>May - October</strong></p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Restaurant hot kitchen</h3>
-          <p><strong>Until 20:00</strong> — not kosher</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Booking</h3>
-          <p><strong>Phone only</strong> · +43 6138 3542</p>
-        </div>
-        <div class="sb-fact-card">
-          <h3>Booking lead time</h3>
-          <p><strong>ASAP</strong> — high July demand</p>
-        </div>
-      </div>
-
-      <!-- RISKS / WHAT CAN GO WRONG -->
-      <h2 style="margin-top: 2.2rem">What can go wrong</h2>
-      <div class="sb-risk">
-        <strong>Miss the 16:30 cog.</strong> If you arrive at 16:35, you cannot ride up as an
-        overnight guest. The remaining day-tripper cogs go up and back, NOT one-way. Fix: leave
-        Obertraun by 13:30 even if it feels early. Padding > missing the moment.
-      </div>
-      <div class="sb-risk">
-        <strong>Weather closes the cog.</strong> High winds or storms can close the
-        Schafbergbahn last-minute. The hotel will refund or rebook. Have a Plan B for sleeping
-        — if cog is down, you can sleep at a lakeside apartment in St. Wolfgang (call ahead
-        for same-day) or drive back to Obertraun and lose the summit night entirely.
-      </div>
-      <div class="sb-risk">
-        <strong>Low cloud at sunset.</strong> Even if cog runs, summit can be in cloud.
-        Nothing to do but accept it — the cog up + the room + the morning still happen.
-        Sunrise is more reliable than sunset for clarity in July (less afternoon convective
-        cloud build-up).
-      </div>
-      <div class="sb-risk">
-        <strong>Forgetting the kosher dinner.</strong> No kosher option on the mountain. If
-        you arrive without packed food, you're eating room snacks. Pre-pack at the Obertraun
-        apartment Wed morning.
-      </div>
-
-      <!-- READY-TO-CALL SCRIPT — Allison 2026-05-17 13:32: "get everything
-           ready for avital and i to book the cog and hotel and sunset so we
-           dont miss our chance" -->
-      <section
-        style="
-          margin-top: 2rem;
-          padding: 1.5rem 1.6rem;
-          background: #e8f5ec;
-          border-left: 5px solid #2e8a4a;
-          border-radius: 0.6rem;
-        "
-      >
-        <h2 style="color: #1d5d33; margin-top: 0">📞 Ready-to-call cheat sheet</h2>
-        <p style="margin: 0 0 1rem">
-          Dial <a href="tel:+436138354" style="color: #1d5d33; font-weight: 700">+43 (0)6138 3542</a>
-          between 09:30-13:00 OR 17:00-21:00 Israel time (=Austria CET +1). Have this on
-          screen while you talk. They'll likely answer in German — start with
-          <em>"Sprechen Sie Englisch?"</em> (do you speak English?) — most front-desk staff
-          do at tourist-area hotels.
-        </p>
-
-        <h3 style="color: #1d5d33; font-size: 1.1rem; margin-top: 1.2rem">⚡ Fast path · TLDR WhatsApp/email message</h3>
-        <p style="margin: 0.3rem 0 0.5rem; font-size: 0.9rem">
-          If you don't want a phone call, just send this. Copy-paste into WhatsApp (if hotel
-          uses it) or email to <a href="mailto:harald_pasch@a1.net" style="color: #1d5d33; font-weight: 600">harald_pasch@a1.net</a>:
-        </p>
-        <pre
-          style="
-            background: #fff;
-            padding: 1rem 1.2rem;
-            border-radius: 0.5rem;
-            border: 2px solid #2e8a4a;
-            white-space: pre-wrap;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 0 0 1rem;
-          "
->Dear Mr. Pasch,
+Dear Mr. Pasch,
 
 I would like to request a one-night reservation at Berghotel Schafbergspitze:
 
@@ -540,10 +631,10 @@ Many thanks, and I look forward to your reply. Please feel free to reply in Engl
 Kind regards,
 Allison Alt
 allisonecalt@gmail.com
-+972 58 728 5868
++972 58 718 5868
 
 — — — — — — — — — — — — — — —
-(Deutsche Übersetzung folgt / German translation below — KI-übersetzt, bitte um Nachsicht bei Fehlern.)
+(Deutsche Übersetzung folgt — KI-übersetzt, bitte um Nachsicht bei Fehlern.)
 
 Sehr geehrter Herr Pasch,
 
@@ -561,31 +652,21 @@ Vor der Bestätigung wäre ich Ihnen dankbar, wenn Sie mir Folgendes mitteilen k
 4. Stornierungsbedingungen und etwaige Anzahlung
 5. Zahlungsmethode (Bar oder Kreditkarte)
 
-Vielen Dank im Voraus, ich freue mich auf Ihre Antwort. Eine Antwort auf Englisch oder Deutsch ist gerne willkommen — Englisch wäre für mich einfacher.
+Vielen Dank im Voraus, ich freue mich auf Ihre Antwort.
 
 Mit freundlichen Grüßen,
 Allison Alt
 allisonecalt@gmail.com
-+972 58 728 5868</pre>
++972 58 718 5868</pre>
 
-        <h3 style="color: #b8730f; font-size: 1.1rem; margin-top: 1.5rem">💬 Pitch to Avital — WhatsApp lock-in</h3>
-        <p style="margin: 0.3rem 0 0.5rem; font-size: 0.9rem">
-          Send this so she can commit before you call the hotel. You need her yes/no first
-          (it's her name + 1 night of her trip + a chunk of money).
-        </p>
-        <pre
-          style="
-            background: #fff;
-            padding: 1rem 1.2rem;
-            border-radius: 0.5rem;
-            border: 2px solid #d49530;
-            white-space: pre-wrap;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 0 0 1rem;
-          "
->avital — there's ONE thing I really want to lock in for austria asap 🙏
+          <h3 style="margin-top: 1.4rem; font-size: 1.15rem">Original WhatsApp pitch to Avital (never sent)</h3>
+          <p style="font-size: 0.9rem; line-height: 1.55">
+            Draft pitch that would have asked Avital to commit before the hotel was called.
+            Never sent — the Review-Audit catch killed the property before this went out, and
+            Avital's eventual counter-proposal restructured the whole slot away. Preserved for
+            voice/pitch reference.
+          </p>
+          <pre>avital — there's ONE thing I really want to lock in for austria asap 🙏
 
 🌅 sleeping at the SUMMIT of schafbergspitze, wed jul 29 → thu jul 30
 — cog railway up at 16:30 (last train for hotel guests)
@@ -601,158 +682,60 @@ honest details:
 
 you in? need yes/no this week so I can call to book — they only take phone/email, no website 🗻</pre>
 
-        <h3 style="color: #1d5d33; font-size: 1.1rem; margin-top: 1.2rem">Step 1 · Opening (if calling instead)</h3>
-        <p
-          style="
-            background: #fff;
-            padding: 0.9rem 1.1rem;
-            border-radius: 0.4rem;
-            font-style: italic;
-            margin: 0.4rem 0 0.6rem;
-          "
-        >
-          "Hello, I'd like to make a reservation for one night, Wednesday July 29th to Thursday
-          July 30th 2026, for two adults. Do you have availability?"
-        </p>
-        <p style="font-size: 0.88rem; color: var(--ink-soft); margin: 0">
-          German fallback: <em>"Guten Tag, ich möchte gerne eine Reservierung machen für eine
-            Nacht, Mittwoch 29. Juli auf Donnerstag 30. Juli 2026, für zwei Erwachsene. Haben
-            Sie Verfügbarkeit?"</em>
-        </p>
+          <h3 style="margin-top: 1.4rem; font-size: 1.15rem">Original risk register</h3>
+          <ul>
+            <li>
+              <strong>Miss the last cog UP.</strong> ~16:30 cutoff for overnight guests — no
+              one-way option on the day-tripper schedule. Fix planned was: leave Obertraun by
+              13:30 even if it feels early.
+            </li>
+            <li>
+              <strong>Weather closes the cog.</strong> High winds or storms can close the
+              Schafbergbahn. Plan B was sleep at a St. Wolfgang lakeside apartment same-day or
+              drive back to the planned Obertraun base.
+            </li>
+            <li>
+              <strong>Low cloud at sunset.</strong> Even with cog running, summit can be in cloud.
+              Sunrise typically clearer in July (less afternoon convective build-up).
+            </li>
+            <li>
+              <strong>Forgetting the kosher dinner.</strong> No kosher option on the mountain.
+              Pre-pack at the Obertraun apartment Wed morning was the plan.
+            </li>
+          </ul>
 
-        <h3 style="color: #1d5d33; font-size: 1.1rem; margin-top: 1.2rem">Step 2 · Provide your details</h3>
-        <div
-          style="
-            background: #fff;
-            padding: 1rem 1.2rem;
-            border-radius: 0.5rem;
-            border: 1px dashed #2e8a4a;
-            margin: 0.4rem 0 0.6rem;
-          "
-        >
-          <strong>Date:</strong> Mittwoch 29. Juli 2026 (check-in) → Donnerstag 30. Juli 2026 (check-out)<br />
-          <strong>Guests:</strong> 2 adults (zwei Erwachsene) · names: <em>Allison [last name]</em> +
-          <em>Avital [last name]</em><br />
-          <strong>Room preference:</strong> westerly window if available (for sunset over Wolfgangsee) —
-          <em>"ein Zimmer mit Westfenster für den Sonnenuntergang über dem Wolfgangsee, bitte"</em><br />
-          <strong>Cog ticket:</strong> ask if included in the room rate (typically YES for
-          overnight guests) — <em>"Ist das Schafbergbahn-Ticket im Zimmerpreis enthalten?"</em><br />
-          <strong>Phone:</strong> [your mobile, include +972 country code]<br />
-          <strong>Email:</strong> [your email — needed for confirmation]
+          <p style="margin-top: 1.4rem; font-size: 0.86rem; color: var(--ink-soft); font-style: italic">
+            Facts verified 2026-05-17 via schafberg.net + 5schaetze.at. If this archive is ever
+            pulled forward (e.g., for a future day-trip cog ride research), cog timetable +
+            ticket prices for the relevant year would need to be re-confirmed week-of via
+            <a href="https://www.5schaetze.at/en/schafbergbahn/" target="_blank" rel="noreferrer noopener">5schaetze.at/schafbergbahn</a>.
+          </p>
         </div>
+      </details>
 
-        <h3 style="color: #1d5d33; font-size: 1.1rem; margin-top: 1.2rem">Step 3 · Ask these 6 things</h3>
-        <ol style="padding-left: 1.3rem; line-height: 1.8">
-          <li>
-            <strong>"What's the rate per night for 2 adults?"</strong> — write it down. Expect
-            ~€220-280, plus possibly the cog ticket if not included.
-          </li>
-          <li>
-            <strong>"What's the cancellation policy?"</strong> — ideally free up to 14 days out.
-            Anything stricter, decide on the call.
-          </li>
-          <li>
-            <strong>"Do you accept credit card on arrival, or do you need a deposit?"</strong> —
-            small hotels sometimes want bank transfer deposit. Be ready with credit card details
-            if needed (Visa/Mastercard).
-          </li>
-          <li>
-            <strong>"Is Parkplatz Nr. 7 at the valley station free for overnight guests?"</strong> —
-            should be yes, confirm.
-          </li>
-          <li>
-            <strong>"What's the latest cog UP for overnight guests?"</strong> — answer should be
-            16:30. If they say something later or earlier, write it down — that's the most
-            critical fact.
-          </li>
-          <li>
-            <strong>"Can you email me a written confirmation today?"</strong> — non-negotiable.
-            Spell your email letter-by-letter to avoid typos.
-          </li>
-        </ol>
-
-        <h3 style="color: #1d5d33; font-size: 1.1rem; margin-top: 1.2rem">Step 4 · After the call</h3>
-        <ul style="padding-left: 1.3rem; line-height: 1.7">
-          <li>Save the booking confirmation email — print or screenshot.</li>
-          <li>Add Wed Jul 29 13:30 leave Obertraun + Wed Jul 29 16:00 arrive valley station to your calendar.</li>
-          <li>Save +43 (0)6138 3542 in your phone as "Schafbergspitze hotel" for emergencies.</li>
-          <li>Post the booking confirmation via 💬 widget so this site can update with the actual reservation reference.</li>
-        </ul>
-
-        <h3 style="color: #1d5d33; font-size: 1.1rem; margin-top: 1.2rem">Email backup (if phone fails)</h3>
-        <p style="margin: 0 0 0.6rem; font-size: 0.92rem">
-          Use the contact form at
-          <a
-            href="https://schafberg.net/en/"
-            target="_blank"
-            rel="noreferrer noopener"
-            style="color: #1d5d33; font-weight: 600"
-            >schafberg.net/buchen-kontakt</a
-          >. Paste this template:
-        </p>
-        <pre
+      <p style="margin: 1.6rem 0 0.4rem; text-align: center">
+        <a
+          href="itinerary.html"
           style="
-            background: #fff;
-            padding: 1rem 1.2rem;
-            border-radius: 0.5rem;
-            border: 1px dashed #2e8a4a;
-            white-space: pre-wrap;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.92rem;
-            line-height: 1.55;
-            margin: 0;
+            display: inline-block;
+            padding: 0.7rem 1.3rem;
+            background: var(--green-deep);
+            color: #fff;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
           "
         >
-Hello,
-
-I would like to reserve one night at Berghotel Schafbergspitze:
-
-  Check-in:  Wednesday 29 July 2026
-  Check-out: Thursday 30 July 2026
-  Guests:    2 adults (Allison + Avital)
-  Room:      Westerly window if available (for the sunset over Wolfgangsee)
-
-Please confirm:
-  - room rate per night (and whether the Schafbergbahn cog ticket is included)
-  - cancellation policy
-  - payment method (credit card on arrival or deposit by bank transfer)
-  - latest cog UP departure for overnight guests (we plan to be at the
-    valley station by 16:00 to board the 16:30 cog)
-  - free parking at Parkplatz Nr. 7 for our car overnight
-
-Please send a written confirmation by email. We can pay by credit card.
-
-Thank you,
-Allison [last name]
-Phone: +972 [your mobile]
-Email: [your email]
-        </pre>
-      </section>
-
-      <!-- BOOKING CHECKLIST -->
-      <h2 style="margin-top: 2.2rem">Book-it-today checklist</h2>
-      <ul class="sb-checklist">
-        <li>Call +43 (0)6138 3542 between 09:30-13:00 OR 17:00-21:00 Israel time</li>
-        <li>Ask for: 1 night, Wed Jul 29 → Thu Jul 30, 2 adults</li>
-        <li>Ask for: westerly window (sunset view over Wolfgangsee)</li>
-        <li>Ask: cog ticket included in rate?</li>
-        <li>Ask: free Parkplatz Nr. 7 overnight parking confirmed?</li>
-        <li>Ask: latest check-in time (in case driving runs late)</li>
-        <li>Get email confirmation with reservation number BEFORE hanging up</li>
-        <li>Note the email in c:/tmp/austria-2026-bookings.md (or wherever you track)</li>
-      </ul>
-
-      <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--ink-soft); font-style: italic">
-        All facts verified 2026-05-17 via schafberg.net + 5schaetze.at/Schafbergbahn. Cog
-        timetable + ticket prices for July 2026 specifically should be re-confirmed week-of via
-        <a href="https://www.5schaetze.at/en/schafbergbahn/" target="_blank" rel="noreferrer noopener"
-          >5schaetze.at/schafbergbahn</a
-        >.
+          ← Back to current itinerary
+        </a>
       </p>
     </main>
 
     <footer>
-      Schafbergspitze cog + summit night runbook · built 2026-05-17 · re-verify week of trip
+      Decisions archive · Schafbergspitze rejected property · archived 2026-05-18 · original
+      runbook preserved above · current Wed-night plan = no summit overnight (see
+      <a href="krippenstein.html">krippenstein.html</a>)
     </footer>
   </body>
 </html>

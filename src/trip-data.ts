@@ -314,6 +314,10 @@ const IMG = {
     'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Werfen_-_Burg_Hohenwerfen_%281%29.JPG/1280px-Werfen_-_Burg_Hohenwerfen_%281%29.JPG',
   wolfgangsee:
     'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+  // Added 2026-05-19 — Day 3 hero was using IMG.wolfgangsee but the day is the
+  // Zell am See arrival, not St. Wolfgang. Real Zell am See lake-town photo.
+  zellAmSee:
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
   alpineSunset: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=85',
 };
 
@@ -325,6 +329,7 @@ const IMG_CREDIT = {
   gosausee: 'Wikimedia / Roman Klementschitz, CC BY-SA 3.0',
   werfen: 'Wikimedia / C.Stadler / Bwag, CC BY-SA 4.0',
   wolfgangsee: 'Wikimedia / C.Stadler / Bwag, CC BY-SA 4.0',
+  zellAmSee: 'Wikimedia / BestZeller, CC BY-SA 3.0',
   alpineSunset: 'Unsplash',
 };
 
@@ -510,9 +515,9 @@ export const TRIP: TripData = {
       dateLabel: 'Sunday Jul 26',
       headline: 'Havdalah on the road → Zell am See',
       hero: {
-        src: IMG.wolfgangsee,
+        src: IMG.zellAmSee,
         alt: 'Alpine lake town with peaks rising behind — Zell am See on the Pinzgau',
-        credit: IMG_CREDIT.wolfgangsee,
+        credit: IMG_CREDIT.zellAmSee,
       },
       generalIdea:
         "Slow Salzburg morning. Pack out after Havdalah / late checkout. Drive south to Zell am See (~90 km, ~1h20 via the Salzach valley B311). Check in at Aparthotel Zell am See — 2 nights here Sun-Tue, the alpine-lake first half of the week. Drop bags, walk to the Zeller See shore. The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk + sunset from the Esplanade promenade, 5 minutes from the apartment.",
@@ -555,7 +560,7 @@ export const TRIP: TripData = {
       headline: 'Full day Zell am See — peaks, glacier, or waterfalls',
       hero: {
         src: IMG.alpineSunset,
-        alt: 'High-alpine peaks above Zell am See — Schmittenhöhe ridge and Hohe Tauern',
+        alt: 'High-alpine peaks at golden hour — stock alpine sunset for the Zell am See full day',
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
@@ -1176,8 +1181,10 @@ export const TRIP: TripData = {
       pickFreeCancellation: true,
       pickFreeCancellationUntil: '2026-07-12',
       pickUrl: 'https://www.booking.com/hotel/at/aparthotel-zell-am-see.html',
+      // Fixed 2026-05-19 — pickImg was St. Wolfgang photo. This is a Zell am See
+      // lodging — match the place to the photo.
       pickImg:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
       pickReview: '9.2 · Wonderful · 408 reviews',
       pickPrice: '€396 / 2 nights (₪1,571) — Two-Bedroom with Mountain View, 63m², free cancel until Jul 12, 2026',
       pickWhy:
@@ -1206,8 +1213,10 @@ export const TRIP: TripData = {
       pickViewType: 'mountain',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-05-19',
+      // Fixed 2026-05-19 — pickPhotos was St. Wolfgang photo. Now uses Zell am
+      // See lake-town photo (Wikimedia BestZeller CC BY-SA 3.0).
       pickPhotos: [
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
       ],
       alts: [
         {
