@@ -421,8 +421,8 @@ export const TRIP: TripData = {
   // both €160/nt. Airport pick Best Western Walserberg €105→€71/nt (price DROPPED).
   // Standard pick recomputed: keep master Linzergasse (Allison hasn't unlocked it) + swap
   // mountain to Austrian Apartments. Cheapest viable scenario also surfaced in costs.html.
-  totalCostEur: 3686, // was 3330; +€356 from lodging spike
-  totalCostNis: 14620, // was 13209; +₪1,411 from lodging spike
+  totalCostEur: 3599, // was 3686; −€87 from Aparthotel Zell am See price correction (€483→€396) re-verified 2026-05-19
+  totalCostNis: 14275, // was 14620; −₪345 from same Aparthotel correction
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target (NOT updated; this is the target, not the actual)
   peakMoment: {
     day: 'Tuesday Jul 28',
@@ -1179,9 +1179,9 @@ export const TRIP: TripData = {
       pickImg:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG/1280px-St._Wolfgang_im_Salzkammergut_-_Ortsansicht.JPG',
       pickReview: '9.2 · Wonderful · 408 reviews',
-      pickPrice: '€483 / 2 nights (₪1,918) — Two-Bedroom Apartment with View, 63m², free cancel until Jul 12, 2026',
+      pickPrice: '€396 / 2 nights (₪1,571) — Two-Bedroom with Mountain View, 63m², free cancel until Jul 12, 2026',
       pickWhy:
-        '63m² Two-Bedroom Apartment with View — Bedroom 1: 1 king / Bedroom 2: 2 twin beds / Living room: 1 sofa bed. 2 separate rooms (Avital-Allison friends-not-couple constraint passes cleanly). 408 reviews is the deepest review base of any qualifying Zell pick. Full kitchen + free parking + Imbachhornstraße 17 (2.8 km from downtown). Cheapest 2-bedroom Zell option found in the broad search.',
+        '63m² Two-Bedroom with Mountain View — Bedroom 1: 1 king / Bedroom 2: 2 twin beds / Living room: 1 sofa bed. 2 separate rooms (Avital-Allison friends-not-couple constraint passes cleanly). 408 reviews is the deepest review base of any qualifying Zell pick. Full kitchen with an actual oven + free parking + Imbachhornstraße 17 (2.8 km from downtown). Cheapest 2-bedroom Zell option found in the broad search. Price re-verified live on Booking 2026-05-19 — corrected from earlier €483 figure (drift caught by fact-checker pass).',
       pickBudgetTier: 'mid-high',
       pickPlatform: 'booking',
       pickVibeTag: 'in-town',
@@ -1408,16 +1408,16 @@ export const TRIP: TripData = {
       pickReview: '9.7 · Exceptional · 1,562 reviews',
       pickPrice: '€207 / night (₪822) — Double Room (1 queen) + breakfast, free cancel + pay-at-property',
       pickWhy:
-        '9.7 / 1,562 reviews — the highest review count of any high-scoring airport-area property, most statistically reliable pick. 2.7 km from SZG (closest of the strong candidates). Free cancellation + pay-at-property. Breakfast included. All 5 of the previous airport-block candidates (Best Western Walserberg 7.5, Hotel Astoria 8.1, B&B Salzburg-Nord 8.1, Hey Lou Piding 8.2, Landhotel Berger 8.5) failed the 8.5 floor; Hapimag passes but is in old town not airport-side. Villa Verde wins on every dimension.',
+        '9.7 / 1,562 reviews — the highest review count + highest score of any qualifying airport-area property, most statistically reliable pick. ~5 km from SZG, sits near Salzburg Old Town side (not airport-closest — that title belongs to Hotel Gabi at 1.5 km, framing corrected 2026-05-19 fact-check). Free cancellation + pay-at-property. Breakfast included. Old Town vibes if you want one Salzburg evening pre-flight. Trade: a bit further from the terminal than Gabi or Grünau. See the 3-card comparison on Stay → Airport for side-by-side.',
       pickBudgetTier: 'standard',
       pickPlatform: 'booking',
-      pickDriveToAirportMin: 5,
+      pickDriveToAirportMin: 10,
       pickLaundry: 'none',
       pickBedrooms: 1,
       pickBeds: '1 queen',
       pickNotableDetails: [
         '9.7 / 1,562 reviews',
-        '2.7 km from SZG',
+        '~5 km from SZG · Old Town side',
         'Breakfast included',
         'Free cancel + pay-at-property',
       ],
@@ -1440,14 +1440,14 @@ export const TRIP: TripData = {
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
           review: '9.5 · Exceptional · 1,140 reviews',
           pricePerNight: '€265 / night (₪1,052) — Double Room (1 queen) + breakfast',
-          note: '2.8 km from SZG. Same Wals zone as the Best Western that was previously the airport pick. 9.5 / 1,140 reviews. Free cancellation + pay-at-property. Solid second choice if Villa Verde is full.',
+          note: '**1.5 km from SZG — the actual closest airport hotel** (km figure corrected 2026-05-19 fact-check; was previously 2.8). Same Wals zone as the Best Western that was previously the airport pick. 9.5 / 1,140 reviews. Free cancellation + pay-at-property. Best for the Thursday-night car-drop logic per Avital.',
           budgetTier: 'standard',
           platform: 'booking',
-          driveToAirportMin: 6,
+          driveToAirportMin: 3,
           laundry: 'none',
           bedrooms: 1,
           beds: '1 queen',
-          notableDetails: ['Same zone as old Best Western pick', '1,140 reviews', 'Free cancel'],
+          notableDetails: ['1.5 km from SZG — closest', '1,140 reviews', 'Free cancel'],
           maxGuests: 2,
           kitchen: 'none',
           bath: 'private',
@@ -1466,7 +1466,7 @@ export const TRIP: TripData = {
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
           review: '9.5 · Exceptional · 585 reviews',
           pricePerNight: '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast',
-          note: '3.4 km from SZG. Cheapest of the strong picks. 9.5 / 585 reviews. Free cancellation + pay-at-property. Slightly farther from the airport than Villa Verde + Hotel Gabi but cheaper.',
+          note: '3.4 km from SZG. **Cheapest of the gold-stamped picks — €89 less than Gabi, €31 less than Villa Verde.** 9.5 / 585 reviews. Free cancellation + pay-at-property. Slightly farther from the airport than Gabi but still convenient for a 06:15 morning drop.',
           budgetTier: 'standard',
           platform: 'booking',
           driveToAirportMin: 7,
