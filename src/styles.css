@@ -7358,7 +7358,15 @@ details.note-item[open] .note-summary-preview {
 .moment-map-dot--obertraun {
   background: #2f6e4f;
 }
+/* v4 (2026-05-19) — Zell am See replaces the old Obertraun anchor pin. */
+.moment-map-dot--zell-am-see {
+  background: #2f6e4f;
+}
 .moment-map-dot--summit {
+  background: #c89938;
+}
+/* v4 (2026-05-19) — Gosau replaces the old summit pin (no more overnight). */
+.moment-map-dot--gosau {
   background: #c89938;
 }
 .moment-map-dot--airport {
@@ -7387,6 +7395,10 @@ details.note-item[open] .note-summary-preview {
 .moment-map-pin--obertraun {
   background: #2f6e4f;
 }
+/* v4 (2026-05-19) — Zell am See replaces the old Obertraun anchor pin. */
+.moment-map-pin--zell-am-see {
+  background: #2f6e4f;
+}
 .moment-map-pin--summit {
   background: #c89938;
   width: 22px;
@@ -7395,6 +7407,10 @@ details.note-item[open] .note-summary-preview {
     0 0 0 3px rgba(200, 153, 56, 0.25),
     0 1px 3px rgba(0, 0, 0, 0.4),
     0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+/* v4 (2026-05-19) — Gosau replaces the old summit pin (no overnight there). */
+.moment-map-pin--gosau {
+  background: #c89938;
 }
 .moment-map-pin--airport {
   background: #6b2d8a;
@@ -9301,10 +9317,22 @@ details.note-item[open] .note-summary-preview {
 .bstrip-card--obertraun .bstrip-card__topbar {
   background: #4a7a4a;
 }
+/* v4 (2026-05-19) — Zell am See replaces obertraun base topbar. */
+.bstrip-card--zell-am-see .bstrip-card__topbar {
+  background: #4a7a4a;
+}
+/* v4 (2026-05-19) — Gosau is the second alpine base (was the summit slot). */
+.bstrip-card--gosau .bstrip-card__topbar {
+  background: linear-gradient(90deg, #4a7a4a 0%, #2f6e4f 100%);
+}
 .bstrip-card--summit .bstrip-card__topbar {
   background: linear-gradient(90deg, #6d4f8b 0%, #b08ad0 100%);
 }
 .bstrip-card--airport .bstrip-card__topbar {
+  background: #4d6680;
+}
+/* v4 — Allow either airport class name. */
+.bstrip-card--salzburg-airport .bstrip-card__topbar {
   background: #4d6680;
 }
 .bstrip-card__body {
@@ -9397,10 +9425,20 @@ details.note-item[open] .note-summary-preview {
 .day-strip-card--hallstatt .day-strip-basebar {
   background: #4a7a4a;
 }
+/* v4 (2026-05-19) — Zell am See + Gosau active base classes. */
+.day-strip-card--zell-am-see .day-strip-basebar {
+  background: #4a7a4a;
+}
+.day-strip-card--gosau .day-strip-basebar {
+  background: linear-gradient(90deg, #4a7a4a 0%, #2f6e4f 100%);
+}
 .day-strip-card--schafbergspitze .day-strip-basebar {
   background: linear-gradient(90deg, #6d4f8b 0%, #b08ad0 100%);
 }
 .day-strip-card--airport .day-strip-basebar {
+  background: #4d6680;
+}
+.day-strip-card--salzburg-airport .day-strip-basebar {
   background: #4d6680;
 }
 
@@ -9430,12 +9468,28 @@ details.note-item[open] .note-summary-preview {
   color: #2e5a2e;
   border-color: rgba(74, 122, 74, 0.4);
 }
+/* v4 (2026-05-19) — active Zell + Gosau + salzburg-airport basetags. */
+.day-strip-basetag--zell-am-see {
+  background: rgba(74, 122, 74, 0.16);
+  color: #2e5a2e;
+  border-color: rgba(74, 122, 74, 0.4);
+}
+.day-strip-basetag--gosau {
+  background: rgba(47, 110, 79, 0.16);
+  color: #225a3a;
+  border-color: rgba(47, 110, 79, 0.4);
+}
 .day-strip-basetag--schafbergspitze {
   background: rgba(109, 79, 139, 0.16);
   color: #5b3a82;
   border-color: rgba(109, 79, 139, 0.4);
 }
 .day-strip-basetag--airport {
+  background: rgba(77, 102, 128, 0.16);
+  color: #38516e;
+  border-color: rgba(77, 102, 128, 0.4);
+}
+.day-strip-basetag--salzburg-airport {
   background: rgba(77, 102, 128, 0.16);
   color: #38516e;
   border-color: rgba(77, 102, 128, 0.4);

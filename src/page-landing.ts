@@ -1,4 +1,4 @@
-import { TRIP, LODGING_COORDS, NATURE_COORDS, STANDALONE_POIS } from './trip-data.js';
+import { TRIP, LODGING_COORDS, STANDALONE_POIS } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
 
@@ -48,21 +48,23 @@ function getLeaflet(): MiniLeaflet | undefined {
   return (window as unknown as { L?: MiniLeaflet }).L;
 }
 
-// Anchors for the moment-3 preview map. Each is one of the 4 bases (or
-// the airport). Coords pulled from trip-data.ts so the map of the trip
-// and the preview can never drift out of sync.
-//   - Salzburg base: master Linzergasse (Shabbat apartment, also adjacent
-//     to Chabad).
-//   - Obertraun anchor: Haus Edelweiss (Obertraun, 4-night mountain base).
-//   - Summit: Schafbergspitze (locked Wed-night summit overnight; the
-//     nature destination coord IS the hotel because it's at the summit).
-//   - Airport: Salzburg W. A. Mozart Airport (SZG) from STANDALONE_POIS.
+// Anchors for the moment-3 preview map. Each is one of the 4 bases.
+// Coords pulled from trip-data.ts so the map of the trip and the preview
+// can never drift out of sync.
+//   - Salzburg base: master Linzergasse (Shabbat apartment, adjacent to Chabad).
+//   - Zell am See: Aparthotel Zell am See (2-nt alpine-lake first half).
+//   - Gosau: Der Ulmenhof (2-nt lakes-region second half).
+//   - Airport: Landhaus Grünau (1-nt pre-flight; near SZG terminal).
+//
+// v4 restructure 2026-05-19: replaced Obertraun + Schafbergspitze summit
+// (dropped from the trip when Avital counter-proposed the Zell+Gosau shape)
+// with the new Zell + Gosau bases.
 //
 // If any coord is missing (shouldn't happen — trip-data.ts is canonical),
 // we surface a console.warn (fail-loud rule) and skip the pin rather than
 // silently hide it.
 interface ShapeAnchor {
-  key: 'salzburg' | 'obertraun' | 'summit' | 'airport';
+  key: 'salzburg' | 'zell-am-see' | 'gosau' | 'airport';
   label: string;
   sub: string;
   latLng: [number, number] | null;
@@ -70,34 +72,42 @@ interface ShapeAnchor {
 
 function getShapeAnchors(): ShapeAnchor[] {
   const salzburgLodging = LODGING_COORDS['master Linzergasse'];
-  const obertraunLodging = LODGING_COORDS['Haus Edelweiss (Obertraun)'];
-  const summit = NATURE_COORDS['schafbergspitze'];
-  const airport = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
+  const zellLodging = LODGING_COORDS['Aparthotel Zell am See'];
+  const gosauLodging = LODGING_COORDS['Der Ulmenhof (Gosau)'];
+  const airportLodging = LODGING_COORDS['Landhaus Grünau'];
+  const airportPoi = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
+  // Prefer the actual airport-lodging coord; fall back to the airport POI
+  // if the lodging coord ever drifts out of the dataset.
+  const airportLatLng: [number, number] | null = airportLodging
+    ? [airportLodging.lat, airportLodging.lng]
+    : airportPoi
+      ? [airportPoi.lat, airportPoi.lng]
+      : null;
 
   const anchors: ShapeAnchor[] = [
     {
       key: 'salzburg',
       label: 'Salzburg',
-      sub: 'Shabbat',
+      sub: 'Shabbat · 2 nights',
       latLng: salzburgLodging ? [salzburgLodging.lat, salzburgLodging.lng] : null,
     },
     {
-      key: 'obertraun',
-      label: 'Obertraun',
-      sub: 'mountain anchor',
-      latLng: obertraunLodging ? [obertraunLodging.lat, obertraunLodging.lng] : null,
+      key: 'zell-am-see',
+      label: 'Zell am See',
+      sub: 'alpine lake · 2 nights',
+      latLng: zellLodging ? [zellLodging.lat, zellLodging.lng] : null,
     },
     {
-      key: 'summit',
-      label: 'Schafbergspitze',
-      sub: '1,783m summit',
-      latLng: summit ? [summit.lat, summit.lng] : null,
+      key: 'gosau',
+      label: 'Gosau',
+      sub: 'Salzkammergut · 2 nights',
+      latLng: gosauLodging ? [gosauLodging.lat, gosauLodging.lng] : null,
     },
     {
       key: 'airport',
       label: 'SZG airport',
-      sub: 'arrive + depart',
-      latLng: airport ? [airport.lat, airport.lng] : null,
+      sub: 'last sleep · 1 night',
+      latLng: airportLatLng,
     },
   ];
 
@@ -168,11 +178,14 @@ function initShapeMap(): void {
     ShapeAnchor['key'],
     [number, number]
   >;
+  // Route order matches the actual driving sequence: SZG → Salzburg →
+  // Zell → Gosau → SZG airport-side. Doubled SZG endpoint shows the loop
+  // close without lying about literal turn-by-turn (no OSRM call).
   const routeOrder: Array<ShapeAnchor['key']> = [
     'airport',
     'salzburg',
-    'obertraun',
-    'summit',
+    'zell-am-see',
+    'gosau',
     'airport',
   ];
   const routePts = routeOrder.map((k) => byKey[k]).filter((p): p is [number, number] => !!p);
@@ -286,10 +299,10 @@ function bindLanding(): void {
   }
 
   // Mini-map — moment 3 ("The shape of it"). Static-feeling preview of the
-  // 4-base geography: Salzburg / Obertraun / Schafbergspitze summit / SZG
-  // airport. Dragging + zoom disabled so it reads as a "shape" not an app —
-  // taps on legend or the "See full map →" CTA route to map.html for the
-  // real interactive experience.
+  // 4-base geography (v4 restructure 2026-05-19): Salzburg / Zell am See /
+  // Gosau / SZG airport-side. Dragging + zoom disabled so it reads as a
+  // "shape" not an app — taps on legend or the "See full map →" CTA route
+  // to map.html for the real interactive experience.
   initShapeMap();
 
   // Nav style switch — when hero is on-screen, nav is translucent over

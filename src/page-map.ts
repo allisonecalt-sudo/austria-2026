@@ -961,15 +961,16 @@ interface NoCoordEntry {
 
 // =====================================================================
 // Day-route polyline — 7-day shape, animated reveal.
-// Sequence + colour-by-day for the locked v1 itinerary:
-//   Fri  arrive SZG → Salzburg (Linzergasse)
-//   Sat  Salzburg (Shabbat — no drive)
-//   Sun  Salzburg → Obertraun, side-trip Gosausee
-//   Mon  Obertraun → Hallstatt + Krippenstein (local)
-//   Tue  Obertraun → Königssee (peak Bavaria day)
-//   Wed  Obertraun → St. Wolfgang → Schafbergspitze summit (sleep up)
-//   Thu  Schafberg → Werfen → airport apt
-//   Fri  airport apt → SZG (depart 5am)
+// v4 sequence (2026-05-19 restructure — Obertraun + Schafberg + Königssee
+// multi-day all dropped after Avital counter-proposal):
+//   Fri 24  arrive SZG → Salzburg (Linzergasse)
+//   Sat 25  Salzburg (Shabbat — no drive)
+//   Sun 26  Salzburg → Zell am See (~1h20)
+//   Mon 27  Zell area (Schmittenhöhe / Kitzsteinhorn / Krimml — local)
+//   Tue 28  Zell → Bad Ischl → Gosau (~1h45)
+//   Wed 29  Gosau → Hallstatt + Krippenstein day-trip (local)
+//   Thu 30  Gosau → Salzburg airport area
+//   Fri 31  airport apt → SZG (depart ~9am)
 // =====================================================================
 
 interface DaySegment {
@@ -983,89 +984,78 @@ interface DaySegment {
 function getDaySegments(): DaySegment[] {
   return [
     {
-      day: 'Fri arrive',
+      day: 'Fri 24 arrive',
       color: '#0033a0',
       fromKey: 'airport',
       toKey: 'salzburg',
       label: 'SZG → Salzburg · ~15 min',
     },
     {
-      day: 'Sun',
+      day: 'Sun 26',
       color: '#2f7a4f',
       fromKey: 'salzburg',
-      toKey: 'gosausee',
-      label: 'Salzburg → Gosausee · ~80 min',
+      toKey: 'zell',
+      label: 'Salzburg → Zell am See · ~1h20',
     },
+    // Mon 27 is a full local day from Zell — no inter-base drive. Optional
+    // day-trips (Schmittenhöhe / Kitzsteinhorn / Krimml) are <1h round-trip
+    // but live as activity pins, not a route segment. The polyline shape
+    // reads cleaner without the local-day loop.
     {
-      day: 'Sun pm',
-      color: '#2f7a4f',
-      fromKey: 'gosausee',
-      toKey: 'obertraun',
-      label: 'Gosausee → Obertraun · ~35 min',
-    },
-    {
-      day: 'Mon',
-      color: '#0aa39e',
-      fromKey: 'obertraun',
-      toKey: 'krippenstein',
-      label: 'Obertraun → Krippenstein 5fingers · local',
-    },
-    {
-      day: 'Tue',
+      day: 'Tue 28',
       color: '#2d6a8f',
-      fromKey: 'obertraun',
-      toKey: 'konigssee',
-      label: 'Obertraun → Königssee · ~1h15',
+      fromKey: 'zell',
+      toKey: 'gosau',
+      label: 'Zell → Gosau (via Bad Ischl) · ~1h45',
     },
     {
-      day: 'Wed',
+      day: 'Wed 29',
       color: '#b9892a',
-      fromKey: 'obertraun',
-      toKey: 'schafberg',
-      label: 'Obertraun → Schafbergspitze summit · cog up',
+      fromKey: 'gosau',
+      toKey: 'krippenstein',
+      label: 'Gosau → Krippenstein cable car · ~25 min',
     },
     {
-      day: 'Thu',
-      color: '#9b5fa5',
-      fromKey: 'schafberg',
-      toKey: 'werfen',
-      label: 'Schafberg → Werfen · ice cave',
+      day: 'Wed pm',
+      color: '#b9892a',
+      fromKey: 'krippenstein',
+      toKey: 'gosausee',
+      label: 'Krippenstein → Gosausee sunset · ~30 min',
     },
     {
-      day: 'Thu pm',
+      day: 'Thu 30',
       color: '#9b5fa5',
-      fromKey: 'werfen',
+      fromKey: 'gosau',
       toKey: 'airportApt',
-      label: 'Werfen → airport apt · ~1h',
+      label: 'Gosau → Salzburg airport area · ~1h20',
     },
     {
-      day: 'Fri depart',
+      day: 'Fri 31 depart',
       color: '#5d6d76',
       fromKey: 'airportApt',
       toKey: 'airport',
-      label: 'Airport apt → SZG · ~15 min',
+      label: 'Landhaus Grünau → SZG · ~10 min',
     },
   ];
 }
 
 function getRouteAnchors(): Record<string, [number, number]> {
   const linz = LODGING_COORDS['master Linzergasse'];
-  const edel = LODGING_COORDS['Haus Edelweiss (Obertraun)'];
-  const hapi = LODGING_COORDS['Hapimag Ferienwohnungen Salzburg'];
+  const zellLodging = LODGING_COORDS['Aparthotel Zell am See'];
+  const gosauLodging = LODGING_COORDS['Der Ulmenhof (Gosau)'];
+  const airportLodging = LODGING_COORDS['Landhaus Grünau'];
   const airport = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
   return {
     airport: airport ? [airport.lat, airport.lng] : [47.7933, 13.0043],
     salzburg: linz ? [linz.lat, linz.lng] : [47.8049, 13.0476],
-    obertraun: edel ? [edel.lat, edel.lng] : [47.5497, 13.6892],
-    airportApt: hapi ? [hapi.lat, hapi.lng] : [47.8164, 13.0014],
+    zell: zellLodging ? [zellLodging.lat, zellLodging.lng] : [47.3252, 12.795],
+    gosau: gosauLodging ? [gosauLodging.lat, gosauLodging.lng] : [47.5856, 13.5286],
+    airportApt: airportLodging ? [airportLodging.lat, airportLodging.lng] : [47.79, 12.99],
     gosausee: [NATURE_COORDS.gosausee.lat, NATURE_COORDS.gosausee.lng],
     krippenstein: [
       NATURE_COORDS['krippenstein-5fingers'].lat,
       NATURE_COORDS['krippenstein-5fingers'].lng,
     ],
-    konigssee: [NATURE_COORDS.konigssee.lat, NATURE_COORDS.konigssee.lng],
-    schafberg: [NATURE_COORDS.schafbergspitze.lat, NATURE_COORDS.schafbergspitze.lng],
-    werfen: [NATURE_COORDS['eisriesenwelt-werfen'].lat, NATURE_COORDS['eisriesenwelt-werfen'].lng],
   };
 }
 
