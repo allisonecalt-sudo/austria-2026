@@ -37,13 +37,7 @@ import type { NatureDestination, MapPOI, LatLng, Lodging } from './trip-data.js'
 // Shared item shape — every search result + every recommendation uses it.
 // =====================================================================
 
-export type SearchType =
-  | 'lodging'
-  | 'place'
-  | 'activity'
-  | 'sunset'
-  | 'jewish'
-  | 'shabbat';
+export type SearchType = 'lodging' | 'place' | 'activity' | 'sunset' | 'jewish' | 'shabbat';
 
 export interface SearchItem {
   id: string;
@@ -270,13 +264,9 @@ function indexLodgings(): SearchItem[] {
         img: pick.img,
         location: baseLabel,
         description: oneLine(pick.note),
-        tags: [
-          cfg.id,
-          pick.budgetTier ?? '',
-          pick.vibeTag ?? '',
-          'alt-base',
-          'apartment',
-        ].filter(Boolean) as string[],
+        tags: [cfg.id, pick.budgetTier ?? '', pick.vibeTag ?? '', 'alt-base', 'apartment'].filter(
+          Boolean,
+        ) as string[],
         weight: 65,
       });
     }
@@ -302,13 +292,7 @@ function indexLodgings(): SearchItem[] {
       img: stay.img,
       location: stayLocation,
       description: oneLine(stay.pitch),
-      tags: [
-        stay.region,
-        'summit',
-        'sunset-stay',
-        'splurge',
-        stay.status,
-      ],
+      tags: [stay.region, 'summit', 'sunset-stay', 'splurge', stay.status],
       weight: 90, // summit nights are heavily marketed picks
     });
   }
@@ -379,7 +363,8 @@ const WATER_ACTIVITIES: IndexedActivity[] = [
     name: 'Saalach River rafting — Lofer classic',
     where: 'Saalach River, Lofer',
     region: 'salzburg-area',
-    blurb: 'Tara-tier whitewater rafting on the Austrian-Bavarian border. Family-friendly Class II-III, ~€55-65pp.',
+    blurb:
+      'Tara-tier whitewater rafting on the Austrian-Bavarian border. Family-friendly Class II-III, ~€55-65pp.',
     url: 'water-activities.html#saalach-lofer-classic',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Saalach_River_Lofer.jpg/1280px-Saalach_River_Lofer.jpg',
     tags: ['rafting', 'whitewater', 'family', 'salzburg-area', 'lofer'],
@@ -390,7 +375,7 @@ const WATER_ACTIVITIES: IndexedActivity[] = [
     name: 'Königssee silent electric boat',
     where: 'Königssee, Schönau am Königssee',
     region: 'berchtesgaden',
-    blurb: 'The trip\'s peak moment — silent boat to St. Bartholomä, returning at sunset.',
+    blurb: "The trip's peak moment — silent boat to St. Bartholomä, returning at sunset.",
     url: 'water-activities.html#konigssee-electric-boat',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg/1280px-Nationalpark_Berchtesgaden_K%C3%B6nigssee_St._Bartholom%C3%A4_Watzmann-Ostwand_01.jpg',
     tags: ['boat', 'electric-boat', 'berchtesgaden', 'sunset', 'locked', 'peak'],
@@ -402,7 +387,8 @@ const WATER_ACTIVITIES: IndexedActivity[] = [
     name: 'Hallstättersee — kayak + SUP rental',
     where: 'Hallstättersee, Obertraun + Hallstatt',
     region: 'salzkammergut',
-    blurb: 'Glassy mountain-lake paddling. ~€18/hr SUP, €25/hr double kayak. Walk-up rentals at the lakefront.',
+    blurb:
+      'Glassy mountain-lake paddling. ~€18/hr SUP, €25/hr double kayak. Walk-up rentals at the lakefront.',
     url: 'water-activities.html#hallstattersee-kayak-sup',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
     tags: ['kayak', 'sup', 'paddleboard', 'salzkammergut', 'hallstatt', 'lake'],
@@ -426,7 +412,8 @@ const WATER_ACTIVITIES: IndexedActivity[] = [
     name: 'Attersee sailing + electric boat',
     where: 'Attersee, Nußdorf am Attersee',
     region: 'salzkammergut',
-    blurb: 'Largest entirely-Austrian lake. Quietest sails of the trip. Boat rentals ~€30/hr at Nußdorf.',
+    blurb:
+      'Largest entirely-Austrian lake. Quietest sails of the trip. Boat rentals ~€30/hr at Nußdorf.',
     url: 'water-activities.html#attersee-sailing',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg/1280px-Attersee_am_Attersee%2C_zicht_op_der_Attersee_foto3_2017-08-11_17.16.jpg',
     tags: ['sailing', 'boat', 'salzkammergut', 'attersee', 'lake', 'quiet'],
@@ -438,7 +425,8 @@ const WATER_ACTIVITIES: IndexedActivity[] = [
     name: 'Hintersee electric boat + paddle boats',
     where: 'Hintersee, Ramsau bei Berchtesgaden',
     region: 'berchtesgaden',
-    blurb: 'Mirror lake paddle boats + small electric boats. ~€10/hr. Painters\' lake — same view as Caspar David Friedrich studied.',
+    blurb:
+      "Mirror lake paddle boats + small electric boats. ~€10/hr. Painters' lake — same view as Caspar David Friedrich studied.",
     url: 'water-activities.html#hintersee-paddle',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Hintersee_-_Hochkalter.jpg/1280px-Hintersee_-_Hochkalter.jpg',
     tags: ['paddle-boat', 'electric-boat', 'berchtesgaden', 'hintersee', 'mirror', 'quiet'],
@@ -448,19 +436,21 @@ const WATER_ACTIVITIES: IndexedActivity[] = [
 ];
 
 function indexActivities(): SearchItem[] {
-  return WATER_ACTIVITIES.map((a): SearchItem => ({
-    id: `activity-${a.id}`,
-    type: 'activity',
-    name: a.name,
-    description: a.blurb,
-    url: a.url,
-    img: a.img,
-    location: a.where,
-    category: 'Water activity',
-    tags: a.tags,
-    coords: a.coords,
-    weight: a.weight,
-  }));
+  return WATER_ACTIVITIES.map(
+    (a): SearchItem => ({
+      id: `activity-${a.id}`,
+      type: 'activity',
+      name: a.name,
+      description: a.blurb,
+      url: a.url,
+      img: a.img,
+      location: a.where,
+      category: 'Water activity',
+      tags: a.tags,
+      coords: a.coords,
+      weight: a.weight,
+    }),
+  );
 }
 
 // =====================================================================
@@ -518,23 +508,22 @@ function indexSunsets(): SearchItem[] {
 function indexJewish(): SearchItem[] {
   return STANDALONE_POIS.filter(
     (p: MapPOI) => p.category === 'jewish' || p.category === 'chabad',
-  ).map((p: MapPOI): SearchItem => ({
-    id: `jewish-${p.id}`,
-    type: 'jewish',
-    name: p.name,
-    description: p.description,
-    url: p.link ?? `jewish-sights.html#${p.id}`,
-    location: p.category === 'chabad' ? 'Salzburg · Shabbat home' : 'Salzburg',
-    category: p.category === 'chabad' ? 'Chabad' : 'Jewish heritage',
-    tags: [
-      'jewish',
-      'heritage',
-      p.category,
-      p.id === 'mauthausen' ? 'memorial' : '',
-    ].filter(Boolean) as string[],
-    coords: { lat: p.lat, lng: p.lng },
-    weight: p.category === 'chabad' ? 95 : 65,
-  }));
+  ).map(
+    (p: MapPOI): SearchItem => ({
+      id: `jewish-${p.id}`,
+      type: 'jewish',
+      name: p.name,
+      description: p.description,
+      url: p.link ?? `jewish-sights.html#${p.id}`,
+      location: p.category === 'chabad' ? 'Salzburg · Shabbat home' : 'Salzburg',
+      category: p.category === 'chabad' ? 'Chabad' : 'Jewish heritage',
+      tags: ['jewish', 'heritage', p.category, p.id === 'mauthausen' ? 'memorial' : ''].filter(
+        Boolean,
+      ) as string[],
+      coords: { lat: p.lat, lng: p.lng },
+      weight: p.category === 'chabad' ? 95 : 65,
+    }),
+  );
 }
 
 // =====================================================================
@@ -553,7 +542,8 @@ const SHABBAT_ANCHORS: Array<{ id: string; name: string; blurb: string; tags: st
   {
     id: 'chabad-salzburg',
     name: 'Chabad Salzburg — the primary play',
-    blurb: 'Rabbi Menachem + Chani · Linzergasse 76 · meals + davening · 3-min walk from apartment.',
+    blurb:
+      'Rabbi Menachem + Chani · Linzergasse 76 · meals + davening · 3-min walk from apartment.',
     tags: ['shabbat', 'chabad', 'meals', 'minyan', 'kosher'],
   },
   {
@@ -583,17 +573,19 @@ const SHABBAT_ANCHORS: Array<{ id: string; name: string; blurb: string; tags: st
 ];
 
 function indexShabbat(): SearchItem[] {
-  return SHABBAT_ANCHORS.map((s): SearchItem => ({
-    id: `shabbat-${s.id}`,
-    type: 'shabbat',
-    name: s.name,
-    description: s.blurb,
-    url: `shabbat.html#${s.id}`,
-    location: 'Salzburg',
-    category: 'Shabbat',
-    tags: s.tags,
-    weight: 75,
-  }));
+  return SHABBAT_ANCHORS.map(
+    (s): SearchItem => ({
+      id: `shabbat-${s.id}`,
+      type: 'shabbat',
+      name: s.name,
+      description: s.blurb,
+      url: `shabbat.html#${s.id}`,
+      location: 'Salzburg',
+      category: 'Shabbat',
+      tags: s.tags,
+      weight: 75,
+    }),
+  );
 }
 
 // =====================================================================
@@ -778,13 +770,14 @@ export function buildRecommendations(): RecommendationGroup[] {
     },
     {
       title: 'Top 5 nature destinations',
-      blurb: 'The breathtaking shortlist — sunset-worthy, walk-friendly, locked-day favorites first.',
+      blurb:
+        'The breathtaking shortlist — sunset-worthy, walk-friendly, locked-day favorites first.',
       type: 'place',
       items: topPlaces,
     },
     {
       title: 'Top 3 water activities',
-      blurb: 'Königssee silent boat is the trip\'s peak moment. Other two are off-day options.',
+      blurb: "Königssee silent boat is the trip's peak moment. Other two are off-day options.",
       type: 'activity',
       items: topActivities,
     },

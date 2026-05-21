@@ -152,7 +152,7 @@ const V4_CARDS: V4BaseCard[] = [
     nearby: [
       'Schmittenhöhe peak (2,000m, cable car)',
       'Kitzsteinhorn glacier at Kaprun (3,029m, snow in July)',
-      'Krimml Waterfalls (Austria\'s tallest, 380m)',
+      "Krimml Waterfalls (Austria's tallest, 380m)",
       'Zeller See — lake swim from the Strandbad',
     ],
   },
@@ -163,7 +163,7 @@ const V4_CARDS: V4BaseCard[] = [
     pitch:
       'Right next to the Vorderer Gosausee — the Dachstein-mirror lake that anchors so many of the trip photos. Hallstatt is 20 min north, the Krippenstein cable-car valley station is 25 min, and the Schafberg cog (sunset day-trip option, NOT overnight) is about 50 min back west.',
     whyHere:
-      "Lakes-region anchor for the second half. Der Ulmenhof €513 total for 2 nights — 2026-05-19 verified. Gosausee is a 5-min walk from the apartment. Hallstatt + Dachstein-Krippenstein cluster is here. Schafberg cog is reachable as a day-trip but not the centerpiece — cable car at Krippenstein gets the headliner sunset day-trip.",
+      'Lakes-region anchor for the second half. Der Ulmenhof €513 total for 2 nights — 2026-05-19 verified. Gosausee is a 5-min walk from the apartment. Hallstatt + Dachstein-Krippenstein cluster is here. Schafberg cog is reachable as a day-trip but not the centerpiece — cable car at Krippenstein gets the headliner sunset day-trip.',
     dayShape:
       'Tue afternoon arrival → Gosausee loop + lakeside sunset. Wed = pick ONE day-trip headliner (Krippenstein cable car + 5 Fingers OR Hallstatt village + Skywalk OR Schafberg cog as a sunset day-trip) and pair with a slower second pick. Thu AM pack out, ~1h20 SW to airport hotel.',
     driveNotes: [
@@ -189,7 +189,7 @@ const V4_CARDS: V4BaseCard[] = [
     pitch:
       "Last night near SZG so the Friday 08:55 LY5194 is a quiet 10-min drive instead of a panicked dash. Landhaus Grünau €176 — 3.4 km from the terminal, free parking, free cancellation. Drop the rental car Thursday night per Avital's logic (no morning-of return scramble).",
     whyHere:
-      "Avital's specific logistics idea (voice note Sun May 17, 23:25): \"return the car Thursday night... we could just stay at a hotel in the airport and then not have to worry about returning the car in the morning.\" Friday morning we walk/cab the 3.4 km to the gate.",
+      'Avital\'s specific logistics idea (voice note Sun May 17, 23:25): "return the car Thursday night... we could just stay at a hotel in the airport and then not have to worry about returning the car in the morning." Friday morning we walk/cab the 3.4 km to the gate.',
     dayShape:
       'Thu afternoon drive from Gosau (~1h20) → check in → return rental car to airport Thursday evening → quick airport-area dinner. Fri AM 06:30 wake → 06:55 at gate (2-hr international check-in) → fly TLV.',
     driveNotes: [
@@ -239,9 +239,7 @@ function renderV4Card(c: V4BaseCard): string {
           <a href="stay.html"><strong>Stay page</strong></a> for the full lodging hub.
         </p>`;
 
-  const driveList = c.driveNotes
-    .map((n) => `<li>${escapeHtml(n)}</li>`)
-    .join('');
+  const driveList = c.driveNotes.map((n) => `<li>${escapeHtml(n)}</li>`).join('');
   const nearList = c.nearby.map((n) => `<li>${escapeHtml(n)}</li>`).join('');
 
   return `

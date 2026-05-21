@@ -59,7 +59,9 @@ function clearLegacyState(): void {
 
 function bankruptcyDismissed(): boolean {
   try {
-    return document.cookie.split(';').some((c) => c.trim().startsWith(`${BANKRUPTCY_NOTICE_KEY}=1`));
+    return document.cookie
+      .split(';')
+      .some((c) => c.trim().startsWith(`${BANKRUPTCY_NOTICE_KEY}=1`));
   } catch {
     return false;
   }
@@ -207,7 +209,7 @@ async function init(): Promise<void> {
     setSyncBadge('synced', true);
   } catch (err) {
     console.error('[pretrip] load failed', err);
-    setSyncBadge('load failed — checks won\'t persist', false);
+    setSyncBadge("load failed — checks won't persist", false);
   }
   wireCheckboxes();
   wireReset();

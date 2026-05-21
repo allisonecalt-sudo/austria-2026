@@ -270,9 +270,7 @@ function renderPickedCard(item: SearchItem, badge: string): string {
   const mapBtn = mapUrl
     ? `<a href="${escapeHtml(mapUrl)}" class="rec-card__btn rec-card__btn--map">📍 See on map</a>`
     : '';
-  const loc = item.location
-    ? `<div class="rec-card__loc">${escapeHtml(item.location)}</div>`
-    : '';
+  const loc = item.location ? `<div class="rec-card__loc">${escapeHtml(item.location)}</div>` : '';
   return `
     <div class="rec-card-wrap">
       <a class="rec-card" href="${escapeHtml(item.url)}">
@@ -314,8 +312,7 @@ function init(): void {
   // promoted card with a visible "auto-substituted from <prev pick>" badge.
   const scrubbed = getScrubbedLodgings();
   // Picked-by section ALWAYS renders first so it's above the fold.
-  root.innerHTML =
-    renderPickedSection() + groups.map((g) => renderSection(g, scrubbed)).join('');
+  root.innerHTML = renderPickedSection() + groups.map((g) => renderSection(g, scrubbed)).join('');
 }
 
 init();

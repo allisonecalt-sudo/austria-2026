@@ -1,6 +1,7 @@
 # Austria 2026 — Visual Redesign Spec
 
 Written 2026-05-15 in response to Allison's verbatim feedback:
+
 > "the website is misisng pictures and too insane... it needs to be reigned in... do real big research on how to present this in digestable way and then fix it."
 
 Goal: a calm, scrollable travel-mag feel where she taps for more detail. Not a flight-itinerary printout. Real photos. Reigned-in density. Sunsets sacred.
@@ -20,6 +21,7 @@ Goal: a calm, scrollable travel-mag feel where she taps for more detail. Not a f
 - **High Alpine Creative — 12 travel blogs with beautiful design** ([link](https://www.highalpinecreative.com/blog/best-travel-blogs)): the strong examples (Salt & Wind, etc.) use serif display + lots of breathing room + one photo as the day's anchor, not a gallery.
 
 What the consensus says:
+
 1. Hero photo per day is non-negotiable.
 2. Reading flow > tab-shopping. Sticky day-nav helps orient, not replace scroll.
 3. Progressive disclosure works for ALTERNATES (Plan B), not for the spine (Plan A should be visible).
@@ -77,6 +79,7 @@ Rejected: side-by-side tabs (Plan A | Plan B). She corrected v1 explicitly — "
 Per NN/g — don't accordion content people scan. The hour-by-hour IS the value proposition of "concrete not vibe." She wants the schedule visible.
 
 HOWEVER — reduce visual weight:
+
 - Time column tabular-nums, muted color (ink-soft, smaller size)
 - Description in body color, normal weight
 - Dotted-line separators between blocks (not solid)
@@ -108,20 +111,20 @@ Implementation: pure JS, no framework. ~40 lines. Documented pattern (bram.us re
 
 Keep current alpine variables. Tighten contrast.
 
-| Token | Value | Use |
-|---|---|---|
-| `--cream` | `#faf6ee` | page background |
-| `--paper` | `#ffffff` | card surface |
-| `--ink` | `#1a2429` | body copy |
-| `--ink-soft` | `#5a6970` | muted, drive labels, time-col |
-| `--line` | `#e6dfcd` | dividers, soft borders |
-| `--green-deep` | `#2e5d4f` | accent, Plan A badge, CTAs |
-| `--green-mist` | `#e6efe9` | gentle backgrounds |
-| `--blue-lake` | `#3a6f8f` | links, Plan B accent |
-| `--blue-mist` | `#dfe9f0` | gentle backgrounds |
-| `--gold-warm` | `#f4d9a4` | sunset block background |
-| `--gold-sun` | `#d4a04a` | sunset accents, peak badge |
-| `--gold-deep` | `#9c6f1f` | sunset text on gold-warm |
+| Token          | Value     | Use                           |
+| -------------- | --------- | ----------------------------- |
+| `--cream`      | `#faf6ee` | page background               |
+| `--paper`      | `#ffffff` | card surface                  |
+| `--ink`        | `#1a2429` | body copy                     |
+| `--ink-soft`   | `#5a6970` | muted, drive labels, time-col |
+| `--line`       | `#e6dfcd` | dividers, soft borders        |
+| `--green-deep` | `#2e5d4f` | accent, Plan A badge, CTAs    |
+| `--green-mist` | `#e6efe9` | gentle backgrounds            |
+| `--blue-lake`  | `#3a6f8f` | links, Plan B accent          |
+| `--blue-mist`  | `#dfe9f0` | gentle backgrounds            |
+| `--gold-warm`  | `#f4d9a4` | sunset block background       |
+| `--gold-sun`   | `#d4a04a` | sunset accents, peak badge    |
+| `--gold-deep`  | `#9c6f1f` | sunset text on gold-warm      |
 
 Sunset block specifically uses `--gold-warm` as fill with `--gold-deep` text and a subtle 1px `--gold-sun` border. Larger sun emoji ☀ in the header.
 
@@ -155,6 +158,7 @@ Sunset block specifically uses `--gold-warm` as fill with `--gold-deep` text and
 - **Place photos within blocks:** none — the day hero is enough. Per Allison: "pic of palces to visit and attractions not too many."
 
 Photo sourcing rules (fail-loud per the rule):
+
 - Wikimedia Commons primary. License: CC-BY-SA or PD. Direct CDN URLs from `upload.wikimedia.org`.
 - Unsplash secondary — but verify the photo actually depicts the named place. Use only photos with the place name in the photo's title/description.
 - If can't verify → use a CSS gradient placeholder instead of a wrong photo. Better blank than lying.
@@ -204,7 +208,7 @@ Photo audit needed per day:
 Restore the "Tara Bridge of this trip" voice without adding vibe-menus or tiers. Allison's Montenegro writing carries the tone — a few echoes:
 
 - Open with the dates + the spine sentence ("Salzburg for Shabbat. Hallstatt for the lakes. Sunsets every night.") — already there.
-- Add a single block-quote from Montenegro: *"sometimes I dangled my feet over the side of the bridge, other times I sat on the ground or stood, watching in awe."* — small, italic, attributed to "Montenegro, July 2024."
+- Add a single block-quote from Montenegro: _"sometimes I dangled my feet over the side of the bridge, other times I sat on the ground or stood, watching in awe."_ — small, italic, attributed to "Montenegro, July 2024."
 - "Why this plan" stays. Tighten to two paragraphs not three.
 - "The 7 days at a glance" becomes a horizontal-scrolling card row with hero thumbnails + day label + 1-line summary — taps go to that day on itinerary page.
 - "The Tara Bridge moment" callout stays gold but smaller — it's the seed, not the main course.
@@ -219,6 +223,7 @@ The vibe goal: reading the landing page feels like Allison standing on the Tara 
 ## 12. Linkification rules (per Allison's "link it" feedback)
 
 Every reference becomes clickable:
+
 - **Phone numbers** → `tel:+43...`
 - **WhatsApp** → `https://wa.me/[digits]`
 - **Addresses** → `https://www.google.com/maps/search/?api=1&query=[encoded]`

@@ -13948,3 +13948,75 @@ body.nav-mobile-open {
   color: var(--ink-soft, #4b5a62);
   font-style: italic;
 }
+
+/* =====================================================================
+   DEEP DIVES & ARCHIVE  (2026-05-21 reorg)
+   A calm, discreet collapsible at the bottom of hub pages. Lists the
+   superseded standalone pages that were moved into archive/ during the
+   nav cleanup, so they stay pullable per the owner's archive rule
+   ("I don't want things to disappear, just be archived nicely"). Uses
+   the existing paper/line/gold tokens — no new palette.
+   ===================================================================== */
+.deep-dives {
+  max-width: 880px;
+  margin: 2.5rem auto 1rem;
+  border: 1px solid var(--line, #e3dccb);
+  border-radius: 0.6rem;
+  background: var(--paper, #fdfaf3);
+}
+.deep-dives > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.95rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--ink, #2c2a25);
+  background: var(--cream, #f6f1e6);
+  border-radius: 0.6rem;
+}
+.deep-dives[open] > summary {
+  border-bottom: 1px solid var(--line, #e3dccb);
+  border-radius: 0.6rem 0.6rem 0 0;
+}
+.deep-dives > summary::-webkit-details-marker {
+  display: none;
+}
+.deep-dives > summary::after {
+  content: '▾';
+  float: right;
+  color: var(--ink-soft, #6a6253);
+  transition: transform 0.2s;
+}
+.deep-dives[open] > summary::after {
+  transform: rotate(180deg);
+}
+.deep-dives__intro {
+  margin: 0;
+  padding: 0.9rem 1.25rem 0.2rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--ink-soft, #6a6253);
+}
+.deep-dives__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 1.25rem 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.4rem 1.4rem;
+}
+.deep-dives__list a {
+  display: block;
+  padding: 0.35rem 0;
+  font-size: 0.92rem;
+  color: var(--ink, #2c2a25);
+  border-bottom: none;
+}
+.deep-dives__list a:hover {
+  color: var(--gold-deep, #9a7b2e);
+}
+.deep-dives__list .deep-dives__desc {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft, #6a6253);
+}

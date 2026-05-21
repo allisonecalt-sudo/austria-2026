@@ -42,7 +42,7 @@ const BAD_GOISERN = HALLSTATT; // same area
 const NAME_TO_POOL = {
   // Salzburg
   "Junker's Apartments": SALZBURG,
-  'Sauerweingut': SALZBURG,
+  Sauerweingut: SALZBURG,
   'Villa Salzburg by Welcome to Salzburg': SALZBURG,
   'Pension Elisabeth — Rooms & Apartments': SALZBURG,
   'Amedeo Zotti Residence Salzburg': SALZBURG,
@@ -74,7 +74,8 @@ const NAME_TO_POOL = {
   // BaseConfig — Berchtesgaden / Ramsau
   'Apart Chalet Unterbrandnerlehen (Schönau am Königssee)': RAMSAU_BERCHTESGADEN,
   'Gästehaus Hinterponholz (Ramsau)': RAMSAU_BERCHTESGADEN,
-  'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)': RAMSAU_BERCHTESGADEN,
+  'Wolf & Schaf Apartments-equivalent — Ferienwohnung da Celia (Berchtesgaden town)':
+    RAMSAU_BERCHTESGADEN,
   'Gästehaus Amort (Ramsau)': RAMSAU_BERCHTESGADEN,
   'Grubenlehen (Ramsau)': RAMSAU_BERCHTESGADEN,
   // BaseConfig — St. Wolfgang / Strobl
@@ -126,4 +127,6 @@ for (const [name, pool] of Object.entries(NAME_TO_POOL)) {
 }
 
 fs.writeFileSync(FILE, src);
-console.log(`Updated: ${updated}, Skipped (already had photos): ${skipped}, Not matched: ${notMatched}`);
+console.log(
+  `Updated: ${updated}, Skipped (already had photos): ${skipped}, Not matched: ${notMatched}`,
+);

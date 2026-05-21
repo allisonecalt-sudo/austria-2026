@@ -23,10 +23,7 @@ function htmlCacheBust(buildId: string): Plugin {
       handler(html) {
         // Inject right after <meta charset="UTF-8" /> so headers apply before
         // any other parsing decisions.
-        return html.replace(
-          /(<meta charset="UTF-8" \/>)/i,
-          `$1\n    ${metaBlock}`,
-        );
+        return html.replace(/(<meta charset="UTF-8" \/>)/i, `$1\n    ${metaBlock}`);
       },
     },
   };
@@ -41,34 +38,39 @@ export default defineConfig(({ command }) => ({
     outDir: 'dist',
     rollupOptions: {
       input: {
+        // --- Canonical top-level pages (in the 6-item nav) ---
         main: resolve(__dirname, 'index.html'),
         itinerary: resolve(__dirname, 'itinerary.html'),
         stay: resolve(__dirname, 'stay.html'),
-        rentalCar: resolve(__dirname, 'rental-car.html'),
-        shabbat: resolve(__dirname, 'shabbat.html'),
-        jewishSights: resolve(__dirname, 'jewish-sights.html'),
-        packing: resolve(__dirname, 'packing.html'),
+        activities: resolve(__dirname, 'activities.html'),
+        logistics: resolve(__dirname, 'logistics.html'),
         costs: resolve(__dirname, 'costs.html'),
         notes: resolve(__dirname, 'notes.html'),
         map: resolve(__dirname, 'map.html'),
-        natureDestinations: resolve(__dirname, 'nature-destinations.html'),
-        topSunsets: resolve(__dirname, 'top-sunsets.html'),
-        logistics: resolve(__dirname, 'logistics.html'),
-        bases: resolve(__dirname, 'bases.html'),
-        fridaySalzburg: resolve(__dirname, 'friday-salzburg.html'),
-        sundaysClosed: resolve(__dirname, 'sundays-closed.html'),
-        weatherPlanC: resolve(__dirname, 'weather-plan-c.html'),
+        // --- Logistics deep-dives (reachable from logistics.html, not in nav) ---
+        rentalCar: resolve(__dirname, 'rental-car.html'),
+        packing: resolve(__dirname, 'packing.html'),
         preTrip: resolve(__dirname, 'pre-trip.html'),
         cafes: resolve(__dirname, 'cafes.html'),
         drivingAustria: resolve(__dirname, 'driving-austria.html'),
-        lakeSwimming: resolve(__dirname, 'lake-swimming.html'),
-        waterActivities: resolve(__dirname, 'water-activities.html'),
-        tripSummary: resolve(__dirname, 'trip-summary.html'),
-        activities: resolve(__dirname, 'activities.html'),
-        recommendations: resolve(__dirname, 'recommendations.html'),
-        tripOptions: resolve(__dirname, 'trip-options.html'),
-        schafbergspitze: resolve(__dirname, 'schafbergspitze.html'),
-        krippenstein: resolve(__dirname, 'krippenstein.html'),
+        // --- Archived pages (2026-05-21 reorg) — superseded standalone pages.
+        //     Kept in the build so they still deploy + stay pullable per the
+        //     owner's archive rule. Reachable via "Deep dives & archive" links. ---
+        shabbat: resolve(__dirname, 'archive/shabbat.html'),
+        jewishSights: resolve(__dirname, 'archive/jewish-sights.html'),
+        natureDestinations: resolve(__dirname, 'archive/nature-destinations.html'),
+        topSunsets: resolve(__dirname, 'archive/top-sunsets.html'),
+        bases: resolve(__dirname, 'archive/bases.html'),
+        fridaySalzburg: resolve(__dirname, 'archive/friday-salzburg.html'),
+        sundaysClosed: resolve(__dirname, 'archive/sundays-closed.html'),
+        weatherPlanC: resolve(__dirname, 'archive/weather-plan-c.html'),
+        lakeSwimming: resolve(__dirname, 'archive/lake-swimming.html'),
+        waterActivities: resolve(__dirname, 'archive/water-activities.html'),
+        tripSummary: resolve(__dirname, 'archive/trip-summary.html'),
+        recommendations: resolve(__dirname, 'archive/recommendations.html'),
+        tripOptions: resolve(__dirname, 'archive/trip-options.html'),
+        schafbergspitze: resolve(__dirname, 'archive/schafbergspitze.html'),
+        krippenstein: resolve(__dirname, 'archive/krippenstein.html'),
       },
     },
   },

@@ -48,10 +48,10 @@ const BEATS: JourneyBeat[] = [
     id: 'v1-3anchor-summit',
     badge: 'v1',
     status: 'archived',
-    shape: 'Salzburg (2N) → 3-night mountain anchor (3N) → Schafbergspitze summit (1N) → Airport (1N)',
+    shape:
+      'Salzburg (2N) → 3-night mountain anchor (3N) → Schafbergspitze summit (1N) → Airport (1N)',
     when: 'Through 2026-05-17 ~14:00',
-    what:
-      'The original shape. Three competing 3-night mountain-anchor options (Obertraun / Berchtesgaden / St. Wolfgang) feeding into one locked Wed-night sleep on the Schafberg summit, then an airport hotel for the Friday flight. Obertraun was the lean — closest to Hallstatt + Gosausee + Krippenstein, lowest drives.',
+    what: 'The original shape. Three competing 3-night mountain-anchor options (Obertraun / Berchtesgaden / St. Wolfgang) feeding into one locked Wed-night sleep on the Schafberg summit, then an airport hotel for the Friday flight. Obertraun was the lean — closest to Hallstatt + Gosausee + Krippenstein, lowest drives.',
     whyChanged:
       'Schafbergspitze rejected after the Review-Audit pass: 3.6★ Google with 1,012 reviews, multiple persistent rude-staff complaints. The summit experience itself is iconic but the hotel was a bad pick.',
     artifactLink: { href: 'schafbergspitze.html', label: 'schafbergspitze.html (archive page)' },
@@ -62,10 +62,9 @@ const BEATS: JourneyBeat[] = [
     status: 'archived',
     shape: 'Salzburg (2N) → Obertraun (3N) → Lodge am Krippenstein summit (1N) → Airport (1N)',
     when: '2026-05-17 ~15:00',
-    what:
-      "Schafbergspitze swap to Lodge am Krippenstein — same valley as Obertraun (5-min drive to cable car), 9.2★ Booking, 339 reviews, ~2,063m on the Dachstein plateau. Cantilevered 5 Fingers viewing platform as the sunset spot. Verified prices €112-€353 live.",
+    what: 'Schafbergspitze swap to Lodge am Krippenstein — same valley as Obertraun (5-min drive to cable car), 9.2★ Booking, 339 reviews, ~2,063m on the Dachstein plateau. Cantilevered 5 Fingers viewing platform as the sunset spot. Verified prices €112-€353 live.',
     whyChanged:
-      "Allison: \"after all this we need review checker to check places logisitcs s all that o feverything so this doesnt happen agian.\" Then the Lodge went FULL for Jul 29-30 on the Mon May 18 live availability recheck.",
+      'Allison: "after all this we need review checker to check places logisitcs s all that o feverything so this doesnt happen agian." Then the Lodge went FULL for Jul 29-30 on the Mon May 18 live availability recheck.',
     artifactLink: { href: 'krippenstein.html', label: 'krippenstein.html (decisions log)' },
   },
   {
@@ -74,8 +73,7 @@ const BEATS: JourneyBeat[] = [
     status: 'archived',
     shape: 'Salzburg (2N) → Obertraun (3N) → 1 of 5 Wed-night sunset stays → Airport (1N)',
     when: '2026-05-17 ~16:50',
-    what:
-      'When Krippenstein-availability got shaky, the page reframed as a 5-option comparison hub for Wed night: Lodge am Krippenstein + Post am See Traunkirchen (9.3/1054) + Seehotel Brandauer\'s Villen Strobl (9.2/558) + Scalaria Sunset Wing (9.0/1260) + Seehotel am Hallstättersee (8.8/3749). All 4 alternates verified available Jul 29-30 at the time. Allison: "I have no time to coordinate this so just put it all in and make it organized and we\'ll deal with it later."',
+    what: 'When Krippenstein-availability got shaky, the page reframed as a 5-option comparison hub for Wed night: Lodge am Krippenstein + Post am See Traunkirchen (9.3/1054) + Seehotel Brandauer\'s Villen Strobl (9.2/558) + Scalaria Sunset Wing (9.0/1260) + Seehotel am Hallstättersee (8.8/3749). All 4 alternates verified available Jul 29-30 at the time. Allison: "I have no time to coordinate this so just put it all in and make it organized and we\'ll deal with it later."',
     whyChanged:
       'Avital pushed back on the whole summit-overnight premise. Voice note Sun May 17 23:25: "the cog place is specific but not so practical. Seems like we can get other beautiful sunsets not staying there." Plus Lodge am Krippenstein confirmed FULL Jul 29-30 on Mon May 18 ~12:14 recheck.',
     artifactLink: { href: 'krippenstein.html', label: 'krippenstein.html (5-option archive)' },
@@ -84,12 +82,12 @@ const BEATS: JourneyBeat[] = [
     id: 'v4-avital-restructure',
     badge: "v4 · Avital's plan (verified + refined)",
     status: 'current',
-    shape: 'Salzburg (2N) → Zell am See (2N) → Salzkammergut lakes (2N) → Salzburg airport-side (1N)',
+    shape:
+      'Salzburg (2N) → Zell am See (2N) → Salzkammergut lakes (2N) → Salzburg airport-side (1N)',
     when: 'Accepted 2026-05-18 ~12:21 · shipped 2026-05-19',
-    what:
-      'Avital\'s structural counter-proposal — accepted as the spine of the trip. 2 nights Salzburg (Shabbat). 2 nights Zell am See for the alpine-lake half ("In general I am seeing Zell am See as a good area to stay — thinking 2 nights Sunday-Tuesday"). 2 nights Salzkammergut lakes for the lake-mirror half ("Next stay Tuesday-Thursday in Wolfgangsee region seems like St. Gilgen or St. Wolfgang") — Gosau Der Ulmenhof leading after Avital\'s Landhaus Osborne retired (1-queen only). 1 night near Salzburg airport — return the rental car Thursday evening per Avital\'s logistics ("not have to worry about returning the car in the morning"). Schafberg cog + Krippenstein cable car retained as day-trips, just not overnight bases.',
+    what: 'Avital\'s structural counter-proposal — accepted as the spine of the trip. 2 nights Salzburg (Shabbat). 2 nights Zell am See for the alpine-lake half ("In general I am seeing Zell am See as a good area to stay — thinking 2 nights Sunday-Tuesday"). 2 nights Salzkammergut lakes for the lake-mirror half ("Next stay Tuesday-Thursday in Wolfgangsee region seems like St. Gilgen or St. Wolfgang") — Gosau Der Ulmenhof leading after Avital\'s Landhaus Osborne retired (1-queen only). 1 night near Salzburg airport — return the rental car Thursday evening per Avital\'s logistics ("not have to worry about returning the car in the morning"). Schafberg cog + Krippenstein cable car retained as day-trips, just not overnight bases.',
     whyChanged:
-      'Current shape — Avital\'s plan verified against the 2-bed mandatory + free-cancellation + ≥9.0 Booking floor, refined where verification failed (Landhaus Osborne dropped, Der Ulmenhof up). All bases options-not-locked — still exploring within the 4-base spine.',
+      "Current shape — Avital's plan verified against the 2-bed mandatory + free-cancellation + ≥9.0 Booking floor, refined where verification failed (Landhaus Osborne dropped, Der Ulmenhof up). All bases options-not-locked — still exploring within the 4-base spine.",
     artifactLink: { href: 'bases.html', label: 'bases.html (live 4-base detail)' },
   },
 ];

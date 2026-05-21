@@ -28,11 +28,7 @@
 //
 // NO Montenegro comparisons (Avital's explicit ban). NO winter photos.
 
-import {
-  NATURE_DESTINATIONS,
-  type NatureDestination,
-  type SunsetGrade,
-} from './trip-data.js';
+import { NATURE_DESTINATIONS, type NatureDestination, type SunsetGrade } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initChatPlanPopup } from './popup-chat-plan.js';
 import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
@@ -90,7 +86,7 @@ const ZELL_BASE: BaseSpec = {
   hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
   heroAlt: 'Zell am See on the Pinzgau with peaks rising behind the lake',
   collapseToMessage:
-    "From Zell: Schmittenhöhe cable car (5 min drive), Kitzsteinhorn glacier at Kaprun (25 min), Krimml Waterfalls (1h10), Zeller See swim (5 min walk). Most of the trip-data nature picks are clustered around the Hallstatt area — so the cards below are filtered to spots reachable from this base. For day-by-day specifics see the itinerary.",
+    'From Zell: Schmittenhöhe cable car (5 min drive), Kitzsteinhorn glacier at Kaprun (25 min), Krimml Waterfalls (1h10), Zeller See swim (5 min walk). Most of the trip-data nature picks are clustered around the Hallstatt area — so the cards below are filtered to spots reachable from this base. For day-by-day specifics see the itinerary.',
 };
 
 const GOSAU_BASE: BaseSpec = {
@@ -115,7 +111,7 @@ const AIRPORT_BASE: BaseSpec = {
   hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Werfen_-_Burg_Hohenwerfen_%281%29.JPG/1280px-Werfen_-_Burg_Hohenwerfen_%281%29.JPG',
   heroAlt: 'Hohenwerfen castle above the Salzach valley near the airport drive',
   collapseToMessage:
-    "Thursday afternoon is the drive from Gosau (~1h20) → check in → return rental at SZG Thursday evening. Friday morning is just a 10-min cab to the gate. If Thursday afternoon feels open, Hohenwerfen castle + Eisriesenwelt ice cave are 30-40 min off the Gosau → Salzburg route — same drive-times as the Salzburg base column above.",
+    'Thursday afternoon is the drive from Gosau (~1h20) → check in → return rental at SZG Thursday evening. Friday morning is just a 10-min cab to the gate. If Thursday afternoon feels open, Hohenwerfen castle + Eisriesenwelt ice cave are 30-40 min off the Gosau → Salzburg route — same drive-times as the Salzburg base column above.',
 };
 
 const BASES: BaseSpec[] = [SALZBURG_BASE, ZELL_BASE, GOSAU_BASE, AIRPORT_BASE];
@@ -200,7 +196,11 @@ function categoriesFor(d: NatureDestination): Category[] {
     case 'peak':
       // Schafberg + Krippenstein are cog/cable reached — tag both
       cats.push('platform');
-      if (d.id === 'schafbergspitze' || d.id === 'krippenstein-5fingers' || d.id === 'zwoelferhorn') {
+      if (
+        d.id === 'schafbergspitze' ||
+        d.id === 'krippenstein-5fingers' ||
+        d.id === 'zwoelferhorn'
+      ) {
         cats.push('cog-train');
       }
       break;
@@ -345,11 +345,7 @@ function activityCard(d: NatureDestination, base: BaseSpec): string {
 // Bucket block — heading + grid of cards for one drive-time bucket
 // inside one base.
 // =====================================================================
-function bucketBlock(
-  bucketKey: Bucket,
-  dests: NatureDestination[],
-  base: BaseSpec,
-): string {
+function bucketBlock(bucketKey: Bucket, dests: NatureDestination[], base: BaseSpec): string {
   if (dests.length === 0) return '';
   const sorted = sortBucket(dests, base);
   return `
@@ -410,7 +406,7 @@ function baseSection(base: BaseSpec): string {
     .sort((a, b) => base.driveMinutesById(a) - base.driveMinutesById(b))
     .map(
       (d) =>
-        `<li><strong>${escape(d.name)}</strong> · ${base.driveMinutesById(d)} min · <a href="nature-destinations.html#${escape(d.id)}">details →</a></li>`,
+        `<li><strong>${escape(d.name)}</strong> · ${base.driveMinutesById(d)} min · <a href="archive/nature-destinations.html#${escape(d.id)}">details →</a></li>`,
     )
     .join('');
 
@@ -465,12 +461,10 @@ function renderFilterPills(): void {
 
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      document
-        .querySelectorAll<HTMLButtonElement>('.filter-chip.is-on')
-        .forEach((b) => {
-          b.classList.remove('is-on');
-          b.setAttribute('aria-pressed', 'false');
-        });
+      document.querySelectorAll<HTMLButtonElement>('.filter-chip.is-on').forEach((b) => {
+        b.classList.remove('is-on');
+        b.setAttribute('aria-pressed', 'false');
+      });
       applyFilters();
       clearBtn.hidden = true;
     });
@@ -478,9 +472,9 @@ function renderFilterPills(): void {
 }
 
 function applyFilters(): void {
-  const active = Array.from(
-    document.querySelectorAll<HTMLButtonElement>('.filter-chip.is-on'),
-  ).map((b) => b.dataset.cat ?? '');
+  const active = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-chip.is-on')).map(
+    (b) => b.dataset.cat ?? '',
+  );
   const cards = document.querySelectorAll<HTMLElement>('.act-card');
   if (active.length === 0) {
     cards.forEach((c) => (c.hidden = false));
@@ -498,9 +492,7 @@ function applyFilters(): void {
 // After filtering, hide bucket headers whose grid has no visible cards.
 function hideEmptyBuckets(): void {
   document.querySelectorAll<HTMLElement>('.act-bucket').forEach((b) => {
-    const visible = Array.from(b.querySelectorAll<HTMLElement>('.act-card')).some(
-      (c) => !c.hidden,
-    );
+    const visible = Array.from(b.querySelectorAll<HTMLElement>('.act-card')).some((c) => !c.hidden);
     b.hidden = !visible;
   });
 }

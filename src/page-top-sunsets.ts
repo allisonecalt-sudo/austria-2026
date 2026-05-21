@@ -58,8 +58,7 @@ const PICKS: SunsetPick[] = [
     rank: 1,
     tagline:
       "Dachstein glacier mirrors in the lake from the west shore — 5-min walk from the Gosau apartment. No transport, no last-cable-car anxiety. The 'we're really here' moment of the trip.",
-    tldr:
-      'Vorderer Gosausee at 20:51 — Dachstein mirror, 5-min walk from base, no transit dependency.',
+    tldr: 'Vorderer Gosausee at 20:51 — Dachstein mirror, 5-min walk from base, no transit dependency.',
     tripNight: 'Tue Jul 28',
     tripNightDayId: 'tue-jul-28',
     sunsetTime: '20:51',
@@ -70,7 +69,7 @@ const PICKS: SunsetPick[] = [
     practical:
       'Free parking at Gosausee main lot (P1) if you drive; the village → lakeshore walk is 30 min on the marked path so the car is optional. The flat 1-hour gravel loop is stroller-friendly. Lakeshore stays accessible all night (Gosau is a residential village, not a tourist gate).',
     pairsWithBefore:
-      "Move-day arrival from Zell am See in the afternoon → check in at Der Ulmenhof → walk straight to the Gosausee for the loop → west-shore spot by 20:30 → sunset 20:51. The arrival night of base 3 — settle in by watching the lake light up.",
+      'Move-day arrival from Zell am See in the afternoon → check in at Der Ulmenhof → walk straight to the Gosausee for the loop → west-shore spot by 20:30 → sunset 20:51. The arrival night of base 3 — settle in by watching the lake light up.',
     // Drive labels map to v4 bases via the renderer:
     //   .salzburg → Salzburg base, .stWolfgang → Zell am See base,
     //   .obertraun → Gosau base, .berchtesgaden → Airport base.
@@ -94,13 +93,12 @@ const PICKS: SunsetPick[] = [
     rank: 2,
     tagline:
       'Schmittenhöhe peak above Zell am See — cable car up to ~2,000m, 360° panorama across the Hohe Tauern + Zeller See far below. The alpine-half sunset.',
-    tldr:
-      'Schmittenhöhe peak at 20:52 — cable car up from Zell base, panorama across Hohe Tauern.',
+    tldr: 'Schmittenhöhe peak at 20:52 — cable car up from Zell base, panorama across Hohe Tauern.',
     tripNight: 'Mon Jul 27',
     tripNightDayId: 'mon-jul-27',
     sunsetTime: '20:52',
     whereYouWatch:
-      "From the Schmittenhöhe peak terrace at ~2,000m above Zell am See — 360° view across the Pinzgau, the Hohe Tauern (Grossglockner + Kitzsteinhorn glacier visible to the south), and the Zeller See directly below to the east. The cable-car-station terrace is the easy spot; a 5-min walk to the Elisabeth-Kapelle gives a slightly higher angle.",
+      'From the Schmittenhöhe peak terrace at ~2,000m above Zell am See — 360° view across the Pinzgau, the Hohe Tauern (Grossglockner + Kitzsteinhorn glacier visible to the south), and the Zeller See directly below to the east. The cable-car-station terrace is the easy spot; a 5-min walk to the Elisabeth-Kapelle gives a slightly higher angle.',
     whyThisOne:
       "It's the natural sunset for the Zell-base half. Schmittenhöhe is right above the apartment — cable car valley station is 5 min from town. Panorama is the strongest alpine view on the trip without needing to drive deep into Hohe Tauern. NOTE: this card replaced the previous Schafbergspitze entry; Schafberg cog stops ~19:30 most evenings, so it's an honorable-mention day-trip from Gosau, not a sunset headliner.",
     practical:
@@ -157,8 +155,7 @@ const PICKS: SunsetPick[] = [
     rank: 4,
     tagline:
       'Dachstein plateau, 2,063m, 5 Fingers cantilevered platform. Day-trip cable car from Gosau (~25 min drive). Iconic view BUT last gondola down 19:10 — sunset here means committing to descent timing.',
-    tldr:
-      "5 Fingers platform at 20:48 — day-trip from Gosau, but last gondola down is 19:10. Sunset here = descent risk.",
+    tldr: '5 Fingers platform at 20:48 — day-trip from Gosau, but last gondola down is 19:10. Sunset here = descent risk.',
     tripNight: 'Wed Jul 29 (alt)',
     tripNightDayId: 'wed-jul-29',
     sunsetTime: '20:48',
@@ -169,7 +166,7 @@ const PICKS: SunsetPick[] = [
     practical:
       'Cable car summer schedule: first UP 08:40, last UP ~18:45, last DOWN 19:10. Drive ~25 min from Gosau → cable car valley station. Two gondolas up, 15-min walk to 5 Fingers. RE-VERIFY the 2026 timetable before counting on any specific gondola time. If you stay for sunset 20:48, you commit to either: (a) the LAST gondola down at 19:10 (so you watch sunset earlier than the actual time) or (b) an emergency overnight in the lodge if a room frees up. Safer = day-trip with descent by 17:30, pair with Hallstatt sunset.',
     pairsWithBefore:
-      'Morning at Gosau apartment → cable car up by 11:00 → 5 Fingers platform + ice cave walk + Welterbespirale viewpoint → descent by 17:30 → drive to Hallstatt for the actual sunset 20:50. Don\'t try to make Krippenstein 5 Fingers the sunset spot itself unless you confirm the 2026 evening gondola schedule.',
+      "Morning at Gosau apartment → cable car up by 11:00 → 5 Fingers platform + ice cave walk + Welterbespirale viewpoint → descent by 17:30 → drive to Hallstatt for the actual sunset 20:50. Don't try to make Krippenstein 5 Fingers the sunset spot itself unless you confirm the 2026 evening gondola schedule.",
     driveFromBases: {
       salzburg: '1h30 (+ cable car)',
       stWolfgang: '2h (+ cable car)',
@@ -188,9 +185,8 @@ const PICKS: SunsetPick[] = [
     id: 'monchsberg-salzburg',
     rank: 5,
     tagline:
-      "Mönchsberg ridge above the Salzburg apartment — old town spread below, fortress catching the light. The Shabbat-bracket sunset on Sat Jul 25 + the Thu Jul 30 close-out sunset before the airport hotel.",
-    tldr:
-      "Mönchsberg ridge at 20:54 — Shabbat-legal walk-up sunset from the Salzburg apartment.",
+      'Mönchsberg ridge above the Salzburg apartment — old town spread below, fortress catching the light. The Shabbat-bracket sunset on Sat Jul 25 + the Thu Jul 30 close-out sunset before the airport hotel.',
+    tldr: 'Mönchsberg ridge at 20:54 — Shabbat-legal walk-up sunset from the Salzburg apartment.',
     tripNight: 'Sat Jul 25',
     tripNightDayId: 'sat-jul-25',
     sunsetTime: '20:54',

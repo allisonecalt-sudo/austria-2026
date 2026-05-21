@@ -470,7 +470,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'salzburg',
       doingSummary:
-        "Land 07:50 → Salzburg Old Town. Pick from: Mozart Geburtshaus / Mirabell Gardens / café-only if tired. Settled by 17:30 (no Hohensalzburg / no Mondsee — both blow the 17:30 prep ceiling). Full Friday menu lives at friday-salzburg.html. Shabbat prep 17:30, candle-lighting 20:35.",
+        'Land 07:50 → Salzburg Old Town. Pick from: Mozart Geburtshaus / Mirabell Gardens / café-only if tired. Settled by 17:30 (no Hohensalzburg / no Mondsee — both blow the 17:30 prep ceiling). Full Friday menu lives at friday-salzburg.html. Shabbat prep 17:30, candle-lighting 20:35.',
     },
 
     // --- DAY 2 — Sat Jul 25 ---
@@ -520,7 +520,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.zellAmSee,
       },
       generalIdea:
-        "Slow Salzburg morning. Pack out after Havdalah / late checkout. Drive south to Zell am See (~90 km, ~1h20 via the Salzach valley B311). Check in at Aparthotel Zell am See — 2 nights here Sun-Tue, the alpine-lake first half of the week. Drop bags, walk to the Zeller See shore. The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk + sunset from the Esplanade promenade, 5 minutes from the apartment.",
+        'Slow Salzburg morning. Pack out after Havdalah / late checkout. Drive south to Zell am See (~90 km, ~1h20 via the Salzach valley B311). Check in at Aparthotel Zell am See — 2 nights here Sun-Tue, the alpine-lake first half of the week. Drop bags, walk to the Zeller See shore. The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk + sunset from the Esplanade promenade, 5 minutes from the apartment.',
       planB:
         'If Shabbat tired the legs: skip the lake walk, settle into the apartment for a long balcony afternoon, sunset over the lake from the window.',
       anchors: [
@@ -564,7 +564,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
-        'The full day at the alpine-lake base. Top picks: ride the Schmittenhöhe cable car (1,965 m, panorama deck over the lake) for an easy peak day; OR drive 25 min south to Kaprun and ride the Kitzsteinhorn glacier gondola to 3,029 m (snow + glacier + 360° Hohe Tauern view, even in July); OR commit the full day to the Krimml Waterfalls (~1h10 west, Austria\'s tallest at 380 m, three-tier walk-up trail). Evening back at Zell — swim from the Strandbad if it\'s warm, sunset on the Esplanade.',
+        "The full day at the alpine-lake base. Top picks: ride the Schmittenhöhe cable car (1,965 m, panorama deck over the lake) for an easy peak day; OR drive 25 min south to Kaprun and ride the Kitzsteinhorn glacier gondola to 3,029 m (snow + glacier + 360° Hohe Tauern view, even in July); OR commit the full day to the Krimml Waterfalls (~1h10 west, Austria's tallest at 380 m, three-tier walk-up trail). Evening back at Zell — swim from the Strandbad if it's warm, sunset on the Esplanade.",
       planB:
         'Low-energy version: stay in Zell, slow morning, Strandbad swim at the lake lido, café on the Esplanade, sunset right out the door.',
       anchors: [
@@ -598,7 +598,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.gosausee,
       },
       generalIdea:
-        "Slow Zell morning, pack out, drive northeast to Gosau (~100 km, ~1h45 via the Tauern A10 + B166 through Bad Ischl). Stop in Bad Ischl mid-route for a Spar restock + café break. Check in at Der Ulmenhof — 2 nights here Tue-Thu, the lakes-region second half of the week. Gosau village sits right next to the Vorderer Gosausee — one of the most-photographed lakes in Austria, with the Dachstein glacier mirrored in the water. Easy 1-hour gravel loop around the lake before sunset. Lakeside picnic.",
+        'Slow Zell morning, pack out, drive northeast to Gosau (~100 km, ~1h45 via the Tauern A10 + B166 through Bad Ischl). Stop in Bad Ischl mid-route for a Spar restock + café break. Check in at Der Ulmenhof — 2 nights here Tue-Thu, the lakes-region second half of the week. Gosau village sits right next to the Vorderer Gosausee — one of the most-photographed lakes in Austria, with the Dachstein glacier mirrored in the water. Easy 1-hour gravel loop around the lake before sunset. Lakeside picnic.',
       planB:
         'If the drive tired the legs: skip the lake loop, settle into the apartment for a long balcony afternoon, walk to the Gosausee just for the sunset.',
       anchors: [
@@ -751,6 +751,18 @@ export const TRIP: TripData = {
       // distance of Chabad Salzburg, Linzergasse 76 (Andräviertel).
       // Live Booking.com prices for the actual Jul 24-26 dates, ÷ 2 nights
       // for per-night, EUR computed at ₪3.97/€1.
+      //
+      // ⚠️ TODO (2026-05-21 reorg, Claude): this data model still names
+      // "Bergland Hotel" as the Salzburg primary pick. That predates the actual
+      // bookings. CANONICAL SOURCE IS NOW stay.html — Allison booked 5
+      // free-cancellation holds May 19 as a Chabad-scenario hedge:
+      //   A (walkable to Chabad): master Linzergasse, Amedeo Zotti
+      //   B (home-Shabbat / kitchen / airport): Junker's, Villa Salzburg, Airbnb Wals
+      // Bergland + Villa Flöckner were DROPPED. This object (pickName etc.)
+      // feeds the archived bases page + map markers; reconcile it to the 5 holds
+      // when there's time. Left as-is here to avoid churning the map/bases render
+      // mid-cleanup. The homepage + mini-map marker were already updated to the
+      // 5-hold reality (master Linzergasse).
       baseKey: 'salzburg',
       nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
       area: 'Schallmoos / Elisabeth-Vorstadt — Chabad-Shabbat plan, walking distance to Chabad of Salzburg (Linzer Gasse 76, Rabbi Gruzman)',
@@ -844,7 +856,8 @@ export const TRIP: TripData = {
           viewType: 'mountain',
           availability: 'limited',
           availabilityCheckedDate: '2026-05-19',
-          availabilityNote: 'Stock: 1 left for Jul 24-26. Free-cancel deadline May 25 is ~6 days out — lock to hold flex.',
+          availabilityNote:
+            'Stock: 1 left for Jul 24-26. Free-cancel deadline May 25 is ~6 days out — lock to hold flex.',
           freeCancellation: true,
           freeCancellationUntil: '2026-05-25',
           photos: [],
@@ -1023,7 +1036,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/sauerweingut.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/139315520.webp?k=e769157928a77f9d738239101a988db4b7b2cf615fa262ab0d05f88b775d4eca&o=',
           review: '9.3 · Superb · 633 reviews · Location 9.3',
-          pricePerNight: '€278 / night (₪1,105) — PRICE-VERIFIED 2026-05-17: was €217, now €278 (Booking live, €555 / 2 nights)',
+          pricePerNight:
+            '€278 / night (₪1,105) — PRICE-VERIFIED 2026-05-17: was €217, now €278 (Booking live, €555 / 2 nights)',
           note: 'Superior 60m² studio with kitchen, 1.3km from city center, ~15-min walk to Chabad. Big space, top-tier location score. Splurge tier but the room is twice the size of most. WASHING MACHINE + dishwasher + induction cooker — passes the Salzburg laundry filter.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1065,7 +1079,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/fewo-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/243977766.webp?k=87715c16d9bf6945702f17d3962f6e763145ef0e4650bd98754e05f4077377c1&o=',
           review: '9.2 · Superb · 813 reviews',
-          pricePerNight: '€260 / night (₪1,033) — PRICE-VERIFIED 2026-05-17: was €222, now €260 (Booking live, €519 / 2 nights)',
+          pricePerNight:
+            '€260 / night (₪1,033) — PRICE-VERIFIED 2026-05-17: was €222, now €260 (Booking live, €519 / 2 nights)',
           note: '45m² Apartment Riedenburg with full kitchen, 1.2km from center (Riedenburg side, under the Mönchsberg). Free cancellation. 813 reviews = battle-tested by hundreds of guests. Washing machine status unverified — confirm with host.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1099,7 +1114,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/pension-elisabeth-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/250951868.webp?k=e2d560ec802d63ccd55bffc86159644776bdc37ea72675cbe22822c5b68973d3&o=',
           review: '8.6 · Fabulous · 1,865 reviews',
-          pricePerNight: '€125 / night (₪497) — PRICE-VERIFIED 2026-05-17: was €160, now €125 (Booking live, €249 / 2 nights — cheapest available rate, larger room types €280+)',
+          pricePerNight:
+            '€125 / night (₪497) — PRICE-VERIFIED 2026-05-17: was €160, now €125 (Booking live, €249 / 2 nights — cheapest available rate, larger room types €280+)',
           note: 'Studio with terrace + kitchen in Schallmoos, 1.6km from old town. 1,865 reviews — most-reviewed apartment-stay in our shortlist. Walk to Chabad ~15 min. WASHING MACHINE in dedicated apartment units (verified on Pension Elisabeth listing). Passes the Salzburg laundry filter.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1138,7 +1154,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/amadeo-zotti-residence-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/572731112.webp?k=992f2f3014073eec44480ab8bebe5a04d7fbece0f6c9297a0e341d584fa7f6c9&o=',
           review: '8.3 · Very good · 1,808 reviews',
-          pricePerNight: '€272 / night (₪1,081) — PRICE-VERIFIED 2026-05-17: was €232, now €272 (Booking live, €543 / 2 nights)',
+          pricePerNight:
+            '€272 / night (₪1,081) — PRICE-VERIFIED 2026-05-17: was €232, now €272 (Booking live, €543 / 2 nights)',
           note: '39m² 1-bedroom apartment with kitchen, Schallmoos, 2.2km from center, ~18-min walk to Chabad. 1,808 reviews. Free cancellation. The "we just want a reliable established place" pick — flagged: 8.3 is below our 8.5 bar but kept for the review-volume signal. Washing machine status unverified.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -1170,7 +1187,7 @@ export const TRIP: TripData = {
         // === LAUNDRY-FILTER ADDITIONS 2026-05-16 (bases agent) ===
         // Allison's final form: Salzburg base MUST have in-unit laundry.
         // Topside has a verified washing machine.
-        
+
         // === 2-BEDROOM / 2-BED+LIVING-ROOM ADDITIONS 2026-05-17 ===
         // Allison 2026-05-17 05:58: "we need more options in Salzburg with 2
         // bedroom, can go a little farther from chabad if needed, or at least
@@ -1186,7 +1203,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/salzburg-residence-b.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243969787.jpg?k=14d243719c109fc7f2a3610ef31f8d81edbe159fbd0263034ebe841cc21271cf&o=&hp=1',
           review: '9.0 · Wonderful · 623 reviews',
-          pricePerNight: '€481 / night (₪1,911) — PRICE-VERIFIED 2026-05-17: was €205, now €481 (Booking live, €961 / 2 nights — earlier "verified" note was wrong)',
+          pricePerNight:
+            '€481 / night (₪1,911) — PRICE-VERIFIED 2026-05-17: was €205, now €481 (Booking live, €961 / 2 nights — earlier "verified" note was wrong)',
           note: 'TRUE 2-BEDROOM. 50m² Two-Bedroom Apartment: Bedroom 1 (queen) + Bedroom 2 (queen) + Living room (sofa bed) — sleeps 4-6. Real Shabbat separation. Washing machine + dishwasher + AC + private kitchen + private bath. Neutorstraße 30, Riedenburg — ~12-min walk to Chabad. Free cancellation. The single best straight-up-2BR pick of the new batch.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1195,7 +1213,14 @@ export const TRIP: TripData = {
           laundry: 'washer',
           bedrooms: 2,
           beds: '2 queens + 1 sofa bed (living room)',
-          notableDetails: ['True 2BR', 'Living room with sofa bed', 'Washer', 'Dishwasher', 'AC', '12-min walk to Chabad'],
+          notableDetails: [
+            'True 2BR',
+            'Living room with sofa bed',
+            'Washer',
+            'Dishwasher',
+            'AC',
+            '12-min walk to Chabad',
+          ],
           maxGuests: 6,
           kitchen: 'full',
           bath: 'private',
@@ -1213,7 +1238,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/villa-maxglan.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/223324389.jpg?k=24521820d894f821151f00fe61c826b8791610c89c285c031b8de9605b6138b8&o=&hp=1',
           review: '9.8 · Exceptional · 267 reviews',
-          pricePerNight: '€456 / night (₪1,548) — PRICE-VERIFIED 2026-05-17: was €178, now €456 (Booking live, €912 / 2 nights standard rate). €416/night with 10% Genius discount.',
+          pricePerNight:
+            '€456 / night (₪1,548) — PRICE-VERIFIED 2026-05-17: was €178, now €456 (Booking live, €912 / 2 nights standard rate). €416/night with 10% Genius discount.',
           note: 'HUGE 144m² THREE-BEDROOM Apartment with Terrace: Bedroom 1 (king) + Bedroom 2 (king) + Bedroom 3 (king) — sleeps up to 6. Garden + mountain views, private terrace, washer + dishwasher + full kitchen. 9.8 review = highest in Salzburg apartments. Riedenburg side, Haslbergerweg 26 — ~22-min walk to Chabad. Free cancellation. Splurge size on a mid-high price.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1222,7 +1248,15 @@ export const TRIP: TripData = {
           laundry: 'washer',
           bedrooms: 2,
           beds: '3 kings (3 separate bedrooms)',
-          notableDetails: ['3 separate bedrooms', '144m²', 'Terrace', 'Garden + mountain view', 'Washer', 'Dishwasher', '9.8 score'],
+          notableDetails: [
+            '3 separate bedrooms',
+            '144m²',
+            'Terrace',
+            'Garden + mountain view',
+            'Washer',
+            'Dishwasher',
+            '9.8 score',
+          ],
           maxGuests: 6,
           kitchen: 'full',
           bath: 'private',
@@ -1231,7 +1265,8 @@ export const TRIP: TripData = {
           wifi: true,
           viewType: 'mountain',
           beautyPick: true,
-          beautyNote: '144m² three-bedroom with private terrace and mountain view — 9.8 score, biggest apartment in our Salzburg set.',
+          beautyNote:
+            '144m² three-bedroom with private terrace and mountain view — 9.8 score, biggest apartment in our Salzburg set.',
           availability: 'available',
           availabilityCheckedDate: '2026-05-17',
           freeCancellation: true,
@@ -1242,7 +1277,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/master-mirabell.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/590315269.jpg?k=c8c3b7db6b7413495d7eaef4bdd403f7212db3a44baa686f9b60e9edc28d4f2a&o=&hp=1',
           review: '9.0 · Wonderful · 3,275 reviews',
-          pricePerNight: '€266 / night (₪1,057) — PRICE-VERIFIED 2026-05-17: was €227, now €266 (Booking live, €531 / 2 nights)',
+          pricePerNight:
+            '€266 / night (₪1,057) — PRICE-VERIFIED 2026-05-17: was €227, now €266 (Booking live, €531 / 2 nights)',
           note: 'Deluxe One-Bedroom Apartment: Bedroom 1 (queen) + separate Living room (sofa bed) — sleeps 3. 30m². Washer + dishwasher + AC + full kitchen. Rainerstraße 7 — same operator as master Linzergasse, ~10-min walk to Chabad. 3,275 reviews = the most battle-tested apartment-style stay in Salzburg. Free cancellation.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1251,7 +1287,14 @@ export const TRIP: TripData = {
           laundry: 'washer',
           bedrooms: 1,
           beds: '1 queen + sofa bed (living room)',
-          notableDetails: ['Separate living room', 'Washer', 'Dishwasher', 'AC', '3,275 reviews', 'Same operator as master Linzergasse'],
+          notableDetails: [
+            'Separate living room',
+            'Washer',
+            'Dishwasher',
+            'AC',
+            '3,275 reviews',
+            'Same operator as master Linzergasse',
+          ],
           maxGuests: 3,
           kitchen: 'full',
           bath: 'private',
@@ -1269,7 +1312,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/salzburg-luxury-residence.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/604171878.jpg?k=c1b8d0b9fad47e94c6137c279a983459c5256c7b970d27d09ab04cca09e518f1&o=&hp=1',
           review: '9.0 · Wonderful · 103 reviews',
-          pricePerNight: '€294 / night (₪1,168) — PRICE-VERIFIED 2026-05-17: was €260, now €294 (Booking live, €588 / 2 nights)',
+          pricePerNight:
+            '€294 / night (₪1,168) — PRICE-VERIFIED 2026-05-17: was €260, now €294 (Booking live, €588 / 2 nights)',
           note: 'MASSIVE 115m² Apartment: one bedroom + spacious living room — "the entire place is yours". Washer + dishwasher + full kitchen + free on-site parking. Wiesbauerstraße 14, Maxglan — ~25-min walk to Chabad (at the edge of the new walk cap). Free cancellation. The "we want room to spread out for Shabbat" pick.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1278,7 +1322,13 @@ export const TRIP: TripData = {
           laundry: 'washer',
           bedrooms: 1,
           beds: '1 bedroom + spacious living room',
-          notableDetails: ['115m² spacious', 'Entire place yours', 'Free parking', 'Washer', 'Dishwasher'],
+          notableDetails: [
+            '115m² spacious',
+            'Entire place yours',
+            'Free parking',
+            'Washer',
+            'Dishwasher',
+          ],
           maxGuests: 4,
           kitchen: 'full',
           bath: 'private',
@@ -1296,7 +1346,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/benjamins-refugium.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/522591295.jpg?k=8787e08ee2f5b81bd939bbc702d32fcb78b0e28281c5c5d32d7621854f00f928&o=&hp=1',
           review: '9.0 · Wonderful · 109 reviews',
-          pricePerNight: '€203 / night (₪806) — PRICE-VERIFIED 2026-05-17: was €174, now €203 (Booking live, €406 / 2 nights — note: URL now redirects to "Casa Wendl", property may have been renamed)',
+          pricePerNight:
+            '€203 / night (₪806) — PRICE-VERIFIED 2026-05-17: was €174, now €203 (Booking live, €406 / 2 nights — note: URL now redirects to "Casa Wendl", property may have been renamed)',
           note: '64m² Apartment with Mountain View: Bedroom 1 (king) + Living room (sofa bed) + balcony — sleeps 4. Washer + dishwasher + full kitchen + soundproof. Mountain + garden + city + landmark views from the balcony. Innsbrucker Bundesstraße 102, Maxglan — ~25-min walk to Chabad. 18% Genius discount applied. Free cancellation. Best price-to-size ratio of the batch.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1305,7 +1356,14 @@ export const TRIP: TripData = {
           laundry: 'washer',
           bedrooms: 1,
           beds: '1 king + sofa bed (living room)',
-          notableDetails: ['64m² spacious', 'Mountain-view balcony', 'King bed', 'Soundproof', 'Washer', '18% Genius discount'],
+          notableDetails: [
+            '64m² spacious',
+            'Mountain-view balcony',
+            'King bed',
+            'Soundproof',
+            'Washer',
+            '18% Genius discount',
+          ],
           maxGuests: 4,
           kitchen: 'full',
           bath: 'private',
@@ -1323,7 +1381,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/holiday-apartments-by-das-grune-zur-post-100-bio-amp-villa-ceconi.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/790319738.jpg?k=ac6e44a677d4b417f5b2df913844d7c82e135bc48c0c306a3cc6b5c76d874034&o=&hp=1',
           review: '8.7 · Excellent · 179 reviews',
-          pricePerNight: '€299 / night (₪1,188) — PRICE-VERIFIED 2026-05-17: was €128, now €299 (Booking live, €598 / 2 nights — earlier price drastically understated)',
+          pricePerNight:
+            '€299 / night (₪1,188) — PRICE-VERIFIED 2026-05-17: was €128, now €299 (Booking live, €598 / 2 nights — earlier price drastically understated)',
           note: '38m² One-Bedroom Apartment: Bedroom 1 (queen) + Living room (sofa bed) — sleeps 3. Eco-certified ("100% BIO") apartment-hotel. Washer + dishwasher + full kitchen + soundproof. Maxglaner Hauptstraße 45 — ~25-min walk to Chabad. Lowest price in the new batch and still passes every filter. Free cancellation.',
           budgetTier: 'standard',
           platform: 'booking',
@@ -1332,7 +1391,13 @@ export const TRIP: TripData = {
           laundry: 'washer',
           bedrooms: 1,
           beds: '1 queen + sofa bed (living room)',
-          notableDetails: ['Eco-certified BIO', 'Washer', 'Dishwasher', 'Soundproof', 'Lowest price in batch'],
+          notableDetails: [
+            'Eco-certified BIO',
+            'Washer',
+            'Dishwasher',
+            'Soundproof',
+            'Lowest price in batch',
+          ],
           maxGuests: 3,
           kitchen: 'full',
           bath: 'private',
@@ -1375,7 +1440,8 @@ export const TRIP: TripData = {
       pickImg:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
       pickReview: '9.2 · Wonderful · 408 reviews',
-      pickPrice: '€396 / 2 nights (₪1,571) — Two-Bedroom with Mountain View, 63m², free cancel until Jul 12, 2026',
+      pickPrice:
+        '€396 / 2 nights (₪1,571) — Two-Bedroom with Mountain View, 63m², free cancel until Jul 12, 2026',
       pickWhy:
         '63m² Two-Bedroom with Mountain View — Bedroom 1: 1 king / Bedroom 2: 2 twin beds / Living room: 1 sofa bed. 2 separate rooms (Avital-Allison friends-not-couple constraint passes cleanly). 408 reviews is the deepest review base of any qualifying Zell pick. Full kitchen with an actual oven + free parking + Imbachhornstraße 17 (2.8 km from downtown). Cheapest 2-bedroom Zell option found in the broad search. Price re-verified live on Booking 2026-05-19 — corrected from earlier €483 figure (drift caught by fact-checker pass).',
       pickBudgetTier: 'mid-high',
@@ -1413,7 +1479,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
           img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
           review: '8.5 · Very good · 439 reviews',
-          pricePerNight: '€548 / 2 nights (₪2,176) — Two-Bedroom (Schönwieskopf or Kröndlhorn), free cancel until Jul 12',
+          pricePerNight:
+            '€548 / 2 nights (₪2,176) — Two-Bedroom (Schönwieskopf or Kröndlhorn), free cancel until Jul 12',
           note: "Avital's URL pick — book the Two-Bedroom specifically (Schönwieskopf or Kröndlhorn, both 58-66m²). Bedroom 1: 1 king / Bedroom 2: 2 twin beds (separate rooms). Kitchenette + private sauna + lake-view balcony + self check-in. Booking score 8.5 is below the original 9.0 floor but clears Allison's relaxed 8.5 floor. The 'honor Avital's pick + still 2-bed compliant' option, only €65 over the primary.",
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1448,7 +1515,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/sunny-ferienwohnung.html',
           img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
           review: '9.6 · Exceptional · 182 reviews',
-          pricePerNight: '€889 / 2 nights (₪3,529) — Deluxe Two-Bedroom Apartment 70m², free cancel until Jun 26',
+          pricePerNight:
+            '€889 / 2 nights (₪3,529) — Deluxe Two-Bedroom Apartment 70m², free cancel until Jun 26',
           note: '70m² Deluxe Two-Bedroom. Bedroom 1: 1 queen / Bedroom 2: 1 queen + bunk (separate rooms). Highest review score of any qualifying Zell pick (9.6). Self check-in, full kitchen, 2 km from downtown.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1480,7 +1548,7 @@ export const TRIP: TripData = {
           review: '9.1 · Superb · 833 reviews · Location 9.7',
           pricePerNight:
             '€431 / 2 nights (₪1,710) — One-Bedroom Apartment 30m², free cancel until Jul 12, 2026',
-          note: '30m² One-Bedroom Apartment: 1 large double bed + 1 sofa bed. Salzburger Platz 13, Kaprun town center — walks to Kitzsteinhorn cable car (~3-5 min), drives to Zell town in 9 min. 833 reviews is 2x Aparthotel Zell am See\'s review base — the most statistically reliable rating of any new Pinzgau pick. Most complete kitchen of any new pick (oven + stovetop + dishwasher + microwave). Trade-off: 1-bedroom + sofa bed configuration, not a true 2-bedroom — the sofa is the second sleep zone.',
+          note: "30m² One-Bedroom Apartment: 1 large double bed + 1 sofa bed. Salzburger Platz 13, Kaprun town center — walks to Kitzsteinhorn cable car (~3-5 min), drives to Zell town in 9 min. 833 reviews is 2x Aparthotel Zell am See's review base — the most statistically reliable rating of any new Pinzgau pick. Most complete kitchen of any new pick (oven + stovetop + dishwasher + microwave). Trade-off: 1-bedroom + sofa bed configuration, not a true 2-bedroom — the sofa is the second sleep zone.",
           budgetTier: 'mid-high',
           platform: 'booking',
           vibeTag: 'in-town',
@@ -1558,7 +1626,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/schonblick-residence-absolut-alpine-apartments.html',
           img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
           review: '9.5 · Exceptional · 464 reviews',
-          pricePerNight: '€1,015 / 2 nights (₪4,030) — Two-Bedroom Apartment with Balcony "TOP 12", 60m², free cancel until Jun 26',
+          pricePerNight:
+            '€1,015 / 2 nights (₪4,030) — Two-Bedroom Apartment with Balcony "TOP 12", 60m², free cancel until Jun 26',
           note: '60m² Two-Bedroom. Bedroom 1: 1 king / Bedroom 2: 1 king (2 separate KING bedrooms — best privacy of the four). 464 reviews. Summercard included (free local transport / cable car). Most expensive Zell option but the cleanest 2-bed config.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -1566,7 +1635,12 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 2,
           beds: '2 kings (separate bedrooms) + 1 sofa bed',
-          notableDetails: ['2 separate king bedrooms', 'Best privacy', 'Summercard included', '464 reviews'],
+          notableDetails: [
+            '2 separate king bedrooms',
+            'Best privacy',
+            'Summercard included',
+            '464 reviews',
+          ],
           maxGuests: 5,
           kitchen: 'full',
           bath: 'private',
@@ -1599,7 +1673,8 @@ export const TRIP: TripData = {
       pickImg:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
       pickReview: '9.0 · Wonderful · 251 reviews',
-      pickPrice: '€513-€590 / 2 nights (₪2,037-₪2,343) — three 2-bedroom apartments available, free cancel until Jun 28',
+      pickPrice:
+        '€513-€590 / 2 nights (₪2,037-₪2,343) — three 2-bedroom apartments available, free cancel until Jun 28',
       pickWhy:
         "The only verified Salzkammergut-region property with multiple 2-actual-separate-bedroom apartments + private kitchen + free cancel + a score (9.0) and review count (251) both well above the relaxed 8.5 floor. Three 2BR apartments available for Jul 28-30 — recommended room: Apartment 51m² (€513), Bedroom 1: 1 queen / Bedroom 2: 1 twin + 1 bunk (cleanest 'one person per room' structure for friends-not-couple). Gosau village is compact and walkable to the Vorderer Gosausee trailhead — Avital's lakes-region anchor pick, structurally cleaner than the Obertraun URL she sent (which only had a 1-queen apartment left).",
       pickBudgetTier: 'mid-high',
@@ -1728,7 +1803,7 @@ export const TRIP: TripData = {
           review: '8.5 · Very good · 99 reviews · Location 9.3',
           pricePerNight:
             '€304 / 2 nights (₪1,206) — One-Bedroom Apt with Garden View or Balcony 48m², free cancel until Jul 23, 2026',
-          note: 'Cheapest in-Bad-Mitterndorf option (the corridor Allison\'s been gravitating to). 48m² apartment (largest of new Anchor #2 picks) — 1 double bed + 1 sofa bed. Most complete kitchen of new Anchor #2 picks: oven + stovetop + dishwasher + microwave. 150m from Bad Mitterndorf center. Drives 30 min to Hallstatt, 15 min to Tauplitz lifts, 25 min to Altaussee. Trade-off: 8.5 review score is below the strict 9.0 floor (passes the relaxed 8.5 floor). 99 reviews + Location 9.3 makes the rating stable, not noisy.',
+          note: "Cheapest in-Bad-Mitterndorf option (the corridor Allison's been gravitating to). 48m² apartment (largest of new Anchor #2 picks) — 1 double bed + 1 sofa bed. Most complete kitchen of new Anchor #2 picks: oven + stovetop + dishwasher + microwave. 150m from Bad Mitterndorf center. Drives 30 min to Hallstatt, 15 min to Tauplitz lifts, 25 min to Altaussee. Trade-off: 8.5 review score is below the strict 9.0 floor (passes the relaxed 8.5 floor). 99 reviews + Location 9.3 makes the rating stable, not noisy.",
           budgetTier: 'standard',
           platform: 'booking',
           vibeTag: 'in-town',
@@ -1766,7 +1841,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/auszeit-salzkammergut-appartements.html',
           img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1280px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg',
           review: '9.3 · Wonderful · 138 reviews',
-          pricePerNight: '€334 / 2 nights (₪1,326) — Apartment with Balcony 36m², free cancel until Jun 16',
+          pricePerNight:
+            '€334 / 2 nights (₪1,326) — Apartment with Balcony 36m², free cancel until Jun 16',
           note: 'Cheapest qualifying option by a wide margin (€334 vs €513). 9.3 score. Bedroom: 1 twin + 1 queen (same room, NOT separate rooms) + 1 sofa bed in living room. Qualifies under Allison\'s "2 separate beds" allow-list but is NOT "2 separate rooms" — flag if separate-rooms is a hard requirement. Bad Ischl is centrally positioned: ~25 min to Hallstatt and ~25 min to Strobl/Wolfgangsee. Only 1 room left for the dates — book fast.',
           budgetTier: 'standard',
           platform: 'booking',
@@ -1791,7 +1867,8 @@ export const TRIP: TripData = {
           viewType: 'mountain',
           availability: 'limited',
           availabilityCheckedDate: '2026-05-19',
-          availabilityNote: 'Only 1 apartment type left for Jul 28-30 as of 2026-05-19. Book within days to lock.',
+          availabilityNote:
+            'Only 1 apartment type left for Jul 28-30 as of 2026-05-19. Book within days to lock.',
           freeCancellation: true,
           freeCancellationUntil: '2026-06-16',
           photos: [],
@@ -1817,7 +1894,8 @@ export const TRIP: TripData = {
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
       pickReview: '9.5 · Exceptional · 585 reviews',
-      pickPrice: '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast, free cancel + pay-at-property',
+      pickPrice:
+        '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast, free cancel + pay-at-property',
       pickWhy:
         'Allison\'s pick (2026-05-19 PM, "airport night cheaper is better just one night") — cheapest gold-stamped option at €176, €89 less than Gabi and €31 less than Villa Verde. 9.5 / 585 reviews is gold-stamped on both Booking and Google. 3.4 km from SZG, ~7-min drive at 06:15 — still well under the 10-min airport-orbit ceiling. Double Room with Balcony (1 king), breakfast included, free cancellation + pay-at-property so it can be locked today and changed later. See the 3-card comparison on Stay → Airport for the Gabi/Villa Verde alts side-by-side.',
       pickBudgetTier: 'standard',
@@ -1948,7 +2026,7 @@ export const TRIP: TripData = {
           review: '8.1 · Very Good · 1,640 reviews',
           pricePerNight:
             '€123 / night (₪488) — Standard Twin Room (2 twin beds), free cancel + pay-at-property',
-          note: 'Cheapest gold-discount option in the Wals airport zone (€53 under Landhaus Grünau, €142 under Hotel Gabi). 2.8 km from downtown Wals. Standard Twin Room with 2 twin beds — clean twin config. Free cancellation + pay-at-property. Trade-off: 8.1 score is well below Allison\'s 9.0 strict floor — flagged with caveat badge. 1,640 reviews is deepest sample of all airport-zone picks (the rating is statistically stable, not noisy). Prior research flagged motorway noise reports — confirm with host if light sleeping matters.',
+          note: "Cheapest gold-discount option in the Wals airport zone (€53 under Landhaus Grünau, €142 under Hotel Gabi). 2.8 km from downtown Wals. Standard Twin Room with 2 twin beds — clean twin config. Free cancellation + pay-at-property. Trade-off: 8.1 score is well below Allison's 9.0 strict floor — flagged with caveat badge. 1,640 reviews is deepest sample of all airport-zone picks (the rating is statistically stable, not noisy). Prior research flagged motorway noise reports — confirm with host if light sleeping matters.",
           budgetTier: 'standard',
           platform: 'booking',
           driveToAirportMin: 5,
@@ -2035,7 +2113,8 @@ export const TRIP: TripData = {
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/square600/506509432.webp?k=29d77bd1dd210a101fa445b3dc5caac41d37ef7b8ac5bd504e28fdd3b59b42f0&o=',
       pickReview: '9.4 · Superb · 258 reviews',
-      pickPrice: '€142 / night (₪564) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: "Check available dates" returned no rooms on Booking live). PRIMARY mountain anchor unavailable — pick alternate.',
+      pickPrice:
+        '€142 / night (₪564) — SOLD OUT for Jul 26-29 as of 2026-05-17 (PRICE-VERIFIED: "Check available dates" returned no rooms on Booking live). PRIMARY mountain anchor unavailable — pick alternate.',
       pickWhy:
         '54m² 1-bedroom apartment with balcony, full kitchen, living room. 3km from Hallstatt — close enough for evenings, far enough for quiet. Right at the foot of the Dachstein cable car. Free cancellation. The deep-anchor pick.',
       pickBudgetTier: 'splurge',
@@ -2075,7 +2154,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/austria-apartments.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/680881702.webp?k=5280eca98f2aeb08f8cda08936a27de206b90945809344c6ce032c9c2f968d02&o=',
           review: '9.5 · Exceptional · 294 reviews',
-          pricePerNight: '€160 / night (₪636) — PRICE-VERIFIED 2026-05-17: was €136, now €160 (Booking live, €481 / 3 nights)',
+          pricePerNight:
+            '€160 / night (₪636) — PRICE-VERIFIED 2026-05-17: was €136, now €160 (Booking live, €481 / 3 nights)',
           note: '22m² studio apartment with kitchen, 6.6km from Hallstatt in Bad Goisern (has its own Spar, café strip). Free cancellation. Best price-to-review ratio in the area.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -2108,7 +2188,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/ferienhof-osl-urlaub-am-bauernhof.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/16860996.webp?k=2bc9d7e477477eb1fb17858d6f854b5a7d857dd1b4cf6f03b4b1def04c8b86e3&o=',
           review: '9.2 · Superb · 312 reviews',
-          pricePerNight: '€160 / night (₪636) — PRICE-VERIFIED 2026-05-17: was €136, now €160 (Booking live, €481 / 3 nights)',
+          pricePerNight:
+            '€160 / night (₪636) — PRICE-VERIFIED 2026-05-17: was €136, now €160 (Booking live, €481 / 3 nights)',
           note: 'WORKING FARMHOUSE (urlaub am bauernhof = "farm vacation"). 30m² studio with balcony, 3.7km from Hallstatt. Goats and horses outside, lake walking distance, local family running it. The most deeply Salzkammergut option in the set — apartment-on-a-real-farm energy.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -2147,7 +2228,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/haus-steinbrecher-hallstatt.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/194990009.webp?k=7bf12e6e7b46360edc5d4a9535b531139cdf67c475bbae39170a777f965714fa&o=',
           review: '9.7 · Exceptional · 131 reviews',
-          pricePerNight: '€187 / night (₪743) — PRICE-VERIFIED 2026-05-17: was €156, now €187 (Booking live, €560 / 3 nights)',
+          pricePerNight:
+            '€187 / night (₪743) — PRICE-VERIFIED 2026-05-17: was €156, now €187 (Booking live, €560 / 3 nights)',
           note: '48m² ground-floor 2-bedroom apartment with full kitchen, IN HALLSTATT village (not Obertraun). Free cancellation. Highest review score in the area — closest you can get to the painted-houses postcard and still have a kitchen.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -2181,13 +2263,14 @@ export const TRIP: TripData = {
             'https://cf.bstatic.com/xdata/images/hotel/max1280x900/263571289.jpg?k=2acfdcca8bd31bb77f158e0191dbf73c48940ef26af0bce425f91ca9b169c35b&o=&hp=1',
           ],
         },
-        
+
         {
           name: 'Landhaus Osborne (Obertraun)',
           url: 'https://www.booking.com/hotel/at/landhaus-osborne.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/55717428.webp?k=d49f9c3fd40d5ac080db10edb8608e1eb774d5a55f89ba5d36f11651ae8b1927&o=',
           review: '9.4 · Superb · 200 reviews',
-          pricePerNight: '€177 / night (₪703) — PRICE-VERIFIED 2026-05-17: was €151, now €177 (Booking live, €531 / 3 nights)',
+          pricePerNight:
+            '€177 / night (₪703) — PRICE-VERIFIED 2026-05-17: was €151, now €177 (Booking live, €531 / 3 nights)',
           note: '27m² Apartment (3) with kitchen, in Obertraun village. Free cancellation. Long-established 200-review listing, walking distance to the Hallstättersee shore.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -2224,16 +2307,14 @@ export const TRIP: TripData = {
         // Bad Goisern + Hallstatt lake-edge. All apartments with working
         // kitchens, paved access, reachable by car after dark. Live Booking
         // prices Jul 26-30 2026, ÷ 4 nights.
-        
-        
-        
-        
+
         {
           name: 'Weisses Lamm Holiday Home (Hallstatt)',
           url: 'https://www.booking.com/hotel/at/weisses-lamm.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/186766752.webp?k=268d3b8120e740e18ee5453b9ba40aa5807e79a435351ef6f3a94f77f4e2e722&o=',
           review: '8.2 · Very good · 2,113 reviews',
-          pricePerNight: '€275 / night (₪1,092) — PRICE-VERIFIED 2026-05-17: was €217, now €275 (Booking live, €825 / 3 nights)',
+          pricePerNight:
+            '€275 / night (₪1,092) — PRICE-VERIFIED 2026-05-17: was €217, now €275 (Booking live, €825 / 3 nights)',
           note: 'LAKE-VIEW holiday home — 75m² entire vacation home with full kitchen, IN Hallstatt village (150m from downtown), one bedroom + living room. 2,113 reviews = extremely battle-tested. ABOVE the €180 mid-high cap but flagged worth-it: lake view + size + the only Hallstatt-village kitchen-equipped property at this scale. 8.2 review is slightly below 8.5 bar; trade-off explained by view + space.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -2278,8 +2359,7 @@ export const TRIP: TripData = {
         // hotel-not-apartment (no kitchen) — flagged in their notes; the
         // apartment-with-kitchen rule still owns the primary picks. These are
         // here as "if you want to splurge for character" alternates.
-        
-        
+
         // === MOUNTAIN-ANCHOR DEEP-SEARCH ADDITIONS 2026-05-17 ===
         // Allison 2026-05-17 06:17: "The mountain anchor we haven't chosen
         // where to sleep yet and I want to really be linked to all places and
@@ -2306,7 +2386,13 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 1,
           beds: '1 extra-large double + sofa (living room)',
-          notableDetails: ['60m² chalet-style', 'Separate living room', 'King bed', 'Full kitchen', '9.7 score'],
+          notableDetails: [
+            '60m² chalet-style',
+            'Separate living room',
+            'King bed',
+            'Full kitchen',
+            '9.7 score',
+          ],
           maxGuests: 3,
           kitchen: 'full',
           bath: 'private',
@@ -2330,7 +2416,8 @@ export const TRIP: TripData = {
           platform: 'booking',
           vibeTag: 'nature-view',
           beautyPick: true,
-          beautyNote: 'Sunny-hillside chalet with 9.6 score across 152 reviews — the alpine-balcony pick of the area.',
+          beautyNote:
+            'Sunny-hillside chalet with 9.6 score across 152 reviews — the alpine-balcony pick of the area.',
           laundry: 'unknown',
           bedrooms: 1,
           beds: '1 extra-large double',
@@ -2360,7 +2447,12 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 1,
           beds: '1 double + sofa bed (living room)',
-          notableDetails: ['Cheapest pick in batch', 'Separate living room', 'Alpine view', '9.4 score'],
+          notableDetails: [
+            'Cheapest pick in batch',
+            'Separate living room',
+            'Alpine view',
+            '9.4 score',
+          ],
           maxGuests: 3,
           kitchen: 'full',
           bath: 'private',
@@ -2404,7 +2496,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/appartementgitti.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/643263725.webp?k=fac6d14921ede1326474830a93cc40a74770d63cdaffff3136a20e1f39a9836a&o=',
           review: '9.7 · Exceptional · 52 reviews',
-          pricePerNight: '€256 / night (₪1,016) — PRICE-VERIFIED 2026-05-17: was €286, now €256 (Booking live, €768 / 3 nights)',
+          pricePerNight:
+            '€256 / night (₪1,016) — PRICE-VERIFIED 2026-05-17: was €286, now €256 (Booking live, €768 / 3 nights)',
           note: '51m² One-Bedroom Apartment with 1 large double bed, private bath. 9.7 review score across 52 reviews. Above the standard cap — splurge tier; surface as "premium clean-apartment pick when budget allows." Free cancellation. Hallstatt-area location.',
           budgetTier: 'splurge',
           platform: 'booking',
@@ -2438,7 +2531,13 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 2,
           beds: '2 large doubles (2 separate bedrooms)',
-          notableDetails: ['TRUE 2BR', '86m² spacious', '423 reviews', 'Near Altaussee lake', 'Sleeps 4'],
+          notableDetails: [
+            'TRUE 2BR',
+            '86m² spacious',
+            '423 reviews',
+            'Near Altaussee lake',
+            'Sleeps 4',
+          ],
           maxGuests: 4,
           kitchen: 'full',
           bath: 'private',
@@ -2462,11 +2561,19 @@ export const TRIP: TripData = {
           platform: 'booking',
           vibeTag: 'nature-view',
           beautyPick: true,
-          beautyNote: 'Villa-style 2BR with garden, terrace, and mountain view — the most equipped fresh pick in the batch (washer + dishwasher verified).',
+          beautyNote:
+            'Villa-style 2BR with garden, terrace, and mountain view — the most equipped fresh pick in the batch (washer + dishwasher verified).',
           laundry: 'washer',
           bedrooms: 2,
           beds: '1 extra-large double + 2 sofa beds',
-          notableDetails: ['TRUE 2BR', 'Washer verified', 'Dishwasher', 'Terrace + garden', 'Mountain view', 'Free parking'],
+          notableDetails: [
+            'TRUE 2BR',
+            'Washer verified',
+            'Dishwasher',
+            'Terrace + garden',
+            'Mountain view',
+            'Free parking',
+          ],
           maxGuests: 4,
           kitchen: 'full',
           bath: 'private',
@@ -2484,17 +2591,25 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/wohnen-uber-den-dachern-am-meranplatz.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/666207565.webp?k=c0eb4d037523ca069618b35c3c01029e092e2c02c843bbe2be2bcf7a9e926661&o=',
           review: '9.4 · Superb · 17 reviews',
-          pricePerNight: '€192 / night (₪762) — PRICE-VERIFIED 2026-05-17: was €247, now €192 (Booking live, €576 / 3 nights — listing dropped 22%)',
+          pricePerNight:
+            '€192 / night (₪762) — PRICE-VERIFIED 2026-05-17: was €247, now €192 (Booking live, €576 / 3 nights — listing dropped 22%)',
           note: 'TRUE 2-BEDROOM 85m² apartment "above the rooftops" on Meranplatz in Bad Aussee with balcony + terrace + separate living room. Full kitchen. Sleeps up to 5 (2 singles + 1 extra-large double + 2 sofa beds). Town-centre location with panoramic-rooftop view — the "wake up over a town square in the Alps" pick. Free cancellation. Bad Aussee = ~25-min drive to Hallstatt.',
           budgetTier: 'mid-high',
           platform: 'booking',
           vibeTag: 'in-town',
           beautyPick: true,
-          beautyNote: 'Above-the-rooftops 2BR with balcony AND terrace on a Bad Aussee town square — town-centre character + view.',
+          beautyNote:
+            'Above-the-rooftops 2BR with balcony AND terrace on a Bad Aussee town square — town-centre character + view.',
           laundry: 'unknown',
           bedrooms: 2,
           beds: '2 singles + 1 extra-large double + 2 sofa beds',
-          notableDetails: ['TRUE 2BR', '85m² spacious', 'Balcony + terrace', 'Above-rooftops view', 'Town-centre'],
+          notableDetails: [
+            'TRUE 2BR',
+            '85m² spacious',
+            'Balcony + terrace',
+            'Above-rooftops view',
+            'Town-centre',
+          ],
           maxGuests: 5,
           kitchen: 'full',
           bath: 'private',
@@ -2516,20 +2631,22 @@ export const TRIP: TripData = {
         // availability flagged 'unverified' because parallel agent held
         // the Playwright browser during the research window — confirm
         // before booking.
-        
-        
+
         {
           name: 'Naturresort FiSCHERGUT — Lodge Wolfgangthal (St. Wolfgang farm-stay)',
           url: 'https://www.booking.com/hotel/at/fischergut.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
           img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG/1280px-St._Wolfgang_im_Salzkammergut_Wolfgangsee_1.JPG',
-          review: '8.6 · Excellent · 108 reviews (live-verified 2026-05-17; was 9.2/93 stored, drifted down 0.6 in real reviews)',
-          pricePerNight: '€292 / night (₪1,160) — PRICE-VERIFIED 2026-05-17: was €180, now €292 (Booking live, €876 / 3 nights — was 62% understated)',
+          review:
+            '8.6 · Excellent · 108 reviews (live-verified 2026-05-17; was 9.2/93 stored, drifted down 0.6 in real reviews)',
+          pricePerNight:
+            '€292 / night (₪1,160) — PRICE-VERIFIED 2026-05-17: was €180, now €292 (Booking live, €876 / 3 nights — was 62% understated)',
           note: 'WOW: a modern farm-stay LODGE in the Wolfgangthal valley above St. Wolfgang, surrounded by forest and pastureland. Full apartment with satellite TV, fully equipped kitchen + fridge, private bath, terrace, BBQ, children\'s playground, free parking. Couples rate location 9.3 — "perfect for people who would like to break away from busy weekdays." ~45 min drive to Hallstatt, ~10 min to Wolfgangsee/Schafberg cog. Pairs well with the Wolfgangsee config or as a Mountain-anchor variant. [Photo is St. Wolfgang shoreline — view live listing photos on Booking.]',
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'farm-stay',
           beautyPick: true,
-          beautyNote: 'Modern farm-stay lodge in a forested valley above St. Wolfgang — break-from-the-world energy, with BBQ, terrace, and the Schafberg cog 10 minutes away.',
+          beautyNote:
+            'Modern farm-stay lodge in a forested valley above St. Wolfgang — break-from-the-world energy, with BBQ, terrace, and the Schafberg cog 10 minutes away.',
           laundry: 'unknown',
           bedrooms: 1,
           beds: '1 queen + sofa (sleeps 2-4)',
@@ -2550,7 +2667,8 @@ export const TRIP: TripData = {
           viewType: 'mountain',
           availability: 'unverified',
           availabilityCheckedDate: '2026-05-17',
-          availabilityNote: 'Confirm Jul 26-29 live on Booking.com — Playwright sweep blocked this pass.',
+          availabilityNote:
+            'Confirm Jul 26-29 live on Booking.com — Playwright sweep blocked this pass.',
           freeCancellation: true,
           photos: [],
         },
@@ -2560,13 +2678,15 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/dangos.html?checkin=2026-07-26&checkout=2026-07-29&group_adults=2&nflt=fc%3D2',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/865965055.webp?k=f977aa15adc80578fdccad30eb5672682d78dc894ced2254d76e5848a9cb02f5&o=',
           review: '9.8 · Exceptional · 132 reviews',
-          pricePerNight: '€298 / night (₪1,184) — PRICE-VERIFIED 2026-05-17: was €255, now €298 (Booking live, €893 / 3 nights)',
+          pricePerNight:
+            '€298 / night (₪1,184) — PRICE-VERIFIED 2026-05-17: was €255, now €298 (Booking live, €893 / 3 nights)',
           note: 'ALLISON\'S FAVORITE FROM THE URL QUEUE (submitted 2026-05-17). Modern 2-BR apartment in Gosau village (Kirchenstraße 34a), 65 m² entire-place with 2 king beds (one per bedroom — true Shabbat-separation), full private kitchen, dishwasher, balcony, terrace, garden + mountain + landmark views, washing machine. Highest review score in the entire queue (9.8 / 132 reviews · location 9.7). Free cancellation until June 26, 2026 + pay nothing until June 24. "We have 1 left" at time of check — book early. Trade-off vs Obertraun: Königssee day-trip is ~1h45 from Gosau vs ~1h15 from Obertraun, but Gosausee mirror-lake is on your doorstep (~10 min) and Hallstatt ~50 min. The closest, easiest base for the marquee Gosausee day.',
           budgetTier: 'splurge',
           platform: 'booking',
           vibeTag: 'nature-view',
           beautyPick: true,
-          beautyNote: 'Allison\'s favorite from the URL queue — 9.8 / 132 reviews, true 2-BR with separate king bedrooms, 65 m² with balcony + terrace facing the Gosau valley.',
+          beautyNote:
+            "Allison's favorite from the URL queue — 9.8 / 132 reviews, true 2-BR with separate king bedrooms, 65 m² with balcony + terrace facing the Gosau valley.",
           laundry: 'washer',
           bedrooms: 2,
           beds: '2 king beds (1 per bedroom)',
@@ -2575,7 +2695,7 @@ export const TRIP: TripData = {
             '65 m² with balcony + terrace',
             'Dishwasher + washing machine',
             'Gosau village (Kirchenstraße)',
-            'Allison\'s favorite (URL queue)',
+            "Allison's favorite (URL queue)",
             '"We have 1 left" — book early',
           ],
           maxGuests: 4,
@@ -2587,7 +2707,8 @@ export const TRIP: TripData = {
           viewType: 'mountain',
           availability: 'limited',
           availabilityCheckedDate: '2026-05-17',
-          availabilityNote: 'Booking showed "We have 1 left" for Jul 26-29 on 2026-05-17 03:59 UTC — bookable but moving fast.',
+          availabilityNote:
+            'Booking showed "We have 1 left" for Jul 26-29 on 2026-05-17 03:59 UTC — bookable but moving fast.',
           freeCancellation: true,
           freeCancellationUntil: '2026-06-26',
           photos: [
@@ -2630,7 +2751,8 @@ export const TRIP: TripData = {
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/max1280x900/585968658.jpg?k=c7d214bd1ba98238c62526e870a402b0ae3ab58d9a4df7be7e4873a7eee97efb&o=&hp=1',
       pickReview: '8.1 · Very good · 1,639 reviews',
-      pickPrice: '€71 / night (₪282) — PRICE-VERIFIED 2026-05-17: was €105, now €71 (Booking live for Jul 30-31 — cheapest non-refundable rate; free-cancel rates start €77)',
+      pickPrice:
+        '€71 / night (₪282) — PRICE-VERIFIED 2026-05-17: was €105, now €71 (Booking live for Jul 30-31 — cheapest non-refundable rate; free-cancel rates start €77)',
       pickWhy:
         'Budget-tier airport pick — 4.4 km / ~8-min drive to SZG terminal. Best Western chain reliability for the night that matters most (5am wake-up). 1,639 reviews = battle-tested. Free cancellation, breakfast available, free parking. Clean+functional, not character-pick territory — but Allison\'s directive said "cheaper end just sleeping bf airport, nice enough for Allison taste."',
       pickBudgetTier: 'lean',
@@ -2673,7 +2795,13 @@ export const TRIP: TripData = {
           laundry: 'none',
           bedrooms: 'studio',
           beds: '1 capsule pod',
-          notableDetails: ['CAPSULE POD (not private room)', '8.9 score', '758 reviews', 'Modern design', 'Free cancellation'],
+          notableDetails: [
+            'CAPSULE POD (not private room)',
+            '8.9 score',
+            '758 reviews',
+            'Modern design',
+            'Free cancellation',
+          ],
           maxGuests: 1,
           kitchen: 'shared',
           bath: 'shared',
@@ -2710,7 +2838,12 @@ export const TRIP: TripData = {
           laundry: 'none',
           bedrooms: 1,
           beds: '1 queen',
-          notableDetails: ['German side of border', '2,119 reviews', 'Modern hotel chain', 'Free cancellation'],
+          notableDetails: [
+            'German side of border',
+            '2,119 reviews',
+            'Modern hotel chain',
+            'Free cancellation',
+          ],
           maxGuests: 2,
           kitchen: 'none',
           bath: 'private',
@@ -2747,7 +2880,12 @@ export const TRIP: TripData = {
           laundry: 'none',
           bedrooms: 1,
           beds: '1 queen',
-          notableDetails: ['B&B Hotels chain', '2,496 reviews', 'Chain predictability', 'Free cancellation'],
+          notableDetails: [
+            'B&B Hotels chain',
+            '2,496 reviews',
+            'Chain predictability',
+            'Free cancellation',
+          ],
           maxGuests: 2,
           kitchen: 'none',
           bath: 'private',
@@ -2784,7 +2922,12 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 1,
           beds: '1 queen',
-          notableDetails: ['Apartment + kitchen', 'Breakfast included', 'Free cancellation', 'No prepayment'],
+          notableDetails: [
+            'Apartment + kitchen',
+            'Breakfast included',
+            'Free cancellation',
+            'No prepayment',
+          ],
           maxGuests: 2,
           kitchen: 'kitchenette',
           bath: 'private',
@@ -2811,7 +2954,8 @@ export const TRIP: TripData = {
           url: 'https://www.booking.com/hotel/at/hapimag-resort-salzburg.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/139217677.jpg?k=ebc0c828c528549905c9c09bbe92ccc4e2a9f32aaf5cfa7c5d2372e7cd7ca11c&o=&hp=1',
           review: '9.4 · Superb · 304 reviews',
-          pricePerNight: '€442 / night (₪1,755) — PRICE-VERIFIED 2026-05-17: was €320, now €442 (Booking live, €442 / 1 night)',
+          pricePerNight:
+            '€442 / night (₪1,755) — PRICE-VERIFIED 2026-05-17: was €320, now €442 (Booking live, €442 / 1 night)',
           note: 'PREVIOUS pick — moved to bench because the budget directive (Allison 2026-05-17 22:33) says cheaper end. Kept here in case the budget chains feel too sterile and you want the full studio-apartment-with-kitchen experience even for one night. 34m² studio, 9.4 score, free cancellation. WARNING: above the budget tier — only book if Allison/Avital explicitly choose to splurge.',
           budgetTier: 'mid-high',
           platform: 'booking',
@@ -2819,7 +2963,13 @@ export const TRIP: TripData = {
           laundry: 'unknown',
           bedrooms: 'studio',
           beds: '1 queen',
-          notableDetails: ['ABOVE BUDGET TIER', '34m² studio', 'Full kitchen', 'Free cancellation', 'For splurge only'],
+          notableDetails: [
+            'ABOVE BUDGET TIER',
+            '34m² studio',
+            'Full kitchen',
+            'Free cancellation',
+            'For splurge only',
+          ],
           maxGuests: 2,
           kitchen: 'full',
           bath: 'private',
@@ -3050,7 +3200,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.dachstein-salzkammergut.com/en/destinations/lakes/gosausee.html',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Lakeside parking (Gosausee-Parkplatz, ~€5/day). 5-min flat walk to the lake edge.',
+    walkFromParkingNote:
+      'Lakeside parking (Gosausee-Parkplatz, ~€5/day). 5-min flat walk to the lake edge.',
     accessibilityNote: 'Stroller + wheelchair OK for the lake-edge loop. Wide flat gravel path.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
@@ -3093,12 +3244,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.hallstatt.net/',
     walkFromParkingMin: 10,
-    walkFromParkingNote: 'Cars park outside the village (P1/P2 lots — €14/day). 10-min flat walk in along the lake. Or drive in 11:30-16:00 only with the special permit.',
-    accessibilityNote: 'Village core is flat lakeside. Some narrow streets + steps to the upper church — skip those for stroller/wheelchair.',
+    walkFromParkingNote:
+      'Cars park outside the village (P1/P2 lots — €14/day). 10-min flat walk in along the lake. Or drive in 11:30-16:00 only with the special permit.',
+    accessibilityNote:
+      'Village core is flat lakeside. Some narrow streets + steps to the upper church — skip those for stroller/wheelchair.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Village open year-round, 24/7. Shops typically 09:00-18:00.',
-    seasonNote: 'July = peak season + biggest crowds. Best light at sunset when day-tour buses leave.',
+    seasonNote:
+      'July = peak season + biggest crowds. Best light at sunset when day-tour buses leave.',
     priceEur: 0,
     priceNote: 'Free to walk. Parking €14/day (P1 or P2).',
     photos: [
@@ -3142,14 +3296,19 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.dachstein-salzkammergut.com/en/skywalks/5fingers.html',
     walkFromParkingMin: 3,
-    walkFromParkingNote: 'Free parking at Obertraun valley station. 3-min walk to gondola entrance. Two cable-car sections do the actual climb (no hike).',
-    accessibilityNote: 'Top-station to 5fingers: 20-min flat compacted gravel path, signed barrier-free. Mountain Gym 5fingers viewing-cage has steps — stop at 5fingers platform if needed.',
+    walkFromParkingNote:
+      'Free parking at Obertraun valley station. 3-min walk to gondola entrance. Two cable-car sections do the actual climb (no hike).',
+    accessibilityNote:
+      'Top-station to 5fingers: 20-min flat compacted gravel path, signed barrier-free. Mountain Gym 5fingers viewing-cage has steps — stop at 5fingers platform if needed.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
-    openingHours: 'Gondola daily 08:40-16:30 in summer (last ascent 15:30). Check live status before going — cloud cover closes the upper section.',
-    seasonNote: 'Summer season mid-May to late-Oct. 5fingers platform itself is year-round if gondola runs.',
+    openingHours:
+      'Gondola daily 08:40-16:30 in summer (last ascent 15:30). Check live status before going — cloud cover closes the upper section.',
+    seasonNote:
+      'Summer season mid-May to late-Oct. 5fingers platform itself is year-round if gondola runs.',
     priceEur: 44.5,
-    priceNote: 'Round-trip Panorama Ticket €44.50pp (2025 rate, both gondola sections). Salzkammergut card discount available.',
+    priceNote:
+      'Round-trip Panorama Ticket €44.50pp (2025 rate, both gondola sections). Salzkammergut card discount available.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/A-Krippenstein-5fingers.jpg/1280px-A-Krippenstein-5fingers.jpg',
@@ -3190,14 +3349,19 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.5schaetze.at/en/schafbergbahn/',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Paid parking at Markt St. Wolfgang Schafbergbahn lot. 5-min walk to the cog station. Cog does the 1,000m climb (no hike).',
-    accessibilityNote: 'Cog cars have steep step-up but staff assist. Top-station to terrace = ~10-min mild incline on gravel — walkable for most but not stroller-ideal. Hotel Schafbergspitze terrace fully accessible.',
+    walkFromParkingNote:
+      'Paid parking at Markt St. Wolfgang Schafbergbahn lot. 5-min walk to the cog station. Cog does the 1,000m climb (no hike).',
+    accessibilityNote:
+      'Cog cars have steep step-up but staff assist. Top-station to terrace = ~10-min mild incline on gravel — walkable for most but not stroller-ideal. Hotel Schafbergspitze terrace fully accessible.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
-    openingHours: 'Cog runs late-April to late-Oct, daily ~09:00-16:30. Sunset trip = book the last ascent + last descent.',
-    seasonNote: 'Closed Nov-April. Last departure depends on month — verify on schafbergbahn.at before locking sunset plan.',
+    openingHours:
+      'Cog runs late-April to late-Oct, daily ~09:00-16:30. Sunset trip = book the last ascent + last descent.',
+    seasonNote:
+      'Closed Nov-April. Last departure depends on month — verify on schafbergbahn.at before locking sunset plan.',
     priceEur: 51,
-    priceNote: 'Round-trip cog €51pp (2025 adult fare). Reservation €1 extra, strongly recommended for July weekends.',
+    priceNote:
+      'Round-trip cog €51pp (2025 adult fare). Reservation €1 extra, strongly recommended for July weekends.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Schafberg_1.jpg/1280px-Schafberg_1.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Wolfgangsee_und_Schafberg_vom_Elferstein.jpg/1280px-Wolfgangsee_und_Schafberg_vom_Elferstein.jpg',
@@ -3237,11 +3401,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.wolfgangsee.salzkammergut.at/en/',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Garage P1 (Schafbergbahn lot) or village street parking. 5-min walk to the lakeside promenade.',
-    accessibilityNote: 'Promenade is flat + paved, fully wheelchair/stroller-accessible. Pilgrim Church has a few steps.',
+    walkFromParkingNote:
+      'Garage P1 (Schafbergbahn lot) or village street parking. 5-min walk to the lakeside promenade.',
+    accessibilityNote:
+      'Promenade is flat + paved, fully wheelchair/stroller-accessible. Pilgrim Church has a few steps.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
-    openingHours: 'Village open year-round, 24/7. Strandbad swim area mid-May to mid-Sept ~09:00-19:00.',
+    openingHours:
+      'Village open year-round, 24/7. Strandbad swim area mid-May to mid-Sept ~09:00-19:00.',
     seasonNote: 'July = peak swim + Strandbad season. Sunsets late (~21:00) in late July.',
     priceEur: 0,
     priceNote: 'Free to walk. Strandbad day-pass ~€5pp. Parking €1-2/hr.',
@@ -3280,12 +3447,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://attersee-attergau.salzkammergut.at/en/',
     walkFromParkingMin: 2,
-    walkFromParkingNote: 'Lakeside village parking (Nußdorf, Unterach, Weyregg — all free or €1/hr). 2-min walk to the water at every esplanade.',
+    walkFromParkingNote:
+      'Lakeside village parking (Nußdorf, Unterach, Weyregg — all free or €1/hr). 2-min walk to the water at every esplanade.',
     accessibilityNote: 'All lakeside promenades flat + paved. Bus access throughout the lake ring.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Lake access year-round. Boat services (Attersee-Schifffahrt) May-Oct.',
-    seasonNote: 'Best July-Aug for swim + sunset combo. West-shore villages (Nußdorf, Weyregg) face the sunset.',
+    seasonNote:
+      'Best July-Aug for swim + sunset combo. West-shore villages (Nußdorf, Weyregg) face the sunset.',
     priceEur: 0,
     priceNote: 'Free lake access. Boat day-ticket ~€21pp if you want the lake-tour ferry.',
     photos: [
@@ -3326,14 +3495,19 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.seenschifffahrt.de/en/koenigssee/',
     walkFromParkingMin: 8,
-    walkFromParkingNote: 'Schönau parking (€5/day, Parkplatz Königssee). 8-min walk past the souvenir lane to the boat dock at the lakehead. From Salet end-dock: 20-min flat walk to Obersee.',
-    accessibilityNote: 'Boats are wheelchair-accessible at Schönau dock (call ahead). Salet → Obersee path is flat compacted gravel — stroller OK, wheelchair OK with help. St. Bartholomä mostly flat.',
+    walkFromParkingNote:
+      'Schönau parking (€5/day, Parkplatz Königssee). 8-min walk past the souvenir lane to the boat dock at the lakehead. From Salet end-dock: 20-min flat walk to Obersee.',
+    accessibilityNote:
+      'Boats are wheelchair-accessible at Schönau dock (call ahead). Salet → Obersee path is flat compacted gravel — stroller OK, wheelchair OK with help. St. Bartholomä mostly flat.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
-    openingHours: 'Boats April-Oct, first departure 08:00, last return 17:00 (varies — check seenschifffahrt.de monthly schedule).',
-    seasonNote: 'Closed Nov-March (lake freezes). Peak crowds Jul-Aug — first boat at 08:00 is the quiet option.',
+    openingHours:
+      'Boats April-Oct, first departure 08:00, last return 17:00 (varies — check seenschifffahrt.de monthly schedule).',
+    seasonNote:
+      'Closed Nov-March (lake freezes). Peak crowds Jul-Aug — first boat at 08:00 is the quiet option.',
     priceEur: 22.5,
-    priceNote: 'Round-trip boat to Salet €22.50pp (St. Bartholomä-only round-trip €19.50pp). Cash + card accepted.',
+    priceNote:
+      'Round-trip boat to Salet €22.50pp (St. Bartholomä-only round-trip €19.50pp). Cash + card accepted.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Aerial_image_of_K%C3%B6nigssee_%28view_from_the_south%29.jpg/1280px-Aerial_image_of_K%C3%B6nigssee_%28view_from_the_south%29.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Aerial_image_of_Watzmann_and_K%C3%B6nigssee_%28view_from_the_south%29.jpg/1280px-Aerial_image_of_Watzmann_and_K%C3%B6nigssee_%28view_from_the_south%29.jpg',
@@ -3373,12 +3547,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.berchtesgaden.de/en/nature-wonders/hintersee-lake-and-ramsau',
     walkFromParkingMin: 2,
-    walkFromParkingNote: 'Parkplatz Hintersee (€4/day). 2-min walk to lake edge. Loop trail starts at the parking lot.',
-    accessibilityNote: 'Loop is flat gravel with some tree roots — stroller OK with care, wheelchair OK on the main lakeside section.',
+    walkFromParkingNote:
+      'Parkplatz Hintersee (€4/day). 2-min walk to lake edge. Loop trail starts at the parking lot.',
+    accessibilityNote:
+      'Loop is flat gravel with some tree roots — stroller OK with care, wheelchair OK on the main lakeside section.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Open year-round, 24/7. Restaurant Seeklause (lakeside) seasonal.',
-    seasonNote: 'Late-July glassy water + alpenglow conditions are why photographers come. Calmest at dawn.',
+    seasonNote:
+      'Late-July glassy water + alpenglow conditions are why photographers come. Calmest at dawn.',
     priceEur: 0,
     priceNote: 'Free lake access. Parking €4/day.',
     photos: [
@@ -3419,8 +3596,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.berchtesgaden.de/en/nature/hiking-paradise/almbach-gorge-almbachklamm',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Parkplatz Almbachklamm in Marktschellenberg (€3/day). 5-min walk past Kugelmühle (marble-mill) to the entrance ticket booth.',
-    accessibilityNote: 'NOT stroller- or wheelchair-friendly past the entrance — narrow plank bridges, steps, wet rock. Sturdy shoes required.',
+    walkFromParkingNote:
+      'Parkplatz Almbachklamm in Marktschellenberg (€3/day). 5-min walk past Kugelmühle (marble-mill) to the entrance ticket booth.',
+    accessibilityNote:
+      'NOT stroller- or wheelchair-friendly past the entrance — narrow plank bridges, steps, wet rock. Sturdy shoes required.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'Daily 09:00-17:00 May-Oct. Last entry ~16:30.',
@@ -3468,14 +3647,18 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.eisriesenwelt.at/en/',
     walkFromParkingMin: 20,
-    walkFromParkingNote: 'Werfen Eishöhlen-Parkplatz (€8/day). 20-min steep uphill walk OR shuttle bus (€8 round-trip) to the cable-car valley station, then 15-min walk from upper station to cave entrance.',
-    accessibilityNote: 'NOT for limited mobility. 1,400 stairs inside the cave; entire route is uphill, slippery ice, narrow passages, ~1.5°C. Wheelchairs/strollers cannot enter. Cave temperature 0°C — fleece + closed shoes mandatory.',
+    walkFromParkingNote:
+      'Werfen Eishöhlen-Parkplatz (€8/day). 20-min steep uphill walk OR shuttle bus (€8 round-trip) to the cable-car valley station, then 15-min walk from upper station to cave entrance.',
+    accessibilityNote:
+      'NOT for limited mobility. 1,400 stairs inside the cave; entire route is uphill, slippery ice, narrow passages, ~1.5°C. Wheelchairs/strollers cannot enter. Cave temperature 0°C — fleece + closed shoes mandatory.',
     avitalFitNote: 'may be too strenuous',
     verificationStatus: 'verified',
-    openingHours: 'May 1 to Oct 26 2026, daily 09:00-15:30 last tour. Tours every ~30 min, guided only.',
+    openingHours:
+      'May 1 to Oct 26 2026, daily 09:00-15:30 last tour. Tours every ~30 min, guided only.',
     seasonNote: 'CLOSED Nov-April. Tour is the only way in — book online to skip queue.',
     priceEur: 38,
-    priceNote: 'Combo ticket €38pp (cable car + tour). Cable-car-only €30pp. Pay cash or card at booth.',
+    priceNote:
+      'Combo ticket €38pp (cable car + tour). Cable-car-only €30pp. Pay cash or card at booth.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Entrance_of_Eisriesenwelt_ice_cave_Werfen_Austria.jpg/1280px-Entrance_of_Eisriesenwelt_ice_cave_Werfen_Austria.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Eisriesenwelt_Werfen_Austria_01.jpg/1280px-Eisriesenwelt_Werfen_Austria_01.jpg',
@@ -3514,8 +3697,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     },
     sourceUrl: 'https://www.liechtensteinklamm.at/en/',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Parking at the gorge entrance (€3-5/day). 5-min walk down to the ticket booth + start of the gorge boardwalk.',
-    accessibilityNote: 'Not stroller- or wheelchair-accessible. 440 steps on partly grated metal walkways, narrow passages. Sturdy footwear required, no flip-flops.',
+    walkFromParkingNote:
+      'Parking at the gorge entrance (€3-5/day). 5-min walk down to the ticket booth + start of the gorge boardwalk.',
+    accessibilityNote:
+      'Not stroller- or wheelchair-accessible. 440 steps on partly grated metal walkways, narrow passages. Sturdy footwear required, no flip-flops.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'May to early-Oct, daily 08:00-17:00. Last entry 16:00.',
@@ -3564,8 +3749,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       'Far west — 110min each way from Salzburg, 130min from Hallstatt. Best as a full day, not a swap-in.',
     sourceUrl: 'https://www.wasserfaelle-krimml.at/en/',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Parkplatz Krimmler Wasserfälle (€7/day). 5-min walk to the lowest viewpoint. Top of falls = ~1h15 uphill on paved zigzag path.',
-    accessibilityNote: 'Lowest viewpoint stroller- + wheelchair-accessible. Upper viewpoints require climbing the paved zigzag (no stairs, but steep). Wheelchair-accessible up to 2nd viewpoint with help.',
+    walkFromParkingNote:
+      'Parkplatz Krimmler Wasserfälle (€7/day). 5-min walk to the lowest viewpoint. Top of falls = ~1h15 uphill on paved zigzag path.',
+    accessibilityNote:
+      'Lowest viewpoint stroller- + wheelchair-accessible. Upper viewpoints require climbing the paved zigzag (no stairs, but steep). Wheelchair-accessible up to 2nd viewpoint with help.',
     avitalFitNote: 'mixed — see notes',
     verificationStatus: 'verified',
     openingHours: 'Trail open daily April-Oct, paid entry 08:00-18:00. Free outside paid hours.',
@@ -3613,14 +3800,18 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       'Separate toll €46.50/car on top of vignette. Best done as its own full day — too far for half-day swap.',
     sourceUrl: 'https://www.grossglockner.at/en/',
     walkFromParkingMin: 0,
-    walkFromParkingNote: 'Drive-through experience. Free parking at every viewpoint (Edelweißspitze, Kaiser-Franz-Josefs-Höhe). Short walks (5-15 min) from each pull-off — no hike for the main views.',
-    accessibilityNote: 'All major viewpoints accessible from car parks. Kaiser-Franz-Josefs-Höhe visitor centre has elevator + ramp.',
+    walkFromParkingNote:
+      'Drive-through experience. Free parking at every viewpoint (Edelweißspitze, Kaiser-Franz-Josefs-Höhe). Short walks (5-15 min) from each pull-off — no hike for the main views.',
+    accessibilityNote:
+      'All major viewpoints accessible from car parks. Kaiser-Franz-Josefs-Höhe visitor centre has elevator + ramp.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
-    openingHours: 'Open early-May to late-Oct (snow-dependent). Daily 06:00-19:30 in summer. Pay at toll gate.',
+    openingHours:
+      'Open early-May to late-Oct (snow-dependent). Daily 06:00-19:30 in summer. Pay at toll gate.',
     seasonNote: 'CLOSED Nov-April. Best clear-weather days only — clouds erase the views.',
     priceEur: 46.5,
-    priceNote: 'Day-ticket toll €46.50/car (incl. up to 9 occupants). On top of Austrian vignette. No discounts.',
+    priceNote:
+      'Day-ticket toll €46.50/car (incl. up to 9 occupants). On top of Austrian vignette. No discounts.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_2.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_2.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_1.jpg/1280px-Gro%C3%9Fglockner-Hochalpenstra%C3%9Fe_1.jpg',
@@ -3679,11 +3870,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.berchtesgaden.de/en/nature-wonders/gorges',
     walkFromParkingMin: 25,
-    walkFromParkingNote: 'Parkplatz Wimbachbrücke (€4/day). 25-min flat forest path to the gorge entrance booth, then timber walkway through.',
-    accessibilityNote: 'Approach path is flat + gravel-firm — stroller OK. Gorge boardwalk itself has steps + narrow sections, NOT wheelchair-friendly.',
+    walkFromParkingNote:
+      'Parkplatz Wimbachbrücke (€4/day). 25-min flat forest path to the gorge entrance booth, then timber walkway through.',
+    accessibilityNote:
+      'Approach path is flat + gravel-firm — stroller OK. Gorge boardwalk itself has steps + narrow sections, NOT wheelchair-friendly.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
-    openingHours: 'Daily mid-May to mid-Oct, ~09:00-17:00 (booth-hours; trail itself accessible most daylight hours when open).',
+    openingHours:
+      'Daily mid-May to mid-Oct, ~09:00-17:00 (booth-hours; trail itself accessible most daylight hours when open).',
     seasonNote: 'Closed mid-Oct to mid-May for safety (ice/rockfall).',
     priceEur: 5,
     priceNote: 'Entry €5pp adult (€2.50 kids). Cash only at the booth.',
@@ -3728,11 +3922,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.filzmoos.at/en/',
     walkFromParkingMin: 0,
-    walkFromParkingNote: 'Drive the Bachlalm toll road (€6/car) right up to the car park at the hut. Loop circuit starts from the parking area — no approach walk needed.',
-    accessibilityNote: 'The circuit has roots + uneven sections. Easy hike but not stroller/wheelchair-friendly. Sturdy shoes recommended.',
+    walkFromParkingNote:
+      'Drive the Bachlalm toll road (€6/car) right up to the car park at the hut. Loop circuit starts from the parking area — no approach walk needed.',
+    accessibilityNote:
+      'The circuit has roots + uneven sections. Easy hike but not stroller/wheelchair-friendly. Sturdy shoes recommended.',
     avitalFitNote: 'good fit',
     verificationStatus: 'partial',
-    openingHours: 'Toll road open daily mid-May to late-Oct, ~07:00-18:00. Bachlalm hut serves 09:00-17:00.',
+    openingHours:
+      'Toll road open daily mid-May to late-Oct, ~07:00-18:00. Bachlalm hut serves 09:00-17:00.',
     seasonNote: 'Closed Nov-April (toll road shut for snow). Confirm road status before driving.',
     priceEur: 6,
     priceNote: 'Toll road €6/car. Loop trail itself free. Drinks at the hut €3-5.',
@@ -3777,12 +3974,16 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.zwoelferhorn.at/en/summer/',
     walkFromParkingMin: 3,
-    walkFromParkingNote: 'Free parking at the St. Gilgen valley station. 3-min walk to the gondola entrance.',
-    accessibilityNote: '2022 gondolas barrier-free + spacious. Top station has a 200m paved path to the summit terrace. Steeper trails branch off — stay on the main loop for easy walking.',
+    walkFromParkingNote:
+      'Free parking at the St. Gilgen valley station. 3-min walk to the gondola entrance.',
+    accessibilityNote:
+      '2022 gondolas barrier-free + spacious. Top station has a 200m paved path to the summit terrace. Steeper trails branch off — stay on the main loop for easy walking.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
-    openingHours: 'Daily early-May to early-Nov, 09:00-16:30 (last ascent 15:30 / last descent 17:00).',
-    seasonNote: 'Closed Nov-April for summer ops. Sunset trips require advance check — gondola usually stops 17:00.',
+    openingHours:
+      'Daily early-May to early-Nov, 09:00-16:30 (last ascent 15:30 / last descent 17:00).',
+    seasonNote:
+      'Closed Nov-April for summer ops. Sunset trips require advance check — gondola usually stops 17:00.',
     priceEur: 33,
     priceNote: 'Round-trip €33pp (2025 adult fare). Cash or card at booth.',
     photos: [
@@ -3825,16 +4026,20 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Postalm, Strobl, Austria'),
     },
     hiddenGem: true,
-    sourceUrl: 'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/430003408/postalm-hiking-area.html',
+    sourceUrl:
+      'https://wolfgangsee.salzkammergut.at/en/oesterreich-poi/detail/430003408/postalm-hiking-area.html',
     walkFromParkingMin: 0,
-    walkFromParkingNote: 'Pay the Postalmstraße toll (€14/car) at Strobl, then drive 26km up to any of the dozen+ pull-offs. Park + step out at multiple stops.',
-    accessibilityNote: 'Several signed barrier-free paths from the upper pull-offs. Most meadow trails are flat + wide. Strollers OK on the marked easy circuits.',
+    walkFromParkingNote:
+      'Pay the Postalmstraße toll (€14/car) at Strobl, then drive 26km up to any of the dozen+ pull-offs. Park + step out at multiple stops.',
+    accessibilityNote:
+      'Several signed barrier-free paths from the upper pull-offs. Most meadow trails are flat + wide. Strollers OK on the marked easy circuits.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Toll road open daily May-Oct, ~07:00-19:00. Huts seasonal hours.',
     seasonNote: 'Closed Nov-April (toll road shut for snow). Best clear weather days only.',
     priceEur: 14,
-    priceNote: 'Toll €14/car (day-pass, all occupants included). Free walking on the plateau itself.',
+    priceNote:
+      'Toll €14/car (day-pass, all occupants included). Free walking on the plateau itself.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg/1280px-Postalm%2C_Austria_%28Unsplash_OoQKL4cLZuc%29.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Postalm_-_Austria_%28Unsplash%29.jpg/1280px-Postalm_-_Austria_%28Unsplash%29.jpg',
@@ -3881,10 +4086,13 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       ),
     },
     hiddenGem: true,
-    sourceUrl: 'https://www.nationalpark-berchtesgaden.de/english/infopoints/facilities/observation_point/index.htm',
+    sourceUrl:
+      'https://www.nationalpark-berchtesgaden.de/english/infopoints/facilities/observation_point/index.htm',
     walkFromParkingMin: 2,
-    walkFromParkingNote: 'Klausbachhaus parking (€4/day) OR free national-park shuttle from Ramsau village. 2-min walk to the Klausbachhaus visitor centre + trailhead.',
-    accessibilityNote: 'Marked barrier-free section through the valley — stroller + wheelchair OK. Suspension bridge access via stairs on one side, ramp on the other.',
+    walkFromParkingNote:
+      'Klausbachhaus parking (€4/day) OR free national-park shuttle from Ramsau village. 2-min walk to the Klausbachhaus visitor centre + trailhead.',
+    accessibilityNote:
+      'Marked barrier-free section through the valley — stroller + wheelchair OK. Suspension bridge access via stairs on one side, ramp on the other.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Trail year-round 24/7. Visitor centre + shuttle May-Oct, ~09:00-17:00.',
@@ -3935,8 +4143,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.seisenbergklamm.eu/',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'Parking at the Naturpark Weißbach entrance (€3-5/day). 5-min walk to ticket booth + start of gorge.',
-    accessibilityNote: 'NOT stroller- or wheelchair-friendly. 51 wooden footbridges + 373 steps; gripped soles required.',
+    walkFromParkingNote:
+      'Parking at the Naturpark Weißbach entrance (€3-5/day). 5-min walk to ticket booth + start of gorge.',
+    accessibilityNote:
+      'NOT stroller- or wheelchair-friendly. 51 wooden footbridges + 373 steps; gripped soles required.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'Daily May-Oct, ~09:00-17:00.',
@@ -3984,11 +4194,14 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.gollinger-wasserfall.com/',
     walkFromParkingMin: 10,
-    walkFromParkingNote: 'Parkplatz Gollinger Wasserfall (€3/day). 10-min walk to the lower waterfall view (forest path, mild incline). Upper viewpoint adds 15 min + stairs. Bluntautal lakes from same parking — 6km flat loop.',
-    accessibilityNote: 'Lower waterfall viewpoint requires uneven forest path + some steps. Bluntautal lakes loop is mostly flat. Neither stroller-ideal but Bluntautal loop is do-able.',
+    walkFromParkingNote:
+      'Parkplatz Gollinger Wasserfall (€3/day). 10-min walk to the lower waterfall view (forest path, mild incline). Upper viewpoint adds 15 min + stairs. Bluntautal lakes from same parking — 6km flat loop.',
+    accessibilityNote:
+      'Lower waterfall viewpoint requires uneven forest path + some steps. Bluntautal lakes loop is mostly flat. Neither stroller-ideal but Bluntautal loop is do-able.',
     avitalFitNote: 'mixed — see notes',
     verificationStatus: 'verified',
-    openingHours: 'Waterfall daily April-Oct, ~08:00-18:00. Bluntautal trail year-round (signed seasonal closures).',
+    openingHours:
+      'Waterfall daily April-Oct, ~08:00-18:00. Bluntautal trail year-round (signed seasonal closures).',
     seasonNote: 'Best May-Oct. Waterfall paid-entry section closes Nov-March.',
     priceEur: 5,
     priceNote: 'Gollinger Wasserfall €5pp entry (cash). Bluntautal loop free.',
@@ -4033,14 +4246,18 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://fuschlsee.salzkammergut.at/en/',
     walkFromParkingMin: 2,
-    walkFromParkingNote: 'Free village parking at Fuschl am See (or €1/hr at the lakeside lot). 2-min walk to the lake edge + promenade start.',
-    accessibilityNote: 'Lakeside promenade flat + paved, stroller + wheelchair OK. Full circuit (~3h) has gravel + roots in the back-half.',
+    walkFromParkingNote:
+      'Free village parking at Fuschl am See (or €1/hr at the lakeside lot). 2-min walk to the lake edge + promenade start.',
+    accessibilityNote:
+      'Lakeside promenade flat + paved, stroller + wheelchair OK. Full circuit (~3h) has gravel + roots in the back-half.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Lake open year-round, 24/7. Strandbad (Fuschl swim area) May-Sept ~09:00-19:00.',
-    seasonNote: 'July = peak swim + SUP season. West-facing sunsets best from the Fuschl village shore.',
+    seasonNote:
+      'July = peak swim + SUP season. West-facing sunsets best from the Fuschl village shore.',
     priceEur: 0,
-    priceNote: 'Free lake access. Strandbad day-pass ~€4pp. SUP rental ~€15/hr at Fuschl Aqua-Center.',
+    priceNote:
+      'Free lake access. Strandbad day-pass ~€4pp. SUP rental ~€15/hr at Fuschl Aqua-Center.',
     photos: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg/1280px-Aerial_image_of_the_Fuschlsee_%28view_from_the_southeast%29.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Fuschlsee_Lake_looking_back_to_Fuschl_%286902760829%29.jpg/1280px-Fuschlsee_Lake_looking_back_to_Fuschl_%286902760829%29.jpg',
@@ -4072,7 +4289,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 3,
     bestTime: 'sunset',
     walk: 'walk',
-    walkNote: 'Glass-cabin gondola, 8.5 min to 1,800m. Flat 5-min walk at top to the panorama terrace.',
+    walkNote:
+      'Glass-cabin gondola, 8.5 min to 1,800m. Flat 5-min walk at top to the panorama terrace.',
     pairsWith: ['konigssee', 'hintersee-ramsau'],
     feature: 'Glass-cabin gondola over Königssee + Watzmann — wow-without-effort summit.',
     hero: {
@@ -4083,14 +4301,21 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     links: {
       official: 'https://www.berchtesgaden.de/en/cable-cars/jennerbahn',
       wikipedia: 'https://en.wikipedia.org/wiki/Jenner_(mountain)',
-      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Jenner Cable Car, Schönau am Königssee, Germany'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Jenner Cable Car, Schönau am Königssee, Germany'),
+      mapsFromSalzburg: dirUrl(
+        'Salzburg, Austria',
+        'Jenner Cable Car, Schönau am Königssee, Germany',
+      ),
+      mapsFromHallstatt: dirUrl(
+        'Obertraun, Austria',
+        'Jenner Cable Car, Schönau am Königssee, Germany',
+      ),
     },
     hiddenGem: true,
     sourceUrl: 'https://www.berchtesgaden.de/en/cable-cars/jennerbahn',
     walkFromParkingMin: 3,
     walkFromParkingNote: 'Free or paid lot at the valley station, 3-min walk to the gondola.',
-    accessibilityNote: 'Glass cabins are wheelchair accessible. Top platform partly accessible — restaurant + lower terrace yes, summit ridge no.',
+    accessibilityNote:
+      'Glass cabins are wheelchair accessible. Top platform partly accessible — restaurant + lower terrace yes, summit ridge no.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'Daily May-Oct ~08:30-17:00; check operator for July 2026 exact.',
@@ -4110,7 +4335,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 2,
     bestTime: 'golden',
     walk: 'walk',
-    walkNote: '8.5 min cable car to summit. Flat 30-min walk at top to Salzburger Hochthron viewpoint.',
+    walkNote:
+      '8.5 min cable car to summit. Flat 30-min walk at top to Salzburger Hochthron viewpoint.',
     pairsWith: ['kapuzinerberg-salzburg', 'hellbrunn-trick-fountains'],
     feature: 'Summit view spanning Salzburg + Berchtesgaden + Chiemsee on a clear day.',
     hero: {
@@ -4127,8 +4353,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.salzburg.info/en/sights/excursions/cable-car-untersberg',
     walkFromParkingMin: 2,
-    walkFromParkingNote: 'Valley parking at Grödig, 2-min walk to the cable car. Bus 25 from Mirabellplatz also lands here.',
-    accessibilityNote: 'Cable car accessible; summit terrain is rocky alpine, not stroller-friendly.',
+    walkFromParkingNote:
+      'Valley parking at Grödig, 2-min walk to the cable car. Bus 25 from Mirabellplatz also lands here.',
+    accessibilityNote:
+      'Cable car accessible; summit terrain is rocky alpine, not stroller-friendly.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'Daily ~08:30-17:30 in summer.',
@@ -4148,7 +4376,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 2,
     bestTime: 'golden',
     walk: 'walk',
-    walkNote: 'Flat 1-hour paved loop around the lake. Stroller + wheelchair friendly. Both Langbathseen loop = ~2h.',
+    walkNote:
+      'Flat 1-hour paved loop around the lake. Stroller + wheelchair friendly. Both Langbathseen loop = ~2h.',
     pairsWith: ['almsee-grunau', 'hallstatt-markt'],
     feature: 'Jewel-blue forest lake, swimmable to 25°C, near-empty vs Hallstattersee.',
     hero: {
@@ -4157,13 +4386,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       credit: 'Wikimedia Commons, CC BY-SA',
     },
     links: {
-      official: 'https://www.salzkammergut.at/en/oesterreich-tour/detail/430001116/walk-around-lakes-langbathsee-at-ebensee.html',
+      official:
+        'https://www.salzkammergut.at/en/oesterreich-tour/detail/430001116/walk-around-lakes-langbathsee-at-ebensee.html',
       wikipedia: 'https://de.wikipedia.org/wiki/Langbathseen',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Vorderer Langbathsee, Ebensee, Austria'),
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Vorderer Langbathsee, Ebensee, Austria'),
     },
     hiddenGem: true,
-    sourceUrl: 'https://www.salzkammergut.at/en/oesterreich-tour/detail/430001116/walk-around-lakes-langbathsee-at-ebensee.html',
+    sourceUrl:
+      'https://www.salzkammergut.at/en/oesterreich-tour/detail/430001116/walk-around-lakes-langbathsee-at-ebensee.html',
     walkFromParkingMin: 2,
     walkFromParkingNote: 'Drive-up parking right at the lake. Free.',
     accessibilityNote: 'Paved loop, fully stroller + wheelchair friendly.',
@@ -4188,20 +4419,23 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     walk: 'walk',
     walkNote: 'Flat 1h45 loop around the protected lake. Drive directly to lakeside parking.',
     pairsWith: ['langbathsee-ebensee', 'gosausee'],
-    feature: 'Mirror lake reflecting the Tote Gebirge — pure Avital aesthetic, near-empty even in peak summer.',
+    feature:
+      'Mirror lake reflecting the Tote Gebirge — pure Avital aesthetic, near-empty even in peak summer.',
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Almsee_im_Almtal_Gr%C3%BCnau_Ober%C3%B6sterreich_001.jpg/1280px-Almsee_im_Almtal_Gr%C3%BCnau_Ober%C3%B6sterreich_001.jpg',
       alt: 'Almsee mirror lake at dawn with Tote Gebirge reflections',
       credit: 'Wikimedia Commons, CC BY-SA',
     },
     links: {
-      official: 'https://www.upperaustria.com/en/oesterreich-tour/detail/100257/walk-to-the-lake-almsee.html',
+      official:
+        'https://www.upperaustria.com/en/oesterreich-tour/detail/100257/walk-to-the-lake-almsee.html',
       wikipedia: 'https://en.wikipedia.org/wiki/Almsee',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Almsee, Grünau im Almtal, Austria'),
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Almsee, Grünau im Almtal, Austria'),
     },
     hiddenGem: true,
-    sourceUrl: 'https://www.upperaustria.com/en/oesterreich-tour/detail/100257/walk-to-the-lake-almsee.html',
+    sourceUrl:
+      'https://www.upperaustria.com/en/oesterreich-tour/detail/100257/walk-to-the-lake-almsee.html',
     walkFromParkingMin: 1,
     walkFromParkingNote: 'Drive-up lakeside parking. €4-6/day.',
     accessibilityNote: 'Loop is dirt + gravel — stroller-OK if all-terrain, wheelchair partly.',
@@ -4226,7 +4460,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     walk: 'walk',
     walkNote: '50-min trick-fountain tour + free gardens. Total time ~2-3h.',
     pairsWith: ['untersberg-cable-car', 'kapuzinerberg-salzburg'],
-    feature: '400-year-old Baroque water-puzzle palace + Sound-of-Music gazebo. Light, playful, you-will-get-wet on purpose.',
+    feature:
+      '400-year-old Baroque water-puzzle palace + Sound-of-Music gazebo. Light, playful, you-will-get-wet on purpose.',
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Hellbrunn_palace_complete.jpg/1280px-Hellbrunn_palace_complete.jpg',
       alt: 'Hellbrunn palace with the trick fountain gardens',
@@ -4242,7 +4477,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sourceUrl: 'https://www.salzburg.info/en/sights/top10/hellbrunn-palace-trick-fountains',
     walkFromParkingMin: 5,
     walkFromParkingNote: 'Bus 25 from Mirabellplatz; or drive + park on-site.',
-    accessibilityNote: 'Gardens accessible; trick-fountain tour involves stone paths + intentional water — bring a change of clothes.',
+    accessibilityNote:
+      'Gardens accessible; trick-fountain tour involves stone paths + intentional water — bring a change of clothes.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Daily Apr-Oct ~09:00-17:30.',
@@ -4265,7 +4501,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     walk: 'walk',
     walkNote: 'Underground train into the mountain + miner-slide + salt-lake ferry. 1.5h tour.',
     pairsWith: ['konigssee', 'jenner-cable-car'],
-    feature: 'Rain-proof, constant 12°C. THE substitute for Hallstatt salt mine (closed summer 2026).',
+    feature:
+      'Rain-proof, constant 12°C. THE substitute for Hallstatt salt mine (closed summer 2026).',
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Salzbergwerk_Berchtesgaden_Einfahrt.jpg/1280px-Salzbergwerk_Berchtesgaden_Einfahrt.jpg',
       alt: 'Entrance to the Berchtesgaden Salt Mine',
@@ -4280,8 +4517,10 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.salzbergwerk.de/en',
     walkFromParkingMin: 5,
-    walkFromParkingNote: 'On-site parking + 5-min walk to tour entry. Get protective miner overalls at the start.',
-    accessibilityNote: 'Mine train + boat make most of it accessible; some slides + ramps are not wheelchair-friendly — book the alternative route.',
+    walkFromParkingNote:
+      'On-site parking + 5-min walk to tour entry. Get protective miner overalls at the start.',
+    accessibilityNote:
+      'Mine train + boat make most of it accessible; some slides + ramps are not wheelchair-friendly — book the alternative route.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'Daily ~09:00-17:00 May-Oct, reduced hours in winter.',
@@ -4301,7 +4540,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 1,
     bestTime: 'midday',
     walk: 'walk',
-    walkNote: '15th-century late-Gothic church. 20-min visit + pair with Mondsee swim/walk for a half-day.',
+    walkNote:
+      '15th-century late-Gothic church. 20-min visit + pair with Mondsee swim/walk for a half-day.',
     pairsWith: ['wolfgangsee'],
     feature: 'The Sound-of-Music wedding-church — Maria + Georg married here on film.',
     hero: {
@@ -4310,13 +4550,15 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       credit: 'Wikimedia Commons, CC BY-SA',
     },
     links: {
-      official: 'https://mondsee.salzkammergut.at/en/oesterreich-poi/detail/401362/wedding-church-basilica-st-michael-mondsee.html',
+      official:
+        'https://mondsee.salzkammergut.at/en/oesterreich-poi/detail/401362/wedding-church-basilica-st-michael-mondsee.html',
       wikipedia: 'https://en.wikipedia.org/wiki/Mondsee_Abbey',
       mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Basilika St. Michael, Mondsee, Austria'),
       mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Basilika St. Michael, Mondsee, Austria'),
     },
     hiddenGem: true,
-    sourceUrl: 'https://mondsee.salzkammergut.at/en/oesterreich-poi/detail/401362/wedding-church-basilica-st-michael-mondsee.html',
+    sourceUrl:
+      'https://mondsee.salzkammergut.at/en/oesterreich-poi/detail/401362/wedding-church-basilica-st-michael-mondsee.html',
     walkFromParkingMin: 3,
     walkFromParkingNote: 'Park in Mondsee centre, 3-min walk to the church on the market square.',
     accessibilityNote: 'Church interior accessible via main entrance.',
@@ -4342,9 +4584,11 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 2,
     bestTime: 'midday',
     walk: 'easy-hike',
-    walkNote: 'Flat 2-hour walk into a vast U-shaped gravel-river valley. Mountains rise on both sides. Wimbachschloss hut (1hr in) is a turn-around point.',
+    walkNote:
+      'Flat 2-hour walk into a vast U-shaped gravel-river valley. Mountains rise on both sides. Wimbachschloss hut (1hr in) is a turn-around point.',
     pairsWith: ['wimbachklamm', 'hintersee-ramsau'],
-    feature: 'Get-lost-in-nature walk: vast silent valley, flat gravel river bed, mountains all around.',
+    feature:
+      'Get-lost-in-nature walk: vast silent valley, flat gravel river bed, mountains all around.',
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Wimbachgries_Watzmann.jpg/1280px-Wimbachgries_Watzmann.jpg',
       alt: 'Wimbachgries valley with the Watzmann massif',
@@ -4380,7 +4624,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 3,
     bestTime: 'golden',
     walk: 'easy-hike',
-    walkNote: '50-min gentle uphill hike from St. Wolfgang valley to a small forest-rimmed alpine lake. Silent, often empty even in peak summer.',
+    walkNote:
+      '50-min gentle uphill hike from St. Wolfgang valley to a small forest-rimmed alpine lake. Silent, often empty even in peak summer.',
     pairsWith: ['wolfgangsee-village', 'kapuzinerberg-salzburg'],
     feature: 'Hidden alpine lake above St. Wolfgang. The get-lost version of the lake-cluster.',
     hero: {
@@ -4389,16 +4634,26 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
       credit: 'Wikimedia Commons, CC BY-SA',
     },
     links: {
-      official: 'https://www.wolfgangsee.salzkammergut.at/en/oesterreich-tour/detail/430000928/walk-to-the-schwarzensee.html',
+      official:
+        'https://www.wolfgangsee.salzkammergut.at/en/oesterreich-tour/detail/430000928/walk-to-the-schwarzensee.html',
       wikipedia: 'https://de.wikipedia.org/wiki/Schwarzensee_(Salzkammergut)',
-      mapsFromSalzburg: dirUrl('Salzburg, Austria', 'Schwarzensee, St. Wolfgang im Salzkammergut, Austria'),
-      mapsFromHallstatt: dirUrl('Obertraun, Austria', 'Schwarzensee, St. Wolfgang im Salzkammergut, Austria'),
+      mapsFromSalzburg: dirUrl(
+        'Salzburg, Austria',
+        'Schwarzensee, St. Wolfgang im Salzkammergut, Austria',
+      ),
+      mapsFromHallstatt: dirUrl(
+        'Obertraun, Austria',
+        'Schwarzensee, St. Wolfgang im Salzkammergut, Austria',
+      ),
     },
     hiddenGem: true,
-    sourceUrl: 'https://www.wolfgangsee.salzkammergut.at/en/oesterreich-tour/detail/430000928/walk-to-the-schwarzensee.html',
+    sourceUrl:
+      'https://www.wolfgangsee.salzkammergut.at/en/oesterreich-tour/detail/430000928/walk-to-the-schwarzensee.html',
     walkFromParkingMin: 50,
-    walkFromParkingNote: 'Park at trailhead (free, signed from St. Wolfgang). 50-min uphill forest path.',
-    accessibilityNote: 'Forest path with roots/rocks — NOT stroller/wheelchair friendly. Easy by hike standards.',
+    walkFromParkingNote:
+      'Park at trailhead (free, signed from St. Wolfgang). 50-min uphill forest path.',
+    accessibilityNote:
+      'Forest path with roots/rocks — NOT stroller/wheelchair friendly. Easy by hike standards.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
     openingHours: 'Open year-round.',
@@ -4418,9 +4673,11 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 2,
     bestTime: 'golden',
     walk: 'easy-hike',
-    walkNote: '6km flat-ish meadow loop below the south Dachstein wall. Pass working alpine huts, grazing cattle, wildflowers. 2-2.5 hours easy.',
+    walkNote:
+      '6km flat-ish meadow loop below the south Dachstein wall. Pass working alpine huts, grazing cattle, wildflowers. 2-2.5 hours easy.',
     pairsWith: ['krippenstein-5fingers', 'gosausee'],
-    feature: 'Alpine meadow walking with the Dachstein looming above. Cows + bells + wildflowers + huts. Lost in alpine pasture.',
+    feature:
+      'Alpine meadow walking with the Dachstein looming above. Cows + bells + wildflowers + huts. Lost in alpine pasture.',
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Ramsau_am_Dachstein_View.jpg/1280px-Ramsau_am_Dachstein_View.jpg',
       alt: 'Ramsau am Dachstein meadows with the Dachstein wall behind',
@@ -4436,7 +4693,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sourceUrl: 'https://ramsau.com/en/hiking',
     walkFromParkingMin: 5,
     walkFromParkingNote: 'Park at Ramsau village or trailhead lots. Most free.',
-    accessibilityNote: 'Gravel + grass meadow paths — flat overall, NOT paved. Stroller-OK for portions.',
+    accessibilityNote:
+      'Gravel + grass meadow paths — flat overall, NOT paved. Stroller-OK for portions.',
     avitalFitNote: 'good fit',
     verificationStatus: 'verified',
     openingHours: 'Open year-round. Alpine huts May-Oct.',
@@ -4456,9 +4714,11 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     sunset: 3,
     bestTime: 'sunset',
     walk: 'easy-hike',
-    walkNote: '1.5km city-hike up the OTHER hill across the river from Hohensalzburg. 2h round-trip max via Steingasse + Imbergstiege stairs.',
+    walkNote:
+      '1.5km city-hike up the OTHER hill across the river from Hohensalzburg. 2h round-trip max via Steingasse + Imbergstiege stairs.',
     pairsWith: ['hellbrunn-trick-fountains', 'untersberg-cable-car'],
-    feature: 'Quiet sunset hill opposite Hohensalzburg. Hettwer Bastei viewpoint + Stefan Zweig memorial + golden Old Town panorama.',
+    feature:
+      'Quiet sunset hill opposite Hohensalzburg. Hettwer Bastei viewpoint + Stefan Zweig memorial + golden Old Town panorama.',
     hero: {
       src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Salzburg_Kapuzinerberg_Aussicht_01.jpg/1280px-Salzburg_Kapuzinerberg_Aussicht_01.jpg',
       alt: 'Salzburg Old Town panorama from the Kapuzinerberg',
@@ -4473,7 +4733,8 @@ export const NATURE_DESTINATIONS: NatureDestination[] = [
     hiddenGem: true,
     sourceUrl: 'https://www.salzburg.info/en/sights/sights-a-z/kapuzinerberg',
     walkFromParkingMin: 0,
-    walkFromParkingNote: 'Walkable from any Salzburg city apartment (Linzergasse is 5 min from the trailhead via Steingasse).',
+    walkFromParkingNote:
+      'Walkable from any Salzburg city apartment (Linzergasse is 5 min from the trailhead via Steingasse).',
     accessibilityNote: 'Stair climb — NOT stroller / wheelchair friendly. ~250 steps up.',
     avitalFitNote: 'easy walk-friendly',
     verificationStatus: 'verified',
@@ -4726,9 +4987,7 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
       'https://cf.bstatic.com/xdata/images/hotel/max1280x900/349482038.jpg?k=d023262b1fddc0826f58e7ce487c1d3e13c6c6894e68780664e868ebc3c38eef&o=&hp=1',
     ],
   },
-  
-  
-  
+
   {
     name: 'Grubenlehen (Ramsau)',
     url: 'https://www.ramsau.de/en/accomodations/self-catering-apartments/grubenlehen.html',
@@ -4767,14 +5026,13 @@ const BERCHTESGADEN_LODGING: BaseConfigLodgingPick[] = [
 // === St. Wolfgang / Strobl / St. Gilgen lodging set (NEW) ===
 // Verified via WebSearch 2026-05-16. Booking.com slugs confirmed.
 const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
-  
-  
   {
     name: 'Wolfgangsee Appartements (Strobl, east end of the lake)',
     url: 'https://www.booking.com/hotel/at/wolfgangsee-appartements.html',
     img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
     review: '9.5 · Exceptional · 95 reviews',
-    pricePerNight: '€257 / night (₪1,021) — PRICE-VERIFIED 2026-05-17: was €140, now €257 (Booking live, €771 / 3 nights — was 83% understated)',
+    pricePerNight:
+      '€257 / night (₪1,021) — PRICE-VERIFIED 2026-05-17: was €140, now €257 (Booking live, €771 / 3 nights — was 83% understated)',
     note: 'Strobl base — east end of Wolfgangsee, 15 min by car from St. Wolfgang. Garden + lake views, terrace, fully appointed kitchen. Slightly quieter than St. Wolfgang itself. Great for "lake but not the tourist hub" preference. [Photo is Strobl on the Wolfgangsee, not the listing — view live photos on Booking.]',
     budgetTier: 'standard',
     vibeTag: 'lake-edge',
@@ -4802,8 +5060,6 @@ const ST_WOLFGANG_LODGING: BaseConfigLodgingPick[] = [
       'https://cf.bstatic.com/xdata/images/hotel/max1280x900/581145255.jpg?k=d0e2095209c127d364c2d429da3b143848ace2abf7959ea4724f62b4d26a0cd0&o=&hp=1',
     ],
   },
-  
-  
 ];
 
 // === Helper to format Obertraun lodging into BaseConfigLodgingPick (reuse
@@ -5402,10 +5658,14 @@ export const SUNSET_STAYS: SunsetStay[] = [
     logistics: [
       {
         label: 'Cable car up',
-        value: '2 sections from Obertraun valley (Talstation Krippenstein). Section II (top) operates Jul 4-Sep 13, 2026',
+        value:
+          '2 sections from Obertraun valley (Talstation Krippenstein). Section II (top) operates Jul 4-Sep 13, 2026',
       },
       { label: 'First cable car UP', value: '08:40' },
-      { label: 'Last cable car DOWN', value: '19:10 (after this, plateau belongs to overnight guests)' },
+      {
+        label: 'Last cable car DOWN',
+        value: '19:10 (after this, plateau belongs to overnight guests)',
+      },
       { label: 'Walk lodge ↔ top station', value: '2 min' },
       { label: 'Walk lodge ↔ 5 Fingers platform', value: '~20 min easy plateau path' },
       { label: 'Drive from Obertraun apartment', value: '5 min to the valley station' },
@@ -5413,7 +5673,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
     kosherKit:
       'No in-room kitchen. Restaurant on site (not kosher). Plan: bring sealed dinner + breakfast (or rely on sealed items in the included breakfast spread — call stay@lodge.at to ask what they can isolate). Plus side: only 5 min from your car at the valley station, so worst case you cable-car down to Obertraun for groceries.',
     packList:
-      'Overnight bag only (rest stays in the Obertraun apartment — checkout isn\'t until Thursday morning). Layers (10-15°C cooler at 2,063m even in July). Sealed kosher dinner + breakfast. Headlamp. Camera + power bank. Plateau is exposed — wind shell mandatory.',
+      "Overnight bag only (rest stays in the Obertraun apartment — checkout isn't until Thursday morning). Layers (10-15°C cooler at 2,063m even in July). Sealed kosher dinner + breakfast. Headlamp. Camera + power bank. Plateau is exposed — wind shell mandatory.",
     weatherRisk:
       'Cable car closes in thunderstorms. Plateau exposed — lightning risk REAL if storms develop. Check weather morning of, abort if storms forecast 16:00-22:00.',
     verdict:
@@ -5422,7 +5682,10 @@ export const SUNSET_STAYS: SunsetStay[] = [
     bookingNote:
       'NO LONGER THE PICK as of 2026-05-19 — full for Jul 29-30 + summit-overnight slot dropped from the v4 plan. Cable car day-trip from Gosau is the new shape (25-min drive). If a future trip re-enables the overnight, the lodge is bookable at https://www.booking.com/hotel/at/lodge-am-krippenstein.html or direct stay@lodge.at / +43 664 380 405 4.',
     sourceLinks: [
-      { label: 'Booking.com listing', url: 'https://www.booking.com/hotel/at/lodge-am-krippenstein.html' },
+      {
+        label: 'Booking.com listing',
+        url: 'https://www.booking.com/hotel/at/lodge-am-krippenstein.html',
+      },
       { label: 'Official site (lodge.at)', url: 'https://www.lodge.at/en/' },
       { label: 'Lodge contact + rooms', url: 'https://www.lodge.at/en/contact/' },
       {
@@ -5550,10 +5813,16 @@ export const SUNSET_STAYS: SunsetStay[] = [
       'Mid-range of the 5 options. Free-cancellation rate usually available on Booking.com. Confirm Sunset Wing specifically (not the main Scalaria building) at booking — west-facing lake-view rooms are the reason.',
     logistics: [
       { label: 'Drive from Obertraun apartment', value: '~75 min via B158' },
-      { label: 'Drive from Salzburg airport (Thu morning)', value: '~50 min via Wolfgangsee Bundesstraße' },
+      {
+        label: 'Drive from Salzburg airport (Thu morning)',
+        value: '~50 min via Wolfgangsee Bundesstraße',
+      },
       { label: 'Address', value: 'St. Wolfgang am Wolfgangsee (to confirm exact)' },
       { label: 'Star rating', value: '4-star' },
-      { label: 'Property feel', value: 'Adults-oriented wing of larger Scalaria event-resort complex' },
+      {
+        label: 'Property feel',
+        value: 'Adults-oriented wing of larger Scalaria event-resort complex',
+      },
     ],
     kosherKit:
       'BYO sealed dinner + breakfast — same kit as the other 4 options. Restaurants on the Scalaria complex are not kosher. St. Wolfgang has a Spar in the village for last-minute groceries.',
@@ -5634,8 +5903,7 @@ export const SUNSET_STAYS: SunsetStay[] = [
   // in a high mountain valley). Free cancellation verified on Booking.com for
   // all three; live Jul 26-29 availability flagged 'confirm-with-host' because
   // parallel agent held the Playwright browser this pass.
-  
-  
+
   {
     id: 'postalm-lodge-lienbachhof',
     name: 'Postalm Lodge Lienbachhof (high alpine pasture)',

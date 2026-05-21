@@ -123,7 +123,7 @@ const LEGS: Leg[] = [
         lat: 47.8118,
         lng: 13.0461,
         tags: ['allison'],
-        note: "Top reviews · 9 min walk to Chabad",
+        note: 'Top reviews · 9 min walk to Chabad',
       },
       {
         name: 'Arenberg 29b PAUL',
@@ -520,7 +520,9 @@ function activityIcon(L: LegLeafletStatic): unknown {
 function lodgingPopup(lodging: LegLodging): string {
   const tag = primaryTag(lodging.tags);
   const tagLabel = LODGING_LABEL[tag];
-  const extraNote = lodging.note ? `<div class="leg-map-pop-note">${escapeHtml(lodging.note)}</div>` : '';
+  const extraNote = lodging.note
+    ? `<div class="leg-map-pop-note">${escapeHtml(lodging.note)}</div>`
+    : '';
   return `
     <div class="leg-map-pop">
       <div class="leg-map-pop-cat leg-map-pop-cat--${tag}">🛏️ ${escapeHtml(tagLabel)}</div>
@@ -532,7 +534,9 @@ function lodgingPopup(lodging: LegLodging): string {
 }
 
 function activityPopup(activity: LegActivity): string {
-  const extraNote = activity.note ? `<div class="leg-map-pop-note">${escapeHtml(activity.note)}</div>` : '';
+  const extraNote = activity.note
+    ? `<div class="leg-map-pop-note">${escapeHtml(activity.note)}</div>`
+    : '';
   return `
     <div class="leg-map-pop">
       <div class="leg-map-pop-cat leg-map-pop-cat--activity">🏔 Activity</div>
@@ -554,7 +558,8 @@ function renderLeg(L: LegLeafletStatic, leg: Leg): void {
   }
   const map = L.map(`leg-map-${leg.id}`, { scrollWheelZoom: false, zoomControl: true });
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 18,
   }).addTo(map);
 
@@ -563,7 +568,10 @@ function renderLeg(L: LegLeafletStatic, leg: Leg): void {
   for (const a of leg.activities) {
     L.marker([a.lat, a.lng], { icon: activityIcon(L) })
       .bindPopup(activityPopup(a), { maxWidth: 240, className: 'leg-map-pop-wrapper' })
-      .bindTooltip(a.name, { direction: 'top', offset: [0, -10] as unknown as Record<string, unknown> })
+      .bindTooltip(a.name, {
+        direction: 'top',
+        offset: [0, -10] as unknown as Record<string, unknown>,
+      })
       .addTo(map);
     allCoords.push([a.lat, a.lng]);
   }
@@ -573,7 +581,10 @@ function renderLeg(L: LegLeafletStatic, leg: Leg): void {
     const zIndex = tag === 'lead' ? 1000 : tag === 'rejected' || tag === 'bonus' ? -100 : 0;
     L.marker([lo.lat, lo.lng], { icon: lodgingIcon(L, lo.tags), zIndexOffset: zIndex })
       .bindPopup(lodgingPopup(lo), { maxWidth: 260, className: 'leg-map-pop-wrapper' })
-      .bindTooltip(lo.name, { direction: 'top', offset: [0, -10] as unknown as Record<string, unknown> })
+      .bindTooltip(lo.name, {
+        direction: 'top',
+        offset: [0, -10] as unknown as Record<string, unknown>,
+      })
       .addTo(map);
     allCoords.push([lo.lat, lo.lng]);
   }

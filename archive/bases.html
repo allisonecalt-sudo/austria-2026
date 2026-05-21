@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
+    />
+    <title>The four bases — Salzburg / Zell am See / Gosau / Airport · Austria 2026</title>
+    <meta
+      name="description"
+      content="The trip has 4 bases — Salzburg (Shabbat, 2N), Zell am See (alpine-lake anchor, 2N), Gosau (Salzkammergut-lakes anchor, 2N), and Salzburg airport-side (1N before the Friday flight). 7 nights total, 3 moves. Restructured 2026-05-19 per Avital's counter-proposal."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-inner">
+        <a href="../" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="../itinerary.html" class="active" aria-current="page">Trip</a>
+          <a href="../stay.html">Stay</a>
+          <a href="../activities.html">Explore</a>
+          <a href="../logistics.html">Logistics</a>
+          <a href="../costs.html">Costs</a>
+          <a href="../notes.html">Notes</a>
+        </div>
+        <button
+          class="nav-hamburger"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          ☰
+        </button>
+      </div>
+      <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-panel" role="dialog" aria-modal="true" aria-label="Site navigation">
+          <div class="nav-mobile-header">
+            <span class="nav-mobile-header__title">Austria · 24-31 Jul</span>
+            <button class="nav-mobile-close" type="button" aria-label="Close menu">✕</button>
+          </div>
+          <a href="../itinerary.html" aria-current="page"
+            ><span>Trip</span
+            ><span class="nav-mobile-section__desc"
+              >The seven days, plus bases, Shabbat & deep dives.</span
+            ></a
+          >
+          <a href="../stay.html"
+            ><span>Stay</span
+            ><span class="nav-mobile-section__desc"
+              >Where you sleep at each of the 4 bases.</span
+            ></a
+          >
+          <a href="../activities.html"
+            ><span>Explore</span
+            ><span class="nav-mobile-section__desc"
+              >Everything to see + do — tagged & filterable.</span
+            ></a
+          >
+          <a href="../logistics.html"
+            ><span>Logistics</span
+            ><span class="nav-mobile-section__desc"
+              >Flights, car, packing, kosher, pre-trip.</span
+            ></a
+          >
+          <a href="../costs.html"
+            ><span>Costs</span
+            ><span class="nav-mobile-section__desc"
+              >Per-person totals + breakdown by bucket.</span
+            ></a
+          >
+          <a href="../notes.html"
+            ><span>Notes</span
+            ><span class="nav-mobile-section__desc">💬 Live feed — Avital + Allison.</span></a
+          >
+        </div>
+      </div>
+      <script>
+        // Nav-coordination dropdown + mobile toggle (inline, no build step).
+        // Owned by Nav Coordination Specialist 2026-05-17.
+        (function () {
+          var nav = document.currentScript.closest('nav.nav');
+          if (!nav) return;
+          var groups = nav.querySelectorAll('.nav-group');
+          function closeAll(except) {
+            groups.forEach(function (g) {
+              var btn = g.querySelector('.nav-group__btn');
+              if (btn && btn !== except) btn.setAttribute('aria-expanded', 'false');
+            });
+          }
+          groups.forEach(function (g) {
+            var btn = g.querySelector('.nav-group__btn');
+            if (!btn) return;
+            btn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              var open = btn.getAttribute('aria-expanded') === 'true';
+              closeAll(btn);
+              btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+            });
+            btn.addEventListener('keydown', function (e) {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                closeAll(btn);
+                btn.setAttribute('aria-expanded', 'true');
+                var first = g.querySelector('.nav-dropdown a');
+                if (first) first.focus();
+              } else if (e.key === 'Escape') {
+                btn.setAttribute('aria-expanded', 'false');
+              }
+            });
+          });
+          document.addEventListener('click', function (e) {
+            if (!nav.contains(e.target)) closeAll(null);
+          });
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeAll(null);
+          });
+
+          // Mobile slide-over
+          var hamburger = nav.querySelector('.nav-hamburger');
+          var mobile = nav.querySelector('.nav-mobile');
+          var closeBtn = mobile ? mobile.querySelector('.nav-mobile-close') : null;
+          if (hamburger && mobile) {
+            function openMobile() {
+              mobile.classList.add('is-open');
+              mobile.setAttribute('aria-hidden', 'false');
+              document.body.classList.add('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'true');
+              if (closeBtn) closeBtn.focus();
+            }
+            function closeMobile() {
+              mobile.classList.remove('is-open');
+              mobile.setAttribute('aria-hidden', 'true');
+              document.body.classList.remove('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'false');
+              hamburger.focus();
+            }
+            hamburger.addEventListener('click', openMobile);
+            if (closeBtn) closeBtn.addEventListener('click', closeMobile);
+            mobile.addEventListener('click', function (e) {
+              if (e.target === mobile) closeMobile();
+            });
+            document.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape' && mobile.classList.contains('is-open')) closeMobile();
+            });
+          }
+        })();
+      </script>
+    </nav>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../">Austria</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span>Plan</span>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span class="breadcrumb__current">The four bases</span>
+    </nav>
+
+    <main id="main" class="container">
+      <header style="margin-bottom: 1.4rem">
+        <div class="eyebrow">Stay · the 4 bases · 7 nights · 3 moves · restructured 2026-05-19</div>
+        <h1>The four bases — Salzburg → Zell am See → Gosau → Airport</h1>
+        <p class="page-tldr">
+          <strong>4 bases, 7 nights, 3 moves.</strong> Salzburg for Shabbat (2N) → Zell am See for
+          the alpine-lake half (2N) → Gosau for the Salzkammergut-lakes half (2N) → Salzburg
+          airport-side (1N) before the Friday flight. <strong>No summit overnight</strong> —
+          Schafbergspitze rejected (3.6★) and Lodge am Krippenstein went FULL Jul 29-30. The cog +
+          cable-car options are now day-trips from Gosau, not bases.
+        </p>
+        <p class="lead-block">
+          Restructured 2026-05-19 per Avital's counter-proposal (voice note Sun May 17 + 4 app
+          notes). All 4 base towns are locked — this page exists so we can re-read why each one is
+          where it is, what's in range, what the day shape looks like, and which apartment is the
+          leading candidate. The archive at the bottom keeps the older 3-night-mountain-anchor +
+          summit-night configs accessible — pullable if we ever want to revisit.
+        </p>
+        <p
+          class="lead-block"
+          style="
+            background: var(--green-mist);
+            border-left: 3px solid var(--green-deep);
+            padding: 0.7rem 1rem;
+            font-size: 0.92rem;
+            color: var(--ink-soft);
+          "
+        >
+          Tap a base card to collapse its detail. The
+          <a href="../map.html">Map page</a> shows all 4 base areas geographically. The
+          <a href="../stay.html">Stay page</a> has the lodging cards per base, including alternates.
+          The <a href="trip-options.html">Trip-options page</a> tells the journey of how the 4 bases
+          landed where they did.
+        </p>
+      </header>
+
+      <!-- Quick comparison strip — at-a-glance scan -->
+      <section id="bases-compare" class="section"></section>
+
+      <!-- Salzburg laundry filter status (always shown at top) -->
+      <section id="salzburg-laundry-status" class="section"></section>
+
+      <!-- The 4 expandable config cards -->
+      <div id="bases-root"></div>
+
+      <section class="section">
+        <div class="callout">
+          <h3>How to use this page</h3>
+          <ul>
+            <li>
+              <strong>Read the 4 base cards top to bottom</strong> in geography order. Each one has:
+              pitch + why-here + day shape + where-you-stay + drive times + what's in range.
+            </li>
+            <li>
+              <strong>Live picks</strong> are pulled from the trip-data lodging list — current pick
+              + price + Booking link. Alternates live on the <a href="../stay.html">Stay page</a>.
+            </li>
+            <li>
+              <strong>The 4-base shape is locked</strong> — this isn't a picker. Avital's
+              counter-proposal Mon May 18 set the spine. Each base has a leading apartment pick +
+              alternates; nothing's actually booked yet — see the
+              <a href="../pre-trip.html">pre-trip checklist</a> for what's awaiting confirm.
+            </li>
+            <li>
+              <strong>Schafberg cog + Krippenstein cable car</strong> are reframed as day-trip
+              options from Gosau, not overnight bases. See
+              <a href="krippenstein.html">krippenstein.html</a> +
+              <a href="schafbergspitze.html">schafbergspitze.html</a> for the decisions log.
+            </li>
+            <li>
+              <strong>Drop a note</strong> on the 💬 floating button if a base feels off or you want
+              to revisit something.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <p style="font-size: 0.9rem; color: var(--ink-soft)">
+          <strong>Verified:</strong> Aparthotel Zell am See €396 + Der Ulmenhof €513 + Landhaus
+          Grünau €176 prices re-verified 2026-05-19 on Booking. Drive times are Google Maps
+          consensus, not Jul-2026 peak-traffic measured. <br /><br />
+          <strong>Restructure history:</strong> v1 = 3-night mountain anchor + Schafbergspitze
+          summit overnight. v2 = pivot to Lodge am Krippenstein (Schafbergspitze 3.6★). v3 =
+          5-option summit comparison hub. <strong>v4 (current, 2026-05-19)</strong> = no summit
+          overnight, 4 bases per Avital's counter-proposal. The archived 3-night mountain-anchor
+          configs are in the collapsible section above (pullable if needed).
+        </p>
+      </section>
+
+      <aside class="cross-promo" aria-label="Where to go next">
+        <h2 class="cross-promo__title">Where to go next</h2>
+        <p class="cross-promo__sub">Three pages Avital + you usually reach for from here.</p>
+        <div class="cross-promo__grid">
+          <a class="cross-promo-card" href="../stay.html">
+            <p class="cross-promo-card__eyebrow">Stay</p>
+            <h3 class="cross-promo-card__name">
+              Where you'll stay<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">
+              Lodging hub — 54 apartments across the 4 bases, all with photos + filters.
+            </p>
+          </a>
+          <a class="cross-promo-card" href="../itinerary.html">
+            <p class="cross-promo-card__eyebrow">Plan</p>
+            <h3 class="cross-promo-card__name">
+              Full day-by-day<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">7 days, 1 page. Recommendations + alternates.</p>
+          </a>
+          <a class="cross-promo-card" href="../map.html">
+            <p class="cross-promo-card__eyebrow">Explore</p>
+            <h3 class="cross-promo-card__name">
+              Map<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">
+              All 41 pins — click base to filter, click pin for details.
+            </p>
+          </a>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Bases · v4 restructure 2026-05-19 · 4 bases (Salzburg / Zell am See / Gosau / Airport) per
+      Avital's counter-proposal · archived 3-night mountain-anchor configs pullable above
+    </footer>
+
+    <script type="module" src="/src/page-bases.ts"></script>
+    <script type="module" src="/src/page-search.ts"></script>
+  </body>
+</html>

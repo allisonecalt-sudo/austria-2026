@@ -31,9 +31,51 @@
 // CSS lives in styles.css under the .search-overlay-* / .search-pill-*
 // selectors (appended in the same commit as this file).
 
-import { search, groupByType, typeLabel, typeIcon, type SearchHit, type SearchType } from './search-index.js';
+import {
+  search,
+  groupByType,
+  typeLabel,
+  typeIcon,
+  type SearchHit,
+  type SearchType,
+} from './search-index.js';
 
 const QUERY_STORAGE_KEY = 'austria-search-last-query';
+
+// 2026-05-21 reorg: 15 pages moved into archive/. Search runs on BOTH root-level
+// pages AND archived pages, so a bare relative URL ("bases.html") can't be
+// correct from both depths. Resolve archived-page URLs absolutely from the site
+// root via Vite's BASE_URL ("/austria-2026/" in build, "/" in dev).
+const ARCHIVED_PAGES = new Set([
+  'trip-options.html',
+  'trip-summary.html',
+  'bases.html',
+  'shabbat.html',
+  'friday-salzburg.html',
+  'sundays-closed.html',
+  'weather-plan-c.html',
+  'nature-destinations.html',
+  'top-sunsets.html',
+  'lake-swimming.html',
+  'water-activities.html',
+  'jewish-sights.html',
+  'recommendations.html',
+  'schafbergspitze.html',
+  'krippenstein.html',
+]);
+
+function resolveSearchUrl(url: string): string {
+  // Only touch bare relative page URLs (no scheme, no leading slash, no ../).
+  if (/^(https?:|\/|\.\.\/|archive\/)/.test(url)) return url;
+  const page = url.split('#')[0];
+  if (ARCHIVED_PAGES.has(page)) {
+    // Vite injects import.meta.env.BASE_URL at build; tsconfig has no vite/client
+    // types, so read it through a narrow cast (fall back to "/" in dev/tests).
+    const base = (import.meta as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
+    return `${base}archive/${url}`;
+  }
+  return url;
+}
 
 // =====================================================================
 // Floating pill — triggers the overlay. Mounted bottom-LEFT to avoid the
@@ -45,7 +87,8 @@ function buildPill(): HTMLButtonElement {
   btn.type = 'button';
   btn.className = 'search-pill';
   btn.setAttribute('aria-label', 'Search the trip (Cmd/Ctrl+/)');
-  btn.innerHTML = '<span aria-hidden="true">🔍</span><span class="search-pill__label">Search</span>';
+  btn.innerHTML =
+    '<span aria-hidden="true">🔍</span><span class="search-pill__label">Search</span>';
   return btn;
 }
 
@@ -116,15 +159,21 @@ function renderGroup(type: SearchType, hits: SearchHit[]): string {
   const rows = hits
     .map((h, i) => {
       const item = h.item;
-      const loc = item.location ? `<span class="search-row__loc">${escapeHtml(item.location)}</span>` : '';
-      const cat = item.category ? `<span class="search-row__cat">${escapeHtml(item.category)}</span>` : '';
+      const loc = item.location
+        ? `<span class="search-row__loc">${escapeHtml(item.location)}</span>`
+        : '';
+      const cat = item.category
+        ? `<span class="search-row__cat">${escapeHtml(item.category)}</span>`
+        : '';
       const img = item.img
         ? `<img class="search-row__img" src="${escapeHtml(item.img)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async" />`
-        : '<div class="search-row__img search-row__img--placeholder">' + typeIcon(item.type) + '</div>';
+        : '<div class="search-row__img search-row__img--placeholder">' +
+          typeIcon(item.type) +
+          '</div>';
       return `
         <a
           class="search-row"
-          href="${escapeHtml(item.url)}"
+          href="${escapeHtml(resolveSearchUrl(item.url))}"
           role="option"
           tabindex="-1"
           data-row-index="${i}"
@@ -157,12 +206,14 @@ function renderGroup(type: SearchType, hits: SearchHit[]): string {
 
 function render(refs: OverlayRefs, query: string): void {
   const hits = search(query, 80);
-  refs.count.textContent = hits.length === 0
-    ? `No matches for "${query}". Try "sunset", "rafting", "Hallstatt", "kosher", "summit".`
-    : `${hits.length} ${hits.length === 1 ? 'match' : 'matches'}${query ? ` for "${query}"` : ' (browse everything)'}`;
+  refs.count.textContent =
+    hits.length === 0
+      ? `No matches for "${query}". Try "sunset", "rafting", "Hallstatt", "kosher", "summit".`
+      : `${hits.length} ${hits.length === 1 ? 'match' : 'matches'}${query ? ` for "${query}"` : ' (browse everything)'}`;
   const grouped = groupByType(hits);
   if (grouped.size === 0) {
-    refs.results.innerHTML = '<div class="search-empty">No matches. Try fewer or different words.</div>';
+    refs.results.innerHTML =
+      '<div class="search-empty">No matches. Try fewer or different words.</div>';
     return;
   }
   const html = [...grouped.entries()].map(([t, h]) => renderGroup(t, h)).join('');
@@ -205,7 +256,7 @@ export function initSearch(): void {
 
   const refs = buildOverlay();
   refs.root.style.zIndex = '99997'; // overlay sits BELOW notes modal so a note
-                                    // can still be left from within search.
+  // can still be left from within search.
   document.body.appendChild(refs.root);
 
   const open = (): void => {

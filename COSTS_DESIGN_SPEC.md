@@ -35,17 +35,20 @@
 ## v4 LAYOUT (top to bottom)
 
 ### Block 1 — VERDICT BAR (NEW, above hero)
+
 A horizontal pill the width of the hero with three slots:
 `✓ ON PLAN  |  ₪13,209 of ₪13,000 target  |  ₪209 over (acceptable)`
 Status word in green serif, target in body type, delta in pill. ONE LINE. This is the answer to "should I be worried."
 
 ### Block 2 — HERO TOTAL (rewritten)
+
 - Eyebrow: `ALL-IN · 7 NIGHTS · 2 PEOPLE`
 - Massive serif: `₪13,209`
 - Sub: `≈ €3,330 · ≈ $3,570`
 - Beneath: a horizontal progress bar — gradient gold→green fill from ₪0 to ₪13,000 with a small red tick at ₪13,209. Annotated `Target ₪13K` and `Actual ₪13.2K`.
 
 ### Block 3 — TWO-PERSON CARDS (NEW, dominant feature)
+
 Two side-by-side cards (stack on mobile):
 
 ```
@@ -65,15 +68,18 @@ Two side-by-side cards (stack on mobile):
 Background tint differs (Allison = green-mist, Avital = gold-soft) so they read distinct at a glance.
 
 ### Block 4 — SETTLE-UP STRIP (NEW, Splitwise punchline)
+
 ONE LINE in a green pill spanning the page:
 `💸 Settle-up at trip end: square — each pays their own flight, everything else 50/50.`
 
 If at any point the math shifts (e.g., one of them fronts a meal), this is where the "Avital owes Allison ₪X" line lives. Today it's clean → "square."
 
 ### Block 5 — CATEGORICAL BAR (kept, polished)
+
 Existing stacked bar + legend. Better labels: `% of trip` next to each pill.
 
 ### Block 6 — COMPARISON STRIP (moved up, redesigned)
+
 Three cards horizontally (not a table):
 
 ```
@@ -90,7 +96,9 @@ The middle one (current pick) gets the gold accent border + ★ pick badge.
 Each card is tappable → expands "what changes."
 
 ### Block 7 — WHERE THE MONEY GOES (per-base, redesigned as cards not table)
+
 4 base cards in a 2×2 grid (1-col on mobile). Each card:
+
 - Base icon emoji + name (Salzburg / Mountain / Summit / Airport)
 - Big amount ₪
 - "X nights · Y €/nt"
@@ -99,9 +107,11 @@ Each card is tappable → expands "what changes."
 - Booking link
 
 ### Block 8 — LINE-BY-LINE (kept, behind <details>)
+
 The 6 existing detail sections (lodging, car, flights, activities, food, baggage) stay collapsed. Re-titled "DEEP-DIVE: every line, every source" so the user knows they don't need to open it.
 
 ### Block 9 — FOOTER NOTES (kept, condensed)
+
 The existing "How the numbers track" callout collapses into a 4-bullet footer.
 
 ## Hard rules applied
@@ -118,6 +128,7 @@ The existing "How the numbers track" callout collapses into a 4-bullet footer.
 ## 5-second-grasp test (acceptance criterion)
 
 Avital opens costs.html. Within 5 seconds, without scrolling, she can answer:
+
 1. **What does the trip cost?** → ₪13,209 (hero)
 2. **Are we over budget?** → No, ₪209 over a soft cap, status says "on plan" (verdict bar)
 3. **What do I pay?** → ₪6,787 (right-hand card)

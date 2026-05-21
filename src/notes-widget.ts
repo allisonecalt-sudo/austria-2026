@@ -291,7 +291,10 @@ export function initNotesWidget(): void {
             uploaded.push(url);
           } catch (uploadErr) {
             const msg = uploadErr instanceof Error ? uploadErr.message : 'Unknown error';
-            showToast(`Photo ${i + 1} upload failed: ${msg}. Note not sent — try again or remove that photo.`, 5000);
+            showToast(
+              `Photo ${i + 1} upload failed: ${msg}. Note not sent — try again or remove that photo.`,
+              5000,
+            );
             return;
           }
         }

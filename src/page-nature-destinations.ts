@@ -182,12 +182,8 @@ function initNatureCarousels(root: ParentNode = document): void {
     carousel.dataset.carouselReady = '1';
     const track = carousel.querySelector<HTMLDivElement>('[data-carousel-track]');
     if (!track) return;
-    const slides = Array.from(
-      track.querySelectorAll<HTMLDivElement>('.lodging-carousel__slide'),
-    );
-    const dots = Array.from(
-      carousel.querySelectorAll<HTMLButtonElement>('.lodging-carousel__dot'),
-    );
+    const slides = Array.from(track.querySelectorAll<HTMLDivElement>('.lodging-carousel__slide'));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('.lodging-carousel__dot'));
     const counter = carousel.querySelector<HTMLSpanElement>('.lodging-carousel__counter');
     const prevBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--prev');
     const nextBtn = carousel.querySelector<HTMLButtonElement>('.lodging-carousel__arrow--next');
@@ -321,13 +317,9 @@ function destinationCard(d: NatureDestination, byId: Map<string, NatureDestinati
   // Hours / season / price compact row.
   const hoursPrice: string[] = [];
   if (d.openingHours)
-    hoursPrice.push(
-      `<span class="chip" title="Opening hours">⏰ ${escape(d.openingHours)}</span>`,
-    );
+    hoursPrice.push(`<span class="chip" title="Opening hours">⏰ ${escape(d.openingHours)}</span>`);
   if (d.seasonNote)
-    hoursPrice.push(
-      `<span class="chip" title="Season note">📅 ${escape(d.seasonNote)}</span>`,
-    );
+    hoursPrice.push(`<span class="chip" title="Season note">📅 ${escape(d.seasonNote)}</span>`);
   if (d.priceEur != null)
     hoursPrice.push(
       `<span class="chip" title="Per-person cost">💶 ${

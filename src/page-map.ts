@@ -43,6 +43,39 @@ import type { LatLng, MapPOI, Lodging, NatureDestination } from './trip-data.js'
 initNotesWidget();
 initChatPlanPopup();
 
+// 2026-05-21 reorg: jewish-sights / nature-destinations etc. moved to archive/.
+// map.html lives at the site root, so POI `link` fields like
+// "jewish-sights.html#judengasse" must be repointed into archive/. Resolve
+// absolutely from BASE_URL so it's correct regardless of where map.html sits.
+const ARCHIVED_LINK_PAGES = new Set([
+  'trip-options.html',
+  'trip-summary.html',
+  'bases.html',
+  'shabbat.html',
+  'friday-salzburg.html',
+  'sundays-closed.html',
+  'weather-plan-c.html',
+  'nature-destinations.html',
+  'top-sunsets.html',
+  'lake-swimming.html',
+  'water-activities.html',
+  'jewish-sights.html',
+  'recommendations.html',
+  'schafbergspitze.html',
+  'krippenstein.html',
+]);
+function resolvePoiUrl(url: string): string {
+  if (/^(https?:|\/|\.\.\/|archive\/)/.test(url)) return url;
+  const page = url.split('#')[0];
+  if (ARCHIVED_LINK_PAGES.has(page)) {
+    // Vite injects import.meta.env.BASE_URL at build; tsconfig has no vite/client
+    // types, so read it through a narrow cast (fall back to "/" in dev/tests).
+    const base = (import.meta as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
+    return `${base}archive/${url}`;
+  }
+  return url;
+}
+
 // =====================================================================
 // Leaflet ambient types — Leaflet itself is loaded via CDN <script> in
 // map.html. Declared narrowly here rather than depending on
@@ -338,7 +371,7 @@ function poiPopup(poi: MapPOI): string {
         ? 'Chabad Salzburg'
         : 'Jewish sight';
   const linkHtml = poi.link
-    ? `<div class="pop-actions"><a class="pop-link" href="${escapeHtml(poi.link)}">View details →</a></div>`
+    ? `<div class="pop-actions"><a class="pop-link" href="${escapeHtml(resolvePoiUrl(poi.link))}">View details →</a></div>`
     : '';
   return `
     <div class="pop">
@@ -552,13 +585,10 @@ function natureDrawerSource(d: NatureDestination): DrawerSource {
   // Photos: use the carousel `photos[]` if the curation agent filled it,
   // otherwise fall back to the single hero image.
   const photos: string[] =
-    d.photos && d.photos.length > 0
-      ? d.photos
-      : d.hero?.src
-        ? [d.hero.src]
-        : [];
+    d.photos && d.photos.length > 0 ? d.photos : d.hero?.src ? [d.hero.src] : [];
   // Badges: sunset (1-3), avitalFit, hidden-gem, locked-day.
-  const sunsetTxt = d.sunset === 3 ? '✶✶✶ epic sunset' : d.sunset === 2 ? '✶✶ good sunset' : '✶ light sunset';
+  const sunsetTxt =
+    d.sunset === 3 ? '✶✶✶ epic sunset' : d.sunset === 2 ? '✶✶ good sunset' : '✶ light sunset';
   const sunsetBadge = `<span class="place-drawer-badge place-drawer-badge--sunset" title="Sunset grade ${d.sunset}/3">${sunsetTxt}</span>`;
   const fitBadge = d.avitalFitNote
     ? `<span class="place-drawer-badge place-drawer-badge--fit" title="Avital fit (walk-friendliness)">✓ ${escapeHtml(d.avitalFitNote)}</span>`
@@ -696,7 +726,7 @@ function poiDrawerSource(poi: MapPOI): DrawerSource {
         ? 'Chabad Salzburg'
         : 'Jewish sight';
   const linkRow = poi.link
-    ? `<a class="place-drawer-action place-drawer-action--primary" href="${escapeHtml(poi.link)}">View details →</a>`
+    ? `<a class="place-drawer-action place-drawer-action--primary" href="${escapeHtml(resolvePoiUrl(poi.link))}">View details →</a>`
     : '';
   const bodyHtml = `
     <p class="place-drawer-feature">${escapeHtml(poi.description)}</p>
@@ -723,10 +753,7 @@ function poiDrawerSource(poi: MapPOI): DrawerSource {
 // 3) Then nearest by haversine
 // Return up to 3 entries, excluding self.
 function similarNatureDestinations(d: NatureDestination, max = 3): NatureDestination[] {
-  const here: [number, number] = [
-    NATURE_COORDS[d.id]?.lat ?? 0,
-    NATURE_COORDS[d.id]?.lng ?? 0,
-  ];
+  const here: [number, number] = [NATURE_COORDS[d.id]?.lat ?? 0, NATURE_COORDS[d.id]?.lng ?? 0];
   type Scored = { dest: NatureDestination; score: number; km: number };
   const candidates: Scored[] = [];
   for (const other of NATURE_DESTINATIONS) {
@@ -750,7 +777,7 @@ function similarSectionHtml(d: NatureDestination): string {
   const cards = sims
     .map((s) => {
       const driveLine = `${natureTypeLabel(s.type)} · Hallstatt ${s.fromHallstattMin}m · SZG ${s.fromSalzburgMin}m`;
-      const thumb = s.photos && s.photos[0] ? s.photos[0] : s.hero?.src ?? '';
+      const thumb = s.photos && s.photos[0] ? s.photos[0] : (s.hero?.src ?? '');
       return `
       <button type="button" class="map-similar__card" data-similar-id="${escapeHtml(s.id)}" aria-label="Open ${escapeHtml(s.name)}">
         ${thumb ? `<img class="map-similar__thumb" src="${escapeHtml(thumb)}" alt="${escapeHtml(s.name)}" loading="lazy" decoding="async" />` : '<span class="map-similar__thumb" aria-hidden="true"></span>'}
@@ -809,7 +836,8 @@ function gatherLodging(): GatherLodgingResult {
     if (baseKey === 'salzburg') return 'Salzburg · Shabbat base (Sat-Sun)';
     if (baseKey === 'zell-am-see') return 'Zell am See · alpine-lake anchor (Sun-Tue, 2 nights)';
     if (baseKey === 'gosau') return 'Gosau · Salzkammergut lakes anchor (Tue-Thu, 2 nights)';
-    if (baseKey === 'hallstatt') return 'Mountain anchor · 3-night midweek (Sun-Wed) — ARCHIVED 2026-05-19';
+    if (baseKey === 'hallstatt')
+      return 'Mountain anchor · 3-night midweek (Sun-Wed) — ARCHIVED 2026-05-19';
     if (baseKey === 'salzburg-airport') return 'Airport-area · Thu-Fri pre-flight';
     return 'Airport-area · Thu-Fri pre-flight';
   };
@@ -820,12 +848,7 @@ function gatherLodging(): GatherLodgingResult {
     out.push(input);
   };
 
-  const noteNoCoord = (
-    name: string,
-    cat: PinCategory,
-    label: string,
-    detailUrl: string,
-  ): void => {
+  const noteNoCoord = (name: string, cat: PinCategory, label: string, detailUrl: string): void => {
     if (seen.has(name)) return;
     seen.add(name);
     noCoord.push({
@@ -874,7 +897,12 @@ function gatherLodging(): GatherLodgingResult {
           stayAnchor: slugifyName(lod.pickName),
         });
       } else {
-        noteNoCoord(lod.pickName, cat, `${label} · TOP PICK`, `stay.html#${slugifyName(lod.pickName)}`);
+        noteNoCoord(
+          lod.pickName,
+          cat,
+          `${label} · TOP PICK`,
+          `stay.html#${slugifyName(lod.pickName)}`,
+        );
       }
     }
     for (const alt of lod.alts.filter((a) => a.availability !== 'sold-out')) {
@@ -1585,7 +1613,9 @@ function bootMap(): void {
       any = true;
       const totalCount = rows.length + ncRows.length;
       const ncSuffix =
-        ncRows.length > 0 ? ` <span class="map-sidebar-nc-count">(${ncRows.length} no-pin)</span>` : '';
+        ncRows.length > 0
+          ? ` <span class="map-sidebar-nc-count">(${ncRows.length} no-pin)</span>`
+          : '';
       html += `<div class="map-sidebar-group"><h3>${escapeHtml(g.label)} <span class="map-sidebar-count">${totalCount}</span>${ncSuffix}</h3>`;
       for (const row of rows) {
         const color = PIN_COLORS[row.category];
@@ -1880,7 +1910,7 @@ function bootMap(): void {
       const photo = src?.photos[0] ?? '';
       const teaser =
         src?.variant === 'nature'
-          ? NATURE_DESTINATIONS.find((d) => `nature-${d.id}` === entry.id)?.feature ?? ''
+          ? (NATURE_DESTINATIONS.find((d) => `nature-${d.id}` === entry.id)?.feature ?? '')
           : entry.subLabel;
       hoverPreviewEl.innerHTML = `
         ${photo ? `<img class="place-hover-preview__img" src="${escapeHtml(photo)}" alt="" decoding="async" />` : ''}

@@ -1078,7 +1078,20 @@ function freeCancellationPill(fc: boolean, until?: string): string {
 function formatCancelDate(iso: string): string {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
   if (!m) return iso;
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   const monthIdx = Number(m[2]) - 1;
   if (monthIdx < 0 || monthIdx > 11) return iso;
   return `${months[monthIdx]} ${Number(m[3])}`;
@@ -1379,13 +1392,11 @@ function nearbyChipsHtml(l: UnifiedListing): string {
       // Lodging-as-village edge case: 0-min drive means this IS the dest.
       // Show "on site" instead of "0 min drive".
       const distLabel =
-        mins === 0
-          ? 'on site'
-          : mins < 6
-            ? `${mins} min away`
-            : `${mins} min drive`;
+        mins === 0 ? 'on site' : mins < 6 ? `${mins} min away` : `${mins} min drive`;
       const walkExtra =
-        typeof d.walkFromParkingMin === 'number' && d.walkFromParkingMin > 0 && d.walkFromParkingMin <= 20
+        typeof d.walkFromParkingMin === 'number' &&
+        d.walkFromParkingMin > 0 &&
+        d.walkFromParkingMin <= 20
           ? ` + ${d.walkFromParkingMin} min walk`
           : '';
       const fitClass =

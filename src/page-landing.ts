@@ -51,7 +51,8 @@ function getLeaflet(): MiniLeaflet | undefined {
 // Anchors for the moment-3 preview map. Each is one of the 4 bases.
 // Coords pulled from trip-data.ts so the map of the trip and the preview
 // can never drift out of sync.
-//   - Salzburg base: Bergland Hotel (4-min walk to Chabad — primary as of Tue May 19 PM).
+//   - Salzburg base: master Linzergasse (closest of the 5 booked holds to
+//     Chabad, ~4-min walk; updated 2026-05-21 — Bergland was dropped pre-booking).
 //   - Zell am See: Aparthotel Zell am See (2-nt alpine-lake first half).
 //   - Gosau: Der Ulmenhof (2-nt lakes-region second half).
 //   - Airport: Landhaus Grünau (1-nt pre-flight; near SZG terminal).
@@ -71,7 +72,7 @@ interface ShapeAnchor {
 }
 
 function getShapeAnchors(): ShapeAnchor[] {
-  const salzburgLodging = LODGING_COORDS['Bergland Hotel - Adults only'];
+  const salzburgLodging = LODGING_COORDS['master Linzergasse'];
   const zellLodging = LODGING_COORDS['Aparthotel Zell am See'];
   const gosauLodging = LODGING_COORDS['Der Ulmenhof (Gosau)'];
   const airportLodging = LODGING_COORDS['Landhaus Grünau'];

@@ -72,12 +72,7 @@ function buildStayCards(): StayCard[] {
   // Filter out archived/deprecated lodgings from the active stay-cards view.
   // The archived entries still live in TRIP.lodgings (pullable archives rule)
   // but the trip-summary page only shows the v4 active 4-base set.
-  const ACTIVE: Lodging['baseKey'][] = [
-    'salzburg',
-    'zell-am-see',
-    'gosau',
-    'salzburg-airport',
-  ];
+  const ACTIVE: Lodging['baseKey'][] = ['salzburg', 'zell-am-see', 'gosau', 'salzburg-airport'];
   return TRIP.lodgings
     .filter((lod) => ACTIVE.includes(lod.baseKey))
     .map((lod) => ({
@@ -216,7 +211,7 @@ const TOP_5_SUNSETS: SunsetPick[] = [
     day: 'Mon Jul 27',
     time: '20:52',
     oneLine:
-      "Cable car up to ~2,000m, 360° panorama across the Hohe Tauern + Zeller See far below. The alpine-half sunset. Last cable car down ~18:00 — check the day-of timetable for evening rides.",
+      'Cable car up to ~2,000m, 360° panorama across the Hohe Tauern + Zeller See far below. The alpine-half sunset. Last cable car down ~18:00 — check the day-of timetable for evening rides.',
   },
   {
     rank: 3,
@@ -232,7 +227,7 @@ const TOP_5_SUNSETS: SunsetPick[] = [
     day: 'Wed Jul 29 (alt)',
     time: '20:48',
     oneLine:
-      "Day-trip cable car from Gosau (~25 min drive). Five steel fingers jutting over the cliff at 2,063m, omni-view across Hallstättersee + the Dachstein. Last cable car down 19:10 — sunset here means committing to the descent timing.",
+      'Day-trip cable car from Gosau (~25 min drive). Five steel fingers jutting over the cliff at 2,063m, omni-view across Hallstättersee + the Dachstein. Last cable car down 19:10 — sunset here means committing to the descent timing.',
   },
   {
     rank: 5,

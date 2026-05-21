@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
+    />
+    <title>Top picks · Austria 2026</title>
+    <meta
+      name="description"
+      content="Curated top picks across lodgings, places, water activities, sunsets, and Jewish sights — each with a photo, a why-it-rocks line, and a See-on-map button."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body data-option="general">
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-inner">
+        <a href="../" class="nav-brand">Austria · 24-31 Jul</a>
+        <div class="nav-links">
+          <a href="../itinerary.html">Trip</a>
+          <a href="../stay.html">Stay</a>
+          <a href="../activities.html" class="active" aria-current="page">Explore</a>
+          <a href="../logistics.html">Logistics</a>
+          <a href="../costs.html">Costs</a>
+          <a href="../notes.html">Notes</a>
+        </div>
+        <button
+          class="nav-hamburger"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          ☰
+        </button>
+      </div>
+      <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+        <div class="nav-mobile-panel" role="dialog" aria-modal="true" aria-label="Site navigation">
+          <div class="nav-mobile-header">
+            <span class="nav-mobile-header__title">Austria · 24-31 Jul</span>
+            <button class="nav-mobile-close" type="button" aria-label="Close menu">✕</button>
+          </div>
+          <a href="../itinerary.html"
+            ><span>Trip</span
+            ><span class="nav-mobile-section__desc"
+              >The seven days, plus bases, Shabbat & deep dives.</span
+            ></a
+          >
+          <a href="../stay.html"
+            ><span>Stay</span
+            ><span class="nav-mobile-section__desc"
+              >Where you sleep at each of the 4 bases.</span
+            ></a
+          >
+          <a href="../activities.html" aria-current="page"
+            ><span>Explore</span
+            ><span class="nav-mobile-section__desc"
+              >Everything to see + do — tagged & filterable.</span
+            ></a
+          >
+          <a href="../logistics.html"
+            ><span>Logistics</span
+            ><span class="nav-mobile-section__desc"
+              >Flights, car, packing, kosher, pre-trip.</span
+            ></a
+          >
+          <a href="../costs.html"
+            ><span>Costs</span
+            ><span class="nav-mobile-section__desc"
+              >Per-person totals + breakdown by bucket.</span
+            ></a
+          >
+          <a href="../notes.html"
+            ><span>Notes</span
+            ><span class="nav-mobile-section__desc">💬 Live feed — Avital + Allison.</span></a
+          >
+        </div>
+      </div>
+      <script>
+        // Nav-coordination dropdown + mobile toggle (inline, no build step).
+        // Owned by Nav Coordination Specialist 2026-05-17.
+        (function () {
+          var nav = document.currentScript.closest('nav.nav');
+          if (!nav) return;
+          var groups = nav.querySelectorAll('.nav-group');
+          function closeAll(except) {
+            groups.forEach(function (g) {
+              var btn = g.querySelector('.nav-group__btn');
+              if (btn && btn !== except) btn.setAttribute('aria-expanded', 'false');
+            });
+          }
+          groups.forEach(function (g) {
+            var btn = g.querySelector('.nav-group__btn');
+            if (!btn) return;
+            btn.addEventListener('click', function (e) {
+              e.stopPropagation();
+              var open = btn.getAttribute('aria-expanded') === 'true';
+              closeAll(btn);
+              btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+            });
+            btn.addEventListener('keydown', function (e) {
+              if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                closeAll(btn);
+                btn.setAttribute('aria-expanded', 'true');
+                var first = g.querySelector('.nav-dropdown a');
+                if (first) first.focus();
+              } else if (e.key === 'Escape') {
+                btn.setAttribute('aria-expanded', 'false');
+              }
+            });
+          });
+          document.addEventListener('click', function (e) {
+            if (!nav.contains(e.target)) closeAll(null);
+          });
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeAll(null);
+          });
+
+          // Mobile slide-over
+          var hamburger = nav.querySelector('.nav-hamburger');
+          var mobile = nav.querySelector('.nav-mobile');
+          var closeBtn = mobile ? mobile.querySelector('.nav-mobile-close') : null;
+          if (hamburger && mobile) {
+            function openMobile() {
+              mobile.classList.add('is-open');
+              mobile.setAttribute('aria-hidden', 'false');
+              document.body.classList.add('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'true');
+              if (closeBtn) closeBtn.focus();
+            }
+            function closeMobile() {
+              mobile.classList.remove('is-open');
+              mobile.setAttribute('aria-hidden', 'true');
+              document.body.classList.remove('nav-mobile-open');
+              hamburger.setAttribute('aria-expanded', 'false');
+              hamburger.focus();
+            }
+            hamburger.addEventListener('click', openMobile);
+            if (closeBtn) closeBtn.addEventListener('click', closeMobile);
+            mobile.addEventListener('click', function (e) {
+              if (e.target === mobile) closeMobile();
+            });
+            document.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape' && mobile.classList.contains('is-open')) closeMobile();
+            });
+          }
+        })();
+      </script>
+    </nav>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../">Austria</a>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span>Explore</span>
+      <span class="breadcrumb__sep" aria-hidden="true">›</span>
+      <span class="breadcrumb__current">Top picks</span>
+    </nav>
+
+    <main id="main" class="rec-page">
+      <header class="rec-page__header">
+        <h1 class="rec-page__title">⭐ Top picks across the trip</h1>
+        <p class="rec-page__sub">
+          Curated shortlists — sleeping, places, water, sunsets, Jewish sights. Each card opens the
+          full detail page. "📍 See on map" jumps to the bird's-eye map with that pin highlighted.
+        </p>
+        <p class="rec-page__hint">
+          Looking for something specific? Hit <kbd>Cmd/Ctrl + /</kbd> or the 🔍 Search pill in the
+          bottom-left to fuzzy-search every lodging, place, activity, sunset, and Jewish sight
+          across the whole site.
+        </p>
+      </header>
+
+      <div id="rec-root"></div>
+
+      <a class="rec-nav-link" href="../">← back to trip home</a>
+
+      <aside class="cross-promo" aria-label="Where to go next">
+        <h2 class="cross-promo__title">Where to go next</h2>
+        <p class="cross-promo__sub">Three pages Avital + you usually reach for from here.</p>
+        <div class="cross-promo__grid">
+          <a class="cross-promo-card" href="../itinerary.html">
+            <p class="cross-promo-card__eyebrow">Plan</p>
+            <h3 class="cross-promo-card__name">
+              Full day-by-day<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">7 days, 1 page. Recommendations + alternates.</p>
+          </a>
+          <a class="cross-promo-card" href="../map.html">
+            <p class="cross-promo-card__eyebrow">Explore</p>
+            <h3 class="cross-promo-card__name">
+              Map<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">
+              All 41 pins — click base to filter, click pin for details.
+            </p>
+          </a>
+          <a class="cross-promo-card" href="top-sunsets.html">
+            <p class="cross-promo-card__eyebrow">Explore</p>
+            <h3 class="cross-promo-card__name">
+              Top sunsets<span class="cross-promo-card__arrow" aria-hidden="true">→</span>
+            </h3>
+            <p class="cross-promo-card__desc">Ranked + timed for every base.</p>
+          </a>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <p>Built for Avital · v7 (4-base restructure) · Last verified 2026-05-19</p>
+    </footer>
+
+    <script type="module" src="/src/page-recommendations.ts"></script>
+    <script type="module" src="/src/page-search.ts"></script>
+  </body>
+</html>
