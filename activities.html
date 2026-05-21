@@ -170,57 +170,61 @@
         <div class="eyebrow">Menu, not a schedule · pick or browse · v4 (2026-05-19)</div>
         <h1>Activities by base</h1>
         <p class="page-tldr">
-          <strong
-            >Everything sorted by base — what's at your door, what's a half-day, what's a
-            day-trip.</strong
-          >
-          Four bases (Salzburg / Zell am See / Gosau / Airport). Filter pills start empty — tap to
-          narrow. Sunset headliners on top. Sources link out so you can verify.
-        </p>
-        <p class="lead-block">
-          Everything <strong>"from where you sleep that night."</strong> Four bases this week. Each
-          section shows what's at your door, what's an easy half-day, and what's a "make a plan for
-          it" day trip — sorted with the breathtaking ones on top. Schafberg cog + Krippenstein
-          cable car appear as day-trip options from Gosau, not as bases.
-        </p>
-        <p class="lead-block" style="font-size: 0.95rem; color: var(--ink-soft)">
-          Use the filter pills to narrow by type. Click a base name to jump to its menu. Sources
-          link out so you can verify before booking. All categories start unselected — tap pills to
-          filter.
+          <strong>Everything "from where you sleep that night."</strong> Four bases — each shows
+          what's at your door, what's a half-day, and what's a full day-trip, breathtaking ones on
+          top. Pick a base and a category in the strip below; the cards respond. Sources link out so
+          you can verify.
         </p>
       </header>
 
-      <!-- Quick-jump base nav -->
-      <nav class="acts-basenav" aria-label="Jump to a base">
-        <a href="#base-salzburg" class="acts-basechip acts-basechip--salzburg">
-          <span class="acts-basechip__dot"></span>
-          <span class="acts-basechip__body">
-            <span class="acts-basechip__name">Salzburg</span>
-            <span class="acts-basechip__sub">Fri-Sun · 2N · Shabbat</span>
-          </span>
-        </a>
-        <a href="#base-zell-am-see" class="acts-basechip acts-basechip--obertraun">
-          <span class="acts-basechip__dot"></span>
-          <span class="acts-basechip__body">
-            <span class="acts-basechip__name">Zell am See</span>
-            <span class="acts-basechip__sub">Sun-Tue · 2N · alpine</span>
-          </span>
-        </a>
-        <a href="#base-gosau" class="acts-basechip acts-basechip--summit">
-          <span class="acts-basechip__dot"></span>
-          <span class="acts-basechip__body">
-            <span class="acts-basechip__name">Gosau</span>
-            <span class="acts-basechip__sub">Tue-Thu · 2N · lakes</span>
-          </span>
-        </a>
-        <a href="#base-salzburg-airport" class="acts-basechip acts-basechip--airport">
-          <span class="acts-basechip__dot"></span>
-          <span class="acts-basechip__body">
-            <span class="acts-basechip__name">Airport</span>
-            <span class="acts-basechip__sub">Thu-Fri · 1N sleep</span>
-          </span>
-        </a>
-      </nav>
+      <!-- Sticky orientation strip (design-polish 2026-05-21): base-jump +
+           category filter pinned together so "pick a base → filter → see
+           what's there" stays put as the long list scrolls. Mirrors the
+           budget dashboard's persistent month-nav. -->
+      <div class="context-strip">
+        <!-- Quick-jump base nav -->
+        <nav class="acts-basenav" aria-label="Jump to a base">
+          <a href="#base-salzburg" class="acts-basechip acts-basechip--salzburg">
+            <span class="acts-basechip__dot"></span>
+            <span class="acts-basechip__body">
+              <span class="acts-basechip__name">Salzburg</span>
+              <span class="acts-basechip__sub">Fri-Sun · 2N · Shabbat</span>
+            </span>
+          </a>
+          <a href="#base-zell-am-see" class="acts-basechip acts-basechip--obertraun">
+            <span class="acts-basechip__dot"></span>
+            <span class="acts-basechip__body">
+              <span class="acts-basechip__name">Zell am See</span>
+              <span class="acts-basechip__sub">Sun-Tue · 2N · alpine</span>
+            </span>
+          </a>
+          <a href="#base-gosau" class="acts-basechip acts-basechip--summit">
+            <span class="acts-basechip__dot"></span>
+            <span class="acts-basechip__body">
+              <span class="acts-basechip__name">Gosau</span>
+              <span class="acts-basechip__sub">Tue-Thu · 2N · lakes</span>
+            </span>
+          </a>
+          <a href="#base-salzburg-airport" class="acts-basechip acts-basechip--airport">
+            <span class="acts-basechip__dot"></span>
+            <span class="acts-basechip__body">
+              <span class="acts-basechip__name">Airport</span>
+              <span class="acts-basechip__sub">Thu-Fri · 1N sleep</span>
+            </span>
+          </a>
+        </nav>
+
+        <!-- Category filter pills (start empty / no filter applied) -->
+        <section class="acts-filterbar" aria-label="Filter by category">
+          <div class="acts-filterbar__label">Filter:</div>
+          <div class="acts-filterbar__pills" id="acts-filterpills">
+            <!-- pills rendered by page-activities.ts -->
+          </div>
+          <button type="button" class="acts-filterbar__clear" id="acts-filterclear" hidden>
+            Clear filters
+          </button>
+        </section>
+      </div>
 
       <!-- Day-trip framing callout — cog + cable car are NOT bases -->
       <section class="section" style="margin-top: 0">
@@ -252,17 +256,6 @@
             <a href="archive/schafbergspitze.html">schafbergspitze.html</a> for the decisions log.
           </p>
         </div>
-      </section>
-
-      <!-- Category filter pills (start empty / no filter applied) -->
-      <section class="acts-filterbar" aria-label="Filter by category">
-        <div class="acts-filterbar__label">Filter:</div>
-        <div class="acts-filterbar__pills" id="acts-filterpills">
-          <!-- pills rendered by page-activities.ts -->
-        </div>
-        <button type="button" class="acts-filterbar__clear" id="acts-filterclear" hidden>
-          Clear filters
-        </button>
       </section>
 
       <!-- Base sections rendered by page-activities.ts -->

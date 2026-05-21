@@ -199,37 +199,38 @@
           per-day reads? Tap <strong>Summary view</strong> above.
         </p>
 
-        <p
-          class="lead-block"
-          style="
-            font-size: 0.95rem;
-            background: var(--cream);
-            border-left: 3px solid var(--green-deep);
-            padding: 0.7rem 1rem;
-            margin-top: 1rem;
-          "
-        >
-          <strong>How to read each day card:</strong> <em>Options for the day</em> is the short menu
-          of what fits geographically. <em>Recommended combo</em> is what we'd lean toward + why.
-          <em>Or instead</em> is the softer alternate if energy is low. <em>Time-locked beats</em>
-          are the few things actually tied to a clock (boats, sunsets, the cog). Mix any of it on
-          the day — none of it is a marching order.
-        </p>
-
-        <p
-          class="lead-block"
-          style="
-            font-size: 0.95rem;
-            background: var(--cream);
-            border-left: 3px solid var(--green-deep);
-            padding: 0.7rem 1rem;
-            margin-top: 0.6rem;
-          "
-        >
-          Want to swap something in? See the
-          <a href="archive/nature-destinations.html"><strong>full nature menu →</strong></a>
-          (21 destinations, sunset ratings, what pairs with what).
-        </p>
+        <!-- design-polish 2026-05-21: the two stacked "how to read" lead-blocks
+             folded into one calm, titled card (budget-dashboard card style) —
+             same content, far less visual noise. -->
+        <div class="howto-card">
+          <p class="howto-card__title">📖 How to read each day card</p>
+          <div class="howto-card__rows">
+            <div class="howto-row">
+              <span class="howto-row__term">Options for the day</span>
+              <p class="howto-row__desc">The short menu of what fits geographically.</p>
+            </div>
+            <div class="howto-row">
+              <span class="howto-row__term">Recommended combo</span>
+              <p class="howto-row__desc">What we'd lean toward + why.</p>
+            </div>
+            <div class="howto-row">
+              <span class="howto-row__term">Or instead</span>
+              <p class="howto-row__desc">The softer alternate if energy is low.</p>
+            </div>
+            <div class="howto-row">
+              <span class="howto-row__term">Time-locked beats</span>
+              <p class="howto-row__desc">
+                The few things actually tied to a clock — boats, sunsets, the cog.
+              </p>
+            </div>
+          </div>
+          <p class="howto-card__foot">
+            Mix any of it on the day — none of it is a marching order. Want to swap something in?
+            See the
+            <a href="archive/nature-destinations.html"><strong>full nature menu →</strong></a>
+            (21 destinations, sunset ratings, what pairs with what).
+          </p>
+        </div>
       </header>
 
       <section style="margin-bottom: 2.4rem">

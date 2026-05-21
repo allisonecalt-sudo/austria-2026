@@ -14020,3 +14020,134 @@ body.nav-mobile-open {
   font-size: 0.78rem;
   color: var(--ink-soft, #6a6253);
 }
+
+/* ===================================================================
+   DESIGN-POLISH PASS — 2026-05-21
+   Calm/organize layer inspired by Allison's two favourite UIs
+   (workout-tracker single-screen + budget dashboard card-grid).
+   Goal: fewer competing blocks, one persistent orientation strip,
+   titled cards instead of stacked prose. NO IA changes — these only
+   restyle existing content. Reuses the site's own tokens.
+   =================================================================== */
+
+/* --- howto-card -----------------------------------------------------
+   Replaces the stack of competing "how to read" lead-blocks with ONE
+   titled, emoji-anchored card (budget-dashboard card sensibility).
+   Definition rows read calmly instead of a paragraph wall. */
+.howto-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.25rem 1.4rem;
+  margin: 1.4rem 0;
+  box-shadow: var(--shadow-soft);
+  max-width: var(--max-prose);
+}
+.howto-card__title {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--green-deep);
+  margin: 0 0 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.howto-card__rows {
+  display: grid;
+  gap: 0.6rem;
+}
+.howto-row {
+  display: grid;
+  grid-template-columns: minmax(120px, max-content) 1fr;
+  gap: 0.2rem 0.9rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px dotted var(--line);
+}
+.howto-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.howto-row__term {
+  font-weight: 700;
+  color: var(--green-deep);
+  font-size: 0.9rem;
+}
+.howto-row__desc {
+  color: var(--ink-soft);
+  margin: 0;
+}
+.howto-card__foot {
+  margin: 0.9rem 0 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+@media (max-width: 560px) {
+  .howto-row {
+    grid-template-columns: 1fr;
+    gap: 0.05rem;
+  }
+}
+
+/* --- context-strip --------------------------------------------------
+   A sticky orientation layer that pins the Explore filter controls to
+   the top as the long list scrolls — mirrors the budget dashboard's
+   persistent month-nav. It "leads" the cards below: pick a category →
+   the cards respond, and the strip stays put so you never lose your
+   place. Sits just under the primary nav. */
+.context-strip {
+  position: sticky;
+  top: 56px;
+  z-index: 38;
+  margin: 1.4rem 0 1.8rem;
+  background: rgba(250, 246, 238, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.55rem 0.7rem;
+  box-shadow: var(--shadow-soft);
+}
+.context-strip .acts-filterbar {
+  margin: 0;
+  border: none;
+  background: transparent;
+  padding: 0.15rem 0.25rem;
+}
+/* When the base-nav lives inside the strip it becomes a compact row of
+   anchor chips rather than a full card grid. */
+.context-strip .acts-basenav {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.45rem;
+  margin: 0 0 0.55rem;
+  padding: 0.15rem 0.25rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+.context-strip .acts-basechip {
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+}
+@media (max-width: 560px) {
+  .context-strip {
+    /* On phones the strip can get tall; keep it from eating the screen
+       by letting the base chips scroll horizontally and pinning only the
+       filter row's relevance. Still sticky, just leaner. */
+    padding: 0.5rem 0.55rem;
+  }
+  .context-strip .acts-basenav {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: minmax(128px, 1fr);
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.6rem;
+  }
+  .context-strip .acts-basenav::-webkit-scrollbar {
+    display: none;
+  }
+}
