@@ -678,14 +678,13 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.werfen,
       },
       generalIdea:
-        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at Landhaus Grünau (3.4 km from SZG, 9.5/585 reviews, €176 — Allison's cheapest-wins pick for the one-night pre-flight) late afternoon. Open afternoon — pick from: lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). RETURN THE RENTAL CAR THURSDAY NIGHT so there's no morning scramble (see rental-car page for return-time options at your chosen supplier).",
+        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at Landhaus Grünau (3.4 km from SZG, 9.5/585 reviews, €176 — Allison's cheapest-wins pick for the one-night pre-flight) late afternoon. Open afternoon — pick from: lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). KEEP THE RENTAL CAR overnight — the Alamo booking runs through Fri 31 Jul 06:30, so you drive yourselves to the airport Friday morning and drop it there (no Thursday-night return, no taxi).",
       planB:
         'If Wed was big and you need recovery: drive Gosau → SZG directly, lazy afternoon at the apartment, walk to a nearby café for sunset, in bed early for the 5am wake.',
       anchors: [
         { label: 'Slow morning in Gosau', time: 'until ~10:00' },
         { label: 'Leave Gosau', time: '~10:30' },
         { label: 'Check in Landhaus Grünau', time: '~13:00' },
-        { label: 'Return rental car (Thu evening)', time: 'per supplier' },
         { label: 'Sunset (Mönchsberg or apartment area)', time: '20:47' },
       ],
       driveFrom: {
@@ -705,7 +704,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'salzburg-airport',
       doingSummary:
-        'Drive Gosau → SZG ~1h20. Check in Landhaus Grünau afternoon. Return rental car Thu night. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
+        'Drive Gosau → SZG ~1h20. Check in Landhaus Grünau afternoon. Keep the car for the Friday-morning airport drop. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
     },
 
     // --- DAY 8 — Fri Jul 31 ---
@@ -721,10 +720,10 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
-        'Early wake at Landhaus Grünau. Rental car already returned Thu night so the morning is just a short taxi / shuttle to the terminal — no car-return scramble. Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
+        'Early wake at Landhaus Grünau. Drive the 3.4 km to SZG and drop the Alamo car at the airport at 06:30 (after-hours key-drop — counter opens 08:00). Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
       anchors: [
         { label: 'Wake', time: '05:30' },
-        { label: 'Taxi / shuttle to SZG (car already returned Thu)', time: '06:30' },
+        { label: 'Drive to SZG + drop Alamo car at airport', time: '06:30' },
         { label: 'At terminal (LY5194)', time: '06:55' },
         { label: 'Depart SZG', time: '08:55' },
         { label: 'Land TLV', time: '13:25' },
@@ -740,7 +739,7 @@ export const TRIP: TripData = {
         mapsUrl: searchUrl('Jerusalem'),
       },
       sleepWhere: 'salzburg-airport',
-      doingSummary: 'Taxi to SZG 06:30 (car already returned Thu) → LY5194 08:55 → land TLV 13:25.',
+      doingSummary: 'Drive to SZG + drop Alamo car at airport 06:30 → LY5194 08:55 → land TLV 13:25.',
     },
   ],
 
