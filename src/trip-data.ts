@@ -426,14 +426,14 @@ export const TRIP: TripData = {
   // both €160/nt. Airport pick Best Western Walserberg €105→€71/nt (price DROPPED).
   // Standard pick recomputed: keep master Linzergasse (Allison hasn't unlocked it) + swap
   // mountain to Austrian Apartments. Cheapest viable scenario also surfaced in costs.html.
-  totalCostEur: 3599, // was 3686; −€87 from Aparthotel Zell am See price correction (€483→€396) re-verified 2026-05-19
-  totalCostNis: 14275, // was 14620; −₪345 from same Aparthotel correction
+  totalCostEur: 4144, // 2026-06-02: re-anchored Salzburg to PROVISIONAL master Linzergasse €569/2nt (Bergland was dropped; Salzburg is on 5 free-cancel holds, NOT locked). Bottom-up all-in = ₪16,452 / €4,144 (lodging 6,837 [master Linzergasse 2,259 + der Sonnberg 1,977 + Transylvania 2,124 + Best Western 477] + car 1,669 + buffer 214 + acts 1,445 + food 2,580 + flights 3,337 + bag 370).
+  totalCostNis: 16452, // 2026-06-02: see breakdown above. 3 of 4 bases booked; Salzburg provisional (master Linzergasse €569 lead Chabad-walkable hold).
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target (NOT updated; this is the target, not the actual)
   peakMoment: {
     day: 'Tuesday Jul 28',
     spot: 'Vorderer Gosausee — Dachstein mirror lake at sunset',
     description:
-      "Move day Zell am See → Gosau, ~1h45 via Bad Ischl. We check into Der Ulmenhof in the afternoon and walk straight to the Vorderer Gosausee — one of the most-photographed lakes in Austria. The Dachstein glacier mirrors in the water, the gravel loop is flat and easy, and we get the lake almost to ourselves after the day-tripper buses leave. Lakeside picnic, sunset 20:51. The 'we're really here' moment of the trip — three bases in, the alpine quiet sinks in.",
+      "Move day Zell am See → Gosau, ~1h45 via Bad Ischl. We check into Transylvania Villa & Spa in the afternoon and walk straight to the Vorderer Gosausee — one of the most-photographed lakes in Austria. The Dachstein glacier mirrors in the water, the gravel loop is flat and easy, and we get the lake almost to ourselves after the day-tripper buses leave. Lakeside picnic, sunset 20:51. The 'we're really here' moment of the trip — three bases in, the alpine quiet sinks in.",
   },
   days: [
     // --- DAY 1 — Fri Jul 24 ---
@@ -520,12 +520,12 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.zellAmSee,
       },
       generalIdea:
-        'Slow Salzburg morning. Pack out after Havdalah / late checkout. Drive south to Zell am See (~90 km, ~1h20 via the Salzach valley B311). Check in at Aparthotel Zell am See — 2 nights here Sun-Tue, the alpine-lake first half of the week. Drop bags, walk to the Zeller See shore. The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk + sunset from the Esplanade promenade, 5 minutes from the apartment.',
+        'Slow Salzburg morning. Pack out after Havdalah / late checkout. Drive south to Zell am See (~90 km, ~1h20 via the Salzach valley B311). Check in at der Sonnberg Alpinlodges — 2 nights here Sun-Tue, the alpine-lake first half of the week. The lodge sits up the hill (Sonnbergstraße 57a), ~1.1 km / ~15-min walk down to the lake & town (uphill back). Self check-in 17:00-18:00. Drop bags, walk down to the Zeller See shore. The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk + sunset from the Esplanade promenade. Private sauna + lake-view balcony back at the lodge.',
       planB:
         'If Shabbat tired the legs: skip the lake walk, settle into the apartment for a long balcony afternoon, sunset over the lake from the window.',
       anchors: [
         { label: 'Leave Salzburg', time: '~10:30 (after slow morning)' },
-        { label: 'Check in Aparthotel Zell am See', time: '~14:00' },
+        { label: 'Check in der Sonnberg Alpinlodges', time: '17:00–18:00 (self check-in)' },
         { label: 'Zeller See lake walk', time: '17:00' },
         { label: 'Sunset (Esplanade promenade)', time: '20:53' },
       ],
@@ -598,13 +598,13 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.gosausee,
       },
       generalIdea:
-        'Slow Zell morning, pack out, drive northeast to Gosau (~100 km, ~1h45 via the Tauern A10 + B166 through Bad Ischl). Stop in Bad Ischl mid-route for a Spar restock + café break. Check in at Der Ulmenhof — 2 nights here Tue-Thu, the lakes-region second half of the week. Gosau village sits right next to the Vorderer Gosausee — one of the most-photographed lakes in Austria, with the Dachstein glacier mirrored in the water. Easy 1-hour gravel loop around the lake before sunset. Lakeside picnic.',
+        'Slow Zell morning, pack out, drive northeast to Gosau (~100 km, ~1h45 via the Tauern A10 + B166 through Bad Ischl). Stop in Bad Ischl mid-route for a Spar restock + café break. Check in at Transylvania Villa & Spa — 2 nights here Tue-Thu, the lakes-region second half of the week. Full kitchen + Finnish sauna + infrared spa; key-card self check-in 16:00-21:00. Gosau village sits close to the Vorderer Gosausee (~14 min) — one of the most-photographed lakes in Austria, with the Dachstein glacier mirrored in the water. Easy 1-hour gravel loop around the lake before sunset. Lakeside picnic.',
       planB:
         'If the drive tired the legs: skip the lake loop, settle into the apartment for a long balcony afternoon, walk to the Gosausee just for the sunset.',
       anchors: [
         { label: 'Leave Zell am See', time: '~10:00' },
         { label: 'Bad Ischl Spar + coffee', time: '~11:30 (mid-route stop)' },
-        { label: 'Check in Der Ulmenhof Gosau', time: '~14:30' },
+        { label: 'Check in Transylvania Villa & Spa', time: '16:00–21:00 (key-card check-in)' },
         { label: 'Gosausee loop walk', time: '~1 hr, flat gravel' },
         { label: 'Sunset (Gosausee shore)', time: '20:51' },
       ],
@@ -625,7 +625,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'gosau',
       doingSummary:
-        'Move to Gosau ~1h45 (via Bad Ischl). Check in Der Ulmenhof afternoon. Gosausee loop walk + sunset on the mirror lake out the apartment door.',
+        'Move to Gosau ~1h45 (via Bad Ischl). Check in Transylvania Villa & Spa afternoon. Gosausee loop walk + sunset on the mirror lake ~14 min away.',
     },
 
     // --- DAY 6 — Wed Jul 29 — full day from Gosau base ---
@@ -678,13 +678,13 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.werfen,
       },
       generalIdea:
-        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at Landhaus Grünau (3.4 km from SZG, 9.5/585 reviews, €176 — Allison's cheapest-wins pick for the one-night pre-flight) late afternoon. Open afternoon — pick from: lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). KEEP THE RENTAL CAR overnight — the Alamo booking runs through Fri 31 Jul 06:30, so you drive yourselves to the airport Friday morning and drop it there (no Thursday-night return, no taxi).",
+        "Slow Gosau morning. Optional quick spin to Hallstatt Markt for one last lake-view coffee if you didn't get there Wed. Pack out, drive to the Salzburg airport area (~75 km, ~1h20 via the B166 + A1). Check in at Best Western Hotel am Walserberg (Zollstrasse 4, Wals — ~5 km / ~10 min from SZG, €120.15 — the booked one-night pre-flight pick; 24-hour reception, checkout from 06:00) late afternoon. Open afternoon — pick from: lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof / Eisriesenwelt ice cave at Werfen if energy is there (the world's largest, 75-min underground tour — BOOK the night before, July sells out). KEEP THE RENTAL CAR overnight — the Alamo booking runs through Fri 31 Jul 06:30, so you drive yourselves to the airport Friday morning and drop it there (no Thursday-night return, no taxi).",
       planB:
         'If Wed was big and you need recovery: drive Gosau → SZG directly, lazy afternoon at the apartment, walk to a nearby café for sunset, in bed early for the 5am wake.',
       anchors: [
         { label: 'Slow morning in Gosau', time: 'until ~10:00' },
         { label: 'Leave Gosau', time: '~10:30' },
-        { label: 'Check in Landhaus Grünau', time: '~13:00' },
+        { label: 'Check in Best Western am Walserberg', time: '~13:00' },
         { label: 'Sunset (Mönchsberg or apartment area)', time: '20:47' },
       ],
       driveFrom: {
@@ -704,7 +704,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'salzburg-airport',
       doingSummary:
-        'Drive Gosau → SZG ~1h20. Check in Landhaus Grünau afternoon. Keep the car for the Friday-morning airport drop. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
+        'Drive Gosau → SZG ~1h20. Check in Best Western am Walserberg afternoon. Keep the car for the Friday-morning airport drop. Optional: Mönchsberg sunset / Eisriesenwelt ice cave at Werfen.',
     },
 
     // --- DAY 8 — Fri Jul 31 ---
@@ -720,7 +720,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.alpineSunset,
       },
       generalIdea:
-        'Early wake at Landhaus Grünau. Drive the 3.4 km to SZG and drop the Alamo car at the airport at 06:30 (after-hours key-drop — counter opens 08:00). Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
+        'Early wake at Best Western am Walserberg (checkout available from 06:00). Drive the ~5 km to SZG and drop the Alamo car at the airport at 06:30 (after-hours key-drop — counter opens 08:00). Board LY5194 at 08:55. Lands TLV 13:25 — full Friday afternoon to settle before Shabbat.',
       anchors: [
         { label: 'Wake', time: '05:30' },
         { label: 'Drive to SZG + drop Alamo car at airport', time: '06:30' },
@@ -751,66 +751,64 @@ export const TRIP: TripData = {
       // Live Booking.com prices for the actual Jul 24-26 dates, ÷ 2 nights
       // for per-night, EUR computed at ₪3.97/€1.
       //
-      // ⚠️ TODO (2026-05-21 reorg, Claude): this data model still names
-      // "Bergland Hotel" as the Salzburg primary pick. That predates the actual
-      // bookings. CANONICAL SOURCE IS NOW stay.html — Allison booked 5
-      // free-cancellation holds May 19 as a Chabad-scenario hedge:
-      //   A (walkable to Chabad): master Linzergasse, Amedeo Zotti
-      //   B (home-Shabbat / kitchen / airport): Junker's, Villa Salzburg, Airbnb Wals
-      // Bergland + Villa Flöckner were DROPPED. This object (pickName etc.)
-      // feeds the archived bases page + map markers; reconcile it to the 5 holds
-      // when there's time. Left as-is here to avoid churning the map/bases render
-      // mid-cleanup. The homepage + mini-map marker were already updated to the
-      // 5-hold reality (master Linzergasse).
+      // RECONCILED 2026-06-02 (Claude): Bergland Hotel was DROPPED. Salzburg is
+      // NOT locked — Allison holds 5 free-cancellation reservations as a
+      // Chabad-scenario hedge, pending whether Chabad hosts Shabbat meals. The
+      // owner has only ruled OUT Junker's. CANONICAL SOURCE = stay.html.
+      //   A (walkable to Chabad): master Linzergasse [LEAD], Amedeo Zotti
+      //   B (home-Shabbat / kitchen / airport): Villa Salzburg, Airbnb Wals
+      // PROVISIONAL lead pick = master Linzergasse (€569/2nt, free-cancel hold,
+      // Conf #6096748956). 3 of 4 bases booked; Salzburg provisional.
       baseKey: 'salzburg',
       nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
-      area: 'Schallmoos / Elisabeth-Vorstadt — Chabad-Shabbat plan, walking distance to Chabad of Salzburg (Linzer Gasse 76, Rabbi Gruzman)',
-      // PRIMARY pick swapped 2026-05-19 PM per Allison's Chabad-Shabbat plan
-      // (decision locked 13:13 JDT, email to Rabbi Gruzman sent 13:23). Bergland
-      // Hotel is the closest gold-stamp property to Chabad (4-min walk, same
-      // right-bank side). Replaces master Linzergasse as primary — the
-      // Linzergasse pick stays in the alts/archive list (pullable-archives rule).
-      pickName: 'Bergland Hotel - Adults only',
+      area: 'Linzergasse / Andräviertel — Chabad-Shabbat plan, walking distance to Chabad of Salzburg (Linzer Gasse 76, Rabbi Gruzman)',
+      // PROVISIONAL pick 2026-06-02: master Linzergasse is the lead walkable
+      // Chabad hold (5-min walk, ON Linzergasse). Salzburg is NOT locked — it's
+      // one of 5 free-cancellation holds pending Chabad-meals confirmation. The
+      // other holds stay live as fallbacks (pullable-archives rule).
+      pickName: 'master Linzergasse (PROVISIONAL — not locked)',
       pickFreeCancellation: true,
       pickFreeCancellationUntil: '2026-07-21',
       pickUrl:
-        'https://www.booking.com/hotel/at/bergland-salzburg.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
-      // Bergland front-of-property photo (Booking listing). Family-run since
-      // 1912; Adults-only; 15 individually-decorated rooms.
+        'https://www.booking.com/hotel/at/master-linzergasse.html?checkin=2026-07-24&checkout=2026-07-26&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
+      // master Linzergasse listing photo (Booking). Studio apartment ON
+      // Linzergasse — same street as Chabad.
       pickImg:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
-      pickReview: '9.0 · Wonderful · 1,092 reviews',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474092866.jpg?k=986634218fc93628f2d52c8ad8e3a29b81db08747371da66f9d861a5c1d8b08d&o=&hp=1',
+      pickReview: '9.2 · Superb · 2,309 reviews',
       pickPrice:
-        '€452 / 2 nights (₪1,795) — Double Room, free cancellation + pay-at-property, verified live 2026-05-19',
+        '€569 / 2 nights (₪2,259) — PROVISIONAL free-cancellation hold, Conf #6096748956 · Salzburg NOT yet locked (5 holds pending Chabad-meals confirmation)',
       pickWhy:
-        'Closest gold-stamp property to Chabad (4-min walk to Linzer Gasse 76, 6-min to IKG synagogue at Lasserstraße 8). Same right-bank Schallmoos side — matches the locked Chabad-Shabbat plan (Allison emailed Rabbi Menachem Gruzman Tue May 19 13:23 JDT, awaiting reply). Adults-only, family-run since 1912, 15 individually-decorated rooms. Quiet residential area (NOT the Linzergasse bar strip). Trade-offs: no kitchen + slightly lower Google rating than Villa Flöckner. Free cancellation + pay-at-property.',
-      pickBudgetTier: 'mid-high',
+        'Lead walkable Chabad pick — studio apartment ON Linzergasse, the same street as Chabad (5-min walk to Linzer Gasse 76). PROVISIONAL: Salzburg is still on 5 free-cancellation holds while Allison waits to learn whether Chabad hosts Shabbat meals (the owner has only ruled OUT Junker\'s so far). Full kitchen (dishwasher + microwave + coffee machine) for self-catered Shabbat if Chabad does not host. No washing machine. Conf #6096748956.',
+      pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
-      pickWalkToChabadMin: 4,
+      pickWalkToChabadMin: 5,
       pickLaundry: 'none',
-      pickBedrooms: 1,
+      pickBedrooms: 'studio',
       pickBeds: '1 queen',
       pickNotableDetails: [
-        '4-min walk to Chabad',
-        '6-min walk to synagogue',
-        'Adults-only',
-        'Family-run since 1912',
-        'Quiet residential Schallmoos',
-        'Free cancellation',
+        'PROVISIONAL — Salzburg not locked',
+        '5-min walk to Chabad (ON Linzergasse)',
+        'Full kitchen',
+        'Dishwasher + microwave + coffee machine',
+        'No washer',
+        'Free-cancellation hold · Conf #6096748956',
       ],
       pickMaxGuests: 2,
-      pickKitchen: 'none',
+      pickKitchen: 'full',
       pickBath: 'private',
       pickAc: false,
       pickParking: 'paid',
       pickWifi: true,
       pickViewType: 'urban',
       pickAvailability: 'available',
-      pickAvailabilityCheckedDate: '2026-05-19',
-      // Bergland Hotel listing photos (Booking 2026-05-19). Family-run
-      // adults-only property — front-of-building + room interior shots.
+      pickAvailabilityCheckedDate: '2026-06-02',
+      // master Linzergasse listing photos (Booking). Studio apartment ON
+      // Linzergasse — same street as Chabad.
       pickPhotos: [
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474092866.jpg?k=986634218fc93628f2d52c8ad8e3a29b81db08747371da66f9d861a5c1d8b08d&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474189965.jpg?k=a1ac6798e4a3719fa5438391411cbdef0a325981cfbc98bfab15e33f982b7c31&o=',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/474190876.jpg?k=0bf8d877adad096e225e7a29ecba7563c4954cff4b63fe1915d59ebeb1624df7&o=',
       ],
       // === ARCHIVED PRIMARY — kept for pullable-archives rule. The prior
       // master Linzergasse pick (was primary May 16-19) is preserved here as
@@ -1430,79 +1428,80 @@ export const TRIP: TripData = {
       baseKey: 'zell-am-see',
       nights: 'Sun Jul 26 – Tue Jul 28 (2 nights)',
       area: 'Zell am See town — Pinzgau, foot of the Schmittenhöhe + Hohe Tauern. Apartments with full kitchens, 2-bed configurations verified for Jul 26-28.',
-      pickName: 'Aparthotel Zell am See',
+      // BOOKED 2026-06-01: Allison locked der Sonnberg Alpinlodges as the Zell
+      // base (was Aparthotel Zell am See placeholder €396). Real booked rate
+      // €498/2nt. Aparthotel demoted to alt.
+      pickName: 'der Sonnberg Alpinlodges (Two-Bedroom)',
       pickFreeCancellation: true,
-      pickFreeCancellationUntil: '2026-07-12',
-      pickUrl: 'https://www.booking.com/hotel/at/aparthotel-zell-am-see.html',
-      // Fixed 2026-05-19 — pickImg was St. Wolfgang photo. This is a Zell am See
-      // lodging — match the place to the photo.
+      pickFreeCancellationUntil: '2026-07-11',
+      pickUrl: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
       pickImg:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
-      pickReview: '9.2 · Wonderful · 408 reviews',
+      pickReview: '8.5 · Very good',
       pickPrice:
-        '€396 / 2 nights (₪1,571) — Two-Bedroom with Mountain View, 63m², free cancel until Jul 12, 2026',
+        '€498 / 2 nights (₪1,977) — "Schönwieskopf" Two-Bedroom apartment, 66m², free cancel until Jul 11, 2026 (pay by bank transfer before arrival)',
       pickWhy:
-        '63m² Two-Bedroom with Mountain View — Bedroom 1: 1 king / Bedroom 2: 2 twin beds / Living room: 1 sofa bed. 2 separate rooms (Avital-Allison friends-not-couple constraint passes cleanly). 408 reviews is the deepest review base of any qualifying Zell pick. Full kitchen with an actual oven + free parking + Imbachhornstraße 17 (2.8 km from downtown). Cheapest 2-bedroom Zell option found in the broad search. Price re-verified live on Booking 2026-05-19 — corrected from earlier €483 figure (drift caught by fact-checker pass).',
+        'BOOKED. 66m² two-bedroom "Schönwieskopf" apartment (separate bedrooms — Avital-Allison friends-not-couple constraint passes cleanly). Private sauna + lake-view balcony. Kitchenette with fridge + stovetop + dishwasher + kettle/toaster/coffee machine (no oven). Free private parking + self check-in. Sonnbergstraße 57a — up the hill, ~1.1 km / ~15-min walk down to the lake & town (uphill on the way back). Check-in Sun Jul 26 17:00-18:00 (owner-confirmed window); checkout Tue Jul 28 by 10:00. Booking score 8.5. Free cancel until Jul 11; payment by bank transfer before arrival.',
       pickBudgetTier: 'mid-high',
       pickPlatform: 'booking',
-      pickVibeTag: 'in-town',
+      pickVibeTag: 'nature-view',
       pickLaundry: 'unknown',
       pickBedrooms: 2,
-      pickBeds: '1 king + 2 twins (separate bedrooms) + 1 sofa bed (living room)',
+      pickBeds: '1 king + 2 twins (separate bedrooms)',
       pickNotableDetails: [
+        'BOOKED',
         'TRUE 2-bedroom',
-        '2 separate bedrooms',
-        '1 king + 2 twins',
-        'Full kitchen',
+        'Private sauna',
+        'Lake-view balcony',
+        'Kitchenette (no oven)',
         'Free parking',
-        'Free cancel until Jul 12',
-        '408 reviews',
+        'Self check-in 17:00-18:00',
+        '~1.1 km uphill from town',
+        'Free cancel until Jul 11',
       ],
-      pickMaxGuests: 5,
-      pickKitchen: 'full',
+      pickMaxGuests: 4,
+      pickKitchen: 'kitchenette',
       pickBath: 'private',
       pickAc: false,
       pickParking: 'free',
       pickWifi: true,
-      pickViewType: 'mountain',
+      pickViewType: 'lake',
       pickAvailability: 'available',
-      pickAvailabilityCheckedDate: '2026-05-19',
-      // Fixed 2026-05-19 — pickPhotos was St. Wolfgang photo. Now uses Zell am
-      // See lake-town photo (Wikimedia BestZeller CC BY-SA 3.0).
+      pickAvailabilityCheckedDate: '2026-06-01',
       pickPhotos: [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
       ],
       alts: [
         {
-          name: 'der Sonnberg Alpinlodges (Two-Bedroom)',
-          url: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
-          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg/1280px-Strobl_-_Wolfgangsee_-_2019_10_01-10.jpg',
-          review: '8.5 · Very good · 439 reviews',
+          name: 'Aparthotel Zell am See (Two-Bedroom)',
+          url: 'https://www.booking.com/hotel/at/aparthotel-zell-am-see.html',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
+          review: '9.2 · Wonderful · 408 reviews',
           pricePerNight:
-            '€548 / 2 nights (₪2,176) — Two-Bedroom (Schönwieskopf or Kröndlhorn), free cancel until Jul 12',
-          note: "Avital's URL pick — book the Two-Bedroom specifically (Schönwieskopf or Kröndlhorn, both 58-66m²). Bedroom 1: 1 king / Bedroom 2: 2 twin beds (separate rooms). Kitchenette + private sauna + lake-view balcony + self check-in. Booking score 8.5 is below the original 9.0 floor but clears Allison's relaxed 8.5 floor. The 'honor Avital's pick + still 2-bed compliant' option, only €65 over the primary.",
+            '€396 / 2 nights (₪1,572) — Two-Bedroom with Mountain View, 63m², free cancel until Jul 12',
+          note: 'Former placeholder pick (superseded 2026-06-01 by der Sonnberg booking). 63m² Two-Bedroom with Mountain View — Bedroom 1: 1 king / Bedroom 2: 2 twin beds / Living room: 1 sofa bed. Full kitchen with an actual oven + free parking + Imbachhornstraße 17 (2.8 km from downtown, in-town vs Sonnberg hilltop). Cheaper (€396 vs €498) with a deeper review base (408) — kept as the budget fallback if the Sonnberg bank-transfer falls through.',
           budgetTier: 'mid-high',
           platform: 'booking',
-          vibeTag: 'nature-view',
+          vibeTag: 'in-town',
           laundry: 'unknown',
           bedrooms: 2,
-          beds: '1 king + 2 twins (separate bedrooms)',
+          beds: '1 king + 2 twins (separate bedrooms) + 1 sofa bed',
           notableDetails: [
-            "Avital's URL pick",
+            'Former placeholder',
             'TRUE 2-bedroom',
-            'Private sauna',
-            'Lake + mountain view',
-            'Kitchenette',
-            'Self check-in',
+            'Full kitchen w/ oven',
+            'Free parking',
+            'In-town (2.8 km)',
+            '408 reviews',
             'Free cancel until Jul 12',
           ],
-          maxGuests: 4,
-          kitchen: 'kitchenette',
+          maxGuests: 5,
+          kitchen: 'full',
           bath: 'private',
           ac: false,
           parking: 'free',
           wifi: true,
-          viewType: 'lake',
+          viewType: 'mountain',
           availability: 'available',
           availabilityCheckedDate: '2026-05-19',
           freeCancellation: true,
@@ -1665,32 +1664,36 @@ export const TRIP: TripData = {
       baseKey: 'gosau',
       nights: 'Tue Jul 28 – Thu Jul 30 (2 nights)',
       area: 'Gosau village (Dachstein West / Hallstattersee cluster) — next to Vorderer Gosausee, ~20 min to Hallstatt, ~25 min to Krippenstein cable car. 2-bedroom apartments with private kitchens.',
-      pickName: 'Der Ulmenhof (Gosau)',
+      // BOOKED 2026-06-01: Allison locked Transylvania Villa & Spa (Gosau) as
+      // the Salzkammergut base (was Der Ulmenhof placeholder €513). Real booked
+      // rate €535/2nt. Der Ulmenhof demoted to alt.
+      pickName: 'Transylvania Villa & Spa (Gosau)',
       pickFreeCancellation: true,
-      pickFreeCancellationUntil: '2026-06-28',
-      pickUrl: 'https://www.booking.com/hotel/at/ulmenhof-gosau-at.html',
+      pickFreeCancellationUntil: '2026-07-13',
+      pickUrl: 'https://www.booking.com/hotel/at/transylvania-villa-spa.html',
       pickImg:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
-      pickReview: '9.0 · Wonderful · 251 reviews',
+      pickReview: '9.0 · Wonderful',
       pickPrice:
-        '€513-€590 / 2 nights (₪2,037-₪2,343) — three 2-bedroom apartments available, free cancel until Jun 28',
+        '€535 / 2 nights (₪2,124) — full kitchen + Finnish sauna + infrared spa, free cancel until Jul 13',
       pickWhy:
-        "The only verified Salzkammergut-region property with multiple 2-actual-separate-bedroom apartments + private kitchen + free cancel + a score (9.0) and review count (251) both well above the relaxed 8.5 floor. Three 2BR apartments available for Jul 28-30 — recommended room: Apartment 51m² (€513), Bedroom 1: 1 queen / Bedroom 2: 1 twin + 1 bunk (cleanest 'one person per room' structure for friends-not-couple). Gosau village is compact and walkable to the Vorderer Gosausee trailhead — Avital's lakes-region anchor pick, structurally cleaner than the Obertraun URL she sent (which only had a 1-queen apartment left).",
+        'BOOKED. Booking score 9.0. Full kitchen (kosher-critical), Finnish sauna + infrared spa, free private parking, key-card self check-in 16:00-21:00. Location is excellent for this leg: Hallstatt ~15 min, Vorderer Gosausee ~14 min, Krippenstein / Five Fingers / Dachstein ice cave ~36 min. Free cancel until Jul 13.',
       pickBudgetTier: 'mid-high',
       pickPlatform: 'booking',
       pickVibeTag: 'nature-view',
       pickLaundry: 'unknown',
       pickBedrooms: 2,
-      pickBeds: '1 queen + 1 twin+bunk (separate bedrooms) + 1 sofa bed (51m² unit, recommended)',
+      pickBeds: 'Separate bedrooms (2BR villa)',
       pickNotableDetails: [
-        'TRUE 2-bedroom',
-        '2 separate rooms',
-        'Private kitchen',
-        'Gosausee 3 km',
-        'Hallstatt 20 min',
-        'Krippenstein cable car 25 min',
-        'Free cancel until Jun 28',
-        '251 reviews',
+        'BOOKED',
+        'Booking 9.0',
+        'Full kitchen',
+        'Finnish sauna + infrared spa',
+        'Free parking',
+        'Key-card check-in 16:00-21:00',
+        'Hallstatt 15 min',
+        'Gosausee 14 min',
+        'Free cancel until Jul 13',
       ],
       pickMaxGuests: 4,
       pickKitchen: 'full',
@@ -1699,15 +1702,49 @@ export const TRIP: TripData = {
       pickParking: 'free',
       pickWifi: true,
       pickViewType: 'mountain',
-      pickAvailability: 'limited',
-      pickAvailabilityCheckedDate: '2026-05-19',
-      pickAvailabilityNote:
-        'Three 2BR apartments showing "We have 1 left" — book within a week or lose the option. Lakes-region inventory thin for Jul 28-30.',
+      pickAvailability: 'available',
+      pickAvailabilityCheckedDate: '2026-06-01',
       pickPhotos: [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Gosausee_Dachstein_July_2012.jpg/1280px-Gosausee_Dachstein_July_2012.jpg',
       ],
       alts: [
+        {
+          name: 'Der Ulmenhof (Gosau)',
+          url: 'https://www.booking.com/hotel/at/ulmenhof-gosau-at.html',
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
+          review: '9.0 · Wonderful · 251 reviews',
+          pricePerNight:
+            '€513-€590 / 2 nights (₪2,037-₪2,343) — three 2-bedroom apartments, free cancel until Jun 28',
+          note: "Former placeholder pick (superseded 2026-06-01 by the Transylvania booking). The only other verified Salzkammergut property with multiple 2-separate-bedroom apartments + private kitchen + free cancel, 9.0 / 251 reviews. Recommended room: Apartment 51m² (€513), 1 queen / 1 twin + 1 bunk. Gosau village, walkable to the Vorderer Gosausee trailhead. Kept as the fallback for the Gosau leg.",
+          budgetTier: 'mid-high',
+          platform: 'booking',
+          vibeTag: 'nature-view',
+          laundry: 'unknown',
+          bedrooms: 2,
+          beds: '1 queen + 1 twin+bunk (separate bedrooms) + 1 sofa bed (51m² unit)',
+          notableDetails: [
+            'Former placeholder',
+            'TRUE 2-bedroom',
+            'Private kitchen',
+            'Gosausee 3 km',
+            'Hallstatt 20 min',
+            '251 reviews',
+            'Free cancel until Jun 28',
+          ],
+          maxGuests: 4,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'free',
+          wifi: true,
+          viewType: 'mountain',
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          freeCancellation: true,
+          freeCancellationUntil: '2026-06-28',
+          photos: [],
+        },
         // === NEW 2026-05-19 PM — Almsternderl 2.0 surfaced by broad-search
         // agent. Same Gosau village as Der Ulmenhof — STRONG potential
         // displacement (€296-327 vs Ulmenhof €513-590 + washing machine + AC).
@@ -1887,28 +1924,34 @@ export const TRIP: TripData = {
       // 2026-05-19 PM: Allison swapped the recommended pick to Landhaus Grünau
       // ("airport night cheaper is better just one night"). Villa Verde + Gabi
       // demoted to alts. All 3 are gold-stamped, free-cancel — pick is reversible.
-      pickName: 'Landhaus Grünau',
+      // BOOKED 2026-06-01: Allison locked Best Western Hotel am Walserberg (Wals)
+      // as the airport night (was Landhaus Grünau placeholder €176). Real booked
+      // rate €120.15/1nt. Landhaus Grünau demoted to alt.
+      pickName: 'Best Western Hotel am Walserberg',
       pickFreeCancellation: true,
-      pickUrl: 'https://www.booking.com/hotel/at/landhaus-grunau.html',
+      pickUrl: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
-      pickReview: '9.5 · Exceptional · 585 reviews',
+      pickReview: '3.9 · Tripadvisor (motorway noise reports)',
       pickPrice:
-        '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast, free cancel + pay-at-property',
+        '€120.15 / night (₪477) — Zollstrasse 4, 5071 Wals-Siezenheim, breakfast buffet included',
       pickWhy:
-        'Allison\'s pick (2026-05-19 PM, "airport night cheaper is better just one night") — cheapest gold-stamped option at €176, €89 less than Gabi and €31 less than Villa Verde. 9.5 / 585 reviews is gold-stamped on both Booking and Google. 3.4 km from SZG, ~7-min drive at 06:15 — still well under the 10-min airport-orbit ceiling. Double Room with Balcony (1 king), breakfast included, free cancellation + pay-at-property so it can be locked today and changed later. See the 3-card comparison on Stay → Airport for the Gabi/Villa Verde alts side-by-side.',
+        'BOOKED. Cheapest airport-night option and right for one pre-flight night: ~5 km / ~10 min to Salzburg Airport (SZG). 24-hour reception; checkout available from 06:00 — works cleanly for the 08:55 Fri LY5194 departure. Free parking, Finnish sauna/wellness + breakfast buffet. NO in-room kitchen/fridge (fine — last night, no Shabbat). Honest caveat: rating is softer (Tripadvisor 3.9, dinged for motorway noise) — pack earplugs if you sleep light. One airport night only.',
       pickBudgetTier: 'standard',
       pickPlatform: 'booking',
-      pickDriveToAirportMin: 7,
+      pickDriveToAirportMin: 10,
       pickLaundry: 'none',
       pickBedrooms: 1,
-      pickBeds: '1 king',
+      pickBeds: 'Standard room',
       pickNotableDetails: [
-        'Cheapest gold-stamped pick',
-        '9.5 / 585 reviews',
-        '3.4 km from SZG · ~7-min drive',
-        'Breakfast included',
-        'Free cancel + pay-at-property',
+        'BOOKED',
+        'Cheapest airport night',
+        '~5 km / ~10 min to SZG',
+        '24-hour reception',
+        'Checkout from 06:00',
+        'Breakfast buffet + sauna',
+        'No in-room kitchen/fridge',
+        '⚠ Tripadvisor 3.9 · motorway noise',
       ],
       pickMaxGuests: 2,
       pickKitchen: 'none',
@@ -1918,11 +1961,44 @@ export const TRIP: TripData = {
       pickWifi: true,
       pickViewType: 'urban',
       pickAvailability: 'available',
-      pickAvailabilityCheckedDate: '2026-05-19',
+      pickAvailabilityCheckedDate: '2026-06-01',
       pickPhotos: [
         'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
       ],
       alts: [
+        {
+          name: 'Landhaus Grünau',
+          url: 'https://www.booking.com/hotel/at/landhaus-grunau.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
+          review: '9.5 · Exceptional · 585 reviews',
+          pricePerNight:
+            '€176 / night (₪699) — Double Room with Balcony (1 king) + breakfast, free cancel + pay-at-property',
+          note: 'Former placeholder pick (superseded 2026-06-01 by the Best Western booking). Higher-rated (9.5 / 585) and quieter than the booked Best Western, but €56 more for one airport night. 3.4 km from SZG, ~7-min drive. Double Room with Balcony (1 king), breakfast included, free cancellation + pay-at-property. Kept as the upgrade fallback if the motorway noise is a problem.',
+          budgetTier: 'standard',
+          platform: 'booking',
+          driveToAirportMin: 7,
+          laundry: 'none',
+          bedrooms: 1,
+          beds: '1 king',
+          notableDetails: [
+            'Former placeholder',
+            '9.5 / 585 reviews',
+            '3.4 km from SZG · ~7-min drive',
+            'Breakfast included',
+            'Free cancel + pay-at-property',
+          ],
+          maxGuests: 2,
+          kitchen: 'none',
+          bath: 'private',
+          ac: true,
+          parking: 'free',
+          wifi: true,
+          viewType: 'urban',
+          freeCancellation: true,
+          availability: 'available',
+          availabilityCheckedDate: '2026-05-19',
+          photos: [],
+        },
         {
           name: 'Hotel Gabi (Wals)',
           url: 'https://www.booking.com/hotel/at/gabiwals.html',
@@ -2018,41 +2094,8 @@ export const TRIP: TripData = {
           availabilityCheckedDate: '2026-05-19',
           photos: [],
         },
-        {
-          name: 'Best Western Hotel am Walserberg',
-          url: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html?aid=304142&checkin=2026-07-30&checkout=2026-07-31&group_adults=2&no_rooms=1&group_children=0&nflt=fc%3D2',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
-          review: '8.1 · Very Good · 1,640 reviews',
-          pricePerNight:
-            '€123 / night (₪488) — Standard Twin Room (2 twin beds), free cancel + pay-at-property',
-          note: "Cheapest gold-discount option in the Wals airport zone (€53 under Landhaus Grünau, €142 under Hotel Gabi). 2.8 km from downtown Wals. Standard Twin Room with 2 twin beds — clean twin config. Free cancellation + pay-at-property. Trade-off: 8.1 score is well below Allison's 9.0 strict floor — flagged with caveat badge. 1,640 reviews is deepest sample of all airport-zone picks (the rating is statistically stable, not noisy). Prior research flagged motorway noise reports — confirm with host if light sleeping matters.",
-          budgetTier: 'standard',
-          platform: 'booking',
-          driveToAirportMin: 5,
-          laundry: 'none',
-          bedrooms: 1,
-          beds: '2 twin beds (same room)',
-          notableDetails: [
-            'Wals airport zone',
-            'TRUE 2 twins',
-            'Cheapest gold-discount in Wals',
-            'Free cancel + pay-at-property',
-            '1,640 reviews — deepest sample',
-            '⚠ Score 8.1 below 9.0 floor',
-            '⚠ Motorway noise reports',
-          ],
-          maxGuests: 2,
-          kitchen: 'none',
-          bath: 'private',
-          ac: true,
-          parking: 'free',
-          wifi: true,
-          viewType: 'urban',
-          freeCancellation: true,
-          availability: 'available',
-          availabilityCheckedDate: '2026-05-19',
-          photos: [],
-        },
+        // Best Western Hotel am Walserberg removed from alts 2026-06-01 — it is
+        // now the BOOKED pick (promoted to pickName above), no longer an alt.
         {
           name: 'Hapimag Ferienwohnungen Salzburg (old town fallback)',
           url: 'https://www.booking.com/hotel/at/hapimag-resort-salzburg.html',
@@ -5321,14 +5364,17 @@ export const LODGING_COORDS: Record<string, LatLng> = {
   'Sunny Ferienwohnungen (Deluxe Two-Bedroom)': { lat: 47.326, lng: 12.797 }, // ~2 km from downtown
   'Schönblick Residence Apartments (Two-Bedroom)': { lat: 47.3285, lng: 12.7935 }, // 2.3 km from downtown
   // GOSAU (Tue-Thu, 2 nights)
+  'Transylvania Villa & Spa (Gosau)': { lat: 47.5849, lng: 13.5312 }, // Gosau village — BOOKED 2026-06-01
   'Der Ulmenhof (Gosau)': { lat: 47.5856, lng: 13.5286 }, // Gosau village
   'Auszeit Salzkammergut Appartements (Bad Ischl)': { lat: 47.7117, lng: 13.6228 }, // Bad Ischl town center
   // SALZBURG AIRPORT (Thu-Fri, 1 night)
+  'Best Western Hotel am Walserberg': { lat: 47.7969, lng: 12.9647 }, // Zollstrasse 4, Wals-Siezenheim — ~5 km from SZG — BOOKED 2026-06-01
   'B&B Villa Verde': { lat: 47.7933, lng: 13.0043 }, // 2.7 km from SZG
   'Hotel Gabi (Wals)': { lat: 47.795, lng: 13.0025 }, // 2.8 km from SZG
   'Landhaus Grünau': { lat: 47.79, lng: 12.99 }, // 3.4 km from SZG
   'Hapimag Ferienwohnungen Salzburg (old town fallback)': { lat: 47.8164, lng: 13.0014 }, // ~5 km from SZG, old town
-  // SALZBURG (Shabbat base) — Chabad-Shabbat plan picks added 2026-05-19 PM
+  // SALZBURG (Shabbat base) — PROVISIONAL lead pick 2026-06-02 (Bergland dropped)
+  'master Linzergasse (PROVISIONAL — not locked)': { lat: 47.8049, lng: 13.0476 }, // Linzergasse, Andräviertel — 5-min walk to Chabad (Linzer Gasse 76)
   'Bergland Hotel - Adults only': { lat: 47.8064, lng: 13.0494 }, // Rupertgasse 15, Schallmoos — 4-min walk to Chabad (Linzer Gasse 76)
   'Villa Flöckner Bed & Breakfast': { lat: 47.8113, lng: 13.052 }, // Jahnstraße 13, Elisabeth-Vorstadt
   // --- legacy / archived coords below (kept for pullable archives) ---
