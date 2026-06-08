@@ -13950,12 +13950,10 @@ body.nav-mobile-open {
 }
 
 /* =====================================================================
-   DEEP DIVES & ARCHIVE  (2026-05-21 reorg)
-   A calm, discreet collapsible at the bottom of hub pages. Lists the
-   superseded standalone pages that were moved into archive/ during the
-   nav cleanup, so they stay pullable per the owner's archive rule
-   ("I don't want things to disappear, just be archived nicely"). Uses
-   the existing paper/line/gold tokens — no new palette.
+   DEEP DIVES  (2026-05-21 reorg; archive removed 2026-06-08)
+   A calm, discreet collapsible at the bottom of hub pages — now a small
+   "more ways to browse" jump list. Uses the existing paper/line/gold
+   tokens — no new palette.
    ===================================================================== */
 .deep-dives {
   max-width: 880px;

@@ -23,10 +23,9 @@ import { resolve, dirname, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const archiveDir = resolve(root, 'archive');
 
-// Map every page (canonical + archived) to which nav item should be "active".
-// Archived pages still get a working nav so they remain navigable.
+// Map every page to which nav item should be "active".
+// (The 15 standalone deep-dive pages were deleted in the 2026-06-08 reconcile.)
 const ACTIVE = {
   'index.html': null,
   'itinerary.html': 'trip',
@@ -36,22 +35,6 @@ const ACTIVE = {
   'costs.html': 'costs',
   'notes.html': 'notes',
   'map.html': 'explore',
-  // archived → folded under their new home
-  'trip-options.html': 'trip',
-  'trip-summary.html': 'trip',
-  'bases.html': 'trip',
-  'shabbat.html': 'trip',
-  'friday-salzburg.html': 'trip',
-  'sundays-closed.html': 'trip',
-  'weather-plan-c.html': 'trip',
-  'nature-destinations.html': 'explore',
-  'top-sunsets.html': 'explore',
-  'lake-swimming.html': 'explore',
-  'water-activities.html': 'explore',
-  'jewish-sights.html': 'explore',
-  'recommendations.html': 'explore',
-  'schafbergspitze.html': 'explore',
-  'krippenstein.html': 'trip',
   'packing.html': 'logistics',
   'pre-trip.html': 'logistics',
   'cafes.html': 'logistics',
@@ -140,5 +123,4 @@ function processDir(dir, prefix) {
 
 let changed = 0;
 changed += processDir(root, ''); // top-level pages → bare hrefs
-changed += processDir(archiveDir, '../'); // archived pages → ../ hrefs back to root
 console.log(`\nDone. ${changed} files updated.`);

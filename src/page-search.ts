@@ -42,39 +42,32 @@ import {
 
 const QUERY_STORAGE_KEY = 'austria-search-last-query';
 
-// 2026-05-21 reorg: 15 pages moved into archive/. Search runs on BOTH root-level
-// pages AND archived pages, so a bare relative URL ("bases.html") can't be
-// correct from both depths. Resolve archived-page URLs absolutely from the site
-// root via Vite's BASE_URL ("/austria-2026/" in build, "/" in dev).
-const ARCHIVED_PAGES = new Set([
-  'trip-options.html',
-  'trip-summary.html',
-  'bases.html',
-  'shabbat.html',
-  'friday-salzburg.html',
-  'sundays-closed.html',
-  'weather-plan-c.html',
-  'nature-destinations.html',
-  'top-sunsets.html',
-  'lake-swimming.html',
-  'water-activities.html',
-  'jewish-sights.html',
-  'recommendations.html',
-  'schafbergspitze.html',
-  'krippenstein.html',
-]);
+// 2026-06-08 reconcile: the 15 archived deep-dive pages were DELETED (site =
+// current only). Search entries that pointed at those pages are repointed to
+// the live page that now holds the content; the dead #anchor is dropped.
+const ARCHIVED_PAGE_HOME: Record<string, string> = {
+  'trip-options.html': 'itinerary.html',
+  'trip-summary.html': 'itinerary.html',
+  'krippenstein.html': 'itinerary.html',
+  'bases.html': 'stay.html',
+  'shabbat.html': 'logistics.html',
+  'friday-salzburg.html': 'logistics.html',
+  'sundays-closed.html': 'logistics.html',
+  'weather-plan-c.html': 'logistics.html',
+  'nature-destinations.html': 'activities.html',
+  'top-sunsets.html': 'activities.html',
+  'lake-swimming.html': 'activities.html',
+  'water-activities.html': 'activities.html',
+  'jewish-sights.html': 'activities.html',
+  'recommendations.html': 'activities.html',
+  'schafbergspitze.html': 'activities.html',
+};
 
 function resolveSearchUrl(url: string): string {
   // Only touch bare relative page URLs (no scheme, no leading slash, no ../).
   if (/^(https?:|\/|\.\.\/|archive\/)/.test(url)) return url;
   const page = url.split('#')[0];
-  if (ARCHIVED_PAGES.has(page)) {
-    // Vite injects import.meta.env.BASE_URL at build; tsconfig has no vite/client
-    // types, so read it through a narrow cast (fall back to "/" in dev/tests).
-    const base = (import.meta as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
-    return `${base}archive/${url}`;
-  }
-  return url;
+  return ARCHIVED_PAGE_HOME[page] ?? url;
 }
 
 // =====================================================================

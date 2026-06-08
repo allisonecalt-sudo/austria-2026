@@ -406,7 +406,7 @@ function baseSection(base: BaseSpec): string {
     .sort((a, b) => base.driveMinutesById(a) - base.driveMinutesById(b))
     .map(
       (d) =>
-        `<li><strong>${escape(d.name)}</strong> · ${base.driveMinutesById(d)} min · <a href="archive/nature-destinations.html#${escape(d.id)}">details →</a></li>`,
+        `<li><strong>${escape(d.name)}</strong> · ${base.driveMinutesById(d)} min</li>`,
     )
     .join('');
 

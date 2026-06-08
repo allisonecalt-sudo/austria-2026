@@ -43,37 +43,30 @@ import type { LatLng, MapPOI, Lodging, NatureDestination } from './trip-data.js'
 initNotesWidget();
 initChatPlanPopup();
 
-// 2026-05-21 reorg: jewish-sights / nature-destinations etc. moved to archive/.
-// map.html lives at the site root, so POI `link` fields like
-// "jewish-sights.html#judengasse" must be repointed into archive/. Resolve
-// absolutely from BASE_URL so it's correct regardless of where map.html sits.
-const ARCHIVED_LINK_PAGES = new Set([
-  'trip-options.html',
-  'trip-summary.html',
-  'bases.html',
-  'shabbat.html',
-  'friday-salzburg.html',
-  'sundays-closed.html',
-  'weather-plan-c.html',
-  'nature-destinations.html',
-  'top-sunsets.html',
-  'lake-swimming.html',
-  'water-activities.html',
-  'jewish-sights.html',
-  'recommendations.html',
-  'schafbergspitze.html',
-  'krippenstein.html',
-]);
+// 2026-06-08 reconcile: the 15 archived deep-dive pages were DELETED (site =
+// current only). POI `link` fields that pointed at those pages are repointed
+// to the live page that now holds the content; the dead #anchor is dropped.
+const ARCHIVED_PAGE_HOME: Record<string, string> = {
+  'trip-options.html': 'itinerary.html',
+  'trip-summary.html': 'itinerary.html',
+  'krippenstein.html': 'itinerary.html',
+  'bases.html': 'stay.html',
+  'shabbat.html': 'logistics.html',
+  'friday-salzburg.html': 'logistics.html',
+  'sundays-closed.html': 'logistics.html',
+  'weather-plan-c.html': 'logistics.html',
+  'nature-destinations.html': 'activities.html',
+  'top-sunsets.html': 'activities.html',
+  'lake-swimming.html': 'activities.html',
+  'water-activities.html': 'activities.html',
+  'jewish-sights.html': 'activities.html',
+  'recommendations.html': 'activities.html',
+  'schafbergspitze.html': 'activities.html',
+};
 function resolvePoiUrl(url: string): string {
   if (/^(https?:|\/|\.\.\/|archive\/)/.test(url)) return url;
   const page = url.split('#')[0];
-  if (ARCHIVED_LINK_PAGES.has(page)) {
-    // Vite injects import.meta.env.BASE_URL at build; tsconfig has no vite/client
-    // types, so read it through a narrow cast (fall back to "/" in dev/tests).
-    const base = (import.meta as { env?: { BASE_URL?: string } }).env?.BASE_URL || '/';
-    return `${base}archive/${url}`;
-  }
-  return url;
+  return ARCHIVED_PAGE_HOME[page] ?? url;
 }
 
 // =====================================================================
@@ -1062,19 +1055,21 @@ function getDaySegments(): DaySegment[] {
       color: '#5d6d76',
       fromKey: 'airportApt',
       toKey: 'airport',
-      label: 'Landhaus Grünau → SZG · ~10 min',
+      label: 'Best Western am Walserberg → SZG · ~10 min',
     },
   ];
 }
 
 function getRouteAnchors(): Record<string, [number, number]> {
-  // Salzburg primary pick swapped to Bergland Hotel 2026-05-19 PM (Chabad-Shabbat
-  // plan locked). Falls back to master Linzergasse coord if Bergland missing.
+  // 2026-06-08: Salzburg is 1 of 3 options, not yet decided. The trip-map anchor
+  // uses the current lean (Villa Salzburg), falling back to the old-town coord.
   const salzburgPrimary =
-    LODGING_COORDS['Bergland Hotel - Adults only'] ?? LODGING_COORDS['master Linzergasse'];
-  const zellLodging = LODGING_COORDS['Aparthotel Zell am See'];
-  const gosauLodging = LODGING_COORDS['Der Ulmenhof (Gosau)'];
-  const airportLodging = LODGING_COORDS['Landhaus Grünau'];
+    LODGING_COORDS['Villa Salzburg by Welcome to Salzburg'] ??
+    LODGING_COORDS['master Linzergasse'];
+  // Chosen stays (booked): Sonnberg (Zell), Transylvania (Gosau), Best Western (airport).
+  const zellLodging = LODGING_COORDS['der Sonnberg Alpinlodges (Two-Bedroom)'];
+  const gosauLodging = LODGING_COORDS['Transylvania Villa & Spa (Gosau)'];
+  const airportLodging = LODGING_COORDS['Best Western Hotel am Walserberg'];
   const airport = STANDALONE_POIS.find((p) => p.id === 'salzburg-airport');
   return {
     airport: airport ? [airport.lat, airport.lng] : [47.7933, 13.0043],
