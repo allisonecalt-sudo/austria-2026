@@ -7,7 +7,7 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
     />
-    <title>Activities by base · Austria 2026</title>
+    <title>What's near each base · Austria 2026</title>
     <meta
       name="description"
       content="What to do FROM each base. Salzburg (Shabbat), Zell am See (alpine), Gosau (Salzkammergut lakes — Schafberg cog + Krippenstein cable car as day-trips), Salzburg airport-side. Per-base activity menu — pick or browse, never locked."
@@ -156,12 +156,12 @@
 
     <main id="main" class="container">
       <header style="margin-bottom: 1.6rem">
-        <div class="eyebrow">Menu, not a schedule · pick or browse · v4 (2026-05-19)</div>
-        <h1>Activities by base</h1>
+        <div class="eyebrow">Menu, not a schedule · grouped by location · v5 (2026-06-08)</div>
+        <h1>What's near each base</h1>
         <p class="page-tldr">
-          <strong>Everything "from where you sleep that night."</strong> Each base shows what's at
-          your door, a half-day, or a full day-trip. Pick a base + category below; the cards
-          respond.
+          <strong>Everything sorted by where you're sleeping.</strong> Each area opens to show the
+          hikes, lakes, and day-trips closest to it. Tap an area to expand; filter by category to
+          narrow. Nothing's cut — just grouped so you see what's near you at a glance.
         </p>
       </header>
 
@@ -231,8 +231,38 @@
         </div>
       </section>
 
-      <!-- Base sections rendered by page-activities.ts -->
+      <!-- Location groups rendered by page-activities.ts -->
       <div id="acts-root"></div>
+
+      <script>
+        // Jumping to a collapsed location group (from a base chip or a #hash)
+        // should OPEN it, not scroll past a closed accordion. Owned by the
+        // activities location-grouping rewrite (2026-06-08).
+        (function () {
+          function openTarget(hash) {
+            if (!hash) return;
+            var el = document.querySelector(hash);
+            if (el && el.tagName === 'DETAILS') {
+              el.open = true;
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+          document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('a[href^="#base-"]');
+            if (a) openTarget(a.getAttribute('href'));
+          });
+          window.addEventListener('hashchange', function () {
+            openTarget(location.hash);
+          });
+          // On load, if there's a hash, open it (renderer runs as a module, so
+          // give it a tick).
+          window.addEventListener('load', function () {
+            setTimeout(function () {
+              openTarget(location.hash);
+            }, 60);
+          });
+        })();
+      </script>
 
       <!-- Jewish Salzburg moved to the Trip page (#jewish-salzburg) during the
            2026-06-08 structure simplification — one home, no duplication. -->

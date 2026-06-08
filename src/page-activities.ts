@@ -1,142 +1,112 @@
-// Activities-by-base hub.
+// Activities BY LOCATION — "what's near each base."
 //
-// REWRITTEN 2026-05-19 — v4 restructure: bases are now Salzburg / Zell am
-// See / Gosau / Salzburg-airport (per Avital's Mon May 18 counter-proposal,
-// no summit overnight). Schafberg cog + Krippenstein cable car are
-// day-trip options from Gosau, NOT bases.
+// REWRITTEN 2026-06-08 — location-grouping pass. The previous v4 build
+// looped EVERY destination under EVERY base (re-bucketed by drive time),
+// so each activity appeared up to 4 times → a 19,670px repeating wall of
+// 45 cards. This rewrite assigns each activity to ONE nearest base/area
+// and renders calm, collapsible location groups so the owner opens the
+// page and instantly sees "what's near wherever I'm sleeping."
 //
-// 4-base structure (v4):
-//   - Salzburg          (Fri-Sun, 2N) — Shabbat anchor, walking radius
-//   - Zell am See       (Sun-Tue, 2N) — alpine-lake anchor, Schmittenhöhe +
-//                                       Kitzsteinhorn + Krimml in range
-//   - Gosau             (Tue-Thu, 2N) — Salzkammergut-lakes anchor, Hallstatt
-//                                       + Krippenstein cable + Schafberg cog
-//                                       as day-trips
-//   - Salzburg airport  (Thu-Fri, 1N) — sleep only, car returned Thu eve
+// Location groups (each activity assigned exactly once):
+//   - Near Salzburg            — city + Berchtesgaden day-radius (fromSalzburgMin)
+//   - Near Zell am See / Kaprun — the Hohe Tauern cluster (glacier, Krimml,
+//                                 Grossglockner, gorges on the south route)
+//   - Near Gosau / Salzkammergut lakes — Hallstatt, Dachstein, Gosausee,
+//                                 Wolfgangsee (fromHallstattMin)
+//   - Salzburg airport         — sleep only, no activity radius (a note)
 //
-// For each base we surface: walking-from-base options, ≤30min "easy",
-// 30-60min "half-day", 60-120min "make a plan." Long-day commitments
-// (>120min) are surfaced only as cross-references.
+// Assignment is INFERRED from each destination's region + drive times (no
+// trip-data.ts change): hohe-tauern → Zell; berchtesgaden → Salzburg;
+// salzkammergut → whichever of Salzburg / Gosau (Hallstatt) it's closer to.
 //
-// Sorting: within each bucket, sort by sunset rating desc (sunsets are
-// sacred per Allison), then by walk type (walk > easy-hike), so the
-// breathtaking-and-easy ones float to top.
+// Calm + scannable: neutral cards (match sleek.css), a tight one-line meta
+// label per activity (drive · effort · type), collapsible groups (first one
+// open, rest collapsed). Filter pills still work and auto-open any collapsed
+// group that has a match.
 //
-// Filter pills start EMPTY (booking-style). User taps category to narrow.
-// Categories are NatureType but grouped into Avital-friendly labels
-// (Water / Easy walk / Scenic drive / Cog-train / Cave / Sunset spot).
-//
-// NO Montenegro comparisons (Avital's explicit ban). NO winter photos.
+// NO Montenegro comparisons (Avital's ban). NO winter photos.
 
 import { NATURE_DESTINATIONS, type NatureDestination, type SunsetGrade } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
 import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 // =====================================================================
-// Base config — drive times sourced from trip-data.ts where present.
-// v4 (2026-05-19): Salzburg / Zell am See / Gosau / Airport.
-//
-// trip-data.ts has fromSalzburgMin + fromHallstattMin. We re-use:
-//   - Salzburg base  → fromSalzburgMin
-//   - Zell am See    → fromSalzburgMin + 60 (rough proxy — Zell is ~1h20
-//                      south of Salzburg, so anything Salzburg-reachable is
-//                      another hour from Zell; specific high-impact picks
-//                      surfaced manually in the page header copy)
-//   - Gosau base     → fromHallstattMin (Gosau is in the same Salzkammergut
-//                      cluster, ~30 min west of Hallstatt — close enough
-//                      proxy for the at-door / easy / half-day bucketing)
-//   - Airport base   → fromSalzburgMin (airport ≈ Salzburg for drive)
+// Location groups — "what's near each base."
 // =====================================================================
+type GroupKey = 'salzburg' | 'zell-am-see' | 'gosau' | 'salzburg-airport';
 
-type BaseKey = 'salzburg' | 'zell-am-see' | 'gosau' | 'salzburg-airport';
-
-interface BaseSpec {
-  key: BaseKey;
-  name: string;
-  vibe: string; // one-liner
+interface GroupSpec {
+  key: GroupKey;
+  name: string; // accordion summary name, e.g. "Near Salzburg"
+  vibe: string; // one-liner under the summary
   nightsLabel: string;
-  driveMinutesById: (d: NatureDestination) => number;
-  hero: string; // image url
-  heroAlt: string;
-  // Some bases have no meaningful activity radius (airport = sleep only).
-  // Render a short message instead of cards.
-  collapseToMessage?: string;
+  defaultOpen: boolean;
+  // Minutes from THIS base to a given destination (drive proxy).
+  driveMinutes: (d: NatureDestination) => number;
+  // Bases with no real activity radius render a short note instead of cards.
+  noteOnly?: string;
 }
 
-const SALZBURG_BASE: BaseSpec = {
+const SALZBURG: GroupSpec = {
   key: 'salzburg',
-  name: 'Salzburg base · Shabbat anchor',
-  vibe: 'Old Town + Mönchsberg walks. Drive radius hits Berchtesgaden + Werfen + Fuschlsee in under an hour. Shabbat = walking radius only.',
-  nightsLabel: 'Fri Jul 24 → Sun Jul 26 · 2 nights',
-  driveMinutesById: (d) => d.fromSalzburgMin,
-  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1280px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg',
-  heroAlt: 'Salzach river through Salzburg old town under the Mönchsberg',
+  name: 'Near Salzburg',
+  vibe: 'Old Town walks + the Berchtesgaden day-radius (Königssee, Untersberg, the gorges). Shabbat = walking radius only.',
+  nightsLabel: 'Fri-Sun · 2N · Shabbat',
+  defaultOpen: true,
+  driveMinutes: (d) => d.fromSalzburgMin,
 };
 
-const ZELL_BASE: BaseSpec = {
+const ZELL: GroupSpec = {
   key: 'zell-am-see',
-  name: 'Zell am See base · alpine-lake anchor',
-  vibe: 'Pinzgau alpine lake at the foot of the Schmittenhöhe + Hohe Tauern. Schmittenhöhe cable car + Kitzsteinhorn glacier + Krimml falls all reachable within an hour. Different feel from the Salzkammergut second half.',
-  nightsLabel: 'Sun Jul 26 → Tue Jul 28 · 2 nights',
-  // Zell am See ≈ Salzburg + 60 min for general purposes — gives an
-  // honest "everything is further from Zell than from Salzburg" floor
-  // without inventing a drive matrix.
-  driveMinutesById: (d) => d.fromSalzburgMin + 60,
-  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Zell_am_See_CC.JPG/1280px-Zell_am_See_CC.JPG',
-  heroAlt: 'Zell am See on the Pinzgau with peaks rising behind the lake',
-  collapseToMessage:
-    'From Zell: Schmittenhöhe cable car (5 min drive), Kitzsteinhorn glacier at Kaprun (25 min), Krimml Waterfalls (1h10), Zeller See swim (5 min walk). Most of the trip-data nature picks are clustered around the Hallstatt area — so the cards below are filtered to spots reachable from this base. For day-by-day specifics see the itinerary.',
+  name: 'Near Zell am See / Kaprun',
+  vibe: 'The Hohe Tauern side — Kitzsteinhorn glacier, Krimml falls, Grossglockner road, alpine gorges on the south route.',
+  nightsLabel: 'Sun-Tue · 2N · alpine',
+  defaultOpen: false,
+  // No fromZell column in the data; Zell sits south of Salzburg, so use
+  // fromSalzburgMin as an honest "further than Salzburg" proxy for ordering
+  // within the group (the cluster is geographic, not minute-exact).
+  driveMinutes: (d) => d.fromSalzburgMin,
 };
 
-const GOSAU_BASE: BaseSpec = {
+const GOSAU: GroupSpec = {
   key: 'gosau',
-  name: 'Gosau base · Salzkammergut-lakes anchor',
-  vibe: 'Vorderer Gosausee 5 min away (the Dachstein mirror), Hallstatt 20 min, Krippenstein cable car 25 min, Schafberg cog ~50 min — all as day-trips. Two full days of options.',
-  nightsLabel: 'Tue Jul 28 → Thu Jul 30 · 2 nights',
-  driveMinutesById: (d) => d.fromHallstattMin,
-  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
-  heroAlt: 'Vorderer Gosausee with the Dachstein massif reflected in the water',
+  name: 'Near Gosau / Salzkammergut lakes',
+  vibe: 'Vorderer Gosausee 5 min, Hallstatt 20 min, Krippenstein cable car 25 min, Schafberg cog ~50 min, Wolfgangsee — all as day-trips.',
+  nightsLabel: 'Tue-Thu · 2N · lakes',
+  defaultOpen: false,
+  driveMinutes: (d) => d.fromHallstattMin,
 };
 
-// Airport night = sleep + 10-min drive to gate Friday morning. Nothing
-// else is an "activity" here — surface as a message + cross-reference
-// the Gosau-day or Salzburg-evening as the actual Thursday activity.
-const AIRPORT_BASE: BaseSpec = {
+const AIRPORT: GroupSpec = {
   key: 'salzburg-airport',
-  name: 'Salzburg airport-side · sleep only',
-  vibe: 'Just sleep + shower. Car returned Thu evening per Avital. 10-min cab to SZG terminal for the 08:55 Friday flight.',
-  nightsLabel: 'Thu Jul 30 → Fri Jul 31 · 1 night',
-  driveMinutesById: (d) => d.fromSalzburgMin, // airport ≈ Salzburg for drive purposes
-  hero: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Werfen_-_Burg_Hohenwerfen_%281%29.JPG/1280px-Werfen_-_Burg_Hohenwerfen_%281%29.JPG',
-  heroAlt: 'Hohenwerfen castle above the Salzach valley near the airport drive',
-  collapseToMessage:
-    'Thursday afternoon is the drive from Gosau (~1h20) → check in → return rental at SZG Thursday evening. Friday morning is just a 10-min cab to the gate. If Thursday afternoon feels open, Hohenwerfen castle + Eisriesenwelt ice cave are 30-40 min off the Gosau → Salzburg route — same drive-times as the Salzburg base column above.',
+  name: 'Salzburg airport-side',
+  vibe: 'Sleep only — car returned Thu eve, 10-min cab to the gate Friday.',
+  nightsLabel: 'Thu-Fri · 1N sleep',
+  defaultOpen: false,
+  driveMinutes: (d) => d.fromSalzburgMin,
+  noteOnly:
+    'Thursday is the drive from Gosau (~1h20) → check in → return the rental at SZG. Friday is a 10-min cab to the gate. If Thursday afternoon feels open, Hohenwerfen castle + the Eisriesenwelt ice cave are 30-40 min off the Gosau→Salzburg route (they live under "Near Zell am See" above).',
 };
 
-const BASES: BaseSpec[] = [SALZBURG_BASE, ZELL_BASE, GOSAU_BASE, AIRPORT_BASE];
+// Render order: Salzburg, Zell, Gosau, Airport.
+const GROUPS: GroupSpec[] = [SALZBURG, ZELL, GOSAU, AIRPORT];
 
 // =====================================================================
-// Drive-time bucket
+// Assign each destination to exactly ONE group ("nearest base").
+//   - hohe-tauern   → Zell am See / Kaprun cluster
+//   - berchtesgaden → Salzburg day-radius
+//   - salzkammergut → Salzburg or Gosau, whichever it's closer to
 // =====================================================================
-type Bucket = 'at-door' | 'easy' | 'half-day' | 'long-day';
-
-function bucket(min: number): Bucket {
-  if (min <= 10) return 'at-door';
-  if (min <= 30) return 'easy';
-  if (min <= 75) return 'half-day';
-  return 'long-day';
+function groupFor(d: NatureDestination): GroupKey {
+  if (d.region === 'hohe-tauern') return 'zell-am-see';
+  if (d.region === 'berchtesgaden') return 'salzburg';
+  // salzkammergut: closer to Hallstatt (Gosau) or to Salzburg?
+  return d.fromHallstattMin < d.fromSalzburgMin ? 'gosau' : 'salzburg';
 }
 
-const BUCKET_LABEL: Record<Bucket, string> = {
-  'at-door': '🚶 At the door (≤10 min)',
-  easy: '🚗 Easy (≤30 min)',
-  'half-day': '🚙 Half-day (≤75 min)',
-  'long-day': '🛣️ Big day (>75 min — make a plan)',
-};
-
 // =====================================================================
-// Category taxonomy — fold NatureType into Avital-friendly category labels.
-// Filter pills use these.
+// Category taxonomy — fold NatureType into Avital-friendly labels for the
+// filter pills. (Unchanged from v4.)
 // =====================================================================
 type Category =
   | 'sunset'
@@ -169,9 +139,22 @@ const CATEGORIES: CategorySpec[] = [
   { key: 'meadow', label: 'Alpine meadow', icon: '🌾' },
 ];
 
+// Short type label shown on the calm card meta-line.
+const TYPE_LABEL: Record<NatureDestination['type'], string> = {
+  lake: 'lake',
+  gorge: 'gorge',
+  waterfall: 'waterfall',
+  peak: 'viewpoint',
+  cave: 'cave',
+  village: 'village',
+  road: 'scenic drive',
+  platform: 'skywalk',
+  meadow: 'meadow',
+  valley: 'valley',
+};
+
 function categoriesFor(d: NatureDestination): Category[] {
   const cats: Category[] = [];
-  // Type → category (1:1 mostly).
   switch (d.type) {
     case 'lake':
       cats.push('lake');
@@ -193,7 +176,6 @@ function categoriesFor(d: NatureDestination): Category[] {
       break;
     case 'platform':
     case 'peak':
-      // Schafberg + Krippenstein are cog/cable reached — tag both
       cats.push('platform');
       if (
         d.id === 'schafbergspitze' ||
@@ -210,7 +192,6 @@ function categoriesFor(d: NatureDestination): Category[] {
       cats.push('meadow');
       break;
   }
-  // Sunset overlay — any 🌅🌅🌅 entry also counts as a sunset spot.
   if (d.sunset === 3) cats.push('sunset');
   return cats;
 }
@@ -230,212 +211,130 @@ function sunsetStars(n: SunsetGrade): string {
   return '🌅'.repeat(n);
 }
 
-function walkBadge(walk: NatureDestination['walk']): string {
-  return walk === 'walk' ? '🚶 walk' : '🥾 easy hike';
+// Effort word from walk + Avital-fit, kept to one token for the meta-line.
+function effortWord(d: NatureDestination): string {
+  if (d.walk === 'walk') return 'easy walk';
+  if (d.avitalFitNote === 'may be too strenuous') return 'moderate';
+  return 'easy hike';
 }
 
-// TLDR — ≤30 words above the fold per Avital format request. Takes feature +
-// trims to two sentences or 28 words, whichever shorter.
-function tldr(d: NatureDestination): string {
+// One-line value: feature trimmed to ~16 words so each card is one line.
+function oneLiner(d: NatureDestination): string {
   const text = d.feature.trim();
   const words = text.split(/\s+/);
-  if (words.length <= 30) return text;
-  return words.slice(0, 28).join(' ') + '…';
+  if (words.length <= 16) return text;
+  return words.slice(0, 15).join(' ') + '…';
 }
 
-// Maps URL helper — for the airport + summit bases that don't have
-// pre-computed drive URLs in trip-data.ts, fall back to a generic search
-// from "Salzburg" or "St. Wolfgang."
-function driveLinkFromBase(base: BaseSpec, d: NatureDestination): string {
-  switch (base.key) {
+// Drive link out per group (re-use the precomputed direction URLs).
+function driveLink(group: GroupSpec, d: NatureDestination): string {
+  switch (group.key) {
     case 'salzburg':
     case 'salzburg-airport':
       return d.links.mapsFromSalzburg;
     case 'gosau':
-      // Gosau is in the same Salzkammergut cluster as Hallstatt — the
-      // mapsFromHallstatt link is close enough for routing purposes.
       return d.links.mapsFromHallstatt;
     case 'zell-am-see':
-      // No pre-computed Zell-am-See routing link in trip-data — generate
-      // a direction URL inline from the town name.
       return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent('Zell am See, Austria')}&destination=${encodeURIComponent(d.localName ?? d.name)}`;
   }
 }
 
-// =====================================================================
-// Sort within a bucket — sunset desc, then walk (walk > easy-hike), then
-// drive time asc. So the "stunning + close + easy" picks float to the top.
-// =====================================================================
-function sortBucket(arr: NatureDestination[], base: BaseSpec): NatureDestination[] {
+// Sort within a group: sunset desc (sunsets are sacred), then drive asc.
+function sortGroup(arr: NatureDestination[], group: GroupSpec): NatureDestination[] {
   return [...arr].sort((a, b) => {
     if (b.sunset !== a.sunset) return b.sunset - a.sunset;
-    if (a.walk !== b.walk) return a.walk === 'walk' ? -1 : 1;
-    return base.driveMinutesById(a) - base.driveMinutesById(b);
+    return group.driveMinutes(a) - group.driveMinutes(b);
   });
 }
 
 // =====================================================================
-// Activity card — TLDR-first, photo on top, drive time + walk + category
-// chips, source link out.
+// Calm activity row — tight, one line each: name · drive · effort · type,
+// with a sunset mark + map/links. No big photo block.
 // =====================================================================
-function activityCard(d: NatureDestination, base: BaseSpec): string {
-  const mins = base.driveMinutesById(d);
-  const mapsLink = driveLinkFromBase(base, d);
-
-  const lockedBadge = d.lockedDay
-    ? `<div class="day-hero-badge peak" title="Already in the v1 itinerary">✓ Locked · ${escape(d.lockedDay)}</div>`
-    : d.hiddenGem
-      ? `<div class="day-hero-badge hidden-gem-badge" title="Hidden gem">💎 Hidden gem</div>`
-      : '';
-
+function activityRow(d: NatureDestination, group: GroupSpec): string {
+  const mins = group.driveMinutes(d);
+  const driveTxt = mins === 0 ? 'on-site' : `${mins} min`;
   const cats = categoriesFor(d);
-  const catChips = cats
-    .map((c) => {
-      const spec = CATEGORIES.find((x) => x.key === c);
-      if (!spec) return '';
-      return `<span class="chip act-cat" data-cat="${c}">${spec.icon} ${escape(spec.label)}</span>`;
-    })
-    .join('');
-
+  const mapsLink = driveLink(group, d);
   const pickBtnHtml = pickButtonOverlay(d.id, 'activity', d.name);
 
+  const badge = d.lockedDay
+    ? `<span class="act-row__badge act-row__badge--locked" title="In the itinerary">✓ ${escape(d.lockedDay)}</span>`
+    : d.hiddenGem
+      ? `<span class="act-row__badge act-row__badge--gem" title="Hidden gem">💎 gem</span>`
+      : '';
+
   return `
-    <article class="act-card" id="${d.id}-${base.key}" data-cats="${cats.join(' ')}" data-pick-card-id="${d.id}" data-pick-card-type="activity">
-      <div class="act-card__media">
-        <img src="${escape(d.hero.src)}" alt="${escape(d.hero.alt)}" loading="lazy" decoding="async" />
-        ${lockedBadge}
-        ${pickBtnHtml}
-      </div>
-      <div class="act-card__body">
-        <div class="act-card__eyebrow">
-          ${escape(d.country === 'AT' ? 'Austria' : 'Germany')}
-          ${d.sunset === 3 ? ' · 🌅🌅🌅 marquee sunset' : ''}
+    <article class="act-row" id="${d.id}-${group.key}" data-cats="${cats.join(' ')}" data-pick-card-id="${d.id}" data-pick-card-type="activity">
+      <div class="act-row__main">
+        <div class="act-row__head">
+          <h4 class="act-row__title">${escape(d.name)}</h4>
+          ${badge}
+          ${d.sunset === 3 ? '<span class="act-row__sunset" title="Marquee sunset">🌅🌅🌅</span>' : ''}
         </div>
-        <h3 class="act-card__title">${escape(d.name)}</h3>
-        <p class="act-card__tldr">${escape(tldr(d))}</p>
-
-        <div class="act-card__chips">
-          <span class="chip" title="Sunset rating 1-3">${sunsetStars(d.sunset)}</span>
-          <span class="chip">${escape(walkBadge(d.walk))}</span>
-          <a href="${escape(mapsLink)}" target="_blank" rel="noreferrer noopener" class="chip act-chip--drive">
-            🚗 ${mins === 0 ? 'on-site' : `${mins} min`}
-          </a>
-        </div>
-
-        <p class="act-card__walk">
-          <strong>Walk:</strong> ${escape(d.walkNote)}
+        <p class="act-row__meta">
+          <span class="act-row__drive">🚗 ${driveTxt}</span>
+          <span class="act-row__sep">·</span>
+          <span>${escape(effortWord(d))}</span>
+          <span class="act-row__sep">·</span>
+          <span>${escape(TYPE_LABEL[d.type])}</span>
+          ${d.sunset < 3 && d.sunset > 0 ? `<span class="act-row__sep">·</span><span>${sunsetStars(d.sunset)}</span>` : ''}
         </p>
-
-        <div class="act-card__catrow">${catChips}</div>
-
-        <div class="act-card__links">
+        <p class="act-row__desc">${escape(oneLiner(d))}</p>
+        <div class="act-row__links">
+          <a href="${escape(mapsLink)}" target="_blank" rel="noreferrer noopener">Directions →</a>
           ${
             d.links.official
-              ? `<a href="${escape(d.links.official)}" target="_blank" rel="noreferrer noopener">Official site →</a>`
+              ? `<a href="${escape(d.links.official)}" target="_blank" rel="noreferrer noopener">Official →</a>`
               : ''
           }
           <a href="${escape(d.links.wikipedia)}" target="_blank" rel="noreferrer noopener">Wikipedia →</a>
         </div>
       </div>
+      ${pickBtnHtml}
     </article>`;
 }
 
 // =====================================================================
-// Bucket block — heading + grid of cards for one drive-time bucket
-// inside one base.
+// One location group = a collapsible accordion.
 // =====================================================================
-function bucketBlock(bucketKey: Bucket, dests: NatureDestination[], base: BaseSpec): string {
-  if (dests.length === 0) return '';
-  const sorted = sortBucket(dests, base);
-  return `
-    <section class="act-bucket">
-      <h3 class="act-bucket__head">
-        ${escape(BUCKET_LABEL[bucketKey])}
-        <span class="act-bucket__count">${sorted.length}</span>
-      </h3>
-      <div class="act-cards-grid">
-        ${sorted.map((d) => activityCard(d, base)).join('')}
-      </div>
-    </section>`;
-}
-
-// =====================================================================
-// Base section
-// =====================================================================
-function baseSection(base: BaseSpec): string {
-  // If the base collapses to a message (summit, airport), render a
-  // simpler block.
-  if (base.collapseToMessage) {
-    const xrefLink =
-      base.key === 'salzburg-airport'
-        ? '<a href="#base-salzburg">↑ See Salzburg-base activities</a> (drive times are the same — airport ≈ Salzburg)'
-        : '<a href="#base-gosau">↓ See Gosau-base activities</a>';
+function groupSection(group: GroupSpec, dests: NatureDestination[]): string {
+  // Airport-style note-only group.
+  if (group.noteOnly) {
     return `
-      <section class="acts-base" id="base-${base.key}">
-        <header class="acts-base__head acts-base__head--${base.key}">
-          <img class="acts-base__hero" src="${escape(base.hero)}" alt="${escape(base.heroAlt)}" loading="lazy" decoding="async" />
-          <div class="acts-base__headoverlay">
-            <div class="acts-base__eyebrow">${escape(base.nightsLabel)}</div>
-            <h2 class="acts-base__title">${escape(base.name)}</h2>
-            <p class="acts-base__vibe">${escape(base.vibe)}</p>
-          </div>
-        </header>
-        <div class="acts-base__message">
-          <p>${escape(base.collapseToMessage)}</p>
-          <p class="acts-base__xref">${xrefLink}</p>
+      <details class="loc-group" id="base-${group.key}"${group.defaultOpen ? ' open' : ''}>
+        <summary class="loc-group__summary">
+          <span class="loc-group__name">${escape(group.name)}</span>
+          <span class="loc-group__nights">${escape(group.nightsLabel)}</span>
+          <span class="loc-group__count">sleep only</span>
+        </summary>
+        <div class="loc-group__body">
+          <p class="loc-group__vibe">${escape(group.vibe)}</p>
+          <p class="loc-group__note">${escape(group.noteOnly)}</p>
         </div>
-      </section>`;
+      </details>`;
   }
 
-  // Bucket the destinations by drive time.
-  const buckets: Record<Bucket, NatureDestination[]> = {
-    'at-door': [],
-    easy: [],
-    'half-day': [],
-    'long-day': [],
-  };
-  for (const d of NATURE_DESTINATIONS) {
-    const mins = base.driveMinutesById(d);
-    buckets[bucket(mins)].push(d);
-  }
-
-  // Render at-door → easy → half-day. Long-day shown collapsed as one-liner
-  // so you can see what's beyond reach without it dominating the page.
-  const longDayList = buckets['long-day']
-    .sort((a, b) => base.driveMinutesById(a) - base.driveMinutesById(b))
-    .map(
-      (d) =>
-        `<li><strong>${escape(d.name)}</strong> · ${base.driveMinutesById(d)} min</li>`,
-    )
-    .join('');
-
-  const longDayBlock = longDayList
-    ? `<details class="act-longday">
-        <summary>Big-day options (>75 min) — ${buckets['long-day'].length}</summary>
-        <ul>${longDayList}</ul>
-      </details>`
-    : '';
+  const sorted = sortGroup(dests, group);
+  const rows = sorted.map((d) => activityRow(d, group)).join('');
 
   return `
-    <section class="acts-base" id="base-${base.key}">
-      <header class="acts-base__head acts-base__head--${base.key}">
-        <img class="acts-base__hero" src="${escape(base.hero)}" alt="${escape(base.heroAlt)}" loading="lazy" decoding="async" />
-        <div class="acts-base__headoverlay">
-          <div class="acts-base__eyebrow">${escape(base.nightsLabel)}</div>
-          <h2 class="acts-base__title">${escape(base.name)}</h2>
-          <p class="acts-base__vibe">${escape(base.vibe)}</p>
-        </div>
-      </header>
-
-      ${bucketBlock('at-door', buckets['at-door'], base)}
-      ${bucketBlock('easy', buckets.easy, base)}
-      ${bucketBlock('half-day', buckets['half-day'], base)}
-      ${longDayBlock}
-    </section>`;
+    <details class="loc-group" id="base-${group.key}"${group.defaultOpen ? ' open' : ''}>
+      <summary class="loc-group__summary">
+        <span class="loc-group__name">${escape(group.name)}</span>
+        <span class="loc-group__nights">${escape(group.nightsLabel)}</span>
+        <span class="loc-group__count">${sorted.length} ${sorted.length === 1 ? 'thing' : 'things'}</span>
+      </summary>
+      <div class="loc-group__body">
+        <p class="loc-group__vibe">${escape(group.vibe)}</p>
+        <div class="act-rows">${rows}</div>
+      </div>
+    </details>`;
 }
 
 // =====================================================================
-// Filter pill bar — starts empty (no filter applied), tap to narrow.
+// Filter pills — start empty, tap to narrow. Auto-open any collapsed
+// group that has a visible match so filtering never hides results.
 // =====================================================================
 function renderFilterPills(): void {
   const root = document.getElementById('acts-filterpills');
@@ -474,25 +373,35 @@ function applyFilters(): void {
   const active = Array.from(document.querySelectorAll<HTMLButtonElement>('.filter-chip.is-on')).map(
     (b) => b.dataset.cat ?? '',
   );
-  const cards = document.querySelectorAll<HTMLElement>('.act-card');
+  const rows = document.querySelectorAll<HTMLElement>('.act-row');
   if (active.length === 0) {
-    cards.forEach((c) => (c.hidden = false));
-    hideEmptyBuckets();
+    rows.forEach((r) => (r.hidden = false));
+    syncGroupVisibility(false);
     return;
   }
-  cards.forEach((c) => {
-    const cats = (c.dataset.cats ?? '').split(/\s+/);
-    const match = active.some((a) => cats.includes(a));
-    c.hidden = !match;
+  rows.forEach((r) => {
+    const cats = (r.dataset.cats ?? '').split(/\s+/);
+    r.hidden = !active.some((a) => cats.includes(a));
   });
-  hideEmptyBuckets();
+  syncGroupVisibility(true);
 }
 
-// After filtering, hide bucket headers whose grid has no visible cards.
-function hideEmptyBuckets(): void {
-  document.querySelectorAll<HTMLElement>('.act-bucket').forEach((b) => {
-    const visible = Array.from(b.querySelectorAll<HTMLElement>('.act-card')).some((c) => !c.hidden);
-    b.hidden = !visible;
+// When filtering: hide groups with no visible rows, and force-open the ones
+// that do have a match (so a collapsed group never swallows results). When
+// the filter clears, restore each group's default open/closed state.
+function syncGroupVisibility(filtering: boolean): void {
+  document.querySelectorAll<HTMLDetailsElement>('.loc-group').forEach((g) => {
+    const rows = Array.from(g.querySelectorAll<HTMLElement>('.act-row'));
+    if (rows.length === 0) return; // note-only group — leave as-is
+    const hasVisible = rows.some((r) => !r.hidden);
+    g.hidden = filtering && !hasVisible;
+    if (filtering) {
+      g.open = hasVisible;
+    } else {
+      const key = g.id.replace(/^base-/, '');
+      const spec = GROUPS.find((s) => s.key === key);
+      g.open = spec ? spec.defaultOpen : g.open;
+    }
   });
 }
 
@@ -502,7 +411,17 @@ function hideEmptyBuckets(): void {
 function render(): void {
   const root = document.getElementById('acts-root');
   if (!root) return;
-  root.innerHTML = BASES.map((b) => baseSection(b)).join('');
+
+  // Bucket destinations into groups (each exactly once).
+  const byGroup: Record<GroupKey, NatureDestination[]> = {
+    salzburg: [],
+    'zell-am-see': [],
+    gosau: [],
+    'salzburg-airport': [],
+  };
+  for (const d of NATURE_DESTINATIONS) byGroup[groupFor(d)].push(d);
+
+  root.innerHTML = GROUPS.map((g) => groupSection(g, byGroup[g.key])).join('');
   renderFilterPills();
 }
 
