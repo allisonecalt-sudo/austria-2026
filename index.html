@@ -18,13 +18,6 @@
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Leaflet CSS — for the moment-3 mini-map preview. Same CDN as map.html. -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body data-option="general">
@@ -267,149 +260,26 @@
             <a href="activities.html">see what to do FROM each base →</a>
           </p>
         </div>
-        <a href="#m-peak" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
+        <a href="#m-costs" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
 
-      <!-- MOMENT 2 — THE PEAK -->
-      <!-- v4 RESTRUCTURE 2026-05-19: peak moment swapped from Königssee
-           electric-boat (cut when Berchtesgaden dropped as a multi-day base)
-           to Vorderer Gosausee at sunset — the Dachstein mirror lake right
-           out the apartment door at the Gosau base, Tue + Wed nights. -->
-      <section class="moment moment--peak" id="m-peak">
-        <img
-          class="moment-img"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG"
-          alt="Vorderer Gosausee with the Dachstein massif reflected in the still water"
-          loading="lazy"
-        />
-        <div class="moment-veil moment-veil--full"></div>
-        <div class="moment-body moment-body--center">
-          <span class="moment-badge">⭐ The peak</span>
-          <h2 class="moment-title moment-title--lyric">The Dachstein in the water.</h2>
-          <p class="moment-line moment-line--peak">
-            Vorderer Gosausee — the most-photographed lake in Austria for a reason. The Dachstein
-            glacier mirrors in the still water at the end of the valley. Flat 1-hour gravel loop,
-            mostly empty after the day-tripper buses leave at 17:00. From our apartment door at Der
-            Ulmenhof, ten minutes. Sunset on the shore · <strong>20:51</strong>.
+      <!-- COSTS HEADLINE (2026-06-08 landing trim): the full-screen peak /
+           summit / sleep / shabbat lyric panels were cut — those facts live on
+           the Trip page (peak moment + day cards), Stay, and Logistics. The
+           map-preview moment was cut too (it duplicated the 4-base shape above;
+           the live map is one tap away on the Map page). What's left is a calm
+           landing: hero → 4 bases → cost headline → the 7 days → the menu. -->
+      <section class="moment moment--costs" id="m-costs">
+        <div class="costs-headline-inner">
+          <span class="moment-eyebrow moment-eyebrow--dark">What it costs</span>
+          <h2 class="costs-headline-title">
+            ≈ ₪<span data-bind="total-nis"></span> all-in · €<span data-bind="total-eur"></span>
+          </h2>
+          <p class="costs-headline-sub">
+            7 nights · 2 people · split fairly. Three of four bases booked; the first leg (Shabbat)
+            has 3 free-cancellation options, current lean Glücksmomente.
           </p>
-          <p class="moment-line moment-line--peak" style="opacity: 0.85; font-size: 0.95rem">
-            Two sunsets here (Tue + Wed). The you-will-stand-still moment of the trip.
-          </p>
-        </div>
-        <a href="#m-summit" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
-      </section>
-
-      <!-- MOMENT — THE BIG DAY-TRIP -->
-      <!-- v4 RESTRUCTURE 2026-05-19: replaced the "Wed Jul 29 5-option summit
-           overnight" menu. After Avital's counter-proposal both Krippenstein
-           overnight + Schafbergspitze were dropped — the cable car remains
-           as a DAY TRIP from Gosau (25 min). The decision log lives on
-           krippenstein.html as a pullable archive. -->
-      <section class="moment moment--summit" id="m-summit">
-        <img
-          class="moment-img"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/A-Krippenstein-5fingers-2.jpg/1280px-A-Krippenstein-5fingers-2.jpg"
-          alt="5 Fingers cantilevered viewing platform on the Krippenstein plateau over Hallstättersee"
-          loading="lazy"
-        />
-        <div class="moment-veil moment-veil--full"></div>
-        <div class="moment-body moment-body--center">
-          <span class="moment-badge moment-badge--summit">⛰️ Wed Jul 29 · day trip</span>
-          <h2 class="moment-title moment-title--lyric">5 Fingers over Hallstättersee.</h2>
-          <p class="moment-line moment-line--peak">
-            A full day from the Gosau base. Cable car 25 min away, two stages to 2,109 m, the 5
-            Fingers platform out over Hallstättersee. Hallstatt Markt is 15 min the other way. Both
-            in one day, home for sunset by 20:00. Alternates: Hinterer Gosausee, the Dachstein ice
-            cave, or a slow day at the lake out the door.
-          </p>
-        </div>
-        <a href="#m-shape" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
-      </section>
-
-      <!-- MOMENT 3 — THE SHAPE OF IT (map preview) -->
-      <!-- v4 RESTRUCTURE 2026-05-19: 4-base shape updated to
-           Salzburg(2N) → Zell am See(2N) → Gosau(2N) → SZG airport(1N). -->
-      <section class="moment moment--shape" id="m-shape">
-        <div class="shape-inner">
-          <span class="moment-eyebrow moment-eyebrow--dark">The shape of it</span>
-          <h2 class="shape-title">4 bases · 3 moves · 7 nights</h2>
-          <p class="shape-sub">
-            Salzburg for Shabbat → Zell am See for the alpine lake + glacier → Gosau for the
-            Dachstein mirror lake + Hallstatt + Krippenstein day-trips → SZG airport-side for the
-            early Friday flight.
-          </p>
-          <div
-            id="moment-map"
-            class="moment-map"
-            role="application"
-            aria-label="Trip geography preview — Salzburg, Zell am See, Gosau, SZG airport"
-          ></div>
-          <div class="moment-map-legend" aria-hidden="true">
-            <span class="moment-map-legend-item">
-              <span class="moment-map-dot moment-map-dot--salzburg"></span>Salzburg (Shabbat)
-            </span>
-            <span class="moment-map-legend-item">
-              <span class="moment-map-dot moment-map-dot--zell-am-see"></span>Zell am See (alpine
-              lake)
-            </span>
-            <span class="moment-map-legend-item">
-              <span class="moment-map-dot moment-map-dot--gosau"></span>Gosau (Salzkammergut)
-            </span>
-            <span class="moment-map-legend-item">
-              <span class="moment-map-dot moment-map-dot--airport"></span>SZG airport
-            </span>
-          </div>
-          <a href="map.html" class="moment-cta moment-cta--centered">See full map →</a>
-        </div>
-        <a href="#m-sleep" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
-      </section>
-
-      <!-- MOMENT 4 — WHERE WE SLEEP -->
-      <!-- v4 RESTRUCTURE 2026-05-19: image + copy updated to reflect the
-           Zell am See / Gosau alpine-lake pairing instead of the dropped
-           Obertraun mountain anchor + summit hotel narrative. -->
-      <section class="moment moment--sleep" id="m-sleep">
-        <img
-          class="moment-img"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG"
-          alt="Vorderer Gosausee with the Dachstein massif reflected in the still water"
-          loading="lazy"
-        />
-        <div class="moment-veil moment-veil--bottom"></div>
-        <div class="moment-body moment-body--bottom">
-          <span class="moment-eyebrow">Where we sleep</span>
-          <h2 class="moment-title">Lake out the window. The kitchen is yours.</h2>
-          <p class="moment-line">
-            der Sonnberg Alpinlodges, Zell · 2N (booked). Transylvania Villa &amp; Spa, Gosau · 2N
-            (booked). Best Western am Walserberg by the airport · 1N (booked &amp; paid). First-leg
-            Shabbat: 3 apartments on the table (lean Glücksmomente), not yet locked — all
-            free-cancellation. Full kitchens at every main base.
-          </p>
-          <a href="stay.html" class="moment-cta">See sleeping options at each base →</a>
-        </div>
-        <a href="#m-shabbat" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
-      </section>
-
-      <!-- MOMENT 5 — SHABBAT -->
-      <section class="moment moment--shabbat" id="m-shabbat">
-        <img
-          class="moment-img"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg/1920px-Salzach_and_M%C3%B6nchsberg_seen_from_Elisabethkai_Salzburg_2023-09-27_01.jpg"
-          alt="Salzach river running through Salzburg old town beneath the Mönchsberg"
-          loading="lazy"
-        />
-        <div class="moment-veil moment-veil--gold"></div>
-        <div class="moment-body moment-body--center">
-          <span class="moment-eyebrow moment-eyebrow--gold">Shabbat · Salzburg</span>
-          <div class="candle-glyph" aria-hidden="true">✨</div>
-          <div class="candle-time">20:35</div>
-          <p class="candle-label">Candle-lighting · Friday Jul 24</p>
-          <p class="moment-line moment-line--center">
-            Food brought from Israel, cooked at the apartment. Synagogue Shabbat morning is an
-            option, not a must. Long nap, Mönchsberg climb in the late afternoon (no money, no lift
-            — pure Shabbat-legal). Sunset from the Salzach river bank. Havdalah
-            <strong>21:49</strong>.
-          </p>
+          <a href="costs.html" class="moment-cta moment-cta--centered">See the full breakdown →</a>
         </div>
         <a href="#m-days" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
       </section>
@@ -424,6 +294,7 @@
             <div class="day-strip" id="day-strip"></div>
           </div>
           <p class="day-strip-helper">← swipe → · tap any day</p>
+          <a href="itinerary.html" class="moment-cta moment-cta--centered">See the 7 days →</a>
         </div>
       </section>
 
@@ -431,44 +302,35 @@
       <section class="moment moment--cta" id="m-cta">
         <div class="cta-inner">
           <h2 class="cta-title">The menu.</h2>
-          <!-- 2026-05-21 reorg: this grid now mirrors the 6-item nav exactly
-               (Trip · Stay · Explore · Logistics · Costs · Notes) so the homepage
-               has ONE primary path (the scroll above) with this as the calm,
-               subordinate index — not a third competing way in. -->
-          <p class="cta-sub">Six pages. The scroll above is the story; this is where to land.</p>
+          <!-- 2026-06-08 trim: grid mirrors the 4-item nav (Trip · Stay ·
+               Logistics · Costs). Explore + Notes left the top nav — Explore's
+               picks live in the day cards, Notes is the floating widget. -->
+          <p class="cta-sub">Four pages. The scroll above is the story; this is where to land.</p>
           <div class="cta-grid">
             <a href="itinerary.html" class="cta-card">
               <span class="cta-card-num">01</span>
               <span class="cta-card-h">Trip</span>
-              <span class="cta-card-p">The seven days, plus bases, Shabbat &amp; deep dives.</span>
+              <span class="cta-card-p"
+                >The seven days, the bases, Shabbat &amp; Jewish Salzburg.</span
+              >
             </a>
             <a href="stay.html" class="cta-card">
               <span class="cta-card-num">02</span>
               <span class="cta-card-h">Stay</span>
               <span class="cta-card-p">Where you sleep at each of the 4 bases.</span>
             </a>
-            <a href="activities.html" class="cta-card">
-              <span class="cta-card-num">03</span>
-              <span class="cta-card-h">Explore</span>
-              <span class="cta-card-p">Everything to see + do — tagged &amp; filterable.</span>
-            </a>
             <a href="logistics.html" class="cta-card">
-              <span class="cta-card-num">04</span>
+              <span class="cta-card-num">03</span>
               <span class="cta-card-h">Logistics</span>
-              <span class="cta-card-p">Flights, car, packing, kosher, pre-trip.</span>
+              <span class="cta-card-p">Flights, car, packing, kosher, pre-trip checklist.</span>
             </a>
             <a href="costs.html" class="cta-card">
-              <span class="cta-card-num">05</span>
+              <span class="cta-card-num">04</span>
               <span class="cta-card-h">Costs</span>
               <span class="cta-card-p"
                 >€<span data-bind="total-eur"></span> · ₪<span data-bind="total-nis"></span>
                 projected</span
               >
-            </a>
-            <a href="notes.html" class="cta-card">
-              <span class="cta-card-num">06</span>
-              <span class="cta-card-h">Notes</span>
-              <span class="cta-card-p">Live feed — Avital + Allison.</span>
             </a>
           </div>
           <p class="cta-foot">Built for Avital · 4 bases: Salzburg + Zell + Gosau + airport.</p>
@@ -483,12 +345,6 @@
       </p>
     </footer>
 
-    <!-- Leaflet JS — loaded before page-landing.ts so the moment-3 mini-map can init. -->
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
     <script type="module" src="/src/page-landing.ts"></script>
     <script type="module" src="/src/page-search.ts"></script>
   </body>
