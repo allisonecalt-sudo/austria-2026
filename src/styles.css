@@ -14032,3 +14032,86 @@ body.nav-mobile-open {
     display: none;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   LANDING FIX (2026-06-08) — kill index.html empty voids.
+   Targeted, additive overrides (no rewrite of the moment shell):
+   - Only the HERO stays full-viewport. Content moments (bases, costs,
+     days, cta) size to their content instead of being forced to 100vh.
+   - Every content moment's inner container is capped at --max-w (1000px),
+     centered, to match the other pages and remove right-gutter voids.
+   - The "What it costs" band becomes a compact card (it had ~90% empty
+     space when stretched to a full screen for one pill + price + button).
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Content moments are not full-screen panels — they wrap their content. */
+.moment--bases,
+.moment--costs {
+  min-height: auto;
+  display: block;
+  scroll-snap-align: none;
+}
+
+/* Cap inner containers to the shared page width so edges align with the
+   rest of the site (was 1180px on bases / unbounded on costs). */
+.bases-inner,
+.costs-headline-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* "What it costs" → compact, centered card (total + button), normal height. */
+.moment--costs {
+  background: linear-gradient(180deg, #faf6ec 0%, #f3ead5 100%);
+  color: var(--ink);
+  padding: 3rem 1.2rem 3.2rem;
+}
+.costs-headline-inner {
+  padding: 0 1.2rem;
+  text-align: center;
+}
+.moment--costs .moment-eyebrow--dark {
+  color: var(--ink-soft);
+}
+.costs-headline-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0.3rem 0 0.5rem;
+}
+.costs-headline-sub {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 56ch;
+  margin: 0 auto 1.4rem;
+}
+/* The floating down-cue belonged to the full-screen layout; with content
+   sizing it would float over the next section, so hide it on the costs band. */
+.moment--costs .moment-cue--floating {
+  display: none;
+}
+
+/* Bases band: it inherited the 100vh shell, leaving a big void below the
+   4 cards. Trim padding so it reads as a normal content section. */
+.moment--bases {
+  padding-top: 2.5rem;
+  padding-bottom: 3rem;
+}
+/* The bases down-cue also assumed a full-screen panel — drop it. */
+.moment--bases .moment-cue--floating {
+  display: none;
+}
+
+/* Days + cta already cap at --max-w; tighten their vertical padding so the
+   landing reads continuous rather than as separated full-height slabs. */
+.moment--days {
+  padding: 3rem 0 3.5rem;
+}
+.moment--cta {
+  padding: 3.5rem 0 3rem;
+}
