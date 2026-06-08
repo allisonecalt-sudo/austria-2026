@@ -416,7 +416,7 @@ export const TRIP: TripData = {
   intro:
     'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat, then an alpine-lake leg at Zell am See and a Salzkammergut-lakes leg at Gosau. Apartments with kitchens, picnics on rocks, sunsets every single night.',
   whyThisPlan:
-    "Land Friday morning in Salzburg, settle in for Shabbat 5 minutes from Chabad. Sunday after Havdalah we move south to Zell am See — alpine-lake anchor for 2 nights, foot of the Schmittenhöhe + Hohe Tauern. Tuesday we move northeast to Gosau (via Bad Ischl) — Salzkammergut-lakes anchor for 2 nights, with Vorderer Gosausee out the door, Hallstatt 20 min away, and the Krippenstein cable car 25 min as a day-trip. Thursday we drive to a quiet apartment near Salzburg airport and return the rental car Thursday night for Friday's early flight. Four bases, three moves. Every night ends at a named sunset spot with a real time.",
+    'Four bases, three moves: Salzburg for Shabbat (5 min from Chabad) → Zell am See for the alpine lake → Gosau for the Vorderer Gosausee + Hallstatt + Krippenstein day-trips → an airport apartment for the early Friday flight. Every night ends at a named sunset spot.',
   natureAnchor:
     'Two-anchor lakes plan: Zell am See (Pinzgau alpine lake, Schmittenhöhe + Kitzsteinhorn glacier) Sun-Tue, then Gosau (Salzkammergut, Vorderer Gosausee + Hallstatt + Dachstein-Krippenstein cluster) Tue-Thu. The Avital-counter-proposal shape (v4 May 19) — Salzburg → alpine lake → Salzkammergut lakes → airport.',
   // COST-SYNC 2026-05-17 (PriceVerify wave 4n): lodging prices spiked overnight on
@@ -433,7 +433,7 @@ export const TRIP: TripData = {
     day: 'Tuesday Jul 28',
     spot: 'Vorderer Gosausee — Dachstein mirror lake at sunset',
     description:
-      "Move day Zell am See → Gosau, ~1h45 via Bad Ischl. We check into Transylvania Villa & Spa in the afternoon and walk straight to the Vorderer Gosausee — one of the most-photographed lakes in Austria. The Dachstein glacier mirrors in the water, the gravel loop is flat and easy, and we get the lake almost to ourselves after the day-tripper buses leave. Lakeside picnic, sunset 20:51. The 'we're really here' moment of the trip — three bases in, the alpine quiet sinks in.",
+      'Move day Zell am See → Gosau (~1h45 via Bad Ischl), then a walk straight to the Vorderer Gosausee — one of the most-photographed lakes in Austria. The Dachstein mirrors in the water; the flat gravel loop is nearly empty after the day-tripper buses leave. Lakeside picnic, sunset 20:51. The "we\'re really here" moment of the trip.',
   },
   days: [
     // --- DAY 1 — Fri Jul 24 ---

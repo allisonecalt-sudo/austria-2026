@@ -185,9 +185,9 @@
     <main id="main" class="container">
       <h1>Notes from Avital</h1>
       <p class="page-tldr">
-        <strong>Live feed of Avital's notes</strong> + status pill above (pending → seen → applied).
-        Claude reads between sessions; applied items show up here within hours. Type a note with the
-        💬 button on any page.
+        <strong>Live feed of Avital's notes</strong> — status pill above (pending → seen → applied).
+        Add a note with the 💬 button on any page (or Ctrl+K); Claude reads between sessions,
+        applied items show here within hours.
       </p>
 
       <!-- "Latest update from Claude" feed: notes flipped to applied in last 10 min -->
@@ -198,22 +198,13 @@
         <summary>How this works</summary>
         <ul>
           <li>You type a note → Claude reads between sessions → status updates here when done.</li>
-          <li>
-            Read window is usually under a few hours, not seconds. Status pill above is honest about
-            where each note is.
-          </li>
-          <li>
-            Live chat sidebar (typing back-and-forth with Claude) is being built — coming next
-            build.
-          </li>
+          <li>Read window is usually a few hours, not seconds — the status pill is honest.</li>
+          <li>Live chat sidebar (typing back-and-forth) is coming next build.</li>
         </ul>
       </details>
 
       <p class="lead-block" style="margin-top: 1rem">
-        Live feed. <span data-bind="note-count">0</span> notes so far. Tap any note to expand.
-      </p>
-      <p class="lead-block" style="color: #4b5a62; font-size: 0.92rem">
-        Add a note: 💬 button bottom-right of any page, or Ctrl+K.
+        <span data-bind="note-count">0</span> notes so far. Tap any note to expand.
       </p>
 
       <div id="notes-list" style="margin-top: 1.4rem"></div>
