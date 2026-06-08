@@ -1,0 +1,136 @@
+/*
+ * sleek.css — calm-override layer for the Austria 2026 site.
+ *
+ * WHAT THIS IS: a small, additive stylesheet loaded AFTER styles.css on every
+ *   page. It does not restructure layout — it calms the visual noise:
+ *   flattens tinted/gradient/colored-left-border panels into one quiet card,
+ *   neutralizes the chip/badge rainbow (keeping color only for true status),
+ *   and softens typography + prose width.
+ * WHY IT EXISTS: the base styling leaned busy (many tints, gradients, colored
+ *   left-borders, saturated chips). Allison wanted a calmer, modern look
+ *   without a full rewrite of the 333 KB styles.css.
+ * WHAT'S DECIDED: additive overrides only; reuse existing :root tokens
+ *   (--paper --line --ink --cream) with hex fallbacks; never touch the live
+ *   shekel total (#hero-total-num) or status chips that carry meaning.
+ * WHAT'S NEXT: if deeper calm is wanted, fold these into styles.css proper.
+ * LINKS: wired via <link> after styles.css in all 8 page HTML heads.
+ */
+
+/* ------------------------------------------------------------------ *
+ * 1. FLATTEN PANELS — one calm card look.
+ *    Kill gradients, colored left-borders, and tinted backgrounds on the
+ *    busy panel classes. One soft shadow, one neutral border, 12px radius.
+ * ------------------------------------------------------------------ */
+.callout,
+.callout-red,
+.callout-yellow,
+.callout-green,
+.callout-laundry,
+.callout-critical,
+.callout-kosher,
+.planb-inline,
+.peak-callout,
+.sunset-inline,
+.anchors-block,
+.verdict-bar,
+.cost-delta-block,
+.page-tldr {
+  background: var(--paper, #fff);
+  background-image: none;
+  border: 1px solid var(--line, #e7e3d8);
+  border-left: 1px solid var(--line, #e7e3d8);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  color: var(--ink, #1a2429);
+}
+
+/* verdict-bar is a centered pill row — keep it pill-shaped but flat. */
+.verdict-bar {
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+}
+
+/* Demote the colored heading text inside flattened panels to the ink tone
+ * so the card reads as one calm surface (labels stay readable, not shouty). */
+.callout h3,
+.callout-red strong,
+.callout-yellow strong,
+.callout-green strong,
+.cost-delta-block h4,
+.peak-callout h3 {
+  color: var(--ink, #1a2429);
+}
+
+/* ------------------------------------------------------------------ *
+ * 2. TAME THE CHIP / BADGE RAINBOW.
+ *    Default amenity / info chips -> muted neutral. Saturated color is
+ *    reserved for true STATUS chips (good = booked/verified, warn, sold-out).
+ * ------------------------------------------------------------------ */
+.lodging-chip,
+.lodging-chips--essential .lodging-chip,
+.lodging-chip--essential,
+.lodging-chip--neutral,
+.lodging-chip--date,
+.lodging-chip--verified,
+.chip,
+.chip-icon {
+  background: #f3f1ea;
+  color: #3a3a36;
+  border: 1px solid #e7e3d8;
+  font-style: normal;
+}
+
+/* Keep meaningful status chips colored, but softened so they read as accents
+ * rather than a rainbow. good = positive/booked, warn = caution, sold-out. */
+.lodging-chip--good,
+.lodging-chips--essential .lodging-chip--good {
+  background: #e9f3ec;
+  color: #2e5d4f;
+  border-color: #cfe2d5;
+}
+.lodging-chip--warn,
+.lodging-chips--essential .lodging-chip--warn {
+  background: #faf0e3;
+  color: #8a6a2f;
+  border-color: #ecdcc0;
+}
+
+/* The essential pill ROW container: drop its gold tint, keep grouping. */
+.lodging-chips--essential {
+  background: #faf8f2;
+  border: 1px solid #e7e3d8;
+}
+
+/* sold-out stays loud — it is the one warning that must not be missed. */
+
+/* ------------------------------------------------------------------ *
+ * 3. CALM TYPOGRAPHY + SPACING.
+ * ------------------------------------------------------------------ */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Cap prose width for comfortable reading. Scoped to text blocks so it does
+ * not constrain layout containers, cards, grids, or flex rows. */
+.page-tldr,
+.lead-block,
+.callout p,
+.callout li,
+.planb-text,
+.cost-delta-block p,
+.peak-callout p {
+  max-width: 64ch;
+}
+
+/* Demote plain eyebrows to a quiet grey. NOTE: .moment-eyebrow is left alone
+ * on purpose — it sits on dark photo heroes where grey would be unreadable. */
+.eyebrow {
+  color: #8a857a;
+}
+
+/* A touch more breathing room between major sections. */
+section {
+  margin-bottom: 2rem;
+}
