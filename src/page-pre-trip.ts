@@ -12,8 +12,6 @@
 // `pretrip_checklist_item_<data-key>` with value `{ checked: boolean }`.
 // Progress pill updates after every successful write.
 
-import { initNotesWidget } from './notes-widget.js';
-import { initChatPlanPopup } from './popup-chat-plan.js';
 import { listStateByPrefix, setState, deleteState } from './supabase.js';
 
 const KEY_PREFIX = 'pretrip_checklist_item_';
@@ -198,6 +196,10 @@ function wireReset(): void {
 }
 
 async function init(): Promise<void> {
+  // Only run if the checklist markup is on this page (it's folded into
+  // logistics.html now; this guard lets the module be imported anywhere
+  // without erroring when there's no checklist).
+  if (!document.querySelector('input[type="checkbox"][data-key]')) return;
   // Show migration notice once if legacy localStorage had state.
   if (hadLegacyState()) {
     showBankruptcyBanner();
@@ -216,13 +218,17 @@ async function init(): Promise<void> {
   updateProgress();
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Initialize the pre-trip checklist. Safe to call on any page — no-ops if the
+ * checklist markup isn't present. Used by both the (folded) logistics page and
+ * standalone contexts.
+ */
+export function initPretripChecklist(): void {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      void init();
+    });
+  } else {
     void init();
-  });
-} else {
-  void init();
+  }
 }
-
-initNotesWidget();
-initChatPlanPopup();

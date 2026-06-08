@@ -38,21 +38,22 @@ export default defineConfig(({ command }) => ({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        // --- Canonical top-level pages (in the 6-item nav) ---
+        // --- Canonical top-level pages (in the 4-item nav) ---
+        // 2026-06-08 structure simplification: nav cut 6->4
+        // (Trip · Stay · Logistics · Costs). Explore (activities) + the map
+        // stay as off-nav pages reachable via in-page links; the five
+        // logistics deep-dives (rental-car, packing, pre-trip, cafes,
+        // driving-austria) were folded into logistics.html as collapsibles
+        // and their standalone files deleted.
         main: resolve(__dirname, 'index.html'),
         itinerary: resolve(__dirname, 'itinerary.html'),
         stay: resolve(__dirname, 'stay.html'),
-        activities: resolve(__dirname, 'activities.html'),
         logistics: resolve(__dirname, 'logistics.html'),
         costs: resolve(__dirname, 'costs.html'),
+        // --- Off-nav pages (reachable from in-page links, not the top nav) ---
+        activities: resolve(__dirname, 'activities.html'),
         notes: resolve(__dirname, 'notes.html'),
         map: resolve(__dirname, 'map.html'),
-        // --- Logistics deep-dives (reachable from logistics.html, not in nav) ---
-        rentalCar: resolve(__dirname, 'rental-car.html'),
-        packing: resolve(__dirname, 'packing.html'),
-        preTrip: resolve(__dirname, 'pre-trip.html'),
-        cafes: resolve(__dirname, 'cafes.html'),
-        drivingAustria: resolve(__dirname, 'driving-austria.html'),
       },
     },
   },

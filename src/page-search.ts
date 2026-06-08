@@ -61,6 +61,13 @@ const ARCHIVED_PAGE_HOME: Record<string, string> = {
   'jewish-sights.html': 'activities.html',
   'recommendations.html': 'activities.html',
   'schafbergspitze.html': 'activities.html',
+  // 2026-06-08 structure simplification: the five logistics deep-dives were
+  // folded into logistics.html as collapsible sections; repoint to the anchor.
+  'rental-car.html': 'logistics.html#fold-rental-car',
+  'driving-austria.html': 'logistics.html#fold-driving',
+  'packing.html': 'logistics.html#fold-packing',
+  'pre-trip.html': 'logistics.html#fold-pretrip',
+  'cafes.html': 'logistics.html#fold-cafes',
 };
 
 function resolveSearchUrl(url: string): string {

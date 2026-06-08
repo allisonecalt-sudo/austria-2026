@@ -4425,7 +4425,7 @@ export const STANDALONE_POIS: MapPOI[] = [
     category: 'airport',
     lat: 47.7933,
     lng: 13.0043,
-    link: 'rental-car.html',
+    link: 'logistics.html#fold-rental-car',
   },
   {
     id: 'chabad-salzburg',
