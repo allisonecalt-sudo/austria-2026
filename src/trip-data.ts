@@ -746,80 +746,119 @@ export const TRIP: TripData = {
 
   lodgings: [
     {
-      // SALZBURG — Fri Jul 24 – Sun Jul 26, 2 nights, Shabbat base.
-      // Curated 2026-05-16 by lodging-only agent. All within walking
-      // distance of Chabad Salzburg, Linzergasse 76 (Andräviertel).
-      // Live Booking.com prices for the actual Jul 24-26 dates, ÷ 2 nights
-      // for per-night, EUR computed at ₪3.97/€1.
+      // BASE 1 / FIRST LEG (Shabbat) — Fri Jul 24 – Sun Jul 26, 2 nights.
+      // Curated 2026-05-16 by lodging-only agent. Live Booking.com prices for
+      // the actual Jul 24-26 dates.
       //
-      // RECONCILED 2026-06-08 (Claude): Salzburg is down to 2 apartment options,
-      // NOT yet decided. Food is brought from Israel and cooked in the apartment
+      // RECONCILED 2026-06-08 (Claude) + UPDATED 2026-06-08 PM: the first leg /
+      // Shabbat stay. Food is brought from Israel and cooked in the apartment
       // (NOT meals at Chabad); synagogue Shabbat morning is optional, not a must.
-      // That removed the old walkable-vs-home-Shabbat split. Because food is
-      // self-cooked, a stovetop is the decider. CANONICAL SOURCE = stay.html.
-      //   2 options (all Jul 24-26, 2nt, free cancellation):
-      //     Amedeo Zotti     — $628, stovetop kitchen, ~26 min to Chabad
-      //     Master Linzergasse — $657, NO stove, best location (~3 min to Chabad)
-      // UPDATED 2026-06-08 PM: Villa Salzburg REMOVED (canceled — electronic-only
-      // door code, no physical key = a Shabbat dealbreaker). The two remaining
-      // options are NOT yet decided — no default pick. The "pick" fields below
-      // surface Amedeo Zotti as one of the two open options (not a lean); Master
-      // Linzergasse is the other. Salzburg is the ONLY base still being decided —
-      // Zell, Gosau, and the airport night are all booked & confirmed.
+      // Because food is self-cooked, a stovetop is the decider. CANONICAL SOURCE
+      // = stay.html. Villa Salzburg was REMOVED (canceled — electronic-only door
+      // code, no physical key = a Shabbat dealbreaker).
+      //
+      // 2026-06-08 EVENING: added Ferienwohnung Glücksmomente (Bad Goisern) as a
+      // THIRD option and the CURRENT LEAN (front-runner). It is in the
+      // Salzkammergut (Bad Goisern am Hallstättersee, ~65 min from SZG, near
+      // Hallstatt + the Gosau base), NOT in Salzburg city — so this base is no
+      // longer all-Salzburg. It is now framed as the first-leg / Shabbat stay.
+      //   3 options (all Jul 24-26, 2nt, free cancellation, none cancelled):
+      //     Glücksmomente (Bad Goisern) — ~$547, stovetop + microwave, PIN+key — ★ CURRENT LEAN
+      //     Amedeo Zotti (Salzburg)     — $628,  stovetop, physical key
+      //     Master Linzergasse (Salzburg) — $657, NO stove (fridge+kettle), PIN entry
+      // Glücksmomente + Amedeo have stovetops; Master cannot cook. Salzburg's
+      // two city options stay on the table as alts. Zell, Gosau, and the airport
+      // night are all booked & confirmed — this first leg is the only one still
+      // being decided, now leaning Glücksmomente.
       baseKey: 'salzburg',
       nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
-      area: 'Salzburg — 2 apartment options (not yet decided). Food brought from Israel + cooked in the apartment; synagogue (Chabad, Linzer Gasse 76 / IKG, Lasserstraße 8) optional.',
-      // 2026-06-08: 2 apartment options, not yet decided — no default pick.
-      // Amedeo Zotti ($628, stovetop) and Master Linzergasse ($657, no stove)
-      // are the two open options. Full set lives in stay.html #salzburg-picks.
-      pickName: 'Amedeo Zotti Residence Salzburg',
+      area: 'First leg / Shabbat — 3 apartment options (current lean: Glücksmomente, Bad Goisern). All free-cancellation. Food brought from Israel + cooked in the apartment (stovetop is the decider); synagogue optional.',
+      // 2026-06-08 evening: Ferienwohnung Glücksmomente (Bad Goisern) is the
+      // CURRENT LEAN / front-runner — the "pick" slot. Amedeo Zotti ($628,
+      // Salzburg, stovetop) and Master Linzergasse ($657, Salzburg, no stove)
+      // are the two alts. Full set lives in stay.html #salzburg-picks.
+      pickName: 'Ferienwohnung Glücksmomente (Bad Goisern)',
       pickFreeCancellation: true,
-      pickFreeCancellationUntil: '2026-07-21',
-      pickUrl: 'https://www.booking.com/hotel/at/amadeo-zotti-residence-salzburg.html',
-      pickImg:
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
-      pickReview: '8.3 · Very good · 1,808 reviews',
+      pickFreeCancellationUntil: '2026-07-18',
+      pickUrl:
+        'https://www.booking.com/searchresults.html?ss=Ferienwohnung+Gl%C3%BCcksmomente+Bad+Goisern',
+      pickImg: IMG.hallstattLake,
+      pickReview: 'Self-catering apartment · Salzkammergut',
       pickPrice:
-        '$628 / 2 nights — 1 of 2 open options (not yet decided). 39m² Schallmoos apartment with stovetop kitchen, partial A/C, physical-key entry, ~26 min to Chabad, near the station. Free cancellation.',
+        '~$547 (€461) / 2 nights — ★ CURRENT LEAN (1 of 3 open options, all free-cancel). One-Bedroom Apartment in Bad Goisern am Hallstättersee, sleeps up to 4. Stovetop + microwave full kitchenette, balcony, garden/mountain views. Manual PIN + physical key (no electricity — Shabbat-safe). Free cancellation until Jul 18.',
       pickWhy:
-        'ONE OF 2 not-yet-decided Salzburg options (no default pick yet). 39m² 1-bedroom apartment with a stovetop kitchen — food is brought from Israel and cooked in the apartment, so a stovetop is the decider, and this option has one. Schallmoos, near the train station, ~26-min walk to Chabad. Partial A/C, physical-key entry (works for Shabbat). Free cancellation. The other open option is Master Linzergasse ($657, no stove, best location ~3 min to Chabad).',
+        'CURRENT LEAN for the first leg / Shabbat stay. One-Bedroom Apartment (~35 m²) in Bad Goisern am Hallstättersee — in the Salzkammergut, ~65 min from Salzburg Airport and close to Hallstatt + the Gosau base (NOT in Salzburg city). Sleeps up to 4. Full kitchenette with stovetop (induction) + microwave + fridge — food is brought from Israel and cooked in the apartment, so a stovetop is the decider, and this one has it. Balcony with garden + mountain views. Entry is a manual PIN + physical key (no electricity), so it is Shabbat-safe. ~$547 (€461) / 2 nights, free cancellation until Jul 18. The two Salzburg city options stay on the table: Amedeo Zotti ($628, stovetop, physical key) and Master Linzergasse ($657, no stove, PIN entry, best location ~3 min to Chabad).',
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
-      pickWalkToChabadMin: 26,
       pickLaundry: 'unknown',
       pickBedrooms: 1,
-      pickBeds: '1 queen',
+      pickBeds: '1 double (1.80m) + extendable sofa bed',
       pickNotableDetails: [
-        '1 of 2 open options',
-        'Stovetop kitchen',
-        'Partial A/C · near station',
-        '$628 · can cook',
-        'Physical-key entry',
+        '★ Current lean',
+        'Bad Goisern (Salzkammergut, not Salzburg)',
+        'Stovetop + microwave',
+        'Balcony · garden/mountain views',
+        '~$547 · sleeps 4 · can cook',
+        'Manual PIN + physical key (Shabbat-safe)',
+        'Free cancel until Jul 18',
       ],
-      pickMaxGuests: 2,
+      pickMaxGuests: 4,
       pickKitchen: 'full',
       pickBath: 'private',
       pickAc: false,
-      pickParking: 'paid',
+      pickParking: 'free',
       pickWifi: true,
-      pickViewType: 'urban',
+      pickViewType: 'mountain',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-06-08',
-      pickPhotos: [
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/76051577.jpg?k=db51a33732916e3c9e6d5e033885911ee4b37c01dfdcf695aaf2d073aeeec8c4&o=',
-      ],
-      // === Master Linzergasse — the OTHER open option (no default pick). Was
-      // primary May 16-19; kept here as the second of the two live options. ===
+      pickPhotos: PHOTO_POOL.badGoisernHallstatt,
+      // === Salzburg city options (Amedeo Zotti + Master Linzergasse) — the two
+      // alternates to the Bad Goisern lean. Both Jul 24-26, 2nt, free cancel. ===
       alts: [
+        {
+          name: 'Amedeo Zotti Residence Salzburg',
+          url: 'https://www.booking.com/hotel/at/amadeo-zotti-residence-salzburg.html',
+          img: 'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
+          review: '8.3 · Very good · 1,808 reviews',
+          pricePerNight:
+            '$628 / 2 nights — Salzburg city option, stovetop kitchen, physical-key entry, ~26 min to Chabad. Free cancellation.',
+          note: 'SALZBURG CITY OPTION (1 of 2 alts to the Bad Goisern lean). 39m² 1-bedroom apartment with a stovetop kitchen — can cook the Shabbat meal. Schallmoos, near the train station, ~26-min walk to Chabad. Partial A/C, physical-key entry (works for Shabbat). Free cancellation.',
+          budgetTier: 'splurge',
+          platform: 'booking',
+          walkToChabadMin: 26,
+          laundry: 'unknown',
+          bedrooms: 1,
+          beds: '1 queen',
+          notableDetails: [
+            'Salzburg city option',
+            'Stovetop kitchen',
+            'Partial A/C · near station',
+            '$628 · can cook',
+            'Physical-key entry',
+          ],
+          maxGuests: 2,
+          kitchen: 'full',
+          bath: 'private',
+          ac: false,
+          parking: 'paid',
+          wifi: true,
+          viewType: 'urban',
+          availability: 'available',
+          availabilityCheckedDate: '2026-06-08',
+          freeCancellation: true,
+          photos: [
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
+            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/76051577.jpg?k=db51a33732916e3c9e6d5e033885911ee4b37c01dfdcf695aaf2d073aeeec8c4&o=',
+          ],
+        },
         {
           name: 'Master Linzergasse',
           url: 'https://www.booking.com/hotel/at/master-linzergasse.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
           review: '9.2 · Superb · 2,309 reviews',
           pricePerNight:
-            '$657 / 2 nights — best location (~3 min to Chabad), NO stove (fridge + kettle only). Free cancellation.',
-          note: 'ONE OF 2 open options (1 of 2) — $657 / 2 nights. Studio apartment ON Linzergasse — same street as Chabad, ~3-min walk to shul. Best location of the two. A/C + elevator. NO stove (fridge + kettle only) — the trade-off against cooking a Shabbat meal. Free cancellation.',
+            '$657 / 2 nights — Salzburg city option, best location (~3 min to Chabad), NO stove (fridge + kettle only), PIN entry. Free cancellation.',
+          note: 'SALZBURG CITY OPTION (2 of 2 alts to the Bad Goisern lean) — $657 / 2 nights. Studio apartment ON Linzergasse — same street as Chabad, ~3-min walk to shul. Best location of the three. A/C + elevator. NO stove (fridge + kettle only) — cannot cook a Shabbat meal. PIN entry. Free cancellation.',
           budgetTier: 'splurge',
           platform: 'booking',
           walkToChabadMin: 3,
@@ -827,10 +866,11 @@ export const TRIP: TripData = {
           bedrooms: 'studio',
           beds: '1 queen',
           notableDetails: [
-            '1 of 2 open options',
+            'Salzburg city option',
             'Best location (~3 min to Chabad)',
             'A/C + elevator',
             'No stove (fridge + kettle only)',
+            'PIN entry',
           ],
           maxGuests: 2,
           kitchen: 'none',
@@ -4265,6 +4305,12 @@ export const NATURE_COORDS: Record<string, LatLng> = {
 // many as could be verified; entries without a coord get filtered out at
 // render with a console.warn.
 export const LODGING_COORDS: Record<string, LatLng> = {
+  // FIRST LEG / SHABBAT — current lean 2026-06-08 (Bad Goisern, Salzkammergut)
+  'Ferienwohnung Glücksmomente (Bad Goisern)': { lat: 47.6465, lng: 13.605 }, // Unterjoch 38, 4822 Bad Goisern am Hallstättersee — ★ current lean
+  // Capital-M key — the lodging alt name is 'Master Linzergasse' (capital M),
+  // but the legacy coord key below is lowercase, so the marker was dropping
+  // silently. Added 2026-06-08 so the Master Linzergasse pin resolves.
+  'Master Linzergasse': { lat: 47.8049, lng: 13.0476 }, // Linzergasse, Andräviertel — ~3 min to Chabad
   // v4 RESTRUCTURE 2026-05-19 — Zell am See + Gosau + B&B Villa Verde
   // active picks. Coordinates are address-derived (Zell am See town
   // center / Gosau village / Salzburg airport orbit).

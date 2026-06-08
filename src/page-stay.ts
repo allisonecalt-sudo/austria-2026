@@ -74,11 +74,14 @@ const COORDS: Record<string, [number, number]> = {
   'Bergland Hotel - Adults only': [47.8064, 13.0494], // Rupertgasse 15, Schallmoos (4-min walk to Chabad)
   'Villa Flöckner Bed & Breakfast': [47.8113, 13.052], // Jahnstraße 13, Elisabeth-Vorstadt
   'master Linzergasse': [47.8056, 13.0464],
+  'Master Linzergasse': [47.8049, 13.0476], // capital-M — matches the lodging alt name so the stay-map pin resolves (2026-06-08)
   "Junker's Apartments": [47.811, 13.022],
   Sauerweingut: [47.7944, 13.0357],
   'Pension Elisabeth — Rooms & Apartments': [47.8123, 13.063],
   'Amedeo Zotti Residence Salzburg': [47.815, 13.063],
   'Salzburg Topside Apartments': [47.808, 13.0475],
+  // First-leg / Shabbat current lean (Bad Goisern, Salzkammergut) — 2026-06-08
+  'Ferienwohnung Glücksmomente (Bad Goisern)': [47.6465, 13.605], // Unterjoch 38, 4822 Bad Goisern am Hallstättersee
 
   // === HALLSTATT / OBERTRAUN / GOSAU / BAD GOISERN ===
   'Haus Edelweiss (Obertraun)': [47.5483, 13.6904],
@@ -148,8 +151,8 @@ interface BaseDateInfo {
 
 const BASE_DATES: Record<BaseKey, BaseDateInfo> = {
   salzburg: {
-    short: 'Fri Jul 24 → Sun Jul 26 (2N) · Shabbat Fri night',
-    long: 'Friday Jul 24 → Sunday Jul 26, 2026 — 2 nights. Shabbat is Fri Jul 24 night only (candle-lighting 20:35 Fri → Havdalah 21:49 Sat). All Salzburg picks are within walking distance of Chabad on Linzergasse.',
+    short: 'Fri Jul 24 → Sun Jul 26 (2N) · first leg · Shabbat Fri night',
+    long: 'Friday Jul 24 → Sunday Jul 26, 2026 — 2 nights, the first leg / Shabbat stay. Shabbat is Fri Jul 24 night only (candle-lighting 20:35 Fri → Havdalah 21:49 Sat). Current lean is Ferienwohnung Glücksmomente in Bad Goisern (Salzkammergut, ~65 min from SZG); the two Salzburg city options (Amedeo Zotti, Master Linzergasse) sit within walking distance of Chabad on Linzergasse.',
     nights: 2,
     bookingCheckIn: '2026-07-24',
     bookingCheckOut: '2026-07-26',
@@ -274,7 +277,10 @@ interface UnifiedListing {
 }
 
 const BASE_LABELS: Record<BaseKey, string> = {
-  salzburg: 'Salzburg',
+  // 2026-06-08: relabeled from 'Salzburg' — Base 1 is the first-leg / Shabbat
+  // stay and now includes a Bad Goisern (Salzkammergut) lean, so it is no
+  // longer all-Salzburg.
+  salzburg: 'First leg · Shabbat',
   'zell-am-see': 'Zell am See',
   gosau: 'Gosau',
   obertraun: 'Obertraun / Hallstatt (archived)',
@@ -1404,13 +1410,16 @@ function nearbyChipsHtml(l: UnifiedListing): string {
           : '';
       const sunsetAnnotation = d.sunset === 3 ? ' 🌅' : '';
       const title = `${d.feature}${d.avitalFitNote ? ` — ${d.avitalFitNote}` : ''}`;
-      return `<a class="lodging-nearby-chip${fitClass}" href="nature-destinations.html#${encodeURIComponent(d.id)}" title="${escapeHtml(title)}">${emoji} ${escapeHtml(d.name)}${sunsetAnnotation} · ${distLabel}${walkExtra}</a>`;
+      // 2026-06-08 reconcile: nature-destinations.html was deleted (content
+      // folded into activities.html). Repoint to the live page; dead #anchor
+      // dropped (activities cards use `${id}-${base}` ids, not bare ids).
+      return `<a class="lodging-nearby-chip${fitClass}" href="activities.html" title="${escapeHtml(title)}">${emoji} ${escapeHtml(d.name)}${sunsetAnnotation} · ${distLabel}${walkExtra}</a>`;
     })
     .join('');
 
   const moreLink =
     hiddenCount > 0
-      ? `<a class="lodging-nearby-more" href="nature-destinations.html">+ ${hiddenCount} more →</a>`
+      ? `<a class="lodging-nearby-more" href="activities.html">+ ${hiddenCount} more →</a>`
       : '';
 
   return `

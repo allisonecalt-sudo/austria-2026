@@ -316,7 +316,7 @@ function naturePopup(d: NatureDestination): string {
       </div>
       ${sleepBadge}${lockedBadge}
       <div class="pop-actions">
-        <a class="pop-link" href="nature-destinations.html#${encodeURIComponent(d.id)}">View details →</a>
+        <a class="pop-link" href="activities.html">View details →</a>
         ${isSchafberg ? '<a class="pop-link pop-link-secondary" href="stay.html#sunset-schafbergspitze-stay">Summit stay info →</a>' : ''}
       </div>
       <div class="pop-verified">Coords verified 2026-05-16 (Wikipedia / OSM)</div>
@@ -663,7 +663,7 @@ function natureDrawerSource(d: NatureDestination): DrawerSource {
       ${bulletsHtml}
     </div>
     <div class="place-drawer-actions">
-      <a class="place-drawer-action place-drawer-action--primary" href="nature-destinations.html#${encodeURIComponent(d.id)}">View full details →</a>
+      <a class="place-drawer-action place-drawer-action--primary" href="activities.html">View full details →</a>
       <a class="place-drawer-action" href="${escapeHtml(d.links?.mapsFromHallstatt ?? gmapsLinkForCoord(coord?.lat ?? 0, coord?.lng ?? 0, d.name))}" target="_blank" rel="noreferrer noopener">📍 Open in Google Maps</a>
     </div>
     ${sourceHtml}
@@ -826,7 +826,7 @@ function gatherLodging(): GatherLodgingResult {
     return 'lodging-airport';
   };
   const baseLabel = (baseKey: Lodging['baseKey']): string => {
-    if (baseKey === 'salzburg') return 'Salzburg · Shabbat base (Sat-Sun)';
+    if (baseKey === 'salzburg') return 'First leg · Shabbat stay (Fri-Sun) — lean: Bad Goisern';
     if (baseKey === 'zell-am-see') return 'Zell am See · alpine-lake anchor (Sun-Tue, 2 nights)';
     if (baseKey === 'gosau') return 'Gosau · Salzkammergut lakes anchor (Tue-Thu, 2 nights)';
     if (baseKey === 'hallstatt')
@@ -1061,9 +1061,12 @@ function getDaySegments(): DaySegment[] {
 }
 
 function getRouteAnchors(): Record<string, [number, number]> {
-  // 2026-06-08: Salzburg is 1 of 2 options, not yet decided (Villa Salzburg
-  // removed — canceled). The trip-map anchor uses Amedeo Zotti, falling back to
-  // the old-town coord (master Linzergasse), then a hard-coded centroid.
+  // 2026-06-08: first-leg / Shabbat stay is undecided across 3 options (Villa
+  // Salzburg removed — canceled). The current lean (Glücksmomente) is in Bad
+  // Goisern, but the Friday route node anchors on Salzburg city — the day lands
+  // at SZG and the activities (Chabad, Old Town) are in Salzburg regardless of
+  // which apartment is chosen. So the route anchor stays on the Salzburg city
+  // coord (Amedeo Zotti, then old-town fallback, then a hard-coded centroid).
   const salzburgPrimary =
     LODGING_COORDS['Amedeo Zotti Residence Salzburg'] ?? LODGING_COORDS['master Linzergasse'];
   // Chosen stays (booked): Sonnberg (Zell), Transylvania (Gosau), Best Western (airport).
@@ -2033,9 +2036,8 @@ function showMapErrorBanner(reason: string): void {
       <p>This is usually a tile-server / CDN hiccup — try refreshing in a few seconds.</p>
       <p class="map-error-fallback">
         In the meantime, every pin still exists as a list:
-        <a href="nature-destinations.html">nature destinations</a> ·
-        <a href="stay.html">lodging</a> ·
-        <a href="jewish-sights.html">Jewish sights</a>.
+        <a href="activities.html">nature destinations + Jewish sights</a> ·
+        <a href="stay.html">lodging</a>.
       </p>
       <p class="map-error-tech"><small>Reason: ${escapeHtml(reason)}</small></p>
     </div>

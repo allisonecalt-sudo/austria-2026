@@ -96,18 +96,27 @@ interface Leg {
 const LEGS: Leg[] = [
   {
     id: 'salzburg',
-    title: 'Anchor #1 — Salzburg (Shabbat)',
+    title: 'Anchor #1 — First leg (Shabbat)',
     dates: 'Fri Jul 24 → Sun Jul 26',
     summary: 'Chabad-walkable Shabbat + Old Town · Hohensalzburg · Mirabell · Mönchsberg',
-    zoom: 13,
-    // 2026-06-08: 2 current apartment options, not yet decided (no default pick).
-    // Villa Salzburg removed (canceled — electronic-only door code, no physical
-    // key = a Shabbat dealbreaker). Food is cooked in the apartment, so a stovetop
-    // is the decider.
+    zoom: 11,
+    // 2026-06-08 evening: 3 current options, current lean = Glücksmomente (Bad
+    // Goisern, Salzkammergut — NOT Salzburg city). Villa Salzburg removed
+    // (canceled — electronic-only door code, no physical key = a Shabbat
+    // dealbreaker). Food is cooked in the apartment, so a stovetop is the
+    // decider. zoom widened to 11 so both Bad Goisern + Salzburg city pins show.
     lodging: [
       {
+        name: 'Ferienwohnung Glücksmomente',
+        town: 'Bad Goisern am Hallstättersee (Salzkammergut)',
+        lat: 47.6465,
+        lng: 13.605,
+        tags: ['lead'],
+        note: '★ Current lean · ~$547 · stovetop + microwave · sleeps 4 · balcony · manual PIN + key (Shabbat-safe) · ~65 min from SZG',
+      },
+      {
         name: 'Amedeo Zotti Residence',
-        town: 'Schallmoos (near the train station)',
+        town: 'Schallmoos, Salzburg (near the train station)',
         lat: 47.8156,
         lng: 13.0506,
         tags: ['allison'],
@@ -115,11 +124,11 @@ const LEGS: Leg[] = [
       },
       {
         name: 'Master Linzergasse',
-        town: 'Old-town edge (Andräviertel)',
+        town: 'Old-town edge, Salzburg (Andräviertel)',
         lat: 47.8049,
         lng: 13.0476,
         tags: ['allison'],
-        note: '$657 · no stove · A/C + elevator · ~3 min to Chabad (best location)',
+        note: '$657 · no stove · A/C + elevator · PIN entry · ~3 min to Chabad (best location)',
       },
     ],
     activities: [

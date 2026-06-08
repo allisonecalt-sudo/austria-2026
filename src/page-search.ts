@@ -126,7 +126,7 @@ function buildOverlay(): OverlayRefs {
         <span><kbd>Enter</kbd> open</span>
         <span><kbd>Esc</kbd> close</span>
         <span class="search-overlay__footer-spacer"></span>
-        <a href="recommendations.html" class="search-overlay__rec-link">⭐ See recommendations →</a>
+        <a href="activities.html" class="search-overlay__rec-link">⭐ See recommendations →</a>
       </div>
     </div>
   `;
