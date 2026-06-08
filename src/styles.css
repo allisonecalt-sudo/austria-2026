@@ -6437,6 +6437,11 @@ details.note-item > summary::-webkit-details-marker {
   color: var(--ink);
   font-size: 0.95rem;
   line-height: 1.45;
+  /* Long unbreakable tokens (URLs, hashes) in live notes overflowed the
+     collapsed card → mobile sideways-scroll. Force wrap + allow shrink. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
 }
 details.note-item[open] .note-summary-preview {
   display: none;
@@ -6451,6 +6456,10 @@ details.note-item[open] .note-summary-preview {
   font-size: 0.96rem;
   line-height: 1.5;
   white-space: pre-wrap;
+  /* Long unbreakable tokens (URLs, hashes) in live notes were overflowing
+     horizontally → mobile sideways-scroll. Force them to wrap. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* ---------- Costs page polish (2026-05-16) ---------- */
@@ -14114,4 +14123,16 @@ body.nav-mobile-open {
 }
 .moment--cta {
   padding: 3.5rem 0 3rem;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   FAB SAFETY (2026-06-08) — the floating "Leave Claude a note" button
+   must never push the page wider than the viewport on mobile. Pin it to
+   16px from the right and cap its width so it always fits.
+   ════════════════════════════════════════════════════════════════════ */
+.fab {
+  right: 16px;
+  left: auto;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
 }
