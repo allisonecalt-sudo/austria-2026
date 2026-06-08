@@ -1061,11 +1061,11 @@ function getDaySegments(): DaySegment[] {
 }
 
 function getRouteAnchors(): Record<string, [number, number]> {
-  // 2026-06-08: Salzburg is 1 of 3 options, not yet decided. The trip-map anchor
-  // uses the current lean (Villa Salzburg), falling back to the old-town coord.
+  // 2026-06-08: Salzburg is 1 of 2 options, not yet decided (Villa Salzburg
+  // removed — canceled). The trip-map anchor uses Amedeo Zotti, falling back to
+  // the old-town coord (master Linzergasse), then a hard-coded centroid.
   const salzburgPrimary =
-    LODGING_COORDS['Villa Salzburg by Welcome to Salzburg'] ??
-    LODGING_COORDS['master Linzergasse'];
+    LODGING_COORDS['Amedeo Zotti Residence Salzburg'] ?? LODGING_COORDS['master Linzergasse'];
   // Chosen stays (booked): Sonnberg (Zell), Transylvania (Gosau), Best Western (airport).
   const zellLodging = LODGING_COORDS['der Sonnberg Alpinlodges (Two-Bedroom)'];
   const gosauLodging = LODGING_COORDS['Transylvania Villa & Spa (Gosau)'];

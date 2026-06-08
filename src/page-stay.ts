@@ -76,7 +76,6 @@ const COORDS: Record<string, [number, number]> = {
   'master Linzergasse': [47.8056, 13.0464],
   "Junker's Apartments": [47.811, 13.022],
   Sauerweingut: [47.7944, 13.0357],
-  'Villa Salzburg by Welcome to Salzburg': [47.794, 13.029],
   'Pension Elisabeth — Rooms & Apartments': [47.8123, 13.063],
   'Amedeo Zotti Residence Salzburg': [47.815, 13.063],
   'Salzburg Topside Apartments': [47.808, 13.0475],

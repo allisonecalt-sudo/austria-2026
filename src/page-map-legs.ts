@@ -100,17 +100,11 @@ const LEGS: Leg[] = [
     dates: 'Fri Jul 24 → Sun Jul 26',
     summary: 'Chabad-walkable Shabbat + Old Town · Hohensalzburg · Mirabell · Mönchsberg',
     zoom: 13,
-    // 2026-06-08: 3 current apartment options, not yet decided. Food is cooked
-    // in the apartment, so a stovetop is the decider.
+    // 2026-06-08: 2 current apartment options, not yet decided (no default pick).
+    // Villa Salzburg removed (canceled — electronic-only door code, no physical
+    // key = a Shabbat dealbreaker). Food is cooked in the apartment, so a stovetop
+    // is the decider.
     lodging: [
-      {
-        name: 'Villa Salzburg',
-        town: 'Riedenburg (quiet residential)',
-        lat: 47.7967,
-        lng: 13.0322,
-        tags: ['allison', 'lead'],
-        note: '$548 · full kitchen + stovetop · washer/dryer · ~28 min to Chabad',
-      },
       {
         name: 'Amedeo Zotti Residence',
         town: 'Schallmoos (near the train station)',

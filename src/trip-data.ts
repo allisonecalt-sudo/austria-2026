@@ -426,8 +426,8 @@ export const TRIP: TripData = {
   // both €160/nt. Airport pick Best Western Walserberg €105→€71/nt (price DROPPED).
   // Standard pick recomputed: keep master Linzergasse (Allison hasn't unlocked it) + swap
   // mountain to Austrian Apartments. Cheapest viable scenario also surfaced in costs.html.
-  totalCostEur: 4144, // 2026-06-08: Salzburg held at a €569/2nt placeholder (3 options, not yet decided: Villa Salzburg $548 / Amedeo Zotti $628 / Master Linzergasse $657, all free-cancellation). Bottom-up all-in = ₪16,452 / €4,144 (lodging 6,837 [Salzburg placeholder 2,259 + der Sonnberg 1,977 + Transylvania 2,124 + Best Western 477] + car 1,669 + buffer 214 + acts 1,445 + food 2,580 + flights 3,337 + bag 370). NOTE: options quoted in USD; no USD→EUR rate to convert cleanly, so the €569 placeholder is kept and flagged.
-  totalCostNis: 16452, // 2026-06-08: see breakdown above. 3 of 4 bases booked; Salzburg not yet decided (€569 placeholder).
+  totalCostEur: 4144, // 2026-06-08: Salzburg held at a €569/2nt placeholder (2 options, not yet decided: Amedeo Zotti $628 / Master Linzergasse $657, all free-cancellation). Bottom-up all-in = ₪16,452 / €4,144 (lodging 6,837 [Salzburg placeholder 2,259 + der Sonnberg 1,977 + Transylvania 2,124 + Best Western 477] + car 1,669 + buffer 214 + acts 1,445 + food 2,580 + flights 3,337 + bag 370). NOTE: options quoted in USD; no USD→EUR rate to convert cleanly, so the €569 placeholder is kept and flagged.
+  totalCostNis: 16452, // 2026-06-08: see breakdown above. 3 of 4 bases booked; Salzburg not yet decided (€569 placeholder, 2 options).
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target (NOT updated; this is the target, not the actual)
   peakMoment: {
     day: 'Tuesday Jul 28',
@@ -752,106 +752,74 @@ export const TRIP: TripData = {
       // Live Booking.com prices for the actual Jul 24-26 dates, ÷ 2 nights
       // for per-night, EUR computed at ₪3.97/€1.
       //
-      // RECONCILED 2026-06-08 (Claude): Salzburg is down to 3 apartment options,
+      // RECONCILED 2026-06-08 (Claude): Salzburg is down to 2 apartment options,
       // NOT yet decided. Food is brought from Israel and cooked in the apartment
       // (NOT meals at Chabad); synagogue Shabbat morning is optional, not a must.
       // That removed the old walkable-vs-home-Shabbat split. Because food is
       // self-cooked, a stovetop is the decider. CANONICAL SOURCE = stay.html.
-      //   3 options (all Jul 24-26, 2nt, free cancellation):
-      //     Villa Salzburg   — $548, full kitchen + stovetop, ~28 min to Chabad
+      //   2 options (all Jul 24-26, 2nt, free cancellation):
       //     Amedeo Zotti     — $628, stovetop kitchen, ~26 min to Chabad
       //     Master Linzergasse — $657, NO stove, best location (~3 min to Chabad)
-      // The "pick" fields below default the grid display to Master Linzergasse
-      // (best location); all three live as options. 3 of 4 bases booked.
+      // UPDATED 2026-06-08 PM: Villa Salzburg REMOVED (canceled — electronic-only
+      // door code, no physical key = a Shabbat dealbreaker). The two remaining
+      // options are NOT yet decided — no default pick. The "pick" fields below
+      // surface Amedeo Zotti as one of the two open options (not a lean); Master
+      // Linzergasse is the other. Salzburg is the ONLY base still being decided —
+      // Zell, Gosau, and the airport night are all booked & confirmed.
       baseKey: 'salzburg',
       nights: 'Fri Jul 24 – Sun Jul 26 (2 nights)',
-      area: 'Salzburg — 3 apartment options (not yet decided). Food brought from Israel + cooked in the apartment; synagogue (Chabad, Linzer Gasse 76 / IKG, Lasserstraße 8) optional.',
-      // 2026-06-08: 3 apartment options, not yet decided. CURRENT LEAN =
-      // Villa Salzburg (cheapest + has a stovetop), pending a door-lock
-      // (self check-in) confirmation. Amedeo Zotti + Master Linzergasse are
-      // the other two options. Full set lives in stay.html #salzburg-picks.
-      pickName: 'Villa Salzburg (current lean)',
+      area: 'Salzburg — 2 apartment options (not yet decided). Food brought from Israel + cooked in the apartment; synagogue (Chabad, Linzer Gasse 76 / IKG, Lasserstraße 8) optional.',
+      // 2026-06-08: 2 apartment options, not yet decided — no default pick.
+      // Amedeo Zotti ($628, stovetop) and Master Linzergasse ($657, no stove)
+      // are the two open options. Full set lives in stay.html #salzburg-picks.
+      pickName: 'Amedeo Zotti Residence Salzburg',
       pickFreeCancellation: true,
       pickFreeCancellationUntil: '2026-07-21',
-      pickUrl: 'https://www.booking.com/hotel/at/fewo-salzburg.html',
+      pickUrl: 'https://www.booking.com/hotel/at/amadeo-zotti-residence-salzburg.html',
       pickImg:
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243977766.jpg?k=8af68989ff92828e364d3d84c28f436993511029b8b6c73b0e01e681e881ed56&o=&hp=1',
-      pickReview: '9.2 · Superb · 813 reviews',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
+      pickReview: '8.3 · Very good · 1,808 reviews',
       pickPrice:
-        '$548 / 2 nights — current lean (cheapest of the 3). 45m² Riedenburg apartment, full kitchen + stovetop, washer/dryer. Free cancellation. Pending door-lock (self check-in) confirmation.',
+        '$628 / 2 nights — 1 of 2 open options (not yet decided). 39m² Schallmoos apartment with stovetop kitchen, partial A/C, physical-key entry, ~26 min to Chabad, near the station. Free cancellation.',
       pickWhy:
-        'CURRENT LEAN of Salzburg\'s 3 not-yet-decided options. Cheapest ($548 / 2 nights) and has a stovetop — food is brought from Israel and cooked in the apartment, so a stovetop is the decider. 45m² Riedenburg apartment with full kitchen + stovetop, washer/dryer, quiet residential street, ~15 min walk to old town / ~28 min to Chabad. No A/C (cool basement). Self check-in by door code — lean pending a door-lock confirmation. Free cancellation. The other two options are Amedeo Zotti ($628, stovetop) and Master Linzergasse ($657, no stove, best location).',
+        'ONE OF 2 not-yet-decided Salzburg options (no default pick yet). 39m² 1-bedroom apartment with a stovetop kitchen — food is brought from Israel and cooked in the apartment, so a stovetop is the decider, and this option has one. Schallmoos, near the train station, ~26-min walk to Chabad. Partial A/C, physical-key entry (works for Shabbat). Free cancellation. The other open option is Master Linzergasse ($657, no stove, best location ~3 min to Chabad).',
       pickBudgetTier: 'splurge',
       pickPlatform: 'booking',
-      pickWalkToChabadMin: 28,
-      pickLaundry: 'washer+dryer',
+      pickWalkToChabadMin: 26,
+      pickLaundry: 'unknown',
       pickBedrooms: 1,
-      pickBeds: '1 queen + sofa bed',
+      pickBeds: '1 queen',
       pickNotableDetails: [
-        'CURRENT LEAN (1 of 3 options)',
-        'Cheapest ($548)',
-        'Full kitchen + stovetop',
-        'Washer/dryer',
-        'Quiet Riedenburg · no A/C',
-        'Door-lock confirmation pending',
+        '1 of 2 open options',
+        'Stovetop kitchen',
+        'Partial A/C · near station',
+        '$628 · can cook',
+        'Physical-key entry',
       ],
-      pickMaxGuests: 3,
+      pickMaxGuests: 2,
       pickKitchen: 'full',
       pickBath: 'private',
       pickAc: false,
-      pickParking: 'street',
+      pickParking: 'paid',
       pickWifi: true,
-      pickViewType: 'mountain',
+      pickViewType: 'urban',
       pickAvailability: 'available',
       pickAvailabilityCheckedDate: '2026-06-08',
       pickPhotos: [
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243977766.jpg?k=8af68989ff92828e364d3d84c28f436993511029b8b6c73b0e01e681e881ed56&o=&hp=1',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/243977677.jpg?k=c27c0a78ee12e7846056b772286d278dde6b463cad2b7e0ac8bf40212f284651&o=&hp=1',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/356239331.jpg?k=06f6834d175ee7aea677ee094e7150573d18288896f919f38fab7769f99253f8&o=&hp=1',
-        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/90192909.jpg?k=13cb25c3a1903a8c7a098c4d3c7c418873e5e43d85d0dce5b20005fd9446bbff&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
+        'https://cf.bstatic.com/xdata/images/hotel/max1280x900/76051577.jpg?k=db51a33732916e3c9e6d5e033885911ee4b37c01dfdcf695aaf2d073aeeec8c4&o=',
       ],
-      // === ARCHIVED PRIMARY — kept for pullable-archives rule. The prior
-      // master Linzergasse pick (was primary May 16-19) is preserved here as
-      // the first alt so the prior decision is recoverable. ===
+      // === Master Linzergasse — the OTHER open option (no default pick). Was
+      // primary May 16-19; kept here as the second of the two live options. ===
       alts: [
-        {
-          name: 'Amedeo Zotti Residence Salzburg',
-          url: 'https://www.booking.com/hotel/at/amadeo-zotti-residence-salzburg.html',
-          img: 'https://cf.bstatic.com/xdata/images/hotel/square600/572731112.webp?k=992f2f3014073eec44480ab8bebe5a04d7fbece0f6c9297a0e341d584fa7f6c9&o=',
-          review: '8.3 · Very good · 1,808 reviews',
-          pricePerNight: '$628 / 2 nights — stovetop kitchen, can cook a full Shabbat. Free cancellation.',
-          note: 'CURRENT OPTION (1 of 3) — $628 / 2 nights. 39m² 1-bedroom apartment with stovetop kitchen, Schallmoos, near the train station, ~26-min walk to Chabad. Partial A/C, physical-key entry. Can cook a full Shabbat (food brought from Israel). Free cancellation.',
-          budgetTier: 'splurge',
-          platform: 'booking',
-          walkToChabadMin: 26,
-          laundry: 'unknown',
-          bedrooms: 1,
-          beds: '1 queen',
-          notableDetails: [
-            'CURRENT OPTION (1 of 3)',
-            'Stovetop kitchen',
-            'Partial A/C · near station',
-            '$628 · can cook',
-          ],
-          maxGuests: 2,
-          kitchen: 'full',
-          bath: 'private',
-          ac: false,
-          parking: 'paid',
-          wifi: true,
-          viewType: 'urban',
-          photos: [
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/572731112.jpg?k=04ec0d8cf3406ca879a48a2e609183c06442f2cda4da9d1252268b6fa002fbd8&o=&hp=1',
-            'https://cf.bstatic.com/xdata/images/hotel/max1280x900/76051577.jpg?k=db51a33732916e3c9e6d5e033885911ee4b37c01dfdcf695aaf2d073aeeec8c4&o=',
-          ],
-        },
         {
           name: 'Master Linzergasse',
           url: 'https://www.booking.com/hotel/at/master-linzergasse.html',
           img: 'https://cf.bstatic.com/xdata/images/hotel/square600/474092866.webp?k=a9eb0579f7697c620a3882666545cdbb7bae93ae9281b0247269232ff2abc0d4&o=',
           review: '9.2 · Superb · 2,309 reviews',
-          pricePerNight: '$657 / 2 nights — best location (~3 min to Chabad), NO stove (fridge + kettle only). Free cancellation.',
-          note: 'CURRENT OPTION (1 of 3) — $657 / 2 nights. Studio apartment ON Linzergasse — same street as Chabad, ~3-min walk to shul. Best location of the 3. A/C + elevator. NO stove (fridge + kettle only) — the trade-off against cooking a Shabbat meal. Free cancellation.',
+          pricePerNight:
+            '$657 / 2 nights — best location (~3 min to Chabad), NO stove (fridge + kettle only). Free cancellation.',
+          note: 'ONE OF 2 open options (1 of 2) — $657 / 2 nights. Studio apartment ON Linzergasse — same street as Chabad, ~3-min walk to shul. Best location of the two. A/C + elevator. NO stove (fridge + kettle only) — the trade-off against cooking a Shabbat meal. Free cancellation.',
           budgetTier: 'splurge',
           platform: 'booking',
           walkToChabadMin: 3,
@@ -859,7 +827,7 @@ export const TRIP: TripData = {
           bedrooms: 'studio',
           beds: '1 queen',
           notableDetails: [
-            'CURRENT OPTION (1 of 3)',
+            '1 of 2 open options',
             'Best location (~3 min to Chabad)',
             'A/C + elevator',
             'No stove (fridge + kettle only)',
@@ -956,9 +924,11 @@ export const TRIP: TripData = {
       baseKey: 'gosau',
       nights: 'Tue Jul 28 – Thu Jul 30 (2 nights)',
       area: 'Gosau village (Dachstein West / Hallstattersee cluster) — next to Vorderer Gosausee, ~20 min to Hallstatt, ~25 min to Krippenstein cable car. 2-bedroom apartments with private kitchens.',
-      // BOOKED 2026-06-01: Allison locked Transylvania Villa & Spa (Gosau) as
-      // the Salzkammergut base (was Der Ulmenhof placeholder €513). Real booked
-      // rate €535/2nt. Der Ulmenhof demoted to alt.
+      // BOOKED 2026-06-01, CONFIRMED: Allison locked Transylvania Villa & Spa
+      // (Gosau) as the Salzkammergut base (was Der Ulmenhof placeholder €513).
+      // Superior Two-Bedroom Apartment with Balcony (entire apartment, sleeps up
+      // to 6). Real booked rate €535/2nt (~US$632). Check-in Tue Jul 28
+      // 16:00-21:00, check-out Thu Jul 30 by 10:00. Der Ulmenhof demoted to alt.
       pickName: 'Transylvania Villa & Spa (Gosau)',
       pickFreeCancellation: true,
       pickFreeCancellationUntil: '2026-07-13',
@@ -967,27 +937,29 @@ export const TRIP: TripData = {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Dachsteingosau.JPG/1280px-Dachsteingosau.JPG',
       pickReview: '9.0 · Wonderful',
       pickPrice:
-        '€535 / 2 nights (₪2,124) — full kitchen + Finnish sauna + infrared spa, free cancel until Jul 13',
+        '~US$632 / 2 nights (€535 booked rate, ₪2,124) — Superior Two-Bedroom Apartment with Balcony, full kitchen with oven, free cancel until Jul 13',
       pickWhy:
-        'BOOKED. Booking score 9.0. Full kitchen (kosher-critical), Finnish sauna + infrared spa, free private parking, key-card self check-in 16:00-21:00. Location is excellent for this leg: Hallstatt ~15 min, Vorderer Gosausee ~14 min, Krippenstein / Five Fingers / Dachstein ice cave ~36 min. Free cancel until Jul 13.',
+        'CONFIRMED. Superior Two-Bedroom Apartment with Balcony — the entire apartment, sleeps up to 6, two separate bedrooms (passes the friends-not-couple constraint). Full kitchen WITH oven (kosher-critical), balcony + patio, mountain/garden views, Finnish sauna + infrared spa, free private parking. Check-in Tue Jul 28 16:00-21:00; check-out Thu Jul 30 by 10:00. ~44 min from Salzburg Airport (SZG); note the apartment is on the 2nd floor, stairs only. Location is excellent for this leg: Hallstatt ~15 min, Vorderer Gosausee ~14 min, Krippenstein / Five Fingers / Dachstein ice cave ~36 min. Free cancel until Jul 13.',
       pickBudgetTier: 'mid-high',
       pickPlatform: 'booking',
       pickVibeTag: 'nature-view',
       pickLaundry: 'unknown',
       pickBedrooms: 2,
-      pickBeds: 'Separate bedrooms (2BR villa)',
+      pickBeds: 'Superior Two-Bedroom Apartment (separate bedrooms, sleeps up to 6)',
       pickNotableDetails: [
-        'BOOKED',
+        'CONFIRMED',
         'Booking 9.0',
-        'Full kitchen',
+        'Superior Two-Bedroom Apartment + balcony',
+        'Full kitchen with oven',
+        'Balcony + patio · mountain/garden views',
         'Finnish sauna + infrared spa',
         'Free parking',
-        'Key-card check-in 16:00-21:00',
-        'Hallstatt 15 min',
-        'Gosausee 14 min',
+        'Check-in Tue Jul 28 16:00-21:00 · out Thu Jul 30 by 10:00',
+        '~44 min from SZG · 2nd floor, stairs only',
+        'Hallstatt 15 min · Gosausee 14 min',
         'Free cancel until Jul 13',
       ],
-      pickMaxGuests: 4,
+      pickMaxGuests: 6,
       pickKitchen: 'full',
       pickBath: 'private',
       pickAc: false,
@@ -1015,33 +987,37 @@ export const TRIP: TripData = {
       // 2026-05-19 PM: Allison swapped the recommended pick to Landhaus Grünau
       // ("airport night cheaper is better just one night"). Villa Verde + Gabi
       // demoted to alts. All 3 are gold-stamped, free-cancel — pick is reversible.
-      // BOOKED 2026-06-01: Allison locked Best Western Hotel am Walserberg (Wals)
-      // as the airport night (was Landhaus Grünau placeholder €176). Real booked
-      // rate €120.15/1nt. Landhaus Grünau demoted to alt.
+      // BOOKED 2026-06-01, CONFIRMED & PAID: Allison locked Best Western Hotel
+      // am Walserberg (Wals) as the airport night (was Landhaus Grünau placeholder
+      // €176). Standard Twin Room (2 twin beds), 1 night. Real booked rate
+      // €120.15/1nt (~US$139). Check-in Thu Jul 30 from 14:00, check-out Fri
+      // Jul 31 by 11:00. Free cancellation until Jul 27. Landhaus Grünau demoted to alt.
       pickName: 'Best Western Hotel am Walserberg',
       pickFreeCancellation: true,
+      pickFreeCancellationUntil: '2026-07-27',
       pickUrl: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
       pickImg:
         'https://cf.bstatic.com/xdata/images/hotel/max1280x900/745283331.jpg?k=0c0451b607312db5f246a14b4dcaea090aa15bc122f5b3f8cfda1d777d217a15&o=&hp=1',
       pickReview: '3.9 · Tripadvisor (motorway noise reports)',
       pickPrice:
-        '€120.15 / night (₪477) — Zollstrasse 4, 5071 Wals-Siezenheim, breakfast buffet included',
+        '~US$139 / night (€120.15 booked rate, ₪477) — Standard Twin Room (2 twin beds), Wals next to Salzburg Airport, breakfast buffet included',
       pickWhy:
-        'BOOKED. Cheapest airport-night option and right for one pre-flight night: ~5 km / ~10 min to Salzburg Airport (SZG). 24-hour reception; checkout available from 06:00 — works cleanly for the 08:55 Fri LY5194 departure. Free parking, Finnish sauna/wellness + breakfast buffet. NO in-room kitchen/fridge (fine — last night, no Shabbat). Honest caveat: rating is softer (Tripadvisor 3.9, dinged for motorway noise) — pack earplugs if you sleep light. One airport night only.',
+        'CONFIRMED & PAID. Standard Twin Room (2 twin beds), 1 night — right for one pre-flight night next to Salzburg Airport (SZG), ~5 km / ~10 min away. Check-in Thu Jul 30 from 14:00; check-out Fri Jul 31 by 11:00. 24-hour reception (checkout also available early) — works cleanly for the 08:55 Fri LY5194 departure. Free parking, Finnish sauna/wellness + breakfast buffet. NO in-room kitchen/fridge (fine — last night, no Shabbat). Honest caveat: rating is softer (Tripadvisor 3.9, dinged for motorway noise) — pack earplugs if you sleep light. Free cancellation until Jul 27. One airport night only.',
       pickBudgetTier: 'standard',
       pickPlatform: 'booking',
       pickDriveToAirportMin: 10,
       pickLaundry: 'none',
       pickBedrooms: 1,
-      pickBeds: 'Standard room',
+      pickBeds: 'Standard Twin Room (2 twin beds)',
       pickNotableDetails: [
-        'BOOKED',
-        'Cheapest airport night',
-        '~5 km / ~10 min to SZG',
+        'CONFIRMED & PAID',
+        'Standard Twin Room (2 twin beds)',
+        'Next to SZG · ~5 km / ~10 min',
+        'Check-in Thu Jul 30 from 14:00 · out Fri Jul 31 by 11:00',
         '24-hour reception',
-        'Checkout from 06:00',
         'Breakfast buffet + sauna',
         'No in-room kitchen/fridge',
+        'Free cancel until Jul 27',
         '⚠ Tripadvisor 3.9 · motorway noise',
       ],
       pickMaxGuests: 2,
@@ -4316,7 +4292,6 @@ export const LODGING_COORDS: Record<string, LatLng> = {
   'master Linzergasse': { lat: 47.8049, lng: 13.0476 }, // Linzergasse, Andräviertel
   "Junker's Apartments": { lat: 47.8003, lng: 13.0289 }, // ~1.9km from old town
   Sauerweingut: { lat: 47.7972, lng: 13.0339 }, // Aigen / Nonntal direction
-  'Villa Salzburg by Welcome to Salzburg': { lat: 47.7967, lng: 13.0322 }, // Riedenburg
   'Pension Elisabeth — Rooms & Apartments': { lat: 47.8128, lng: 13.0489 }, // Schallmoos
   'Amedeo Zotti Residence Salzburg': { lat: 47.8156, lng: 13.0506 }, // Schallmoos
   'Salzburg Topside Apartments': { lat: 47.8072, lng: 13.0428 }, // Lasserstraße 19

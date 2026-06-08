@@ -43,7 +43,6 @@ const NAME_TO_POOL = {
   // Salzburg
   "Junker's Apartments": SALZBURG,
   Sauerweingut: SALZBURG,
-  'Villa Salzburg by Welcome to Salzburg': SALZBURG,
   'Pension Elisabeth — Rooms & Apartments': SALZBURG,
   'Amedeo Zotti Residence Salzburg': SALZBURG,
   // Topside is already a Wikimedia URL (fake-sig replaced), include only the second area photo
