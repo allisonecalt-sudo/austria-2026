@@ -426,8 +426,8 @@ export const TRIP: TripData = {
   // both €160/nt. Airport pick Best Western Walserberg €105→€71/nt (price DROPPED).
   // Standard pick recomputed: keep master Linzergasse (Allison hasn't unlocked it) + swap
   // mountain to Austrian Apartments. Cheapest viable scenario also surfaced in costs.html.
-  totalCostEur: 4144, // 2026-06-08: Salzburg held at a €569/2nt placeholder (2 options, not yet decided: Amedeo Zotti $628 / Master Linzergasse $657, all free-cancellation). Bottom-up all-in = ₪16,452 / €4,144 (lodging 6,837 [Salzburg placeholder 2,259 + der Sonnberg 1,977 + Transylvania 2,124 + Best Western 477] + car 1,669 + buffer 214 + acts 1,445 + food 2,580 + flights 3,337 + bag 370). NOTE: options quoted in USD; no USD→EUR rate to convert cleanly, so the €569 placeholder is kept and flagged.
-  totalCostNis: 16452, // 2026-06-08: see breakdown above. 3 of 4 bases booked; Salzburg not yet decided (€569 placeholder, 2 options).
+  totalCostEur: 4036, // 2026-06-08: first leg based on current lean Glücksmomente (€461/2nt, 1 of 3 free-cancellation options; alts Amedeo Zotti $628 / Master Linzergasse $657). Bottom-up all-in = ₪16,023 / €4,036 (lodging 6,408 [Glücksmomente 1,830 + der Sonnberg 1,977 + Transylvania 2,124 + Best Western 477] + car 1,669 + buffer 214 + acts 1,445 + food 2,580 + flights 3,337 + bag 370). Rate ₪3.97/€.
+  totalCostNis: 16023, // 2026-06-08: see breakdown above. 3 of 4 bases booked; first leg not yet locked (current lean Glücksmomente €461, 3 options).
   ceilingEur: 3275, // ₪13,000 @ ₪3.97/€1 — Allison's stated total target (NOT updated; this is the target, not the actual)
   peakMoment: {
     day: 'Tuesday Jul 28',
