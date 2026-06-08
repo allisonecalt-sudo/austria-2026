@@ -28,7 +28,6 @@
  */
 
 import { initNotesWidget } from './notes-widget.js';
-import { initChatPlanPopup } from './popup-chat-plan.js';
 import { NAV_OPENED_EVENT, NAV_CLOSED_EVENT } from './nav-coordinator.js';
 import {
   NATURE_DESTINATIONS,
@@ -41,7 +40,6 @@ import {
 import type { LatLng, MapPOI, Lodging, NatureDestination } from './trip-data.js';
 
 initNotesWidget();
-initChatPlanPopup();
 
 // 2026-06-08 reconcile: the 15 archived deep-dive pages were DELETED (site =
 // current only). POI `link` fields that pointed at those pages are repointed

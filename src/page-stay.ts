@@ -34,7 +34,6 @@ import {
 } from './trip-data.js';
 import { insertNote } from './supabase.js';
 import { initNotesWidget } from './notes-widget.js';
-import { initChatPlanPopup } from './popup-chat-plan.js';
 import { startPicksSync } from './sync-picks.js';
 
 // ---------------------------------------------------------------------------
@@ -2985,4 +2984,3 @@ function init(): void {
 
 init();
 initNotesWidget();
-initChatPlanPopup();

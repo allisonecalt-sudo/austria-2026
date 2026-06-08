@@ -1,6 +1,5 @@
 import { TRIP } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
-import { initChatPlanPopup } from './popup-chat-plan.js';
 
 // --- Static binds (used by index.html landing card; costs.html hardcodes its
 //     figures, so these no-op here but keep the homepage in sync). ---
@@ -105,4 +104,3 @@ async function initFx(): Promise<void> {
 void initFx();
 
 initNotesWidget();
-initChatPlanPopup();

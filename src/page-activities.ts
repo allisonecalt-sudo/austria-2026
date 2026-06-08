@@ -30,7 +30,6 @@
 
 import { NATURE_DESTINATIONS, type NatureDestination, type SunsetGrade } from './trip-data.js';
 import { initNotesWidget } from './notes-widget.js';
-import { initChatPlanPopup } from './popup-chat-plan.js';
 import { initSharedShortlist, pickButtonOverlay } from './shortlist-shared.js';
 
 // =====================================================================
@@ -509,5 +508,4 @@ function render(): void {
 
 render();
 initNotesWidget();
-initChatPlanPopup();
 initSharedShortlist();
