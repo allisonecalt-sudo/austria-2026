@@ -71,7 +71,7 @@ function buildModal(): HTMLDivElement {
 
 const DAY_OPTIONS: { id: string; label: string }[] = [
   { id: 'fri-jul-24', label: 'Fri Jul 24 — arrival + Shabbat' },
-  { id: 'sat-jul-25', label: 'Sat Jul 25 — Shabbat in Salzburg' },
+  { id: 'sat-jul-25', label: 'Sat Jul 25 — Shabbat (first leg)' },
   { id: 'sun-jul-26', label: 'Sun Jul 26 — move to Hallstatt + Gosausee' },
   { id: 'mon-jul-27', label: 'Mon Jul 27 — Dachstein 5fingers + Hallstatt' },
   { id: 'tue-jul-28', label: 'Tue Jul 28 — Königssee (peak day)' },

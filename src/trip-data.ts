@@ -414,11 +414,11 @@ function dirUrl(origin: string, destination: string): string {
 
 export const TRIP: TripData = {
   intro:
-    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, Salzburg-anchored for Shabbat, then an alpine-lake leg at Zell am See and a Salzkammergut-lakes leg at Gosau. Apartments with kitchens, picnics on rocks, sunsets every single night.',
+    'Friday Jul 24 — Friday Jul 31, 2026. Allison and Avital. Nature-focused, sunset-obsessed, opening with a first-leg / Shabbat stay (3 free-cancel options, current lean Glücksmomente in Bad Goisern — may not be Salzburg), then an alpine-lake leg at Zell am See and a Salzkammergut-lakes leg at Gosau. Apartments with kitchens, picnics on rocks, sunsets every single night.',
   whyThisPlan:
-    'Four bases, three moves: Salzburg for Shabbat (5 min from Chabad) → Zell am See for the alpine lake → Gosau for the Vorderer Gosausee + Hallstatt + Krippenstein day-trips → an airport apartment for the early Friday flight. Every night ends at a named sunset spot.',
+    'Four bases, three moves: first-leg / Shabbat stay (3 free-cancel options, lean Glücksmomente in Bad Goisern — may not be Salzburg) → Zell am See for the alpine lake → Gosau for the Vorderer Gosausee + Hallstatt + Krippenstein day-trips → an airport apartment for the early Friday flight. Every night ends at a named sunset spot.',
   natureAnchor:
-    'Two-anchor lakes plan: Zell am See (Pinzgau alpine lake, Schmittenhöhe + Kitzsteinhorn glacier) Sun-Tue, then Gosau (Salzkammergut, Vorderer Gosausee + Hallstatt + Dachstein-Krippenstein cluster) Tue-Thu. The Avital-counter-proposal shape (v4 May 19) — Salzburg → alpine lake → Salzkammergut lakes → airport.',
+    'Two-anchor lakes plan: Zell am See (Pinzgau alpine lake, Schmittenhöhe + Kitzsteinhorn glacier) Sun-Tue, then Gosau (Salzkammergut, Vorderer Gosausee + Hallstatt + Dachstein-Krippenstein cluster) Tue-Thu. The Avital-counter-proposal shape (v4 May 19) — first-leg/Shabbat stay → alpine lake → Salzkammergut lakes → airport.',
   // COST-SYNC 2026-05-17 (PriceVerify wave 4n): lodging prices spiked overnight on
   // Booking.com. Master Linzergasse €128→€286/nt (Salzburg pick locked-in even at higher
   // price). Villa Maxglan €178→€456/nt. Haus Edelweiss (primary mountain anchor) SOLD OUT
@@ -442,14 +442,14 @@ export const TRIP: TripData = {
       date: '2026-07-24',
       dayOfWeek: 'Friday',
       dateLabel: 'Friday Jul 24',
-      headline: 'Land Salzburg, settle in for Shabbat',
+      headline: 'Land at SZG, settle in for Shabbat',
       hero: {
         src: IMG.salzburgRiver,
         alt: 'Salzach river running through Salzburg old town beneath the Mönchsberg',
         credit: IMG_CREDIT.salzburgRiver,
       },
       generalIdea:
-        "LY5193 lands SZG 07:50 — pick up the rental car at the airport, drop bags at the apartment on Linzergasse, run to Spar for Shabbat groceries, nap. Slow afternoon walk along the Salzach. Candle-lighting 20:35 — Chabad is a 3-minute walk and they're expecting us (WhatsApp Chani in advance). The whole day is built around being settled and unwound before sundown.",
+        "LY5193 lands SZG 07:50 — pick up the rental car at the airport, drop bags at the first-leg apartment (3 free-cancel options, lean Glücksmomente in Bad Goisern — may not be Salzburg), run to a Spar for Shabbat groceries, nap. Candle-lighting 20:35. The whole day is built around being settled and unwound before sundown. If the Salzburg city option is chosen: apartment on Linzergasse, slow Salzach walk, Chabad a 3-minute walk (WhatsApp Chani in advance).",
       planB:
         'If jet lag is mild: skip the nap, slow walk into the Altstadt for coffee in a square before Shabbat prep.',
       anchors: [
@@ -479,7 +479,7 @@ export const TRIP: TripData = {
       date: '2026-07-25',
       dayOfWeek: 'Saturday',
       dateLabel: 'Saturday Jul 25',
-      headline: 'Shabbat in Salzburg — walking only',
+      headline: 'Shabbat — walking only',
       hero: {
         src: IMG.salzburgFortress,
         alt: 'Hohensalzburg fortress on the Festungsberg above the Salzburg old town',
@@ -501,7 +501,7 @@ export const TRIP: TripData = {
       },
       sleepWhere: 'salzburg',
       doingSummary:
-        'Shabbat in Salzburg (walking only) — Old Town, river, Mirabell Gardens, optional Mönchsberg climb. Havdalah 21:49.',
+        'Shabbat (walking only). If Salzburg: Old Town, river, Mirabell Gardens, optional Mönchsberg climb. Havdalah 21:49.',
     },
 
     // --- DAY 3 — Sun Jul 26 ---
