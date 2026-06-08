@@ -14136,3 +14136,28 @@ body.nav-mobile-open {
   max-width: calc(100vw - 32px);
   box-sizing: border-box;
 }
+
+/* ════════════════════════════════════════════════════════════════════
+   COSTS WIDTH UNIFY (2026-06-08) — the top stack (tldr, verdict, ₪ total,
+   people grid, footnotes) capped at 700-720px while the cost tables /
+   .cost-block sections ran full-width (~952px), so left/right edges were
+   jagged. Pin every direct content block to ONE shared width, centered,
+   so all edges line up. The narrow left-aligned .page-tldr widens to match.
+   ════════════════════════════════════════════════════════════════════ */
+.costs-page {
+  --costs-w: 860px;
+}
+.costs-page .page-tldr,
+.costs-page .verdict-bar,
+.costs-page .hero-total,
+.costs-page .people-grid,
+.costs-page .cost-block,
+.costs-page .cost-footnotes {
+  max-width: var(--costs-w);
+  margin-left: auto;
+  margin-right: auto;
+}
+/* .page-tldr was left-aligned (margin 0); center it on the shared width. */
+.costs-page .page-tldr {
+  margin-bottom: 1.6rem;
+}
