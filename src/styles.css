@@ -475,6 +475,37 @@ img {
   line-height: 1.65;
 }
 
+/* Wide-column pages (map, logistics): lead/intro blocks fill the full column
+   instead of sitting as lonely ~600px lines with a big empty right margin. */
+.page-wide .lead-block,
+.page-wide > .page-tldr {
+  max-width: 100%;
+}
+
+/* Consistent section rhythm: every top-level block on a rhythm page gets the
+   same gap below it, and no stray per-element top margins, so the page reads
+   in an even cadence (was jumping 26px → 80px with one tiny squeezed section).
+   main.page-rhythm raises specificity so it beats per-component margins
+   (.flights-section, .logistics-grid, .cross-promo). */
+main.page-rhythm > * {
+  margin-top: 0;
+  margin-bottom: 2.8rem;
+}
+@media (min-width: 720px) {
+  main.page-rhythm > * {
+    margin-bottom: 3.5rem;
+  }
+}
+/* cross-promo keeps its horizontal auto-centering; only its vertical rhythm is
+   normalized above. */
+main.page-rhythm > .cross-promo {
+  margin-left: auto;
+  margin-right: auto;
+}
+main.page-rhythm > :last-child {
+  margin-bottom: 0;
+}
+
 /* TLDR block — Avital's rule: "i wnat everything TLDR - not such a reader".
    Always the first scroll-visible block on a page. ≤50 words. Light tint,
    slight padding, anchors the fold. */
