@@ -346,3 +346,13 @@ section {
   font-size: 0.72rem;
   padding: 0.2rem 0.5rem;
 }
+
+/* Mobile: collapse the two floating pills (search bottom-left, notes fab
+ * bottom-right) to icon-only circles so they stop covering body text on
+ * phones. CSS-only — no TS touched. Desktop unchanged. */
+@media (max-width: 480px) {
+  .search-pill__label,
+  .fab > span:last-child {
+    display: none;
+  }
+}

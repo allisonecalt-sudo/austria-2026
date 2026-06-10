@@ -876,7 +876,8 @@ main.page-rhythm > :last-child {
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--green-mist);
+  /* Dark fallback so white overlay text stays readable before/without the lazy hero photo */
+  background: #25332e;
 }
 @media (min-width: 1024px) {
   .day-hero {
@@ -899,8 +900,8 @@ main.page-rhythm > :last-child {
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.32) 0%,
-    transparent 35%,
-    transparent 55%,
+    rgba(0, 0, 0, 0.28) 40%,
+    rgba(0, 0, 0, 0.38) 60%,
     rgba(0, 0, 0, 0.7) 100%
   );
   display: flex;
@@ -6614,8 +6615,14 @@ details.note-item[open] .note-summary-preview {
   .cost-section summary {
     flex-wrap: wrap;
   }
+  .cost-section summary .cost-summary-label {
+    flex: 1 1 100%;
+  }
   .cost-summary-amt {
     margin-left: auto;
+  }
+  .cost-bar-amt {
+    display: none;
   }
 }
 

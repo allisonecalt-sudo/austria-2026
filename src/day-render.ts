@@ -49,9 +49,9 @@ function renderMetaChips(day: Day): string {
   // mapped so any old data renders (fallback chain catches missing too).
   const sleepLabel: Record<string, string> = {
     salzburg: 'First leg / Shabbat — 3 options, lean Glücksmomente (Bad Goisern)',
-    'zell-am-see': 'Zell am See (Aparthotel Zell am See)',
-    gosau: 'Gosau (Der Ulmenhof)',
-    'salzburg-airport': 'Salzburg airport-side (Landhaus Grünau)',
+    'zell-am-see': 'Zell am See (der Sonnberg Alpinlodges)',
+    gosau: 'Gosau (Transylvania Villa & Spa)',
+    'salzburg-airport': 'Salzburg airport-side (Best Western am Walserberg)',
     // deprecated 2026-05-19, fallback only
     hallstatt: 'Mountain anchor (Obertraun) — archived',
     schafbergspitze: 'Berghotel Schafbergspitze — superseded',

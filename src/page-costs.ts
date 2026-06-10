@@ -20,7 +20,7 @@ ceilEls.forEach((el) => (el.textContent = `€${TRIP.ceilingEur.toLocaleString('
 // labelled "approx." hardcoded rate so the page NEVER shows NaN/blank/crash.
 
 const FALLBACK_EUR_ILS = 3.97; // matches the static ₪ figures + footer
-const FALLBACK_USD_ILS = 3.67;
+const FALLBACK_USD_ILS = 3.7; // matches the costs.html USD anchor ('USD/NIS at 3.70')
 const FETCH_TIMEOUT_MS = 6000;
 
 function fmtRate(n: number): string {

@@ -449,7 +449,7 @@ export const TRIP: TripData = {
         credit: IMG_CREDIT.salzburgRiver,
       },
       generalIdea:
-        "LY5193 lands SZG 07:50 — pick up the rental car at the airport, drop bags at the first-leg apartment (3 free-cancel options, lean Glücksmomente in Bad Goisern — may not be Salzburg), run to a Spar for Shabbat groceries, nap. Candle-lighting 20:35. The whole day is built around being settled and unwound before sundown. If the Salzburg city option is chosen: apartment on Linzergasse, slow Salzach walk, Chabad a 3-minute walk (WhatsApp Chani in advance).",
+        'LY5193 lands SZG 07:50 — pick up the rental car at the airport, drop bags at the first-leg apartment (3 free-cancel options, lean Glücksmomente in Bad Goisern — may not be Salzburg), run to a Spar for Shabbat groceries, nap. Candle-lighting 20:35. The whole day is built around being settled and unwound before sundown. If the Salzburg city option is chosen: apartment on Linzergasse, slow Salzach walk, Chabad a 3-minute walk (WhatsApp Chani in advance).',
       planB:
         'If jet lag is mild: skip the nap, slow walk into the Altstadt for coffee in a square before Shabbat prep.',
       anchors: [
