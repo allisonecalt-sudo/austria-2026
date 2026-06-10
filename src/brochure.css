@@ -221,88 +221,118 @@ a {
 }
 
 /* ===========================================================================
-   2. AT A GLANCE — map + base strip
+   2. AT A GLANCE — the ROUTE RIBBON (DELTA 1: replaces the Leaflet map)
+   A drawn route graphic — pure CSS, no tiles. Bases as nodes in trip order,
+   vertical on mobile, drive legs labelled between them, gold for the open base.
    ========================================================================== */
-.glance__map {
-  width: 100%;
-  height: 320px;
-  border-radius: var(--radius);
+.glance__ribbon {
+  margin-top: 6px;
+}
+
+.route {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 0;
+}
+
+/* --- a node (a base) --- */
+.route__node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--card);
   border: 1px solid var(--line);
+  border-radius: 14px;
   box-shadow: var(--shadow);
-  overflow: hidden;
-  background: var(--accent-soft);
 }
 
-.glance__map .leaflet-container {
-  height: 100%;
-  width: 100%;
-  font-family: var(--sans);
-  background: #eef1ec;
-}
-
-.glance__pin {
+.route__dot {
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: var(--accent);
   color: #fff;
+  font-family: var(--serif);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
   border: 2px solid #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 6px rgba(32, 33, 31, 0.18);
 }
 
-.glance__pin--open {
+.route__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.route__place {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.route__sub {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.route__nights {
+  justify-self: end;
+  text-align: right;
+  white-space: nowrap;
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+/* open base = gold accent */
+.route__node--open {
+  border-color: var(--gold);
+  background: #fdf8ee;
+}
+
+.route__node--open .route__dot {
   background: var(--gold);
 }
 
-.glance__strip {
-  list-style: none;
-  margin: 18px 0 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
-}
-
-.glance__leg {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 12px 14px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-.glance__leg-num {
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 18px;
-  color: var(--accent);
-  min-width: 22px;
-}
-
-.glance__leg-name {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.glance__leg-town {
-  color: var(--ink-soft);
-  font-size: 13px;
-}
-
-.glance__leg-nights {
-  margin-left: auto;
-  white-space: nowrap;
-  font-size: 13px;
-  color: var(--ink-faint);
-}
-
-.glance__leg--open .glance__leg-num {
+.route__node--open .route__nights {
   color: var(--gold);
+}
+
+/* --- a drive leg between two nodes --- */
+.route__leg {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+}
+
+.route__leg-rail {
+  justify-self: center;
+  width: 2px;
+  height: 26px;
+  margin-left: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--line) 0 5px,
+    transparent 5px 10px
+  );
+}
+
+.route__leg-time {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 /* ===========================================================================
@@ -461,6 +491,191 @@ details.block[open] .block__chevron {
   line-height: 1.6;
 }
 
+.block__text {
+  margin: 0 0 8px;
+}
+
+.block__detail .block__text:last-child {
+  margin-bottom: 0;
+}
+
+/* drive time on a stop line (DELTA 4) */
+.block__drive {
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+
+/* ---------- place links: 📍 Navigate + ↗ Website (DELTA 2) ---------- */
+.lnks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.lnk {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.lnk--map {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+.lnk--web {
+  color: var(--gold);
+  background: #fbf2e0;
+  border-color: transparent;
+}
+
+.lnk:hover,
+.lnk:focus-visible {
+  filter: brightness(0.96);
+  text-decoration: none;
+}
+
+/* ===========================================================================
+   3b. DAY-SHAPE OPTIONS (DELTA 3) — fully-formed pickable mini-plans
+   ========================================================================== */
+.shapes {
+  margin-top: 16px;
+  border-top: 1px dashed var(--line);
+  padding-top: 14px;
+}
+
+.shapes__lead {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0 0 10px;
+}
+
+details.shape {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+details.shape[open] {
+  border-color: var(--accent);
+}
+
+details.shape > summary {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'name chev' 'sum chev';
+  gap: 0 10px;
+  align-items: center;
+  padding: 12px 14px;
+  cursor: pointer;
+  list-style: none;
+}
+
+details.shape > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.shape > summary:hover {
+  background: var(--accent-soft);
+}
+
+.shape__name {
+  grid-area: name;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.shape__summary {
+  grid-area: sum;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+details.shape > summary .block__chevron {
+  grid-area: chev;
+  align-self: center;
+}
+
+.shape__stops {
+  list-style: none;
+  margin: 0;
+  padding: 2px 14px 14px;
+  counter-reset: none;
+}
+
+.shape__stop {
+  display: grid;
+  grid-template-columns: 78px 1fr;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.shape__when {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink-faint);
+  padding-top: 2px;
+}
+
+.shape__stopbody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.shape__place {
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.shape__divider {
+  color: var(--ink-faint);
+}
+
+.shape__drive {
+  color: var(--gold);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.shape__line {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+.shape__detail {
+  margin-top: 8px;
+}
+
+.shape__text {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+
 /* ===========================================================================
    4. WHERE WE SLEEP — base cards
    ========================================================================== */
@@ -550,6 +765,36 @@ details.block[open] .block__chevron {
   color: var(--ink-faint);
   margin-top: 10px;
   font-weight: 500;
+}
+
+/* lodging detail expander (holds blurb + 📍/↗ links — DELTA 2) */
+.bed-card__more {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.bed-card__more > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.bed-card__more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.bed-card__detail {
+  padding-top: 10px;
+}
+
+.bed-card__more[open] .block__chevron {
+  transform: rotate(180deg);
 }
 
 /* ===========================================================================
@@ -664,6 +909,57 @@ details.practical-item > summary:hover {
   line-height: 1.62;
 }
 
+/* ---------- On-trip kit (DELTA 2): every place, grouped by base ---------- */
+.kit__lead {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.kit__group + .kit__group {
+  margin-top: 14px;
+}
+
+.kit__base {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold);
+  margin: 0 0 6px;
+}
+
+.kit__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.kit__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+
+.kit__place {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.kit__row .lnks {
+  margin-top: 0;
+}
+
 /* costs — one headline number, no dashboard */
 .costs {
   margin-top: 22px;
@@ -762,11 +1058,9 @@ details.practical-item > summary:hover {
   .section {
     padding-top: 72px;
   }
-  .glance__map {
-    height: 380px;
-  }
-  .glance__strip {
-    grid-template-columns: repeat(2, 1fr);
+  .route {
+    max-width: 560px;
+    margin: 0 auto;
   }
   .beds {
     grid-template-columns: repeat(2, 1fr);
