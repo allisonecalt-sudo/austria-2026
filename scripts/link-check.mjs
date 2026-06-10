@@ -20,9 +20,19 @@ const NET = process.argv.includes('--net');
 
 const src = readFileSync(join(ROOT, 'src', 'trip.ts'), 'utf8');
 
-// Pull every http(s) URL literal out of the data module.
+// Pull every http(s) URL literal out of the data module (photos + website: links).
 const urls = [...src.matchAll(/https?:\/\/[^\s'"`)]+/g)].map((m) => m[0]);
-const unique = [...new Set(urls)];
+
+// ALSO build the Google Maps "Navigate" URLs from every `query:` field — these
+// are generated at runtime by mapsUrl(), so they aren't literals in the source,
+// but they ARE the 📍 Navigate links shown on the trip (DELTA 2). Include them
+// so --net live-validates the Navigate URLs too (Google Maps search URLs 200).
+const queries = [...src.matchAll(/query:\s*'([^']+)'/g)].map((m) => m[1]);
+const mapsUrls = queries.map(
+  (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,
+);
+
+const unique = [...new Set([...urls, ...mapsUrls])];
 
 if (unique.length === 0) {
   console.error('✗ link-check: found NO urls in src/trip.ts — that is suspicious.');
