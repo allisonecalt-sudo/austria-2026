@@ -1,18 +1,41 @@
-# Austria 2026 — Allison & Avital, July 24-31
+# Austria 2026 — Allison + Avital, July 24–31
 
-A live pitch website for the Salzburg-based road trip. Two contrasting itineraries (Option A: one base, day trips / Option B: 2 moving anchors), Shabbat plan, cost breakdown, and a note-feedback channel for Avital backed by Supabase.
+A high-end **digital brochure** for the Austria trip (Fri Jul 24 – Fri Jul 31, 2026) —
+one guided page: cover → trip at a glance (route map) → day by day → where we sleep →
+open decisions + practical. Plus a floating notes channel for Avital backed by Supabase.
+
+> **2026-06-10 scratch rebuild.** The site was rebuilt from scratch as a single-page
+> brochure per `projects/travel-system/trip-site-rebuild-2026-06-10.md`. The previous
+> multi-page site (itinerary/stay/logistics/costs/activities/notes/map) lives on branch
+> `archive/pre-rebuild-2026-06-10` — pullable, nothing deleted.
 
 ## Why this exists
 
-Built so Allison can send Avital one link instead of a wall of text. Avital can leave notes anywhere on the site; the notes land in `austria_notes` (Supabase, budget-2026 project) and Claude reads them in future sessions to iterate.
+Built so Allison can send Avital one link instead of a wall of text — and so she can scan
+the whole trip top-to-bottom, clicking in only when she wants depth. Avital can leave notes
+via the 💬 button; the notes land in `austria_notes` (Supabase, budget-2026 project) and
+Claude reads them in future sessions to iterate.
+
+## Architecture
+
+- **`src/trip.ts`** — the single source of truth. Every fact (dates, bases, days, costs,
+  the open decision) renders from here. Zero hardcoded facts in HTML.
+- **`src/main.ts`** — the renderer (builds all five blocks from `trip.ts`).
+- **`src/map.ts`** — one lightweight Leaflet/OSM map, base pins only.
+- **`src/notes.ts`** — the floating notes widget (reuses `src/supabase.ts`).
+- **`src/brochure.css`** — the whole visual system (light-mode editorial brochure).
+
+Privacy: the public site never carries confirmation numbers / PINs / payment details.
+Those live only in the private bookings file. `scripts/privacy-check.mjs` fails the build
+if they leak; `scripts/link-check.mjs` verifies every photo URL resolves.
 
 ## Stack
 
 - Vite + TypeScript (strict, no `any`)
 - ESLint + Prettier
 - Separate HTML / CSS / TS files (no monolith)
-- Supabase REST for note insert + admin list
-- GitHub Pages deploy via GitHub Actions
+- Supabase REST for note insert
+- GitHub Pages deploy via GitHub Actions (lint + privacy + link checks before build)
 
 ## Live URL
 
