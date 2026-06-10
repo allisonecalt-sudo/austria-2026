@@ -24,7 +24,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
       - run: npm ci
+      # lint also runs the privacy grep + photo-URL shape check (see package.json)
       - run: npm run lint
+      # live photo/dead-link resolve check — fails CI if a Wikimedia/Unsplash URL rotted
+      - run: npm run check:links:net
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
