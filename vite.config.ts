@@ -37,23 +37,11 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: 'dist',
     rollupOptions: {
+      // 2026-06-10 SCRATCH REBUILD: the brochure is ONE page. The old multi-
+      // page site (itinerary/stay/logistics/costs/activities/notes/map .html)
+      // lives on branch archive/pre-rebuild-2026-06-10 — pullable, nothing lost.
       input: {
-        // --- Canonical top-level pages (in the 4-item nav) ---
-        // 2026-06-08 structure simplification: nav cut 6->4
-        // (Trip · Stay · Logistics · Costs). Explore (activities) + the map
-        // stay as off-nav pages reachable via in-page links; the five
-        // logistics deep-dives (rental-car, packing, pre-trip, cafes,
-        // driving-austria) were folded into logistics.html as collapsibles
-        // and their standalone files deleted.
         main: resolve(__dirname, 'index.html'),
-        itinerary: resolve(__dirname, 'itinerary.html'),
-        stay: resolve(__dirname, 'stay.html'),
-        logistics: resolve(__dirname, 'logistics.html'),
-        costs: resolve(__dirname, 'costs.html'),
-        // --- Off-nav pages (reachable from in-page links, not the top nav) ---
-        activities: resolve(__dirname, 'activities.html'),
-        notes: resolve(__dirname, 'notes.html'),
-        map: resolve(__dirname, 'map.html'),
       },
     },
   },

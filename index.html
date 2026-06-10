@@ -7,347 +7,43 @@
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
     />
-    <title>Austria 2026 — Allison & Avital · Jul 24-31</title>
+    <title>Austria 2026 — Allison + Avital · Jul 24–31</title>
     <meta
       name="description"
-      content="A week by the lakes — Salzkammergut, Zell am See, and the first-leg / Shabbat stay (lean Bad Goisern). Fri Jul 24 → Fri Jul 31 (7 nights). Built for Avital — Shabbat by the lakes, alpine lake at Zell, Gosausee at Gosau, every night ending in gold."
+      content="A high-end itinerary brochure for the Austria trip — lakes, peaks, and a sunset every night. Fri Jul 24 – Fri Jul 31, 2026. Allison + Avital."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/src/styles.css" />
-    <link rel="stylesheet" href="/src/sleek.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="/src/brochure.css" />
   </head>
-  <body data-option="general">
-    <a href="#main" class="skip-link">Skip to main content</a>
-    <header class="site-header">
-      <nav class="nav nav--overlay" id="top-nav" aria-label="Primary">
-        <div class="nav-inner">
-          <a href="./" class="nav-brand">Austria · 24-31 Jul</a>
-          <div class="nav-links">
-            <a href="itinerary.html">Trip</a>
-            <a href="stay.html">Stay</a>
-            <a href="logistics.html">Logistics</a>
-            <a href="costs.html">Costs</a>
-          </div>
-          <button
-            class="nav-hamburger"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="nav-mobile"
-          >
-            ☰
-          </button>
-        </div>
-        <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
-          <div
-            class="nav-mobile-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site navigation"
-          >
-            <div class="nav-mobile-header">
-              <span class="nav-mobile-header__title">Austria · 24-31 Jul</span>
-              <button class="nav-mobile-close" type="button" aria-label="Close menu">✕</button>
-            </div>
-            <a href="itinerary.html"
-              ><span>Trip</span
-              ><span class="nav-mobile-section__desc"
-                >The seven days, plus bases, Shabbat & deep dives.</span
-              ></a
-            >
-            <a href="stay.html"
-              ><span>Stay</span
-              ><span class="nav-mobile-section__desc"
-                >Where you sleep at each of the 4 bases.</span
-              ></a
-            >
-            <a href="logistics.html"
-              ><span>Logistics</span
-              ><span class="nav-mobile-section__desc"
-                >Flights, car, packing, kosher, pre-trip.</span
-              ></a
-            >
-            <a href="costs.html"
-              ><span>Costs</span
-              ><span class="nav-mobile-section__desc"
-                >Per-person totals + breakdown by bucket.</span
-              ></a
-            >
-          </div>
-        </div>
-        <script>
-          // Nav-coordination dropdown + mobile toggle (inline, no build step).
-          // Owned by Nav Coordination Specialist 2026-05-17.
-          (function () {
-            var nav = document.currentScript.closest('nav.nav');
-            if (!nav) return;
-            var groups = nav.querySelectorAll('.nav-group');
-            function closeAll(except) {
-              groups.forEach(function (g) {
-                var btn = g.querySelector('.nav-group__btn');
-                if (btn && btn !== except) btn.setAttribute('aria-expanded', 'false');
-              });
-            }
-            groups.forEach(function (g) {
-              var btn = g.querySelector('.nav-group__btn');
-              if (!btn) return;
-              btn.addEventListener('click', function (e) {
-                e.stopPropagation();
-                var open = btn.getAttribute('aria-expanded') === 'true';
-                closeAll(btn);
-                btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-              });
-              btn.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowDown') {
-                  e.preventDefault();
-                  closeAll(btn);
-                  btn.setAttribute('aria-expanded', 'true');
-                  var first = g.querySelector('.nav-dropdown a');
-                  if (first) first.focus();
-                } else if (e.key === 'Escape') {
-                  btn.setAttribute('aria-expanded', 'false');
-                }
-              });
-            });
-            document.addEventListener('click', function (e) {
-              if (!nav.contains(e.target)) closeAll(null);
-            });
-            document.addEventListener('keydown', function (e) {
-              if (e.key === 'Escape') closeAll(null);
-            });
+  <body>
+    <!-- Thin 5-anchor nav — no dropdowns, no hamburger (spec section B). -->
+    <nav class="brochure-nav" aria-label="Sections">
+      <a href="#cover">Top</a>
+      <a href="#glance">Glance</a>
+      <a href="#days">Days</a>
+      <a href="#sleep">Sleep</a>
+      <a href="#practical">Notes</a>
+    </nav>
 
-            // Mobile slide-over
-            var hamburger = nav.querySelector('.nav-hamburger');
-            var mobile = nav.querySelector('.nav-mobile');
-            var closeBtn = mobile ? mobile.querySelector('.nav-mobile-close') : null;
-            if (hamburger && mobile) {
-              function openMobile() {
-                mobile.classList.add('is-open');
-                mobile.setAttribute('aria-hidden', 'false');
-                document.body.classList.add('nav-mobile-open');
-                hamburger.setAttribute('aria-expanded', 'true');
-                if (closeBtn) closeBtn.focus();
-              }
-              function closeMobile() {
-                mobile.classList.remove('is-open');
-                mobile.setAttribute('aria-hidden', 'true');
-                document.body.classList.remove('nav-mobile-open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                hamburger.focus();
-              }
-              hamburger.addEventListener('click', openMobile);
-              if (closeBtn) closeBtn.addEventListener('click', closeMobile);
-              mobile.addEventListener('click', function (e) {
-                if (e.target === mobile) closeMobile();
-              });
-              document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape' && mobile.classList.contains('is-open')) closeMobile();
-              });
-            }
-          })();
-        </script>
-      </nav>
-    </header>
+    <!-- Everything below is rendered from src/trip.ts by main.ts.
+         Zero hardcoded facts here (spec rule A7). -->
+    <main id="brochure"></main>
 
-    <main id="main" class="pitch">
-      <!-- MOMENT 1 — HERO -->
-      <section class="moment moment--hero" id="m-hero">
-        <img
-          class="moment-img"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg/1920px-Boathouses_in_Hallstatt%2C_Austria_-_2017jpg.jpg"
-          alt="Boathouses along the Hallstatt lakefront at golden hour, painted houses going amber"
-          fetchpriority="high"
-        />
-        <div class="moment-veil moment-veil--bottom"></div>
-        <div class="moment-body moment-body--bottom">
-          <span class="moment-eyebrow">Austria · Jul 24 – 31, 2026</span>
-          <h1 class="moment-title">
-            Lakes for the week.<br />Shabbat by the lakes.<br />Sunsets every night.
-          </h1>
-          <p class="moment-tldr">
-            Shabbat by the lakes <span class="moment-tldr__arrow">→</span> Zell am See 2 nights
-            <span class="moment-tldr__arrow">→</span> Gosau 2 nights
-            <span class="moment-tldr__arrow">→</span> airport sleep
-            <span class="moment-tldr__arrow">→</span> home.
-          </p>
-          <p class="moment-line">
-            Allison and Avital. Seven nights. Four bases. Apartments with kitchens at the trip
-            bases, sunsets on the lake.
-          </p>
-          <a href="#m-bases" class="moment-cue">the four bases <span aria-hidden="true">↓</span></a>
-        </div>
-      </section>
-
-      <!-- MOMENT 2 — FOUR BASES STRIP -->
-      <!-- v4 RESTRUCTURE 2026-05-19: replaced the old Schafberg/Krippenstein-
-           summit 4-base shape with the Avital counter-proposal final shape:
-           Salzburg(2N) → Zell am See(2N) → Gosau(2N) → SZG airport(1N). The
-           summit-overnight slot dropped entirely; Krippenstein cable car
-           stays as a day-trip from Gosau. -->
-      <section class="moment moment--bases" id="m-bases">
-        <div class="bases-inner">
-          <span class="moment-eyebrow moment-eyebrow--dark"
-            >Avital's plan · 4 bases · 7 nights</span
-          >
-          <h2 class="bases-title">Where you sleep each night</h2>
-          <p class="bases-sub">
-            Avital proposed this 4-base shape Sun May 17. Apartments at every base. Three moves
-            across the week — geography does the work, your bags do the rest.
-          </p>
-          <div class="bases-strip">
-            <a href="stay.html#salzburg-picks" class="bstrip-card bstrip-card--salzburg">
-              <div class="bstrip-card__topbar"></div>
-              <div class="bstrip-card__body">
-                <div class="bstrip-card__num">1</div>
-                <div class="bstrip-card__name">First leg · Shabbat</div>
-                <div class="bstrip-card__nights">Fri-Sun · 2 nights · Shabbat</div>
-                <div class="bstrip-card__vibe">
-                  3 free-cancel options, lean Glücksmomente (Bad Goisern). Not yet locked — may not
-                  be Salzburg.
-                </div>
-                <div class="bstrip-card__drive">→ 1 h 20 m to Zell am See</div>
-              </div>
-            </a>
-            <a
-              href="stay.html#zell-picks"
-              class="bstrip-card bstrip-card--zell-am-see bstrip-card--star"
-            >
-              <div class="bstrip-card__topbar"></div>
-              <div class="bstrip-card__body">
-                <div class="bstrip-card__num">2</div>
-                <div class="bstrip-card__name">Zell am See</div>
-                <div class="bstrip-card__nights">Sun-Tue · 2 nights · alpine</div>
-                <div class="bstrip-card__vibe">
-                  Avital's pick — alpine lake, panoramic peaks, Kitzsteinhorn glacier 25 min south.
-                </div>
-                <div class="bstrip-card__drive">→ 1 h 45 m to Salzkammergut</div>
-              </div>
-            </a>
-            <a
-              href="stay.html#salzkammergut-picks"
-              class="bstrip-card bstrip-card--gosau bstrip-card--star"
-            >
-              <div class="bstrip-card__topbar"></div>
-              <div class="bstrip-card__body">
-                <div class="bstrip-card__num">3</div>
-                <div class="bstrip-card__name">Salzkammergut lakes</div>
-                <div class="bstrip-card__nights">Tue-Thu · 2 nights · lake-mirror</div>
-                <div class="bstrip-card__vibe">
-                  Gosau base — Transylvania Villa &amp; Spa (booked), with the Vorderer Gosausee
-                  (Dachstein mirror lake) out the door.
-                </div>
-                <div class="bstrip-card__drive">→ 1 h 20 m to airport</div>
-              </div>
-            </a>
-            <a href="stay.html#airport-picks" class="bstrip-card bstrip-card--airport">
-              <div class="bstrip-card__topbar"></div>
-              <div class="bstrip-card__body">
-                <div class="bstrip-card__num">4</div>
-                <div class="bstrip-card__name">Salzburg Airport</div>
-                <div class="bstrip-card__nights">Thu-Fri · 1 night · pre-flight</div>
-                <div class="bstrip-card__vibe">
-                  Avital's logistics — return car Thursday night, no morning scramble.
-                </div>
-                <div class="bstrip-card__drive">→ 5 m to SZG terminal Fri 6:30 am</div>
-              </div>
-            </a>
-          </div>
-          <p class="bases-helper">
-            Tap any card for sleeping options at that base. Or
-            <a href="activities.html">see what to do FROM each base →</a>
-          </p>
-        </div>
-        <a href="#m-costs" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
-      </section>
-
-      <!-- COSTS HEADLINE (2026-06-08 landing trim): the full-screen peak /
-           summit / sleep / shabbat lyric panels were cut — those facts live on
-           the Trip page (peak moment + day cards), Stay, and Logistics. The
-           map-preview moment was cut too (it duplicated the 4-base shape above;
-           the live map is one tap away on the Map page). What's left is a calm
-           landing: hero → 4 bases → cost headline → the 7 days → the menu. -->
-      <section class="moment moment--costs" id="m-costs">
-        <div class="costs-headline-inner">
-          <span class="moment-eyebrow moment-eyebrow--dark">What it costs</span>
-          <h2 class="costs-headline-title">
-            ≈ ₪<span data-bind="total-nis"></span> all-in · €<span data-bind="total-eur"></span>
-          </h2>
-          <p class="costs-headline-sub">
-            7 nights · 2 people · split fairly. Three of four bases booked; the first leg (Shabbat)
-            has 3 free-cancellation options, current lean Glücksmomente.
-          </p>
-          <a href="costs.html" class="moment-cta moment-cta--centered">See the full breakdown →</a>
-        </div>
-        <a href="#m-days" class="moment-cue moment-cue--floating" aria-label="Next moment">↓</a>
-      </section>
-
-      <!-- MOMENT 6 — THE 7 DAYS AT A GLANCE -->
-      <section class="moment moment--days" id="m-days">
-        <div class="days-inner">
-          <span class="moment-eyebrow moment-eyebrow--dark">The arc</span>
-          <h2 class="days-title">Seven days. Swipe through.</h2>
-          <p class="days-sub">One headline per day. Tap any card for the full plan.</p>
-          <div class="day-strip-wrap">
-            <div class="day-strip" id="day-strip"></div>
-          </div>
-          <p class="day-strip-helper">← swipe → · tap any day</p>
-          <a href="itinerary.html" class="moment-cta moment-cta--centered">See the 7 days →</a>
-        </div>
-      </section>
-
-      <!-- MOMENT 7 — CTA -->
-      <section class="moment moment--cta" id="m-cta">
-        <div class="cta-inner">
-          <h2 class="cta-title">The menu.</h2>
-          <!-- 2026-06-08 trim: grid mirrors the 4-item nav (Trip · Stay ·
-               Logistics · Costs). Explore + Notes left the top nav — Explore's
-               picks live in the day cards, Notes is the floating widget. -->
-          <p class="cta-sub">Four pages. The scroll above is the story; this is where to land.</p>
-          <div class="cta-grid">
-            <a href="itinerary.html" class="cta-card">
-              <span class="cta-card-num">01</span>
-              <span class="cta-card-h">Trip</span>
-              <span class="cta-card-p"
-                >The seven days, the bases, Shabbat &amp; Jewish Salzburg.</span
-              >
-            </a>
-            <a href="stay.html" class="cta-card">
-              <span class="cta-card-num">02</span>
-              <span class="cta-card-h">Stay</span>
-              <span class="cta-card-p">Where you sleep at each of the 4 bases.</span>
-            </a>
-            <a href="logistics.html" class="cta-card">
-              <span class="cta-card-num">03</span>
-              <span class="cta-card-h">Logistics</span>
-              <span class="cta-card-p">Flights, car, packing, kosher, pre-trip checklist.</span>
-            </a>
-            <a href="costs.html" class="cta-card">
-              <span class="cta-card-num">04</span>
-              <span class="cta-card-h">Costs</span>
-              <span class="cta-card-p"
-                >€<span data-bind="total-eur"></span> · ₪<span data-bind="total-nis"></span>
-                projected</span
-              >
-            </a>
-          </div>
-          <p class="cta-foot">Built for Avital · 4 bases: first leg + Zell + Gosau + airport.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer" role="contentinfo">
-      <p>
-        Built for Avital · v8 (2026-05-21 cleanup) · Photos: Wikimedia Commons (CC BY-SA) +
-        Booking.com listings · Sunset times: timeanddate.com
-      </p>
+    <footer class="brochure-footer">
+      <p>Earlier version archived — nothing deleted.</p>
     </footer>
 
-    <script type="module" src="/src/page-landing.ts"></script>
-    <script type="module" src="/src/page-search.ts"></script>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
