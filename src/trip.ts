@@ -275,7 +275,7 @@ export const TRIP: TripData = {
         'The alpine-lake half of the week. Two-bedroom apartment up the hill above town, lake-and-mountain view, private sauna and balcony. Kitchenette (no oven — matters for kosher cooking). Self check-in.',
       photo: P.zellAmSee,
       ribbonLabel: 'Zell am See',
-      legFromPrev: '~1h20',
+      legFromPrev: '~1h45',
       links: {
         query: 'der Sonnberg Alpinlodges Zell am See',
         website: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
@@ -311,7 +311,7 @@ export const TRIP: TripData = {
         'The one pre-flight night, ~10 minutes from Salzburg airport for the early Friday departure. Standard twin room, sauna + breakfast, no in-room kitchen (fine — last night, no Shabbat). Pack earplugs; it’s near a motorway.',
       photo: P.salzburgFortress,
       ribbonLabel: 'Airport side',
-      legFromPrev: '~1h20',
+      legFromPrev: '~1h',
       links: {
         query: 'Best Western Hotel am Walserberg Wals Salzburg',
         website: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
@@ -432,7 +432,7 @@ export const TRIP: TripData = {
             {
               when: 'Morning',
               place: 'Kitzsteinhorn glacier, Kaprun',
-              drive: '25 min from base',
+              drive: '~15 min from base',
               line: 'Gondola up to the Gipfelwelt 3.000 — snow, ice arena, 360° Hohe Tauern view',
               detail: 'Drive to Kaprun, ride the glacier gondola to 3,029 m. Cold even in July — bring layers. The Top of Salzburg platform + ice tunnel are the highlights. Easy: it is almost all lift, very little walking.',
               links: { query: 'Kitzsteinhorn Kaprun glacier', website: 'https://www.kitzsteinhorn.at/en/summer/kitzsteinhorn' },
@@ -523,7 +523,7 @@ export const TRIP: TripData = {
       dateLabel: 'Tue Jul 28',
       dayOfWeek: 'Tuesday',
       title: 'Move to Gosau — the Vorderer Gosausee mirror lake',
-      logistics: 'Move day · ~1h45 drive (~100 km, via Bad Ischl)',
+      logistics: 'Move day · ~1h25 drive (~100 km, via Bad Ischl)',
       photo: P.gosausee,
       tldr: 'Pack out, drive northeast to Gosau with a Bad Ischl coffee stop. Check in at Transylvania Villa & Spa (2 nights, full kitchen). Walk to the Vorderer Gosausee — Dachstein mirrored in the water — for a lakeside picnic and sunset. The trip’s “we’re really here” moment.',
       blocks: [
@@ -684,9 +684,9 @@ export const TRIP: TripData = {
         {
           icon: 'activity',
           line: 'Open afternoon — Mönchsberg sunset or the ice cave',
-          driveFromBase: '~10–45 min from base',
+          driveFromBase: '~20–45 min from base',
           detail:
-            'Lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof (~10 min) / Eisriesenwelt ice cave at Werfen (~45 min — world’s largest, 75-min underground tour — book the night before, July sells out).',
+            'Lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof (~20 min) / Eisriesenwelt ice cave at Werfen (~45 min — world’s largest, 75-min underground tour — book the night before, July sells out).',
           place: {
             name: 'Eisriesenwelt ice cave, Werfen',
             links: { query: 'Eisriesenwelt Werfen ice cave', website: 'https://www.eisriesenwelt.at/en/' },
