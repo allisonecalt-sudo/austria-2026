@@ -84,19 +84,33 @@ async function probe(u) {
   return 429;
 }
 
+// HTTP 4xx/5xx = the page is GONE or broken → fatal (a dead link on the site).
+// Network-level failures (DNS, TLS, connection refused/reset) usually mean the
+// host blocks CI/cloud IPs (gosausee.com does) — retry once, then WARN only.
 const dead = [];
+const unreachable = [];
 for (const u of unique) {
   try {
     const bad = await probe(u);
     if (bad !== null) dead.push(`${bad}  ${u}`);
-  } catch (err) {
-    dead.push(`ERR (${err.message})  ${u}`);
+  } catch {
+    await sleep(1500);
+    try {
+      const bad = await probe(u);
+      if (bad !== null) dead.push(`${bad}  ${u}`);
+    } catch (err) {
+      unreachable.push(`ERR (${err.message})  ${u}`);
+    }
   }
 }
 
+if (unreachable.length > 0) {
+  console.warn('\n⚠ link-check: unreachable from this network (NOT failing the build — likely CI-IP blocking; verify manually):');
+  unreachable.forEach((d) => console.warn('   ' + d));
+}
 if (dead.length > 0) {
-  console.error('\n✗ link-check: dead / unreachable urls:');
+  console.error('\n✗ link-check: dead urls (HTTP error):');
   dead.forEach((d) => console.error('   ' + d));
   process.exit(1);
 }
-console.log(`✓ link-check: all ${unique.length} urls resolve`);
+console.log(`✓ link-check: ${unique.length - unreachable.length}/${unique.length} urls resolve${unreachable.length ? ` (${unreachable.length} unreachable, warned)` : ''}`);
