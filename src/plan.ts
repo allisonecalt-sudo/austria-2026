@@ -8,7 +8,7 @@
 // Data: src/plan-data.ts (single source of truth). Notes: austria_notes.
 // ===========================================================================
 
-import { ACTIVITIES, BUILD_STAMP, DAYS, byId, type Activity } from './plan-data.js';
+import { ACTIVITIES, BUILD_STAMP, DAYS, SITES, byId, type Activity } from './plan-data.js';
 import { insertNote } from './supabase.js';
 import { mountNotes } from './notes.js';
 
@@ -69,6 +69,16 @@ function actCard(a: Activity): HTMLElement {
   (nav as HTMLAnchorElement).rel = 'noopener';
   nav.addEventListener('click', (e) => e.stopPropagation());
   row.appendChild(nav);
+
+  const siteUrl = SITES[a.id];
+  if (siteUrl) {
+    const site = el('a', 'btn', '↗ Website');
+    (site as HTMLAnchorElement).href = siteUrl;
+    (site as HTMLAnchorElement).target = '_blank';
+    (site as HTMLAnchorElement).rel = 'noopener';
+    site.addEventListener('click', (e) => e.stopPropagation());
+    row.appendChild(site);
+  }
 
   const note = el('button', 'btn', '💬 Note this');
   note.addEventListener('click', (e) => {

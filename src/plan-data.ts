@@ -481,6 +481,43 @@ export const ACTIVITIES: Activity[] = [
 
 export const byId = new Map(ACTIVITIES.map((a) => [a.id, a]));
 
+// Official / best-explainer website per activity (her ask Jul 17: each ranked
+// item links out to a page that explains and shows the place). Domain-level
+// where a deep link could rot; all render as "↗ Website" on plan + rank.
+export const SITES: Record<string, string> = {
+  mauthausen: 'https://www.mauthausen-memorial.org/en',
+  ebensee: 'https://www.memorial-ebensee.at',
+  'salzburg-jewish-walk': 'https://www.stolpersteine-salzburg.at/en/the_project/',
+  'jewish-ischl': 'https://www.salzkammergut-2024.at/en/projekte/pins-of-remembrance-remembrance-culture-bad-ischl/',
+  'krimml-apc': 'https://www.krimmler-wasserfaelle.at',
+  kitzsteinhorn: 'https://www.kitzsteinhorn.at/en',
+  schmittenhoehe: 'https://www.schmitten.at/en',
+  mooserboden: 'https://www.zellamsee-kaprun.com/en',
+  'zell-cruise': 'https://www.schmitten.at/en',
+  'strandbad-zell': 'https://www.zellamsee-kaprun.com/en',
+  'sigmund-thun': 'https://www.zellamsee-kaprun.com/en',
+  baumzipfelweg: 'https://www.saalbach.com/en',
+  grossglockner: 'https://www.grossglockner.at/en',
+  gosausee: 'https://www.salzkammergut.at/en',
+  gosaukammbahn: 'https://www.salzkammergut.at/en',
+  krippenstein: 'https://dachstein-salzkammergut.com/en/',
+  hallstatt: 'https://www.hallstatt.net',
+  langbathsee: 'https://www.salzkammergut.at/en',
+  almsee: 'https://www.salzkammergut.at/en',
+  schafberg: 'https://www.schafbergbahn.at/en',
+  katrin: 'https://www.katrinseilbahn.com',
+  koenigssee: 'https://www.seenschifffahrt.de/en/koenigssee/',
+  rossfeld: 'https://www.rossfeldpanoramastrasse.de',
+  'hintersee-ramsau': 'https://www.berchtesgaden.de/en',
+  chiemsee: 'https://www.chiemsee-schifffahrt.de',
+  'eagles-nest': 'https://www.kehlsteinhaus.de/english/',
+  untersberg: 'https://www.untersbergbahn.at',
+  hellbrunn: 'https://www.hellbrunn.at/en/',
+  moenchsberg: 'https://www.salzburg.info/en',
+  mirabell: 'https://www.salzburg.info/en',
+  golling: 'https://www.salzburgerland.com/en/',
+};
+
 // ---- Day-by-day menu -------------------------------------------------------
 export interface PlanDay {
   id: string;

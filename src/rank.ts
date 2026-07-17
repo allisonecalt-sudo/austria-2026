@@ -9,7 +9,7 @@
 // Why hearts not drag-ranking: one-thumb mobile, no fiddling, ties allowed.
 // ===========================================================================
 
-import { BUILD_STAMP, MUST_DO_IDS, SUNSETS, byId } from './plan-data.js';
+import { BUILD_STAMP, MUST_DO_IDS, SITES, SUNSETS, byId } from './plan-data.js';
 import { getState, setState } from './supabase.js';
 import { mountNotes } from './notes.js';
 
@@ -142,6 +142,16 @@ function renderBoard(kind: 'votes' | 'sun', mountId: string, ids: string[]): voi
         (nav as HTMLAnchorElement).rel = 'noopener';
         nav.addEventListener('click', (e) => e.stopPropagation());
         links.appendChild(nav);
+        const siteUrl = SITES[id];
+        if (siteUrl) {
+          const site = el('a', 'btn', '↗ Website');
+          (site as HTMLAnchorElement).href = siteUrl;
+          (site as HTMLAnchorElement).target = '_blank';
+          (site as HTMLAnchorElement).rel = 'noopener';
+          site.addEventListener('click', (e) => e.stopPropagation());
+          links.appendChild(document.createTextNode(' '));
+          links.appendChild(site);
+        }
         more.appendChild(links);
         mid.appendChild(more);
         mid.appendChild(el('p', 'rk-hint', 'tap for full info ▾'));
