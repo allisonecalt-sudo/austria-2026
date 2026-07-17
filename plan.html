@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
+    />
+    <title>The Plan — options to choose from · Austria 2026</title>
+    <meta
+      name="description"
+      content="Day-by-day options menu for the Austria trip — click any activity for logistics: distance, price, hours, caveats. Allison + Avital choose together."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/plan.css" />
+  </head>
+  <body>
+    <nav class="plan-nav" aria-label="Pages">
+      <a href="/index.html">Brochure</a>
+      <a href="/plan.html" class="active">The Plan</a>
+      <a href="/rank.html">Rank it ⭐</a>
+    </nav>
+
+    <!-- Rendered entirely from src/plan-data.ts by src/plan.ts — no hardcoded facts. -->
+    <main id="plan"></main>
+
+    <footer class="foot" id="plan-foot"></footer>
+
+    <script type="module" src="/src/plan.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,385 @@
+/* ==========================================================================
+   plan.css — styles for plan.html (options menu) + rank.html (choosing tool).
+   Warm-light, matches the brochure family (Fraunces + Inter). Mobile-first.
+   ========================================================================== */
+
+:root {
+  --paper: #f7f5f0;
+  --card: #ffffff;
+  --ink: #20211f;
+  --sub: #56564f;
+  --line: #e6e2d8;
+  --green: #3f5d4e;
+  --gold: #b98a2f;
+  --rose: #a23b2e;
+  --blue: #33597a;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+}
+h1,
+h2,
+h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  margin: 0;
+}
+a {
+  color: var(--blue);
+}
+
+.plan-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  background: rgba(247, 245, 240, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 14px;
+  font-size: 14px;
+}
+.plan-nav a {
+  text-decoration: none;
+  color: var(--sub);
+  padding: 6px 12px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+.plan-nav a.active,
+.plan-nav a:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+.plan-hero {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  align-items: flex-end;
+  background-size: cover;
+  background-position: center;
+}
+.plan-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 22, 20, 0) 30%, rgba(20, 22, 20, 0.62) 100%);
+}
+.plan-hero .ht {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  padding: 26px 20px 18px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+.plan-hero .kick {
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #ffd98a;
+}
+.plan-hero h1 {
+  font-size: clamp(26px, 5.5vw, 40px);
+  line-height: 1.1;
+}
+.plan-hero p {
+  margin: 6px 0 0;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 62ch;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 18px 16px 80px;
+}
+
+.day {
+  margin-top: 30px;
+}
+.day-head {
+  border-left: 4px solid var(--green);
+  padding-left: 14px;
+  margin-bottom: 6px;
+}
+.day-head .date {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.day-head h2 {
+  font-size: clamp(20px, 4vw, 27px);
+}
+.day-head .kick {
+  font-size: 13.5px;
+  color: var(--sub);
+  margin-top: 2px;
+}
+.day-intro {
+  font-size: 14.5px;
+  color: var(--sub);
+  margin: 8px 0 14px;
+  max-width: 72ch;
+}
+.day-note {
+  background: #fff8e8;
+  border: 1px solid #eadfc0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: #6b5a2a;
+  margin: 0 0 14px;
+}
+
+.acts {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+}
+.act {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+}
+.act:hover {
+  box-shadow: 0 6px 22px rgba(32, 33, 31, 0.1);
+  transform: translateY(-1px);
+}
+.act .img {
+  height: 132px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.act .img .star {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  color: var(--gold);
+}
+.act .ct {
+  padding: 12px 14px 14px;
+}
+.act h3 {
+  font-size: 16.5px;
+  line-height: 1.25;
+}
+.act .what {
+  font-size: 13.5px;
+  color: var(--sub);
+  font-style: italic;
+  margin: 5px 0 8px;
+}
+.act .drive {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
+}
+.act .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+.chip {
+  font-size: 11.5px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--sub);
+  border-radius: 99px;
+  padding: 2px 9px;
+}
+.chip.warn {
+  color: var(--rose);
+  border-color: #e6c3bc;
+  background: #fdf1ee;
+}
+.act .more {
+  display: none;
+  border-top: 1px dashed var(--line);
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.act.open .more {
+  display: block;
+}
+.act .more .row {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.btn {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 99px;
+  padding: 7px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn.go {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.act .hint {
+  font-size: 11.5px;
+  color: var(--sub);
+  margin-top: 8px;
+}
+
+/* ---- rank page ---- */
+.who {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 18px 0 6px;
+  font-size: 14px;
+}
+.who button {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 99px;
+  border: 1.5px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  color: var(--sub);
+}
+.who button.on {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+.rank-sub {
+  font-size: 13.5px;
+  color: var(--sub);
+  margin-bottom: 14px;
+}
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rk {
+  display: flex;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px;
+  align-items: center;
+}
+.rk .img {
+  width: 86px;
+  height: 66px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+.rk .mid {
+  flex: 1;
+  min-width: 0;
+}
+.rk h3 {
+  font-size: 15.5px;
+  line-height: 1.2;
+}
+.rk .drive {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--green);
+  margin-top: 2px;
+}
+.rk .combined {
+  font-size: 11.5px;
+  color: var(--sub);
+  margin-top: 3px;
+}
+.hearts {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.hearts button {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 3px;
+  filter: grayscale(1) opacity(0.35);
+  transition: filter 0.12s;
+}
+.hearts button.on {
+  filter: none;
+}
+.pos {
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  color: var(--gold);
+  width: 30px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.save-note {
+  font-size: 12.5px;
+  color: var(--green);
+  min-height: 1.2em;
+  margin-top: 10px;
+}
+.section-head {
+  margin: 34px 0 4px;
+  border-left: 4px solid var(--gold);
+  padding-left: 14px;
+}
+.section-head h2 {
+  font-size: clamp(20px, 4vw, 26px);
+}
+.section-head p {
+  font-size: 13.5px;
+  color: var(--sub);
+  margin: 3px 0 0;
+}
+
+.foot {
+  margin-top: 44px;
+  font-size: 12.5px;
+  color: var(--sub);
+  text-align: center;
+}

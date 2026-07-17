@@ -1,0 +1,712 @@
+// ===========================================================================
+// plan-data.ts — the DATA for plan.html (day-by-day, all options) + rank.html.
+//
+// What this is: every candidate activity for the trip, verified Jul 17 2026
+//   (73 researched → these keepers), each with WHAT-IT-IS one-liner, expanded
+//   detail, and — Allison's rule — DISTANCE ALWAYS (🚗 from the day's base).
+// Why it exists: the local slideshow became a shared site so Avital can click,
+//   expand, comment (austria_notes) and rank (austria_2026_state).
+// Decided: Shabbat = Bad Goisern self-catered · Friday = Jewish/remembrance
+//   day (4 routes, her pick) · nothing else locked — every day is a menu.
+// Next: their picks land in rank.html → Claude reads state between sessions.
+// Links: BOOKINGS in second-brain/projects/austria-2026/BOOKINGS.md ·
+//   research: second-brain session 2026-07-17 · photos: Wikimedia Commons.
+// ===========================================================================
+
+export type Difficulty = 'flat' | 'easy' | 'moderate';
+
+export interface Activity {
+  id: string;
+  name: string;
+  emoji: string;
+  what: string; // one-line "what this actually is"
+  more: string; // expanded detail shown on click
+  drive: string; // ALWAYS present — 🚗 time (+km where verified) from the named base
+  duration: string;
+  difficulty: Difficulty;
+  chips: string[];
+  photo: string;
+  sunset?: boolean;
+  swim?: boolean;
+  star?: boolean; // lifetime-memory candidate
+  jewish?: boolean;
+  maps: string; // Google Maps destination link
+}
+
+const P = (f: string): string =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${f}?width=900`;
+const G = (q: string): string =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+
+export const ACTIVITIES: Activity[] = [
+  // ---- Friday / Jewish + remembrance -------------------------------------
+  {
+    id: 'mauthausen',
+    name: 'Mauthausen Memorial',
+    emoji: '🕯️',
+    what: 'The main Nazi concentration camp in Austria (1938–45, ~90,000 murdered) — today the national memorial.',
+    more: 'The camp, the quarry with the “Stairs of Death,” and the Room of Names. Free entry, excellent audio guides, open daily 09:00–17:30 (last entry 16:45). Emotionally the heaviest visit of the trip — plan ~3 hours and a quiet drive after. Mostly outdoor walking on uneven ground, no climbing required.',
+    drive: '🚗 1h45 · 154 km from Salzburg airport (Fri) · 1h40 · 131 km back to Bad Goisern',
+    duration: '~3h on site',
+    difficulty: 'easy',
+    chips: ['free entry', 'open Fri 09:00–17:30', 'the major one'],
+    photo: P('Wiener%20Graben%20quarry%20by%20Stefanie%20J%20Steindl%20012.jpg'),
+    jewish: true,
+    star: true,
+    maps: G('Mauthausen Memorial'),
+  },
+  {
+    id: 'ebensee',
+    name: 'Ebensee memorial + tunnels',
+    emoji: '🕯️',
+    what: 'A Mauthausen sub-camp by the Traunsee — prisoners dug vast tunnels for Nazi arms production; thousands died.',
+    more: 'You walk into the actual Gedenkstollen (memorial tunnel) — 8°C inside even in July, bring layers. Exhibition inside the tunnel + the camp cemetery and the surviving camp gate outside (outdoor parts free, always open). Tunnel + museum ~€5, open Tue–Sun 10:00–17:00, closed Mondays. Basically local to the Bad Goisern base.',
+    drive: '🚗 25 min · 27 km from Bad Goisern (1h10 · 80 km from Salzburg airport)',
+    duration: '~2h',
+    difficulty: 'flat',
+    chips: ['€5', 'Tue–Sun 10–17', '8°C inside — layers'],
+    photo: P('EbenseeZeitgeschichteMuseum.jpg'),
+    jewish: true,
+    maps: G('KZ-Gedenkstätte Ebensee'),
+  },
+  {
+    id: 'salzburg-jewish-walk',
+    name: 'Salzburg remembrance walk',
+    emoji: '✡️',
+    what: 'A flat self-guided loop through Jewish Salzburg — 800 years of presence, destruction, and rebuilding.',
+    more: 'Judengasse (the medieval Jewish lane, synagogue at #15 in 1370) → Marko Feingold bridge over the Salzach (named for the four-camp survivor who rebuilt the community, lived to 106) → Stolpersteine brass memorial stones in the pavement (500+ across the city; dense cluster around Linzergasse) → the synagogue at Lasserstraße 8, burned on Kristallnacht 1938, rebuilt, still a living shul (~100 members). To go INSIDE the synagogue: email office@ikg-salzburg.at in advance — no walk-ins, security. All outdoor parts free, at your pace.',
+    drive: '🚗 18 min from Salzburg airport to Altstadt parking · then on foot · 1h07 · 76 km on to Bad Goisern',
+    duration: '~2.5–3h walking',
+    difficulty: 'flat',
+    chips: ['free', 'self-guided', 'synagogue inside = email ahead'],
+    photo: P('Salzburg%20Stolperstein%20Linzer%20Gasse%2038.jpg'),
+    jewish: true,
+    maps: G('Judengasse Salzburg'),
+  },
+  {
+    id: 'jewish-ischl',
+    name: '“Jewish Ischl” walk',
+    emoji: '✡️',
+    what: 'Bad Ischl — the imperial spa town — had a real Jewish community; the Pins of Remembrance route marks its story.',
+    more: 'Oversized memorial “pins” mark the Nazi-era sites of Jewish Bad Ischl (maps at the tourist office). The town itself is the old imperial summer capital — Kaiservilla, riverside promenade, famous café culture. A gentle add-on to any day that passes through — and your grocery stop is here anyway.',
+    drive: '🚗 15 min · 12 km from Bad Goisern · 29 min · 24 km from Gosau',
+    duration: '~1h',
+    difficulty: 'flat',
+    chips: ['free', 'on your route', 'pairs with groceries'],
+    photo: P('Kaiservilla%20Bad%20Ischl.JPG'),
+    jewish: true,
+    maps: G('Bad Ischl tourist office'),
+  },
+  {
+    id: 'krimml-apc',
+    name: 'Krimml Falls + the 1947 exodus path',
+    emoji: '✡️',
+    what: "Austria's tallest waterfall (380 m) — and the pass where thousands of Jewish survivors crossed the Alps on foot in 1947 toward Eretz Yisrael.",
+    more: 'Three tiers of thundering water beside an easy (but uphill) path — walk to the first tier (worth it alone) or as high as feels good and turn back. At the valley head, the Alpine Peace Crossing memorial marks the Krimml Tauern route of the 1947 Bricha exodus: survivors, packs on backs, walking to a ship to Israel. Nature and Jewish memory in the same steps. Mist cools the whole path on a hot day.',
+    drive: '🚗 1h10 · 55 km from Zell am See',
+    duration: 'half day',
+    difficulty: 'easy',
+    chips: ['~€11 falls entry', 'easy but uphill', 'meaningful'],
+    photo: P('Krimml%2C%20der%20Wasserfall%2C%20Bild%2015.jpg'),
+    jewish: true,
+    star: true,
+    maps: G('Krimml Waterfalls'),
+  },
+
+  // ---- Zell am See leg -----------------------------------------------------
+  {
+    id: 'kitzsteinhorn',
+    name: 'Kitzsteinhorn — Top of Salzburg',
+    emoji: '🏔️',
+    what: 'Gondolas to 3,029 m on a real glacier — snow underfoot in July, viewing platform into the Hohe Tauern.',
+    more: 'Three lift stages from Kaprun do ALL the work; at the top: the Top of Salzburg platform, a cinema lounge, ice grotto, and July snow you can actually touch. 0–5°C up top — bring real layers. Half a day door-to-door. The single biggest “are we really standing here” view of the Zell leg.',
+    drive: '🚗 15 min · 12 km from Zell am See',
+    duration: 'half day',
+    difficulty: 'flat',
+    chips: ['~€52', 'all lift, no climbing', 'bring layers'],
+    photo: P('Kitzsteinhorn3.jpg'),
+    star: true,
+    maps: G('Kitzsteinhorn Gletscherbahnen Kaprun'),
+  },
+  {
+    id: 'schmittenhoehe',
+    name: 'Schmittenhöhe cable car',
+    emoji: '🚡',
+    what: "Zell's own mountain — cable car to 1,965 m for the full lake-from-above panorama.",
+    more: 'The classic Zeller See postcard: turquoise lake, town, and thirty 3,000 m peaks on the horizon. Easy summit strolls on wide gravel paths (as short or long as you like), a panorama terrace, and back down for a swim. The lowest-effort/highest-reward half day in Zell.',
+    drive: '🚗 8 min · 4 km from Zell am See',
+    duration: 'half day',
+    difficulty: 'easy',
+    chips: ['~€36', 'easiest big view'],
+    photo: P('2017-07-21%20%28197%29%20Schmittenh%C3%B6he%20in%20Zell%20am%20See%2C%20Austria.jpg'),
+    maps: G('Schmittenhöhebahn Zell am See'),
+  },
+  {
+    id: 'mooserboden',
+    name: 'Mooserboden high dams',
+    emoji: '🌊',
+    what: 'Buses + a funicular lift you to two turquoise reservoirs at 2,040 m ringed by glaciers.',
+    more: 'The Kaprun high-mountain reservoirs: you ride shuttle buses and Europe’s largest open inclined lift, then walk FLAT along the dam crowns between glacier walls. Optional dam-wall guided tour inside the dam. Vehicle-assisted altitude at its purest — huge drama, zero climb.',
+    drive: '🚗 20 min · 15 km from Zell am See to Kesselfall, then included bus+lift',
+    duration: 'half day',
+    difficulty: 'flat',
+    chips: ['~€29 incl. buses', 'flat dam walks'],
+    photo: P('Kaprun%20-%20Stausee%20Mooserboden%20mit%20Denkmal.JPG'),
+    maps: G('Kesselfall Alpenhaus Kaprun'),
+  },
+  {
+    id: 'zell-cruise',
+    name: 'Zeller See sunset cruise',
+    emoji: '⛵',
+    what: 'An evening boat across your own lake while the sun drops behind the peaks.',
+    more: 'MS Schmittenhöhe runs evening rounds on the Zeller See in summer — Monday evening is your window. Board at the Esplanade, glide an hour on gold water. Your Montenegro boat-evening, Austrian edition. If the schedule shifts, the standard last round-trip of the day still catches the light.',
+    drive: '🚗 0 — walk to the Esplanade pier from der Sonnberg (~15 min downhill)',
+    duration: '~1h on the water',
+    difficulty: 'flat',
+    chips: ['~€18', 'Monday = your night'],
+    photo: P('20190624.Zell%20am%20See.-014.jpg'),
+    sunset: true,
+    star: true,
+    maps: G('Schifffahrt Zell am See Esplanade'),
+  },
+  {
+    id: 'strandbad-zell',
+    name: 'Strandbad Zell swim',
+    emoji: '🏊',
+    what: 'The town lido — swim off the decks straight into open alpine lake water.',
+    more: 'Lawns, decks, diving platforms, warm-enough July water (~21°C), mountains all around. The default “slow shoulder” of every Zell day — an hour here resets everything. Quieter alternative across the lake: Strandbad Thumersbach, with the better view back at town.',
+    drive: '🚗 5 min · 2 km from der Sonnberg (Thumersbach: 10 min · 6 km)',
+    duration: '1–3h',
+    difficulty: 'flat',
+    chips: ['~€7', 'swim'],
+    photo: P('2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg'),
+    swim: true,
+    maps: G('Strandbad Zell am See'),
+  },
+  {
+    id: 'sigmund-thun',
+    name: 'Sigmund-Thun-Klamm gorge',
+    emoji: '💦',
+    what: 'A wooden boardwalk hung above rushing glacier water in a narrow rock gorge.',
+    more: '320 m of walkway over the roaring Kapruner Ache, ending at the calm Klammsee with a flat lakeside loop. Short, dramatic, cool on a hot afternoon. ~1h all in — a perfect filler between a mountain morning and a lake evening.',
+    drive: '🚗 12 min · 9 km from Zell am See',
+    duration: '~1h',
+    difficulty: 'easy',
+    chips: ['~€3.50', 'boardwalk + lake loop'],
+    photo: P('Kaprun%20Sigmund-Thun-Klamm%2009.JPG'),
+    maps: G('Sigmund-Thun-Klamm Kaprun'),
+  },
+  {
+    id: 'baumzipfelweg',
+    name: 'Baumzipfelweg treetop walk',
+    emoji: '🌲',
+    what: 'A wooden path through the treetops ending at the “Golden Gate of the Alps” suspension bridge.',
+    more: 'Europe’s highest treetop trail (up to 30 m over the forest floor) in Saalbach-Hinterglemm — 1 km of gentle ramps, zero steps, huge valley views from the 200 m suspension bridge. Pairs with a lazy valley afternoon.',
+    drive: '🚗 40 min · 30 km from Zell am See',
+    duration: '~1.5h',
+    difficulty: 'easy',
+    chips: ['~€15', 'ramps, no steps'],
+    photo: P('S-H-Glemmtal-H%C3%A4ngebr%C3%BCcke-4.jpg'),
+    maps: G('Baumzipfelweg Saalbach-Hinterglemm'),
+  },
+  {
+    id: 'grossglockner',
+    name: 'Grossglockner High Alpine Road',
+    emoji: '🛣️',
+    what: "Austria's most famous drive — 48 km of hairpins to ~2,400 m, ending face-to-face with the Pasterze glacier.",
+    more: 'The car does 100% of the climbing: 36 hairpins, waterfalls, marmots at the top, and the Kaiser-Franz-Josefs-Höhe terrace staring straight at Austria’s highest peak (3,798 m) and its glacier. Stop wherever you gasp. Needs CLEAR weather — check the webcam that morning; toll ~€45/car. Road open ~06:00–21:30 in summer.',
+    drive: '🚗 25 min · 15 km from Zell am See to the road entrance (Fusch); ~45 min more to the glacier terrace',
+    duration: 'half–full day',
+    difficulty: 'flat',
+    chips: ['toll ~€45/car', 'zero walking required', 'clear-weather day only'],
+    photo: P('Kitzsteinhorn3.jpg'),
+    star: true,
+    maps: G('Grossglockner Hochalpenstrasse Fusch'),
+  },
+
+  // ---- Gosau / Salzkammergut leg -------------------------------------------
+  {
+    id: 'gosausee',
+    name: 'Vorderer Gosausee mirror loop',
+    emoji: '🪞',
+    what: 'A mirror-still alpine lake with the Dachstein glacier reflected in it — flat 1-hour gravel circle.',
+    more: 'THE “we’re really here” moment. 4.3 km around, zero elevation, benches everywhere; the Dachstein doubles in the water on calm evenings. After ~17:00 the tour buses leave and it’s nearly empty — go at golden hour, and again any time you want (it’s 14 minutes from the apartment). Cold clear water — brave dip optional.',
+    drive: '🚗 14 min · 9 km from Gosau (30 min · 22 km from Bad Goisern)',
+    duration: '~1–1.5h loop',
+    difficulty: 'flat',
+    chips: ['free', 'empty after 17:00'],
+    photo: P('Vorderer%20Gosausee%204.jpg'),
+    sunset: true,
+    star: true,
+    swim: true,
+    maps: G('Vorderer Gosausee'),
+  },
+  {
+    id: 'krippenstein',
+    name: 'Krippenstein — 5 Fingers',
+    emoji: '🖐️',
+    what: 'Gondola to 2,109 m; the 5 Fingers platform hangs over a 400 m drop above Hallstatt’s lake.',
+    more: 'Two gondola stages from Obertraun, then an easy 20-minute stroll to the hand-shaped viewing platform — five walkways over the void, each with a different gimmick (glass floor, photo frame). Karst plateau moonscape all around. We are deliberately SKIPPING the Dachstein ice cave (1,400 stairs, 0°C). Weather matters — clouds kill the view.',
+    drive: '🚗 30 min · 24 km from Gosau · 25 min · 20 km from Bad Goisern',
+    duration: 'half day',
+    difficulty: 'easy',
+    chips: ['~€40', 'lift + easy stroll', 'clear-day pick'],
+    photo: P('A-Krippenstein-5fingers.jpg'),
+    star: true,
+    maps: G('Dachstein Krippenstein Seilbahn Obertraun'),
+  },
+  {
+    id: 'hallstatt',
+    name: 'Hallstatt, the quiet way',
+    emoji: '🏘️',
+    what: 'The famous 7,000-year-old salt village on the lake — market square, lakeshore promenade, small electric boat.',
+    more: 'Go EARLY (before 09:30) or after 17:00 — midday is tour-bus chaos. The move: park P1, wander the market square and the swan harbor, then rent a small electric boat (~€25/h) and see the village from the water — the view everyone photographs, without the crowd around you. NOTE: the Skywalk viewing platform is CLOSED for 2026 (verified) — the boat is the better angle anyway.',
+    drive: '🚗 25 min · 19 km from Gosau · 20 min · 17 km from Bad Goisern',
+    duration: '2–3h',
+    difficulty: 'flat',
+    chips: ['boat ~€25/h', 'go early or late', 'Skywalk closed 2026'],
+    photo: P('Marktplatz%2C%20Hallstatt%2C%2017.05.2019.jpg'),
+    swim: false,
+    maps: G('Hallstatt Marktplatz'),
+  },
+  {
+    id: 'gosaukammbahn',
+    name: 'Gosaukammbahn + Zwieselalm',
+    emoji: '🚡',
+    what: 'The little cable car at the Gosausee up to a green alpine plateau facing the Dachstein wall.',
+    more: 'From the lake station straight up to gentle meadow paths, huts with drinks on sun terraces, and the full Gosaukamm rock wall in your face. Combine with the lake loop below for the complete Gosau day without a single climbed meter.',
+    drive: '🚗 14 min · 9 km from Gosau (same lot as the Gosausee)',
+    duration: '2–3h',
+    difficulty: 'easy',
+    chips: ['~€27', 'meadow strolls'],
+    photo: P('Gosau%20with%20Gosaukamm.jpg'),
+    maps: G('Gosaukammbahn'),
+  },
+  {
+    id: 'langbathsee',
+    name: 'Langbathsee swim loop',
+    emoji: '🌿',
+    what: 'A flat, quiet forest lake with a 1-hour shore loop — swimmable, almost empty.',
+    more: 'The Vorderer Langbathsee sits in a nature reserve under the Höllengebirge: paved-flat 1h loop, grassy swim spots, water to ~24°C in late July, and a fraction of the crowds anywhere famous. The “nothing to achieve today” option — bring the picnic.',
+    drive: '🚗 45 min · 40 km from Gosau · 35 min · 32 km from Bad Goisern',
+    duration: '2–4h with swim',
+    difficulty: 'flat',
+    chips: ['free', 'quiet', 'swim'],
+    photo: P('Vorderer%20Langbathsee.jpg'),
+    swim: true,
+    maps: G('Vorderer Langbathsee'),
+  },
+  {
+    id: 'almsee',
+    name: 'Almsee — the quietest mirror',
+    emoji: '🪞',
+    what: 'A shallow crystal mirror lake at the head of the Almtal — flat 1h45 loop, herons and silence.',
+    more: 'The furthest quiet-lake option and the most silent: reeds, gliding birds, the Totes Gebirge wall behind. No lifts, no tickets, no crowds — just the loop and the stillness. Only worth it as a deliberate slow half-day.',
+    drive: '🚗 1h20 · 75 km from Gosau',
+    duration: 'half day',
+    difficulty: 'easy',
+    chips: ['free', 'QUIETEST pick'],
+    photo: P('Almsee%20Nordbucht-4224.jpg'),
+    maps: G('Almsee Grünau im Almtal'),
+  },
+  {
+    id: 'schafberg',
+    name: 'Schafberg steam train + Wolfgangsee',
+    emoji: '🚂',
+    what: 'A 130-year-old steam cog railway pushes you up to 1,783 m — the classic three-lakes panorama.',
+    more: 'From St. Wolfgang the SchafbergBahn climbs to the famous summit view over Wolfgangsee, Mondsee and Attersee (~35 min each way). Below: the Wolfgangsee ferry, lakeside swimming, and St. Wolfgang’s painted lanes. RESERVE the train online — it genuinely sells out in July (~€50 return). The romance option.',
+    drive: '🚗 35 min · 28 km from Bad Goisern (via Bad Ischl) · 50 min from Gosau',
+    duration: 'half–full day',
+    difficulty: 'flat',
+    chips: ['~€50 — RESERVE online', 'train + boat + swim'],
+    photo: P('Wolfgangsee%20mit%20St.%20Wolfgang.jpg'),
+    star: true,
+    swim: true,
+    maps: G('SchafbergBahn St. Wolfgang'),
+  },
+  {
+    id: 'katrin',
+    name: 'Katrin cable car',
+    emoji: '🚡',
+    what: 'Bad Ischl’s own little mountain — nostalgic cable car to easy ridge paths over the whole Salzkammergut.',
+    more: 'Small, uncrowded, local: up in 15 minutes, gentle summit paths with lake-dotted views in every direction, hut with terrace. A half-day at most — pairs with the Jewish Ischl walk and groceries below.',
+    drive: '🚗 20 min · 16 km from Bad Goisern · 30 min · 25 km from Gosau',
+    duration: '2–3h',
+    difficulty: 'easy',
+    chips: ['~€28', 'local + quiet'],
+    photo: P('Ischl%20from%20the%20Katrin.JPG'),
+    maps: G('Katrin Seilbahn Bad Ischl'),
+  },
+
+  // ---- Bavaria / cross-border ----------------------------------------------
+  {
+    id: 'koenigssee',
+    name: 'Königssee silent-boat day',
+    emoji: '🚤',
+    what: "Bavaria's fjord — silent electric boats under sheer cliffs, the echo trumpet, St. Bartholomä, and the Obersee mirror lake.",
+    more: 'Since 1909 only silent electric boats run this 8 km lake walled by the Watzmann. Mid-lake the captain stops and plays a trumpet at the Echo Wall — the mountain answers. Off at St. Bartholomä (the red onion-dome chapel), on to Salet, then a FLAT 15-min walk to the Obersee: perfectly still water with Germany’s highest waterfall (470 m) on the far cliff. €29.80 Salet return; be at the dock before 10:30 (queues + calmest water). CALL AHEAD for the last Salet return boat (+49 8652 9636-0). Bring a picnic — nothing kosher on site. Glacial water: a dip, not a swim.',
+    drive: '🚗 1h06 · 75 km from Gosau (on the way to Wals) · 30 min · 25 km from Wals',
+    duration: 'full day',
+    difficulty: 'flat',
+    chips: ['€29.80', 'boat does everything', 'be there by 10:30'],
+    photo: P('K%C3%B6nigssee%20St.%20Bartholom%C3%A4%2002.jpg'),
+    star: true,
+    maps: G('Königssee Seelände Schönau'),
+  },
+  {
+    id: 'rossfeld',
+    name: 'Rossfeld panorama sunset road',
+    emoji: '🌅',
+    what: 'A ridge-top toll road you simply drive — sunset over two countries with zero walking.',
+    more: 'The Rossfeld Panoramastraße loops along the ridge above Berchtesgaden at ~1,560 m: park at the top pullouts, step out, watch the sun go down over Salzburg on one side and the Berchtesgaden Alps on the other. €9.50/car, always open. The perfect zero-effort sunset after the Königssee day.',
+    drive: '🚗 24 min · 18 km from the Königssee · 30 min · 26 km from Wals',
+    duration: '~1h at golden hour',
+    difficulty: 'flat',
+    chips: ['€9.50/car', 'zero walking'],
+    photo: P('Kehlsteinhaus%202.jpg'),
+    sunset: true,
+    maps: G('Rossfeld Panoramastrasse'),
+  },
+  {
+    id: 'hintersee-ramsau',
+    name: 'Hintersee + Zauberwald (Bavaria)',
+    emoji: '🪞',
+    what: 'A tiny, achingly-still mirror lake with rowboats, plus the mossy “enchanted forest” boulder path.',
+    more: 'Ramsau’s Hintersee mirrors the Hochkalter on calm mornings; rent a rowboat (~€10/30min) or walk the flat 1h shore loop, then drift the Zauberwald path along the glacier stream — moss, boulders, cold clear water. Add the 5-min stop at Ramsau’s St. Sebastian church bridge — Germany’s most-photographed church view. All flat, all quiet.',
+    drive: '🚗 1h17 · 78 km from Gosau · 36 min · 30 km from Wals',
+    duration: 'half day',
+    difficulty: 'flat',
+    chips: ['free', 'rowboat ~€10', 'all flat'],
+    photo: P('Hintersee-Hochkalter.jpg'),
+    swim: true,
+    sunset: true,
+    maps: G('Hintersee Ramsau bei Berchtesgaden'),
+  },
+  {
+    id: 'chiemsee',
+    name: 'Chiemsee island-boat day',
+    emoji: '⛴️',
+    what: '“The Bavarian Sea” — lake steamer to Ludwig II’s unfinished Versailles and a tiny car-free nuns’ island.',
+    more: 'From Prien, steamers hop to Herreninsel — King Ludwig II’s Herrenchiemsee palace, a deliberate Versailles copy with a jaw-drop hall of mirrors (guided tour ~€11) — then to Fraueninsel, a car-free island village with a 1,200-year-old abbey, smoked-fish stands and lake swimming. The gentlest big-water day available; the cultural alternative to the Königssee.',
+    drive: '🚗 42 min · 55 km from Wals',
+    duration: 'full day',
+    difficulty: 'flat',
+    chips: ['boat ~€12 + palace €11', 'gentlest big day'],
+    photo: P('Herrenchiemsee%20Neues%20Schloss%20Ost%20Auffahrtsallee.jpg'),
+    swim: true,
+    maps: G('Chiemsee Schifffahrt Prien'),
+  },
+  {
+    id: 'eagles-nest',
+    name: 'Eagle’s Nest (Kehlsteinhaus)',
+    emoji: '🏛️',
+    what: 'Hitler’s mountaintop house — today a viewpoint reached by special bus + elevator; heavy history, huge views.',
+    more: 'Special buses climb the private road, then a brass elevator inside the mountain. The building is now a restaurant/viewpoint with a documentation panel; the view over the Berchtesgaden Alps is immense. Some visitors find going meaningful (seeing it demystified), others prefer not to give it the time — entirely your call, zero judgment. ~€36 bus+elevator.',
+    drive: '🚗 35 min · 28 km from Wals to the Obersalzberg bus terminal',
+    duration: '~3h',
+    difficulty: 'easy',
+    chips: ['~€36', 'bus + elevator', 'your call'],
+    photo: P('Kehlsteinhaus%202.jpg'),
+    maps: G('Kehlsteinhaus Dokumentation Obersalzberg'),
+  },
+
+  // ---- Salzburg-side easies -------------------------------------------------
+  {
+    id: 'untersberg',
+    name: 'Untersberg cable car',
+    emoji: '🚡',
+    what: 'The big cliff face over Salzburg — cable car to 1,776 m in 8.5 minutes, alpine world instantly.',
+    more: 'Right next to the Wals hotel: a swinging ride up the rock face to summit paths, ridge viewpoints over the whole Salzburg basin, and mountain air before your flight home. Short easy walks from the top station; go as far as feels nice.',
+    drive: '🚗 10 min · 7 km from Wals',
+    duration: '2–3h',
+    difficulty: 'easy',
+    chips: ['~€32', '8.5 min to the top'],
+    photo: P('Untersbergbahn%202019.jpg'),
+    maps: G('Untersbergbahn Grödig'),
+  },
+  {
+    id: 'hellbrunn',
+    name: 'Hellbrunn trick fountains',
+    emoji: '⛲',
+    what: 'A 400-year-old pleasure palace whose gardens are booby-trapped with hidden water jets — genuinely funny.',
+    more: 'The prince-archbishop built a garden to soak his guests and it still works: stone seats that spray, grottos, a water-driven puppet theater. Flat shaded gardens for free wandering, fountain tour ~€13.50. The laugh-out-loud option — good flight-day morning or arrival-day softener.',
+    drive: '🚗 15 min · 10 km from Wals or from Salzburg center',
+    duration: '~2h',
+    difficulty: 'flat',
+    chips: ['~€13.50', 'shaded + funny'],
+    photo: P('Hellbrunn%20Palace-Schloss%20Hellbrunn.%20Salzburg%2C%20Austria.jpg'),
+    maps: G('Schloss Hellbrunn'),
+  },
+  {
+    id: 'moenchsberg',
+    name: 'Mönchsberg clifftop walk',
+    emoji: '🌇',
+    what: 'Salzburg’s old-town cliff — stone stairs up, ridge path along the top, fortress and river views.',
+    more: 'Free stone stairs from the Altstadt (or the €3 lift), then a wooded ridge walk above the rooftops: the fortress on one end, the Museum der Moderne terrace on the other, and the classic overlook of domes + river + mountains. Best in the evening — the city goes gold below you.',
+    drive: '🚗 15 min · 8 km from Wals to Altstadt parking, then on foot',
+    duration: '~1.5–2h',
+    difficulty: 'easy',
+    chips: ['free (lift €3)', 'evening gold'],
+    photo: P('Salzburg%20Altstadt%20Panorama%20' + '20170409%2002.jpg'),
+    sunset: true,
+    maps: G('Mönchsberg Salzburg'),
+  },
+  {
+    id: 'mirabell',
+    name: 'Mirabell Gardens',
+    emoji: '🌹',
+    what: 'The baroque palace gardens with the postcard fortress view (yes, the Sound of Music steps).',
+    more: 'Free, central, flat: parterre flowers, the dwarf garden, the pergola, and the exact framed view of Hohensalzburg fortress everyone knows. 45 gentle minutes, pairs with anything in town.',
+    drive: '🚗 15 min · 8 km from Wals · in-town on foot',
+    duration: '~45 min',
+    difficulty: 'flat',
+    chips: ['free'],
+    photo: P('Salzburg%20Mirabellgarten%20Festung.jpg'),
+    maps: G('Mirabellgarten Salzburg'),
+  },
+  {
+    id: 'golling',
+    name: 'Gollinger Wasserfall',
+    emoji: '💦',
+    what: 'A fairy-tale double-drop waterfall in the forest — short walk, maximum wow-per-step.',
+    more: 'From the lot, ~15 minutes of easy forest path to the lower platform (the money view); wooden stairs continue higher if legs agree. ~1h round trip, €5. A classic pull-over between Salzburg and the south.',
+    drive: '🚗 25 min · 28 km from Wals',
+    duration: '~1h',
+    difficulty: 'easy',
+    chips: ['€5', 'short + dramatic'],
+    photo: P('Beautiful%20Gollinger%20Wasserfall.jpg'),
+    maps: G('Gollinger Wasserfall'),
+  },
+];
+
+export const byId = new Map(ACTIVITIES.map((a) => [a.id, a]));
+
+// ---- Day-by-day menu -------------------------------------------------------
+export interface PlanDay {
+  id: string;
+  date: string;
+  title: string;
+  kicker: string;
+  photo: string;
+  intro: string;
+  activityIds: string[];
+  note?: string;
+}
+
+export const DAYS: PlanDay[] = [
+  {
+    id: 'fri24',
+    date: 'Fri Jul 24',
+    title: 'The Jewish day — 4 routes',
+    kicker: 'land 07:50 · realistically driving ~09:45 · candles 20:32',
+    photo: P('Wiener%20Graben%20quarry%20by%20Stefanie%20J%20Steindl%20012.jpg'),
+    intro:
+      'One meaningful anchor before Shabbat. Pick by energy after the night flight — A is the biggest, C the softest. Every route ends with the MANDATORY grocery stop (Spar Bad Ischl ~40 min — shops close Sat AND Sun) and hours of margin before candle-lighting in Bad Goisern.',
+    activityIds: ['mauthausen', 'ebensee', 'salzburg-jewish-walk', 'jewish-ischl'],
+    note: 'Bringing frozen food from home → confirm the Goisern apartment has a FREEZER. Combo route: short Salzburg walk + Ebensee on the drive east (~40 min extra driving).',
+  },
+  {
+    id: 'shabbat',
+    date: 'Fri eve → Sat night',
+    title: 'Shabbat in Bad Goisern 🕯️',
+    kicker: 'candles 20:32 · ends ~21:45 Sat',
+    photo: P('Shabbat%20Candles.jpg'),
+    intro:
+      'You’re chilling. Your own setup, frozen mains from home, naps, riverside strolls in walking distance, one of the latest Shabbatot of the year. No driving, no plans, no one to be.',
+    activityIds: [],
+  },
+  {
+    id: 'sun26',
+    date: 'Sun Jul 26',
+    title: 'Go BIG — car in hand, ends in Zell',
+    kicker: 'full day · check-in der Sonnberg 17:00–18:00 · Esplanade sunset 20:53',
+    photo: P('Wolfgangsee%20mit%20St.%20Wolfgang.jpg'),
+    intro:
+      'A full incredible day that happens to end at a new base. Three big shapes: the Grossglockner glacier drive (ends right by Zell), the Schafberg steam train + Wolfgangsee swim, or 5 Fingers at opening before the crowds + a lake afternoon. Quiet fallbacks if weather turns: Ebensee memorial, Jewish Ischl walk, Langbathsee.',
+    activityIds: ['grossglockner', 'schafberg', 'krippenstein', 'ebensee', 'jewish-ischl', 'langbathsee'],
+  },
+  {
+    id: 'mon27',
+    date: 'Mon Jul 27',
+    title: 'Full Zell day — pick ONE anchor',
+    kicker: 'evening: ⭐ sunset cruise + Strandbad swim',
+    photo: P('Kitzsteinhorn3.jpg'),
+    intro:
+      'One anchor + water + the boat at night. The glacier for the wow, Krimml for falls + the 1947 exodus memorial, Schmittenhöhe for the easy panorama, Mooserboden for the high dams. Evening is the Zeller See sunset cruise — your Montenegro boat-evening, Austrian edition.',
+    activityIds: [
+      'kitzsteinhorn',
+      'krimml-apc',
+      'schmittenhoehe',
+      'mooserboden',
+      'zell-cruise',
+      'strandbad-zell',
+      'sigmund-thun',
+      'baumzipfelweg',
+    ],
+  },
+  {
+    id: 'tue28',
+    date: 'Tue Jul 28',
+    title: 'Move to Gosau → the mirror lake',
+    kicker: '1h25 via Bad Ischl · check-in 16:00+ · Gosausee sunset ~20:51',
+    photo: P('Vorderer%20Gosausee%204.jpg'),
+    intro:
+      'Slow Zell morning (last swim), Bad Ischl on the way (Spar restock, café, optional Jewish Ischl walk or Katrin cable car), check in at Transylvania Villa, then the evening mirror-lake loop when the buses are gone. The “we’re really here” moment.',
+    activityIds: ['jewish-ischl', 'katrin', 'gosausee'],
+  },
+  {
+    id: 'wed29',
+    date: 'Wed Jul 29',
+    title: 'Platforms, villages, or Bavaria',
+    kicker: 'full Gosau day · sunset back at the Gosausee',
+    photo: P('A-Krippenstein-5fingers.jpg'),
+    intro:
+      '5 Fingers if Sunday didn’t take it, Hallstatt the quiet way (early + boat), the Bavaria mirror trio (Hintersee + Zauberwald + Ramsau church), the Gosaukamm cable car above your own lake, or the quietest lakes. If Friday went to Salzburg, Mauthausen fits here (1h40 each way).',
+    activityIds: [
+      'krippenstein',
+      'hallstatt',
+      'hintersee-ramsau',
+      'gosaukammbahn',
+      'langbathsee',
+      'almsee',
+      'mauthausen',
+    ],
+  },
+  {
+    id: 'thu30',
+    date: 'Thu Jul 30',
+    title: '⭐ The Königssee signature day',
+    kicker: 'checkout Gosau ~08:30 → boat by 10:30 → Rossfeld sunset → sleep in Wals',
+    photo: P('K%C3%B6nigssee%20St.%20Bartholom%C3%A4%2002.jpg'),
+    intro:
+      'The one to protect. Silent boat under the Watzmann, the echo trumpet, St. Bartholomä, the flat walk to the Obersee mirror. Luggage rides in the car — no backtracking. Sunset from the Rossfeld ridge road (zero walking), then 30 min to the airport hotel. Swaps: Chiemsee island-boat day, or an easy Salzburg afternoon (Mönchsberg, Mirabell, Hellbrunn, Untersberg).',
+    activityIds: [
+      'koenigssee',
+      'rossfeld',
+      'chiemsee',
+      'untersberg',
+      'moenchsberg',
+      'mirabell',
+      'hellbrunn',
+      'eagles-nest',
+      'golling',
+    ],
+  },
+  {
+    id: 'fri31',
+    date: 'Fri Jul 31',
+    title: 'Home 🛫',
+    kicker: 'wake 05:30 · drop car 06:30 · LY5194 08:55 → TLV 13:25',
+    photo: P('El%20Al%20B787-9%20%284X-EDH%29%20%40%20SFO%2C%20Nov%202019.jpg'),
+    intro:
+      'Checkout works from 06:00; key-drop for the car (photos first — counter opens 08:00). Home with the whole Friday afternoon to reset before Shabbat.',
+    activityIds: [],
+  },
+];
+
+// ---- Ranking page inputs ---------------------------------------------------
+// Must-do candidates: the lifetime-memory pool both of them rank.
+export const MUST_DO_IDS: string[] = [
+  'koenigssee',
+  'gosausee',
+  'kitzsteinhorn',
+  'zell-cruise',
+  'krimml-apc',
+  'krippenstein',
+  'grossglockner',
+  'schafberg',
+  'mauthausen',
+  'ebensee',
+  'hallstatt',
+  'hintersee-ramsau',
+  'chiemsee',
+  'mooserboden',
+];
+
+// Best-sunset board: spot + when + why, each tied to an activity where useful.
+export interface SunsetSpot {
+  id: string;
+  name: string;
+  night: string;
+  time: string;
+  why: string;
+  drive: string; // distance rule applies here too
+  photo: string;
+}
+
+export const SUNSETS: SunsetSpot[] = [
+  {
+    id: 'sunset-goisern',
+    name: 'Bad Goisern valley (Shabbat)',
+    night: 'Fri + Sat',
+    time: '~20:50',
+    why: 'Walking-distance riverside — the Shabbat-legal sunset. Slow gold over the valley walls.',
+    drive: '🚗 0 — on foot from the apartment',
+    photo: P('Bad%20Goisern%20-%20Ortsansicht%20%28a%29.JPG'),
+  },
+  {
+    id: 'sunset-esplanade',
+    name: 'Zeller See Esplanade',
+    night: 'Sun',
+    time: '20:53',
+    why: 'First night at the lake — the classic promenade view as the peaks go pink.',
+    drive: '🚗 0 — 15 min walk down from der Sonnberg',
+    photo: P('2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg'),
+  },
+  {
+    id: 'sunset-cruise',
+    name: 'ON the Zeller See (boat)',
+    night: 'Mon',
+    time: '~20:00 boarding',
+    why: 'The sunset cruise — gold light FROM the water. Likely lifetime memory.',
+    drive: '🚗 0 — Esplanade pier',
+    photo: P('20190624.Zell%20am%20See.-014.jpg'),
+  },
+  {
+    id: 'sunset-gosausee',
+    name: 'Vorderer Gosausee',
+    night: 'Tue + Wed',
+    time: '~20:51',
+    why: 'The Dachstein doubled in still water, nearly alone after the buses leave. The trip’s postcard.',
+    drive: '🚗 14 min · 9 km from the Gosau apartment',
+    photo: P('Vorderer%20Gosausee%204.jpg'),
+  },
+  {
+    id: 'sunset-hallstatt-shore',
+    name: 'Hallstättersee west shore',
+    night: 'Wed (alt)',
+    time: '~20:50',
+    why: 'Across the water from Hallstatt village as its lights come on — quiet pullouts along the road.',
+    drive: '🚗 20 min · 15 km from Gosau',
+    photo: P('Marktplatz%2C%20Hallstatt%2C%2017.05.2019.jpg'),
+  },
+  {
+    id: 'sunset-rossfeld',
+    name: 'Rossfeld ridge road',
+    night: 'Thu',
+    time: '~20:45',
+    why: 'Drive to 1,560 m, step out, watch the sun set over two countries. Zero walking.',
+    drive: '🚗 30 min · 26 km from Wals (24 min from the Königssee)',
+    photo: P('Kehlsteinhaus%202.jpg'),
+  },
+  {
+    id: 'sunset-moenchsberg',
+    name: 'Mönchsberg over Salzburg',
+    night: 'Thu (alt)',
+    time: '20:47',
+    why: 'The old city going gold under the fortress — the urban-romantic alternative.',
+    drive: '🚗 15 min · 8 km from Wals + stone stairs or €3 lift',
+    photo: P('Salzburg%20Altstadt%20Panorama%20' + '20170409%2002.jpg'),
+  },
+  {
+    id: 'sunset-hintersee',
+    name: 'Hintersee mirror (Bavaria)',
+    night: 'Wed (alt)',
+    time: '~20:48',
+    why: 'The Hochkalter reflected at dusk — stillest water of the trip.',
+    drive: '🚗 1h17 · 78 km from Gosau',
+    photo: P('Hintersee-Hochkalter.jpg'),
+  },
+];
+
+export const BUILD_STAMP = '2026-07-17 19:45';

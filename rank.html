@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⭐%3C/text%3E%3C/svg%3E"
+    />
+    <title>Rank it — must-dos + best sunsets · Austria 2026</title>
+    <meta
+      name="description"
+      content="Allison and Avital each rank the must-do candidates and sunset spots — hearts save live, the combined order decides the trip."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/plan.css" />
+  </head>
+  <body>
+    <nav class="plan-nav" aria-label="Pages">
+      <a href="/index.html">Brochure</a>
+      <a href="/plan.html">The Plan</a>
+      <a href="/rank.html" class="active">Rank it ⭐</a>
+    </nav>
+
+    <!-- Rendered from src/plan-data.ts by src/rank.ts; votes live in Supabase. -->
+    <main id="rank"></main>
+
+    <footer class="foot" id="rank-foot"></footer>
+
+    <script type="module" src="/src/rank.ts"></script>
+  </body>
+</html>

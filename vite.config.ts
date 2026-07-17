@@ -42,6 +42,10 @@ export default defineConfig(({ command }) => ({
       // lives on branch archive/pre-rebuild-2026-06-10 — pullable, nothing lost.
       input: {
         main: resolve(__dirname, 'index.html'),
+        // 2026-07-17: options-menu + choosing tool (plan/rank), data-driven
+        // from src/plan-data.ts — the "choose the week together" surfaces.
+        plan: resolve(__dirname, 'plan.html'),
+        rank: resolve(__dirname, 'rank.html'),
       },
     },
   },
