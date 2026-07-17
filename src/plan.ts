@@ -78,7 +78,7 @@ function actCard(a: Activity): HTMLElement {
   row.appendChild(note);
 
   const rankLink = el('a', 'btn', '⭐ Rank it');
-  (rankLink as HTMLAnchorElement).href = `/rank.html#${a.id}`;
+  (rankLink as HTMLAnchorElement).href = `rank.html#${a.id}`;
   rankLink.addEventListener('click', (e) => e.stopPropagation());
   row.appendChild(rankLink);
 
@@ -166,7 +166,7 @@ function render(): void {
 
   const foot = document.getElementById('plan-foot');
   if (foot) {
-    foot.innerHTML = `${ACTIVITIES.length} options · every one verified open for late July 2026 · built ${BUILD_STAMP} · <a href="/rank.html">rank your must-dos →</a>`;
+    foot.innerHTML = `${ACTIVITIES.length} options · every one verified open for late July 2026 · built ${BUILD_STAMP} · <a href="rank.html">rank your must-dos →</a>`;
   }
 
   mountNotes();

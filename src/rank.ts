@@ -197,7 +197,7 @@ function renderShell(): void {
 
   const foot = document.getElementById('rank-foot');
   if (foot) {
-    foot.innerHTML = `votes live in the shared trip base (tandem-readable) · built ${BUILD_STAMP} · <a href="/plan.html">← back to the plan</a>`;
+    foot.innerHTML = `votes live in the shared trip base (tandem-readable) · built ${BUILD_STAMP} · <a href="plan.html">← back to the plan</a>`;
   }
 }
 
