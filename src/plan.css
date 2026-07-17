@@ -383,3 +383,24 @@ a {
   color: var(--sub);
   text-align: center;
 }
+
+/* rank rows: click-to-expand full info (Allison, Jul 17) */
+.rk {
+  flex-wrap: wrap;
+}
+.rk .rk-more {
+  display: none;
+  border-top: 1px dashed var(--line);
+  margin-top: 8px;
+  padding-top: 8px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.rk.open .rk-more {
+  display: block;
+}
+.rk .rk-hint {
+  font-size: 11px;
+  color: var(--sub);
+  margin-top: 4px;
+}

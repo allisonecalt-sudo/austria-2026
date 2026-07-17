@@ -129,6 +129,31 @@ function renderBoard(kind: 'votes' | 'sun', mountId: string, ids: string[]): voi
         `${esc(sub)}<br>Allison ${'❤️'.repeat(scores.a) || '—'} · Avital ${'❤️'.repeat(scores.v) || '—'}`,
       ),
     );
+    // Her ask (Jul 17): must-do rows clickable → full info, like the plan cards.
+    if (kind === 'votes') {
+      const a = byId.get(id);
+      if (a) {
+        const more = el('div', 'rk-more');
+        more.appendChild(el('p', undefined, esc(a.more)));
+        const links = el('p', undefined, '');
+        const nav = el('a', 'btn go', '📍 Navigate');
+        (nav as HTMLAnchorElement).href = a.maps;
+        (nav as HTMLAnchorElement).target = '_blank';
+        (nav as HTMLAnchorElement).rel = 'noopener';
+        nav.addEventListener('click', (e) => e.stopPropagation());
+        links.appendChild(nav);
+        more.appendChild(links);
+        mid.appendChild(more);
+        mid.appendChild(el('p', 'rk-hint', 'tap for full info ▾'));
+        row.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).closest('.hearts, a')) return;
+          row.classList.toggle('open');
+          const hint = row.querySelector('.rk-hint');
+          if (hint) hint.textContent = row.classList.contains('open') ? 'tap to close ▴' : 'tap for full info ▾';
+        });
+        row.style.cursor = 'pointer';
+      }
+    }
     row.appendChild(mid);
 
     const store = kind === 'votes' ? state.votes : state.sun;
