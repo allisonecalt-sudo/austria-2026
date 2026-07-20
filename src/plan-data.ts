@@ -436,7 +436,7 @@ export const ACTIVITIES: Activity[] = [
     duration: '3–4h',
     difficulty: 'easy',
     chips: ['~€35', 'wooden-boat magic', 'check times before going'],
-    photo: P('Grundlsee%20from%20G%C3%B6%C3%9Fl%2020210926.jpg'),
+    photo: P('Grundlsee%20from%20G%C3%B6%C3%9Fl%20' + '20210926.jpg'),
     star: true,
     maps: G('Schifffahrt Grundlsee'),
   },
