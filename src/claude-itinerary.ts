@@ -69,7 +69,7 @@ const WEEK: CDay[] = [
     steps: [
       { t: '08:15', text: 'Leave Goisern → 35 min to St. Wolfgang.' },
       { t: '09:00', text: 'SchafbergBahn steam train up (RESERVED seats — book by Wed!). Three lakes at your feet.', actId: 'schafberg' },
-      { t: '11:30', text: 'Back down → Wolfgangsee ferry hop + Strandbad swim + picnic on the grass.', actId: 'schafberg' },
+      { t: '11:30', text: 'Back down → rent a little e-boat in St. Gilgen (€35/h, swim ladder — no reservation) OR ferry hop + Strandbad swim + picnic.', actId: 'wolfgangsee-eboat' },
       { t: '15:00', text: 'Drive 1h15 to Zell am See, check in der Sonnberg (17:00–18:00 window).' },
       { t: '18:30', text: 'Walk down to the lake — first look at your new water.' },
       { t: '20:53', text: '🌅 Esplanade sunset — peaks going pink over the Zeller See.', actId: 'strandbad-zell' },
@@ -102,7 +102,8 @@ const WEEK: CDay[] = [
       { t: '12:30', text: 'Pack out of Zell → drive toward Gosau via Bad Ischl.' },
       { t: '13:45', text: 'Bad Ischl: Spar restock + the 30-min “Jewish Ischl” pins walk + a river café stop.', actId: 'jewish-ischl' },
       { t: '16:00', text: 'Check in Transylvania Villa, Gosau. Unload the cooler.' },
-      { t: '18:45', text: '🪞 Vorderer Gosausee loop — the Dachstein doubled in still water, buses gone, nearly alone.', actId: 'gosausee' },
+      { t: '17:00', text: '🛶 One hour in an e-boat or on a SUP ON the Gosausee (rentals till 18:00) — float inside the reflection.', actId: 'gosausee-boats' },
+      { t: '18:30', text: '🪞 Then the shore loop — the Dachstein doubled in still water, buses gone, nearly alone.', actId: 'gosausee' },
       { t: '20:51', text: '🌅 Sunset at the lake. The “we’re really here” moment.' },
     ],
     sunset: 'Vorderer Gosausee, 20:51.',
@@ -120,7 +121,7 @@ const WEEK: CDay[] = [
       { t: '20:30', text: '🌅 West-shore pullouts — Hallstatt’s lights come on across the water.', actId: 'hallstatt' },
     ],
     sunset: 'Hallstättersee west shore, ~20:50.',
-    swap: 'Cloud ceiling low? Bavaria mirror trio instead: Hintersee + Zauberwald + Ramsau church (all flat, 1h15) — and Hallstatt-evening still happens on the way home.',
+    swap: 'Cloud ceiling low? Two great flips: the Grundlsee 3-Lakes wooden-boat tour to the hidden Kammersee (25 min, ~€35, magic in any weather) — or the Bavaria mirror trio (Hintersee + Zauberwald + Ramsau church). Hallstatt-evening survives either way.',
   },
   {
     date: 'Thu Jul 30',

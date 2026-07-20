@@ -150,6 +150,15 @@ function render(): void {
   hero.appendChild(ht);
   root.appendChild(hero);
 
+  // Day-jump bar — her spec (Jul 20): clear + simple, easy to move around.
+  const jump = el('div', 'plan-nav jump');
+  for (const day of DAYS) {
+    const a = el('a', undefined, esc(day.date.replace(' Jul ', ' ')));
+    (a as HTMLAnchorElement).href = `#${day.id}`;
+    jump.appendChild(a);
+  }
+  root.appendChild(jump);
+
   const wrap = el('div', 'wrap');
   for (const day of DAYS) {
     const sec = el('section', 'day');

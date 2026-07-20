@@ -481,3 +481,11 @@ a.mini {
 .cday-swap {
   color: var(--sub);
 }
+
+/* day-jump bar under the hero on plan.html */
+.plan-nav.jump {
+  position: static;
+  border-top: none;
+  justify-content: flex-start;
+  background: var(--paper);
+}
