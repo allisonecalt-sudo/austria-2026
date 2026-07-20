@@ -46,6 +46,7 @@ export default defineConfig(({ command }) => ({
         // from src/plan-data.ts — the "choose the week together" surfaces.
         plan: resolve(__dirname, 'plan.html'),
         rank: resolve(__dirname, 'rank.html'),
+        claude: resolve(__dirname, 'claude.html'),
       },
     },
   },

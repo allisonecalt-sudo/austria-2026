@@ -404,3 +404,80 @@ a {
   color: var(--sub);
   margin-top: 4px;
 }
+
+/* ---- Claude's itinerary page ---- */
+.cnums {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 10px;
+  margin: 18px 0 6px;
+}
+.cnum {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  text-align: center;
+  padding: 10px 6px;
+}
+.cnum .n {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  color: var(--green);
+}
+.cnum .l {
+  font-size: 11.5px;
+  color: var(--sub);
+}
+.cday {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.cday-img {
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+}
+.cday-body {
+  padding: 14px 16px 16px;
+}
+.cday-why {
+  font-size: 13.5px;
+  color: var(--sub);
+  margin: 0 0 12px;
+}
+.cday-body .tl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.cday-body .tl li {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+}
+.cday-body .tl .t {
+  color: var(--gold);
+  font-weight: 600;
+  min-width: 74px;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+a.mini {
+  text-decoration: none;
+  font-size: 13px;
+  padding: 0 4px;
+}
+.cday-sunset,
+.cday-swap {
+  font-size: 13px;
+  margin: 10px 0 0;
+  color: var(--ink);
+}
+.cday-swap {
+  color: var(--sub);
+}
