@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E✡️%3C/text%3E%3C/svg%3E"
+    />
+    <title>Kosher in Austria — field guide · Allison + Avital</title>
+    <meta
+      name="description"
+      content="Buying kosher in Austrian supermarkets, two ways: certified-first (Misrachi hechsher list) and ingredient-based fallback (traffic-light triage). Salzkammergut, Jul 24–31 2026."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Frank+Ruhl+Libre:wght@500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/kosher.css" />
+  </head>
+  <body>
+    <nav class="brochure-nav" aria-label="Sections">
+      <a href="index.html">Trip</a>
+      <a href="plan.html">Plan ✦</a>
+      <a href="rank.html">Rank ⭐</a>
+      <a href="claude.html">Claude 💙</a>
+      <a href="kosher.html" aria-current="page">Kosher ✡️</a>
+    </nav>
+
+    <div class="wrap">
+      <header class="top">
+        <p class="eyebrow">Austria · 24–31 July 2026 · Salzkammergut</p>
+        <h1>Kosher in Austria — the field guide</h1>
+        <p class="dek">
+          Buying kosher in Austrian supermarkets, two ways — <b>certified first</b>, then
+          <b>reading the label</b> when there's no hechsher on the shelf. For Allison &amp; Avital,
+          cooking in.
+        </p>
+        <div class="meta-row">
+          <span><b>Stores:</b> Spar · Billa · Hofer · Lidl · MPreis · dm</span>
+          <span><b>Both keep kosher</b> · full kitchens</span>
+        </div>
+        <div class="note">
+          <b>Read this first.</b> Path 1 (certified) is your normal bar — trust the hechsher. Path 2
+          (ingredients) is a real step down from it; every agency says buy certified when you can.
+          Whether <em>you</em> lean on ingredient-reading, and how far, is a
+          <b>Rabbi Haber call</b>, not this page's. Below is <b>what the practice is and why</b> —
+          so you can bring him a sharp question, not a vague one.
+        </div>
+      </header>
+
+      <!-- TWO PATHS -->
+      <section id="paths">
+        <p class="sec-label">Two ways to shop</p>
+        <h2>Certified first, then ingredients</h2>
+        <div class="paths">
+          <div class="path a">
+            <span class="tag">Path 1 · Best</span>
+            <h3>Buy a certified product ✡️</h3>
+            <p>
+              A recognized hechsher on the pack (or on Misrachi's Austria list) = done, no
+              label-reading. This is your real standard.
+            </p>
+            <a class="jump" href="#certified">See the certified list →</a>
+          </div>
+          <div class="path b">
+            <span class="tag">Path 2 · Fallback</span>
+            <h3>Read the ingredients 🟢🟡🔴</h3>
+            <p>
+              No certified option? Judge the German label by what's in it. Traffic-light triage,
+              aisle by aisle.
+            </p>
+            <a class="jump" href="#lookup">Jump to the label tools →</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="legend" aria-label="Color key">
+        <span class="lg"><span class="dot go"></span>Go — clean</span>
+        <span class="lg"><span class="dot read"></span>Read the label</span>
+        <span class="lg"><span class="dot stop"></span>Hard stop</span>
+      </div>
+
+      <!-- CERTIFIED (Misrachi) -->
+      <section id="certified">
+        <p class="sec-label">Path 1 · Certified</p>
+        <h2>Certified products in Austria</h2>
+        <p class="sec-intro">
+          Misrachi Austria publishes a guide of products sold in Austria that carry a real hechsher.
+          These are the certs they accept — if you see one of these on a pack, it's your bar:
+        </p>
+        <div class="hechshers" id="hechshers"></div>
+        <div class="note" style="margin-top: 0">
+          <b>Big caveat:</b> the edition you have is
+          <b>2023 — most “valid until” dates are expired.</b> Treat the list below as a
+          <em>map of what's usually certified</em>, and confirm current status two ways: the
+          <b
+            >live guide + app at
+            <a href="https://www.misrachi.at/koscher" target="_blank" rel="noopener"
+              >misrachi.at/koscher</a
+            ></b
+          >, and the <b>printed kosher stamp on the actual package</b> (several are only kosher
+          “with the imprinted sign”). Source: © Misrachi Austria — summarized here, not reproduced.
+        </div>
+        <p class="sec-label" style="margin-top: 18px">
+          Worth knowing — mainstream, in Billa / Spar
+        </p>
+        <div class="certlist" id="certlist"></div>
+      </section>
+
+      <!-- HARD STOPS -->
+      <section id="stops">
+        <p class="sec-label">Path 2 · Decide before the trip</p>
+        <h2>The five hard stops</h2>
+        <p class="sec-intro">
+          Uncertified, these stay non-kosher <em>no matter how clean the German label looks</em>.
+          Settle them at home, not in the aisle.
+        </p>
+        <div class="stops" id="stops-grid"></div>
+      </section>
+
+      <!-- MILK LOGIC -->
+      <section id="milk">
+        <p class="sec-label">The idea that makes it work</p>
+        <h2>Why it's “like milk”</h2>
+        <div class="milk">
+          <span class="kicker" dir="rtl">חלב סתם</span>
+          <p class="pull">“We rely on milk because it's so watched.”</p>
+          <p>
+            That's the whole backbone — and you named it. <b>Chalav stam</b> (Rav Moshe Feinstein):
+            regular European milk is trusted not because a rabbi stood there, but because
+            <b>government regulation is so tight</b> that non-kosher milk basically can't get in.
+            Austria is EU, so the OU's own poskim apply it here.
+          </p>
+          <p>
+            Ingredient-based kashrut extends that logic to <b>labels</b>: EU law forces full, honest
+            ingredient disclosure — so the label becomes the thing you trust, the way you trust the
+            milk.
+            <b
+              >Most Modern-Orthodox rely on chalav stam; a stricter minority uses only chalav
+              yisrael</b
+            >
+            — for them, uncertified dairy is out and plant-based is the answer.
+          </p>
+        </div>
+      </section>
+
+      <!-- LABEL LOOKUP -->
+      <section id="lookup">
+        <p class="sec-label">Path 2 · The in-aisle tool</p>
+        <h2>German label lookup</h2>
+        <p class="sec-intro">
+          See a word on the ingredient list (<span lang="de">Zutaten</span>) and not sure? Type it.
+          The real work is spotting a handful of red words fast — everything else is mostly fine.
+        </p>
+        <div class="search-box">
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="M21 21l-4.3-4.3"></path>
+          </svg>
+          <input
+            id="q"
+            type="search"
+            placeholder="e.g. Molke, Aroma, Weinessig…"
+            autocomplete="off"
+            aria-label="Search German ingredient words"
+          />
+        </div>
+        <div class="filter-row" role="group" aria-label="Filter by status">
+          <button class="fbtn" data-f="all" aria-pressed="true">All</button>
+          <button class="fbtn" data-f="stop" aria-pressed="false">Stop</button>
+          <button class="fbtn" data-f="read" aria-pressed="false">Read</button>
+          <button class="fbtn" data-f="go" aria-pressed="false">Go</button>
+        </div>
+        <div class="gloss" id="gloss"></div>
+      </section>
+
+      <!-- PHOTO TIP -->
+      <section id="photo">
+        <p class="sec-label">Fastest check in the store</p>
+        <h2>Snap it &amp; ask</h2>
+        <div class="card">
+          <p>
+            In the aisle, photograph the ingredient list and paste this with the pic — you get an
+            instant read:
+          </p>
+          <p
+            style="
+              background: var(--card-2);
+              border-radius: 9px;
+              padding: 12px 14px;
+              color: var(--ink);
+            "
+          >
+            <em
+              >“Read this German ingredient list. Flag any of: Gelatine, Karmin/Cochenille,
+              Molke/Milcheiweiß, Schweineschmalz/tierisches Fett, tierisches Lab, Käse,
+              Wein/Weinessig/Traubensaft/Balsamico, Aroma. Tell me if it's dairy, pareve, or
+              vegan.”</em
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- GRAB LIST -->
+      <section id="grab">
+        <p class="sec-label">Path 2 · Fill the cart</p>
+        <h2>Always-fine, grab it</h2>
+        <p class="sec-intro">
+          The safest building blocks — raw or single-ingredient, which is why self-catering solves
+          most of it. Two conditions on pantry staples: <b>no additives / seasoning packet</b>, and
+          <b>not a product of Israel</b> (tithing). Rice, grains &amp; flour get a quick insect
+          check.
+        </p>
+        <div class="grab" id="grabList"></div>
+      </section>
+
+      <!-- AISLES -->
+      <section id="aislesSec">
+        <p class="sec-label">Path 2 · Aisle by aisle</p>
+        <h2>Every category, and why</h2>
+        <p class="sec-intro">
+          Tap a card to open it. Each item is tagged go / read-label / stop with the reason.
+          <span id="aisleStatus" style="color: var(--ink-faint)"></span>
+        </p>
+        <div id="aisles"></div>
+      </section>
+
+      <!-- YOGURT -->
+      <section id="yogurt">
+        <p class="sec-label">Your example, worked out</p>
+        <h2>Yogurt &amp; the “Icelandic” one</h2>
+        <div class="cols">
+          <div class="card">
+            <h3>Plain dairy yogurt</h3>
+            <p>
+              Yogurt is set by <b>bacterial culture, not rennet</b> — so no cheese problem. If you
+              hold by chalav stam, plain <span lang="de">Naturjoghurt</span> is workable by
+              ingredient. The whole game is the label:
+            </p>
+            <ul class="tick">
+              <li class="go">
+                Plain <span lang="de">Natur / ungesüßt</span> dodges Aroma, fruit prep &amp; carmine
+              </li>
+              <li class="stop"><span lang="de">Gelatine</span> in creamy/low-fat ones — stop</li>
+              <li class="stop"><span lang="de">Karmin</span> in pink/red fruit ones — stop</li>
+              <li class="read">
+                <span lang="de">Aroma</span> / <span lang="de">Fruchtzubereitung</span> — the
+                judgment call
+              </li>
+              <li class="read">
+                <b>Skyr</b> is the exception — sometimes a little rennet, a bigger question mark
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>The non-dairy play</h3>
+            <p>
+              Your instinct is dead right: <b>no milk = no milk problem at all</b>, and it works for
+              a chalav-yisrael-only person too. A clean plant label is basically the whole question
+              — and <b>Alpro plant milks are on Misrachi's certified list (KLBD)</b>.
+            </p>
+            <p>
+              <b>On the “made in Iceland” one:</b> couldn't confirm a non-dairy yogurt actually made
+              in Iceland on Austrian shelves — the real one is
+              <b>Icelandic Provisions oat-milk skyr</b>, a US product. 📸 Photograph the tub if you
+              spot it. What you'll find in Austria:
+            </p>
+            <ul class="tick">
+              <li class="go"><b>Alpro</b> — soy &amp; coconut (KLBD-certified per Misrachi)</li>
+              <li class="go"><b>Joya</b> · <b>SPAR Veggie</b> · <b>dmBio</b> — plant, plain</li>
+              <li class="read">
+                Still scan for <span lang="de">Aroma</span> &amp; thickeners on the tub
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- BACKUP -->
+      <section id="backup">
+        <p class="sec-label">When in doubt</p>
+        <h2>Backup &amp; cross-check</h2>
+        <div class="backup">
+          <div class="card">
+            <h3>Nearest live help</h3>
+            <p>
+              <b>Chabad of Salzburg</b> — Rabbi Menachem &amp; Chanie Gruzman. Closest resource
+              (~1–1.5h from Bad Goisern / Gosau). Shabbat Meals To-Go, and answers traveler kosher
+              questions by WhatsApp.
+            </p>
+            <p>
+              📍 Linzergasse 76, Salzburg · 📱 WhatsApp <b>+43 676 83181555</b> · ✉️
+              ChabadSalzburg@gmail.com.
+              <span style="color: var(--ink-faint)"
+                >No kosher shop or restaurant in Salzburg itself.</span
+              >
+            </p>
+          </div>
+          <div class="card">
+            <h3>Check a specific product</h3>
+            <p>
+              <b>Misrachi Austria</b> — the live certified-product guide + app:
+              <a href="https://www.misrachi.at/koscher" target="_blank" rel="noopener"
+                >misrachi.at/koscher</a
+              >.
+            </p>
+            <p>
+              <b>KLBD “Is it Kosher? UK”</b> — Europe's biggest agency, free, works
+              <b>offline</b> (no signal needed in the aisle). Plus
+              <b>“Is it Kosher?”</b> (KosherDev) — global barcode database, ~1,000 Austrian
+              products.
+            </p>
+            <p style="color: var(--ink-faint)">
+              Vienna has full kosher supermarkets (LaMehadrin, Shefa) if you route through — ~3h
+              from the lake region.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="guide-footer">
+        <p>
+          <b>How this was built:</b> multi-source research, every claim run past an adversarial
+          fact-checker (kashrut facts hallucinate easily). Sources: OU, Star-K, cRc, London Beth Din
+          (KLBD), and © Misrachi Austria's kosher guide (summarized + linked, not reproduced).
+          Products verified against real ingredient lists (Milka, Ölz, Wasa, Kelly's, McCain).
+        </p>
+        <p>
+          <b>This is not a psak.</b> It's the map of the practice and its reasons — the ruling is
+          Rabbi Haber's. Built for Allison, 22 July 2026.
+        </p>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/kosher.ts"></script>
+  </body>
+</html>

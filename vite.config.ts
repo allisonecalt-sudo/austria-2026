@@ -47,6 +47,9 @@ export default defineConfig(({ command }) => ({
         plan: resolve(__dirname, 'plan.html'),
         rank: resolve(__dirname, 'rank.html'),
         claude: resolve(__dirname, 'claude.html'),
+        // 2026-07-22: kosher-by-ingredient field guide (certified-first +
+        // ingredient-based traffic-light triage). Static, no Supabase.
+        kosher: resolve(__dirname, 'kosher.html'),
       },
     },
   },
