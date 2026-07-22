@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🛒%3C/text%3E%3C/svg%3E"
+    />
+    <title>Shop by sight — kosher-safe products in Austria</title>
+    <meta
+      name="description"
+      content="Common Austrian supermarket products that are kosher (certified) or kosher-by-ingredient — by category, with photos so you can recognize them on the shelf."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/shop.css" />
+  </head>
+  <body>
+    <nav class="brochure-nav" aria-label="Sections">
+      <a href="index.html">Trip</a>
+      <a href="plan.html">Plan ✦</a>
+      <a href="rank.html">Rank ⭐</a>
+      <a href="claude.html">Claude 💙</a>
+      <a href="kosher.html">Kosher ✡️</a>
+      <a href="shop.html" aria-current="page">Shop 🛒</a>
+    </nav>
+
+    <div class="wrap">
+      <header class="top">
+        <p class="eyebrow">Austria · 24–31 July 2026 · shop by sight</p>
+        <h1>Common kosher-safe products</h1>
+        <p class="dek">
+          Things you'll actually see on Austrian shelves that are kosher — recognize them by the
+          picture, no reading needed. Two kinds:
+        </p>
+        <div class="keyrow">
+          <span class="key"
+            ><span class="pip cert"></span>Certified — has a hechsher (your normal bar)</span
+          >
+          <span class="key"><span class="pip ingr"></span>Kosher by ingredient — clean label</span>
+        </div>
+        <div class="note">
+          <b>Photos are for recognition, not proof.</b> Brands change recipes and packaging — always
+          glance at the ingredients (or snap it for Claude). Certified items are only kosher
+          <b>with the actual hechsher stamp on the pack</b>. Full detail + the why on the
+          <a href="kosher.html">Kosher guide</a>.
+        </div>
+      </header>
+
+      <main id="shop"></main>
+
+      <footer class="guide-footer">
+        <p>
+          Product photos via
+          <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener"
+            >Open Food Facts</a
+          >
+          (openly licensed, self-hosted here). Certified statuses from © Misrachi Austria's guide.
+          Not a psak — the ruling is Rabbi Haber's. Built for Allison, 22 July 2026.
+        </p>
+      </footer>
+    </div>
+
+    <script type="module" src="/src/shop.ts"></script>
+  </body>
+</html>

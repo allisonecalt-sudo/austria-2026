@@ -50,6 +50,8 @@ export default defineConfig(({ command }) => ({
         // 2026-07-22: kosher-by-ingredient field guide (certified-first +
         // ingredient-based traffic-light triage). Static, no Supabase.
         kosher: resolve(__dirname, 'kosher.html'),
+        // 2026-07-22: shop-by-sight visual product grid.
+        shop: resolve(__dirname, 'shop.html'),
       },
     },
   },

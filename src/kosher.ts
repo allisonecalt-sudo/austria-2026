@@ -1418,3 +1418,5 @@ mount(
 
 const statusEl = document.getElementById('aisleStatus');
 if (statusEl) statusEl.textContent = `${AISLES.length} aisles.`;
+
+export {}; // isolate module scope (no imports/exports otherwise)
