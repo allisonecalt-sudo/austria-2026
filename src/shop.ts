@@ -20,6 +20,7 @@ interface Product {
   misrachi: string; // certifying authority per Misrachi Austria's guide; '' if not listed
   ingredients: string; // German ingredient text (best-effort, from Open Food Facts)
   leniency: string; // WHAT this item leans on: a named leniency, or 'none needed' and why
+  ingredientsEn: string; // plain-English translation of the German list (Gil's request)
 }
 
 function esc(s: string): string {
@@ -38,6 +39,7 @@ const PRODUCTS: Product[] = [
     why: 'Plant, no milk. NOT on Misrachi list - Alpro Oat/Barista is not among the listed varieties',
     ingredients: '',
     leniency: 'None needed - plant, no milk at all. (Also KLBD-certified.)',
+    ingredientsEn: '',
   },
   {
     slug: 'alpro-soja',
@@ -48,6 +50,7 @@ const PRODUCTS: Product[] = [
     why: 'Plant, no milk. Plain Soja Drink Natur is NOT confirmed on the Misrachi list',
     ingredients: '',
     leniency: 'None needed - plant, no milk at all. (Also KLBD-certified.)',
+    ingredientsEn: '',
   },
   {
     slug: 'nom-milch',
@@ -59,6 +62,7 @@ const PRODUCTS: Product[] = [
     ingredients: '',
     leniency:
       'CHALAV STAM - EU dairy is government-policed, so it counts as watched (Rav Moshe; OU applies it to the EU).',
+    ingredientsEn: '',
   },
   {
     slug: 'joya-oat',
@@ -69,6 +73,7 @@ const PRODUCTS: Product[] = [
     why: 'Austrian plant milk',
     ingredients: 'Haferbasis 99,5% (Wasser, _Vollkornhafer_ 11,5%), Sonnenblumenöl, Salz.',
     leniency: 'None needed - plant, no milk.',
+    ingredientsEn: 'Oat base 99.5% (water, wholegrain oats 11.5%), sunflower oil, salt.',
   },
   {
     slug: 'alpro-yogurt',
@@ -80,6 +85,8 @@ const PRODUCTS: Product[] = [
     ingredients:
       'Wasser, geschälte SOJABOHNEN (10,7%), Calcium (Tricalciumcitrat), Stabilisator (Pektine), Säureregulatoren (Natriumcitrate, Citronensäure), natürliches Aroma, Meersalz, Antioxidationsmittel (stark tocopherolhaltige Extrakte, Fettsäureester der Ascorbinsäure), Vitamine (B12, B6, D2), Joghurtkulturen (S. thermophilus, L. bulgaricus). Kann SPUREN VON SCHALENFRÜCHTEN enthalten.',
     leniency: 'None needed - plant, no milk.',
+    ingredientsEn:
+      'Water, hulled soybeans (10.7%), calcium (tricalcium citrate), stabiliser (pectin), acidity regulators (sodium citrates, citric acid), NATURAL FLAVOURING, sea salt, antioxidants (tocopherol-rich extracts, ASCORBYL PALMITATE), vitamins (B12, B6, D2), yogurt cultures. May contain traces of nuts.',
   },
   {
     slug: 'nom-naturjoghurt',
@@ -90,6 +97,7 @@ const PRODUCTS: Product[] = [
     why: 'Listed by exact SKU: NOEM Joghurt Natur 1% Fett loeffelfest 250g. Sold at BILLA + SPAR',
     ingredients: 'Joghurt 1 % Fett, aus pasteurisierter Milch',
     leniency: 'CHALAV STAM. Plus: yogurt is set by culture, not rennet - so no cheese question.',
+    ingredientsEn: 'Yogurt 1% fat, from pasteurised milk.',
   },
   {
     slug: 'olz-toast',
@@ -102,6 +110,7 @@ const PRODUCTS: Product[] = [
       'Weizenmehl, Wasser, Weizensauerteig, Rapsöl, Hefe, Zucker, Speisesalz, Säureregulator (Natriumacetat), Ascorbinsäure',
     leniency:
       'PAS PALTER - commercially baked bread (the decree was aimed at a non-Jew home-baking).',
+    ingredientsEn: '',
   },
   {
     slug: 'wasa-roggen',
@@ -112,6 +121,7 @@ const PRODUCTS: Product[] = [
     why: 'Rye + yeast + salt - baked, so pas palter',
     ingredients: 'Vollkornroggenmehl, Hefe, Salz.',
     leniency: 'PAS PALTER, extended to pat habaah bkisnin (Gil).',
+    ingredientsEn: 'Wholegrain rye flour, yeast, salt.',
   },
   {
     slug: 'reiswaffeln',
@@ -122,6 +132,7 @@ const PRODUCTS: Product[] = [
     why: 'Rice + salt',
     ingredients: '98,7% Bio Reis, Bio Sesam, 0,3% Speisesalz.',
     leniency: 'None needed - puffed rice + salt, nothing cooked by them that counts.',
+    ingredientsEn: '98.7% organic rice, organic sesame, 0.3% salt.',
   },
   {
     slug: 'soletti',
@@ -132,6 +143,7 @@ const PRODUCTS: Product[] = [
     why: 'Baked wheat sticks = pas palter - read for palm/animal fat',
     ingredients: '',
     leniency: 'PAS PALTER, extended to pat habaah bkisnin (Gil).',
+    ingredientsEn: '',
   },
   {
     slug: 'barilla-spaghetti',
@@ -142,6 +154,7 @@ const PRODUCTS: Product[] = [
     why: 'Durum wheat + water',
     ingredients: 'Semoule de BLÉ dur. Peut contenir des traces de SOJA et de MOUTARDE.',
     leniency: 'None needed - it is raw. YOU cook it, so bishul akum never starts.',
+    ingredientsEn: 'Durum wheat semolina. May contain traces of soy and mustard.',
   },
   {
     slug: 'barilla-penne',
@@ -152,6 +165,7 @@ const PRODUCTS: Product[] = [
     why: 'Durum wheat + water',
     ingredients: 'Vollkorn-Hartweizengrieß, Wasser',
     leniency: 'None needed - it is raw. YOU cook it, so bishul akum never starts.',
+    ingredientsEn: 'Wholegrain durum wheat semolina, water.',
   },
   {
     slug: 'koelln-oats',
@@ -162,6 +176,7 @@ const PRODUCTS: Product[] = [
     why: 'Plain oats',
     ingredients: 'Vollkorn-Haferflocken',
     leniency: 'None needed - oats are exempt anyway, and you cook them.',
+    ingredientsEn: 'Wholegrain rolled oats.',
   },
   {
     slug: 'kellys-chips',
@@ -172,6 +187,7 @@ const PRODUCTS: Product[] = [
     why: 'Gil: ok according to most - potato, oil, salt',
     ingredients: 'Kartoffeln, Sonnenblumenöl, Salz',
     leniency: 'BISHUL AKUM leniency: a snack is not "kings-table" food. Gil: ok according to most.',
+    ingredientsEn: 'Potatoes, sunflower oil, salt.',
   },
   {
     slug: 'kellys-popcorn',
@@ -182,6 +198,7 @@ const PRODUCTS: Product[] = [
     why: 'Gil: ok according to most - corn, oil, salt',
     ingredients: '84% Mais, 14% Palmöl, Speisesalz.',
     leniency: 'BISHUL AKUM leniency: a snack is not "kings-table" food. Gil: ok according to most.',
+    ingredientsEn: '84% corn, 14% palm oil, salt.',
   },
   {
     slug: 'milka-alpenmilch',
@@ -194,6 +211,7 @@ const PRODUCTS: Product[] = [
       'Zucker, Kakaobutter, Kakaomasse, MAGERMILCHPULVER, Süssmolkenpulver (aus MILCH), BUTTERREINFETT, Emulgator (SOJALECITHINE), HASELNUSSMASSE, Aroma, Kakao: 33%',
     leniency:
       'CHALAV STAM - and that also covers the Suessmolkenpulver (whey). Gil: whey is fine if chalav stam is fine.',
+    ingredientsEn: '',
   },
   {
     slug: 'lindt-70',
@@ -204,6 +222,7 @@ const PRODUCTS: Product[] = [
     why: 'Dark, usually pareve — read',
     ingredients: 'Kakaomasse, Zucker, Kakaobutter, Vanille',
     leniency: 'None needed - dark chocolate, pareve ingredients, not a cooked dish.',
+    ingredientsEn: 'Cocoa mass, sugar, cocoa butter, vanilla.',
   },
   {
     slug: 'kelloggs-cornflakes',
@@ -215,6 +234,8 @@ const PRODUCTS: Product[] = [
     ingredients:
       'corn, sugar, aroma of malt of barley, salt, vitamins and minerals : vitamin b3/pp, vitamin b6, vitamin b2, vitamin b1, vitamin b9, vitamin d, vitamin b12, iron,',
     leniency: 'None needed - it is CERTIFIED (Manchester Beth Din), with the stamp on the pack.',
+    ingredientsEn:
+      'Corn, sugar, barley malt flavouring, salt, vitamins and minerals (B3, B6, B2, B1, folic acid, D, B12, iron).',
   },
   {
     slug: 'bertolli-oil',
@@ -225,6 +246,7 @@ const PRODUCTS: Product[] = [
     why: 'Single-ingredient EVOO',
     ingredients: 'olijfolie',
     leniency: 'None needed - single ingredient, cold-pressed, no cooking (OK Kosher).',
+    ingredientsEn: 'Olive oil.',
   },
   {
     slug: 'darbo-marille',
@@ -235,6 +257,7 @@ const PRODUCTS: Product[] = [
     why: 'Fruit + sugar + pectin',
     ingredients: '',
     leniency: 'None needed - fruit is edible raw, so cooking it does not trigger bishul akum.',
+    ingredientsEn: '',
   },
   {
     slug: 'bonduelle-erbsen',
@@ -245,6 +268,7 @@ const PRODUCTS: Product[] = [
     why: 'Listed by name: Bonduelle peas',
     ingredients: 'Palerbsen sehr fein, Wasser, Zucker, Salz.',
     leniency: 'None needed - it is CERTIFIED (Rabbi Rotenberg, Vienna, via Misrachi).',
+    ingredientsEn: 'Garden peas (extra fine), water, sugar, salt.',
   },
   {
     slug: 'mutti-passata',
@@ -255,6 +279,7 @@ const PRODUCTS: Product[] = [
     why: 'Tomato + basil',
     ingredients: 'Pomodoro 99,5 %, sale.',
     leniency: 'None needed - tomatoes are edible raw, so no bishul akum.',
+    ingredientsEn: 'Tomato 99.5%, salt.',
   },
   {
     slug: 'olives',
@@ -266,6 +291,8 @@ const PRODUCTS: Product[] = [
     ingredients:
       "49% olives vertes, eau, 8% ail, sel, correcteur d'acidité: acide lactique; antioxydants: acide citrique, acide ascorbique. Traces éventuelles d'amandes.",
     leniency: 'None needed - olives are cured, not cooked. Just check the brine is not Weinessig.',
+    ingredientsEn:
+      '49% green olives, water, 8% garlic, salt, acidity regulator: lactic acid; antioxidants: citric acid, ascorbic acid. May contain traces of almonds.',
   },
   {
     slug: 'rio-mare-tuna',
@@ -277,6 +304,7 @@ const PRODUCTS: Product[] = [
     ingredients: '',
     leniency:
       'BISHUL AKUM leniency, three grounds together (Gil): steamed first + not "kings-table" + made industrially. Note: industrial alone would NOT be enough.',
+    ingredientsEn: '',
   },
   {
     slug: 'thunfisch-natur',
@@ -288,6 +316,7 @@ const PRODUCTS: Product[] = [
     ingredients: '',
     leniency:
       'BISHUL AKUM leniency, three grounds together (Gil): steamed + not "kings-table" + industrial.',
+    ingredientsEn: '',
   },
   {
     slug: 'raeucherlachs',
@@ -299,6 +328,7 @@ const PRODUCTS: Product[] = [
     ingredients: '',
     leniency:
       'None needed - cold-smoked, never actually cooked, so bishul akum never starts. Gil: ok.',
+    ingredientsEn: '',
   },
   {
     slug: 'rauch-orange',
@@ -309,6 +339,7 @@ const PRODUCTS: Product[] = [
     why: 'Single-fruit juice — no grape',
     ingredients: 'Orangensaft 100%',
     leniency: 'None needed - juice, not a cooked dish. Single fruit, so no grape either.',
+    ingredientsEn: 'Orange juice 100%.',
   },
   {
     slug: 'rauch-apfel',
@@ -319,6 +350,7 @@ const PRODUCTS: Product[] = [
     why: 'Apple juice — no grape',
     ingredients: '100% Jus de pomme à base de concentré',
     leniency: 'None needed - juice, not a cooked dish. Apple, so no grape.',
+    ingredientsEn: '100% apple juice from concentrate.',
   },
   {
     slug: 'voeslauer',
@@ -329,17 +361,19 @@ const PRODUCTS: Product[] = [
     why: 'Just water',
     ingredients: 'Natürliches Mineralwasser',
     leniency: 'None needed - it is water.',
+    ingredientsEn: 'Natural mineral water.',
   },
   {
     slug: 'mccain-frites',
     name: 'McCain 1·2·3 Frites',
     cat: 'Frozen',
-    status: 'disp',
+    status: 'ingr',
     misrachi: '',
-    why: 'Par-fried at the factory, you finish it at home - bishul akum arguable',
+    why: 'Potato + sunflower oil, vegan. Gil: partially cooked + you finish it = ok. BONUS: McCain Frites 1-2-3 is KLBD-certified at Interspar',
     ingredients: 'Kartoffeln (96%), Sonnenblumenöl (4%).',
     leniency:
-      'CLAIMED leniency: the factory only part-fries it and YOU finish the cooking. Not confirmed with Gil - still open.',
+      'BISHUL AKUM, settled by Gil: "If something is partially cooked and you finish the cooking it is ok from bishul akum." The factory par-fries, you finish it.',
+    ingredientsEn: '',
   },
   {
     slug: 'iglo-erbsen',
@@ -350,6 +384,7 @@ const PRODUCTS: Product[] = [
     why: 'Just peas',
     ingredients: 'Erbsen',
     leniency: 'None needed - peas are edible raw, so blanching does not trigger bishul akum.',
+    ingredientsEn: 'Peas.',
   },
 ];
 
@@ -377,7 +412,11 @@ function card(p: Product): string {
     ? `<div class="misr">✓ Misrachi Austria — <b>${esc(p.misrachi)}</b></div>`
     : '';
   const ing = p.ingredients
-    ? `<div class="ing"><span class="zt">Zutaten</span> ${esc(p.ingredients)}</div>`
+    ? `<div class="ing"><span class="zt">Zutaten (German)</span> ${esc(p.ingredients)}${
+        p.ingredientsEn
+          ? `<span class="en"><span class="zt">In English</span> ${esc(p.ingredientsEn)}</span>`
+          : ''
+      }</div>`
     : `<div class="ing muted"><span class="zt">Zutaten</span> check the pack</div>`;
   const len = p.leniency
     ? `<div class="len"><span class="zt">Leaning on</span> ${esc(p.leniency)}</div>`

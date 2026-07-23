@@ -318,3 +318,15 @@ footer.guide-footer a {
   color: var(--accent);
   margin-bottom: 2px;
 }
+
+/* ---------- English ingredient translation (Gil's request) ---------- */
+.prod .ing .en {
+  display: block;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dotted var(--line);
+  color: var(--ink-soft);
+}
+.prod .ing .en .zt {
+  color: var(--blue);
+}
