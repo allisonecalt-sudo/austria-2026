@@ -1,0 +1,25 @@
+{
+ "name": "Certified kosher products in Austrian supermarkets",
+ "short_name": "Certified Kosher",
+ "description": "Certified kosher products in Austrian supermarkets",
+ "start_url": "/austria-2026/certified.html",
+ "scope": "/austria-2026/",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#f7f5f0",
+ "theme_color": "#1e5a8a",
+ "icons": [
+  {
+   "src": "/austria-2026/icons/cert-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "/austria-2026/icons/cert-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

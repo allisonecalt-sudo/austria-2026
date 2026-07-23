@@ -321,11 +321,7 @@ a {
   width: 2px;
   height: 26px;
   margin-left: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--line) 0 5px,
-    transparent 5px 10px
-  );
+  background: repeating-linear-gradient(to bottom, var(--line) 0 5px, transparent 5px 10px);
 }
 
 .route__leg-time {

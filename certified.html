@@ -12,6 +12,13 @@
       name="description"
       content="Products with a real hechsher (OU, KLBD, Manchester Beth Din, Star-K) sold in ordinary Austrian supermarkets — Billa, Spar, Hofer, Interspar. From Misrachi Austria's guide."
     />
+    <meta name="theme-color" content="#1e5a8a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Kosher" />
+    <link rel="manifest" href="manifest-certified.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/cert-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -54,6 +61,14 @@
           Can't find any of these? Then switch to
           <a href="shop.html">reading ingredients →</a> — that page is the fallback, with the German
           label method and the per-item reasoning.
+        </div>
+        <div class="note addhome" id="addhome" hidden>
+          <b>📱 Add this to your phone.</b> It opens straight to <b>the certified list</b>,
+          full-screen, like an app.
+          <span class="how"
+            >iPhone: Share → <b>Add to Home Screen</b>. Android: ⋮ → <b>Install app</b>.</span
+          >
+          <button class="dismiss" id="dismissHome" type="button">Got it</button>
         </div>
       </header>
 
@@ -100,5 +115,21 @@
     </div>
 
     <script type="module" src="/src/certified.ts"></script>
+    <script>
+      (function () {
+        var el = document.getElementById('addhome');
+        if (!el) return;
+        var standalone =
+          window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        var touch = window.matchMedia('(pointer: coarse)').matches;
+        if (!standalone && touch && !localStorage.getItem('addhome-dismissed')) el.hidden = false;
+        var b = document.getElementById('dismissHome');
+        if (b)
+          b.addEventListener('click', function () {
+            localStorage.setItem('addhome-dismissed', '1');
+            el.hidden = true;
+          });
+      })();
+    </script>
   </body>
 </html>

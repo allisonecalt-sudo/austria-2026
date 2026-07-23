@@ -12,6 +12,13 @@
       name="description"
       content="Common Austrian supermarket products that are kosher (certified) or kosher-by-ingredient — by category, with photos so you can recognize them on the shelf."
     />
+    <meta name="theme-color" content="#2f7d4f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Kosher" />
+    <link rel="manifest" href="manifest-shop.webmanifest" />
+    <link rel="apple-touch-icon" href="icons/shop-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -92,6 +99,14 @@
           pack in your hand wins. Full detail + the why on the
           <a href="kosher.html">Kosher guide</a>.
         </div>
+        <div class="note addhome" id="addhome" hidden>
+          <b>📱 Add this to your phone.</b> It opens straight to <b>the ingredient list</b>,
+          full-screen, like an app.
+          <span class="how"
+            >iPhone: Share → <b>Add to Home Screen</b>. Android: ⋮ → <b>Install app</b>.</span
+          >
+          <button class="dismiss" id="dismissHome" type="button">Got it</button>
+        </div>
       </header>
 
       <div class="searchwrap">
@@ -135,5 +150,21 @@
     </div>
 
     <script type="module" src="/src/shop.ts"></script>
+    <script>
+      (function () {
+        var el = document.getElementById('addhome');
+        if (!el) return;
+        var standalone =
+          window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        var touch = window.matchMedia('(pointer: coarse)').matches;
+        if (!standalone && touch && !localStorage.getItem('addhome-dismissed')) el.hidden = false;
+        var b = document.getElementById('dismissHome');
+        if (b)
+          b.addEventListener('click', function () {
+            localStorage.setItem('addhome-dismissed', '1');
+            el.hidden = true;
+          });
+      })();
+    </script>
   </body>
 </html>
