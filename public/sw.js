@@ -21,7 +21,7 @@
 // VERSION must be bumped on every deploy or phones keep the old shell.
 // ===========================================================================
 
-const VERSION = 'austria-v3-2026-07-23-1710';
+const VERSION = 'austria-v4-2026-07-23-1855';
 const SHELL = `shell-${VERSION}`;
 const ASSETS = `assets-${VERSION}`;
 const PHOTOS = `photos-${VERSION}`;
@@ -31,6 +31,7 @@ const BASE = self.registration.scope; // .../austria-2026/
 
 const PAGES = [
   'hub.html',
+  'overview.html',
   'index.html',
   'plan.html',
   'favorites.html',
@@ -112,6 +113,14 @@ self.addEventListener('fetch', (event) => {
 
   // Weather has its own labelled cache in weather.ts — don't double-cache.
   if (url.hostname === 'api.open-meteo.com') return;
+
+  // Map tiles. Cache-first and capped by the browser's own eviction — the
+  // point is that an area you have already looked at still draws in a valley
+  // with no signal. Tiles never change, so a cached one is never stale.
+  if (url.hostname.endsWith('tile.openstreetmap.org')) {
+    event.respondWith(cacheFirst(request, PHOTOS));
+    return;
+  }
 
   // Wikimedia activity photos.
   if (url.hostname.endsWith('wikimedia.org') || url.hostname.endsWith('wikipedia.org')) {

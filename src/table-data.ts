@@ -7,6 +7,8 @@
 export interface TableBase {
   key: string;
   name: string;
+  lat: number;
+  lng: number;
 }
 
 export interface NearRef {
@@ -16,6 +18,9 @@ export interface NearRef {
 
 export interface TableRow {
   id: string;
+  /** Geocoded 2026-07-23. Null only if a place was added without coordinates. */
+  lat: number | null;
+  lng: number | null;
   /** Drive minutes from each base, in BASE_ORDER order. */
   fromBase: number[];
   /** Top 2 things that make it unique. */
@@ -28,943 +33,1512 @@ export interface TableRow {
 
 export const BASE_ORDER: TableBase[] = [
   {
-    key: 'goisern',
-    name: 'Bad Goisern',
+    "key": "goisern",
+    "name": "Bad Goisern",
+    "lat": 47.6408,
+    "lng": 13.6183
   },
   {
-    key: 'zell',
-    name: 'Zell am See',
+    "key": "zell",
+    "name": "Zell am See",
+    "lat": 47.3232,
+    "lng": 12.7942
   },
   {
-    key: 'gosau',
-    name: 'Gosau',
+    "key": "gosau",
+    "name": "Gosau",
+    "lat": 47.5847,
+    "lng": 13.5347
   },
   {
-    key: 'wals',
-    name: 'Wals',
-  },
+    "key": "wals",
+    "name": "Wals",
+    "lat": 47.7833,
+    "lng": 12.9667
+  }
 ];
 
 export const TABLE_ROWS: Record<string, TableRow> = {
-  mauthausen: {
-    id: 'mauthausen',
-    fromBase: [103, 170, 120, 104],
-    unique: ['The quarry and its “Stairs of Death”', 'The Room of Names — free entry, audio guide'],
-    why: 'The one unmissable act of remembrance on this trip, and the reason Friday exists.',
-    near: [
-      {
-        id: 'almsee',
-        km: 68.9,
-      },
-      {
-        id: 'ebensee',
-        km: 73.3,
-      },
+  "mauthausen": {
+    "id": "mauthausen",
+    "lat": 48.2571254,
+    "lng": 14.5001374,
+    "fromBase": [
+      103,
+      170,
+      120,
+      104
     ],
+    "unique": [
+      "The quarry and its “Stairs of Death”",
+      "The Room of Names — free entry, audio guide"
+    ],
+    "why": "The one unmissable act of remembrance on this trip, and the reason Friday exists.",
+    "near": [
+      {
+        "id": "almsee",
+        "km": 68.9
+      },
+      {
+        "id": "ebensee",
+        "km": 73.3
+      }
+    ]
   },
-  ebensee: {
-    id: 'ebensee',
-    fromBase: [25, 127, 42, 70],
-    unique: ['You walk INTO the tunnel prisoners dug', '8°C inside, in July'],
-    why: 'The heaviest history of the week is 25 minutes from your first bed — no day lost to it.',
-    near: [
-      {
-        id: 'langbathsee',
-        km: 7.2,
-      },
-      {
-        id: 'almsee',
-        km: 14.9,
-      },
+  "ebensee": {
+    "id": "ebensee",
+    "lat": 47.8132908,
+    "lng": 13.7717451,
+    "fromBase": [
+      25,
+      127,
+      42,
+      70
     ],
+    "unique": [
+      "You walk INTO the tunnel prisoners dug",
+      "8°C inside, in July"
+    ],
+    "why": "The heaviest history of the week is 25 minutes from your first bed — no day lost to it.",
+    "near": [
+      {
+        "id": "langbathsee",
+        "km": 7.2
+      },
+      {
+        "id": "almsee",
+        "km": 14.9
+      }
+    ]
   },
-  'salzburg-jewish-walk': {
-    id: 'salzburg-jewish-walk',
-    fromBase: [67, 83, 58, 19],
-    unique: ['Stolpersteine set into the pavement', 'The Marko Feingold bridge + a living shul'],
-    why: 'Flat, free and self-paced — the meaningful option on a day with no energy for a drive.',
-    near: [
-      {
-        id: 'hohensalzburg',
-        km: 0.6,
-      },
-      {
-        id: 'fortress-concert',
-        km: 0.6,
-      },
+  "salzburg-jewish-walk": {
+    "id": "salzburg-jewish-walk",
+    "lat": 47.7998615,
+    "lng": 13.0460812,
+    "fromBase": [
+      67,
+      83,
+      58,
+      19
     ],
+    "unique": [
+      "Stolpersteine set into the pavement",
+      "The Marko Feingold bridge + a living shul"
+    ],
+    "why": "Flat, free and self-paced — the meaningful option on a day with no energy for a drive.",
+    "near": [
+      {
+        "id": "hohensalzburg",
+        "km": 0.6
+      },
+      {
+        "id": "fortress-concert",
+        "km": 0.6
+      }
+    ]
   },
-  'jewish-ischl': {
-    id: 'jewish-ischl',
-    fromBase: [12, 114, 29, 58],
-    unique: ['The Pins of Remembrance route', 'An imperial spa town that had a real community'],
-    why: 'An hour of meaning attached to a stop you are making anyway for groceries.',
-    near: [
-      {
-        id: 'kaiservilla',
-        km: 0.3,
-      },
-      {
-        id: 'eurothermen-ischl',
-        km: 0.3,
-      },
+  "jewish-ischl": {
+    "id": "jewish-ischl",
+    "lat": 47.7123805,
+    "lng": 13.6209459,
+    "fromBase": [
+      12,
+      114,
+      29,
+      58
     ],
+    "unique": [
+      "The Pins of Remembrance route",
+      "An imperial spa town that had a real community"
+    ],
+    "why": "An hour of meaning attached to a stop you are making anyway for groceries.",
+    "near": [
+      {
+        "id": "kaiservilla",
+        "km": 0.3
+      },
+      {
+        "id": "eurothermen-ischl",
+        "km": 0.3
+      }
+    ]
   },
-  'krimml-apc': {
-    id: 'krimml-apc',
-    fromBase: [156, 60, 137, 126],
-    unique: [
-      'Austria’s highest waterfall, 380 m',
-      'The 1947 Jewish exodus over the Krimmler Tauern',
+  "krimml-apc": {
+    "id": "krimml-apc",
+    "lat": 47.2035611,
+    "lng": 12.1716395,
+    "fromBase": [
+      156,
+      60,
+      137,
+      126
     ],
-    why: 'Water and Jewish history in one walk — uphill but easy, and worth the drive from Zell.',
-    near: [
+    "unique": [
+      "Austria’s highest waterfall, 380 m",
+      "The 1947 Jewish exodus over the Krimmler Tauern"
+    ],
+    "why": "Water and Jewish history in one walk — uphill but easy, and worth the drive from Zell.",
+    "near": [
       {
-        id: 'baumzipfelweg',
-        km: 31.2,
+        "id": "baumzipfelweg",
+        "km": 31.2
       },
       {
-        id: 'mooserboden',
-        km: 41.9,
-      },
-    ],
+        "id": "mooserboden",
+        "km": 41.9
+      }
+    ]
   },
-  kitzsteinhorn: {
-    id: 'kitzsteinhorn',
-    fromBase: [107, 12, 88, 77],
-    unique: ['Real glacier snow underfoot in July', 'Platform straight into the Hohe Tauern'],
-    why: '3,029 m without a single step of climbing — three lifts do all of it.',
-    near: [
-      {
-        id: 'tauern-spa',
-        km: 1,
-      },
-      {
-        id: 'sigmund-thun',
-        km: 2.2,
-      },
+  "kitzsteinhorn": {
+    "id": "kitzsteinhorn",
+    "lat": 47.273843,
+    "lng": 12.7574626,
+    "fromBase": [
+      107,
+      12,
+      88,
+      77
     ],
+    "unique": [
+      "Real glacier snow underfoot in July",
+      "Platform straight into the Hohe Tauern"
+    ],
+    "why": "3,029 m without a single step of climbing — three lifts do all of it.",
+    "near": [
+      {
+        "id": "tauern-spa",
+        "km": 1
+      },
+      {
+        "id": "sigmund-thun",
+        "km": 2.2
+      }
+    ]
   },
-  schmittenhoehe: {
-    id: 'schmittenhoehe',
-    fromBase: [109, 4, 90, 74],
-    unique: ['The easiest big view of the trip', 'Zell’s own mountain, gondola from town'],
-    why: 'When you want the panorama but not the glacier day, this is the 36-euro version.',
-    near: [
-      {
-        id: 'out2-rafting',
-        km: 1.9,
-      },
-      {
-        id: 'pinzgauer-bahn',
-        km: 1.9,
-      },
+  "schmittenhoehe": {
+    "id": "schmittenhoehe",
+    "lat": 47.3264048,
+    "lng": 12.7724777,
+    "fromBase": [
+      109,
+      4,
+      90,
+      74
     ],
+    "unique": [
+      "The easiest big view of the trip",
+      "Zell’s own mountain, gondola from town"
+    ],
+    "why": "When you want the panorama but not the glacier day, this is the 36-euro version.",
+    "near": [
+      {
+        "id": "out2-rafting",
+        "km": 1.9
+      },
+      {
+        "id": "pinzgauer-bahn",
+        "km": 1.9
+      }
+    ]
   },
-  mooserboden: {
-    id: 'mooserboden',
-    fromBase: [118, 22, 100, 88],
-    unique: ['Two turquoise reservoirs at 2,040 m', 'Buses + funicular do the climbing'],
-    why: 'Flat dam walks with glaciers on three sides — big scenery, no effort.',
-    near: [
-      {
-        id: 'sigmund-thun',
-        km: 4.9,
-      },
-      {
-        id: 'kitzsteinhorn',
-        km: 6.8,
-      },
+  "mooserboden": {
+    "id": "mooserboden",
+    "lat": 47.2163407,
+    "lng": 12.7261712,
+    "fromBase": [
+      118,
+      22,
+      100,
+      88
     ],
+    "unique": [
+      "Two turquoise reservoirs at 2,040 m",
+      "Buses + funicular do the climbing"
+    ],
+    "why": "Flat dam walks with glaciers on three sides — big scenery, no effort.",
+    "near": [
+      {
+        "id": "sigmund-thun",
+        "km": 4.9
+      },
+      {
+        "id": "kitzsteinhorn",
+        "km": 6.8
+      }
+    ]
   },
-  'zell-cruise': {
-    id: 'zell-cruise',
-    fromBase: [106, 3, 87, 73],
-    unique: ['Gold light FROM the water', 'Monday evening is the window'],
-    why: 'Your Montenegro boat-evening, Austrian edition — the likeliest lifetime memory of the week.',
-    near: [
-      {
-        id: 'pinzgauer-bahn',
-        km: 0.1,
-      },
-      {
-        id: 'out2-rafting',
-        km: 0.6,
-      },
+  "zell-cruise": {
+    "id": "zell-cruise",
+    "lat": 47.3201129,
+    "lng": 12.7967788,
+    "fromBase": [
+      106,
+      3,
+      87,
+      73
     ],
+    "unique": [
+      "Gold light FROM the water",
+      "Monday evening is the window"
+    ],
+    "why": "Your Montenegro boat-evening, Austrian edition — the likeliest lifetime memory of the week.",
+    "near": [
+      {
+        "id": "pinzgauer-bahn",
+        "km": 0.1
+      },
+      {
+        "id": "out2-rafting",
+        "km": 0.6
+      }
+    ]
   },
-  'strandbad-zell': {
-    id: 'strandbad-zell',
-    fromBase: [107, 2, 88, 71],
-    unique: ['Swim off decks into open lake', 'A 2-minute walk from the Zell bed'],
-    why: 'The cheapest good hour of the trip, and the reason to keep a suit in the day bag.',
-    near: [
-      {
-        id: 'out2-rafting',
-        km: 0.2,
-      },
-      {
-        id: 'pinzgauer-bahn',
-        km: 0.7,
-      },
+  "strandbad-zell": {
+    "id": "strandbad-zell",
+    "lat": 47.3263389,
+    "lng": 12.799928,
+    "fromBase": [
+      107,
+      2,
+      88,
+      71
     ],
+    "unique": [
+      "Swim off decks into open lake",
+      "A 2-minute walk from the Zell bed"
+    ],
+    "why": "The cheapest good hour of the trip, and the reason to keep a suit in the day bag.",
+    "near": [
+      {
+        "id": "out2-rafting",
+        "km": 0.2
+      },
+      {
+        "id": "pinzgauer-bahn",
+        "km": 0.7
+      }
+    ]
   },
-  'sigmund-thun': {
-    id: 'sigmund-thun',
-    fromBase: [111, 15, 93, 81],
-    unique: ['Boardwalk hung over glacier water', 'Ends at a small reservoir loop'],
-    why: 'An hour, €3.50, and cool air — the perfect filler on a hot Zell afternoon.',
-    near: [
-      {
-        id: 'kitzsteinhorn',
-        km: 2.2,
-      },
-      {
-        id: 'tauern-spa',
-        km: 3.1,
-      },
+  "sigmund-thun": {
+    "id": "sigmund-thun",
+    "lat": 47.2591422,
+    "lng": 12.7385896,
+    "fromBase": [
+      111,
+      15,
+      93,
+      81
     ],
+    "unique": [
+      "Boardwalk hung over glacier water",
+      "Ends at a small reservoir loop"
+    ],
+    "why": "An hour, €3.50, and cool air — the perfect filler on a hot Zell afternoon.",
+    "near": [
+      {
+        "id": "kitzsteinhorn",
+        "km": 2.2
+      },
+      {
+        "id": "tauern-spa",
+        "km": 3.1
+      }
+    ]
   },
-  baumzipfelweg: {
-    id: 'baumzipfelweg',
-    fromBase: [138, 36, 119, 97],
-    unique: ['A path through the treetops', 'The “Golden Gate of the Alps” suspension bridge'],
-    why: 'Ramps, no steps — the walk that feels adventurous without being one.',
-    near: [
-      {
-        id: 'schmittenhoehe',
-        km: 20.3,
-      },
-      {
-        id: 'sigmund-thun',
-        km: 21,
-      },
+  "baumzipfelweg": {
+    "id": "baumzipfelweg",
+    "lat": 47.3662112,
+    "lng": 12.5089172,
+    "fromBase": [
+      138,
+      36,
+      119,
+      97
     ],
+    "unique": [
+      "A path through the treetops",
+      "The “Golden Gate of the Alps” suspension bridge"
+    ],
+    "why": "Ramps, no steps — the walk that feels adventurous without being one.",
+    "near": [
+      {
+        "id": "schmittenhoehe",
+        "km": 20.3
+      },
+      {
+        "id": "sigmund-thun",
+        "km": 21
+      }
+    ]
   },
-  grossglockner: {
-    id: 'grossglockner',
-    fromBase: [113, 24, 95, 83],
-    unique: ['Austria’s great alpine road, 2,504 m', 'Marmots and glacier views from the car'],
-    why: 'The whole day happens through the windscreen — and it ends right at your Zell bed.',
-    near: [
-      {
-        id: 'mooserboden',
-        km: 8.8,
-      },
-      {
-        id: 'sigmund-thun',
-        km: 12.2,
-      },
+  "grossglockner": {
+    "id": "grossglockner",
+    "lat": 47.1594824,
+    "lng": 12.8075269,
+    "fromBase": [
+      113,
+      24,
+      95,
+      83
     ],
+    "unique": [
+      "Austria’s great alpine road, 2,504 m",
+      "Marmots and glacier views from the car"
+    ],
+    "why": "The whole day happens through the windscreen — and it ends right at your Zell bed.",
+    "near": [
+      {
+        "id": "mooserboden",
+        "km": 8.8
+      },
+      {
+        "id": "sigmund-thun",
+        "km": 12.2
+      }
+    ]
   },
-  gosausee: {
-    id: 'gosausee',
-    fromBase: [33, 100, 15, 65],
-    unique: ['The Dachstein doubled in still water', 'Flat 1-hour gravel circle'],
-    why: 'The trip’s postcard, and you sleep 15 minutes away — go once the buses leave.',
-    near: [
-      {
-        id: 'gosausee-boats',
-        km: 0,
-      },
-      {
-        id: 'gosaukammbahn',
-        km: 0.9,
-      },
+  "gosausee": {
+    "id": "gosausee",
+    "lat": 47.5286719,
+    "lng": 13.5064417,
+    "fromBase": [
+      33,
+      100,
+      15,
+      65
     ],
+    "unique": [
+      "The Dachstein doubled in still water",
+      "Flat 1-hour gravel circle"
+    ],
+    "why": "The trip’s postcard, and you sleep 15 minutes away — go once the buses leave.",
+    "near": [
+      {
+        "id": "gosausee-boats",
+        "km": 0
+      },
+      {
+        "id": "gosaukammbahn",
+        "km": 0.9
+      }
+    ]
   },
-  'gosausee-boats': {
-    id: 'gosausee-boats',
-    fromBase: [33, 100, 15, 65],
-    unique: ['Float inside the Dachstein reflection', 'E-boat €26/h · SUP €17/h, walk-up'],
-    why: 'You are going to the lake anyway; this puts you ON the mirror instead of beside it.',
-    near: [
-      {
-        id: 'gosausee',
-        km: 0,
-      },
-      {
-        id: 'gosaukammbahn',
-        km: 0.9,
-      },
+  "gosausee-boats": {
+    "id": "gosausee-boats",
+    "lat": 47.5286719,
+    "lng": 13.5064417,
+    "fromBase": [
+      33,
+      100,
+      15,
+      65
     ],
+    "unique": [
+      "Float inside the Dachstein reflection",
+      "E-boat €26/h · SUP €17/h, walk-up"
+    ],
+    "why": "You are going to the lake anyway; this puts you ON the mirror instead of beside it.",
+    "near": [
+      {
+        "id": "gosausee",
+        "km": 0
+      },
+      {
+        "id": "gosaukammbahn",
+        "km": 0.9
+      }
+    ]
   },
-  krippenstein: {
-    id: 'krippenstein',
-    fromBase: [22, 109, 24, 74],
-    unique: ['5 Fingers hangs over a 400 m drop', 'Gondola to 2,109 m, then an easy stroll'],
-    why: 'The most dramatic photo of the week — but only book it on a clear morning.',
-    near: [
-      {
-        id: 'dachstein-icecave',
-        km: 1.8,
-      },
-      {
-        id: 'hallstatt',
-        km: 4.5,
-      },
+  "krippenstein": {
+    "id": "krippenstein",
+    "lat": 47.548288,
+    "lng": 13.705221,
+    "fromBase": [
+      22,
+      109,
+      24,
+      74
     ],
+    "unique": [
+      "5 Fingers hangs over a 400 m drop",
+      "Gondola to 2,109 m, then an easy stroll"
+    ],
+    "why": "The most dramatic photo of the week — but only book it on a clear morning.",
+    "near": [
+      {
+        "id": "dachstein-icecave",
+        "km": 1.8
+      },
+      {
+        "id": "hallstatt",
+        "km": 4.5
+      }
+    ]
   },
-  hallstatt: {
-    id: 'hallstatt',
-    fromBase: [18, 106, 21, 70],
-    unique: ['A 7,000-year-old salt village on the lake', 'See it from a small electric boat'],
-    why: 'The place everyone comes for — do it before 09:30 or after 17:00 and it is yours.',
-    near: [
-      {
-        id: 'hallstatt-sup',
-        km: 3.2,
-      },
-      {
-        id: 'pathfinder-kayak',
-        km: 3.2,
-      },
+  "hallstatt": {
+    "id": "hallstatt",
+    "lat": 47.5623837,
+    "lng": 13.6490284,
+    "fromBase": [
+      18,
+      106,
+      21,
+      70
     ],
+    "unique": [
+      "A 7,000-year-old salt village on the lake",
+      "See it from a small electric boat"
+    ],
+    "why": "The place everyone comes for — do it before 09:30 or after 17:00 and it is yours.",
+    "near": [
+      {
+        "id": "hallstatt-sup",
+        "km": 3.2
+      },
+      {
+        "id": "pathfinder-kayak",
+        "km": 3.2
+      }
+    ]
   },
-  gosaukammbahn: {
-    id: 'gosaukammbahn',
-    fromBase: [27, 94, 9, 59],
-    unique: ['Cable car above your own lake', 'Green plateau facing the Dachstein wall'],
-    why: 'Nine minutes from the Gosau bed — the low-effort half-day when you want a mountain.',
-    near: [
-      {
-        id: 'gosausee',
-        km: 0.9,
-      },
-      {
-        id: 'gosausee-boats',
-        km: 0.9,
-      },
+  "gosaukammbahn": {
+    "id": "gosaukammbahn",
+    "lat": 47.5331268,
+    "lng": 13.4967187,
+    "fromBase": [
+      27,
+      94,
+      9,
+      59
     ],
+    "unique": [
+      "Cable car above your own lake",
+      "Green plateau facing the Dachstein wall"
+    ],
+    "why": "Nine minutes from the Gosau bed — the low-effort half-day when you want a mountain.",
+    "near": [
+      {
+        "id": "gosausee",
+        "km": 0.9
+      },
+      {
+        "id": "gosausee-boats",
+        "km": 0.9
+      }
+    ]
   },
-  langbathsee: {
-    id: 'langbathsee',
-    fromBase: [37, 139, 54, 82],
-    unique: ['A forest lake almost nobody is at', 'Flat 1-hour shore loop, swimmable'],
-    why: 'The quiet, free alternative when Hallstatt feels like too many people.',
-    near: [
-      {
-        id: 'ebensee',
-        km: 7.2,
-      },
-      {
-        id: 'kaiservilla',
-        km: 14.1,
-      },
+  "langbathsee": {
+    "id": "langbathsee",
+    "lat": 47.8347615,
+    "lng": 13.681417,
+    "fromBase": [
+      37,
+      139,
+      54,
+      82
     ],
+    "unique": [
+      "A forest lake almost nobody is at",
+      "Flat 1-hour shore loop, swimmable"
+    ],
+    "why": "The quiet, free alternative when Hallstatt feels like too many people.",
+    "near": [
+      {
+        "id": "ebensee",
+        "km": 7.2
+      },
+      {
+        "id": "kaiservilla",
+        "km": 14.1
+      }
+    ]
   },
-  almsee: {
-    id: 'almsee',
-    fromBase: [74, 154, 91, 87],
-    unique: ['The quietest water of the trip', 'Herons, a 1h45 flat loop, no crowds'],
-    why: 'If a day needs to be about nothing at all, this is where you spend it.',
-    near: [
-      {
-        id: 'ebensee',
-        km: 14.9,
-      },
-      {
-        id: 'grundlsee-3lakes',
-        km: 17.4,
-      },
+  "almsee": {
+    "id": "almsee",
+    "lat": 47.7570226,
+    "lng": 13.9530159,
+    "fromBase": [
+      74,
+      154,
+      91,
+      87
     ],
+    "unique": [
+      "The quietest water of the trip",
+      "Herons, a 1h45 flat loop, no crowds"
+    ],
+    "why": "If a day needs to be about nothing at all, this is where you spend it.",
+    "near": [
+      {
+        "id": "ebensee",
+        "km": 14.9
+      },
+      {
+        "id": "grundlsee-3lakes",
+        "km": 17.4
+      }
+    ]
   },
-  schafberg: {
-    id: 'schafberg',
-    fromBase: [28, 118, 45, 57],
-    unique: ['A 130-year-old steam cog railway', 'Three lakes from 1,783 m'],
-    why: 'The romance option — but RESERVE, and pick your downhill slot when you book.',
-    near: [
-      {
-        id: 'wolfgangsee-eboat',
-        km: 6.1,
-      },
-      {
-        id: 'katrin',
-        km: 13.4,
-      },
+  "schafberg": {
+    "id": "schafberg",
+    "lat": 47.7398845,
+    "lng": 13.4394756,
+    "fromBase": [
+      28,
+      118,
+      45,
+      57
     ],
+    "unique": [
+      "A 130-year-old steam cog railway",
+      "Three lakes from 1,783 m"
+    ],
+    "why": "The romance option — but RESERVE, and pick your downhill slot when you book.",
+    "near": [
+      {
+        "id": "wolfgangsee-eboat",
+        "km": 6.1
+      },
+      {
+        "id": "katrin",
+        "km": 13.4
+      }
+    ]
   },
-  katrin: {
-    id: 'katrin',
-    fromBase: [14, 116, 31, 62],
-    unique: ['Bad Ischl’s own small, uncrowded lift', 'Gentle ridge paths over the Salzkammergut'],
-    why: 'Fifteen minutes from the first bed, and the local one rather than the famous one.',
-    near: [
-      {
-        id: 'jewish-ischl',
-        km: 1.8,
-      },
-      {
-        id: 'eurothermen-ischl',
-        km: 2,
-      },
+  "katrin": {
+    "id": "katrin",
+    "lat": 47.6987528,
+    "lng": 13.6071583,
+    "fromBase": [
+      14,
+      116,
+      31,
+      62
     ],
+    "unique": [
+      "Bad Ischl’s own small, uncrowded lift",
+      "Gentle ridge paths over the Salzkammergut"
+    ],
+    "why": "Fifteen minutes from the first bed, and the local one rather than the famous one.",
+    "near": [
+      {
+        "id": "jewish-ischl",
+        "km": 1.8
+      },
+      {
+        "id": "eurothermen-ischl",
+        "km": 2
+      }
+    ]
   },
-  koenigssee: {
-    id: 'koenigssee',
-    fromBase: [87, 78, 68, 33],
-    unique: ['Silent electric boats + the echo trumpet', 'Flat 15-min walk to the Obersee mirror'],
-    why: 'The signature day. Be at the dock by 10:30 — queues and the calmest water are both then.',
-    near: [
-      {
-        id: 'eagles-nest',
-        km: 9.8,
-      },
-      {
-        id: 'hintersee-ramsau',
-        km: 11,
-      },
+  "koenigssee": {
+    "id": "koenigssee",
+    "lat": 47.5541796,
+    "lng": 12.9783744,
+    "fromBase": [
+      87,
+      78,
+      68,
+      33
     ],
+    "unique": [
+      "Silent electric boats + the echo trumpet",
+      "Flat 15-min walk to the Obersee mirror"
+    ],
+    "why": "The signature day. Be at the dock by 10:30 — queues and the calmest water are both then.",
+    "near": [
+      {
+        "id": "eagles-nest",
+        "km": 9.8
+      },
+      {
+        "id": "hintersee-ramsau",
+        "km": 11
+      }
+    ]
   },
-  rossfeld: {
-    id: 'rossfeld',
-    fromBase: [81, 86, 62, 35],
-    unique: ['Drive to 1,560 m — zero walking', 'Sunset over two countries'],
-    why: 'The best sunset of the trip costs €9.50 and no steps, 30 minutes from the last bed.',
-    near: [
-      {
-        id: 'eagles-nest',
-        km: 3.9,
-      },
-      {
-        id: 'golling',
-        km: 4.4,
-      },
+  "rossfeld": {
+    "id": "rossfeld",
+    "lat": 47.6267652,
+    "lng": 13.092202,
+    "fromBase": [
+      81,
+      86,
+      62,
+      35
     ],
+    "unique": [
+      "Drive to 1,560 m — zero walking",
+      "Sunset over two countries"
+    ],
+    "why": "The best sunset of the trip costs €9.50 and no steps, 30 minutes from the last bed.",
+    "near": [
+      {
+        "id": "eagles-nest",
+        "km": 3.9
+      },
+      {
+        "id": "golling",
+        "km": 4.4
+      }
+    ]
   },
-  'hintersee-ramsau': {
-    id: 'hintersee-ramsau',
-    fromBase: [97, 67, 78, 36],
-    unique: ['The stillest water of the trip', 'The mossy “enchanted forest” boulder path'],
-    why: 'Rowboats, flat paths and Germany’s most-photographed church view, all in one stop.',
-    near: [
-      {
-        id: 'koenigssee',
-        km: 11,
-      },
-      {
-        id: 'lofer-basecamp',
-        km: 11.4,
-      },
+  "hintersee-ramsau": {
+    "id": "hintersee-ramsau",
+    "lat": 47.6065077,
+    "lng": 12.8537124,
+    "fromBase": [
+      97,
+      67,
+      78,
+      36
     ],
+    "unique": [
+      "The stillest water of the trip",
+      "The mossy “enchanted forest” boulder path"
+    ],
+    "why": "Rowboats, flat paths and Germany’s most-photographed church view, all in one stop.",
+    "near": [
+      {
+        "id": "koenigssee",
+        "km": 11
+      },
+      {
+        "id": "lofer-basecamp",
+        "km": 11.4
+      }
+    ]
   },
-  chiemsee: {
-    id: 'chiemsee',
-    fromBase: [108, 101, 90, 45],
-    unique: ['Steamer to Ludwig II’s unfinished Versailles', 'A car-free nuns’ island'],
-    why: 'The gentlest big day — but it needs a whole day, so only if one frees up.',
-    near: [
-      {
-        id: 'lofer-basecamp',
-        km: 37.6,
-      },
-      {
-        id: 'hintersee-ramsau',
-        km: 46.1,
-      },
+  "chiemsee": {
+    "id": "chiemsee",
+    "lat": 47.8602998,
+    "lng": 12.3662207,
+    "fromBase": [
+      108,
+      101,
+      90,
+      45
     ],
+    "unique": [
+      "Steamer to Ludwig II’s unfinished Versailles",
+      "A car-free nuns’ island"
+    ],
+    "why": "The gentlest big day — but it needs a whole day, so only if one frees up.",
+    "near": [
+      {
+        "id": "lofer-basecamp",
+        "km": 37.6
+      },
+      {
+        "id": "hintersee-ramsau",
+        "km": 46.1
+      }
+    ]
   },
-  'eagles-nest': {
-    id: 'eagles-nest',
-    fromBase: [78, 81, 60, 29],
-    unique: [
-      'Special bus + a brass elevator into the rock',
-      'Hitler’s mountaintop house, now a viewpoint',
+  "eagles-nest": {
+    "id": "eagles-nest",
+    "lat": 47.6316551,
+    "lng": 13.0402601,
+    "fromBase": [
+      78,
+      81,
+      60,
+      29
     ],
-    why: 'Heavy history with huge views — entirely your call whether you want it this week.',
-    near: [
+    "unique": [
+      "Special bus + a brass elevator into the rock",
+      "Hitler’s mountaintop house, now a viewpoint"
+    ],
+    "why": "Heavy history with huge views — entirely your call whether you want it this week.",
+    "near": [
       {
-        id: 'rossfeld',
-        km: 3.9,
+        "id": "rossfeld",
+        "km": 3.9
       },
       {
-        id: 'golling',
-        km: 8,
-      },
-    ],
+        "id": "golling",
+        "km": 8
+      }
+    ]
   },
-  'grundlsee-3lakes': {
-    id: 'grundlsee-3lakes',
-    fromBase: [25, 123, 38, 88],
-    unique: ['A WOODEN boat up the fjord-like Toplitzsee', 'A hidden third lake at the end'],
-    why: 'Sitting the whole way, 25 minutes from the first bed, and almost nobody knows it.',
-    near: [
-      {
-        id: 'salzwelten-altaussee',
-        km: 7.5,
-      },
-      {
-        id: 'krippenstein',
-        km: 12.6,
-      },
+  "grundlsee-3lakes": {
+    "id": "grundlsee-3lakes",
+    "lat": 47.6235513,
+    "lng": 13.8306613,
+    "fromBase": [
+      25,
+      123,
+      38,
+      88
     ],
+    "unique": [
+      "A WOODEN boat up the fjord-like Toplitzsee",
+      "A hidden third lake at the end"
+    ],
+    "why": "Sitting the whole way, 25 minutes from the first bed, and almost nobody knows it.",
+    "near": [
+      {
+        "id": "salzwelten-altaussee",
+        "km": 7.5
+      },
+      {
+        "id": "krippenstein",
+        "km": 12.6
+      }
+    ]
   },
-  'tauern-spa': {
-    id: 'tauern-spa',
-    fromBase: [107, 11, 89, 77],
-    unique: ['Panoramic warm pools facing the glacier', 'Open to 21:00, evening rate ~€25.50'],
-    why: 'The cozy-evening upgrade, 11 minutes from the Zell bed — perfect after a wet day.',
-    near: [
-      {
-        id: 'kitzsteinhorn',
-        km: 1,
-      },
-      {
-        id: 'sigmund-thun',
-        km: 3.1,
-      },
+  "tauern-spa": {
+    "id": "tauern-spa",
+    "lat": 47.2828123,
+    "lng": 12.7598775,
+    "fromBase": [
+      107,
+      11,
+      89,
+      77
     ],
+    "unique": [
+      "Panoramic warm pools facing the glacier",
+      "Open to 21:00, evening rate ~€25.50"
+    ],
+    "why": "The cozy-evening upgrade, 11 minutes from the Zell bed — perfect after a wet day.",
+    "near": [
+      {
+        "id": "kitzsteinhorn",
+        "km": 1
+      },
+      {
+        "id": "sigmund-thun",
+        "km": 3.1
+      }
+    ]
   },
-  'wolfgangsee-eboat': {
-    id: 'wolfgangsee-eboat',
-    fromBase: [30, 103, 47, 41],
-    unique: ['A red e-boat with a sun canopy', 'Swim ladder — swim off it mid-lake'],
-    why: 'No reservation, go at 10:00, and it pairs with the Schafberg on the same day.',
-    near: [
-      {
-        id: 'schafberg',
-        km: 6.1,
-      },
-      {
-        id: 'katrin',
-        km: 19.4,
-      },
+  "wolfgangsee-eboat": {
+    "id": "wolfgangsee-eboat",
+    "lat": 47.7653955,
+    "lng": 13.3679359,
+    "fromBase": [
+      30,
+      103,
+      47,
+      41
     ],
+    "unique": [
+      "A red e-boat with a sun canopy",
+      "Swim ladder — swim off it mid-lake"
+    ],
+    "why": "No reservation, go at 10:00, and it pairs with the Schafberg on the same day.",
+    "near": [
+      {
+        "id": "schafberg",
+        "km": 6.1
+      },
+      {
+        "id": "katrin",
+        "km": 19.4
+      }
+    ]
   },
-  'hallstatt-sup': {
-    id: 'hallstatt-sup',
-    fromBase: [9, 96, 11, 61],
-    unique: [
-      'Glassy morning water on the north shore',
-      'Hallstatt’s crowds 8 km away across the lake',
+  "hallstatt-sup": {
+    "id": "hallstatt-sup",
+    "lat": 47.59047,
+    "lng": 13.65458,
+    "fromBase": [
+      9,
+      96,
+      11,
+      61
     ],
-    why: 'Your May postcard-dream, nine minutes from the first bed — mornings are glass.',
-    near: [
+    "unique": [
+      "Glassy morning water on the north shore",
+      "Hallstatt’s crowds 8 km away across the lake"
+    ],
+    "why": "Your May postcard-dream, nine minutes from the first bed — mornings are glass.",
+    "near": [
       {
-        id: 'pathfinder-kayak',
-        km: 0,
+        "id": "pathfinder-kayak",
+        "km": 0
       },
       {
-        id: 'hallstattersee-boat',
-        km: 2.1,
-      },
-    ],
+        "id": "hallstattersee-boat",
+        "km": 2.1
+      }
+    ]
   },
-  untersberg: {
-    id: 'untersberg',
-    fromBase: [65, 71, 46, 10],
-    unique: ['1,776 m in 8.5 minutes', 'The big cliff face over Salzburg'],
-    why: 'Ten minutes from the last bed — an alpine morning without leaving the airport hour.',
-    near: [
-      {
-        id: 'hellbrunn',
-        km: 4.3,
-      },
-      {
-        id: 'hohensalzburg',
-        km: 7.7,
-      },
+  "untersberg": {
+    "id": "untersberg",
+    "lat": 47.7257159,
+    "lng": 13.0421916,
+    "fromBase": [
+      65,
+      71,
+      46,
+      10
     ],
-  },
-  hellbrunn: {
-    id: 'hellbrunn',
-    fromBase: [67, 72, 48, 13],
-    unique: ['Booby-trapped 400-year-old water gardens', 'A water-powered puppet theatre'],
-    why: 'The laugh-out-loud stop — shaded, silly, and 13 minutes from the last bed.',
-    near: [
-      {
-        id: 'hohensalzburg',
-        km: 3.8,
-      },
-      {
-        id: 'fortress-concert',
-        km: 3.8,
-      },
+    "unique": [
+      "1,776 m in 8.5 minutes",
+      "The big cliff face over Salzburg"
     ],
+    "why": "Ten minutes from the last bed — an alpine morning without leaving the airport hour.",
+    "near": [
+      {
+        "id": "hellbrunn",
+        "km": 4.3
+      },
+      {
+        "id": "hohensalzburg",
+        "km": 7.7
+      }
+    ]
   },
-  moenchsberg: {
-    id: 'moenchsberg',
-    fromBase: [77, 88, 66, 21],
-    unique: ['Free stone stairs (or a €3 lift)', 'Fortress one end, river and domes below'],
-    why: 'Salzburg going gold from above, for free — best in the last hour of light.',
-    near: [
-      {
-        id: 'salzburg-jewish-walk',
-        km: 0.6,
-      },
-      {
-        id: 'mirabell',
-        km: 0.7,
-      },
+  "hellbrunn": {
+    "id": "hellbrunn",
+    "lat": 47.7621308,
+    "lng": 13.0601303,
+    "fromBase": [
+      67,
+      72,
+      48,
+      13
     ],
-  },
-  mirabell: {
-    id: 'mirabell',
-    fromBase: [64, 85, 60, 17],
-    unique: ['The exact framed fortress view', 'The Sound of Music steps + dwarf garden'],
-    why: 'Free, flat, 45 minutes — the one that fits into any leftover gap.',
-    near: [
-      {
-        id: 'salzburg-jewish-walk',
-        km: 0.6,
-      },
-      {
-        id: 'moenchsberg',
-        km: 0.7,
-      },
+    "unique": [
+      "Booby-trapped 400-year-old water gardens",
+      "A water-powered puppet theatre"
     ],
+    "why": "The laugh-out-loud stop — shaded, silly, and 13 minutes from the last bed.",
+    "near": [
+      {
+        "id": "hohensalzburg",
+        "km": 3.8
+      },
+      {
+        "id": "fortress-concert",
+        "km": 3.8
+      }
+    ]
   },
-  golling: {
-    id: 'golling',
-    fromBase: [56, 65, 37, 25],
-    unique: ['A fairy-tale double drop', '15 minutes of easy forest path'],
-    why: 'Maximum wow per step of anything on this list — about an hour, all in.',
-    near: [
-      {
-        id: 'rossfeld',
-        km: 4.4,
-      },
-      {
-        id: 'eagles-nest',
-        km: 8,
-      },
+  "moenchsberg": {
+    "id": "moenchsberg",
+    "lat": 47.7991057,
+    "lng": 13.0386007,
+    "fromBase": [
+      77,
+      88,
+      66,
+      21
     ],
-  },
-  'frost-rafting': {
-    id: 'frost-rafting',
-    fromBase: [95, 11, 77, 65],
-    unique: ['45 minutes on the water, grade 2+ max', 'A guide steers; you just sit in it'],
-    why: 'The rafting box ticked without it becoming a workout — 11 minutes from the Zell bed.',
-    near: [
-      {
-        id: 'zell-cruise',
-        km: 6.3,
-      },
-      {
-        id: 'pinzgauer-bahn',
-        km: 6.4,
-      },
+    "unique": [
+      "Free stone stairs (or a €3 lift)",
+      "Fortress one end, river and domes below"
     ],
+    "why": "Salzburg going gold from above, for free — best in the last hour of light.",
+    "near": [
+      {
+        "id": "salzburg-jewish-walk",
+        "km": 0.6
+      },
+      {
+        "id": "mirabell",
+        "km": 0.7
+      }
+    ]
   },
-  'taxenbach-rafting': {
-    id: 'taxenbach-rafting',
-    fromBase: [88, 19, 69, 57],
-    unique: ['The bigger grade 3/4 Salzach run', 'Four departures a day, book direct'],
-    why: 'If the family float is too tame, this is the real one and still beginner-run.',
-    near: [
-      {
-        id: 'kitzlochklamm',
-        km: 0.7,
-      },
-      {
-        id: 'frost-rafting',
-        km: 8.1,
-      },
+  "mirabell": {
+    "id": "mirabell",
+    "lat": 47.8045848,
+    "lng": 13.0423103,
+    "fromBase": [
+      64,
+      85,
+      60,
+      17
     ],
-  },
-  'out2-rafting': {
-    id: 'out2-rafting',
-    fromBase: [106, 1, 87, 71],
-    unique: ['Starts from Zell town centre', '11 km of grade 3–4'],
-    why: 'No drive at all — walk from the apartment to the office and go.',
-    near: [
-      {
-        id: 'strandbad-zell',
-        km: 0.2,
-      },
-      {
-        id: 'pinzgauer-bahn',
-        km: 0.6,
-      },
+    "unique": [
+      "The exact framed fortress view",
+      "The Sound of Music steps + dwarf garden"
     ],
+    "why": "Free, flat, 45 minutes — the one that fits into any leftover gap.",
+    "near": [
+      {
+        "id": "salzburg-jewish-walk",
+        "km": 0.6
+      },
+      {
+        "id": "moenchsberg",
+        "km": 0.7
+      }
+    ]
   },
-  'lofer-basecamp': {
-    id: 'lofer-basecamp',
-    fromBase: [98, 36, 81, 34],
-    unique: ['Crosses into Bavaria mid-river', 'Grade II, from age 6'],
-    why: 'The gentlest raft in the Lofer cluster — and it runs on Mondays when Motion does not.',
-    near: [
-      {
-        id: 'seisenbergklamm',
-        km: 10.3,
-      },
-      {
-        id: 'hintersee-ramsau',
-        km: 11.4,
-      },
+  "golling": {
+    "id": "golling",
+    "lat": 47.6012,
+    "lng": 13.1368446,
+    "fromBase": [
+      56,
+      65,
+      37,
+      25
     ],
-  },
-  'pathfinder-kayak': {
-    id: 'pathfinder-kayak',
-    fromBase: [9, 96, 11, 61],
-    unique: ['The boat is delivered to the car park', 'SUP €25, kayak €30 for a half day'],
-    why: 'Your own boat on the quiet end of the Hallstatt lake, nine minutes from bed one.',
-    near: [
-      {
-        id: 'hallstatt-sup',
-        km: 0,
-      },
-      {
-        id: 'hallstattersee-boat',
-        km: 2.1,
-      },
+    "unique": [
+      "A fairy-tale double drop",
+      "15 minutes of easy forest path"
     ],
+    "why": "Maximum wow per step of anything on this list — about an hour, all in.",
+    "near": [
+      {
+        "id": "rossfeld",
+        "km": 4.4
+      },
+      {
+        "id": "eagles-nest",
+        "km": 8
+      }
+    ]
   },
-  'hallstattersee-boat': {
-    id: 'hallstattersee-boat',
-    fromBase: [8, 104, 19, 69],
-    unique: ['Calls at Bad Goisern’s own lakefront', 'Only runs 18 Jul – 16 Aug'],
-    why: 'A scheduled boat on the lake you are sleeping beside, and your week lands inside its season.',
-    near: [
-      {
-        id: 'strandbad-untersee',
-        km: 0,
-      },
-      {
-        id: 'hallstatt-sup',
-        km: 2.1,
-      },
+  "frost-rafting": {
+    "id": "frost-rafting",
+    "lat": 47.2846732,
+    "lng": 12.8620362,
+    "fromBase": [
+      95,
+      11,
+      77,
+      65
     ],
-  },
-  'strandbad-untersee': {
-    id: 'strandbad-untersee',
-    fromBase: [8, 104, 19, 69],
-    unique: ['3 m diving tower + floating trampoline', 'Free entry'],
-    why: 'The proper swimming afternoon from bed one — five minutes away.',
-    near: [
-      {
-        id: 'hallstattersee-boat',
-        km: 0,
-      },
-      {
-        id: 'hallstatt-sup',
-        km: 2.1,
-      },
+    "unique": [
+      "45 minutes on the water, grade 2+ max",
+      "A guide steers; you just sit in it"
     ],
+    "why": "The rafting box ticked without it becoming a workout — 11 minutes from the Zell bed.",
+    "near": [
+      {
+        "id": "zell-cruise",
+        "km": 6.3
+      },
+      {
+        "id": "pinzgauer-bahn",
+        "km": 6.4
+      }
+    ]
   },
-  'parkbad-goisern': {
-    id: 'parkbad-goisern',
-    fromBase: [2, 106, 21, 67],
-    unique: ['A 500 m walk — no car needed', 'The swim marathon is walkable the same day'],
-    why: 'The only thing on the whole list that works on Shabbat, when you cannot drive.',
-    near: [
-      {
-        id: 'hallstatt-by-train',
-        km: 0.3,
-      },
-      {
-        id: 'hallstattersee-boat',
-        km: 4.4,
-      },
+  "taxenbach-rafting": {
+    "id": "taxenbach-rafting",
+    "lat": 47.2932941,
+    "lng": 12.9685178,
+    "fromBase": [
+      88,
+      19,
+      69,
+      57
     ],
-  },
-  liechtensteinklamm: {
-    id: 'liechtensteinklamm',
-    fromBase: [80, 44, 62, 50],
-    unique: ['A walkway pinned to sheer rock', 'Sits directly on the Tuesday drive'],
-    why: 'The region is famous for gorges and you had none — and this one costs no extra driving.',
-    near: [
-      {
-        id: 'kitzlochklamm',
-        km: 16.4,
-      },
-      {
-        id: 'taxenbach-rafting',
-        km: 16.8,
-      },
+    "unique": [
+      "The bigger grade 3/4 Salzach run",
+      "Four departures a day, book direct"
     ],
+    "why": "If the family float is too tame, this is the real one and still beginner-run.",
+    "near": [
+      {
+        "id": "kitzlochklamm",
+        "km": 0.7
+      },
+      {
+        "id": "frost-rafting",
+        "km": 8.1
+      }
+    ]
   },
-  kitzlochklamm: {
-    id: 'kitzlochklamm',
-    fromBase: [91, 22, 72, 60],
-    unique: ['Boardwalks, tunnels and spray', '20 minutes from the Zell bed'],
-    why: 'A ninety-minute gorge that fits in any half-day, and rain improves it.',
-    near: [
-      {
-        id: 'taxenbach-rafting',
-        km: 0.7,
-      },
-      {
-        id: 'frost-rafting',
-        km: 8.6,
-      },
+  "out2-rafting": {
+    "id": "out2-rafting",
+    "lat": 47.3257334,
+    "lng": 12.7975981,
+    "fromBase": [
+      106,
+      1,
+      87,
+      71
     ],
-  },
-  seisenbergklamm: {
-    id: 'seisenbergklamm',
-    fromBase: [112, 27, 96, 48],
-    unique: ['The cheapest gorge at €9', 'About an hour end to end'],
-    why: 'Easy and short — but roughly 300 steps, so “gentle” oversells it.',
-    near: [
-      {
-        id: 'lofer-basecamp',
-        km: 10.3,
-      },
-      {
-        id: 'hintersee-ramsau',
-        km: 11.7,
-      },
+    "unique": [
+      "Starts from Zell town centre",
+      "11 km of grade 3–4"
     ],
+    "why": "No drive at all — walk from the apartment to the office and go.",
+    "near": [
+      {
+        "id": "strandbad-zell",
+        "km": 0.2
+      },
+      {
+        "id": "pinzgauer-bahn",
+        "km": 0.6
+      }
+    ]
   },
-  'dachstein-icecave': {
-    id: 'dachstein-icecave',
-    fromBase: [37, 124, 39, 89],
-    unique: ['Real ice underground in July', 'Two caves plus the cable car on one ticket'],
-    why: 'The answer to the closed Hallstatt salt mine, and completely weatherproof.',
-    near: [
-      {
-        id: 'krippenstein',
-        km: 1.8,
-      },
-      {
-        id: 'hallstatt',
-        km: 6,
-      },
+  "lofer-basecamp": {
+    "id": "lofer-basecamp",
+    "lat": 47.6090141,
+    "lng": 12.7021589,
+    "fromBase": [
+      98,
+      36,
+      81,
+      34
     ],
-  },
-  'salzwelten-altaussee': {
-    id: 'salzwelten-altaussee',
-    fromBase: [26, 124, 39, 89],
-    unique: ['The Monuments Men art chambers', 'Flat inside, wooden slides'],
-    why: 'The salt mine that is actually open — 26 minutes away and ideal on a wet day.',
-    near: [
-      {
-        id: 'grundlsee-3lakes',
-        km: 7.5,
-      },
-      {
-        id: 'hallstattersee-boat',
-        km: 8.5,
-      },
+    "unique": [
+      "Crosses into Bavaria mid-river",
+      "Grade II, from age 6"
     ],
+    "why": "The gentlest raft in the Lofer cluster — and it runs on Mondays when Motion does not.",
+    "near": [
+      {
+        "id": "seisenbergklamm",
+        "km": 10.3
+      },
+      {
+        "id": "hintersee-ramsau",
+        "km": 11.4
+      }
+    ]
   },
-  'pinzgauer-bahn': {
-    id: 'pinzgauer-bahn',
-    fromBase: [104, 1, 86, 72],
-    unique: ['Narrow gauge, hourly at :02', '€25 weekend ticket covers three people'],
-    why: 'Avital’s train, leaving from a platform you can walk to in Zell.',
-    near: [
-      {
-        id: 'zell-cruise',
-        km: 0.1,
-      },
-      {
-        id: 'out2-rafting',
-        km: 0.6,
-      },
+  "pathfinder-kayak": {
+    "id": "pathfinder-kayak",
+    "lat": 47.59047,
+    "lng": 13.65458,
+    "fromBase": [
+      9,
+      96,
+      11,
+      61
     ],
-  },
-  taurachbahn: {
-    id: 'taurachbahn',
-    fromBase: [100, 95, 81, 82],
-    unique: ['A genuine steam locomotive', 'Runs Fri, Sat and Sun — no Thursday clash'],
-    why: 'The real steam train, if you want one beyond the Schafberg cog railway.',
-    near: [
-      {
-        id: 'liechtensteinklamm',
-        km: 42.5,
-      },
-      {
-        id: 'dachstein-icecave',
-        km: 45,
-      },
+    "unique": [
+      "The boat is delivered to the car park",
+      "SUP €25, kayak €30 for a half day"
     ],
+    "why": "Your own boat on the quiet end of the Hallstatt lake, nine minutes from bed one.",
+    "near": [
+      {
+        "id": "hallstatt-sup",
+        "km": 0
+      },
+      {
+        "id": "hallstattersee-boat",
+        "km": 2.1
+      }
+    ]
   },
-  'hallstatt-by-train': {
-    id: 'hallstatt-by-train',
-    fromBase: [1, 106, 21, 68],
-    unique: ['12 minutes by train, then the ferry', 'Arrives at the postcard end'],
-    why: 'Hallstatt without the parking war — and the ferry meets every train.',
-    near: [
-      {
-        id: 'parkbad-goisern',
-        km: 0.3,
-      },
-      {
-        id: 'hallstattersee-boat',
-        km: 4.2,
-      },
+  "hallstattersee-boat": {
+    "id": "hallstattersee-boat",
+    "lat": 47.6080891,
+    "lng": 13.6461644,
+    "fromBase": [
+      8,
+      104,
+      19,
+      69
     ],
-  },
-  'attersee-bahn-schiff': {
-    id: 'attersee-bahn-schiff',
-    fromBase: [65, 119, 82, 52],
-    unique: ['Little railway plus a lake cruise', 'One combined ticket'],
-    why: 'Train and boat in a single day on Austria’s biggest lake — Avital’s two asks at once.',
-    near: [
-      {
-        id: 'langbathsee',
-        km: 23.1,
-      },
-      {
-        id: 'wolfgangsee-eboat',
-        km: 27.4,
-      },
+    "unique": [
+      "Calls at Bad Goisern’s own lakefront",
+      "Only runs 18 Jul – 16 Aug"
     ],
+    "why": "A scheduled boat on the lake you are sleeping beside, and your week lands inside its season.",
+    "near": [
+      {
+        "id": "strandbad-untersee",
+        "km": 0
+      },
+      {
+        "id": "hallstatt-sup",
+        "km": 2.1
+      }
+    ]
   },
-  hohensalzburg: {
-    id: 'hohensalzburg',
-    fromBase: [66, 80, 55, 15],
-    unique: ['Funicular to the ramparts', 'The whole city laid out below'],
-    why: 'The one Salzburg thing everyone assumes you have seen, 15 minutes from the last bed.',
-    near: [
-      {
-        id: 'fortress-concert',
-        km: 0,
-      },
-      {
-        id: 'salzburg-jewish-walk',
-        km: 0.6,
-      },
+  "strandbad-untersee": {
+    "id": "strandbad-untersee",
+    "lat": 47.6080891,
+    "lng": 13.6461644,
+    "fromBase": [
+      8,
+      104,
+      19,
+      69
     ],
-  },
-  kaiservilla: {
-    id: 'kaiservilla',
-    fromBase: [12, 114, 29, 59],
-    unique: ['The emperor’s summer villa', 'Entry only by 45-minute guided tour'],
-    why: 'Twelve minutes from bed one, and the best wet-weather insurance of that half.',
-    near: [
-      {
-        id: 'jewish-ischl',
-        km: 0.3,
-      },
-      {
-        id: 'eurothermen-ischl',
-        km: 0.4,
-      },
+    "unique": [
+      "3 m diving tower + floating trampoline",
+      "Free entry"
     ],
+    "why": "The proper swimming afternoon from bed one — five minutes away.",
+    "near": [
+      {
+        "id": "hallstattersee-boat",
+        "km": 0
+      },
+      {
+        "id": "hallstatt-sup",
+        "km": 2.1
+      }
+    ]
   },
-  'eurothermen-ischl': {
-    id: 'eurothermen-ischl',
-    fromBase: [12, 114, 29, 59],
-    unique: ['Thermal pools open until midnight', 'Pool hall is swimsuit, not textile-free'],
-    why: 'The only genuinely late option in the Salzkammergut — warm water after a long day.',
-    near: [
-      {
-        id: 'jewish-ischl',
-        km: 0.3,
-      },
-      {
-        id: 'kaiservilla',
-        km: 0.4,
-      },
+  "parkbad-goisern": {
+    "id": "parkbad-goisern",
+    "lat": 47.6413709,
+    "lng": 13.6134485,
+    "fromBase": [
+      2,
+      106,
+      21,
+      67
     ],
-  },
-  'fortress-concert': {
-    id: 'fortress-concert',
-    fromBase: [66, 80, 55, 15],
-    unique: ['Funicular and fortress free from 19:00', 'Mozart in a 15th-century Golden Hall'],
-    why: 'The one classical night that is actually bookable — 15 minutes from your last bed.',
-    near: [
-      {
-        id: 'hohensalzburg',
-        km: 0,
-      },
-      {
-        id: 'salzburg-jewish-walk',
-        km: 0.6,
-      },
+    "unique": [
+      "A 500 m walk — no car needed",
+      "The swim marathon is walkable the same day"
     ],
+    "why": "The only thing on the whole list that works on Shabbat, when you cannot drive.",
+    "near": [
+      {
+        "id": "hallstatt-by-train",
+        "km": 0.3
+      },
+      {
+        "id": "hallstattersee-boat",
+        "km": 4.4
+      }
+    ]
   },
+  "liechtensteinklamm": {
+    "id": "liechtensteinklamm",
+    "lat": 47.3134265,
+    "lng": 13.1896781,
+    "fromBase": [
+      80,
+      44,
+      62,
+      50
+    ],
+    "unique": [
+      "A walkway pinned to sheer rock",
+      "Sits directly on the Tuesday drive"
+    ],
+    "why": "The region is famous for gorges and you had none — and this one costs no extra driving.",
+    "near": [
+      {
+        "id": "kitzlochklamm",
+        "km": 16.4
+      },
+      {
+        "id": "taxenbach-rafting",
+        "km": 16.8
+      }
+    ]
+  },
+  "kitzlochklamm": {
+    "id": "kitzlochklamm",
+    "lat": 47.2888067,
+    "lng": 12.9757679,
+    "fromBase": [
+      91,
+      22,
+      72,
+      60
+    ],
+    "unique": [
+      "Boardwalks, tunnels and spray",
+      "20 minutes from the Zell bed"
+    ],
+    "why": "A ninety-minute gorge that fits in any half-day, and rain improves it.",
+    "near": [
+      {
+        "id": "taxenbach-rafting",
+        "km": 0.7
+      },
+      {
+        "id": "frost-rafting",
+        "km": 8.6
+      }
+    ]
+  },
+  "seisenbergklamm": {
+    "id": "seisenbergklamm",
+    "lat": 47.5237975,
+    "lng": 12.7564102,
+    "fromBase": [
+      112,
+      27,
+      96,
+      48
+    ],
+    "unique": [
+      "The cheapest gorge at €9",
+      "About an hour end to end"
+    ],
+    "why": "Easy and short — but roughly 300 steps, so “gentle” oversells it.",
+    "near": [
+      {
+        "id": "lofer-basecamp",
+        "km": 10.3
+      },
+      {
+        "id": "hintersee-ramsau",
+        "km": 11.7
+      }
+    ]
+  },
+  "dachstein-icecave": {
+    "id": "dachstein-icecave",
+    "lat": 47.5346759,
+    "lng": 13.7178873,
+    "fromBase": [
+      37,
+      124,
+      39,
+      89
+    ],
+    "unique": [
+      "Real ice underground in July",
+      "Two caves plus the cable car on one ticket"
+    ],
+    "why": "The answer to the closed Hallstatt salt mine, and completely weatherproof.",
+    "near": [
+      {
+        "id": "krippenstein",
+        "km": 1.8
+      },
+      {
+        "id": "hallstatt",
+        "km": 6
+      }
+    ]
+  },
+  "salzwelten-altaussee": {
+    "id": "salzwelten-altaussee",
+    "lat": 47.6514248,
+    "lng": 13.7391164,
+    "fromBase": [
+      26,
+      124,
+      39,
+      89
+    ],
+    "unique": [
+      "The Monuments Men art chambers",
+      "Flat inside, wooden slides"
+    ],
+    "why": "The salt mine that is actually open — 26 minutes away and ideal on a wet day.",
+    "near": [
+      {
+        "id": "grundlsee-3lakes",
+        "km": 7.5
+      },
+      {
+        "id": "hallstattersee-boat",
+        "km": 8.5
+      }
+    ]
+  },
+  "pinzgauer-bahn": {
+    "id": "pinzgauer-bahn",
+    "lat": 47.3208194,
+    "lng": 12.7966622,
+    "fromBase": [
+      104,
+      1,
+      86,
+      72
+    ],
+    "unique": [
+      "Narrow gauge, hourly at :02",
+      "€25 weekend ticket covers three people"
+    ],
+    "why": "Avital’s train, leaving from a platform you can walk to in Zell.",
+    "near": [
+      {
+        "id": "zell-cruise",
+        "km": 0.1
+      },
+      {
+        "id": "out2-rafting",
+        "km": 0.6
+      }
+    ]
+  },
+  "taurachbahn": {
+    "id": "taurachbahn",
+    "lat": 47.1301869,
+    "lng": 13.6841261,
+    "fromBase": [
+      100,
+      95,
+      81,
+      82
+    ],
+    "unique": [
+      "A genuine steam locomotive",
+      "Runs Fri, Sat and Sun — no Thursday clash"
+    ],
+    "why": "The real steam train, if you want one beyond the Schafberg cog railway.",
+    "near": [
+      {
+        "id": "liechtensteinklamm",
+        "km": 42.5
+      },
+      {
+        "id": "dachstein-icecave",
+        "km": 45
+      }
+    ]
+  },
+  "hallstatt-by-train": {
+    "id": "hallstatt-by-train",
+    "lat": 47.640775,
+    "lng": 13.6169938,
+    "fromBase": [
+      1,
+      106,
+      21,
+      68
+    ],
+    "unique": [
+      "12 minutes by train, then the ferry",
+      "Arrives at the postcard end"
+    ],
+    "why": "Hallstatt without the parking war — and the ferry meets every train.",
+    "near": [
+      {
+        "id": "parkbad-goisern",
+        "km": 0.3
+      },
+      {
+        "id": "hallstattersee-boat",
+        "km": 4.2
+      }
+    ]
+  },
+  "attersee-bahn-schiff": {
+    "id": "attersee-bahn-schiff",
+    "lat": 47.9981481,
+    "lng": 13.4892947,
+    "fromBase": [
+      65,
+      119,
+      82,
+      52
+    ],
+    "unique": [
+      "Little railway plus a lake cruise",
+      "One combined ticket"
+    ],
+    "why": "Train and boat in a single day on Austria’s biggest lake — Avital’s two asks at once.",
+    "near": [
+      {
+        "id": "langbathsee",
+        "km": 23.1
+      },
+      {
+        "id": "wolfgangsee-eboat",
+        "km": 27.4
+      }
+    ]
+  },
+  "hohensalzburg": {
+    "id": "hohensalzburg",
+    "lat": 47.7949483,
+    "lng": 13.0476583,
+    "fromBase": [
+      66,
+      80,
+      55,
+      15
+    ],
+    "unique": [
+      "Funicular to the ramparts",
+      "The whole city laid out below"
+    ],
+    "why": "The one Salzburg thing everyone assumes you have seen, 15 minutes from the last bed.",
+    "near": [
+      {
+        "id": "fortress-concert",
+        "km": 0
+      },
+      {
+        "id": "salzburg-jewish-walk",
+        "km": 0.6
+      }
+    ]
+  },
+  "kaiservilla": {
+    "id": "kaiservilla",
+    "lat": 47.7149278,
+    "lng": 13.6209168,
+    "fromBase": [
+      12,
+      114,
+      29,
+      59
+    ],
+    "unique": [
+      "The emperor’s summer villa",
+      "Entry only by 45-minute guided tour"
+    ],
+    "why": "Twelve minutes from bed one, and the best wet-weather insurance of that half.",
+    "near": [
+      {
+        "id": "jewish-ischl",
+        "km": 0.3
+      },
+      {
+        "id": "eurothermen-ischl",
+        "km": 0.4
+      }
+    ]
+  },
+  "eurothermen-ischl": {
+    "id": "eurothermen-ischl",
+    "lat": 47.7121885,
+    "lng": 13.6251749,
+    "fromBase": [
+      12,
+      114,
+      29,
+      59
+    ],
+    "unique": [
+      "Thermal pools open until midnight",
+      "Pool hall is swimsuit, not textile-free"
+    ],
+    "why": "The only genuinely late option in the Salzkammergut — warm water after a long day.",
+    "near": [
+      {
+        "id": "jewish-ischl",
+        "km": 0.3
+      },
+      {
+        "id": "kaiservilla",
+        "km": 0.4
+      }
+    ]
+  },
+  "fortress-concert": {
+    "id": "fortress-concert",
+    "lat": 47.7949483,
+    "lng": 13.0476583,
+    "fromBase": [
+      66,
+      80,
+      55,
+      15
+    ],
+    "unique": [
+      "Funicular and fortress free from 19:00",
+      "Mozart in a 15th-century Golden Hall"
+    ],
+    "why": "The one classical night that is actually bookable — 15 minutes from your last bed.",
+    "near": [
+      {
+        "id": "hohensalzburg",
+        "km": 0
+      },
+      {
+        "id": "salzburg-jewish-walk",
+        "km": 0.6
+      }
+    ]
+  }
 };

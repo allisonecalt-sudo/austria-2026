@@ -28,6 +28,7 @@
 import { byId } from './plan-data.js';
 import { TABLE_ROWS } from './table-data.js';
 import { mountNav } from './nav.js';
+import { mountMap } from './map.js';
 
 interface Region {
   key: string;
@@ -240,6 +241,31 @@ function render(): void {
     'So the week is <b>Salzkammergut → a high-alpine pocket → Salzkammergut again → the city</b>.';
   wrap.appendChild(keyfact);
 
+  // ---- the map ------------------------------------------------------------
+  // Her ask: "add a map to this page so you can really visualise where
+  // everything is." Plotted from the same table as the drive times, so it can
+  // never disagree with them.
+  const mapSec = el('section', 'ovmap');
+  const mapHost = el('div', 'ovmap-canvas');
+  mapHost.id = 'ov-map';
+  mapSec.appendChild(mapHost);
+
+  const legend = el('div', 'ovlegend');
+  legend.innerHTML =
+    '<span><i style="background:#3f5d4e"></i>1 Bad Goisern</span>' +
+    '<span><i style="background:#33597a"></i>2 Zell am See</span>' +
+    '<span><i style="background:#6b8f78"></i>3 Gosau</span>' +
+    '<span><i style="background:#b98a2f"></i>4 Wals</span>';
+  mapSec.appendChild(legend);
+  mapSec.appendChild(
+    el(
+      'p',
+      'ovmaphint',
+      'Every dot is coloured by the bed it is CLOSEST to — so the colours show you what belongs to where. Bigger dots are the lifetime picks. Tap any of them.',
+    ),
+  );
+  wrap.appendChild(mapSec);
+
   // ---- region by region ----------------------------------------------------
   for (const r of REGIONS) {
     const n = reach(r.baseIndex);
@@ -339,3 +365,4 @@ function render(): void {
 
 mountNav();
 render();
+mountMap('ov-map');
