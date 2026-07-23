@@ -682,3 +682,30 @@ button.fav.on {
   line-height: 1.5;
   color: var(--sub);
 }
+
+/* ---------------------------------------------------------------------------
+   Shabbat constraints. Her correction, 23 Jul: "we cant go on boats on
+   shabbat" — and the site had also offered a pool that charges at the gate.
+   Every card now states what it would require, so nothing looks available
+   between candle-lighting and Havdalah when it isn't.
+--------------------------------------------------------------------------- */
+.shabbat-rule {
+  margin: 10px 0 14px;
+  padding: 11px 13px;
+  background: #fdf8ee;
+  border: 1px solid #ead9b6;
+  border-radius: 10px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #6b5a2a;
+}
+
+.act .more .shabbat-why {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  background: #fdf8ee;
+  border-radius: 9px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #6b5a2a;
+}

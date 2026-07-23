@@ -111,27 +111,38 @@
   font-weight: 600;
 }
 
-/* Narrow phones: the four top items still fit because the labels are short,
-   but let the bar scroll rather than wrap into two rows. */
+/* Narrow phones. The four labels measure ~345px at 13.5px, so they already fit
+   inside a 412px Pixel — no scrolling needed.
+
+   BUG FIXED 2026-07-23 (found by the audit sweep): this block used to switch
+   .navmenu to `position: fixed` with `top: auto`. That override killed the base
+   rule's `top: calc(100% + 4px)`, leaving the menu with no vertical anchor, so
+   it fell back to its static position — the top-left of its flex parent, i.e.
+   level with the TOP of the button rather than under it. The panel painted
+   straight over the whole nav bar, and its first item ("The Plan") landed
+   exactly where the "Trip" button had been. The natural second tap to close the
+   menu navigated to plan.html instead. That was live on all 12 pages.
+
+   The fix is to stop fighting the layout: keep the base absolute positioning,
+   and just constrain the panel so it can neither overflow the viewport
+   horizontally nor run off the bottom of a short screen. */
 @media (max-width: 430px) {
-  .sitenav-bar {
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .sitenav-bar::-webkit-scrollbar {
-    display: none;
-  }
   .navtop {
     padding: 0 10px;
     font-size: 13.5px;
   }
-  /* Menus align to the viewport, not the button, so they never hang off-screen. */
   .navmenu {
-    position: fixed;
-    left: 8px;
-    right: 8px;
-    top: auto;
+    /* stays position:absolute, top: calc(100% + 4px) from the base rule */
+    left: 0;
     min-width: 0;
-    max-width: none;
+    width: max-content;
+    max-width: calc(100vw - 16px);
+    max-height: calc(100dvh - 120px);
+    overflow-y: auto;
+  }
+  /* The right-hand menu opens leftwards so it cannot run off the screen edge. */
+  .navgroup:nth-last-of-type(1) .navmenu {
+    left: auto;
+    right: 0;
   }
 }

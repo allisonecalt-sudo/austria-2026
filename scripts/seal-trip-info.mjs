@@ -12,7 +12,7 @@
 //   • The payload is encrypted with AES-GCM 256.
 //   • The key is derived with PBKDF2 (SHA-256, 250k iterations) from her
 //     password, salted with her login name.
-//   • Only the CIPHERTEXT goes to Supabase. Nothing sensitive is in the repo,
+//   • Only the CIPHERTEXT goes to Supabase. No plaintext AND NO PASSWORD is in the repo,
 //     the built bundle, or the GitHub source. Someone with the anon key gets
 //     an opaque blob.
 //   • The honest limit, told to her plainly: the password is a common word,
@@ -33,7 +33,17 @@ const ANON =
 
 // Must match src/info.ts exactly.
 const LOGIN = 'allisonecalt';
-const PASSWORD = process.env.TRIP_INFO_PASSWORD ?? 'Allison';
+// NEVER put a default here. A literal in this file is published: the repo is
+// public, and this file also carries the PBKDF2 salt (LOGIN) and the Supabase
+// anon key — so a default password hands over all three key inputs at once.
+// That exact mistake was made and caught on 2026-07-23 by the audit sweep,
+// which decrypted the live bookings straight from the repo. Fail closed.
+const PASSWORD = process.env.TRIP_INFO_PASSWORD;
+if (!PASSWORD) {
+  console.error('✗ refusing to seal: set TRIP_INFO_PASSWORD in the environment.');
+  console.error('  e.g.  TRIP_INFO_PASSWORD=... node scripts/seal-trip-info.mjs <file>');
+  process.exit(1);
+}
 const ITERATIONS = 250000;
 const STATE_KEY = 'trip_info_enc';
 

@@ -29,6 +29,20 @@ const PATTERNS = [
   { name: 'PIN label with code', re: /\bPIN\b[^a-z]{0,12}\d{3,}/ },
   { name: '10-digit confirmation number', re: /\b\d{10}\b/ },
   { name: 'license-number shape (NNNNN-NNNNNN-NNNN)', re: /\b\d{5}-\d{6}-\d{4}\b/ },
+  // Added 2026-07-23. The audit sweep decrypted the LIVE private page using a
+  // password that had been left as a DEFAULT VALUE in seal-trip-info.mjs and
+  // pushed to the public repo — sitting right next to the PBKDF2 salt and the
+  // Supabase anon key. The crypto was fine; the key material was published.
+  // This gate makes the same mistake fail the build instead of shipping.
+  {
+    name: 'hardcoded password / secret literal',
+    // The real shape is a password-ish NAME, then an assignment or fallback
+    // operator, then a quoted literal — which catches `= "x"`, `?? "x"`,
+    // `|| "x"` and `password: "x"`. The gap allows the env-var read that sits
+    // between them in `process.env.TRIP_INFO_PASSWORD ?? "..."`, which is
+    // exactly the line that leaked and which a tighter pattern missed.
+    re: /\b(PASSWORD|PASSPHRASE|PASSCODE|SECRET)\b[^\n'"`]{0,60}(\?\?|\|\||=|:)\s*["'`][^"'`\n]{3,}["'`]/i,
+  },
 ];
 
 function walk(dir, out = []) {

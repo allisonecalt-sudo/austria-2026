@@ -13,6 +13,7 @@ import { insertNote } from './supabase.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
 import { rainCall, rainLabel, worksInRain } from './rain-ok.js';
+import { SHABBAT_RULE, shabbatCheck } from './shabbat.js';
 import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -76,11 +77,20 @@ function actCard(a: Activity): HTMLElement {
 
   if (rain) card.setAttribute('data-rain', rain.ok);
 
+  // Her correction, Jul 23: "we cant go on boats on shabbat" — and it is not
+  // only boats. Every card states what it would require, so nothing on this
+  // site can quietly look available between Friday night and Saturday night.
+  const shab = shabbatCheck(a.id);
+  if (shab) card.setAttribute('data-shabbat', shab.ok ? 'ok' : 'no');
+
   const more = el('div', 'more');
   more.appendChild(el('p', undefined, esc(a.more)));
   if (rain) {
     const lab = rainLabel(rain.ok);
     more.appendChild(el('p', 'rain-why', `${lab.icon} In rain: ${esc(rain.why)}`));
+  }
+  if (shab && !shab.ok) {
+    more.appendChild(el('p', 'shabbat-why', `🕯️ ${esc(shab.note)}`));
   }
   const row = el('div', 'row');
   const nav = el('a', 'btn go', '📍 Navigate');
@@ -238,6 +248,12 @@ function render(): void {
     sec.appendChild(head);
     sec.appendChild(el('p', 'day-intro', esc(day.intro)));
     if (day.note) sec.appendChild(el('p', 'day-note', esc(day.note)));
+
+    // Shabbat binds three ways at once — say so where she will actually see it,
+    // instead of leaving her to work out which cards are even possible.
+    if (day.id === 'shabbat') {
+      sec.appendChild(el('p', 'shabbat-rule', `🕯️ ${esc(SHABBAT_RULE)}`));
+    }
 
     if (day.activityIds.length > 0) {
       const grid = el('div', 'acts');

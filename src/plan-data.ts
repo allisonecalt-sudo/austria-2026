@@ -681,11 +681,11 @@ export const ACTIVITIES: Activity[] = [
     name: 'Parkbad Bad Goisern — the Shabbat answer',
     emoji: '🏊',
     what: 'The village pool, walkable from the apartment — the one thing on this whole list that needs no car.',
-    more: 'THE GAP THIS FILLS: every one of the original 36 ideas needed the car, and on Saturday 25 July you are not driving. This is a 500 m walk. €8.70, open 09:00–19:00. And on that same Saturday the HALLSTÄTTERSEE SWIM MARATHON is happening about 3 km along the shore at Strandbad Untersee — also walkable: swims start 09:30 (5 km), 10:00 (2.1 km) and 10:30 (the 7 km crossing from Obertraun); the first 7 km finishers arrive around 12:30, the course closes 15:30, prizes at 16:00. Spectator price is not published — the lido may charge its usual entry.',
+    more: 'CORRECTED 23 Jul: this was first listed as “the Shabbat answer” because it is a 500 m walk. That was wrong — it charges €8.70 at the gate, which means handling money, so it does not work on Shabbat unless you sort entry in advance. It is a fine Sunday morning instead. €8.70, open 09:00–19:00. And on that same Saturday the HALLSTÄTTERSEE SWIM MARATHON is happening about 3 km along the shore at Strandbad Untersee — also walkable: swims start 09:30 (5 km), 10:00 (2.1 km) and 10:30 (the 7 km crossing from Obertraun); the first 7 km finishers arrive around 12:30, the course closes 15:30, prizes at 16:00. Spectator price is not published — the lido may charge its usual entry.',
     drive: '🚗 0 — a 500 m walk from the apartment',
     duration: '2–4h',
     difficulty: 'flat',
-    chips: ['€8.70', 'WALKABLE — works on Shabbat', '09:00–19:00'],
+    chips: ['€8.70 — so not on Shabbat', 'a 500 m walk', '09:00–19:00'],
     photo:
       'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20200%22%3E%3Crect%20width%3D%22400%22%20height%3D%22200%22%20fill%3D%22%23dfeef0%22%2F%3E%3Ctext%20x%3D%22200%22%20y%3D%22128%22%20font-size%3D%2286%22%20text-anchor%3D%22middle%22%3E%F0%9F%8F%8A%3C%2Ftext%3E%3C%2Fsvg%3E',
     swim: true,
@@ -947,8 +947,8 @@ export const DAYS: PlanDay[] = [
     kicker: 'candles 20:32 · ends ~21:45 Sat',
     photo: P('Shabbat%20Candles.jpg'),
     intro:
-      'You’re chilling. Your own setup, frozen mains from home, naps, riverside strolls in walking distance, one of the latest Shabbatot of the year. No driving, no plans, no one to be. And if you do want something, there is finally a walkable option: the village Parkbad is 500 m away, and the Hallstättersee swim marathon is on about 3 km along the shore.',
-    activityIds: ['parkbad-goisern'],
+      'You’re chilling. Your own setup, frozen mains from home, naps, riverside strolls in walking distance, one of the latest Shabbatot of the year. No driving, no boats, nothing to pay at a gate — which rules out almost everything else on this site, because nearly all of it is one of those three. What is genuinely left: the riverside walk from the door, the lakeshore if you feel like the distance, and the swim marathon happening about 3 km along that shore — visible from the public bank, though the lido itself charges. The village Parkbad is a 500 m walk but takes €8.70 at the gate, so it is a Sunday thing, not a Shabbat thing.',
+    activityIds: [],
   },
   {
     id: 'sun26',
@@ -970,6 +970,7 @@ export const DAYS: PlanDay[] = [
       'hallstattersee-boat',
       'pathfinder-kayak',
       'hallstatt-by-train',
+      'parkbad-goisern',
     ],
     note: 'If Schafberg is your Sunday pick — RESERVE the train online a few days ahead; July seats genuinely sell out. Grossglockner and Krippenstein are clear-weather picks: check the forecast/webcams that morning and swap freely.',
   },
