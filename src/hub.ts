@@ -168,6 +168,66 @@ function whereTonight(): { bed: string; day: string } | null {
   return { bed: night.bed, day: DAYS.find((d) => d.id === night.dayId)?.title ?? '' };
 }
 
+// ---------------------------------------------------------------------------
+// BOOK BEFORE YOU FLY — the things the research found that will quietly fall
+// through if nobody acts tonight. Deliberately at the TOP of the hub and
+// deliberately ugly: this is the one part of the app with a deadline.
+// It hides itself after the trip starts (24 July), so it does not nag forever.
+// ---------------------------------------------------------------------------
+interface UrgentItem {
+  what: string;
+  why: string;
+  how: string;
+}
+
+const URGENT: UrgentItem[] = [
+  {
+    what: 'FROST family rafting',
+    why: 'On request only, sold on no platform, needs 24 h notice — and no published minimum group size, so it may not run for two people.',
+    how: 'Email info@frostrafting.at tonight. Ask: will it run for two, what time, and confirm €55 pp.',
+  },
+  {
+    what: 'FROST canyoning (Waterfall Park)',
+    why: 'Published on their site but bookable on no channel at all. Season ends 31 Aug.',
+    how: 'Same email, same night. Ask whether you need shoes — that is €10 each extra.',
+  },
+  {
+    what: 'Kayak / SUP on the Hallstättersee',
+    why: 'Needs a day’s notice, and the office is only open Mon–Fri 09:00–12:00.',
+    how: 'Phone +43 664 25 27 059 Friday morning at the latest if you want a boat Sat or Sun.',
+  },
+  {
+    what: 'Cash — euro notes AND coins',
+    why: 'The Hallstatt ferry, Kitzlochklamm, the Bad Goisern lake boat and several others are CASH ONLY. Some gates are coin machines.',
+    how: 'Draw it at the airport on landing.',
+  },
+];
+
+function renderUrgent(root: HTMLElement): void {
+  // After the trip begins this is noise, not help.
+  if (todayISO() >= '2026-07-24') return;
+
+  const box = el('section', 'urgent');
+  box.appendChild(el('h2', 'urgent-h', '⏰ Before you fly'));
+  box.appendChild(
+    el(
+      'p',
+      'urgent-sub',
+      'Found by the research sweep. These fall through if nobody acts tonight.',
+    ),
+  );
+  const list = el('ul', 'urgent-list');
+  for (const u of URGENT) {
+    const li = el('li');
+    li.appendChild(el('span', 'urgent-what', u.what));
+    li.appendChild(el('span', 'urgent-why', u.why));
+    li.appendChild(el('span', 'urgent-how', u.how));
+    list.appendChild(li);
+  }
+  box.appendChild(list);
+  root.appendChild(box);
+}
+
 function render(): void {
   const root = document.getElementById('hub');
   if (!root) return;
@@ -195,6 +255,8 @@ function render(): void {
   head.appendChild(wx);
 
   wrap.appendChild(head);
+
+  renderUrgent(wrap);
 
   for (const g of GROUPS) {
     const sec = el('section', 'hubgroup');
