@@ -582,3 +582,32 @@ a.bedrow:focus-visible {
   font-size: 17px;
   padding-left: 6px;
 }
+
+/* FOUND IN THE FINAL LIVE TEST (23 Jul, 22:52): inside the expandable Kosher
+   tile the title/what are SPANS (a button cannot contain h3/p semantics the
+   same way), so they rendered inline and squashed onto one line. Block them
+   so the tile reads exactly like its siblings. */
+.tile-exp .tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 30px;
+}
+
+.tile-exp .tile-title {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin: 8px 0 0;
+  line-height: 1.15;
+}
+
+.tile-exp .tile-what {
+  display: block;
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--sub);
+  line-height: 1.4;
+}

@@ -112,8 +112,7 @@ function daySection(day: DayRoute): HTMLElement {
 
   body.appendChild(el('p', 'rsunset', `🌅 ${day.sunset}`));
   if (day.slow) body.appendChild(el('p', 'rslow', `🐢 The slow version: ${day.slow}`));
-  if (day.weatherSwap)
-    body.appendChild(el('p', 'rswap', `⛅ If the weather flips: ${day.weatherSwap}`));
+  if (day.weatherSwap) body.appendChild(el('p', 'rswap', `🔄 The swap: ${day.weatherSwap}`));
   sec.appendChild(body);
   return sec;
 }

@@ -81,7 +81,7 @@ export const DAY_ROUTES: DayRoute[] = [
     ],
     sunset: 'Bad Goisern valley on foot, ~20:50 — after candles, so it has to be walkable. It is.',
     weatherSwap:
-      'The low-energy swap, if the night flight wins: the Pins of Remembrance walk in Bad Ischl instead (58 min from the airport, flat, ~1h) — shop in the same town, home by noon, nap. Ebensee (25 min from the apartment) can carry the remembrance weight on Sunday morning instead.',
+      'If the night flight wins: the Pins of Remembrance walk in Bad Ischl instead (58 min from the airport, flat, ~1h) — shop in the same town, home by noon, nap. Ebensee (25 min from the apartment) can carry the remembrance weight on Sunday morning instead.',
     slow: 'Skip the long drive: Ebensee memorial (25 min from the apartment, you walk into the tunnel itself), the flat Langbathsee shore loop with a swim, shop in Bad Ischl, home early. Remembrance kept, half the driving.',
   },
   {
