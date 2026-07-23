@@ -1,0 +1,298 @@
+/* ===========================================================================
+   groceries.css — the trip shopping list (groceries.html).
+   Built for one thumb in a Spar aisle: 54px rows, a checkbox you cannot miss,
+   and the add bar pinned to the bottom where the thumb already is.
+=========================================================================== */
+
+body {
+  /* room for the pinned add bar */
+  padding-bottom: 148px;
+}
+
+.gtop {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(247, 245, 240, 0.97);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+  padding: max(8px, env(safe-area-inset-top)) 14px 10px;
+}
+
+.gback {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  font-size: 14px;
+  color: var(--sub);
+  text-decoration: none;
+}
+
+.gtitle h1 {
+  font-size: 27px;
+  margin: 2px 0 0;
+}
+
+.gtitle p {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: var(--sub);
+}
+
+.gwrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 6px 14px 0;
+}
+
+.gsec {
+  margin-top: 18px;
+}
+
+.gsec-h {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #8a8378;
+  margin: 0 0 6px 2px;
+}
+
+.gsec-donehead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.g-clear {
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--rose);
+  background: none;
+  border: 1px solid #e6c3bc;
+  border-radius: 99px;
+  padding: 6px 12px;
+  min-height: 34px;
+  cursor: pointer;
+}
+
+.gi-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.gi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 6px 8px 6px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gi:last-child {
+  border-bottom: none;
+}
+
+.gi-check {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: 2px solid #cfc8ba;
+  background: #fff;
+  font-size: 17px;
+  line-height: 1;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.gi.done .gi-check {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.gi-mid {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.gi-name {
+  font-size: 16px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.gi.done .gi-name {
+  text-decoration: line-through;
+  color: #9a9288;
+}
+
+.gi-qty {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--sub);
+  background: var(--paper);
+  border-radius: 99px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.gi-del {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  color: #b9b1a4;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.gi-del:hover,
+.gi-del:focus-visible {
+  color: var(--rose);
+  background: #fdf1ee;
+}
+
+.g-empty {
+  background: #fbfaf7;
+  border: 1px dashed #ded8cd;
+  border-radius: 14px;
+  padding: 20px 16px;
+  color: var(--sub);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+
+/* ---- the pinned add bar ---- */
+.gadd {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  background: rgba(247, 245, 240, 0.98);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--line);
+  padding: 10px 12px max(10px, env(safe-area-inset-bottom));
+}
+
+.g-addwrap {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.g-input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px; /* 16px stops iOS zooming the page on focus */
+  padding: 12px 14px;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.gadd-row {
+  display: flex;
+  gap: 7px;
+  max-width: 640px;
+  margin: 7px auto 0;
+}
+
+.g-qty {
+  width: 62px;
+  font: inherit;
+  font-size: 16px;
+  text-align: center;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #fff;
+}
+
+.g-sec {
+  flex: 1 1 0;
+  min-width: 0;
+  font: inherit;
+  font-size: 14px;
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #fff;
+  padding: 0 8px;
+  color: var(--ink);
+}
+
+.g-addbtn {
+  flex: 0 0 auto;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #fff;
+  border-radius: 11px;
+  cursor: pointer;
+}
+
+/* ---- autocomplete from the apartment app's catalog ---- */
+.g-auto {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 6px);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 -10px 30px rgba(32, 33, 31, 0.14);
+  overflow: hidden;
+}
+
+.g-auto-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  font: inherit;
+  font-size: 15px;
+  text-align: left;
+  min-height: 46px;
+  padding: 8px 13px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.g-auto-item:last-child {
+  border-bottom: none;
+}
+
+.g-auto-sec {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9a9288;
+  white-space: nowrap;
+}

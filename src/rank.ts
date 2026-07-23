@@ -12,6 +12,7 @@
 import { BUILD_STAMP, MUST_DO_IDS, SITES, SUNSETS, byId } from './plan-data.js';
 import { getState, setState } from './supabase.js';
 import { mountNotes } from './notes.js';
+import { mountNav } from './nav.js';
 
 type Who = 'allison' | 'avital';
 type Votes = Record<string, number>;
@@ -81,7 +82,11 @@ function combined(kind: 'votes' | 'sun', id: string): { a: number; v: number; to
 
 function renderBoards(): void {
   renderBoard('votes', 'board-must', MUST_DO_IDS);
-  renderBoard('sun', 'board-sun', SUNSETS.map((s) => s.id));
+  renderBoard(
+    'sun',
+    'board-sun',
+    SUNSETS.map((s) => s.id),
+  );
 }
 
 function renderBoard(kind: 'votes' | 'sun', mountId: string, ids: string[]): void {
@@ -159,7 +164,10 @@ function renderBoard(kind: 'votes' | 'sun', mountId: string, ids: string[]): voi
           if ((e.target as HTMLElement).closest('.hearts, a')) return;
           row.classList.toggle('open');
           const hint = row.querySelector('.rk-hint');
-          if (hint) hint.textContent = row.classList.contains('open') ? 'tap to close ▴' : 'tap for full info ▾';
+          if (hint)
+            hint.textContent = row.classList.contains('open')
+              ? 'tap to close ▴'
+              : 'tap for full info ▾';
         });
         row.style.cursor = 'pointer';
       }
@@ -208,13 +216,19 @@ function renderShell(): void {
   who.appendChild(btnV);
   wrap.appendChild(who);
   wrap.appendChild(
-    el('p', 'rank-sub', 'Tap a heart again to remove it. 3 = “must happen” · 1 = “nice” · 0 = “meh”.'),
+    el(
+      'p',
+      'rank-sub',
+      'Tap a heart again to remove it. 3 = “must happen” · 1 = “nice” · 0 = “meh”.',
+    ),
   );
   wrap.appendChild(el('p', 'save-note', '<span id="save-status"></span>'));
 
   const h1 = el('div', 'section-head');
   h1.appendChild(el('h2', undefined, '⭐ Must-dos — the lifetime-memory pool'));
-  h1.appendChild(el('p', undefined, 'Everything here is verified open, easy-rated, and drive-timed.'));
+  h1.appendChild(
+    el('p', undefined, 'Everything here is verified open, easy-rated, and drive-timed.'),
+  );
   wrap.appendChild(h1);
   const must = el('div', 'rank-list');
   must.id = 'board-must';
@@ -222,7 +236,9 @@ function renderShell(): void {
 
   const h2 = el('div', 'section-head');
   h2.appendChild(el('h2', undefined, '🌅 Best sunsets — one every night'));
-  h2.appendChild(el('p', undefined, 'Rank the golden hours — the top ones get protected in the schedule.'));
+  h2.appendChild(
+    el('p', undefined, 'Rank the golden hours — the top ones get protected in the schedule.'),
+  );
   wrap.appendChild(h2);
   const sun = el('div', 'rank-list');
   sun.id = 'board-sun';
@@ -269,3 +285,5 @@ async function main(): Promise<void> {
 }
 
 void main();
+
+mountNav();

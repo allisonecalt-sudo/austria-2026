@@ -1,0 +1,159 @@
+/* ===========================================================================
+   info.css — the private trip-info page (info.html).
+   Phone-first: this gets opened at a check-in desk with one hand and a
+   suitcase in the other, so values are big and labels are quiet.
+=========================================================================== */
+
+.iwrap {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 18px 14px max(80px, calc(60px + env(safe-area-inset-bottom)));
+}
+
+.ihead h1 {
+  font-size: clamp(30px, 8vw, 42px);
+  margin: 4px 0 0;
+}
+
+/* ---- the gate ---- */
+.igate {
+  margin-top: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px 16px;
+}
+
+.ilab {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #8a8378;
+  margin: 0 0 5px;
+}
+
+.ilab + .i-input {
+  margin-bottom: 14px;
+}
+
+.i-input {
+  width: 100%;
+  font: inherit;
+  font-size: 16px; /* stops iOS zooming on focus */
+  min-height: 48px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.i-go {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  min-height: 50px;
+  margin-top: 4px;
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.i-go:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.i-error {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  color: var(--rose);
+  min-height: 1em;
+}
+
+.i-error:empty {
+  margin: 0;
+}
+
+.i-fineprint {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sub);
+}
+
+/* ---- unlocked content ---- */
+.icard {
+  margin-top: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px 15px 13px;
+}
+
+.icard-h {
+  font-size: 18px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.icard-sub {
+  margin: 4px 0 10px;
+  font-size: 13px;
+  color: var(--sub);
+}
+
+.ikv {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+}
+
+.ikv-k {
+  flex: 0 0 40%;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a8378;
+  line-height: 1.35;
+}
+
+.ikv-v {
+  flex: 1 1 auto;
+  font-size: 15px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  /* long confirmation numbers should be tappable-to-select on a phone */
+  user-select: all;
+}
+
+.icard-note {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--sub);
+  line-height: 1.5;
+}
+
+.i-lock {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  min-height: 46px;
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--sub);
+  border-radius: 12px;
+  cursor: pointer;
+}

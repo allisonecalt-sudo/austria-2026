@@ -75,7 +75,8 @@ export const ACTIVITIES: Activity[] = [
     emoji: '✡️',
     what: 'A flat self-guided loop through Jewish Salzburg — 800 years of presence, destruction, and rebuilding.',
     more: 'Judengasse (the medieval Jewish lane, synagogue at #15 in 1370) → Marko Feingold bridge over the Salzach (named for the four-camp survivor who rebuilt the community, lived to 106) → Stolpersteine brass memorial stones in the pavement (500+ across the city; dense cluster around Linzergasse) → the synagogue at Lasserstraße 8, burned on Kristallnacht 1938, rebuilt, still a living shul (~100 members). To go INSIDE the synagogue: email office@ikg-salzburg.at in advance — no walk-ins, security. All outdoor parts free, at your pace.',
-    drive: '🚗 18 min from Salzburg airport to Altstadt parking · then on foot · 1h07 · 76 km on to Bad Goisern',
+    drive:
+      '🚗 18 min from Salzburg airport to Altstadt parking · then on foot · 1h07 · 76 km on to Bad Goisern',
     duration: '~2.5–3h walking',
     difficulty: 'flat',
     chips: ['free', 'self-guided', 'synagogue inside = email ahead'],
@@ -89,7 +90,8 @@ export const ACTIVITIES: Activity[] = [
     emoji: '✡️',
     what: 'Bad Ischl — the imperial spa town — had a real Jewish community; the Pins of Remembrance route marks its story.',
     more: 'Oversized memorial “pins” mark the Nazi-era sites of Jewish Bad Ischl (maps at the tourist office). The town itself is the old imperial summer capital — Kaiservilla, riverside promenade, famous café culture. A gentle add-on to any day that passes through — and your grocery stop is here anyway.',
-    drive: '🚗 15 min · 12 km from Bad Goisern · 29 min · 24 km from Gosau · en-route stop on the Tue Zell→Gosau move',
+    drive:
+      '🚗 15 min · 12 km from Bad Goisern · 29 min · 24 km from Gosau · en-route stop on the Tue Zell→Gosau move',
     duration: '~1h',
     difficulty: 'flat',
     chips: ['free', 'on your route', 'pairs with groceries'],
@@ -179,7 +181,9 @@ export const ACTIVITIES: Activity[] = [
     duration: '1–3h',
     difficulty: 'flat',
     chips: ['~€7'],
-    photo: P('2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg'),
+    photo: P(
+      '2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg',
+    ),
     swim: true,
     maps: G('Strandbad Zell am See'),
   },
@@ -215,7 +219,8 @@ export const ACTIVITIES: Activity[] = [
     emoji: '🛣️',
     what: "Austria's most famous drive — 48 km of hairpins to ~2,400 m, ending face-to-face with the Pasterze glacier.",
     more: 'The car does 100% of the climbing: 36 hairpins, waterfalls, marmots at the top, and the Kaiser-Franz-Josefs-Höhe terrace staring straight at Austria’s highest peak (3,798 m) and its glacier. Stop wherever you gasp. Needs CLEAR weather — check the webcam that morning; toll ~€45/car. Road open ~06:00–21:30 in summer.',
-    drive: '🚗 Sunday: 1h45 · ~115 km from Bad Goisern to the road entrance (Fusch) · from Zell: 25 min · 15 km · ~45 min more up to the glacier terrace',
+    drive:
+      '🚗 Sunday: 1h45 · ~115 km from Bad Goisern to the road entrance (Fusch) · from Zell: 25 min · 15 km · ~45 min more up to the glacier terrace',
     duration: 'half–full day',
     difficulty: 'flat',
     chips: ['toll ~€45/car', 'zero walking required', 'clear-weather day only'],
@@ -318,7 +323,10 @@ export const ACTIVITIES: Activity[] = [
     drive: '🚗 35 min · 28 km from Bad Goisern (via Bad Ischl) · 50 min from Gosau',
     duration: 'half–full day',
     difficulty: 'flat',
-    chips: ['€61 return — RESERVE online (Kombikarte train+boat from €61)', 'downhill slot chosen at booking'],
+    chips: [
+      '€61 return — RESERVE online (Kombikarte train+boat from €61)',
+      'downhill slot chosen at booking',
+    ],
     photo: P('Wolfgangsee%20mit%20St.%20Wolfgang.jpg'),
     star: true,
     swim: true,
@@ -450,7 +458,9 @@ export const ACTIVITIES: Activity[] = [
     duration: '2–3h evening',
     difficulty: 'flat',
     chips: ['evening from ~€25.50', 'pools to 21:00', 'swimsuit pools'],
-    photo: P('2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg'),
+    photo: P(
+      '2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg',
+    ),
     swim: true,
     maps: G('Tauern Spa Kaprun'),
   },
@@ -460,7 +470,8 @@ export const ACTIVITIES: Activity[] = [
     emoji: '🛥️',
     what: 'Rent a little red electric boat (5 seats, sun canopy) and swim off it in the middle of the lake.',
     more: 'Wassersport Engel, St. Gilgen waterfront: license-free e-boats €35/h (July “deluxe” with lounging deck + swim ladder €40/h). No reservations — arrive at opening (10:00) on the Schafberg day and take the first hour as your slow shoulder. Daily to 18:00, fair weather.',
-    drive: '🚗 at the Wolfgangsee — 29 min · 25 km from Bad Goisern (same day as the Schafberg train)',
+    drive:
+      '🚗 at the Wolfgangsee — 29 min · 25 km from Bad Goisern (same day as the Schafberg train)',
     duration: '~1h',
     difficulty: 'flat',
     chips: ['€35–40/h', 'no reservation — go at 10:00', 'swim ladder'],
@@ -561,7 +572,8 @@ export const SITES: Record<string, string> = {
   mauthausen: 'https://www.mauthausen-memorial.org/en',
   ebensee: 'https://www.memorial-ebensee.at',
   'salzburg-jewish-walk': 'https://www.stolpersteine-salzburg.at/en/the_project/',
-  'jewish-ischl': 'https://www.salzkammergut-2024.at/en/projekte/pins-of-remembrance-remembrance-culture-bad-ischl/',
+  'jewish-ischl':
+    'https://www.salzkammergut-2024.at/en/projekte/pins-of-remembrance-remembrance-culture-bad-ischl/',
   'krimml-apc': 'https://www.krimmler-wasserfaelle.at',
   kitzsteinhorn: 'https://www.kitzsteinhorn.at/en',
   schmittenhoehe: 'https://www.schmitten.at/en',
@@ -593,7 +605,8 @@ export const SITES: Record<string, string> = {
   'grundlsee-3lakes': 'https://schifffahrt-grundlsee.at/en/3-lakes-tour',
   'tauern-spa': 'https://www.tauernspakaprun.com/en/spa/price-opening-hours',
   'wolfgangsee-eboat': 'https://www.wassersport-engel.at/elektroboote/',
-  'hallstatt-sup': 'https://www.hallstatt.net/about-hallstatt/active-summer-holiday/stand-up-paddling-in-the-salzkammergut/sup-stand-up-paddling-on-lake-hallstatt/',
+  'hallstatt-sup':
+    'https://www.hallstatt.net/about-hallstatt/active-summer-holiday/stand-up-paddling-in-the-salzkammergut/sup-stand-up-paddling-on-lake-hallstatt/',
 };
 
 // ---- Day-by-day menu -------------------------------------------------------
@@ -638,7 +651,15 @@ export const DAYS: PlanDay[] = [
     photo: P('Wolfgangsee%20mit%20St.%20Wolfgang.jpg'),
     intro:
       'A full incredible day that happens to end at a new base. Three big shapes: the Grossglockner glacier drive (ends right by Zell), the Schafberg steam train + Wolfgangsee swim, or 5 Fingers at opening before the crowds + a lake afternoon. Quiet fallbacks if weather turns: Ebensee memorial, Jewish Ischl walk, Langbathsee.',
-    activityIds: ['grossglockner', 'schafberg', 'wolfgangsee-eboat', 'krippenstein', 'ebensee', 'jewish-ischl', 'langbathsee'],
+    activityIds: [
+      'grossglockner',
+      'schafberg',
+      'wolfgangsee-eboat',
+      'krippenstein',
+      'ebensee',
+      'jewish-ischl',
+      'langbathsee',
+    ],
     note: 'If Schafberg is your Sunday pick — RESERVE the train online a few days ahead; July seats genuinely sell out. Grossglockner and Krippenstein are clear-weather picks: check the forecast/webcams that morning and swap freely.',
   },
   {
@@ -771,7 +792,9 @@ export const SUNSETS: SunsetSpot[] = [
     time: '20:53',
     why: 'First night at the lake — the classic promenade view as the peaks go pink.',
     drive: '🚗 0 — 15 min walk down from der Sonnberg',
-    photo: P('2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg'),
+    photo: P(
+      '2017-07-21%20%28177%29%20Beach%20promenade%20at%20Zeller%20See%2C%20Zell%20am%20See%2C%20Austria.jpg',
+    ),
   },
   {
     id: 'sunset-cruise',

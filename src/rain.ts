@@ -19,6 +19,7 @@ import { BUILD_STAMP, SITES, byId } from './plan-data.js';
 import { RAIN_BASES as BASES, rainKey, type RainBase, type RainPick } from './rain-data.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
+import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -189,3 +190,5 @@ async function main(): Promise<void> {
 }
 
 void main();
+
+mountNav();

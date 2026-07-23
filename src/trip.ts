@@ -261,7 +261,12 @@ export const TRIP: TripData = {
       nights: 2,
       dateLabel: 'Sun Jul 26 – Tue Jul 28',
       status: 'booked',
-      chips: ['Sleeps 4', 'Kitchenette · no oven', 'Private sauna · lake view', '~15-min walk to lake'],
+      chips: [
+        'Sleeps 4',
+        'Kitchenette · no oven',
+        'Private sauna · lake view',
+        '~15-min walk to lake',
+      ],
       blurb:
         'The alpine-lake half of the week. Two-bedroom apartment up the hill above town, lake-and-mountain view, private sauna and balcony. Kitchenette (no oven — matters for kosher cooking). Self check-in.',
       photo: P.zellAmSee,
@@ -331,8 +336,12 @@ export const TRIP: TripData = {
         {
           icon: 'food',
           line: 'Spar groceries done by ~11:00, then nap',
-          detail: 'Stock the Shabbat food before the shops close early on Friday. Nearest Spar/Eurospar to the Bad Goisern base.',
-          place: { name: 'Spar supermarket (nearest the base)', links: { query: 'Spar supermarket Bad Goisern' } },
+          detail:
+            'Stock the Shabbat food before the shops close early on Friday. Nearest Spar/Eurospar to the Bad Goisern base.',
+          place: {
+            name: 'Spar supermarket (nearest the base)',
+            links: { query: 'Spar supermarket Bad Goisern' },
+          },
         },
         {
           icon: 'sunset',
@@ -355,7 +364,8 @@ export const TRIP: TripData = {
         {
           icon: 'time',
           line: 'Daven, long lunch from the frozen-food stash, deep nap',
-          detail: 'Self-catered Shabbat in Bad Goisern — frozen mains brought from home, your own quiet setup, nothing to drive to. On foot only.',
+          detail:
+            'Self-catered Shabbat in Bad Goisern — frozen mains brought from home, your own quiet setup, nothing to drive to. On foot only.',
         },
         {
           icon: 'activity',
@@ -363,7 +373,10 @@ export const TRIP: TripData = {
           driveFromBase: 'on foot from base',
           detail:
             'A flat, shaded riverside walk along the Traun — walking-distance from the apartment, no driving. Bad Goisern is green and quiet; go as far as feels good and turn back.',
-          place: { name: 'Traun riverside path, Bad Goisern', links: { query: 'Bad Goisern Traun river path' } },
+          place: {
+            name: 'Traun riverside path, Bad Goisern',
+            links: { query: 'Bad Goisern Traun river path' },
+          },
         },
         {
           icon: 'sunset',
@@ -383,14 +396,22 @@ export const TRIP: TripData = {
       photo: P.zellAmSee,
       tldr: 'Slow morning, pack out after Havdalah, drive south to the alpine lake. Check in at der Sonnberg Alpinlodges (2 nights), walk down to the Zeller See shore, sunset on the Esplanade.',
       blocks: [
-        { icon: 'drive', line: 'Salzburg → Zell am See (Salzach valley B311)', driveFromBase: '~1h20 to base' },
+        {
+          icon: 'drive',
+          line: 'Salzburg → Zell am See (Salzach valley B311)',
+          driveFromBase: '~1h20 to base',
+        },
         {
           icon: 'stay',
           line: 'Check in der Sonnberg Alpinlodges 17:00–18:00 (self check-in)',
-          detail: 'Up the hill above town, ~1.1 km / ~15-min walk down to the lake (uphill back). Private sauna + lake-view balcony.',
+          detail:
+            'Up the hill above town, ~1.1 km / ~15-min walk down to the lake (uphill back). Private sauna + lake-view balcony.',
           place: {
             name: 'der Sonnberg Alpinlodges',
-            links: { query: 'der Sonnberg Alpinlodges Zell am See', website: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html' },
+            links: {
+              query: 'der Sonnberg Alpinlodges Zell am See',
+              website: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
+            },
           },
         },
         {
@@ -399,7 +420,10 @@ export const TRIP: TripData = {
           driveFromBase: '~15-min walk from base',
           detail:
             'The lake sits right at the foot of the Schmittenhöhe and the Hohe Tauern peaks — a different feel from the lush Salzkammergut lakes. Lake walk along the Esplanade promenade. Plan B if Shabbat tired the legs: long balcony afternoon, sunset from the window.',
-          place: { name: 'Zeller See Esplanade promenade', links: { query: 'Esplanade Zell am See lakeshore' } },
+          place: {
+            name: 'Zeller See Esplanade promenade',
+            links: { query: 'Esplanade Zell am See lakeshore' },
+          },
         },
         { icon: 'sunset', line: 'Sunset from the Esplanade promenade · 20:53' },
       ],
@@ -413,7 +437,16 @@ export const TRIP: TripData = {
       logistics: 'Base day · a day from here could look like…',
       photo: P.alpineSunset,
       tldr: 'A whole free day at the alpine base. Three shapes a day could take — a glacier, a waterfall, or an easy lake day — each fully planned below. Every one ends with a swim and sunset back on the Zeller See.',
-      blocks: [{ icon: 'sunset', line: 'However the day goes — sunset on the Esplanade · 20:52', place: { name: 'Zeller See Esplanade promenade', links: { query: 'Esplanade Zell am See lakeshore' } } }],
+      blocks: [
+        {
+          icon: 'sunset',
+          line: 'However the day goes — sunset on the Esplanade · 20:52',
+          place: {
+            name: 'Zeller See Esplanade promenade',
+            links: { query: 'Esplanade Zell am See lakeshore' },
+          },
+        },
+      ],
       shapes: [
         {
           name: 'The glacier day',
@@ -424,15 +457,20 @@ export const TRIP: TripData = {
               place: 'Kitzsteinhorn glacier, Kaprun',
               drive: '~15 min from base',
               line: 'Gondola up to the Gipfelwelt 3.000 — snow, ice arena, 360° Hohe Tauern view',
-              detail: 'Drive to Kaprun, ride the glacier gondola to 3,029 m. Cold even in July — bring layers. The Top of Salzburg platform + ice tunnel are the highlights. Easy: it is almost all lift, very little walking.',
-              links: { query: 'Kitzsteinhorn Kaprun glacier', website: 'https://www.kitzsteinhorn.at/en/summer/kitzsteinhorn' },
+              detail:
+                'Drive to Kaprun, ride the glacier gondola to 3,029 m. Cold even in July — bring layers. The Top of Salzburg platform + ice tunnel are the highlights. Easy: it is almost all lift, very little walking.',
+              links: {
+                query: 'Kitzsteinhorn Kaprun glacier',
+                website: 'https://www.kitzsteinhorn.at/en/summer/kitzsteinhorn',
+              },
             },
             {
               when: 'Afternoon',
               place: 'Kaprun village / back to Zell',
               drive: '25 min back to base',
               line: 'Lunch in Kaprun, drive back, slow café hour on the Esplanade',
-              detail: 'Come down off the glacier for a warm lunch, drive back to Zell, decompress with coffee by the lake.',
+              detail:
+                'Come down off the glacier for a warm lunch, drive back to Zell, decompress with coffee by the lake.',
               links: { query: 'Kaprun village center' },
             },
             {
@@ -440,8 +478,12 @@ export const TRIP: TripData = {
               place: 'Strandbad Zell am See + Esplanade',
               drive: 'in town',
               line: 'Evening swim from the lido, sunset on the lake · 20:52',
-              detail: 'Warm-evening swim from the Strandbad lake lido, then sunset right on the Esplanade.',
-              links: { query: 'Strandbad Zell am See', website: 'https://www.zellamsee-kaprun.com/en' },
+              detail:
+                'Warm-evening swim from the Strandbad lake lido, then sunset right on the Esplanade.',
+              links: {
+                query: 'Strandbad Zell am See',
+                website: 'https://www.zellamsee-kaprun.com/en',
+              },
             },
           ],
         },
@@ -454,15 +496,20 @@ export const TRIP: TripData = {
               place: 'Krimml Waterfalls',
               drive: '~1h10 from base',
               line: "Walk up the three-tier trail beside Austria's tallest falls (380 m)",
-              detail: 'Drive ~1h10 west into the Hohe Tauern. The graded WasserWunderWelt path climbs alongside all three tiers — go as high as energy allows and turn back; the first tier alone is worth it. Easy underfoot, just uphill.',
-              links: { query: 'Krimml Waterfalls', website: 'https://www.wasserfaelle-krimml.at/en/' },
+              detail:
+                'Drive ~1h10 west into the Hohe Tauern. The graded WasserWunderWelt path climbs alongside all three tiers — go as high as energy allows and turn back; the first tier alone is worth it. Easy underfoot, just uphill.',
+              links: {
+                query: 'Krimml Waterfalls',
+                website: 'https://www.wasserfaelle-krimml.at/en/',
+              },
             },
             {
               when: 'Afternoon',
               place: 'Drive back via the Pinzgau valley',
               drive: '~1h10 back to base',
               line: 'Scenic valley drive back to Zell, late lunch in town',
-              detail: 'The Salzach-valley return is gentle and pretty. Late lunch on the Esplanade when you are back.',
+              detail:
+                'The Salzach-valley return is gentle and pretty. Late lunch on the Esplanade when you are back.',
               links: { query: 'Zell am See town center' },
             },
             {
@@ -471,7 +518,10 @@ export const TRIP: TripData = {
               drive: 'in town',
               line: 'Swim + sunset on the Zeller See · 20:52',
               detail: 'Cool off in the lake after the drive, then sunset on the promenade.',
-              links: { query: 'Strandbad Zell am See', website: 'https://www.zellamsee-kaprun.com/en' },
+              links: {
+                query: 'Strandbad Zell am See',
+                website: 'https://www.zellamsee-kaprun.com/en',
+              },
             },
           ],
         },
@@ -484,16 +534,25 @@ export const TRIP: TripData = {
               place: 'Schmittenhöhe cable car',
               drive: '~10 min from base',
               line: 'Ride to the 1,965 m panorama deck for the 30-peaks view',
-              detail: 'The Schmitten valley station is minutes from the lodge. Porsche-design cabins to a near-2,000 m deck with an easy summit stroll. A half-day at most — perfect for a low-key day.',
-              links: { query: 'Schmittenhöhebahn Zell am See', website: 'https://www.schmitten.at/en/Summer-on-the-mountain/Open-facilities-and-highlights' },
+              detail:
+                'The Schmitten valley station is minutes from the lodge. Porsche-design cabins to a near-2,000 m deck with an easy summit stroll. A half-day at most — perfect for a low-key day.',
+              links: {
+                query: 'Schmittenhöhebahn Zell am See',
+                website:
+                  'https://www.schmitten.at/en/Summer-on-the-mountain/Open-facilities-and-highlights',
+              },
             },
             {
               when: 'Afternoon',
               place: 'Zeller See Esplanade + Strandbad',
               drive: 'in town',
               line: 'Lake-loop walk or swim, café on the promenade',
-              detail: 'Back down by lunch. Walk the lakeshore, swim from the Strandbad, café and a book in the afternoon.',
-              links: { query: 'Strandbad Zell am See', website: 'https://www.zellamsee-kaprun.com/en' },
+              detail:
+                'Back down by lunch. Walk the lakeshore, swim from the Strandbad, café and a book in the afternoon.',
+              links: {
+                query: 'Strandbad Zell am See',
+                website: 'https://www.zellamsee-kaprun.com/en',
+              },
             },
             {
               when: 'Sunset',
@@ -517,21 +576,30 @@ export const TRIP: TripData = {
       photo: P.gosausee,
       tldr: 'Pack out, drive northeast to Gosau with a Bad Ischl coffee stop. Check in at Transylvania Villa & Spa (2 nights, full kitchen). Walk to the Vorderer Gosausee — Dachstein mirrored in the water — for a lakeside picnic and sunset. The trip’s “we’re really here” moment.',
       blocks: [
-        { icon: 'drive', line: 'Zell am See → Gosau (Tauern A10 + B166)', driveFromBase: '~1h45 to base' },
+        {
+          icon: 'drive',
+          line: 'Zell am See → Gosau (Tauern A10 + B166)',
+          driveFromBase: '~1h45 to base',
+        },
         {
           icon: 'food',
           line: 'Bad Ischl mid-route — Spar restock + café break ~11:30',
           driveFromBase: 'on the route',
-          detail: 'Bad Ischl is the natural halfway stop — Spar restock for the Gosau kitchen + a café break.',
+          detail:
+            'Bad Ischl is the natural halfway stop — Spar restock for the Gosau kitchen + a café break.',
           place: { name: 'Bad Ischl town center', links: { query: 'Bad Ischl town center' } },
         },
         {
           icon: 'stay',
           line: 'Check in Transylvania Villa & Spa 16:00–21:00',
-          detail: 'Full kitchen WITH oven, Finnish sauna + infrared spa, key-card self check-in. Walking distance to the Gosausee.',
+          detail:
+            'Full kitchen WITH oven, Finnish sauna + infrared spa, key-card self check-in. Walking distance to the Gosausee.',
           place: {
             name: 'Transylvania Villa & Spa, Gosau',
-            links: { query: 'Transylvania Villa & Spa Gosau', website: 'https://www.booking.com/hotel/at/transylvania-villa-spa.html' },
+            links: {
+              query: 'Transylvania Villa & Spa Gosau',
+              website: 'https://www.booking.com/hotel/at/transylvania-villa-spa.html',
+            },
           },
         },
         {
@@ -557,7 +625,16 @@ export const TRIP: TripData = {
       logistics: 'Base day · a day from here could look like…',
       photo: P.hallstattLake,
       tldr: 'The free Salzkammergut day — almost everything in the cluster is under 25 minutes from Gosau. Three shapes a day could take, each fully planned below. All of them end at a mirror-lake or lakeside sunset.',
-      blocks: [{ icon: 'sunset', line: 'However the day goes — sunset at the Gosausee or a Hallstatt viewpoint · 20:50', place: { name: 'Vorderer Gosausee', links: { query: 'Vorderer Gosausee Dachstein', website: 'https://www.gosausee.com/' } } }],
+      blocks: [
+        {
+          icon: 'sunset',
+          line: 'However the day goes — sunset at the Gosausee or a Hallstatt viewpoint · 20:50',
+          place: {
+            name: 'Vorderer Gosausee',
+            links: { query: 'Vorderer Gosausee Dachstein', website: 'https://www.gosausee.com/' },
+          },
+        },
+      ],
       shapes: [
         {
           name: 'The Hallstatt day',
@@ -568,15 +645,20 @@ export const TRIP: TripData = {
               place: 'Hallstatt Markt + Skywalk',
               drive: '~20 min from base',
               line: 'Funicular up to the Skywalk for the 360° view over the lake',
-              detail: 'Arrive early before the buses. The Salzbergbahn funicular lifts you to the Skywalk "Welterbeblick" viewing platform above the village. Lakeside promenade walk after.',
-              links: { query: 'Hallstatt Skywalk Welterbeblick', website: 'https://www.hallstatt.net/' },
+              detail:
+                'Arrive early before the buses. The Salzbergbahn funicular lifts you to the Skywalk "Welterbeblick" viewing platform above the village. Lakeside promenade walk after.',
+              links: {
+                query: 'Hallstatt Skywalk Welterbeblick',
+                website: 'https://www.hallstatt.net/',
+              },
             },
             {
               when: 'Afternoon',
               place: 'Hallstatt lakeshore promenade',
               drive: '~20 min from base',
               line: 'Slow lakeside walk + café, browse the village lanes',
-              detail: 'The classic boathouse-lined promenade. A coffee by the water, then drive back toward Gosau mid-afternoon.',
+              detail:
+                'The classic boathouse-lined promenade. A coffee by the water, then drive back toward Gosau mid-afternoon.',
               links: { query: 'Hallstatt lakeside promenade' },
             },
             {
@@ -584,7 +666,8 @@ export const TRIP: TripData = {
               place: 'Vorderer Gosausee',
               drive: '~14 min from base',
               line: 'Back to the mirror lake for the Dachstein sunset · 20:50',
-              detail: 'Close the day where it is quietest — the Gosausee after the day-trippers have gone.',
+              detail:
+                'Close the day where it is quietest — the Gosausee after the day-trippers have gone.',
               links: { query: 'Vorderer Gosausee Dachstein', website: 'https://www.gosausee.com/' },
             },
           ],
@@ -598,15 +681,20 @@ export const TRIP: TripData = {
               place: 'Dachstein Krippenstein, Obertraun',
               drive: '~25 min from base',
               line: 'Gondolas to 2,109 m for the 5 Fingers cantilevered platform',
-              detail: 'Drive to Obertraun, ride two gondola stages up to Krippenstein. The 5 Fingers platform juts out over a 400 m drop — the famous shot. Easy walk from the gondola top. Bring a layer; it is cool up high.',
-              links: { query: 'Dachstein Krippenstein 5 Fingers Obertraun', website: 'https://www.dachstein-salzkammergut.com/en/summer/above-ground/5fingers' },
+              detail:
+                'Drive to Obertraun, ride two gondola stages up to Krippenstein. The 5 Fingers platform juts out over a 400 m drop — the famous shot. Easy walk from the gondola top. Bring a layer; it is cool up high.',
+              links: {
+                query: 'Dachstein Krippenstein 5 Fingers Obertraun',
+                website: 'https://www.dachstein-salzkammergut.com/en/summer/above-ground/5fingers',
+              },
             },
             {
               when: 'Afternoon',
               place: 'Obertraun lakeshore / drive back',
               drive: '~25 min back to base',
               line: 'Lakeshore stop at Obertraun, then back toward Gosau',
-              detail: 'Come down, a quiet lakeshore break at the Hallstättersee south end, then the short drive back.',
+              detail:
+                'Come down, a quiet lakeshore break at the Hallstättersee south end, then the short drive back.',
               links: { query: 'Obertraun Hallstättersee lakeshore' },
             },
             {
@@ -628,7 +716,8 @@ export const TRIP: TripData = {
               place: 'Hinterer Gosausee trail',
               drive: '~14 min from base',
               line: 'Walk on past the front lake toward the back-of-valley view',
-              detail: 'From the Vorderer Gosausee, the gentle valley track continues toward the Hinterer Gosausee under the Dachstein. Go as far as feels good and turn back — no summit needed. Longer but flat-ish.',
+              detail:
+                'From the Vorderer Gosausee, the gentle valley track continues toward the Hinterer Gosausee under the Dachstein. Go as far as feels good and turn back — no summit needed. Longer but flat-ish.',
               links: { query: 'Hinterer Gosausee Dachstein trail' },
             },
             {
@@ -636,7 +725,8 @@ export const TRIP: TripData = {
               place: 'Gosau village',
               drive: 'in village',
               line: 'Balcony coffee at the apartment, café in Gosau',
-              detail: 'A slow afternoon — the Transylvania spa/sauna, balcony coffee, a café in the village.',
+              detail:
+                'A slow afternoon — the Transylvania spa/sauna, balcony coffee, a café in the village.',
               links: { query: 'Gosau village center' },
             },
             {
@@ -661,14 +751,22 @@ export const TRIP: TripData = {
       photo: P.werfen,
       tldr: 'Slow Gosau morning, optional last Hallstatt coffee, then drive to the Salzburg airport area. Check in at Best Western am Walserberg. Open afternoon: lazy day, a Mönchsberg sunset, or the Eisriesenwelt ice cave at Werfen. Keep the car for the morning airport drop.',
       blocks: [
-        { icon: 'drive', line: 'Gosau → Salzburg airport area (B166 + A1)', driveFromBase: '~1h20 to base' },
+        {
+          icon: 'drive',
+          line: 'Gosau → Salzburg airport area (B166 + A1)',
+          driveFromBase: '~1h20 to base',
+        },
         {
           icon: 'stay',
           line: 'Check in Best Western am Walserberg ~13:00',
-          detail: '~5 km / ~10 min from Salzburg airport. 24-hour reception, sauna + breakfast. Pack earplugs — near a motorway.',
+          detail:
+            '~5 km / ~10 min from Salzburg airport. 24-hour reception, sauna + breakfast. Pack earplugs — near a motorway.',
           place: {
             name: 'Best Western Hotel am Walserberg',
-            links: { query: 'Best Western Hotel am Walserberg Wals Salzburg', website: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html' },
+            links: {
+              query: 'Best Western Hotel am Walserberg Wals Salzburg',
+              website: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
+            },
           },
         },
         {
@@ -679,19 +777,26 @@ export const TRIP: TripData = {
             'Lazy day at the hotel / Mönchsberg ridge sunset from Toscaninihof (~20 min) / Eisriesenwelt ice cave at Werfen (~45 min — world’s largest, 75-min underground tour — book the night before, July sells out).',
           place: {
             name: 'Eisriesenwelt ice cave, Werfen',
-            links: { query: 'Eisriesenwelt Werfen ice cave', website: 'https://www.eisriesenwelt.at/en/' },
+            links: {
+              query: 'Eisriesenwelt Werfen ice cave',
+              website: 'https://www.eisriesenwelt.at/en/',
+            },
           },
         },
         {
           icon: 'drive',
           line: 'Keep the rental car overnight',
-          detail: 'The Alamo booking runs through Friday morning, so you drive yourselves to the airport and drop it there — no Thursday-night return, no taxi.',
+          detail:
+            'The Alamo booking runs through Friday morning, so you drive yourselves to the airport and drop it there — no Thursday-night return, no taxi.',
         },
         {
           icon: 'sunset',
           line: 'Sunset from the Mönchsberg ridge · 20:47',
           driveFromBase: '~10 min from base',
-          place: { name: 'Mönchsberg ridge, Salzburg', links: { query: 'Mönchsberg Salzburg Toscaninihof' } },
+          place: {
+            name: 'Mönchsberg ridge, Salzburg',
+            links: { query: 'Mönchsberg Salzburg Toscaninihof' },
+          },
         },
       ],
       baseId: 'airport',
@@ -705,7 +810,11 @@ export const TRIP: TripData = {
       photo: P.alpineSunset,
       tldr: 'Early wake, drive the ~5 km to Salzburg airport, drop the rental car at 06:30. Board LY5194 at 09:55, land TLV 13:25 — a full Friday afternoon to settle before Shabbat.',
       blocks: [
-        { icon: 'time', line: 'Wake 05:30 · drive to SZG + drop car 06:30', driveFromBase: '~10 min from base' },
+        {
+          icon: 'time',
+          line: 'Wake 05:30 · drive to SZG + drop car 06:30',
+          driveFromBase: '~10 min from base',
+        },
         { icon: 'time', line: 'Depart SZG 09:55 (LY5194)' },
         { icon: 'time', line: 'Land TLV 13:25 — home before Shabbat' },
       ],
@@ -735,7 +844,8 @@ export const TRIP: TripData = {
   costs: {
     headline: '₪16,023 all-in',
     approx: '≈ €4,036 · 7 nights · 2 people',
-    basis: 'All four stays are booked (Bad Goisern → Zell am See → Gosau → Wals). Covers 7 nights, flights, the rental car, food, and fuel for two.',
+    basis:
+      'All four stays are booked (Bad Goisern → Zell am See → Gosau → Wals). Covers 7 nights, flights, the rental car, food, and fuel for two.',
     perPerson: [
       { who: 'Allison', amount: '₪7,644', note: 'net of the $50 baggage settle' },
       { who: 'Avital', amount: '~₪8,379', note: 'estimated — finalizes with her flight share' },
@@ -749,29 +859,87 @@ export const TRIP: TripData = {
     {
       base: 'Base 1 — Bad Goisern (Shabbat)',
       places: [
-        { name: 'Ferienwohnung Glücksmomente', links: { query: 'Glücksmomente Bad Goisern Salzkammergut' } },
-        { name: 'Spar supermarket (nearest the base)', links: { query: 'Spar supermarket Bad Goisern' } },
-        { name: 'Traun riverside path, Bad Goisern', links: { query: 'Bad Goisern Traun river path' } },
+        {
+          name: 'Ferienwohnung Glücksmomente',
+          links: { query: 'Glücksmomente Bad Goisern Salzkammergut' },
+        },
+        {
+          name: 'Spar supermarket (nearest the base)',
+          links: { query: 'Spar supermarket Bad Goisern' },
+        },
+        {
+          name: 'Traun riverside path, Bad Goisern',
+          links: { query: 'Bad Goisern Traun river path' },
+        },
       ],
     },
     {
       base: 'Base 2 — Zell am See',
       places: [
-        { name: 'der Sonnberg Alpinlodges', links: { query: 'der Sonnberg Alpinlodges Zell am See', website: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html' } },
-        { name: 'Zeller See Esplanade promenade', links: { query: 'Esplanade Zell am See lakeshore' } },
-        { name: 'Strandbad Zell am See (lake lido)', links: { query: 'Strandbad Zell am See', website: 'https://www.zellamsee-kaprun.com/en' } },
-        { name: 'Schmittenhöhe cable car', links: { query: 'Schmittenhöhebahn Zell am See', website: 'https://www.schmitten.at/en/Summer-on-the-mountain/Open-facilities-and-highlights' } },
-        { name: 'Kitzsteinhorn glacier, Kaprun', links: { query: 'Kitzsteinhorn Kaprun glacier', website: 'https://www.kitzsteinhorn.at/en/summer/kitzsteinhorn' } },
-        { name: 'Krimml Waterfalls', links: { query: 'Krimml Waterfalls', website: 'https://www.wasserfaelle-krimml.at/en/' } },
+        {
+          name: 'der Sonnberg Alpinlodges',
+          links: {
+            query: 'der Sonnberg Alpinlodges Zell am See',
+            website: 'https://www.booking.com/hotel/at/der-sonnberg-alpinlodges.html',
+          },
+        },
+        {
+          name: 'Zeller See Esplanade promenade',
+          links: { query: 'Esplanade Zell am See lakeshore' },
+        },
+        {
+          name: 'Strandbad Zell am See (lake lido)',
+          links: { query: 'Strandbad Zell am See', website: 'https://www.zellamsee-kaprun.com/en' },
+        },
+        {
+          name: 'Schmittenhöhe cable car',
+          links: {
+            query: 'Schmittenhöhebahn Zell am See',
+            website:
+              'https://www.schmitten.at/en/Summer-on-the-mountain/Open-facilities-and-highlights',
+          },
+        },
+        {
+          name: 'Kitzsteinhorn glacier, Kaprun',
+          links: {
+            query: 'Kitzsteinhorn Kaprun glacier',
+            website: 'https://www.kitzsteinhorn.at/en/summer/kitzsteinhorn',
+          },
+        },
+        {
+          name: 'Krimml Waterfalls',
+          links: { query: 'Krimml Waterfalls', website: 'https://www.wasserfaelle-krimml.at/en/' },
+        },
       ],
     },
     {
       base: 'Base 3 — Gosau',
       places: [
-        { name: 'Transylvania Villa & Spa, Gosau', links: { query: 'Transylvania Villa & Spa Gosau', website: 'https://www.booking.com/hotel/at/transylvania-villa-spa.html' } },
-        { name: 'Vorderer Gosausee', links: { query: 'Vorderer Gosausee Dachstein', website: 'https://www.gosausee.com/' } },
-        { name: 'Hallstatt Markt + Skywalk', links: { query: 'Hallstatt Skywalk Welterbeblick', website: 'https://www.hallstatt.net/' } },
-        { name: 'Dachstein Krippenstein — 5 Fingers', links: { query: 'Dachstein Krippenstein 5 Fingers Obertraun', website: 'https://www.dachstein-salzkammergut.com/en/summer/above-ground/5fingers' } },
+        {
+          name: 'Transylvania Villa & Spa, Gosau',
+          links: {
+            query: 'Transylvania Villa & Spa Gosau',
+            website: 'https://www.booking.com/hotel/at/transylvania-villa-spa.html',
+          },
+        },
+        {
+          name: 'Vorderer Gosausee',
+          links: { query: 'Vorderer Gosausee Dachstein', website: 'https://www.gosausee.com/' },
+        },
+        {
+          name: 'Hallstatt Markt + Skywalk',
+          links: {
+            query: 'Hallstatt Skywalk Welterbeblick',
+            website: 'https://www.hallstatt.net/',
+          },
+        },
+        {
+          name: 'Dachstein Krippenstein — 5 Fingers',
+          links: {
+            query: 'Dachstein Krippenstein 5 Fingers Obertraun',
+            website: 'https://www.dachstein-salzkammergut.com/en/summer/above-ground/5fingers',
+          },
+        },
         { name: 'Hinterer Gosausee trail', links: { query: 'Hinterer Gosausee Dachstein trail' } },
         { name: 'Bad Ischl (mid-route stop)', links: { query: 'Bad Ischl town center' } },
       ],
@@ -779,10 +947,28 @@ export const TRIP: TripData = {
     {
       base: 'Base 4 — Airport side',
       places: [
-        { name: 'Best Western Hotel am Walserberg', links: { query: 'Best Western Hotel am Walserberg Wals Salzburg', website: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html' } },
-        { name: 'Eisriesenwelt ice cave, Werfen', links: { query: 'Eisriesenwelt Werfen ice cave', website: 'https://www.eisriesenwelt.at/en/' } },
-        { name: 'Mönchsberg ridge sunset (Toscaninihof)', links: { query: 'Mönchsberg Salzburg Toscaninihof' } },
-        { name: 'Salzburg Airport (W. A. Mozart)', links: { query: 'Salzburg Airport', website: 'https://www.salzburg-airport.com/en/' } },
+        {
+          name: 'Best Western Hotel am Walserberg',
+          links: {
+            query: 'Best Western Hotel am Walserberg Wals Salzburg',
+            website: 'https://www.booking.com/hotel/at/servus-europa-salzburg-am-walserberg.html',
+          },
+        },
+        {
+          name: 'Eisriesenwelt ice cave, Werfen',
+          links: {
+            query: 'Eisriesenwelt Werfen ice cave',
+            website: 'https://www.eisriesenwelt.at/en/',
+          },
+        },
+        {
+          name: 'Mönchsberg ridge sunset (Toscaninihof)',
+          links: { query: 'Mönchsberg Salzburg Toscaninihof' },
+        },
+        {
+          name: 'Salzburg Airport (W. A. Mozart)',
+          links: { query: 'Salzburg Airport', website: 'https://www.salzburg-airport.com/en/' },
+        },
       ],
     },
   ],

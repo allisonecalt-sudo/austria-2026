@@ -18,6 +18,7 @@ import { BUILD_STAMP, SITES, byId } from './plan-data.js';
 import { BASES, type Base, type Pick } from './bases-data.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
+import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -181,3 +182,5 @@ async function main(): Promise<void> {
 }
 
 void main();
+
+mountNav();

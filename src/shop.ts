@@ -1,3 +1,4 @@
+import { mountNav } from './nav.js';
 // ===========================================================================
 // shop.ts — renders shop.html: "Shop by sight". A visual grid of common
 //   Austrian products that are kosher, grouped by category, with a real
@@ -484,3 +485,5 @@ if (qEl instanceof HTMLInputElement) {
 render('');
 
 export {}; // isolate module scope (no imports/exports otherwise)
+
+mountNav();

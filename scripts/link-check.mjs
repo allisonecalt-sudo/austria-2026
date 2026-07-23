@@ -105,7 +105,9 @@ for (const u of unique) {
 }
 
 if (unreachable.length > 0) {
-  console.warn('\n⚠ link-check: unreachable from this network (NOT failing the build — likely CI-IP blocking; verify manually):');
+  console.warn(
+    '\n⚠ link-check: unreachable from this network (NOT failing the build — likely CI-IP blocking; verify manually):',
+  );
   unreachable.forEach((d) => console.warn('   ' + d));
 }
 if (dead.length > 0) {
@@ -113,4 +115,6 @@ if (dead.length > 0) {
   dead.forEach((d) => console.error('   ' + d));
   process.exit(1);
 }
-console.log(`✓ link-check: ${unique.length - unreachable.length}/${unique.length} urls resolve${unreachable.length ? ` (${unreachable.length} unreachable, warned)` : ''}`);
+console.log(
+  `✓ link-check: ${unique.length - unreachable.length}/${unique.length} urls resolve${unreachable.length ? ` (${unreachable.length} unreachable, warned)` : ''}`,
+);

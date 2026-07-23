@@ -25,6 +25,7 @@ import { RAIN_BY_KEY } from './rain-data.js';
 import { BASE_ORDER, TABLE_ROWS } from './table-data.js';
 import { allFavIds, favWeight, heartButton, loadFavs, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
+import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -472,3 +473,5 @@ async function main(): Promise<void> {
 }
 
 void main();
+
+mountNav();

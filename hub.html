@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#f7f5f0" />
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="icon-192.png" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Austria" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
     />
-    <title>Rainy day — what still works, per base · Austria 2026</title>
+    <title>Austria — one stop shop · Allison + Avital</title>
     <meta
       name="description"
-      content="Wet-weather fallbacks for the Austria trip, one list per base: what is genuinely indoors, what is fine in rain, and how far it is."
+      content="The single place for the Austria trip: today's plan, the shopping list, kosher, and everything you picked. Built for a phone."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,18 +24,13 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/src/nav.css" />
     <link rel="stylesheet" href="/src/plan.css" />
-    <link rel="stylesheet" href="/src/bases.css" />
+    <link rel="stylesheet" href="/src/hub.css" />
   </head>
   <body>
-    <nav id="sitenav"></nav>
-
-    <!-- Rendered entirely from src/rain.ts (+ plan-data.ts). -->
-    <main id="rain"></main>
-
-    <footer class="foot" id="rain-foot"></footer>
-
-    <script type="module" src="/src/rain.ts"></script>
+    <!-- No nav bar here on purpose: this page IS the navigation. -->
+    <main id="hub"></main>
+    <footer class="foot" id="hub-foot"></footer>
+    <script type="module" src="/src/hub.ts"></script>
   </body>
 </html>

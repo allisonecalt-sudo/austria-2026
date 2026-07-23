@@ -1,3 +1,4 @@
+import { mountNav } from './nav.js';
 // ===========================================================================
 // certified.ts — renders certified.html: products with a REAL hechsher that
 //   are sold in ordinary Austrian supermarkets (Billa/Spar/Hofer/Interspar/
@@ -1059,3 +1060,5 @@ if (qEl instanceof HTMLInputElement) {
 render('');
 
 export {}; // isolate module scope
+
+mountNav();

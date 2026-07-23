@@ -51,7 +51,12 @@ for (const file of walk(ROOT)) {
   lines.forEach((line, i) => {
     for (const p of PATTERNS) {
       if (p.re.test(line)) {
-        violations.push({ file: file.replace(ROOT + '\\', '').replace(ROOT + '/', ''), line: i + 1, pattern: p.name, text: line.trim().slice(0, 100) });
+        violations.push({
+          file: file.replace(ROOT + '\\', '').replace(ROOT + '/', ''),
+          line: i + 1,
+          pattern: p.name,
+          text: line.trim().slice(0, 100),
+        });
       }
     }
   });
@@ -63,7 +68,9 @@ if (violations.length > 0) {
     console.error(`  ${v.file}:${v.line}  [${v.pattern}]`);
     console.error(`    ${v.text}`);
   }
-  console.error('\nMove these to the private bookings file. Public site says "Booked ✓ — details on file".\n');
+  console.error(
+    '\nMove these to the private bookings file. Public site says "Booked ✓ — details on file".\n',
+  );
   process.exit(1);
 }
 

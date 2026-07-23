@@ -62,6 +62,15 @@ export default defineConfig(({ command }) => ({
         // 2026-07-23 (Avital's ask): heart anything anywhere on the site and
         // it lands here — same by-the-bed view, filtered to only their picks.
         favorites: resolve(__dirname, 'favorites.html'),
+        // 2026-07-23: the one-stop landing zone — her ask for "one singular
+        // place we can use while we're on the trip".
+        hub: resolve(__dirname, 'hub.html'),
+        // 2026-07-23: the trip shopping list (Allison + Avital), same
+        // grocery_items table as the apartment app, scoped to this trip.
+        groceries: resolve(__dirname, 'groceries.html'),
+        // 2026-07-23: private booking details behind a login. Content is
+        // encrypted at rest in Supabase — nothing sensitive ships in the repo.
+        info: resolve(__dirname, 'info.html'),
       },
     },
   },

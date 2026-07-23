@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f5f0" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🛒%3C/text%3E%3C/svg%3E"
+    />
+    <title>Shopping list — Allison + Avital · Austria 2026</title>
+    <meta
+      name="description"
+      content="The trip shopping list — add, tick off, clear. Shared between both phones, saves instantly."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/nav.css" />
+    <link rel="stylesheet" href="/src/plan.css" />
+    <link rel="stylesheet" href="/src/groceries.css" />
+  </head>
+  <body>
+    <nav id="sitenav"></nav>
+    <div class="gtop">
+      <a class="gback" href="hub.html">‹ Austria</a>
+      <div class="gtitle">
+        <h1>🛒 Shopping</h1>
+        <p id="g-count"></p>
+      </div>
+    </div>
+
+    <main class="gwrap">
+      <p class="save-note"><span id="g-status"></span></p>
+      <div id="g-list"></div>
+    </main>
+
+    <!-- Add bar pinned to the bottom: one thumb, standing in an aisle. -->
+    <div class="gadd">
+      <div class="g-addwrap">
+        <input
+          id="g-input"
+          class="g-input"
+          type="text"
+          placeholder="Add something…"
+          autocomplete="off"
+          spellcheck="true"
+          enterkeyhint="done"
+        />
+        <div id="g-auto" class="g-auto" style="display: none"></div>
+      </div>
+      <div class="gadd-row">
+        <input
+          id="g-qty"
+          class="g-qty"
+          type="number"
+          inputmode="numeric"
+          min="1"
+          max="99"
+          value="1"
+          aria-label="Quantity"
+        />
+        <select id="g-sec" class="g-sec" aria-label="Aisle">
+          <option value="">Aisle…</option>
+        </select>
+        <select id="g-who" class="g-sec" aria-label="Added by">
+          <option value="">Who…</option>
+          <option value="Allison">Allison</option>
+          <option value="Avital">Avital</option>
+        </select>
+        <button id="g-add" class="g-addbtn" type="button">+ Add</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/groceries.ts"></script>
+  </body>
+</html>

@@ -31,10 +31,9 @@ async function settlePage(page) {
   });
   // Wait for every image to be complete (or already errored to its placeholder).
   await page
-    .waitForFunction(
-      () => Array.from(document.images).every((img) => img.complete),
-      { timeout: 20000 },
-    )
+    .waitForFunction(() => Array.from(document.images).every((img) => img.complete), {
+      timeout: 20000,
+    })
     .catch(() => {});
   await page.waitForTimeout(800);
 }
@@ -72,9 +71,7 @@ for (const s of fullShots) {
   await page.evaluate(() => {
     const day = document.getElementById('mon-jul-27');
     if (!day) return;
-    day
-      .querySelectorAll('details.shape, details.block')
-      .forEach((d) => d.setAttribute('open', ''));
+    day.querySelectorAll('details.shape, details.block').forEach((d) => d.setAttribute('open', ''));
   });
   await page.waitForTimeout(500);
   const day = await page.$('#mon-jul-27');

@@ -153,3 +153,95 @@ export async function deleteState(key: string): Promise<void> {
     throw new Error(`deleteState(${key}) failed (${res.status})`);
   }
 }
+
+// ---------------------------------------------------------------------------
+// grocery_items — the shopping list, shared with the apartment Grocery app
+// (same table, same Supabase project). Added 2026-07-23 for her ask: "make a
+// duplicate of apt grocery app just avital and allison section and put that in
+// austria app... we should have all the functionality to add stuff to our
+// grocery so we can use on trip or take off."
+//
+// Scoped to `list_type = 'austria_2026'` ON PURPOSE: the trip list must not
+// mix with the Jerusalem apartment list. Same table so Claude and the grocery
+// app can both read it, separate rows so neither pollutes the other.
+// ---------------------------------------------------------------------------
+
+export const TRIP_LIST = 'austria_2026';
+
+export interface GroceryItem {
+  id: string;
+  list_type: string;
+  item_name: string;
+  section: string | null;
+  checked: boolean;
+  quantity: number;
+  paid_by: string | null;
+  added_by: string | null;
+  created_at: string;
+}
+
+export async function listGroceries(): Promise<GroceryItem[]> {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/grocery_items?select=*&list_type=eq.${TRIP_LIST}&order=created_at.asc`,
+    { headers },
+  );
+  if (!res.ok) throw new Error(`listGroceries failed (${res.status})`);
+  return (await res.json()) as GroceryItem[];
+}
+
+export async function addGrocery(
+  name: string,
+  section: string,
+  quantity: number,
+  addedBy: string,
+): Promise<GroceryItem> {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/grocery_items`, {
+    method: 'POST',
+    headers: { ...headers, Prefer: 'return=representation' },
+    body: JSON.stringify({
+      list_type: TRIP_LIST,
+      item_name: name,
+      section: section || 'Other',
+      quantity,
+      paid_by: 'joint',
+      added_by: addedBy,
+    }),
+  });
+  if (!res.ok) throw new Error(`addGrocery failed (${res.status}): ${await res.text()}`);
+  return ((await res.json()) as GroceryItem[])[0];
+}
+
+export async function updateGrocery(id: string, patch: Partial<GroceryItem>): Promise<void> {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/grocery_items?id=eq.${id}`, {
+    method: 'PATCH',
+    headers: { ...headers, Prefer: 'return=minimal' },
+    body: JSON.stringify(patch),
+  });
+  if (!res.ok) throw new Error(`updateGrocery failed (${res.status})`);
+}
+
+export async function deleteGrocery(id: string): Promise<void> {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/grocery_items?id=eq.${id}`, {
+    method: 'DELETE',
+    headers,
+  });
+  if (!res.ok) throw new Error(`deleteGrocery failed (${res.status})`);
+}
+
+/** Catalog = the autocomplete vocabulary the apartment app already built up. */
+export interface CatalogEntry {
+  id: string;
+  name: string;
+  section: string | null;
+}
+
+export async function listCatalog(): Promise<CatalogEntry[]> {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/grocery_catalog?select=id,name,section&order=name`,
+    {
+      headers,
+    },
+  );
+  if (!res.ok) throw new Error(`listCatalog failed (${res.status})`);
+  return (await res.json()) as CatalogEntry[];
+}

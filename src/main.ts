@@ -14,6 +14,7 @@ import type { Base, Day, DayBlock, DayShape, KitGroup, PlaceLinks, Photo } from 
 import { TRIP, mapsUrl } from './trip.js';
 import { mountNotes } from './notes.js';
 import { mountRoute } from './route.js';
+import { mountNav } from './nav.js';
 
 // --- tiny DOM helpers ------------------------------------------------------
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -176,7 +177,11 @@ function renderBlock(block: DayBlock): HTMLElement {
 function renderShapes(shapes: DayShape[]): HTMLElement {
   const wrap = el('div', 'shapes');
   wrap.appendChild(
-    el('p', 'shapes__lead', 'A day from here could look like one of these — recommendations, not orders:'),
+    el(
+      'p',
+      'shapes__lead',
+      'A day from here could look like one of these — recommendations, not orders:',
+    ),
   );
 
   shapes.forEach((shape) => {
@@ -186,7 +191,10 @@ function renderShapes(shapes: DayShape[]): HTMLElement {
         const driveHtml = s.drive ? `<span class="shape__drive">${esc(s.drive)}</span>` : '';
         const detailText = s.detail ? `<p class="shape__text">${esc(s.detail)}</p>` : '';
         const placeLinks = s.links ? linksHtml(s.place, s.links) : '';
-        const body = detailText || placeLinks ? `<div class="shape__detail">${detailText}${placeLinks}</div>` : '';
+        const body =
+          detailText || placeLinks
+            ? `<div class="shape__detail">${detailText}${placeLinks}</div>`
+            : '';
         return `
           <li class="shape__stop">
             <span class="shape__when">${esc(s.when)}</span>
@@ -411,3 +419,5 @@ if (document.readyState === 'loading') {
 } else {
   boot();
 }
+
+mountNav();

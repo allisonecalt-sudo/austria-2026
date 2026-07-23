@@ -1,3 +1,4 @@
+import { mountNav } from './nav.js';
 // ===========================================================================
 // kosher.ts — renders kosher.html: the Kosher-by-Ingredient field guide.
 //
@@ -1566,3 +1567,5 @@ mount(
 );
 
 export {}; // isolate module scope (no imports/exports otherwise)
+
+mountNav();

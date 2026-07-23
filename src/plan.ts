@@ -12,6 +12,7 @@ import { ACTIVITIES, BUILD_STAMP, DAYS, SITES, byId, type Activity } from './pla
 import { insertNote } from './supabase.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
+import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -219,3 +220,5 @@ async function main(): Promise<void> {
 }
 
 void main();
+
+mountNav();
