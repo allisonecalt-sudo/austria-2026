@@ -21,7 +21,7 @@
 // VERSION must be bumped on every deploy or phones keep the old shell.
 // ===========================================================================
 
-const VERSION = 'austria-v6-2026-07-23-2310';
+const VERSION = 'austria-v7-2026-07-23-2335';
 const SHELL = `shell-${VERSION}`;
 const ASSETS = `assets-${VERSION}`;
 // STABLE names, deliberately NOT tied to VERSION. Five deploys happened
@@ -37,6 +37,7 @@ const PAGES = [
   'hub.html',
   'overview.html',
   'routes.html',
+  'gallery.html',
   'index.html',
   'plan.html',
   'favorites.html',

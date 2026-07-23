@@ -10,12 +10,12 @@
 //   big ball with everything... and then groceries and shopping list you can
 //   just put it as a simple thing."
 //
-// Reorganised 23 Jul 22:50 on her ask ("think about navigation — how much in
-// each bar"): FIVE top items. The two everyday-on-the-trip pages are flat
-// (🏔 home, 🔁 Week — plus 🛒, one screen). Everything else lives in two
-// menus: Trip (9 rows, ordered by how often they will actually be opened)
-// and Food (the kosher trio). Icon-only labels for home and shopping keep
-// all five inside 412px without scrolling.
+// Reorganised again 23 Jul 23:30, her ask: "the navigation for location
+// travel needs two dropdowns — not all in one." Six top items now:
+//   🏔 · 🔁 Week · Plan ▾ (choosing: options, pictures, picks, rank)
+//   · Places ▾ (orientation: map, beds, rain, info, brochure, archive)
+//   · Food ▾ · 🛒. Split by the QUESTION being asked, not by content type:
+// Plan = "what should we do?", Places = "where are we / what's here?".
 //
 // It also removes a real duplication: the nav used to be hand-copied into
 // twelve HTML files, which is how three different versions of it ended up
@@ -41,14 +41,20 @@ const ITEMS: NavItem[] = [
   { href: 'hub.html', label: '🏔' },
   { href: 'routes.html', label: '🔁 Week' },
   {
-    label: 'Trip',
+    label: 'Plan',
     children: [
       { href: 'plan.html', label: '🗺 The Plan — all the options' },
+      { href: 'gallery.html', label: '📸 Wow — just the pictures' },
       { href: 'favorites.html', label: '❤️ Our picks — what you chose' },
+      { href: 'rank.html', label: '⭐ Rank it' },
+    ],
+  },
+  {
+    label: 'Places',
+    children: [
       { href: 'overview.html', label: '🧭 Where you are — the map' },
       { href: 'bases.html', label: '🛏 From your bed' },
       { href: 'rain.html', label: '☂ Rainy day' },
-      { href: 'rank.html', label: '⭐ Rank it' },
       { href: 'info.html', label: '🔑 Trip info — bookings, car, flights' },
       { href: 'index.html', label: '📖 The brochure' },
       { href: 'claude.html', label: '📦 Archive — the pre-forecast week' },
@@ -60,6 +66,7 @@ const ITEMS: NavItem[] = [
       { href: 'certified.html', label: '✅ Certified — the easy path' },
       { href: 'kosher.html', label: '✡️ Field guide — reading a label' },
       { href: 'shop.html', label: '🔍 By ingredient — photo grid' },
+      { href: 'groceries.html', label: '🛒 Shopping list' },
     ],
   },
   { href: 'groceries.html', label: '🛒' },

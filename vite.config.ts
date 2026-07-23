@@ -75,6 +75,8 @@ export default defineConfig(({ command }) => ({
         overview: resolve(__dirname, 'overview.html'),
         // 2026-07-23: each day as a door-to-door loop + route builder.
         routes: resolve(__dirname, 'routes.html'),
+        // 2026-07-23: Wow — the by-pictures page.
+        gallery: resolve(__dirname, 'gallery.html'),
       },
     },
   },

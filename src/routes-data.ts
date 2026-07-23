@@ -297,21 +297,15 @@ export const DAY_ROUTES: DayRoute[] = [
         note: 'Bags done BEFORE going back out — then the evening is free and Friday contains no thinking.',
       },
       {
-        id: 'salzburg-jewish-walk',
-        time: '~19:00',
-        legMin: 19,
-        note: 'Judengasse, the Feingold bridge, the Stolpersteine — flat, free, at dusk pace.',
+        id: 'rossfeld',
+        time: 'gates ~19:45, sun down 20:45',
+        legMin: 35,
+        note: 'HER RULE: nature over anything. €9.50/car, a ridge road you simply drive — sunset over two countries with zero walking, 30 min back to the hotel after.',
       },
-      {
-        id: 'moenchsberg',
-        time: 'sunset 20:47',
-        legMin: 0,
-        note: 'Same old town, 600 m on foot from the walk. OR the 20:00 Golden Hall concert in the fortress above you — one or the other.',
-      },
-      { label: 'Back to Wals — as late as you like', emoji: '🛏', legMin: 21 },
+      { label: 'Back to Wals — as late as you like', emoji: '🛏', legMin: 30 },
     ],
     sunset:
-      'Mönchsberg over the old city, 20:47 — or trade it for the 20:00 fortress concert. The 05:30 alarm is your call, not the plan’s.',
+      'Rossfeld ridge, 20:45 — the nature default. The city swaps: the Stolpersteine walk + Mönchsberg at 20:47 (19 min, on foot together), or the 20:00 Golden Hall concert. Pick ONE of the three; the 05:30 alarm is your call, not the plan\u2019s.',
     weatherSwap:
       'If Thursday flips wet: the boat still runs — cliffs stay dramatic, crowds halve — and the evening moves indoors to the concert.',
     slow: 'Königssee only — no Hintersee, no double evening. Check in, then Mirabell gardens at dusk (free, flat, 45 min) and a slow dinner in the old town. One boat, one garden, done.',

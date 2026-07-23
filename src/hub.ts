@@ -145,6 +145,12 @@ const GROUPS: Group[] = [
         badge: 'b-picks',
       },
       {
+        href: 'gallery.html',
+        emoji: '📸',
+        title: 'Wow',
+        what: 'Just the pictures — tap what grabs you',
+      },
+      {
         href: 'bases.html',
         emoji: '🛏',
         title: 'From your bed',
