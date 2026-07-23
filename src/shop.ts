@@ -55,7 +55,7 @@ const PRODUCTS: Product[] = [
     cat: 'Milk & plant milk',
     status: 'cert',
     misrachi: 'Rabbi A. Katz, Yerushalayim - CHALAV STAM (expired 31.07.2023)',
-    why: 'Listed by name: NOEM Vollmilch 3,5% Fett',
+    why: 'Listed by name: NOEM Vollmilch 3,5% Fett laenger frisch 1 Liter. Sold at BILLA + SPAR',
     ingredients: '',
     leniency:
       'CHALAV STAM - EU dairy is government-policed, so it counts as watched (Rav Moshe; OU applies it to the EU).',
@@ -87,8 +87,8 @@ const PRODUCTS: Product[] = [
     cat: 'Yogurt',
     status: 'cert',
     misrachi: 'Rabbi A. Katz, Yerushalayim - CHALAV STAM (expired 31.07.2023)',
-    why: 'Listed by exact SKU: NOEM Joghurt Natur 1% Fett loeffelfest 250g',
-    ingredients: '',
+    why: 'Listed by exact SKU: NOEM Joghurt Natur 1% Fett loeffelfest 250g. Sold at BILLA + SPAR',
+    ingredients: 'Joghurt 1 % Fett, aus pasteurisierter Milch',
     leniency: 'CHALAV STAM. Plus: yogurt is set by culture, not rennet - so no cheese question.',
   },
   {
