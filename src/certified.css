@@ -1,0 +1,410 @@
+/* ===========================================================================
+   shop.css — "Shop by sight": a super-simple visual grid of common Austrian
+   products that are kosher (certified) or kosher-by-ingredient, by category.
+   Real product photos (Open Food Facts, self-hosted). Shares the brochure
+   palette + Fraunces/Inter. Companion to kosher.html.
+   ========================================================================== */
+
+:root {
+  --ink: #20211f;
+  --ink-soft: #56564f;
+  --ink-faint: #8a8a80;
+  --paper: #f7f5f0;
+  --card: #ffffff;
+  --line: #e6e2d8;
+  --line-strong: #d8d3c6;
+  --accent: #3f5d4e;
+  --accent-soft: #eef1ec;
+  --blue: #1e5a8a;
+  --blue-soft: #e7eff6;
+  --blue-line: #c3d8ea;
+  --green: #2f7d4f;
+  --green-soft: #e7f2ea;
+  --green-line: #bfe0cb;
+  --amber: #a9711a;
+  --amber-soft: #f8efd9;
+  --amber-line: #ecd9a8;
+  --red: #b23a34;
+  --red-soft: #f6e6e3;
+  --red-line: #e8c4be;
+  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --radius: 14px;
+  --maxw: 900px;
+  --shadow: 0 1px 2px rgba(32, 33, 31, 0.04), 0 6px 18px rgba(32, 33, 31, 0.06);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 18px 90px;
+}
+a {
+  color: var(--accent);
+}
+
+/* nav (shared) */
+.brochure-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 10px 8px;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.brochure-nav a {
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--ink-soft);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.brochure-nav a:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.brochure-nav a[aria-current='page'] {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* header */
+header.top {
+  padding: 36px 0 20px;
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 0 0 12px;
+}
+h1 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(30px, 6vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.dek {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  margin: 0;
+}
+.keyrow {
+  display: flex;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.pip {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex: none;
+}
+.pip.cert {
+  background: var(--blue);
+}
+.pip.ingr {
+  background: var(--green);
+}
+.note {
+  margin: 18px 0 0;
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 9px;
+  padding: 13px 15px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.note b {
+  color: var(--ink);
+}
+
+/* category */
+.cat {
+  margin-top: 34px;
+}
+.cat h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0 0 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* product grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.prod {
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+.prod .ph {
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);
+  padding: 8px;
+}
+.prod .ph img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.prod .body {
+  padding: 11px 13px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.prod .name {
+  font-weight: 650;
+  font-size: 14px;
+  line-height: 1.25;
+}
+.prod .tag {
+  align-self: flex-start;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+.prod .tag.cert {
+  color: var(--blue);
+  background: var(--blue-soft);
+  border-color: var(--blue-line);
+}
+.prod .tag.ingr {
+  color: var(--green);
+  background: var(--green-soft);
+  border-color: var(--green-line);
+}
+.prod .tag.disp {
+  color: var(--amber);
+  background: var(--amber-soft);
+  border-color: var(--amber-line);
+}
+.prod .tag.needs {
+  color: var(--red);
+  background: var(--red-soft);
+  border-color: var(--red-line);
+}
+.pip.disp {
+  background: var(--amber);
+}
+.pip.needs {
+  background: var(--red);
+}
+.prod .why {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.prod .misr {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--blue);
+}
+.prod .misr b {
+  color: var(--blue);
+}
+.prod .ing {
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  line-height: 1.4;
+  margin-top: 3px;
+  border-top: 1px dashed var(--line);
+  padding-top: 7px;
+}
+.prod .ing .zt {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 2px;
+}
+.prod .ing.muted {
+  font-style: italic;
+}
+
+footer.guide-footer {
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+footer.guide-footer a {
+  color: var(--ink-soft);
+}
+
+@media (min-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 820px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---------- leniency line ---------- */
+.prod .len {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  margin-top: 3px;
+  background: var(--card-2, #f1eee7);
+  border-radius: 7px;
+  padding: 7px 9px;
+}
+.prod .len .zt {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+/* ---------- English ingredient translation (Gil's request) ---------- */
+.prod .ing .en {
+  display: block;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dotted var(--line);
+  color: var(--ink-soft);
+}
+.prod .ing .en .zt {
+  color: var(--blue);
+}
+
+/* ---------- certified list ---------- */
+.cgroup {
+  margin-top: 30px;
+}
+.cgroup h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.clist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.citem {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 12px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--blue);
+  border-radius: 9px;
+  padding: 11px 14px;
+}
+.citem .cn {
+  font-weight: 650;
+  font-size: 14.5px;
+}
+.citem .cb {
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.citem .ca {
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--blue);
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-line);
+  border-radius: 999px;
+  padding: 3px 9px;
+  align-self: start;
+}
+.citem .cs {
+  grid-column: 1 / -1;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+}
+.citem .stamp {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--amber);
+  background: var(--amber-soft);
+  border: 1px solid var(--amber-line);
+  border-radius: 6px;
+  padding: 1px 7px;
+  margin-left: 6px;
+}
+.authchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--blue);
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-line);
+  border-radius: 999px;
+  padding: 4px 11px;
+}

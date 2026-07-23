@@ -52,6 +52,8 @@ export default defineConfig(({ command }) => ({
         kosher: resolve(__dirname, 'kosher.html'),
         // 2026-07-22: shop-by-sight visual product grid.
         shop: resolve(__dirname, 'shop.html'),
+        // 2026-07-23: certified-only page (path 1), split out from shop.
+        certified: resolve(__dirname, 'certified.html'),
         // 2026-07-23: the trip sliced by where you sleep — top 10 within
         // ~1.5h of each base, ranked. Data reused from src/plan-data.ts.
         bases: resolve(__dirname, 'bases.html'),

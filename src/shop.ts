@@ -388,10 +388,16 @@ const PRODUCTS: Product[] = [
   },
 ];
 
+// This page is the INGREDIENT-BASED path only. Certified products live on
+// certified.html — except where a certified item is so common it belongs here
+// too (kept via ALSO_HERE below).
+const ALSO_HERE = new Set(['nom-naturjoghurt', 'nom-milch']);
+const INGREDIENT_BASED = PRODUCTS.filter((p) => p.status !== 'cert' || ALSO_HERE.has(p.slug));
+
 // group into categories, preserving first-seen order
 const cats: string[] = [];
 const byCat = new Map<string, Product[]>();
-for (const p of PRODUCTS) {
+for (const p of INGREDIENT_BASED) {
   if (!byCat.has(p.cat)) {
     byCat.set(p.cat, []);
     cats.push(p.cat);
