@@ -59,6 +59,9 @@ export default defineConfig(({ command }) => ({
         bases: resolve(__dirname, 'bases.html'),
         // 2026-07-23: wet-weather fallbacks per base.
         rain: resolve(__dirname, 'rain.html'),
+        // 2026-07-23 (Avital's ask): heart anything anywhere on the site and
+        // it lands here — same by-the-bed view, filtered to only their picks.
+        favorites: resolve(__dirname, 'favorites.html'),
       },
     },
   },

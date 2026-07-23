@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E💙%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E"
     />
-    <title>Claude's Itinerary — the week I'd give you · Austria 2026</title>
+    <title>Our picks — only what you hearted · Austria 2026</title>
     <meta
       name="description"
-      content="Claude's opinionated pick for Allison + Avital's Austria week — smart-busy, full of adventure, zero strenuous climbs, a sunset every night."
+      content="Everything Allison and Avital hearted anywhere on the site, grouped by the base they're sleeping in — only the things they chose."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,6 +19,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/plan.css" />
+    <link rel="stylesheet" href="/src/bases.css" />
+    <link rel="stylesheet" href="/src/favorites.css" />
   </head>
   <body>
     <nav class="plan-nav" aria-label="Pages">
@@ -27,15 +29,15 @@
       <a href="bases.html">From your bed 🛏</a>
       <a href="rain.html">Rainy day ☂</a>
       <a href="rank.html">Rank it ⭐</a>
-      <a href="favorites.html">Our picks ❤️</a>
-      <a href="claude.html" class="active">Claude's pick 💙</a>
+      <a href="favorites.html" class="active">Our picks ❤️</a>
+      <a href="claude.html">Claude's pick 💙</a>
     </nav>
 
-    <!-- Rendered by src/claude-itinerary.ts (photos/links reused from plan-data). -->
-    <main id="claude"></main>
+    <!-- Rendered from src/favorites.ts; hearts live in austria_2026_state. -->
+    <main id="favorites"></main>
 
-    <footer class="foot" id="claude-foot"></footer>
+    <footer class="foot" id="fav-foot"></footer>
 
-    <script type="module" src="/src/claude-itinerary.ts"></script>
+    <script type="module" src="/src/favorites.ts"></script>
   </body>
 </html>

@@ -1,0 +1,80 @@
+/* ---------------------------------------------------------------------------
+   favorites.css — the "Our picks ❤️" page only.
+   Reuses plan.css (shell, who-bar, heart button) and bases.css (the by-bed
+   list view) so this page reads as the SAME view of location, just filtered.
+   Built 2026-07-23 for Avital's ask.
+--------------------------------------------------------------------------- */
+
+/* Heart sits at the right edge of each row, vertically centred with the name. */
+#favorites .bp {
+  position: relative;
+  padding-right: 3.6rem;
+}
+
+#favorites .bp button.fav {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.6rem;
+}
+
+/* ⏱ timing line — Avital asked for times on every pick, so it is never hidden
+   behind a tap. Reads under the why-line, quieter than the drive chip. */
+#favorites .bp-when {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: #6f6a61;
+  line-height: 1.45;
+}
+
+/* Who wanted it. Both-of-you is the strong one — it should win the eye. */
+#favorites .bt-both {
+  background: #fdecec;
+  color: #a33b3b;
+  border-color: #f0c9c9;
+}
+
+#favorites .bt-one {
+  background: #f6f4f0;
+  color: #7a736a;
+  border-color: #e6e1d8;
+}
+
+#favorites .fav-count {
+  margin: 0.2rem 0 1.4rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a8378;
+}
+
+/* Empty state — say plainly that nothing is chosen yet and where to choose.
+   Fail-loud rule: never render a confident-looking page over an empty list. */
+#favorites .fav-empty {
+  border: 1px dashed #ded8cd;
+  border-radius: 14px;
+  padding: 1.6rem 1.4rem;
+  background: #fbfaf7;
+  margin: 1rem 0 2rem;
+}
+
+#favorites .fav-empty-big {
+  margin: 0 0 0.6rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.35rem;
+  color: #33302b;
+}
+
+#favorites .fav-empty p {
+  margin: 0 0 0.6rem;
+  color: #5f5a52;
+  line-height: 1.6;
+}
+
+#favorites .fav-empty-note {
+  font-size: 0.85rem;
+  color: #8a8378;
+}
+
+#favorites .fav-empty a {
+  color: #a33b3b;
+}

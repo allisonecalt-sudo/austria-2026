@@ -10,6 +10,7 @@
 
 import { ACTIVITIES, BUILD_STAMP, DAYS, SITES, byId, type Activity } from './plan-data.js';
 import { insertNote } from './supabase.js';
+import { heartButton, isFav, loadFavs, setSaveStatusSink, whoBar } from './favs.js';
 import { mountNotes } from './notes.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -92,6 +93,9 @@ function actCard(a: Activity): HTMLElement {
   rankLink.addEventListener('click', (e) => e.stopPropagation());
   row.appendChild(rankLink);
 
+  // ❤️ (Jul 23, Avital): heart it here and it lands on favorites.html.
+  row.appendChild(heartButton(a.id));
+
   more.appendChild(row);
   ct.appendChild(more);
   ct.appendChild(el('p', 'hint', 'tap card for logistics ▾'));
@@ -100,7 +104,10 @@ function actCard(a: Activity): HTMLElement {
   card.addEventListener('click', () => {
     card.classList.toggle('open');
     const hint = card.querySelector('.hint');
-    if (hint) hint.textContent = card.classList.contains('open') ? 'tap to close ▴' : 'tap card for logistics ▾';
+    if (hint)
+      hint.textContent = card.classList.contains('open')
+        ? 'tap to close ▴'
+        : 'tap card for logistics ▾';
   });
   return card;
 }
@@ -144,11 +151,23 @@ function render(): void {
     el(
       'p',
       undefined,
-      'Every day is a menu. Tap any card for the logistics — distance, price, hours, honest caveats — then heart your favorites on the Rank page. Built on what you two love: one anchor a day, water, quiet, the lifts do the climbing, a sunset every night.',
+      'Every day is a menu. Tap any card for the logistics — distance, price, hours, honest caveats — then tap ❤️ on anything you want and it lands on Our picks. Built on what you two love: one anchor a day, water, quiet, the lifts do the climbing, a sunset every night.',
     ),
   );
   hero.appendChild(ht);
   root.appendChild(hero);
+
+  // Who is holding the phone — hearts save per person, so ask before saving.
+  const whoWrap = el('div', 'wrap who-wrap');
+  whoWrap.appendChild(whoBar(() => refreshHearts()));
+  whoWrap.appendChild(
+    el(
+      'p',
+      'save-note',
+      '❤️ saves to <a href="favorites.html">Our picks</a> · <span id="fav-status"></span>',
+    ),
+  );
+  root.appendChild(whoWrap);
 
   // Day-jump bar — her spec (Jul 20): clear + simple, easy to move around.
   const jump = el('div', 'plan-nav jump');
@@ -185,10 +204,33 @@ function render(): void {
 
   const foot = document.getElementById('plan-foot');
   if (foot) {
-    foot.innerHTML = `${ACTIVITIES.length} options · every one verified open for late July 2026 · built ${BUILD_STAMP} · <a href="rank.html">rank your must-dos →</a>`;
+    foot.innerHTML = `${ACTIVITIES.length} options · every one verified open for late July 2026 · built ${BUILD_STAMP} · <a href="favorites.html">see Our picks ❤️ →</a>`;
   }
 
   mountNotes();
 }
 
-render();
+/** Paint the page immediately, then colour the hearts once Supabase answers —
+ *  a slow connection must never hold up the options menu. */
+function refreshHearts(): void {
+  document.querySelectorAll<HTMLElement>('.act').forEach((card) => {
+    const id = card.getAttribute('data-id');
+    const btn = card.querySelector<HTMLButtonElement>('button.fav');
+    if (!id || !btn) return;
+    const on = isFav(id);
+    btn.className = on ? 'fav on' : 'fav';
+    btn.setAttribute('aria-pressed', String(on));
+  });
+}
+
+async function main(): Promise<void> {
+  render();
+  setSaveStatusSink((msg) => {
+    const s = document.getElementById('fav-status');
+    if (s) s.textContent = msg;
+  });
+  await loadFavs();
+  refreshHearts();
+}
+
+void main();

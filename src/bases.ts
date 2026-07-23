@@ -15,269 +15,9 @@
 // ===========================================================================
 
 import { BUILD_STAMP, SITES, byId } from './plan-data.js';
+import { BASES, type Base, type Pick } from './bases-data.js';
+import { heartButton, isFav, loadFavs, setSaveStatusSink, whoBar } from './favs.js';
 import { mountNotes } from './notes.js';
-
-interface Pick {
-  /** plan-data activity id — name, maps + website are read from there. */
-  id: string;
-  /** Verified drive minutes from THIS base (0 = walkable). */
-  min: number;
-  /** Why it earns the spot from this bed specifically. */
-  why: string;
-}
-
-interface Base {
-  n: number;
-  name: string;
-  lodging: string;
-  dates: string;
-  /** The honest usable-time note — two nights is rarely two days. */
-  reality: string;
-  picks: Pick[];
-}
-
-const BASES: Base[] = [
-  {
-    n: 1,
-    name: 'Bad Goisern',
-    lodging: 'Ferienwohnung Glücksmomente',
-    dates: 'Fri 24 → Sun 26 · 2 nights',
-    reality:
-      'The Shabbat base — you really only drive Friday afternoon and Sunday morning. Treat this as a short list, not a menu of ten.',
-    picks: [
-      {
-        id: 'grundlsee-3lakes',
-        min: 25,
-        why: 'A wooden boat up the cliff-walled Toplitzsee to where the Traun is born from the rock. Sitting the whole way, and almost nobody knows it.',
-      },
-      {
-        id: 'hallstatt-sup',
-        min: 9,
-        why: 'Your May postcard-dream, and the closest thing on this list. Glassy morning water from the north shore, Hallstatt’s crowds 8 km away across the lake.',
-      },
-      {
-        id: 'schafberg',
-        min: 35,
-        why: 'A 130-year-old steam cog railway pushes you to 1,783 m and the three-lakes view. Reserve online — you pick your downhill slot when you book.',
-      },
-      {
-        id: 'wolfgangsee-eboat',
-        min: 29,
-        why: 'A little red electric boat with a sun canopy and a swim ladder — swim off it mid-lake. No reservation; go at 10:00. Pairs with the Schafberg.',
-      },
-      {
-        id: 'hallstatt',
-        min: 20,
-        why: 'Before 09:30 or after 17:00, then see it from a small electric boat — the photo everyone wants, without the crush.',
-      },
-      {
-        id: 'krippenstein',
-        min: 25,
-        why: 'Gondola to 2,109 m, easy 20-minute stroll, then a platform hanging over a 400 m drop. Clear-day pick — cloud kills it.',
-      },
-      {
-        id: 'gosausee',
-        min: 30,
-        why: 'Reachable now, but you will be sleeping 14 minutes from it on Tuesday. Save it for Gosau.',
-      },
-      {
-        id: 'ebensee',
-        min: 25,
-        why: 'You walk into the actual Gedenkstollen the prisoners dug. 8°C inside even in July — bring layers. Closed Mondays.',
-      },
-      {
-        id: 'jewish-ischl',
-        min: 15,
-        why: 'The Pins of Remembrance route through the old imperial spa town — and your Friday grocery stop is here anyway.',
-      },
-      {
-        id: 'katrin',
-        min: 20,
-        why: 'Bad Ischl’s own small, uncrowded lift — up in 15 minutes to gentle ridge paths over the whole lake-dotted Salzkammergut.',
-      },
-    ],
-  },
-  {
-    n: 2,
-    name: 'Zell am See',
-    lodging: 'der Sonnberg Alpinlodges',
-    dates: 'Sun 26 → Tue 28 · 2 nights',
-    reality:
-      'Sunday evening, all of Monday, Tuesday morning. The densest base of the trip — nine of these ten are inside 40 minutes.',
-    picks: [
-      {
-        id: 'kitzsteinhorn',
-        min: 15,
-        why: 'Three lifts do all the climbing to 3,029 m — real glacier, snow you can touch in July, platform into the Hohe Tauern. 0–5°C up top.',
-      },
-      {
-        id: 'zell-cruise',
-        min: 0,
-        why: 'Gold light from the water — your Montenegro boat-evening, Austrian edition. Monday is the night it runs.',
-      },
-      {
-        id: 'grossglockner',
-        min: 25,
-        why: '36 hairpins to 2,400 m and the Pasterze glacier — the car does 100% of the climbing. Check the webcam that morning; clear weather or skip it.',
-      },
-      {
-        id: 'mooserboden',
-        min: 20,
-        why: 'Shuttle buses and Europe’s largest open inclined lift carry you to two turquoise reservoirs at 2,040 m, then you walk flat along the dam crowns.',
-      },
-      {
-        id: 'krimml-apc',
-        min: 70,
-        why: 'Austria’s tallest waterfall, 380 m — and the pass where Jewish survivors walked over the Alps toward a ship to Israel. Nature and memory in the same steps.',
-      },
-      {
-        id: 'strandbad-zell',
-        min: 5,
-        why: 'Lawns, decks, ~21°C water, mountains all around. The slow shoulder of every Zell day — an hour here resets everything.',
-      },
-      {
-        id: 'sigmund-thun',
-        min: 12,
-        why: '320 m of boardwalk hung over roaring glacier water, ending at a calm lake loop. About an hour, and cool on a hot afternoon.',
-      },
-      {
-        id: 'schmittenhoehe',
-        min: 8,
-        why: 'Zell’s own mountain — 1,965 m, thirty 3,000 m peaks on the horizon, wide gravel strolls. The lowest-effort big view of the week.',
-      },
-      {
-        id: 'tauern-spa',
-        min: 11,
-        why: 'Warm panoramic pools facing the Kitzsteinhorn, open till 21:00. Swimsuit pools; just skip the separate sauna wing. Perfect after a glacier day.',
-      },
-      {
-        id: 'baumzipfelweg',
-        min: 40,
-        why: 'Europe’s highest treetop trail — 1 km of gentle ramps, zero steps, out to a 200 m suspension bridge.',
-      },
-    ],
-  },
-  {
-    n: 3,
-    name: 'Gosau',
-    lodging: 'Transylvania Villa & Spa',
-    dates: 'Tue 28 → Thu 30 · 2 nights',
-    reality:
-      'Tuesday evening, all of Wednesday, Thursday morning. Your own mirror lake is 14 minutes away, so three of the top four barely count as driving.',
-    picks: [
-      {
-        id: 'gosausee',
-        min: 14,
-        why: 'The trip’s postcard: a flat 4.3 km circle, benches everywhere, the Dachstein doubled in the water. After 17:00 the buses leave and it is nearly yours.',
-      },
-      {
-        id: 'gosausee-boats',
-        min: 14,
-        why: 'You are already going for the shore loop — this puts you inside the reflection. Calmest water is morning; walk-up, no booking.',
-      },
-      {
-        id: 'krippenstein',
-        min: 30,
-        why: 'Two gondola stages, then an easy stroll to five walkways over a 400 m void — glass floor, photo frame, karst moonscape all around.',
-      },
-      {
-        id: 'hallstatt',
-        min: 25,
-        why: 'Market square and swan harbour early or late, then the village from a small electric boat. The angle everyone photographs, minus the queue.',
-      },
-      {
-        id: 'hallstatt-sup',
-        min: 20,
-        why: 'North-shore glass in the morning. If Goisern’s two nights get eaten by Shabbat, this is your second shot at it.',
-      },
-      {
-        id: 'grundlsee-3lakes',
-        min: 50,
-        why: 'The wooden-boat secret — twice as far from here as from Goisern, so do it Friday or Sunday if you can.',
-      },
-      {
-        id: 'gosaukammbahn',
-        min: 14,
-        why: 'Same car park as the lake: a little cable car up to meadow paths and hut terraces with the whole Gosaukamm rock wall in your face.',
-      },
-      {
-        id: 'koenigssee',
-        min: 66,
-        why: 'Reachable from here — but it is 30 minutes from Wals and Thursday’s drive passes right by. Do it on the move, not as a round trip.',
-      },
-      {
-        id: 'langbathsee',
-        min: 45,
-        why: 'A flat forest lake in a nature reserve — 1h shore loop, grassy swim spots, water to 24°C, a fraction of the crowds of anywhere famous.',
-      },
-      {
-        id: 'hintersee-ramsau',
-        min: 77,
-        why: 'Mirror lake, rowboats and the mossy boulder path. Same note as the Königssee — it is 36 min from Wals, so save it for Thursday.',
-      },
-    ],
-  },
-  {
-    n: 4,
-    name: 'Wals — by Salzburg airport',
-    lodging: 'Best Western Hotel am Walserberg',
-    dates: 'Thu 30 → Fri 31 · 1 night',
-    reality:
-      'One afternoon and one evening, and the car goes back at 06:30. Realistically you get one big thing plus a sunset — so the top three are the whole decision.',
-    picks: [
-      {
-        id: 'koenigssee',
-        min: 30,
-        why: 'Silent electric boats under the Watzmann since 1909, the trumpet echo off the cliff wall, the red onion-dome chapel, then a flat 15-minute walk to the Obersee. Be at the dock before 10:30.',
-      },
-      {
-        id: 'rossfeld',
-        min: 30,
-        why: 'Drive to a 1,560 m ridge, park, step out — the sun goes down over two countries. Zero walking, and 24 minutes from the Königssee, so it closes that day perfectly.',
-      },
-      {
-        id: 'hintersee-ramsau',
-        min: 36,
-        why: 'The stillest water of the trip — the Hochkalter mirrored, rowboats for about €10, and the enchanted-forest boulder path. All flat, all quiet.',
-      },
-      {
-        id: 'untersberg',
-        min: 10,
-        why: 'Practically next door: 8.5 minutes up the rock face to 1,776 m and ridge views over the whole Salzburg basin. Best value for a half-empty afternoon.',
-      },
-      {
-        id: 'moenchsberg',
-        min: 15,
-        why: 'Free stone stairs (or a €3 lift) to a wooded ridge above the old town — fortress one end, river and domes below. Best as the city goes gold.',
-      },
-      {
-        id: 'salzburg-jewish-walk',
-        min: 15,
-        why: 'Judengasse, the Marko Feingold bridge, and the Stolpersteine clustered around Linzergasse. Flat, free, at your pace. Inside the synagogue needs an email ahead.',
-      },
-      {
-        id: 'chiemsee',
-        min: 42,
-        why: 'A steamer to Ludwig II’s unfinished Versailles, then a car-free nuns’ island. The gentlest big-water day — but it needs a full day you do not really have.',
-      },
-      {
-        id: 'hellbrunn',
-        min: 15,
-        why: 'A 400-year-old garden built to soak the guests, and it still works — spraying stone seats, grottos, a water-powered puppet theatre. The laugh-out-loud option.',
-      },
-      {
-        id: 'golling',
-        min: 25,
-        why: 'Fifteen minutes of easy forest path to a fairy-tale double drop. Maximum wow per step, about an hour all in.',
-      },
-      {
-        id: 'mirabell',
-        min: 15,
-        why: 'Free, flat, 45 minutes: parterre flowers, the dwarf garden, and the exact framed fortress view everyone knows. Pairs with anything in town.',
-      },
-    ],
-  },
-];
 
 function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,
@@ -352,6 +92,10 @@ function pickRow(p: Pick, rank: number): HTMLElement {
     row.appendChild(links);
   }
 
+  // ❤️ (Jul 23, Avital): heart it here and it lands on favorites.html.
+  row.setAttribute('data-id', p.id);
+  row.appendChild(heartButton(p.id));
+
   return row;
 }
 
@@ -393,6 +137,16 @@ function render(): void {
   );
   wrap.appendChild(intro);
 
+  // Hearts save per person — ask who is holding the phone before saving.
+  wrap.appendChild(whoBar(() => refreshHearts()));
+  wrap.appendChild(
+    el(
+      'p',
+      'save-note',
+      '❤️ saves to <a href="favorites.html">Our picks</a> · <span id="fav-status"></span>',
+    ),
+  );
+
   // Show the one thing that matters, dropdown the rest (her cards rule).
   const caveat = el('details', 'bcaveat');
   caveat.innerHTML = `
@@ -418,4 +172,26 @@ function render(): void {
   mountNotes();
 }
 
-render();
+/** Paint first, colour the hearts when Supabase answers. */
+function refreshHearts(): void {
+  document.querySelectorAll<HTMLElement>('.bp[data-id]').forEach((row) => {
+    const id = row.getAttribute('data-id');
+    const btn = row.querySelector<HTMLButtonElement>('button.fav');
+    if (!id || !btn) return;
+    const on = isFav(id);
+    btn.className = on ? 'fav on' : 'fav';
+    btn.setAttribute('aria-pressed', String(on));
+  });
+}
+
+async function main(): Promise<void> {
+  render();
+  setSaveStatusSink((msg) => {
+    const s = document.getElementById('fav-status');
+    if (s) s.textContent = msg;
+  });
+  await loadFavs();
+  refreshHearts();
+}
+
+void main();
