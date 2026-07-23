@@ -314,3 +314,248 @@
   line-height: 1.5;
   margin-top: 4px;
 }
+
+/* ===========================================================================
+   AVITAL'S LAYOUT — 23 Jul. Rebuilt from her voice notes.
+   The tiles are the landing. Nothing to scroll past to reach them.
+=========================================================================== */
+
+.hubwrap {
+  padding-top: 10px;
+}
+
+/* ---- the thin cross-screen bar: where we're staying tonight ----
+   Her words: "a thin cross-screen bar rather than the cards and the tiles,
+   because it's self-contained." Tap it and all four nights drop down. */
+.bedbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  font: inherit;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.bedbar-k {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #9a9288;
+}
+
+.bedbar-v {
+  flex: 1 1 auto;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bedbar-c {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: #9a9288;
+  transition: transform 0.15s ease;
+}
+
+.bedbar.open .bedbar-c {
+  transform: rotate(180deg);
+}
+
+.bedlist {
+  display: none;
+  margin: 6px 0 0;
+  padding: 6px 8px 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.bedlist.open {
+  display: block;
+}
+
+.bedrow {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 7px 6px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.bedrow:last-of-type {
+  border-bottom: none;
+}
+
+.bedrow.istonight {
+  background: #eef3ef;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.bedrow-d {
+  flex: 0 0 62px;
+  font-size: 12px;
+  color: #9a9288;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.bedrow-b {
+  flex: 1 1 auto;
+  color: var(--ink);
+}
+
+.bedlist-more {
+  display: block;
+  min-height: 40px;
+  line-height: 40px;
+  font-size: 13px;
+  color: var(--green);
+  text-decoration: none;
+  padding: 0 6px;
+}
+
+.hubgroup {
+  margin-top: 20px;
+}
+
+/* ---- slim rows: Rainy day and friends, demoted per Avital ---- */
+.hubslim {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.slimrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 13px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.slim-emoji {
+  flex: 0 0 auto;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.slim-t {
+  flex: 0 0 auto;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.slim-w {
+  flex: 1 1 auto;
+  font-size: 12px;
+  color: var(--sub);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slim-c {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: #9a9288;
+}
+
+/* ---- the one Kosher tile that opens three links in place ---- */
+.tilewrap {
+  display: flex;
+  flex-direction: column;
+}
+
+button.tile,
+button.slimrow {
+  font: inherit;
+  text-align: left;
+}
+
+button.tile {
+  display: block;
+}
+
+.tile-caret {
+  font-size: 12px;
+  color: #9a9288;
+  transition: transform 0.15s ease;
+}
+
+.tile-exp.open .tile-caret,
+.tile-exp.open .slim-c {
+  transform: rotate(180deg);
+}
+
+.tilesub {
+  display: none;
+  margin-top: 6px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  overflow: hidden;
+}
+
+.tilesub.open {
+  display: block;
+}
+
+.tilesub a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tilesub a:last-child {
+  border-bottom: none;
+}
+
+/* ---- weather, de-emphasised. Her call: "don't emphasise the weather." ---- */
+.hubwx-lite {
+  margin: 22px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--sub);
+}
+
+.hubwx-lite a {
+  color: var(--green);
+}
+
+.hubwx-lite .wxage {
+  color: #a8a094;
+}
+
+/* Booking deadlines now live at the bottom — quieter than they were on top. */
+.urgent {
+  margin-top: 26px;
+}

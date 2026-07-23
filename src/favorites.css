@@ -351,3 +351,79 @@ a.row-name:focus-visible {
 #favorites .rainfilter {
   margin: 10px 0 6px;
 }
+
+/* ---------------------------------------------------------------------------
+   Collapsible sections — Avital, 23 Jul: "make the tables collapsible, as is
+   it's annoying." Closed by default; the day you are actually on opens itself.
+   The shut header still carries the day, the beds and a count, so a closed
+   section is still informative rather than just hidden.
+--------------------------------------------------------------------------- */
+#favorites .dsec-toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  min-height: 46px;
+  cursor: pointer;
+}
+
+#favorites .dsec-toggle .dsec-date {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+#favorites .dsec-title {
+  flex: 1 1 auto;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+#favorites .dsec-count {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--sub);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  min-width: 24px;
+  text-align: center;
+  padding: 2px 7px;
+}
+
+#favorites .dsec-caret {
+  flex: 0 0 auto;
+  font-size: 12px;
+  color: #9a9288;
+  transition: transform 0.15s ease;
+}
+
+#favorites .dsec.open .dsec-caret {
+  transform: rotate(180deg);
+}
+
+/* Closed: hide the table and the bed line. Open: show both. */
+#favorites .dsec .tscroll,
+#favorites .dsec .dsec-beds {
+  display: none;
+}
+
+#favorites .dsec.open .tscroll {
+  display: block;
+}
+
+#favorites .dsec.open .dsec-beds {
+  display: block;
+}

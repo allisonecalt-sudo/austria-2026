@@ -1,20 +1,29 @@
 // ===========================================================================
 // hub.ts — renders hub.html: the ONE-STOP LANDING ZONE for the trip.
 //
-// Why this page exists (Allison, Jul 23 2026, verbatim): "want to have one
-//   singular place that we can use while we on the trip and to manage all of
-//   like these actions... it has to be very user friendly that you can like
-//   navigate to the part that you want to navigate to and then based on that
-//   navigation you in that section and that consolidated enough that we don't
-//   have to jump between all of the different apps... goal is organized
-//   clear, mobile friendly... like one stop shop for austria."
+// Why this page exists (Allison, Jul 23 2026): "one singular place that we can
+//   use while we're on the trip... consolidated enough that we don't have to
+//   jump between all of the different apps... organized clear, mobile friendly."
 //
-// Shape: NOT another wall of links. Four groups, big thumb-sized tiles, each
-//   with one line saying what it is FOR — so the question "where do I tap"
-//   has an obvious answer while standing in a supermarket aisle.
-// Live numbers on the tiles (shopping count, picks count) come from Supabase
-//   after paint — the page must be useful before the network answers.
-// Mobile is the only surface that matters here; desktop just gets wider tiles.
+// LAID OUT TO AVITAL'S SPEC (her voice notes, same day). Her words:
+//   • "Take this pod that's in the screenshot and make that the landing page.
+//      All the stuff at the top is meaningless and then you have to scroll
+//      unnecessarily."          → the tiles are the FIRST thing on screen.
+//   • "At the top, the places we're staying — just a bar, the shortcut to the
+//      places we're staying. A thin cross-screen bar rather than the cards and
+//      the tiles, because it's self-contained."
+//      (and: "where I didn't say black" — she never asked for black; that was
+//      a bad transcription of an earlier note.)
+//   • "The kosher stuff, put in one card. We don't need four cards for it."
+//   • "Rainy day is good but it's taking up a lot of space that I don't think
+//      is needed."               → demoted to a slim row.
+//   • "Don't emphasise the weather. You're not going to know what the weather
+//      is and forecasts change."  → one quiet line, BELOW the tiles, and it
+//      always states how old it is rather than implying it is live.
+//   • "Booking deadlines I wouldn't put at the top, because we're going to use
+//      this on the go."           → moved to the bottom.
+//   • "The Plan is cool, Our picks is cool, From your bed I like, shopping list
+//      is cool."                  → those four kept exactly as they were.
 // ===========================================================================
 
 import { DAYS } from './plan-data.js';
@@ -22,22 +31,33 @@ import { ageLabel, dayFor, describe, getWeather, verdict } from './weather.js';
 import { allFavIds, loadFavs } from './favs.js';
 import { listGroceries } from './supabase.js';
 
-interface Tile {
+interface ExpandLink {
   href: string;
+  emoji: string;
+  label: string;
+}
+
+interface Tile {
+  /** Omitted when the tile expands in place instead of navigating. */
+  href?: string;
   emoji: string;
   title: string;
   what: string;
   /** id of the badge span, filled in later from live data */
   badge?: string;
+  /** When present the tile opens these inline rather than navigating. */
+  expands?: ExpandLink[];
 }
 
 interface Group {
   title: string;
   tiles: Tile[];
+  /** Render as slim full-width rows instead of square tiles. */
+  slim?: boolean;
 }
 
 // Which bed each night, and which day of the plan it is. One table, so the
-// "tonight" strip can never disagree with the itinerary.
+// "tonight" bar can never disagree with the itinerary.
 const NIGHTS: { date: string; bed: string; dayId: string }[] = [
   { date: '2026-07-24', bed: 'Bad Goisern', dayId: 'fri24' },
   { date: '2026-07-25', bed: 'Bad Goisern', dayId: 'shabbat' },
@@ -71,12 +91,6 @@ const GROUPS: Group[] = [
         title: 'From your bed',
         what: "What's close to wherever you woke up",
       },
-      {
-        href: 'rain.html',
-        emoji: '☂',
-        title: 'Rainy day',
-        what: 'What still works when it pours',
-      },
     ],
   },
   {
@@ -89,59 +103,80 @@ const GROUPS: Group[] = [
         what: 'Add, tick off, clear — shared, saves instantly',
         badge: 'b-shop',
       },
+      // Avital: "the kosher stuff, put in one card. We don't need four cards."
       {
-        href: 'certified.html',
-        emoji: '✅',
-        title: 'Certified kosher',
-        what: 'The easy path — products with a hechsher',
-      },
-      {
-        href: 'kosher.html',
         emoji: '✡️',
-        title: 'Kosher field guide',
-        what: 'How to read an Austrian label',
-      },
-      {
-        href: 'shop.html',
-        emoji: '🔍',
-        title: 'By ingredient',
-        what: 'Shop by sight — the product photo grid',
-      },
-    ],
-  },
-  {
-    title: 'Practical',
-    tiles: [
-      {
-        href: 'info.html',
-        emoji: '🔑',
-        title: 'Trip info',
-        what: 'Bookings, car, flights — behind your login',
+        title: 'Kosher',
+        what: 'Certified · reading a label · by ingredient',
+        expands: [
+          { href: 'certified.html', emoji: '✅', label: 'Certified — the easy path' },
+          { href: 'kosher.html', emoji: '✡️', label: 'Field guide — reading a label' },
+          { href: 'shop.html', emoji: '🔍', label: 'By ingredient — photo grid' },
+        ],
       },
     ],
   },
   {
-    title: 'Deciding',
+    title: 'When you need it',
+    // Avital on Rainy day: "good but it's taking up a lot of space that I don't
+    // think is needed for as much." Slim rows, not full tiles.
+    slim: true,
     tiles: [
+      { href: 'rain.html', emoji: '☂', title: 'Rainy day', what: 'What still works when it pours' },
+      { href: 'info.html', emoji: '🔑', title: 'Trip info', what: 'Bookings, car, flights' },
       {
         href: 'rank.html',
         emoji: '⭐',
         title: 'Rank it',
-        what: 'Give hearts, let the order settle itself',
+        what: 'Give hearts, let the order settle',
       },
       {
         href: 'claude.html',
         emoji: '💙',
         title: "Claude's pick",
-        what: 'The week I would give you, if you want it decided',
+        what: 'The week I would give you',
       },
       {
         href: 'index.html',
         emoji: '📖',
         title: 'The brochure',
-        what: 'The whole trip top to bottom — beds, days, notes',
+        what: 'The whole trip, top to bottom',
       },
     ],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// BOOK BEFORE YOU FLY — things the research found that fall through if nobody
+// acts. Avital asked for these NOT to be at the top ("we're going to use this
+// on the go"), so they sit at the bottom. Hides itself once the trip starts.
+// ---------------------------------------------------------------------------
+interface UrgentItem {
+  what: string;
+  why: string;
+  how: string;
+}
+
+const URGENT: UrgentItem[] = [
+  {
+    what: 'FROST family rafting',
+    why: 'On request only, sold on no platform, needs 24 h notice — and no published minimum group size, so it may not run for two people.',
+    how: 'Email info@frostrafting.at. Ask: will it run for two, what time, and confirm €55 pp.',
+  },
+  {
+    what: 'FROST canyoning (Waterfall Park)',
+    why: 'Published on their site but bookable on no channel at all. Season ends 31 Aug.',
+    how: 'Same email. Ask whether you need shoes — that is €10 each extra.',
+  },
+  {
+    what: 'Kayak / SUP on the Hallstättersee',
+    why: 'Needs a day’s notice, and the office is only open Mon–Fri 09:00–12:00.',
+    how: 'Phone +43 664 25 27 059 Friday morning at the latest for a Sat or Sun boat.',
+  },
+  {
+    what: 'Cash — euro notes AND coins',
+    why: 'The Hallstatt ferry, Kitzlochklamm and the Bad Goisern lake boat are CASH ONLY. Some gates are coin machines.',
+    how: 'Draw it at the airport on landing.',
   },
 ];
 
@@ -156,10 +191,18 @@ function el<K extends keyof HTMLElementTagNameMap>(
   return node;
 }
 
-/** Today, in Austria's timezone terms — good enough: the trip is one zone. */
+function esc(s: string): string {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+/** Today, in Austria's terms — good enough: the trip is one timezone. */
 function todayISO(): string {
   const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+    d.getDate(),
+  ).padStart(2, '0')}`;
 }
 
 function whereTonight(): { bed: string; day: string } | null {
@@ -168,44 +211,61 @@ function whereTonight(): { bed: string; day: string } | null {
   return { bed: night.bed, day: DAYS.find((d) => d.id === night.dayId)?.title ?? '' };
 }
 
-// ---------------------------------------------------------------------------
-// BOOK BEFORE YOU FLY — the things the research found that will quietly fall
-// through if nobody acts tonight. Deliberately at the TOP of the hub and
-// deliberately ugly: this is the one part of the app with a deadline.
-// It hides itself after the trip starts (24 July), so it does not nag forever.
-// ---------------------------------------------------------------------------
-interface UrgentItem {
-  what: string;
-  why: string;
-  how: string;
+/** One tile — square by default, a slim full-width row when the group says so.
+ *  A tile with `expands` opens its links in place instead of navigating. */
+function tileNode(t: Tile, slim: boolean): HTMLElement {
+  const cls = slim ? 'slimrow' : 'tile';
+
+  if (t.expands) {
+    const holder = el('div', 'tilewrap');
+    const btn = el('button', `${cls} tile-exp`);
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = slim
+      ? `<span class="slim-emoji">${t.emoji}</span><span class="slim-t">${esc(t.title)}</span><span class="slim-w">${esc(t.what)}</span><span class="slim-c">▾</span>`
+      : `<span class="tile-top"><span class="tile-emoji">${t.emoji}</span><span class="tile-caret">▾</span></span><span class="tile-title">${esc(t.title)}</span><span class="tile-what">${esc(t.what)}</span>`;
+
+    const sub = el('div', 'tilesub');
+    for (const l of t.expands) {
+      const a = el('a');
+      a.href = l.href;
+      a.innerHTML = `<span>${l.emoji}</span> ${esc(l.label)}`;
+      sub.appendChild(a);
+    }
+    btn.addEventListener('click', () => {
+      const open = btn.classList.toggle('open');
+      sub.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    holder.appendChild(btn);
+    holder.appendChild(sub);
+    return holder;
+  }
+
+  const a = el('a', cls);
+  a.href = t.href ?? '#';
+  if (slim) {
+    a.innerHTML =
+      `<span class="slim-emoji">${t.emoji}</span><span class="slim-t">${esc(t.title)}</span>` +
+      `<span class="slim-w">${esc(t.what)}</span>` +
+      (t.badge ? `<span class="tile-badge" id="${t.badge}"></span>` : '');
+    return a;
+  }
+  const top = el('div', 'tile-top');
+  top.appendChild(el('span', 'tile-emoji', t.emoji));
+  if (t.badge) {
+    const b = el('span', 'tile-badge');
+    b.id = t.badge;
+    top.appendChild(b);
+  }
+  a.appendChild(top);
+  a.appendChild(el('h3', 'tile-title', t.title));
+  a.appendChild(el('p', 'tile-what', t.what));
+  return a;
 }
 
-const URGENT: UrgentItem[] = [
-  {
-    what: 'FROST family rafting',
-    why: 'On request only, sold on no platform, needs 24 h notice — and no published minimum group size, so it may not run for two people.',
-    how: 'Email info@frostrafting.at tonight. Ask: will it run for two, what time, and confirm €55 pp.',
-  },
-  {
-    what: 'FROST canyoning (Waterfall Park)',
-    why: 'Published on their site but bookable on no channel at all. Season ends 31 Aug.',
-    how: 'Same email, same night. Ask whether you need shoes — that is €10 each extra.',
-  },
-  {
-    what: 'Kayak / SUP on the Hallstättersee',
-    why: 'Needs a day’s notice, and the office is only open Mon–Fri 09:00–12:00.',
-    how: 'Phone +43 664 25 27 059 Friday morning at the latest if you want a boat Sat or Sun.',
-  },
-  {
-    what: 'Cash — euro notes AND coins',
-    why: 'The Hallstatt ferry, Kitzlochklamm, the Bad Goisern lake boat and several others are CASH ONLY. Some gates are coin machines.',
-    how: 'Draw it at the airport on landing.',
-  },
-];
-
 function renderUrgent(root: HTMLElement): void {
-  // After the trip begins this is noise, not help.
-  if (todayISO() >= '2026-07-24') return;
+  if (todayISO() >= '2026-07-24') return; // after take-off this is noise
 
   const box = el('section', 'urgent');
   box.appendChild(el('h2', 'urgent-h', '⏰ Before you fly'));
@@ -234,59 +294,63 @@ function render(): void {
 
   const wrap = el('div', 'hubwrap');
 
-  const head = el('header', 'hubhead');
-  head.appendChild(el('p', 'hubkick', 'Allison + Avital · 24–31 July 2026'));
-  head.appendChild(el('h1', undefined, 'Austria'));
-
-  // The one live line: where you are sleeping tonight, if the trip is on.
+  // ---- the thin cross-screen bar, per Avital ------------------------------
+  // Tapping it opens all four nights in place; it never navigates away.
   const now = whereTonight();
-  const strip = el('p', 'hubnow');
-  if (now) {
-    strip.innerHTML = `🛏 Tonight you sleep in <b>${now.bed}</b>${now.day ? ` · ${now.day}` : ''}`;
-  } else {
-    strip.innerHTML = '🛫 <b>Fri 24 Jul</b> — LY5193 departs 05:00, lands Salzburg 07:50';
+  const bar = el('button', 'bedbar');
+  bar.type = 'button';
+  bar.setAttribute('aria-expanded', 'false');
+  bar.innerHTML = now
+    ? `<span class="bedbar-k">Tonight</span><span class="bedbar-v">🛏 ${esc(now.bed)}</span><span class="bedbar-c">▾</span>`
+    : `<span class="bedbar-k">Fri 24</span><span class="bedbar-v">🛫 05:00 → Salzburg 07:50</span><span class="bedbar-c">▾</span>`;
+
+  const beds = el('div', 'bedlist');
+  for (const n of NIGHTS) {
+    const row = el('div', 'bedrow' + (n.date === todayISO() ? ' istonight' : ''));
+    const d = new Date(`${n.date}T12:00:00`).toLocaleDateString('en-GB', {
+      weekday: 'short',
+      day: 'numeric',
+    });
+    row.innerHTML = `<span class="bedrow-d">${d}</span><span class="bedrow-b">${esc(n.bed)}</span>`;
+    beds.appendChild(row);
   }
-  head.appendChild(strip);
+  const detail = el('a', 'bedlist-more', 'Addresses, check-in times, the car →');
+  detail.href = 'info.html';
+  beds.appendChild(detail);
 
-  // Filled in by loadWeather() after paint — the page is useful before it lands.
-  const wx = el('div', 'hubwx');
-  wx.id = 'hub-wx';
-  wx.innerHTML = '<p class="hubwx-load">checking the forecast…</p>';
-  head.appendChild(wx);
+  bar.addEventListener('click', () => {
+    const open = bar.classList.toggle('open');
+    beds.classList.toggle('open', open);
+    bar.setAttribute('aria-expanded', String(open));
+  });
 
-  wrap.appendChild(head);
+  wrap.appendChild(bar);
+  wrap.appendChild(beds);
 
-  renderUrgent(wrap);
-
+  // ---- the tiles, immediately. Nothing to scroll past. --------------------
   for (const g of GROUPS) {
     const sec = el('section', 'hubgroup');
     sec.appendChild(el('h2', 'hubgroup-h', g.title));
-    const grid = el('div', 'hubgrid');
-    for (const t of g.tiles) {
-      const a = el('a', 'tile');
-      (a as HTMLAnchorElement).href = t.href;
-      const top = el('div', 'tile-top');
-      top.appendChild(el('span', 'tile-emoji', t.emoji));
-      if (t.badge) {
-        const b = el('span', 'tile-badge');
-        b.id = t.badge;
-        top.appendChild(b);
-      }
-      a.appendChild(top);
-      a.appendChild(el('h3', 'tile-title', t.title));
-      a.appendChild(el('p', 'tile-what', t.what));
-      grid.appendChild(a);
-    }
+    const grid = el('div', g.slim ? 'hubslim' : 'hubgrid');
+    for (const t of g.tiles) grid.appendChild(tileNode(t, Boolean(g.slim)));
     sec.appendChild(grid);
     wrap.appendChild(sec);
   }
+
+  // ---- weather, de-emphasised, below the tiles ---------------------------
+  const wx = el('p', 'hubwx-lite');
+  wx.id = 'hub-wx';
+  wrap.appendChild(wx);
+
+  // ---- booking deadlines, at the bottom ----------------------------------
+  renderUrgent(wrap);
 
   root.appendChild(wrap);
 
   const foot = document.getElementById('hub-foot');
   if (foot) {
     foot.innerHTML =
-      'One place for the whole trip · add this page to your home screen · <a href="index.html">the full brochure →</a>';
+      'Add this page to your home screen · <a href="index.html">the full brochure →</a>';
   }
 }
 
@@ -314,8 +378,8 @@ async function badges(): Promise<void> {
     });
 }
 
-/** The forecast, and the one call it implies. This is the point of the hub:
- *  she opens it in the morning and it tells her what kind of day today is. */
+/** One quiet line. Avital doubts a forecast can be current, so it never claims
+ *  to be — it prints how old it is, every time. */
 async function loadWeather(): Promise<void> {
   const mount = document.getElementById('hub-wx');
   if (!mount) return;
@@ -324,56 +388,30 @@ async function loadWeather(): Promise<void> {
   try {
     result = await getWeather();
   } catch {
-    // Fail loud, not blank — say what is missing and why.
-    mount.innerHTML =
-      '<p class="hubwx-err">No forecast right now — no signal, and nothing cached yet. ' +
-      'The <a href="rain.html">rainy-day list</a> works offline once loaded.</p>';
+    mount.textContent = 'No forecast right now — no signal, and nothing cached yet.';
     return;
   }
 
   const today = todayISO();
   const night = NIGHTS.find((n) => n.date === today);
-  // Before the trip starts, show the first day at the first bed.
   const target = night ?? NIGHTS[0];
   const fc =
     result.forecasts.find((f) => f.base.name.startsWith(target.bed.split(' (')[0])) ??
     result.forecasts[0];
   const day = dayFor(fc, night ? today : NIGHTS[0].date);
-
   if (!day) {
-    mount.innerHTML =
-      '<p class="hubwx-err">The forecast came back but has nothing for today — outside the 24–31 July window.</p>';
+    mount.textContent = 'The forecast has nothing for today — outside the 24–31 July window.';
     return;
   }
 
   const w = describe(day.code);
   const v = verdict(day);
-  mount.innerHTML = `
-    <div class="wxnow">
-      <span class="wxicon" aria-hidden="true">${w.icon}</span>
-      <div class="wxtext">
-        <p class="wxhead">${v.headline}</p>
-        <p class="wxsub">${fc.base.name} · ${w.label} · ${day.tMin}–${day.tMax}°C · sunset ${day.sunset}</p>
-      </div>
-    </div>
-    <a class="wxcta" href="${v.href}">${v.cta} →</a>
-    <p class="wxage">forecast for ${fc.base.name}, fetched ${ageLabel(result.fetchedAt)}${
-      result.stale ? ' — <b>offline, showing the last one</b>' : ''
-    }</p>`;
-
-  // The rest of the week, compact — so a wet Sunday is visible on Friday.
-  const strip = document.createElement('div');
-  strip.className = 'wxweek';
-  for (const d of fc.days) {
-    const dd = describe(d.code);
-    const label = new Date(`${d.date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'short' });
-    const cell = document.createElement('div');
-    cell.className = 'wxday' + (d.date === today ? ' istoday' : '') + (dd.wet ? ' iswet' : '');
-    cell.innerHTML = `<span class="wxd">${label}</span><span class="wxi">${dd.icon}</span><span class="wxt">${d.tMax}°</span>`;
-    cell.title = `${d.date} · ${dd.label} · ${d.rainMm.toFixed(0)} mm · ${d.rainChance}%`;
-    strip.appendChild(cell);
-  }
-  mount.appendChild(strip);
+  mount.innerHTML =
+    `${w.icon} ${esc(fc.base.name)} ${day.tMin}–${day.tMax}°C, ${esc(w.label)} · sunset ${day.sunset} · ` +
+    `<a href="${v.href}">${esc(v.cta)}</a> ` +
+    `<span class="wxage">forecast, fetched ${ageLabel(result.fetchedAt)}${
+      result.stale ? ', offline copy' : ''
+    }</span>`;
 }
 
 render();

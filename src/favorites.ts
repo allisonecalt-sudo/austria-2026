@@ -207,12 +207,54 @@ function tableShell(headers: string[]): { scroller: HTMLElement; body: HTMLEleme
   return { scroller, body };
 }
 
-function sectionHead(kicker: string, title: string, sub: string): HTMLElement {
-  const head = el('header', 'dsec-head');
-  head.appendChild(el('p', 'dsec-date', esc(kicker)));
-  head.appendChild(el('h2', undefined, esc(title)));
-  head.appendChild(el('p', 'dsec-beds', sub));
+/** Avital, 23 Jul: "make the tables collapsible — as is, it's annoying."
+ *  So every section is a toggle. The header stays readable when shut, carries
+ *  a count so a closed day still tells you something, and TODAY opens itself. */
+function sectionHead(
+  kicker: string,
+  title: string,
+  sub: string,
+  count: number,
+  open: boolean,
+): HTMLElement {
+  const head = el('header', 'dsec-head' + (open ? ' open' : ''));
+  const btn = el('button', 'dsec-toggle');
+  btn.type = 'button';
+  btn.setAttribute('aria-expanded', String(open));
+  btn.innerHTML =
+    `<span class="dsec-date">${esc(kicker)}</span>` +
+    `<span class="dsec-title">${esc(title)}</span>` +
+    `<span class="dsec-count">${count}</span>` +
+    `<span class="dsec-caret">▾</span>`;
+  head.appendChild(btn);
+  const body = el('p', 'dsec-beds');
+  body.innerHTML = sub;
+  head.appendChild(body);
+
+  btn.addEventListener('click', () => {
+    const sec = head.closest('.dsec');
+    if (!sec) return;
+    const nowOpen = sec.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(nowOpen));
+  });
   return head;
+}
+
+/** Is this the day you are actually on? That one starts open. */
+function isToday(dayId: string): boolean {
+  const d = new Date();
+  const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const map: Record<string, string> = {
+    fri24: '2026-07-24',
+    shabbat: '2026-07-25',
+    sun26: '2026-07-26',
+    mon27: '2026-07-27',
+    tue28: '2026-07-28',
+    wed29: '2026-07-29',
+    thu30: '2026-07-30',
+    fri31: '2026-07-31',
+  };
+  return map[dayId] === iso;
 }
 
 function daySection(
@@ -226,11 +268,15 @@ function daySection(
   const beds = BEDS[dayId] ?? { before: -1, after: -1 };
   const sec = el('section', 'dsec');
   sec.id = `day-${dayId}`;
+  const openNow = isToday(dayId);
+  if (openNow) sec.classList.add('open');
   sec.appendChild(
     sectionHead(
       date,
       title,
       `🛏 slept in <b>${esc(bedLabel(beds.before))}</b> → sleeping in <b>${esc(bedLabel(beds.after))}</b>`,
+      ids.length,
+      openNow,
     ),
   );
 
@@ -266,6 +312,8 @@ function sunsetSection(ids: string[], rerender: () => void): HTMLElement | null 
       'kept separate',
       '🌅 Sunsets you chose',
       'One a night — these are spots, not day plans.',
+      ids.length,
+      false,
     ),
   );
   const { scroller, body } = tableShell([
@@ -301,6 +349,8 @@ function rainSection(ids: string[], rerender: () => void): HTMLElement | null {
       'wet weather',
       '☂ Rainy-day picks',
       'Hearted on the rainy-day list — these live only there.',
+      ids.length,
+      false,
     ),
   );
   const { scroller, body } = tableShell([
@@ -395,6 +445,8 @@ function renderPicks(): void {
         'no fixed day',
         'Anywhere in the week',
         'Hearted but not tied to a day — distances are from the two nearest beds.',
+        orphans.length,
+        false,
       ),
     );
     const { scroller, body } = tableShell([

@@ -157,3 +157,33 @@
   border-radius: 12px;
   cursor: pointer;
 }
+
+/* Maps + Waze on every stay — Avital's ask, 23 Jul. Two big targets side by
+   side, because this gets tapped one-handed at the end of a drive. */
+.inav {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.inav-btn {
+  flex: 1 1 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 46px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 11px;
+  text-decoration: none;
+}
+
+.inav-btn:hover,
+.inav-btn:focus-visible {
+  border-color: var(--green);
+  color: var(--green);
+}
