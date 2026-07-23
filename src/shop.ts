@@ -171,7 +171,7 @@ const PRODUCTS: Product[] = [
     cat: 'Chocolate',
     status: 'ingr',
     misrachi: '',
-    why: 'Dairy — chalav stam',
+    why: 'Dairy - chalav stam. Contains Suessmolkenpulver (whey) - your rav: fine under chalav stam',
     ingredients:
       'Zucker, Kakaobutter, Kakaomasse, MAGERMILCHPULVER, Süssmolkenpulver (aus MILCH), BUTTERREINFETT, Emulgator (SOJALECITHINE), HASELNUSSMASSE, Aroma, Kakao: 33%',
   },
