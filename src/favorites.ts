@@ -25,6 +25,7 @@ import { RAIN_BY_KEY } from './rain-data.js';
 import { BASE_ORDER, TABLE_ROWS } from './table-data.js';
 import { allFavIds, favWeight, heartButton, loadFavs, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
+import { rainLabel, rainCall, worksInRain } from './rain-ok.js';
 import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -95,6 +96,8 @@ function activityRow(id: string, beds: DayBeds, rerender: () => void): HTMLEleme
 
   const tr = el('tr', 'trow');
   tr.setAttribute('data-id', id);
+  const rainOk = rainCall(id);
+  if (rainOk) tr.setAttribute('data-rain', rainOk.ok);
 
   // 1 — suggestion / location
   const what = el('div', 'cell-what');
@@ -147,8 +150,20 @@ function activityRow(id: string, beds: DayBeds, rerender: () => void): HTMLEleme
   for (const u of t?.unique ?? []) uniq.appendChild(el('li', undefined, esc(u)));
   tr.appendChild(td('What makes it unique', 'c-uniq', uniq));
 
-  // 5 — why do it
-  tr.appendChild(td('Why do it', 'c-why', esc(t?.why ?? a.what)));
+  // 5 — why do it, plus the rain verdict (keep the idea, flag the weather)
+  const whyCell = el('div');
+  whyCell.appendChild(el('p', 'row-why', esc(t?.why ?? a.what)));
+  const rain = rainCall(id);
+  if (rain) {
+    const lab = rainLabel(rain.ok);
+    const rc = el(
+      'p',
+      `row-rain rain-${rain.ok}`,
+      `${lab.icon} ${esc(lab.short)} — ${esc(rain.why)}`,
+    );
+    whyCell.appendChild(rc);
+  }
+  tr.appendChild(td('Why do it', 'c-why', whyCell));
 
   // 6 — time spent there
   const hours = a.chips.filter((c) => /open|daily|closed|book|reserve|\d\d[:.]\d\d/i.test(c));
@@ -425,6 +440,9 @@ function renderPicks(): void {
   }
 }
 
+/** Set by renderShell so a re-render can re-apply the active ☂ filter. */
+let rainFilterApply: ((rainOnly: boolean) => void) | null = null;
+
 function renderShell(): void {
   const root = document.getElementById('favorites');
   if (!root) return;
@@ -442,6 +460,36 @@ function renderShell(): void {
   );
   wrap.appendChild(intro);
   wrap.appendChild(el('p', 'save-note', '<span id="fav-status"></span>'));
+
+  // Same ☂ switch as The Plan — every pick stays listed, the filter just
+  // narrows to the ones a wet day does not ruin.
+  const filter = el('div', 'rainfilter');
+  const all = el('button', 'rfbtn on', 'All picks');
+  const wet = el('button', 'rfbtn', '☂ Works in the rain');
+  const count = el('span', 'rfcount');
+  const apply = (rainOnly: boolean): void => {
+    let shown = 0;
+    document.querySelectorAll<HTMLElement>('tr.trow').forEach((r) => {
+      const id = r.getAttribute('data-id') ?? '';
+      const keep = !rainOnly || !r.hasAttribute('data-rain') || worksInRain(id);
+      r.style.display = keep ? '' : 'none';
+      if (keep) shown++;
+    });
+    document.querySelectorAll<HTMLElement>('.dsec').forEach((d) => {
+      const any = d.querySelector('tr.trow:not([style*="display: none"])');
+      d.style.display = d.querySelector('tr.trow') && !any ? 'none' : '';
+    });
+    all.classList.toggle('on', !rainOnly);
+    wet.classList.toggle('on', rainOnly);
+    count.textContent = rainOnly ? `${shown} still work wet` : '';
+  };
+  all.addEventListener('click', () => apply(false));
+  wet.addEventListener('click', () => apply(true));
+  filter.appendChild(all);
+  filter.appendChild(wet);
+  filter.appendChild(count);
+  wrap.appendChild(filter);
+  rainFilterApply = apply;
 
   const body = el('div');
   body.id = 'fav-body';
@@ -464,6 +512,7 @@ async function main(): Promise<void> {
   if (body) body.innerHTML = '<p class="fav-count">loading your hearts…</p>';
   await loadFavs();
   renderPicks();
+  if (new URLSearchParams(window.location.search).get('rain') === '1') rainFilterApply?.(true);
   if (window.location.hash) {
     document
       .querySelector(`[data-id="${window.location.hash.slice(1)}"]`)

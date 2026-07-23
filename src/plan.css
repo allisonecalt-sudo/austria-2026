@@ -612,3 +612,73 @@ button.fav.on {
     margin-top: -4px;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   ☂ Rain filter — her ask, Jul 23: "keep all the cool ideas but have rainy day
+   option". Not a separate world; a switch over the same list.
+--------------------------------------------------------------------------- */
+.rainfilter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+  padding-bottom: 0;
+}
+
+.rfbtn {
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--sub);
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.rfbtn.on {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.rfcount {
+  font-size: 12.5px;
+  color: var(--sub);
+}
+
+.rfcount:empty {
+  display: none;
+}
+
+/* Per-card verdict chips. */
+.chip.rain-dry {
+  color: var(--blue);
+  border-color: #bcd0e0;
+  background: #eef4f9;
+}
+
+.chip.rain-wet-ok {
+  color: var(--green);
+  border-color: #bdd3c4;
+  background: #eef4ef;
+}
+
+.chip.rain-needs-clear {
+  color: var(--gold);
+  border-color: #e2cf9f;
+  background: #fbf5e6;
+}
+
+.act .more .rain-why {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  background: var(--paper);
+  border-radius: 9px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--sub);
+}

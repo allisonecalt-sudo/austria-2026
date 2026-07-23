@@ -318,3 +318,36 @@ a.row-name:focus-visible {
     min-width: 170px;
   }
 }
+
+/* The rain verdict inside the "why do it" cell — the idea stays, the weather
+   caveat rides along with it. */
+#favorites .row-why {
+  margin: 0;
+}
+
+#favorites .row-rain {
+  margin: 6px 0 0;
+  padding: 6px 9px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+#favorites .row-rain.rain-dry {
+  background: #eef4f9;
+  color: #2f5573;
+}
+
+#favorites .row-rain.rain-wet-ok {
+  background: #eef4ef;
+  color: #34573f;
+}
+
+#favorites .row-rain.rain-needs-clear {
+  background: #fbf5e6;
+  color: #7d5c14;
+}
+
+#favorites .rainfilter {
+  margin: 10px 0 6px;
+}

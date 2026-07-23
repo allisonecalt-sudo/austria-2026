@@ -163,15 +163,15 @@ export function verdict(d: DayWeather): { headline: string; href: string; cta: s
   if (d.rainMm >= 5 || d.rainChance >= 70) {
     return {
       headline: `Wet day — ${d.rainMm.toFixed(0)} mm, ${d.rainChance}% chance`,
-      href: 'rain.html',
-      cta: 'Open the rainy-day list',
+      href: 'plan.html?rain=1',
+      cta: 'Show me what still works wet',
     };
   }
   if (w.wet) {
     return {
       headline: `Showers about — ${d.rainChance}% chance`,
-      href: 'rain.html',
-      cta: 'Have the wet-weather fallbacks ready',
+      href: 'plan.html?rain=1',
+      cta: 'Keep the wet-proof options in reach',
     };
   }
   if (d.code <= 2 && d.tMax >= 24) {

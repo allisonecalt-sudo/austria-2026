@@ -12,6 +12,7 @@ import { ACTIVITIES, BUILD_STAMP, DAYS, SITES, byId, type Activity } from './pla
 import { insertNote } from './supabase.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
+import { rainCall, rainLabel, worksInRain } from './rain-ok.js';
 import { mountNav } from './nav.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -63,10 +64,24 @@ function actCard(a: Activity): HTMLElement {
     const warn = /reserve|closed|weather|call|layers/i.test(c);
     chips.appendChild(el('span', warn ? 'chip warn' : 'chip', esc(c)));
   }
+  // Does the rain ruin it? Her ask: keep every idea, just say which survive.
+  const rain = rainCall(a.id);
+  if (rain) {
+    const lab = rainLabel(rain.ok);
+    const chip = el('span', `chip rain-${rain.ok}`, `${lab.icon} ${esc(lab.short)}`);
+    chip.title = `${rain.why} (${rain.basis})`;
+    chips.appendChild(chip);
+  }
   ct.appendChild(chips);
+
+  if (rain) card.setAttribute('data-rain', rain.ok);
 
   const more = el('div', 'more');
   more.appendChild(el('p', undefined, esc(a.more)));
+  if (rain) {
+    const lab = rainLabel(rain.ok);
+    more.appendChild(el('p', 'rain-why', `${lab.icon} In rain: ${esc(rain.why)}`));
+  }
   const row = el('div', 'row');
   const nav = el('a', 'btn go', '📍 Navigate');
   (nav as HTMLAnchorElement).href = a.maps;
@@ -167,6 +182,41 @@ function render(): void {
     ),
   );
   root.appendChild(savebar);
+
+  // ☂ filter — keeps every idea on the page and just narrows to what survives
+  // a wet day. Deep-linked from the hub when today's forecast is wet.
+  const filter = el('div', 'wrap rainfilter');
+  const all = el('button', 'rfbtn on', 'All options');
+  const wet = el('button', 'rfbtn', '☂ Works in the rain');
+  const count = el('span', 'rfcount');
+  const apply = (rainOnly: boolean): void => {
+    let shown = 0;
+    document.querySelectorAll<HTMLElement>('.act').forEach((c) => {
+      const id = c.getAttribute('data-id') ?? '';
+      const keep = !rainOnly || worksInRain(id);
+      c.style.display = keep ? '' : 'none';
+      if (keep) shown++;
+    });
+    // Hide a day that has nothing left, so she isn't scrolling empty headers.
+    document.querySelectorAll<HTMLElement>('.day').forEach((d) => {
+      const any = d.querySelector('.act:not([style*="display: none"])');
+      d.style.display = d.querySelector('.act') && !any ? 'none' : '';
+    });
+    all.classList.toggle('on', !rainOnly);
+    wet.classList.toggle('on', rainOnly);
+    count.textContent = rainOnly ? `${shown} still work wet` : '';
+  };
+  all.addEventListener('click', () => apply(false));
+  wet.addEventListener('click', () => apply(true));
+  filter.appendChild(all);
+  filter.appendChild(wet);
+  filter.appendChild(count);
+  root.appendChild(filter);
+  // Applied after the cards render, at the end of render().
+  window.setTimeout(
+    () => apply(new URLSearchParams(window.location.search).get('rain') === '1'),
+    0,
+  );
 
   // Day-jump bar — her spec (Jul 20): clear + simple, easy to move around.
   const jump = el('div', 'plan-nav jump');

@@ -32,6 +32,7 @@ import {
   type CatalogEntry,
   type GroceryItem,
 } from './supabase.js';
+import { autoFlush, dropPendingAdd, enqueue, pendingCount } from './outbox.js';
 import { mountNotes } from './notes.js';
 import { mountNav } from './nav.js';
 
@@ -175,42 +176,46 @@ async function toggle(item: GroceryItem): Promise<void> {
   render();
   try {
     await updateGrocery(item.id, { checked: next });
-    status('');
+    syncNote();
   } catch {
-    item.checked = !next; // roll back — never leave a lie on screen
-    render();
-    status('⚠ could not save that — check your signal and tap again');
+    // Do NOT roll back: in a shop with no signal, undoing her tick would be
+    // the wrong lie. Keep it ticked, queue the write, and say it's waiting.
+    enqueue({ kind: 'update', id: item.id, checked: next });
+    syncNote();
   }
 }
 
 async function removeItem(item: GroceryItem): Promise<void> {
-  const snapshot = [...items];
   items = items.filter((i) => i.id !== item.id);
   render();
+  // Something added offline and deleted again never needs to reach the server.
+  if (dropPendingAdd(item.id)) {
+    syncNote();
+    return;
+  }
   try {
     await deleteGrocery(item.id);
-    status('');
+    syncNote();
   } catch {
-    items = snapshot;
-    render();
-    status('⚠ could not remove that — tap again');
+    enqueue({ kind: 'delete', id: item.id });
+    syncNote();
   }
 }
 
 async function clearChecked(): Promise<void> {
   const done = items.filter((i) => i.checked);
   if (done.length === 0) return;
-  const snapshot = [...items];
   items = items.filter((i) => !i.checked);
   render();
-  try {
-    await Promise.all(done.map((i) => deleteGrocery(i.id)));
-    status('');
-  } catch {
-    items = snapshot;
-    render();
-    status('⚠ could not clear those — tap again');
+  for (const i of done) {
+    if (dropPendingAdd(i.id)) continue;
+    try {
+      await deleteGrocery(i.id);
+    } catch {
+      enqueue({ kind: 'delete', id: i.id });
+    }
   }
+  syncNote();
 }
 
 /** Her ask, Jul 23: "also bring in the shopping list already on apt app —
@@ -262,14 +267,31 @@ async function submitAdd(): Promise<void> {
   hideAuto();
   status('saving…');
 
+  const addedBy = whoEl?.value ?? '';
   try {
-    const row = await addGrocery(name, section, qty, whoEl?.value ?? '');
+    const row = await addGrocery(name, section, qty, addedBy);
     items.push(row);
     render();
-    status('');
+    syncNote();
   } catch {
-    input.value = name; // give her the text back rather than swallowing it
-    status('⚠ could not add that — tap + Add again');
+    // Offline: keep the item on screen with a temporary id, and queue the
+    // write. Losing what she typed in a supermarket is the failure that
+    // matters most here, so this path must never drop it.
+    const tempId = `local-${String(Date.now())}-${Math.random().toString(36).slice(2, 8)}`;
+    items.push({
+      id: tempId,
+      list_type: 'austria_2026',
+      item_name: name,
+      section,
+      checked: false,
+      quantity: qty,
+      paid_by: 'joint',
+      added_by: addedBy,
+      created_at: new Date().toISOString(),
+    });
+    enqueue({ kind: 'add', tempId, name, section, quantity: qty, addedBy });
+    render();
+    syncNote();
   }
 }
 
@@ -335,6 +357,42 @@ function wireAddBar(): void {
   });
 }
 
+/** One line of truth about whether what she sees has actually been saved. */
+function syncNote(): void {
+  const n = pendingCount();
+  if (n === 0) {
+    status(navigator.onLine ? '' : 'offline — everything here is saved');
+    return;
+  }
+  status(`offline · ${n} change${n > 1 ? 's' : ''} waiting to sync — they are safe, they will send when you get signal`);
+}
+
+/** Drain the queue on load and whenever the connection comes back. */
+function startSync(): void {
+  autoFlush(
+    {
+      add: (name, section, quantity, addedBy) => addGrocery(name, section, quantity, addedBy),
+      update: (id, patch) => updateGrocery(id, patch),
+      remove: (id) => deleteGrocery(id),
+    },
+    (r) => {
+      if (r.sent > 0) {
+        void listGroceries()
+          .then((rows) => {
+            items = rows;
+            render();
+          })
+          .catch(() => undefined);
+      }
+      syncNote();
+    },
+    (tempId, realId) => {
+      const row = items.find((i) => i.id === tempId);
+      if (row) row.id = realId;
+    },
+  );
+}
+
 async function main(): Promise<void> {
   wireAddBar();
   status('loading…');
@@ -345,6 +403,10 @@ async function main(): Promise<void> {
     status('⚠ could not load the list — check your signal and reload');
   }
   render();
+  startSync();
+  syncNote();
+  window.addEventListener('offline', syncNote);
+  window.addEventListener('online', syncNote);
   mountNotes();
 }
 

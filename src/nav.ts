@@ -144,3 +144,20 @@ export function mountNav(): void {
     if ((e as KeyboardEvent).key === 'Escape') closeAll();
   });
 }
+
+/** Register the service worker so the app keeps working with no signal.
+ *  Mounted from here because every page already imports the nav — one place,
+ *  no per-page wiring to forget. Failure is non-fatal and silent by design:
+ *  the site works fine without it, it just won't survive going offline. */
+function registerServiceWorker(): void {
+  if (!('serviceWorker' in navigator)) return;
+  // Dev server serves from '/', the deployed site from '/austria-2026/'.
+  const base = window.location.pathname.includes('/austria-2026/') ? '/austria-2026/' : '/';
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(`${base}sw.js`, { scope: base }).catch(() => {
+      /* offline support unavailable — the app still works online */
+    });
+  });
+}
+
+registerServiceWorker();
