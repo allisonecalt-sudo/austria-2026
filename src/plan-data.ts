@@ -873,8 +873,9 @@ export const ACTIVITIES: Activity[] = [
     name: 'Mozart in the fortress — Golden Hall',
     emoji: '🎻',
     what: 'A chamber concert in the Golden Hall of Hohensalzburg, 20:00, with the funicular thrown in.',
-    more: 'The Salzburg Fortress Concerts run NIGHTLY 24–31 July, 20:00, in the Goldener Saal of Hohensalzburg — so they are on every night of your week, and Thu 30 is bookable. The move that makes it worth it: FORTRESS ADMISSION AND THE FUNICULAR ARE FREE FROM 19:00, i.e. one hour before the concert. Go up at 19:00, have the fortress and the view over Salzburg to yourselves as it empties (it closes to normal visitors at 20:00), then the concert. Two things for the price of one, and no climb. Roughly €40–60 depending on category; a dinner-and-concert package exists separately. THE CATCH: it is 20:00 on the night you also want the Rossfeld sunset (20:45) — you cannot have both, and you are up at 05:30 the next morning for the flight.',
-    drive: '🚗 15 min · 7 km from Wals (55 min from Gosau)',
+    more: 'Runs EVERY NIGHT 24-31 July at 20:00 in the Goldener Saal of Hohensalzburg, so it is available any night of your week — you pick which. Roughly EUR 40-60 by category; a dinner-and-concert package exists separately. THE MOVE THAT MAKES IT WORTH IT: fortress admission and the funicular are FREE from 19:00, and the fortress closes to ordinary visitors at 20:00 — so go up at seven, have the ramparts and the city below you as it empties, then the concert. No climb, no parking war. WHAT IT COSTS YOU, NIGHT BY NIGHT: Sun 26 - hardest. You are moving to Zell with a 17:00-18:00 check-in and Salzburg is 1h20 from there; you would land back near midnight on a day you already drove. Mon 27 - 1h20 each way from Zell, home about 23:00, and it costs you the Zeller See sunset cruise, which only runs that night. Tue 28 - the sweet spot from a distance nobody minds: you are moving to Gosau anyway, Salzburg is 55 min from there, so check in, drive over, concert, back by about 22:30. Wed 29 - 55 min each way from Gosau, but Wednesday is forecast the CLEAREST day of the week, and spending its golden hour in a car is the one real waste on this list. Thu 30 - easiest by a mile: you sleep 15 minutes away in Wals. The catch is that it is also the Koenigssee day and the 20:45 Rossfeld sunset, and you are up at 05:30 the next morning. Concert or Rossfeld, not both.',
+
+    drive: '🚗 15 min from Wals · 55 min from Gosau · 1h20 from Zell',
     duration: '~1h concert + the hour before in the fortress',
     difficulty: 'flat',
     chips: [
@@ -991,6 +992,7 @@ export const DAYS: PlanDay[] = [
       'pathfinder-kayak',
       'hallstatt-by-train',
       'parkbad-goisern',
+      'fortress-concert',
     ],
     note: 'If Schafberg is your Sunday pick — RESERVE the train online a few days ahead; July seats genuinely sell out. Grossglockner and Krippenstein are clear-weather picks: check the forecast/webcams that morning and swap freely.',
   },
@@ -1019,6 +1021,7 @@ export const DAYS: PlanDay[] = [
       'kitzlochklamm',
       'pinzgauer-bahn',
       'seisenbergklamm',
+      'fortress-concert',
     ],
   },
   {
@@ -1037,6 +1040,7 @@ export const DAYS: PlanDay[] = [
       'liechtensteinklamm',
       'kaiservilla',
       'eurothermen-ischl',
+      'fortress-concert',
     ],
   },
   {
@@ -1059,6 +1063,7 @@ export const DAYS: PlanDay[] = [
       'dachstein-icecave',
       'salzwelten-altaussee',
       'attersee-bahn-schiff',
+      'fortress-concert',
     ],
   },
   {
