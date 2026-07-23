@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E💙%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
     />
-    <title>Claude's Itinerary — the week I'd give you · Austria 2026</title>
+    <title>Rainy day — what still works, per base · Austria 2026</title>
     <meta
       name="description"
-      content="Claude's opinionated pick for Allison + Avital's Austria week — smart-busy, full of adventure, zero strenuous climbs, a sunset every night."
+      content="Wet-weather fallbacks for the Austria trip, one list per base: what is genuinely indoors, what is fine in rain, and how far it is."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,22 +19,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/plan.css" />
+    <link rel="stylesheet" href="/src/bases.css" />
   </head>
   <body>
     <nav class="plan-nav" aria-label="Pages">
       <a href="index.html">Brochure</a>
       <a href="plan.html">The Plan</a>
       <a href="bases.html">From your bed 🛏</a>
-      <a href="rain.html">Rainy day ☂</a>
+      <a href="rain.html" class="active">Rainy day ☂</a>
       <a href="rank.html">Rank it ⭐</a>
-      <a href="claude.html" class="active">Claude's pick 💙</a>
+      <a href="claude.html">Claude's pick 💙</a>
     </nav>
 
-    <!-- Rendered by src/claude-itinerary.ts (photos/links reused from plan-data). -->
-    <main id="claude"></main>
+    <!-- Rendered entirely from src/rain.ts (+ plan-data.ts). -->
+    <main id="rain"></main>
 
-    <footer class="foot" id="claude-foot"></footer>
+    <footer class="foot" id="rain-foot"></footer>
 
-    <script type="module" src="/src/claude-itinerary.ts"></script>
+    <script type="module" src="/src/rain.ts"></script>
   </body>
 </html>

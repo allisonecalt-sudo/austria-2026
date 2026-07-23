@@ -236,3 +236,25 @@
     margin-top: 4px;
   }
 }
+
+/* ---- rain.html additions (shares the row layout above) ---- */
+.rain-h1 {
+  font-size: 30px;
+  line-height: 1.15;
+}
+.bp-rank {
+  /* rain page uses ☂ / 💧 in the rank slot instead of a number */
+  font-size: 15px;
+}
+.bt-dry {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.bt-wet {
+  color: var(--green);
+  border-color: var(--green);
+}
+.bt-check {
+  color: var(--rose);
+  border-color: var(--rose);
+}

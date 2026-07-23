@@ -55,6 +55,8 @@ export default defineConfig(({ command }) => ({
         // 2026-07-23: the trip sliced by where you sleep — top 10 within
         // ~1.5h of each base, ranked. Data reused from src/plan-data.ts.
         bases: resolve(__dirname, 'bases.html'),
+        // 2026-07-23: wet-weather fallbacks per base.
+        rain: resolve(__dirname, 'rain.html'),
       },
     },
   },
