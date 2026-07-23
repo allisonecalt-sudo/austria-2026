@@ -816,3 +816,56 @@ footer.guide-footer b {
   margin: 0 0 14px;
   max-width: 62ch;
 }
+
+/* ---------- the label-scan method ---------- */
+ol.scan {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+ol.scan li {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 12px;
+  align-items: start;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  padding: 13px 15px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+ol.scan li b {
+  color: var(--ink);
+}
+ol.scan .n {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  font-family: var(--sans);
+}
+.reds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.reds span {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 7px;
+  background: var(--stop-bg);
+  color: var(--stop);
+  border: 1px solid var(--stop-line);
+}
