@@ -10,7 +10,7 @@
 
 import { ACTIVITIES, BUILD_STAMP, DAYS, SITES, byId, type Activity } from './plan-data.js';
 import { insertNote } from './supabase.js';
-import { heartButton, isFav, loadFavs, setSaveStatusSink, whoBar } from './favs.js';
+import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -43,6 +43,9 @@ function actCard(a: Activity): HTMLElement {
   const img = el('div', 'img');
   img.style.backgroundImage = `url('${a.photo}')`;
   if (a.star) img.appendChild(el('span', 'star', '⭐ must-do candidate'));
+  // ❤️ sits ON the photo, not inside the expand panel — mobile is the main
+  // way this is used, so hearting must never cost an extra tap to reveal.
+  img.appendChild(heartButton(a.id));
   card.appendChild(img);
 
   const ct = el('div', 'ct');
@@ -92,9 +95,6 @@ function actCard(a: Activity): HTMLElement {
   (rankLink as HTMLAnchorElement).href = `rank.html#${a.id}`;
   rankLink.addEventListener('click', (e) => e.stopPropagation());
   row.appendChild(rankLink);
-
-  // ❤️ (Jul 23, Avital): heart it here and it lands on favorites.html.
-  row.appendChild(heartButton(a.id));
 
   more.appendChild(row);
   ct.appendChild(more);
@@ -157,17 +157,15 @@ function render(): void {
   hero.appendChild(ht);
   root.appendChild(hero);
 
-  // Who is holding the phone — hearts save per person, so ask before saving.
-  const whoWrap = el('div', 'wrap who-wrap');
-  whoWrap.appendChild(whoBar(() => refreshHearts()));
-  whoWrap.appendChild(
+  const savebar = el('div', 'wrap savebar');
+  savebar.appendChild(
     el(
       'p',
       'save-note',
-      '❤️ saves to <a href="favorites.html">Our picks</a> · <span id="fav-status"></span>',
+      'Tap ❤️ on anything → <a href="favorites.html">Our picks</a> · <span id="fav-status"></span>',
     ),
   );
-  root.appendChild(whoWrap);
+  root.appendChild(savebar);
 
   // Day-jump bar — her spec (Jul 20): clear + simple, easy to move around.
   const jump = el('div', 'plan-nav jump');
@@ -208,19 +206,6 @@ function render(): void {
   }
 
   mountNotes();
-}
-
-/** Paint the page immediately, then colour the hearts once Supabase answers —
- *  a slow connection must never hold up the options menu. */
-function refreshHearts(): void {
-  document.querySelectorAll<HTMLElement>('.act').forEach((card) => {
-    const id = card.getAttribute('data-id');
-    const btn = card.querySelector<HTMLButtonElement>('button.fav');
-    if (!id || !btn) return;
-    const on = isFav(id);
-    btn.className = on ? 'fav on' : 'fav';
-    btn.setAttribute('aria-pressed', String(on));
-  });
 }
 
 async function main(): Promise<void> {

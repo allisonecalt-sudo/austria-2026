@@ -1,79 +1,64 @@
 // ===========================================================================
-// favs.ts — the ❤️ layer. One heart, one meaning, every page.
+// favs.ts — the ❤️ layer. One heart, one shared list, every page.
 //
 // What this is: a tiny shared store so a heart tapped ANYWHERE on the site
-//   (plan / bases / rain / rank) lands in one place, and favorites.html can
-//   show only the things they actually chose.
+//   (plan / bases / rain) lands in one place, and favorites.html can show
+//   only the things they actually chose.
 // Why it exists: Avital's ask (Allison, Jul 23 2026) — "you heart something
 //   and it goes to a separate favorite, same view of location but just only
 //   the things we chose."
 // Decided:
-//   • Two people, two stores — `fav_allison` / `fav_avital` in
-//     austria_2026_state. Never merged on write, so you can always see WHO
-//     wanted it. Merged only on read, for the favorites view.
-//   • The 0–3 hearts already on rank.html COUNT. Anything with ≥1 rank or
-//     sunset heart is a favorite too — no vote gets orphaned, no second
-//     mental model ("why is my ranked thing not in favorites?").
-//   • Who-am-I reuses rank.html's `rank_who` localStorage key, so picking
-//     "Avital" on the rank page carries to every other page.
-//   • Tandem rule: everything lives in Supabase, nothing in localStorage
-//     except which of the two people this phone is.
+//   • ONE shared list, no per-person split. Her call, Jul 23: "no allison and
+//     avital for hearting and favoriting... just make it without that." A
+//     heart means "we want this," not "I want this."
+//   • Stored under `fav_shared` in austria_2026_state.
+//   • The 0–3 hearts already on rank.html still COUNT — anything either of
+//     them ranked ≥1 is a favorite, so no earlier vote is orphaned. Rank
+//     stays per-person because it is a comparison tool; this is not.
+//   • Tandem rule: state lives in Supabase, nothing important in
+//     localStorage — Claude reads the same list between sessions.
 // Built: 2026-07-23. Links: favorites.ts (the view) · rank.ts (0–3 hearts) ·
 //   supabase.ts (getState/setState) · plan-data.ts (the activities).
 // ===========================================================================
 
 import { getState, setState } from './supabase.js';
 
-export type Who = 'allison' | 'avital';
-
 /** id -> true. Object, not array, so a double-tap can't create duplicates. */
 export type FavMap = Record<string, true>;
 type Votes = Record<string, number>;
 
-interface FavState {
-  who: Who;
-  fav: Record<Who, FavMap>;
-  /** rank.html's 0–3 hearts, read-only here — ≥1 counts as a favorite. */
-  rank: Record<Who, Votes>;
-  sunset: Record<Who, Votes>;
+const state: {
+  fav: FavMap;
+  /** rank.html's 0–3 hearts, read-only here — ≥1 from either counts. */
+  ranked: Record<string, number>;
   loaded: boolean;
-}
+} = { fav: {}, ranked: {}, loaded: false };
 
-const state: FavState = {
-  who: (localStorage.getItem('rank_who') as Who) || 'allison',
-  fav: { allison: {}, avital: {} },
-  rank: { allison: {}, avital: {} },
-  sunset: { allison: {}, avital: {} },
-  loaded: false,
-};
-
-export function who(): Who {
-  return state.who;
-}
-
-export function setWho(w: Who): void {
-  state.who = w;
-  localStorage.setItem('rank_who', w);
-}
-
-/** Load every heart source. Safe to call on every page; failures degrade to
- *  "nothing hearted yet" rather than breaking the page (fail-loud is the
- *  banner in the UI, not a blank screen). */
+/** Load every heart source. Failures degrade to "nothing hearted yet" rather
+ *  than a blank page — the UI says so out loud instead of faking a list. */
 export async function loadFavs(): Promise<void> {
-  const [fa, fv, ra, rv, sa, sv] = await Promise.all([
-    getState<FavMap>('fav_allison').catch(() => null),
-    getState<FavMap>('fav_avital').catch(() => null),
+  const [shared, ra, rv, sa, sv, la, lv] = await Promise.all([
+    getState<FavMap>('fav_shared').catch(() => null),
     getState<Votes>('rank_allison').catch(() => null),
     getState<Votes>('rank_avital').catch(() => null),
     getState<Votes>('sunset_allison').catch(() => null),
     getState<Votes>('sunset_avital').catch(() => null),
+    // Legacy per-person heart lists from earlier today — folded in, never
+    // dropped, so a heart tapped before this change still shows up.
+    getState<FavMap>('fav_allison').catch(() => null),
+    getState<FavMap>('fav_avital').catch(() => null),
   ]);
-  state.fav.allison = fa ?? {};
-  state.fav.avital = fv ?? {};
-  state.rank.allison = ra ?? {};
-  state.rank.avital = rv ?? {};
-  state.sunset.allison = sa ?? {};
-  state.sunset.avital = sv ?? {};
+
+  state.fav = { ...(la ?? {}), ...(lv ?? {}), ...(shared ?? {}) };
+
+  const ranked: Record<string, number> = {};
+  for (const src of [ra, rv, sa, sv]) {
+    if (!src) continue;
+    for (const [id, n] of Object.entries(src)) {
+      if (n > 0) ranked[id] = Math.max(ranked[id] ?? 0, n);
+    }
+  }
+  state.ranked = ranked;
   state.loaded = true;
 }
 
@@ -81,42 +66,22 @@ export function isLoaded(): boolean {
   return state.loaded;
 }
 
-/** Did THIS person heart it — by tapping a heart anywhere, or by ranking it? */
-export function isFav(id: string, w: Who = state.who): boolean {
-  if (state.fav[w][id]) return true;
-  if ((state.rank[w][id] ?? 0) > 0) return true;
-  if ((state.sunset[w][id] ?? 0) > 0) return true;
-  return false;
+/** Hearted anywhere, or ranked ≥1 on the rank page. */
+export function isFav(id: string): boolean {
+  return state.fav[id] === true || (state.ranked[id] ?? 0) > 0;
 }
 
-/** Who wants it — used to show "Allison ❤️ · Avital ❤️" on the picks page. */
-export function favBy(id: string): { allison: boolean; avital: boolean; both: boolean } {
-  const a = isFav(id, 'allison');
-  const v = isFav(id, 'avital');
-  return { allison: a, avital: v, both: a && v };
-}
-
-/** Every id either of them wants. Order is not meaningful — callers group. */
+/** Every id on the list. Order is not meaningful — callers group and sort. */
 export function allFavIds(): string[] {
-  const out = new Set<string>();
-  for (const w of ['allison', 'avital'] as Who[]) {
-    for (const id of Object.keys(state.fav[w])) out.add(id);
-    for (const [id, n] of Object.entries(state.rank[w])) if (n > 0) out.add(id);
-    for (const [id, n] of Object.entries(state.sunset[w])) if (n > 0) out.add(id);
-  }
+  const out = new Set<string>(Object.keys(state.fav));
+  for (const id of Object.keys(state.ranked)) out.add(id);
   return [...out];
 }
 
-/** Combined heart weight — both-of-us outranks one-of-us, 3 hearts outranks 1.
- *  Used to sort the picks page so the strongest wants sit at the top. */
+/** Heart weight — a 3-heart rank outranks a plain tap, so the strongest
+ *  wants float to the top of Our picks. A plain heart is worth 1. */
 export function favWeight(id: string): number {
-  let n = 0;
-  for (const w of ['allison', 'avital'] as Who[]) {
-    const rank = Math.max(state.rank[w][id] ?? 0, state.sunset[w][id] ?? 0);
-    if (rank > 0) n += rank;
-    else if (state.fav[w][id]) n += 1;
-  }
-  return n;
+  return Math.max(state.ranked[id] ?? 0, state.fav[id] ? 1 : 0);
 }
 
 let saveTimer: number | undefined;
@@ -131,70 +96,60 @@ function queueSave(): void {
   onSaveStatus?.('saving…');
   window.clearTimeout(saveTimer);
   saveTimer = window.setTimeout(() => {
-    setState(`fav_${state.who}`, state.fav[state.who])
-      .then(() => onSaveStatus?.(`✓ saved for ${state.who}`))
+    setState('fav_shared', state.fav)
+      .then(() => onSaveStatus?.('✓ saved'))
       .catch(() => onSaveStatus?.('⚠ save failed — tap the heart again'));
   }, 400);
 }
 
-/** Toggle for the CURRENT person. Returns the new on/off state.
- *  Un-hearting something that was ranked on rank.html also clears the rank
- *  heart locally so the card doesn't lie — but the rank page owns that value,
- *  so we only clear our own `fav` entry and let the rank vote stand. */
+/** Toggle. Returns the new on/off state.
+ *  Un-hearting something that was ranked on rank.html leaves the rank vote
+ *  alone (that page owns it) — so the heart honestly stays lit and the row
+ *  stays on Our picks. Clear it on the rank page if that is what you meant. */
 export function toggleFav(id: string): boolean {
-  const w = state.who;
-  const wasRanked = (state.rank[w][id] ?? 0) > 0 || (state.sunset[w][id] ?? 0) > 0;
-  if (state.fav[w][id]) {
-    delete state.fav[w][id];
+  if (state.fav[id]) {
+    delete state.fav[id];
     queueSave();
-    return wasRanked; // still shows as hearted via the rank vote — honest.
+    return isFav(id);
   }
-  state.fav[w][id] = true;
+  state.fav[id] = true;
   queueSave();
   return true;
 }
 
-/** The heart button used on plan / bases / rain cards.
+/** The heart button used on plan / bases / rain / favorites rows.
+ *  44px, thumb-sized, stops the tap from opening the card behind it.
  *  `after` re-renders whatever list the caller owns. */
 export function heartButton(id: string, after?: () => void): HTMLButtonElement {
   const b = document.createElement('button');
-  b.className = isFav(id) ? 'fav on' : 'fav';
+  const on = isFav(id);
+  b.className = on ? 'fav on' : 'fav';
   b.type = 'button';
-  b.innerHTML = '❤️';
+  b.textContent = '❤️';
   b.title = 'Add to Our picks';
-  b.setAttribute('aria-label', `Heart this — adds it to Our picks for ${state.who}`);
-  b.setAttribute('aria-pressed', String(isFav(id)));
-  b.addEventListener('click', (e) => {
+  b.setAttribute('aria-label', 'Heart this — adds it to Our picks');
+  b.setAttribute('aria-pressed', String(on));
+  const fire = (e: Event): void => {
     e.stopPropagation();
     e.preventDefault();
-    const on = toggleFav(id);
-    b.className = on ? 'fav on' : 'fav';
-    b.setAttribute('aria-pressed', String(on));
+    const now = toggleFav(id);
+    b.className = now ? 'fav on' : 'fav';
+    b.setAttribute('aria-pressed', String(now));
     after?.();
-  });
+  };
+  b.addEventListener('click', fire);
   return b;
 }
 
-/** The "I am: Allison / Avital" toggle — same control as rank.html, so a
- *  heart is never saved to the wrong person just because you started here. */
-export function whoBar(onSwitch: () => void): HTMLElement {
-  const bar = document.createElement('div');
-  bar.className = 'who';
-  bar.innerHTML = '<span>I am:</span>';
-  const mk = (w: Who, label: string): HTMLButtonElement => {
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.textContent = label;
-    if (state.who === w) btn.className = 'on';
-    btn.addEventListener('click', () => {
-      setWho(w);
-      bar.querySelectorAll('button').forEach((x) => x.classList.remove('on'));
-      btn.classList.add('on');
-      onSwitch();
-    });
-    return btn;
-  };
-  bar.appendChild(mk('allison', 'Allison'));
-  bar.appendChild(mk('avital', 'Avital'));
-  return bar;
+/** Repaint every heart on the page from the loaded list. Pages render first
+ *  and call this when Supabase answers, so a slow connection never blocks. */
+export function refreshHearts(root: ParentNode = document): void {
+  root.querySelectorAll<HTMLElement>('[data-id]').forEach((node) => {
+    const id = node.getAttribute('data-id');
+    const btn = node.querySelector<HTMLButtonElement>('button.fav');
+    if (!id || !btn) return;
+    const on = isFav(id);
+    btn.className = on ? 'fav on' : 'fav';
+    btn.setAttribute('aria-pressed', String(on));
+  });
 }

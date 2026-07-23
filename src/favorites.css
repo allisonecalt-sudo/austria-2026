@@ -1,80 +1,320 @@
-/* ---------------------------------------------------------------------------
-   favorites.css — the "Our picks ❤️" page only.
-   Reuses plan.css (shell, who-bar, heart button) and bases.css (the by-bed
-   list view) so this page reads as the SAME view of location, just filtered.
-   Built 2026-07-23 for Avital's ask.
---------------------------------------------------------------------------- */
+/* ===========================================================================
+   favorites.css — the "Our picks ❤️" comparison table.
 
-/* Heart sits at the right edge of each row, vertically centred with the name. */
-#favorites .bp {
-  position: relative;
-  padding-right: 3.6rem;
+   MOBILE IS THE MAIN SURFACE (her words, Jul 23: "main way accessed is
+   mobile"). So the default styles here ARE the phone styles, and the real
+   table only assembles itself at 900px+. Under that width every <tr> becomes
+   a stacked card and every <td> prints its own label from data-label — so a
+   seven-column table never forces a sideways scroll on a Pixel.
+
+   Reuses plan.css for the shell, nav, and the ❤️ button.
+   Built 2026-07-23.
+=========================================================================== */
+
+/* ---- section (one per day) ---- */
+.dsec {
+  margin: 26px 0 0;
 }
 
-#favorites .bp button.fav {
-  position: absolute;
-  top: 0.9rem;
-  right: 0.6rem;
+.dsec-head {
+  border-left: 4px solid var(--green);
+  padding-left: 12px;
+  margin-bottom: 12px;
 }
 
-/* ⏱ timing line — Avital asked for times on every pick, so it is never hidden
-   behind a tap. Reads under the why-line, quieter than the drive chip. */
-#favorites .bp-when {
-  margin: 0.35rem 0 0;
-  font-size: 0.82rem;
-  color: #6f6a61;
-  line-height: 1.45;
+.dsec-date {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
-/* Who wanted it. Both-of-you is the strong one — it should win the eye. */
-#favorites .bt-both {
-  background: #fdecec;
-  color: #a33b3b;
-  border-color: #f0c9c9;
+.dsec-head h2 {
+  font-size: clamp(19px, 4.6vw, 25px);
+  line-height: 1.2;
+  margin: 2px 0 0;
 }
 
-#favorites .bt-one {
-  background: #f6f4f0;
-  color: #7a736a;
-  border-color: #e6e1d8;
+.dsec-beds {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--sub);
 }
 
-#favorites .fav-count {
-  margin: 0.2rem 0 1.4rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
+.dsec-beds b {
+  color: var(--ink);
+}
+
+.fav-count {
+  margin: 2px 0 18px;
+  font-size: 12px;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: #8a8378;
 }
 
-/* Empty state — say plainly that nothing is chosen yet and where to choose.
-   Fail-loud rule: never render a confident-looking page over an empty list. */
-#favorites .fav-empty {
+/* ---- the table ---- */
+.tscroll {
+  /* Only ever scrolls on desktop, where the real grid exists. */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ptable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* PHONE (default): kill the table shape, stack each row into a card. */
+.ptable thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.ptable tr.trow {
+  display: block;
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 58px 12px 14px; /* right gutter = the heart */
+  margin-bottom: 10px;
+}
+
+.ptable td {
+  display: block;
+  padding: 0;
+  border: none;
+}
+
+/* The label for each stacked cell comes from the header text. */
+.ptable td:not(.c-what):not(.c-heart)::before {
+  content: attr(data-label);
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #9a9288;
+  margin: 10px 0 3px;
+}
+
+.ptable td.c-heart {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+
+/* ---- cell content ---- */
+.row-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+  line-height: 1.25;
+  display: inline-block;
+}
+
+a.row-name:hover,
+a.row-name:focus-visible {
+  color: var(--blue);
+}
+
+.row-what {
+  margin: 4px 0 0;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--sub);
+}
+
+.row-links {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  padding: 3px 11px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.pill.near {
+  background: #e7f0e8;
+  color: #2f5d3f;
+}
+
+.pill.mid {
+  background: #f6eeda;
+  color: #7d5c14;
+}
+
+.pill.far {
+  background: #f4e4de;
+  color: #8d3c2b;
+}
+
+.dim {
+  color: #9a9288;
+  font-size: 13px;
+}
+
+.row-uniq,
+.row-near {
+  margin: 0;
+  padding-left: 17px;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.row-uniq li,
+.row-near li {
+  margin: 1px 0;
+  line-height: 1.45;
+}
+
+.row-near .km {
+  color: #9a9288;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.c-why {
+  font-size: 13.5px;
+  color: var(--sub);
+  line-height: 1.5;
+}
+
+.c-time b {
+  font-size: 14px;
+}
+
+.c-time .hrs {
+  display: block;
+  font-size: 12px;
+  color: var(--sub);
+  margin-top: 2px;
+}
+
+/* ---- empty / error state — never a confident-looking blank page ---- */
+.fav-empty {
   border: 1px dashed #ded8cd;
   border-radius: 14px;
-  padding: 1.6rem 1.4rem;
+  padding: 20px 16px;
   background: #fbfaf7;
-  margin: 1rem 0 2rem;
+  margin: 8px 0 24px;
 }
 
-#favorites .fav-empty-big {
-  margin: 0 0 0.6rem;
+.fav-empty-big {
+  margin: 0 0 8px;
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 1.35rem;
-  color: #33302b;
+  font-size: 20px;
+  color: var(--ink);
 }
 
-#favorites .fav-empty p {
-  margin: 0 0 0.6rem;
-  color: #5f5a52;
+.fav-empty p {
+  margin: 0 0 8px;
+  color: var(--sub);
+  font-size: 14px;
   line-height: 1.6;
 }
 
-#favorites .fav-empty-note {
-  font-size: 0.85rem;
-  color: #8a8378;
-}
+/* =====================================================================
+   DESKTOP (900px+) — assemble the real comparison grid.
+   ===================================================================== */
+@media (min-width: 900px) {
+  .tscroll {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+  }
 
-#favorites .fav-empty a {
-  color: #a33b3b;
+  .ptable {
+    min-width: 940px;
+  }
+
+  .ptable thead {
+    position: static;
+    width: auto;
+    height: auto;
+    clip: auto;
+  }
+
+  .ptable th {
+    text-align: left;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8378;
+    padding: 12px 12px 8px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+
+  .ptable tr.trow {
+    display: table-row;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ptable tr.trow:not(:last-child) td {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ptable td {
+    display: table-cell;
+    padding: 13px 12px;
+    vertical-align: top;
+  }
+
+  .ptable td::before {
+    content: none !important;
+  }
+
+  .ptable td.c-heart {
+    position: static;
+    width: 56px;
+    text-align: right;
+  }
+
+  .c-what {
+    min-width: 210px;
+  }
+
+  .c-drive {
+    width: 104px;
+  }
+
+  .c-uniq {
+    min-width: 195px;
+  }
+
+  .c-why {
+    min-width: 215px;
+  }
+
+  .c-time {
+    width: 118px;
+  }
+
+  .c-near {
+    min-width: 170px;
+  }
 }

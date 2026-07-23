@@ -16,7 +16,7 @@
 
 import { BUILD_STAMP, SITES, byId } from './plan-data.js';
 import { BASES, type Base, type Pick } from './bases-data.js';
-import { heartButton, isFav, loadFavs, setSaveStatusSink, whoBar } from './favs.js';
+import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -137,13 +137,11 @@ function render(): void {
   );
   wrap.appendChild(intro);
 
-  // Hearts save per person — ask who is holding the phone before saving.
-  wrap.appendChild(whoBar(() => refreshHearts()));
   wrap.appendChild(
     el(
       'p',
       'save-note',
-      '❤️ saves to <a href="favorites.html">Our picks</a> · <span id="fav-status"></span>',
+      'Tap ❤️ on anything → <a href="favorites.html">Our picks</a> · <span id="fav-status"></span>',
     ),
   );
 
@@ -170,18 +168,6 @@ function render(): void {
   }
 
   mountNotes();
-}
-
-/** Paint first, colour the hearts when Supabase answers. */
-function refreshHearts(): void {
-  document.querySelectorAll<HTMLElement>('.bp[data-id]').forEach((row) => {
-    const id = row.getAttribute('data-id');
-    const btn = row.querySelector<HTMLButtonElement>('button.fav');
-    if (!id || !btn) return;
-    const on = isFav(id);
-    btn.className = on ? 'fav on' : 'fav';
-    btn.setAttribute('aria-pressed', String(on));
-  });
 }
 
 async function main(): Promise<void> {

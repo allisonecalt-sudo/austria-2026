@@ -1,36 +1,29 @@
 // ===========================================================================
-// favorites.ts — renders favorites.html: OUR PICKS.
+// favorites.ts — renders favorites.html: OUR PICKS, as a comparison table.
 //
-// What this is: the same by-where-you-sleep view as bases.html, filtered down
-//   to only the things you two actually hearted. Nothing else.
-// Why it exists: Avital's ask (Allison, Jul 23 2026) — "you heart something
-//   and it goes to a separate favorite, same view of location but just only
-//   the things we chose."
-// Decided:
-//   • Grouping = the four beds (bases-data.ts), same order as bases.html.
-//   • A pick that sits in TWO bases' lists (Goisern and Gosau overlap) is
-//     filed under the base it is CLOSEST to — shown once, not twice.
-//   • Hearted things that belong to no base list get an "Anywhere" section
-//     rather than vanishing (fail-loud: never silently drop a choice).
-//   • Sunset hearts from rank.html get their own section — they are spots,
-//     not day activities.
-//   • Sorted by combined heart weight: both-of-you and 3-heart wants first.
-// Built: 2026-07-23. Links: favs.ts (the store) · bases-data.ts (the beds) ·
-//   plan-data.ts (the facts) · rank.html (0–3 hearts).
+// What this is: everything hearted anywhere on the site, laid out as a table
+//   — one row per pick, grouped by the DAY you would do it.
+// Why the columns are what they are (Allison, Jul 23 2026, verbatim):
+//   "make it a table thing each one - its suggestion/location, distance from
+//    place sleeping at night bf, distance from place sleeping night after,
+//    top 2 things what makes it unique, why do it, time spent there. and 2
+//    things it s near"  →  seven columns, exactly that order.
+//   "and keep sunset stuff seperate"  →  sunsets get their own table below.
+// Why grouped by day: "the bed before" and "the bed after" only have an
+//   answer once you know WHICH DAY you are doing it — Sunday sleeps in
+//   Goisern and wakes up in Zell. Grouping by day is what makes those two
+//   columns truthful instead of decorative.
+// Mobile (her main surface): the table collapses to one stacked card per
+//   pick under 760px — labels come from CSS ::before, so there is never a
+//   sideways scroll on a phone. Desktop gets the real grid.
+// Numbers: src/table-data.ts, generated from Google Distance Matrix +
+//   Geocoding on 2026-07-23. "Near" is straight-line and says so.
 // ===========================================================================
 
-import { BUILD_STAMP, SITES, SUNSETS, byId } from './plan-data.js';
-import { BASES, type Pick } from './bases-data.js';
+import { BUILD_STAMP, DAYS, SITES, SUNSETS, byId } from './plan-data.js';
 import { RAIN_BY_KEY } from './rain-data.js';
-import {
-  allFavIds,
-  favBy,
-  favWeight,
-  heartButton,
-  loadFavs,
-  setSaveStatusSink,
-  whoBar,
-} from './favs.js';
+import { BASE_ORDER, TABLE_ROWS } from './table-data.js';
+import { allFavIds, favWeight, heartButton, loadFavs, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
 
 function el<K extends keyof HTMLElementTagNameMap>(
@@ -50,92 +43,67 @@ function esc(s: string): string {
   return d.innerHTML;
 }
 
-function driveLabel(min: number): string {
-  if (min === 0) return 'walk';
-  if (min < 60) return `${min} min`;
-  return `${Math.floor(min / 60)}h${String(min % 60).padStart(2, '0')}`;
+function mins(m: number): string {
+  if (m <= 0) return 'walk';
+  if (m < 60) return `${m} min`;
+  return `${Math.floor(m / 60)}h${String(m % 60).padStart(2, '0')}`;
 }
 
-function band(min: number): string {
-  if (min <= 15) return 'near';
-  if (min <= 45) return 'mid';
+/** near / mid / far, so distance reads as a colour before it reads as a number. */
+function band(m: number): string {
+  if (m <= 20) return 'near';
+  if (m <= 60) return 'mid';
   return 'far';
 }
 
-/** "Allison ❤️ · Avital ❤️" — who wanted this, always visible. */
-function wantedBy(id: string): HTMLElement {
-  const f = favBy(id);
-  const tag = el('span', 'bp-tags');
-  if (f.both) {
-    tag.appendChild(el('span', 'bt bt-both', '❤️ both of you'));
-  } else if (f.allison) {
-    tag.appendChild(el('span', 'bt bt-one', '❤️ Allison'));
-  } else if (f.avital) {
-    tag.appendChild(el('span', 'bt bt-one', '❤️ Avital'));
-  }
-  return tag;
+// --- which bed each night ---------------------------------------------------
+// Index into BASE_ORDER: 0 Bad Goisern · 1 Zell am See · 2 Gosau · 3 Wals.
+// -1 = not a bed (the airport, on arrival and departure day).
+interface DayBeds {
+  before: number;
+  after: number;
 }
 
-// --- Which base does a hearted activity belong to? --------------------------
-// A pick can appear on more than one base list (Goisern and Gosau are 30 min
-// apart and share the Salzkammergut). Show it once, under the closest bed.
-interface Placed {
-  baseIndex: number;
-  pick: Pick;
+const BEDS: Record<string, DayBeds> = {
+  fri24: { before: -1, after: 0 }, // land 07:50 → sleep Bad Goisern
+  shabbat: { before: 0, after: 0 },
+  sun26: { before: 0, after: 1 }, // Goisern → Zell
+  mon27: { before: 1, after: 1 },
+  tue28: { before: 1, after: 2 }, // Zell → Gosau
+  wed29: { before: 2, after: 2 },
+  thu30: { before: 2, after: 3 }, // Gosau → Wals
+  fri31: { before: 3, after: -1 }, // fly home
+};
+
+function bedLabel(i: number): string {
+  return i < 0 ? 'the airport' : BASE_ORDER[i].name;
 }
 
-function placeById(): Map<string, Placed> {
-  const home = new Map<string, Placed>();
-  BASES.forEach((b, bi) => {
-    for (const p of b.picks) {
-      const current = home.get(p.id);
-      if (!current || p.min < current.pick.min) {
-        home.set(p.id, { baseIndex: bi, pick: p });
-      }
-    }
-  });
-  return home;
+function td(label: string, className: string, content: string | HTMLElement): HTMLElement {
+  const cell = el('td', className);
+  cell.setAttribute('data-label', label);
+  if (typeof content === 'string') cell.innerHTML = content;
+  else cell.appendChild(content);
+  return cell;
 }
 
-function pickRow(
-  id: string,
-  min: number | null,
-  why: string | null,
-  rerender: () => void,
-): HTMLElement {
+function activityRow(id: string, beds: DayBeds, rerender: () => void): HTMLElement | null {
   const a = byId.get(id);
-  const row = el('li', 'bp');
-  if (!a) {
-    row.appendChild(el('p', 'bp-why', `⚠ unknown activity id: ${esc(id)}`));
-    return row;
-  }
+  const t = TABLE_ROWS[id];
+  if (!a) return null;
 
-  const head = el('div', 'bp-head');
-  const link = el('a', 'bp-name', `${a.emoji} ${esc(a.name)}`);
+  const tr = el('tr', 'trow');
+  tr.setAttribute('data-id', id);
+
+  // 1 — suggestion / location
+  const what = el('div', 'cell-what');
+  const link = el('a', 'row-name', `${a.emoji} ${esc(a.name)}`);
   (link as HTMLAnchorElement).href = a.maps;
   (link as HTMLAnchorElement).target = '_blank';
   (link as HTMLAnchorElement).rel = 'noopener';
-  head.appendChild(link);
-  head.appendChild(wantedBy(id));
-  row.appendChild(head);
-
-  if (min !== null) {
-    row.appendChild(el('span', `bp-drive bp-${band(min)}`, `🚗 ${esc(driveLabel(min))}`));
-  } else {
-    // No base list = no measured minutes from a bed. Use the verified string
-    // from plan-data rather than inventing a number.
-    row.appendChild(el('span', 'bp-drive bp-mid', esc(a.drive)));
-  }
-
-  row.appendChild(el('p', 'bp-why', esc(why ?? a.what)));
-
-  // ⏱ timing, always — hours/duration live in plan-data's chips + duration.
-  const timing = el('p', 'bp-when', `⏱ ${esc(a.duration)}`);
-  const hours = a.chips.filter((c) => /\d|open|daily|closed|book|reserve/i.test(c));
-  if (hours.length > 0) timing.innerHTML += ` · ${esc(hours.join(' · '))}`;
-  row.appendChild(timing);
-
-  const links = el('p', 'bp-links');
+  what.appendChild(link);
+  what.appendChild(el('p', 'row-what', esc(a.what)));
+  const links = el('p', 'row-links');
   const site = SITES[id];
   if (site) {
     const web = el('a', undefined, '↗ Website');
@@ -143,87 +111,218 @@ function pickRow(
     (web as HTMLAnchorElement).target = '_blank';
     (web as HTMLAnchorElement).rel = 'noopener';
     links.appendChild(web);
-    links.appendChild(document.createTextNode(' '));
+    links.appendChild(document.createTextNode(' · '));
   }
-  const plan = el('a', undefined, '↗ Full logistics');
-  (plan as HTMLAnchorElement).href = `plan.html#${id}`;
-  links.appendChild(plan);
-  row.appendChild(links);
+  const full = el('a', undefined, '↗ Full logistics');
+  (full as HTMLAnchorElement).href = `plan.html#${id}`;
+  links.appendChild(full);
+  what.appendChild(links);
+  tr.appendChild(td('Suggestion', 'c-what', what));
 
-  row.appendChild(heartButton(id, rerender));
-  return row;
-}
-
-function sunsetRow(id: string, rerender: () => void): HTMLElement | null {
-  const s = SUNSETS.find((x) => x.id === id);
-  if (!s) return null;
-  const row = el('li', 'bp');
-
-  const head = el('div', 'bp-head');
-  head.appendChild(el('span', 'bp-name', `🌅 ${esc(s.name)}`));
-  head.appendChild(wantedBy(id));
-  row.appendChild(head);
-
-  row.appendChild(el('span', 'bp-drive bp-near', esc(s.drive)));
-  row.appendChild(el('p', 'bp-why', esc(s.why)));
-  row.appendChild(el('p', 'bp-when', `⏱ ${esc(s.night)} · ${esc(s.time)}`));
-  row.appendChild(heartButton(id, rerender));
-  return row;
-}
-
-/** A hearted rainy-day place that isn't in plan-data (e.g. a museum added
- *  only for the wet list). Rendered from rain-data so no heart is ever lost. */
-function rainRow(id: string, rerender: () => void): HTMLElement | null {
-  const hit = RAIN_BY_KEY.get(id);
-  if (!hit) return null;
-  const { pick: p, baseName } = hit;
-  const row = el('li', 'bp');
-
-  const head = el('div', 'bp-head');
-  const name = `${p.emoji ?? '•'} ${esc(p.name ?? id)}`;
-  if (p.maps) {
-    const link = el('a', 'bp-name', name);
-    (link as HTMLAnchorElement).href = p.maps;
-    (link as HTMLAnchorElement).target = '_blank';
-    (link as HTMLAnchorElement).rel = 'noopener';
-    head.appendChild(link);
-  } else {
-    head.appendChild(el('span', 'bp-name', name));
-  }
-  const tags = wantedBy(id);
-  tags.appendChild(
-    p.dryness === 'dry' ? el('span', 'bt bt-dry', 'indoors') : el('span', 'bt bt-wet', 'fine wet'),
+  // 2 + 3 — from last night's bed, on to tonight's bed
+  const from = beds.before >= 0 && t ? t.fromBase[beds.before] : null;
+  const to = beds.after >= 0 && t ? t.fromBase[beds.after] : null;
+  tr.appendChild(
+    td(
+      `🚗 from ${bedLabel(beds.before)}`,
+      'c-drive',
+      from === null
+        ? '<span class="dim">from the airport</span>'
+        : `<span class="pill ${band(from)}">${esc(mins(from))}</span>`,
+    ),
   );
-  if (p.check) tags.appendChild(el('span', 'bt bt-check', 'confirm hours'));
-  head.appendChild(tags);
-  row.appendChild(head);
-
-  row.appendChild(
-    el('span', `bp-drive bp-${band(p.min)}`, `🚗 ${esc(driveLabel(p.min))} from ${esc(baseName)}`),
+  tr.appendChild(
+    td(
+      `🚗 on to ${bedLabel(beds.after)}`,
+      'c-drive',
+      to === null
+        ? '<span class="dim">then home</span>'
+        : `<span class="pill ${band(to)}">${esc(mins(to))}</span>`,
+    ),
   );
-  row.appendChild(el('p', 'bp-why', esc(p.why)));
-  if (p.site) {
-    const links = el('p', 'bp-links');
-    const web = el('a', undefined, '↗ Website');
-    (web as HTMLAnchorElement).href = p.site;
-    (web as HTMLAnchorElement).target = '_blank';
-    (web as HTMLAnchorElement).rel = 'noopener';
-    links.appendChild(web);
-    row.appendChild(links);
+
+  // 4 — top 2 that make it unique
+  const uniq = el('ul', 'row-uniq');
+  for (const u of t?.unique ?? []) uniq.appendChild(el('li', undefined, esc(u)));
+  tr.appendChild(td('What makes it unique', 'c-uniq', uniq));
+
+  // 5 — why do it
+  tr.appendChild(td('Why do it', 'c-why', esc(t?.why ?? a.what)));
+
+  // 6 — time spent there
+  const hours = a.chips.filter((c) => /open|daily|closed|book|reserve|\d\d[:.]\d\d/i.test(c));
+  tr.appendChild(
+    td(
+      'Time there',
+      'c-time',
+      `<b>${esc(a.duration)}</b>${hours.length ? `<span class="hrs">${esc(hours.join(' · '))}</span>` : ''}`,
+    ),
+  );
+
+  // 7 — 2 things it's near
+  const nearList = el('ul', 'row-near');
+  for (const n of t?.near ?? []) {
+    const other = byId.get(n.id);
+    if (!other) continue;
+    const li = el('li');
+    const na = el('a', undefined, `${other.emoji} ${esc(other.name)}`);
+    (na as HTMLAnchorElement).href = `plan.html#${n.id}`;
+    li.appendChild(na);
+    li.appendChild(el('span', 'km', ` ${n.km} km`));
+    nearList.appendChild(li);
   }
-  row.appendChild(heartButton(id, rerender));
-  return row;
+  tr.appendChild(td('Near it', 'c-near', nearList));
+
+  tr.appendChild(td('', 'c-heart', heartButton(id, rerender)));
+  return tr;
 }
 
-function section(title: string, sub: string, num: string): HTMLElement {
-  const sec = el('section', 'bbase');
-  const head = el('div', 'bbase-head');
-  head.appendChild(el('span', 'bbase-num', num));
-  const ht = el('div', 'bbase-ht');
-  ht.appendChild(el('h2', undefined, esc(title)));
-  if (sub) ht.appendChild(el('p', 'bbase-lodging', esc(sub)));
-  head.appendChild(ht);
-  sec.appendChild(head);
+function tableShell(headers: string[]): { scroller: HTMLElement; body: HTMLElement } {
+  const table = el('table', 'ptable');
+  const thead = el('thead');
+  const hr = el('tr');
+  for (const h of headers) hr.appendChild(el('th', undefined, h));
+  thead.appendChild(hr);
+  table.appendChild(thead);
+  const body = el('tbody');
+  table.appendChild(body);
+  const scroller = el('div', 'tscroll');
+  scroller.appendChild(table);
+  return { scroller, body };
+}
+
+function sectionHead(kicker: string, title: string, sub: string): HTMLElement {
+  const head = el('header', 'dsec-head');
+  head.appendChild(el('p', 'dsec-date', esc(kicker)));
+  head.appendChild(el('h2', undefined, esc(title)));
+  head.appendChild(el('p', 'dsec-beds', sub));
+  return head;
+}
+
+function daySection(
+  dayId: string,
+  title: string,
+  date: string,
+  ids: string[],
+  rerender: () => void,
+): HTMLElement | null {
+  if (ids.length === 0) return null;
+  const beds = BEDS[dayId] ?? { before: -1, after: -1 };
+  const sec = el('section', 'dsec');
+  sec.id = `day-${dayId}`;
+  sec.appendChild(
+    sectionHead(
+      date,
+      title,
+      `🛏 slept in <b>${esc(bedLabel(beds.before))}</b> → sleeping in <b>${esc(bedLabel(beds.after))}</b>`,
+    ),
+  );
+
+  const { scroller, body } = tableShell([
+    'Suggestion',
+    `🚗 from ${bedLabel(beds.before)}`,
+    `🚗 on to ${bedLabel(beds.after)}`,
+    'What makes it unique',
+    'Why do it',
+    'Time there',
+    'Near it',
+    '',
+  ]);
+  let n = 0;
+  for (const id of ids) {
+    const row = activityRow(id, beds, rerender);
+    if (row) {
+      body.appendChild(row);
+      n++;
+    }
+  }
+  if (n === 0) return null;
+  sec.appendChild(scroller);
+  return sec;
+}
+
+/** Sunsets get their own table — her ask: "keep sunset stuff seperate". */
+function sunsetSection(ids: string[], rerender: () => void): HTMLElement | null {
+  if (ids.length === 0) return null;
+  const sec = el('section', 'dsec');
+  sec.appendChild(
+    sectionHead(
+      'kept separate',
+      '🌅 Sunsets you chose',
+      'One a night — these are spots, not day plans.',
+    ),
+  );
+  const { scroller, body } = tableShell([
+    'Spot',
+    'Which night',
+    'Time',
+    'Why there',
+    '🚗 from bed',
+    '',
+  ]);
+  for (const id of ids) {
+    const s = SUNSETS.find((x) => x.id === id);
+    if (!s) continue;
+    const tr = el('tr', 'trow');
+    tr.setAttribute('data-id', id);
+    tr.appendChild(td('Spot', 'c-what', `<span class="row-name">🌅 ${esc(s.name)}</span>`));
+    tr.appendChild(td('Which night', 'c-drive', `<b>${esc(s.night)}</b>`));
+    tr.appendChild(td('Time', 'c-time', `<b>${esc(s.time)}</b>`));
+    tr.appendChild(td('Why there', 'c-why', esc(s.why)));
+    tr.appendChild(td('🚗 from bed', 'c-drive', esc(s.drive)));
+    tr.appendChild(td('', 'c-heart', heartButton(id, rerender)));
+    body.appendChild(tr);
+  }
+  sec.appendChild(scroller);
+  return sec;
+}
+
+function rainSection(ids: string[], rerender: () => void): HTMLElement | null {
+  if (ids.length === 0) return null;
+  const sec = el('section', 'dsec');
+  sec.appendChild(
+    sectionHead(
+      'wet weather',
+      '☂ Rainy-day picks',
+      'Hearted on the rainy-day list — these live only there.',
+    ),
+  );
+  const { scroller, body } = tableShell([
+    'Suggestion',
+    'Base',
+    '🚗 from it',
+    'Why do it',
+    'Dry?',
+    '',
+  ]);
+  for (const id of ids) {
+    const hit = RAIN_BY_KEY.get(id);
+    if (!hit) continue;
+    const { pick: p, baseName } = hit;
+    const tr = el('tr', 'trow');
+    tr.setAttribute('data-id', id);
+    const name = `${p.emoji ?? '•'} ${esc(p.name ?? id)}`;
+    tr.appendChild(
+      td(
+        'Suggestion',
+        'c-what',
+        p.maps
+          ? `<a class="row-name" href="${p.maps}" target="_blank" rel="noopener">${name}</a>`
+          : `<span class="row-name">${name}</span>`,
+      ),
+    );
+    tr.appendChild(td('Base', 'c-drive', esc(baseName)));
+    tr.appendChild(
+      td('🚗 from it', 'c-drive', `<span class="pill ${band(p.min)}">${esc(mins(p.min))}</span>`),
+    );
+    tr.appendChild(td('Why do it', 'c-why', esc(p.why)));
+    tr.appendChild(
+      td('Dry?', 'c-time', p.dryness === 'dry' ? '☂ <b>indoors</b>' : '💧 <b>fine wet</b>'),
+    );
+    tr.appendChild(td('', 'c-heart', heartButton(id, rerender)));
+    body.appendChild(tr);
+  }
+  sec.appendChild(scroller);
   return sec;
 }
 
@@ -231,109 +330,98 @@ function renderPicks(): void {
   const mount = document.getElementById('fav-body');
   if (!mount) return;
   mount.innerHTML = '';
+  const rerender = (): void => renderPicks();
 
   const ids = allFavIds();
+  if (ids.length === 0) {
+    mount.appendChild(
+      el(
+        'div',
+        'fav-empty',
+        `<p class="fav-empty-big">Nothing hearted yet.</p>
+         <p>Tap ❤️ on any card — on <a href="plan.html">The Plan</a>, <a href="bases.html">From your bed</a>,
+         <a href="rain.html">Rainy day</a> or <a href="rank.html">Rank it</a> — and it shows up here as a row
+         you can compare: how far from last night's bed, how far on to tonight's, what makes it worth it,
+         and what else is right there.</p>`,
+      ),
+    );
+    return;
+  }
+
   const sunsetIds = ids.filter((id) => SUNSETS.some((s) => s.id === id));
-  const actIds = ids.filter((id) => byId.has(id));
   const rainIds = ids.filter((id) => !byId.has(id) && RAIN_BY_KEY.has(id));
+  const actIds = ids.filter((id) => byId.has(id));
   const unknown = ids.filter(
     (id) => !byId.has(id) && !RAIN_BY_KEY.has(id) && !SUNSETS.some((s) => s.id === id),
   );
 
-  if (ids.length === 0) {
-    const empty = el('div', 'fav-empty');
-    empty.innerHTML = `
-      <p class="fav-empty-big">Nothing hearted yet.</p>
-      <p>Tap ❤️ on any card — on <a href="plan.html">The Plan</a>, <a href="bases.html">From your bed</a>,
-      <a href="rain.html">Rainy day</a> or <a href="rank.html">Rank it</a> — and it lands here, grouped by the
-      bed you'll be sleeping in.</p>
-      <p class="fav-empty-note">Hearts save for whoever is selected above, so pick your name first.</p>`;
-    mount.appendChild(empty);
-    return;
-  }
+  mount.appendChild(el('p', 'fav-count', `${ids.length} picked · strongest first inside each day`));
 
-  const home = placeById();
-  const rerender = (): void => renderPicks();
-
-  // --- by base -------------------------------------------------------------
-  const used = new Set<string>();
-  BASES.forEach((b, bi) => {
-    const mine = actIds
-      .filter((id) => home.get(id)?.baseIndex === bi)
+  // Each activity shows on the FIRST day it is offered, so the before/after
+  // beds are the real ones for that day.
+  const placed = new Set<string>();
+  for (const day of DAYS) {
+    const mine = day.activityIds
+      .filter((id) => actIds.includes(id) && !placed.has(id))
       .sort((x, y) => favWeight(y) - favWeight(x));
-    if (mine.length === 0) return;
+    mine.forEach((id) => placed.add(id));
+    const sec = daySection(day.id, day.title, day.date, mine, rerender);
+    if (sec) mount.appendChild(sec);
+  }
 
-    const sec = section(b.name, `${b.lodging} · ${b.dates}`, String(b.n));
-    const list = el('ol', 'bpicks');
-    for (const id of mine) {
-      used.add(id);
-      const p = home.get(id);
-      list.appendChild(pickRow(id, p ? p.pick.min : null, p ? p.pick.why : null, rerender));
-    }
-    sec.appendChild(list);
-    mount.appendChild(sec);
-  });
-
-  // --- hearted, but on no base's top-10 (never silently dropped) ------------
-  const orphans = actIds.filter((id) => !used.has(id)).sort((x, y) => favWeight(y) - favWeight(x));
+  const orphans = actIds
+    .filter((id) => !placed.has(id))
+    .sort((x, y) => favWeight(y) - favWeight(x));
   if (orphans.length > 0) {
-    const sec = section(
-      'Anywhere',
-      'hearted, but not on any base’s top-10 list — drive time is from the plan',
-      '＋',
+    const sec = el('section', 'dsec');
+    sec.appendChild(
+      sectionHead(
+        'no fixed day',
+        'Anywhere in the week',
+        'Hearted but not tied to a day — distances are from the two nearest beds.',
+      ),
     );
-    const list = el('ol', 'bpicks');
-    for (const id of orphans) list.appendChild(pickRow(id, null, null, rerender));
-    sec.appendChild(list);
-    mount.appendChild(sec);
-  }
-
-  // --- sunsets -------------------------------------------------------------
-  if (sunsetIds.length > 0) {
-    const sec = section('Sunsets you chose', 'from the sunset board on Rank it', '🌅');
-    const list = el('ol', 'bpicks');
-    for (const id of sunsetIds.sort((x, y) => favWeight(y) - favWeight(x))) {
-      const row = sunsetRow(id, rerender);
-      if (row) list.appendChild(row);
+    const { scroller, body } = tableShell([
+      'Suggestion',
+      '🚗 nearest bed',
+      '🚗 next nearest',
+      'What makes it unique',
+      'Why do it',
+      'Time there',
+      'Near it',
+      '',
+    ]);
+    for (const id of orphans) {
+      const t = TABLE_ROWS[id];
+      if (!t) continue;
+      const order = t.fromBase
+        .map((m, i) => ({ m, i }))
+        .sort((a, b) => a.m - b.m)
+        .slice(0, 2);
+      const row = activityRow(id, { before: order[0].i, after: order[1].i }, rerender);
+      if (row) body.appendChild(row);
     }
-    sec.appendChild(list);
+    sec.appendChild(scroller);
     mount.appendChild(sec);
   }
 
-  // --- rainy-day-only places (hearted on the wet list) ----------------------
-  if (rainIds.length > 0) {
-    const sec = section('Rainy-day picks', 'hearted on the wet list — these live only there', '☂');
-    const list = el('ol', 'bpicks');
-    for (const id of rainIds.sort((x, y) => favWeight(y) - favWeight(x))) {
-      const row = rainRow(id, rerender);
-      if (row) list.appendChild(row);
-    }
-    sec.appendChild(list);
-    mount.appendChild(sec);
-  }
+  const rain = rainSection(rainIds, rerender);
+  if (rain) mount.appendChild(rain);
 
-  // --- fail loud on anything we can't resolve ------------------------------
+  const sun = sunsetSection(sunsetIds, rerender);
+  if (sun) mount.appendChild(sun);
+
+  // Fail loud — a heart we cannot resolve is shown, never silently dropped.
   if (unknown.length > 0) {
-    const sec = section(
-      '⚠ Unrecognised',
-      'hearted ids with no matching activity — tell Claude',
-      '!',
+    mount.appendChild(
+      el(
+        'div',
+        'fav-empty',
+        `<p class="fav-empty-big">⚠ ${unknown.length} hearted item${unknown.length > 1 ? 's' : ''} could not be matched</p>
+         <p>${unknown.map(esc).join(', ')} — tell Claude rather than ignoring it.</p>`,
+      ),
     );
-    const list = el('ol', 'bpicks');
-    for (const id of unknown) {
-      const row = el('li', 'bp');
-      row.appendChild(el('p', 'bp-why', `⚠ ${esc(id)}`));
-      list.appendChild(row);
-    }
-    sec.appendChild(list);
-    mount.appendChild(sec);
   }
-
-  const count = el('p', 'fav-count');
-  count.textContent = `${ids.length} picked · ${
-    ids.filter((id) => favBy(id).both).length
-  } wanted by both of you`;
-  mount.insertBefore(count, mount.firstChild);
 }
 
 function renderShell(): void {
@@ -341,31 +429,27 @@ function renderShell(): void {
   if (!root) return;
 
   const wrap = el('div', 'bwrap');
-
   const intro = el('header', 'bintro');
-  intro.appendChild(el('p', 'bkick', 'only what you hearted · grouped by where you sleep'));
+  intro.appendChild(el('p', 'bkick', 'only what you hearted · one row each · grouped by day'));
   intro.appendChild(el('h1', undefined, 'Our picks ❤️'));
   intro.appendChild(
     el(
       'p',
       undefined,
-      'Everything either of you hearted anywhere on the site, filtered down and sorted so the strongest wants sit on top. Hearts on Rank it count too. Tap a name to navigate; tap the heart to remove it.',
+      'Every pick as a row you can compare — how far from where you slept, how far on to where you sleep next, the two things that make it unique, why do it, how long it takes, and what else is right there.',
     ),
   );
   wrap.appendChild(intro);
-
-  wrap.appendChild(whoBar(() => renderPicks()));
   wrap.appendChild(el('p', 'save-note', '<span id="fav-status"></span>'));
 
   const body = el('div');
   body.id = 'fav-body';
   wrap.appendChild(body);
-
   root.appendChild(wrap);
 
   const foot = document.getElementById('fav-foot');
   if (foot) {
-    foot.innerHTML = `hearts live in the shared trip base — both phones, and Claude, read the same list · built ${BUILD_STAMP} · <a href="bases.html">every option per base →</a>`;
+    foot.innerHTML = `drive times: Google Distance Matrix, pulled 23 Jul 2026, from each booked bed · “near” is straight-line · built ${BUILD_STAMP} · <a href="bases.html">every option per base →</a>`;
   }
 }
 
@@ -379,6 +463,11 @@ async function main(): Promise<void> {
   if (body) body.innerHTML = '<p class="fav-count">loading your hearts…</p>';
   await loadFavs();
   renderPicks();
+  if (window.location.hash) {
+    document
+      .querySelector(`[data-id="${window.location.hash.slice(1)}"]`)
+      ?.scrollIntoView({ block: 'center' });
+  }
   mountNotes();
 }
 

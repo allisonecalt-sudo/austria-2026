@@ -534,3 +534,126 @@ button.fav.on {
   width: 44px;
   flex: 0 0 auto;
 }
+
+/* ---------------------------------------------------------------------------
+   MOBILE PASS — 2026-07-23. Her main surface is the phone ("main way accessed
+   is mobile"), so these are corrections to things that only hurt on a Pixel:
+   safe-area insets under the notch/gesture bar, thumb-sized tap targets, no
+   double-tap zoom lag, and a nav that scrolls without a scrollbar eating a row.
+--------------------------------------------------------------------------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overscroll-behavior-y: contain;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: rgba(63, 93, 78, 0.14);
+  touch-action: manipulation;
+}
+
+.plan-nav {
+  padding-top: max(10px, env(safe-area-inset-top));
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.plan-nav::-webkit-scrollbar {
+  display: none;
+}
+.plan-nav a {
+  /* 36px of vertical target — a thumb on a moving train hits this. */
+  padding: 9px 13px;
+}
+
+.wrap,
+.bwrap {
+  padding-bottom: max(80px, calc(60px + env(safe-area-inset-bottom)));
+}
+
+/* The one-line "tap ❤️ → Our picks · saved" strip under each page intro. */
+.savebar {
+  padding-top: 10px;
+  padding-bottom: 0;
+}
+.save-note {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  color: var(--sub);
+}
+
+/* Buttons in a card action row wrap instead of overflowing on a narrow phone. */
+.act .more .row .btn {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------------------------------------------------------------------------
+   The ❤️ favorite toggle — one control, every page (plan / bases / rain).
+   Added 2026-07-23 for Avital's ask: heart anything, it lands on Our picks.
+   Grey when off so the page doesn't look pre-chosen; red + lift when on.
+   44px hit target — one thumb, moving car, no zooming.
+--------------------------------------------------------------------------- */
+button.fav {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 999px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition:
+    filter 0.15s ease,
+    opacity 0.15s ease,
+    transform 0.12s ease,
+    border-color 0.15s ease;
+}
+
+button.fav:hover,
+button.fav:focus-visible {
+  opacity: 0.85;
+  border-color: #d8a7a7;
+}
+
+button.fav.on {
+  filter: none;
+  opacity: 1;
+  border-color: #d96b6b;
+  background: #fff5f5;
+  transform: scale(1.06);
+}
+
+/* On a plan card the heart sits ON the photo — always visible, no tap needed
+   to reveal it. Top-right so it never collides with the ⭐ must-do badge. */
+.act .img button.fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  box-shadow: 0 2px 8px rgba(32, 33, 31, 0.22);
+}
+
+/* On a bases/rain list row the heart is the right-hand grid cell. */
+.bp button.fav {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  justify-self: end;
+}
+
+@media (max-width: 480px) {
+  .bp button.fav {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-top: -4px;
+  }
+}
