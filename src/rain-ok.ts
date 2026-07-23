@@ -314,6 +314,11 @@ export const RAIN_OK: Record<string, RainCall> = {
     basis: 'inferred',
     why: 'Entry is a 45-minute indoor guided tour — the best wet-weather insurance near bed one.',
   },
+  'fortress-concert': {
+    ok: 'dry',
+    basis: 'inferred',
+    why: 'Indoors in a stone hall. Rain only takes the view during the free hour beforehand.',
+  },
   'eurothermen-ischl': {
     ok: 'dry',
     basis: 'inferred',

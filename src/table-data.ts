@@ -89,7 +89,7 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 0.6,
       },
       {
-        id: 'moenchsberg',
+        id: 'fortress-concert',
         km: 0.6,
       },
     ],
@@ -578,8 +578,8 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 3.8,
       },
       {
-        id: 'untersberg',
-        km: 4.3,
+        id: 'fortress-concert',
+        km: 3.8,
       },
     ],
   },
@@ -910,12 +910,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'The one Salzburg thing everyone assumes you have seen, 15 minutes from the last bed.',
     near: [
       {
-        id: 'salzburg-jewish-walk',
-        km: 0.6,
+        id: 'fortress-concert',
+        km: 0,
       },
       {
-        id: 'moenchsberg',
-        km: 0.8,
+        id: 'salzburg-jewish-walk',
+        km: 0.6,
       },
     ],
   },
@@ -948,6 +948,22 @@ export const TABLE_ROWS: Record<string, TableRow> = {
       {
         id: 'kaiservilla',
         km: 0.4,
+      },
+    ],
+  },
+  'fortress-concert': {
+    id: 'fortress-concert',
+    fromBase: [66, 80, 55, 15],
+    unique: ['Funicular and fortress free from 19:00', 'Mozart in a 15th-century Golden Hall'],
+    why: 'The one classical night that is actually bookable — 15 minutes from your last bed.',
+    near: [
+      {
+        id: 'hohensalzburg',
+        km: 0,
+      },
+      {
+        id: 'salzburg-jewish-walk',
+        km: 0.6,
       },
     ],
   },

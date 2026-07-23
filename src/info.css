@@ -187,3 +187,21 @@
   border-color: var(--green);
   color: var(--green);
 }
+
+/* The honest note under the unlocked content — on-device convenience is a
+   trade-off, so it is stated where she will actually see it, not buried. */
+.i-savednote {
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: #9a9288;
+}
+
+/* The honest note under the unlocked content. On-device convenience is a real
+   trade-off, so it is stated where she will see it rather than buried. */
+.i-savednote {
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: #9a9288;
+}

@@ -87,6 +87,7 @@ const M = {
   hohensalzburg: [66, 80, 55, 15],
   kaiservilla: [12, 114, 29, 59],
   'eurothermen-ischl': [12, 114, 29, 59],
+  'fortress-concert': [66, 80, 55, 15],
 };
 
 // Geocoded 2026-07-23 — used only for the "2 things it's near" column.
@@ -148,6 +149,7 @@ const C = {
   hohensalzburg: [47.7949483, 13.0476583],
   kaiservilla: [47.7149278, 13.6209168],
   'eurothermen-ischl': [47.7121885, 13.6251749],
+  'fortress-concert': [47.7949483, 13.0476583],
 };
 
 // Top-2 "what makes it unique" + the one-line "why do it".
@@ -381,6 +383,10 @@ const T = {
   'eurothermen-ischl': {
     u: ['Thermal pools open until midnight', 'Pool hall is swimsuit, not textile-free'],
     w: 'The only genuinely late option in the Salzkammergut — warm water after a long day.',
+  },
+  'fortress-concert': {
+    u: ['Funicular and fortress free from 19:00', 'Mozart in a 15th-century Golden Hall'],
+    w: 'The one classical night that is actually bookable — 15 minutes from your last bed.',
   },
 };
 

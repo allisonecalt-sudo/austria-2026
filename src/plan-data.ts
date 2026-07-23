@@ -868,6 +868,26 @@ export const ACTIVITIES: Activity[] = [
     swim: true,
     maps: G('EurothermenResort Bad Ischl'),
   },
+  {
+    id: 'fortress-concert',
+    name: 'Mozart in the fortress — Golden Hall',
+    emoji: '🎻',
+    what: 'A chamber concert in the Golden Hall of Hohensalzburg, 20:00, with the funicular thrown in.',
+    more: 'The Salzburg Fortress Concerts run NIGHTLY 24–31 July, 20:00, in the Goldener Saal of Hohensalzburg — so they are on every night of your week, and Thu 30 is bookable. The move that makes it worth it: FORTRESS ADMISSION AND THE FUNICULAR ARE FREE FROM 19:00, i.e. one hour before the concert. Go up at 19:00, have the fortress and the view over Salzburg to yourselves as it empties (it closes to normal visitors at 20:00), then the concert. Two things for the price of one, and no climb. Roughly €40–60 depending on category; a dinner-and-concert package exists separately. THE CATCH: it is 20:00 on the night you also want the Rossfeld sunset (20:45) — you cannot have both, and you are up at 05:30 the next morning for the flight.',
+    drive: '🚗 15 min · 7 km from Wals (55 min from Gosau)',
+    duration: '~1h concert + the hour before in the fortress',
+    difficulty: 'flat',
+    chips: [
+      '~€40–60',
+      'nightly 20:00, 24–31 Jul',
+      'funicular + fortress FREE from 19:00',
+      'clashes with the Rossfeld sunset',
+    ],
+    photo:
+      'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20200%22%3E%3Crect%20width%3D%22400%22%20height%3D%22200%22%20fill%3D%22%23efe7f2%22%2F%3E%3Ctext%20x%3D%22200%22%20y%3D%22128%22%20font-size%3D%2286%22%20text-anchor%3D%22middle%22%3E%F0%9F%8E%BB%3C%2Ftext%3E%3C%2Fsvg%3E',
+    star: true,
+    maps: G('Festung Hohensalzburg Salzburg'),
+  },
 ];
 
 export const byId = new Map(ACTIVITIES.map((a) => [a.id, a]));
@@ -1060,6 +1080,7 @@ export const DAYS: PlanDay[] = [
       'eagles-nest',
       'golling',
       'hohensalzburg',
+      'fortress-concert',
     ],
   },
   {

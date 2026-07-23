@@ -38,6 +38,57 @@ import { mountNav } from './nav.js';
 const LOGIN = 'allisonecalt';
 const STATE_KEY = 'trip_info_enc';
 
+// ---------------------------------------------------------------------------
+// STAYING UNLOCKED — Allison, 23 Jul: "make the password savable to device...
+// make it save the password and no need to be put in each time."
+//
+// So the unlock is remembered in localStorage and survives closing the tab, the
+// browser, and a phone restart. Stated plainly because it IS a trade-off:
+// anyone holding her UNLOCKED PHONE can now open this page without typing
+// anything. That is the same bargain as any saved password, and it is the right
+// one here — this page was built against the open internet, not against someone
+// already holding her phone. "Forget this device" makes it reversible.
+//
+// Stored as JSON, not a space-joined string: the audit sweep flagged that a
+// space-joined pair silently breaks the moment a password contains a space.
+// ---------------------------------------------------------------------------
+const REMEMBER_KEY = 'trip_info_creds_v2';
+
+interface SavedCreds {
+  login: string;
+  password: string;
+}
+
+function readSaved(): SavedCreds | null {
+  for (const store of [localStorage, sessionStorage]) {
+    try {
+      const raw = store.getItem(REMEMBER_KEY);
+      if (raw) return JSON.parse(raw) as SavedCreds;
+    } catch {
+      /* corrupt or blocked — fall through and just ask again */
+    }
+  }
+  return null;
+}
+
+function saveCreds(login: string, password: string): void {
+  try {
+    localStorage.setItem(REMEMBER_KEY, JSON.stringify({ login, password }));
+  } catch {
+    /* private mode or storage full — she retypes next time, no worse than before */
+  }
+}
+
+function forgetCreds(): void {
+  try {
+    localStorage.removeItem(REMEMBER_KEY);
+    sessionStorage.removeItem(REMEMBER_KEY);
+    sessionStorage.removeItem('trip_info_pw'); // the old key, from before this change
+  } catch {
+    /* nothing we can do, and nothing that needs saying */
+  }
+}
+
 interface SealedPayload {
   v: number;
   iter: number;
@@ -201,13 +252,22 @@ function renderInfo(data: TripInfo): void {
 
   if (data.note) root.appendChild(el('p', 'icard-note', data.note));
 
-  const lockBtn = el('button', 'i-lock', '🔒 Lock this page');
+  const lockBtn = el('button', 'i-lock', '🔒 Forget this device');
   lockBtn.type = 'button';
+  lockBtn.title = 'Stop staying unlocked on this phone — you would type it again next time.';
   lockBtn.addEventListener('click', () => {
-    sessionStorage.removeItem('trip_info_pw');
+    forgetCreds();
     window.location.reload();
   });
   root.appendChild(lockBtn);
+
+  root.appendChild(
+    el(
+      'p',
+      'i-savednote',
+      'This phone stays unlocked — you will not be asked again. That also means anyone holding it unlocked can open this page, so use “Forget this device” if you lend the phone out.',
+    ),
+  );
 }
 
 function setError(msg: string): void {
@@ -225,7 +285,7 @@ async function attempt(login: string, password: string, remember: boolean): Prom
   try {
     const data = await unseal(login, password);
     document.getElementById('i-gate')?.remove();
-    if (remember) sessionStorage.setItem('trip_info_pw', `${login} ${password}`);
+    if (remember) saveCreds(login, password);
     renderInfo(data);
     return true;
   } catch (err) {
@@ -247,12 +307,14 @@ async function attempt(login: string, password: string, remember: boolean): Prom
 async function main(): Promise<void> {
   mountNav();
 
-  // Reuse this tab's session so a reload doesn't force a re-type.
-  const saved = sessionStorage.getItem('trip_info_pw');
+  // Stay unlocked on this device — her ask, 23 Jul. Survives closing the tab,
+  // the browser, and a restart.
+  const saved = readSaved();
   if (saved) {
-    const [login, password] = saved.split(' ');
-    if (await attempt(login, password, false)) return;
-    sessionStorage.removeItem('trip_info_pw');
+    if (await attempt(saved.login, saved.password, false)) return;
+    // Stored credentials no longer open it — the password was changed. Clear
+    // them and ask again, rather than silently failing every visit.
+    forgetCreds();
   }
 
   const form = document.getElementById('i-form');
