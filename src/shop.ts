@@ -440,17 +440,46 @@ function card(p: Product): string {
   </div>`;
 }
 
-const html = cats
-  .map((c) => {
-    const items = byCat.get(c) ?? [];
-    return `<section class="cat">
+const host = document.getElementById('shop');
+
+function render(q: string): void {
+  if (!host) return;
+  const needle = q.trim().toLowerCase();
+  const match = (p: Product): boolean =>
+    !needle ||
+    [p.name, p.cat, p.why, p.leniency, p.ingredients, p.ingredientsEn, p.misrachi]
+      .join(' ')
+      .toLowerCase()
+      .includes(needle);
+  let shown = 0;
+  host.innerHTML = cats
+    .map((c) => {
+      const items = (byCat.get(c) ?? []).filter(match);
+      if (!items.length) return '';
+      shown += items.length;
+      return `<section class="cat">
       <h2>${esc(c)}</h2>
       <div class="grid">${items.map(card).join('')}</div>
     </section>`;
-  })
-  .join('');
+    })
+    .join('');
 
-const host = document.getElementById('shop');
-if (host) host.innerHTML = html;
+  const countEl = document.getElementById('count');
+  if (countEl) {
+    countEl.textContent = needle
+      ? `${shown} of ${INGREDIENT_BASED.length} match “${q.trim()}”`
+      : `${INGREDIENT_BASED.length} products — searchable by name or ingredient`;
+  }
+  if (needle && shown === 0) {
+    host.innerHTML =
+      '<p class="noresult">Nothing matches. Try an ingredient (Molke, Aroma, Zucker), a food (chips, oat, tuna), or a reason (chalav stam, pas palter).</p>';
+  }
+}
+
+const qEl = document.getElementById('q');
+if (qEl instanceof HTMLInputElement) {
+  qEl.addEventListener('input', () => render(qEl.value));
+}
+render('');
 
 export {}; // isolate module scope (no imports/exports otherwise)

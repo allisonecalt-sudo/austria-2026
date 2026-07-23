@@ -997,10 +997,18 @@ for (const c of CERTS) {
 }
 
 const host = document.getElementById('certified');
-if (host) {
+function render(q: string): void {
+  const needle = q.trim().toLowerCase();
+  const match = (c: Cert): boolean =>
+    !needle ||
+    [c.name, c.brand ?? '', c.auth, c.store ?? '', c.cat].join(' ').toLowerCase().includes(needle);
+  let shown = 0;
+  if (!host) return;
   host.innerHTML = cats
     .map((cat) => {
-      const items = byCat.get(cat) ?? [];
+      const items = (byCat.get(cat) ?? []).filter(match);
+      if (!items.length) return '';
+      shown += items.length;
       return `<section class="cgroup">
         <h2>${esc(cat)} <span style="color:var(--ink-faint);font-size:14px">${items.length}</span></h2>
         <div class="clist">
@@ -1031,6 +1039,23 @@ if (host) {
       </section>`;
     })
     .join('');
+
+  const countEl = document.getElementById('count');
+  if (countEl) {
+    countEl.textContent = needle
+      ? `${shown} of ${CERTS.length} products match “${q.trim()}”`
+      : `${CERTS.length} certified products`;
+  }
+  if (needle && shown === 0) {
+    host.innerHTML =
+      '<p class="noresult">Nothing matches that. Try a brand (Kellogg, Alpro, Heinz), a food (ketchup, oil, rice), a store (Billa, Spar), or an agency (OU, KLBD).</p>';
+  }
 }
+
+const qEl = document.getElementById('q');
+if (qEl instanceof HTMLInputElement) {
+  qEl.addEventListener('input', () => render(qEl.value));
+}
+render('');
 
 export {}; // isolate module scope
