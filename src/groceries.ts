@@ -23,7 +23,9 @@
 
 import {
   addGrocery,
+  copyToTripList,
   deleteGrocery,
+  listApartmentItems,
   listCatalog,
   listGroceries,
   updateGrocery,
@@ -211,6 +213,35 @@ async function clearChecked(): Promise<void> {
   }
 }
 
+/** Her ask, Jul 23: "also bring in the shopping list already on apt app —
+ *  that is relevant." Done once by hand; this is the button so she never has
+ *  to ask again. Copies only unchecked items, and only ones not already here. */
+async function pullFromApartment(): Promise<void> {
+  const btn = document.getElementById('g-pull') as HTMLButtonElement | null;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'checking…';
+  }
+  try {
+    const apt = await listApartmentItems();
+    const n = await copyToTripList(apt);
+    if (n > 0) {
+      items = await listGroceries();
+      render();
+      status(`✓ brought in ${n} item${n > 1 ? 's' : ''} from the apartment list`);
+    } else {
+      status('nothing new on the apartment list — you already have it all');
+    }
+  } catch {
+    status('⚠ could not reach the apartment list — check your signal');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '⬇ Bring in from apartment list';
+    }
+  }
+}
+
 async function submitAdd(): Promise<void> {
   const input = document.getElementById('g-input') as HTMLInputElement | null;
   const qtyEl = document.getElementById('g-qty') as HTMLInputElement | null;
@@ -290,6 +321,7 @@ function wireAddBar(): void {
     }
   }
   document.getElementById('g-add')?.addEventListener('click', () => void submitAdd());
+  document.getElementById('g-pull')?.addEventListener('click', () => void pullFromApartment());
   const input = document.getElementById('g-input') as HTMLInputElement | null;
   input?.addEventListener('input', onInput);
   input?.addEventListener('keydown', (e) => {

@@ -18,6 +18,7 @@
 // ===========================================================================
 
 import { DAYS } from './plan-data.js';
+import { ageLabel, dayFor, describe, getWeather, verdict } from './weather.js';
 import { allFavIds, loadFavs } from './favs.js';
 import { listGroceries } from './supabase.js';
 
@@ -186,6 +187,13 @@ function render(): void {
     strip.innerHTML = '🛫 <b>Fri 24 Jul</b> — LY5193 departs 05:00, lands Salzburg 07:50';
   }
   head.appendChild(strip);
+
+  // Filled in by loadWeather() after paint — the page is useful before it lands.
+  const wx = el('div', 'hubwx');
+  wx.id = 'hub-wx';
+  wx.innerHTML = '<p class="hubwx-load">checking the forecast…</p>';
+  head.appendChild(wx);
+
   wrap.appendChild(head);
 
   for (const g of GROUPS) {
@@ -244,5 +252,68 @@ async function badges(): Promise<void> {
     });
 }
 
+/** The forecast, and the one call it implies. This is the point of the hub:
+ *  she opens it in the morning and it tells her what kind of day today is. */
+async function loadWeather(): Promise<void> {
+  const mount = document.getElementById('hub-wx');
+  if (!mount) return;
+
+  let result;
+  try {
+    result = await getWeather();
+  } catch {
+    // Fail loud, not blank — say what is missing and why.
+    mount.innerHTML =
+      '<p class="hubwx-err">No forecast right now — no signal, and nothing cached yet. ' +
+      'The <a href="rain.html">rainy-day list</a> works offline once loaded.</p>';
+    return;
+  }
+
+  const today = todayISO();
+  const night = NIGHTS.find((n) => n.date === today);
+  // Before the trip starts, show the first day at the first bed.
+  const target = night ?? NIGHTS[0];
+  const fc =
+    result.forecasts.find((f) => f.base.name.startsWith(target.bed.split(' (')[0])) ??
+    result.forecasts[0];
+  const day = dayFor(fc, night ? today : NIGHTS[0].date);
+
+  if (!day) {
+    mount.innerHTML =
+      '<p class="hubwx-err">The forecast came back but has nothing for today — outside the 24–31 July window.</p>';
+    return;
+  }
+
+  const w = describe(day.code);
+  const v = verdict(day);
+  mount.innerHTML = `
+    <div class="wxnow">
+      <span class="wxicon" aria-hidden="true">${w.icon}</span>
+      <div class="wxtext">
+        <p class="wxhead">${v.headline}</p>
+        <p class="wxsub">${fc.base.name} · ${w.label} · ${day.tMin}–${day.tMax}°C · sunset ${day.sunset}</p>
+      </div>
+    </div>
+    <a class="wxcta" href="${v.href}">${v.cta} →</a>
+    <p class="wxage">forecast for ${fc.base.name}, fetched ${ageLabel(result.fetchedAt)}${
+      result.stale ? ' — <b>offline, showing the last one</b>' : ''
+    }</p>`;
+
+  // The rest of the week, compact — so a wet Sunday is visible on Friday.
+  const strip = document.createElement('div');
+  strip.className = 'wxweek';
+  for (const d of fc.days) {
+    const dd = describe(d.code);
+    const label = new Date(`${d.date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'short' });
+    const cell = document.createElement('div');
+    cell.className = 'wxday' + (d.date === today ? ' istoday' : '') + (dd.wet ? ' iswet' : '');
+    cell.innerHTML = `<span class="wxd">${label}</span><span class="wxi">${dd.icon}</span><span class="wxt">${d.tMax}°</span>`;
+    cell.title = `${d.date} · ${dd.label} · ${d.rainMm.toFixed(0)} mm · ${d.rainChance}%`;
+    strip.appendChild(cell);
+  }
+  mount.appendChild(strip);
+}
+
 render();
 void badges();
+void loadWeather();

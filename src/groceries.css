@@ -296,3 +296,23 @@ body {
   color: #9a9288;
   white-space: nowrap;
 }
+
+/* One-tap import of anything still unchecked on the apartment list. Sits at
+   the bottom, under the list — an occasional action, not a primary one. */
+.g-pull {
+  display: block;
+  width: 100%;
+  font: inherit;
+  font-size: 13.5px;
+  min-height: 46px;
+  margin: 22px 0 0;
+  border: 1px dashed var(--line);
+  background: var(--card);
+  color: var(--sub);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.g-pull:disabled {
+  opacity: 0.6;
+}

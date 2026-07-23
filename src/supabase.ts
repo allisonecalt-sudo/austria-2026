@@ -245,3 +245,38 @@ export async function listCatalog(): Promise<CatalogEntry[]> {
   if (!res.ok) throw new Error(`listCatalog failed (${res.status})`);
   return (await res.json()) as CatalogEntry[];
 }
+
+/** The apartment app's Allison+Avital list — the source for "bring in what
+ *  we already had". Read-only here; copying is an explicit user action. */
+export async function listApartmentItems(): Promise<GroceryItem[]> {
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/grocery_items?select=*&list_type=eq.allison_avital&checked=eq.false&order=created_at.asc`,
+    { headers },
+  );
+  if (!res.ok) throw new Error(`listApartmentItems failed (${res.status})`);
+  return (await res.json()) as GroceryItem[];
+}
+
+/** Copy rows into the trip list, skipping anything already on it by name. */
+export async function copyToTripList(rows: GroceryItem[]): Promise<number> {
+  const existing = await listGroceries();
+  const have = new Set(existing.map((r) => r.item_name.toLowerCase()));
+  const fresh = rows
+    .filter((r) => !have.has(r.item_name.toLowerCase()))
+    .map((r) => ({
+      list_type: TRIP_LIST,
+      item_name: r.item_name,
+      section: r.section ?? 'Other',
+      quantity: r.quantity,
+      paid_by: 'joint',
+      added_by: r.added_by ?? '',
+    }));
+  if (fresh.length === 0) return 0;
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/grocery_items`, {
+    method: 'POST',
+    headers: { ...headers, Prefer: 'return=minimal' },
+    body: JSON.stringify(fresh),
+  });
+  if (!res.ok) throw new Error(`copyToTripList failed (${res.status})`);
+  return fresh.length;
+}
