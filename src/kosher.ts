@@ -1419,4 +1419,135 @@ mount(
 const statusEl = document.getElementById('aisleStatus');
 if (statusEl) statusEl.textContent = `${AISLES.length} aisles.`;
 
+// ---------- data: sourced attributions ----------
+// Every entry below was produced by fetching the source page and quoting it,
+// then a second agent re-fetched the SAME url to confirm the quote is really
+// there. Anything that failed that test is not on this list.
+interface Source {
+  rule: string;
+  who: string;
+  why: string;
+  url: string;
+  caveat?: string;
+}
+
+const SOURCES: Source[] = [
+  {
+    rule: 'Cheese always needs gevinas yisrael',
+    who: 'OU Kosher — “Kosher Cheese” (Rabbi Avrohom Gordimer), citing Shulchan Aruch YD 115:2 / Rambam 3:14',
+    why: 'The decree is about who MADE it, not what went in: “even if the rennet is derived from kosher sources such as microbial rennet or thistles… only gevinas Yisroel is permitted.” The OU also notes that in mainland Europe animal rennet is still the prevalent practice.',
+    url: 'https://oukosher.org/blog/consumer-kosher/kosher-cheese/',
+    caveat:
+      'cRc holds acid-set cheeses (cream, cottage) were never in the decree — but states that as US custom; no European ruling found.',
+  },
+  {
+    rule: 'Wine & grape products are stam yeinam',
+    who: 'Kashrut Division of the London Beth Din (KLBD)',
+    why: 'Wine and grape juice handled by non-Jews are rabbinically forbidden, and wine vinegar and balsamic inherit that — including when they appear only as an ingredient or flavouring.',
+    url: 'https://kosher.org.uk/kosher-info/kashrut-faqs/',
+  },
+  {
+    rule: 'Gelatin is never nullified',
+    who: 'OU Kosher — “The Kosher Status of Gelatin Revisited”',
+    why: 'It is the davar hama’amid — the agent that actually sets the product — so bitul (nullification in 1/60) does not apply to it.',
+    url: 'https://oukosher.org/blog/consumer-kosher/gelatin-revisited/',
+  },
+  {
+    rule: 'Carmine (E120) is never nullified',
+    who: 'cRc — Carmine policy',
+    why: 'Because carmine “provides color to the food or beverage it is added to (chazusah), it cannot be batel b’shishim, even when there is a relatively small amount.”',
+    url: 'https://consumer.crckosher.org/policies/carmine/',
+  },
+  {
+    rule: 'Chalav stam — and why Austria qualifies',
+    who: 'OU Kosher — Halacha Yomis',
+    why: 'Rav Moshe Feinstein (Igros Moshe YD 1:47–49) permitted chalav stam only in countries with laws against adulterating milk AND inspectors enforcing them. The OU applies that test abroad.',
+    url: 'https://outorah.org/p/168675/',
+  },
+  {
+    rule: 'Pas palter — commercial bakery bread is fine',
+    who: 'Star-K — “Pas or Pas Nisht”; Rema at Shulchan Aruch YD 112:2 (Hebrew text verified)',
+    why: 'The decree targeted a non-Jew’s HOME baking and the social closeness it breeds — “the essence of the decree is because of intermarriage.” A commercial bakery isn’t that.',
+    url: 'https://www.star-k.org/articles/articles/1194/pas-or-pas-nisht-reviewing-the-laws-of-pas-akum/',
+  },
+  {
+    rule: 'Bishul akum needs BOTH conditions',
+    who: 'OU Kosher — “Master List of Bishul Akum Status of Foods”',
+    why: 'The food must be inedible raw AND oleh al shulchan melachim. “Foods which are edible raw” are exempt — fail either test and the rule doesn’t apply.',
+    url: 'https://oukosher.org/blog/consumer-kosher/master-list-of-bishul-akum-status-of-foods/',
+  },
+  {
+    rule: '“May contain traces” is not a kashrut issue',
+    who: 'OU Kosher — “Kashrus and Allergens”',
+    why: 'Such disclaimers “typically have no bearing on a food’s kosher or pareve status.” Your rav said the same.',
+    url: 'https://oukosher.org/blog/consumer-kosher/kashrus-and-allergens/',
+  },
+  {
+    rule: 'Shellac (E904) is permitted',
+    who: 'cRc — “Kosher Candy” (Rabbi Yisroel Langer), following Rav Moshe Feinstein (Igros Moshe YD 2:24); OU and Star-K agree',
+    why: 'The hardened resin is inedible — a waste product of the lac insect, not the insect itself.',
+    url: 'https://consumer.crckosher.org/wp-content/uploads/2024/09/Kosher-Candy.pdf',
+    caveat: 'This is a US-agency leniency; Israeli kashrus agencies generally do not certify it.',
+  },
+  {
+    rule: 'Tartaric acid & cream of tartar are kosher',
+    who: 'cRc (“the cRc and most American hashgachos”), corroborated by OU',
+    why: 'Fully-dried wine deposits are treated as “dirt” — non-food — rather than wine. Modern drying achieves what Shulchan Aruch YD 123:16 did with 12 months of air-drying.',
+    url: 'https://consumer.crckosher.org/faqs/tartaric-acid-cream-of-tartar/',
+  },
+  {
+    rule: 'Raw staples need no hechsher',
+    who: 'Star-K — “Approved Without A Hechsher” (updated June 2025)',
+    why: 'Sugar, salt, pure honey, unflavoured coffee & tea, raw rice, oats, dried legumes, baking soda — provided they have no additives.',
+    url: 'https://www.star-k.org/articles/kosher-lists/3502/no-hechsher-required/',
+    caveat:
+      'Conditions attached: not a product of Israel, and grains/rice/flour still get an insect check.',
+  },
+  {
+    rule: 'Extra-virgin olive oil uncertified',
+    who: 'OK Kosher — Rabbi Hendel, OK Vaad HaKashrus (Jan 2025)',
+    why: 'Extra-virgin/virgin is “pure olive oil that is extracted without heat and does not go through any subsequent processing or refining.” Refined, “light”, pomace and blends are where certification matters.',
+    url: 'https://www.ok.org/kosherconnect/the-kashrus-of-vegetable-and-olive-oils/',
+    caveat: 'Agencies differ here — two give two answers. Know which one you are following.',
+  },
+  {
+    rule: 'Lecithin, citric acid & pectin are fine',
+    who: 'Star-K — Rabbi Tzvi Rosen, “The Secret Ingredient,” Kashrus Kurrents Spring 2012',
+    why: 'They appear on the list without a “requires reliable kosher certification” flag — the classic over-worried group.',
+    url: 'https://www.star-k.org/articles/kashrus-kurrents/565/the-secret-ingredient/',
+  },
+  {
+    rule: 'V-Label vegan — audited, but not kosher',
+    who: 'V-Label International (audits by authorized control bodies; Bio Garantie in Austria)',
+    why: 'Certifies the product is “not of animal origin and, at no stage of production and processing” supplemented with animal-origin components. That settles the animal-additive question — and nothing else.',
+    url: 'https://www.v-label.com/criteria/',
+    caveat: 'Says nothing about dairy equipment, bishul akum, or grape products.',
+  },
+  {
+    rule: 'Fish: fins & scales — buy it skin-on',
+    who: 'OU Kosher (Vayikra 11:9); Star-K',
+    why: 'OU: “it is generally impossible, even for a ‘maven’, to identify fish without skin.” Star-K treats eating an unverified skinless fillet as a rabbinic prohibition.',
+    url: 'https://oukosher.org/blog/consumer-kosher/consumers-faqs-on-kosher-fish/',
+  },
+  {
+    rule: 'Which produce needs insect checking',
+    who: 'OU Kosher — “Checking Vegetables for Insect Infestation”',
+    why: 'Broccoli and cauliflower are classed as miut hamatzui — infested consistently enough that checking is required. Same for leafy greens (lettuce, spinach, kale, cabbage) and fresh herbs.',
+    url: 'https://oukosher.org/blog/consumer-kosher/vegetable-checking/',
+  },
+];
+
+mount(
+  'sources',
+  SOURCES.map(
+    (s) => `<div class="src">
+      <div class="src-rule">${esc(s.rule)}</div>
+      <div class="src-who"><span class="src-lbl">Who says it</span> ${esc(s.who)}</div>
+      <div class="src-why"><span class="src-lbl">Why</span> ${esc(s.why)}</div>
+      ${s.caveat ? `<div class="src-cav"><span class="src-lbl">Caveat</span> ${esc(s.caveat)}</div>` : ''}
+      <a class="src-link" href="${esc(s.url)}" target="_blank" rel="noopener">Read the source →</a>
+    </div>`,
+  ).join(''),
+);
+
 export {}; // isolate module scope (no imports/exports otherwise)

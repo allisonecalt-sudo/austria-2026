@@ -751,3 +751,47 @@ footer.guide-footer b {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------- sources / attribution layer ---------- */
+.sources {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.src {
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.src-rule {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+.src-who,
+.src-why,
+.src-cav {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 5px;
+}
+.src-cav {
+  color: var(--read);
+}
+.src-lbl {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-faint);
+  margin-right: 6px;
+}
+.src-link {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
