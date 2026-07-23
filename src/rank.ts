@@ -199,7 +199,7 @@ function renderShell(): void {
     el(
       'p',
       undefined,
-      'Pick who you are, then give 0–3 hearts to each must-do candidate and sunset spot. The list re-sorts by your combined hearts — that order becomes the trip.',
+      'Pick who you are, then give 0–3 hearts to each must-do candidate and sunset spot. The list re-sorts by your combined hearts — and anything with a heart also lands on Our picks.',
     ),
   );
   hero.appendChild(ht);

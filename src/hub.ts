@@ -73,10 +73,16 @@ const GROUPS: Group[] = [
     title: 'Today',
     tiles: [
       {
+        href: 'routes.html',
+        emoji: '🔁',
+        title: 'The Week',
+        what: 'Each day door to door — today opens itself',
+      },
+      {
         href: 'overview.html',
         emoji: '🧭',
         title: 'Where you are',
-        what: 'The whole shape — what is near what',
+        what: 'The map — what is near what',
       },
       {
         href: 'plan.html',
@@ -140,7 +146,7 @@ const GROUPS: Group[] = [
         href: 'claude.html',
         emoji: '💙',
         title: "Claude's pick",
-        what: 'The week I would give you',
+        what: 'The pre-forecast archive — see The Week',
       },
       {
         href: 'index.html',

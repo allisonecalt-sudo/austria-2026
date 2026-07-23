@@ -1,0 +1,358 @@
+/* ===========================================================================
+   routes.css — The Week, door to door.
+   Days collapsed by default (Avital's rule), today self-opens, one photo per
+   day header and no more (her: "I wouldn't overdo it on the pictures").
+=========================================================================== */
+
+#routes {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 14px 14px 8px;
+}
+
+.rhead h1 {
+  font-size: clamp(30px, 9vw, 44px);
+  line-height: 1.05;
+  margin: 4px 0 0;
+}
+
+.rkick {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.rlede {
+  margin: 10px 0 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--sub);
+}
+
+/* ---- one day ---- */
+.rday {
+  margin-bottom: 10px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.rday-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: 'date title total' 'line line line';
+  gap: 2px 10px;
+  align-items: baseline;
+  width: 100%;
+  min-height: 74px;
+  padding: 14px;
+  border: none;
+  font: inherit;
+  text-align: left;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+}
+
+.rday-date {
+  grid-area: date;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f2d9a0;
+}
+
+.rday-title {
+  grid-area: title;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.rday-line {
+  grid-area: line;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.rday-total {
+  grid-area: total;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 99px;
+  padding: 4px 10px;
+}
+
+.rday-total i {
+  font-style: normal;
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.rday.open .rday-total i {
+  transform: rotate(180deg);
+}
+
+.rday-body {
+  display: none;
+  padding: 12px 14px 14px;
+}
+
+.rday.open .rday-body {
+  display: block;
+}
+
+/* ---- the chain of stops ---- */
+.rstops {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rstop {
+  display: flex;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.rstop:last-child {
+  border-bottom: none;
+}
+
+.rleg2 {
+  flex: 0 0 76px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+  text-align: right;
+}
+
+.rleg2.walkleg {
+  color: #b9b1a4;
+  font-weight: 400;
+}
+
+.rleg2.estleg {
+  color: var(--gold);
+}
+
+.rstop-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.rstop-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a.rstop-name:hover,
+a.rstop-name:focus-visible {
+  color: var(--blue);
+}
+
+.rstop-time {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11.5px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.rstop-note {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--sub);
+}
+
+.rsunset {
+  margin: 12px 0 0;
+  padding: 9px 11px;
+  background: #fdf4ec;
+  border-radius: 9px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #7d5c2a;
+}
+
+.rswap {
+  margin: 8px 0 0;
+  padding: 9px 11px;
+  background: #eef2f8;
+  border-radius: 9px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #33597a;
+}
+
+/* ---- the builder ---- */
+#rb {
+  max-width: 700px;
+  margin: 22px auto 0;
+  padding: 16px 14px max(80px, calc(60px + env(safe-area-inset-bottom)));
+  border-top: 1px solid var(--line);
+}
+
+.rb-h {
+  font-size: 22px;
+  margin: 0;
+}
+
+.rb-sub {
+  margin: 6px 0 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--sub);
+}
+
+.rb-days {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scrollbar-width: none;
+}
+
+.rb-days::-webkit-scrollbar {
+  display: none;
+}
+
+.rb-day {
+  flex: 0 0 auto;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  min-height: 40px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--sub);
+  border-radius: 99px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.rb-day.on {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.rb-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+}
+
+.rb-choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 2px 8px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.rb-choice:hover {
+  background: #f2efe8;
+}
+
+.rb-choice input {
+  width: 19px;
+  height: 19px;
+  accent-color: #3f5d4e;
+  flex: 0 0 auto;
+}
+
+.rb-cname {
+  flex: 1 1 auto;
+  font-size: 14px;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rb-cmin {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  color: #9a9288;
+  font-variant-numeric: tabular-nums;
+}
+
+.rb-more {
+  margin-top: 6px;
+}
+
+.rb-more summary {
+  min-height: 42px;
+  line-height: 42px;
+  font-size: 13px;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.rb-empty {
+  margin: 14px 0 0;
+  padding: 16px;
+  border: 1px dashed #ded8cd;
+  border-radius: 12px;
+  background: #fbfaf7;
+  font-size: 13px;
+  color: var(--sub);
+}
+
+.rb-stops {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 4px 12px;
+  background: var(--card);
+}
+
+.rb-total {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--sub);
+}
+
+.rb-go {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  margin-top: 8px;
+  border-radius: 12px;
+  background: var(--green);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.rb-warn {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--rose);
+}

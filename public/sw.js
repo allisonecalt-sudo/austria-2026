@@ -21,7 +21,7 @@
 // VERSION must be bumped on every deploy or phones keep the old shell.
 // ===========================================================================
 
-const VERSION = 'austria-v4-2026-07-23-1855';
+const VERSION = 'austria-v5-2026-07-23-2225';
 const SHELL = `shell-${VERSION}`;
 const ASSETS = `assets-${VERSION}`;
 const PHOTOS = `photos-${VERSION}`;
@@ -32,6 +32,7 @@ const BASE = self.registration.scope; // .../austria-2026/
 const PAGES = [
   'hub.html',
   'overview.html',
+  'routes.html',
   'index.html',
   'plan.html',
   'favorites.html',

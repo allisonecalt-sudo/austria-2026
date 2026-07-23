@@ -25,6 +25,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { byId } from './plan-data.js';
 import { BASE_ORDER, TABLE_ROWS } from './table-data.js';
+import { isFav, loadFavs, toggleFav } from './favs.js';
 
 /** Bed colours, matching the three-region colouring on the overview page.
  *  Goisern and Gosau share a family because they ARE the same region. */
@@ -45,6 +46,18 @@ function esc(s: string): string {
   return d.innerHTML;
 }
 
+const markers: Record<string, L.CircleMarker> = {};
+let mapRef: L.Map | null = null;
+
+/** Open a place's popup and centre it — used by list rows elsewhere on the
+ *  page, so a name in a list and a dot on the map are the same object. */
+export function focusMap(id: string): void {
+  const m = markers[id];
+  if (!m || !mapRef) return;
+  mapRef.setView(m.getLatLng(), Math.max(mapRef.getZoom(), 12));
+  m.openPopup();
+}
+
 export function mountMap(hostId: string): void {
   const host = document.getElementById(hostId);
   if (!host) return;
@@ -58,6 +71,8 @@ export function mountMap(hostId: string): void {
       '<p class="mapfail">The map has no coordinates to plot — tell Claude, this is a bug.</p>';
     return;
   }
+
+  void loadFavs().catch(() => undefined); // hearts in popups; fine if late
 
   const map = L.map(host, {
     scrollWheelZoom: false, // never hijack the page scroll on a phone
@@ -85,22 +100,47 @@ export function mountMap(hostId: string): void {
     const bed = nearestBed(r.fromBase);
     const mins = r.fromBase[bed];
 
+    // Radius 11/9 not 7/5 — Avital, on her phone: "they're a little dark,
+    // I can't actually get them." A dot you cannot tap is decoration.
     const dot = L.circleMarker([r.lat, r.lng], {
-      radius: a.star ? 7 : 5,
+      radius: a.star ? 11 : 9,
       color: '#fff',
-      weight: a.star ? 2 : 1,
+      weight: 2,
       fillColor: BED_COLOUR[bed],
-      fillOpacity: a.star ? 0.95 : 0.75,
+      fillOpacity: a.star ? 0.95 : 0.85,
     }).addTo(map);
 
-    dot.bindPopup(
-      `<b>${a.emoji} ${esc(a.name)}</b><br>` +
+    markers[r.id] = dot;
+
+    // Content built fresh on every open, so the heart state is never stale.
+    dot.bindPopup(() => {
+      const on = isFav(r.id);
+      return (
+        `<b>${a.emoji} ${esc(a.name)}</b><br>` +
         `<span class="mp-drive">🚗 ${mins} min from ${esc(BED_SHORT[bed])}</span><br>` +
         `<span class="mp-what">${esc(a.what)}</span><br>` +
-        `<a href="plan.html#${esc(r.id)}">Open this →</a>`,
-    );
+        `<button type="button" class="mp-fav${on ? ' on' : ''}" data-fav="${esc(r.id)}">` +
+        `${on ? '❤️ In your picks — tap to remove' : '🤍 Add to Our picks'}</button>` +
+        `<a href="plan.html#${esc(r.id)}">Open the card →</a>`
+      );
+    });
   }
 
+  // One delegated listener handles every popup's heart — add AND remove,
+  // straight from the map (Avital: "add to the state, add to the state...
+  // and we should also be able to remove things everywhere").
+  map.on('popupopen', (e) => {
+    const node = e.popup.getElement();
+    const btn = node?.querySelector<HTMLButtonElement>('button.mp-fav');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-fav');
+      if (!id) return;
+      const on = toggleFav(id);
+      btn.className = on ? 'mp-fav on' : 'mp-fav';
+      btn.textContent = on ? '❤️ In your picks — tap to remove' : '🤍 Add to Our picks';
+    });
+  });
   // ---- the beds themselves, numbered, drawn last so they sit on top -------
   BASE_ORDER.forEach((b, i) => {
     L.marker([b.lat, b.lng], {
@@ -115,6 +155,8 @@ export function mountMap(hostId: string): void {
       .addTo(map)
       .bindPopup(`<b>🛏 ${esc(b.name)}</b><br><span class="mp-what">Where you sleep</span>`);
   });
+
+  mapRef = map;
 
   map.fitBounds(
     L.latLngBounds([...rows.map((r) => [r.lat, r.lng] as [number, number]), ...bedPoints]).pad(

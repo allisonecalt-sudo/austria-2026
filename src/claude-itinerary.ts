@@ -279,6 +279,16 @@ function render(): void {
   const root = document.getElementById('claude');
   if (!root) return;
 
+  // TRUTH BANNER (23 Jul): this page was written before the forecast moved.
+  // Sun 26 and Mon 27 are now ~88% rain, which breaks its Sunday. The live,
+  // weather-aware recommendation is The Week. This stays as the archive.
+  const banner = document.createElement('div');
+  banner.className = 'superseded';
+  banner.innerHTML =
+    '⚠️ Written before the forecast moved — Sunday and Monday are now rainy days. ' +
+    'The live, weather-aware plan is <a href="routes.html"><b>The Week — door to door</b></a>. This page stays as the archive.';
+  root.appendChild(banner);
+
   const hero = el('header', 'plan-hero');
   hero.style.backgroundImage = `url('${byId.get('koenigssee')?.photo ?? ''}')`;
   const ht = el('div', 'ht');

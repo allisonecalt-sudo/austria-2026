@@ -767,3 +767,21 @@ button.fav.on {
   text-transform: uppercase;
   color: #9a9288;
 }
+
+/* The card a deep link landed on — a brief glow so the eye finds it. */
+.act.flash {
+  box-shadow: 0 0 0 3px var(--gold);
+  transition: box-shadow 0.4s ease;
+}
+
+/* A page overtaken by events says so at the top — never quietly misleads. */
+.superseded {
+  margin: 12px 14px 0;
+  padding: 12px 14px;
+  background: #fdf8ee;
+  border: 1px solid #ead9b6;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #6b5a2a;
+}

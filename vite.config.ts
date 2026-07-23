@@ -73,6 +73,8 @@ export default defineConfig(({ command }) => ({
         info: resolve(__dirname, 'info.html'),
         // 2026-07-23: the orientation page — three regions, not four.
         overview: resolve(__dirname, 'overview.html'),
+        // 2026-07-23: each day as a door-to-door loop + route builder.
+        routes: resolve(__dirname, 'routes.html'),
       },
     },
   },

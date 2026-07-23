@@ -286,8 +286,34 @@ function render(): void {
   mountNotes();
 }
 
+/** Land on the thing the link named — Avital's bug, confirmed: "when I go to
+ *  the open this, it just goes to the same page. I want it to be the specific
+ *  place." Cards carry data-id (an activity can appear on several days, so a
+ *  native id would collide); this finds the FIRST match, opens it, scrolls to
+ *  it and flashes it so the eye lands where the link pointed. */
+function landOnHash(): void {
+  const id = window.location.hash.slice(1);
+  if (!id) return;
+  // A day anchor (fri24, tue28...) — the section has a real id, let it work.
+  const day = document.getElementById(id);
+  if (day && day.classList.contains('day')) {
+    day.scrollIntoView({ block: 'start' });
+    return;
+  }
+  const card = document.querySelector<HTMLElement>(`.act[data-id="${CSS.escape(id)}"]`);
+  if (!card) return;
+  card.classList.add('open');
+  const hint = card.querySelector('.hint');
+  if (hint) hint.textContent = 'tap to close \u25b4';
+  card.scrollIntoView({ block: 'center' });
+  card.classList.add('flash');
+  window.setTimeout(() => card.classList.remove('flash'), 2400);
+}
+
 async function main(): Promise<void> {
   render();
+  landOnHash();
+  window.addEventListener('hashchange', landOnHash);
   setSaveStatusSink((msg) => {
     const s = document.getElementById('fav-status');
     if (s) s.textContent = msg;

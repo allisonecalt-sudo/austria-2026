@@ -28,7 +28,7 @@
 import { byId } from './plan-data.js';
 import { TABLE_ROWS } from './table-data.js';
 import { mountNav } from './nav.js';
-import { mountMap } from './map.js';
+import { focusMap, mountMap } from './map.js';
 
 interface Region {
   key: string;
@@ -287,6 +287,15 @@ function render(): void {
     for (const id of r.mustSee) {
       const a = byId.get(id);
       const li = el('li');
+      // Her ask: from a list item, get BOTH the map and the details.
+      const mapBtn = el('button', 'ovmapbtn', '🗺');
+      mapBtn.type = 'button';
+      mapBtn.title = 'Show on the map';
+      mapBtn.addEventListener('click', () => {
+        document.getElementById('ov-map')?.scrollIntoView({ block: 'center' });
+        focusMap(id);
+      });
+      li.appendChild(mapBtn);
       const link = el('a', undefined, name(id));
       link.href = `plan.html#${id}`;
       li.appendChild(link);

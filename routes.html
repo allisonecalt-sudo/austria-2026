@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f5f0" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🔁%3C/text%3E%3C/svg%3E"
+    />
+    <title>The Week — each day door to door · Austria 2026</title>
+    <meta
+      name="description"
+      content="Every day of the Austria trip as a loop: out of the bed, stop by stop with real drive times between each, back to a bed. Plus a build-your-own-day route tool."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/nav.css" />
+    <link rel="stylesheet" href="/src/plan.css" />
+    <link rel="stylesheet" href="/src/routes.css" />
+  </head>
+  <body>
+    <nav id="sitenav"></nav>
+    <main id="routes"></main>
+    <section id="rb"></section>
+    <footer class="foot" id="routes-foot"></footer>
+    <script type="module" src="/src/routes.ts"></script>
+  </body>
+</html>

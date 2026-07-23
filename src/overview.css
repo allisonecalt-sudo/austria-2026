@@ -410,3 +410,37 @@
   color: var(--blue);
   font-weight: 600;
 }
+
+/* The heart inside a map popup — big enough for a thumb, honest about state. */
+.leaflet-popup-content .mp-fav {
+  display: block;
+  width: 100%;
+  margin: 8px 0 2px;
+  min-height: 42px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.leaflet-popup-content .mp-fav.on {
+  border-color: #d96b6b;
+  background: #fff5f5;
+}
+
+/* The 🗺 button on overview list rows. */
+.ovmapbtn {
+  float: right;
+  font: inherit;
+  font-size: 15px;
+  min-width: 40px;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--card);
+  cursor: pointer;
+}

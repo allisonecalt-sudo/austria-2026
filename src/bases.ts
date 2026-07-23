@@ -149,10 +149,10 @@ function render(): void {
   // Show the one thing that matters, dropdown the rest (her cards rule).
   const caveat = el('details', 'bcaveat');
   caveat.innerHTML = `
-    <summary>Ranked by Claude — no hearts saved yet<span aria-hidden="true">＋</span></summary>
+    <summary>How this list is ranked<span aria-hidden="true">＋</span></summary>
     <div class="bcaveat-body">
-      <p>The hearts on <a href="rank.html">Rank it ⭐</a> are still empty, so this order is Claude's: the must-do flags, what made the committed week, and your bias to water, boats and sunsets over climbs. Tap hearts and this can be re-sorted to match.</p>
-      <p><b>Goisern and Gosau overlap</b> — 30 minutes apart, so their lists share the Salzkammergut. The real split: Wolfgangsee, Grundlsee and Ebensee are closer to Goisern; the Gosausee and Dachstein belong to Gosau.</p>
+      <p>The order is Claude's: the must-do flags, what made the committed week, and your bias to water, boats and sunsets over climbs. Tap ❤️ on any row to collect it on <a href="favorites.html">Our picks</a> — that page is where your choices live.</p>
+      <p><b>Goisern and Gosau are the same lake country</b>, 20 minutes apart — so Gosau's list below only shows what Gosau itself owns, and points back here for the rest.</p>
       <p><b>Mauthausen is on no list</b> — 1h40 from Goisern, just past the line. It is the Friday arrival anchor, driven from the airport rather than from a bed.</p>
       <p>Drive times are the verified ones from the plan, measured from each base. Nothing is estimated.</p>
     </div>
@@ -165,7 +165,7 @@ function render(): void {
 
   const foot = document.getElementById('bases-foot');
   if (foot) {
-    foot.innerHTML = `ranked by Claude until your hearts say otherwise · built ${BUILD_STAMP} · <a href="plan.html">all options →</a>`;
+    foot.innerHTML = `❤️ collects on <a href="favorites.html">Our picks</a> · built ${BUILD_STAMP} · <a href="plan.html">all options →</a>`;
   }
 
   mountNotes();
