@@ -243,9 +243,10 @@ const PRODUCTS: Product[] = [
     cat: 'Oils',
     status: 'ingr',
     misrachi: '',
-    why: 'Single-ingredient EVOO',
+    why: 'Extra-virgin ONLY. Buy Natives Olivenoel extra - not the refined grade, not infused. OU-certified Olivenoel also exists at Billa',
     ingredients: 'olijfolie',
-    leniency: 'None needed - single ingredient, cold-pressed, no cooking (OK Kosher).',
+    leniency:
+      'None needed per OU/cRc/OK Kosher: cold-pressed, single ingredient, never enters a refinery. NOTE: Star-K and KLBD do NOT join - they want a hechsher on all oils.',
     ingredientsEn: 'Olive oil.',
   },
   {

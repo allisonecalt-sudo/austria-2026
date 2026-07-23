@@ -299,8 +299,23 @@ const GLOSS: GlossTerm[] = [
     f: 'go',
   },
   {
+    de: 'bestehend aus raffinierten Olivenölen und nativen Olivenölen',
+    en: 'The refined "pure" olive-oil grade - it HAS been through the refinery/deodoriser. Every agency requires a hechsher on this. Not the same as Natives Olivenöl extra.',
+    f: 'stop',
+  },
+  {
+    de: 'Oliventresteröl',
+    en: 'Olive POMACE oil - hexane-extracted from the leftover solids, then refined. The worst of the olive family; needs certification.',
+    f: 'stop',
+  },
+  {
+    de: 'Sonnenblumenöl · Rapsöl · Kürbiskernöl · Leinöl · Kokosöl',
+    en: 'Seed/other oils - NONE are on any agency no-hechsher list, because of refining (the deodoriser). Cold-pressed versions look like they should qualify but no agency has said so. Includes the Austrian pumpkin-seed oil.',
+    f: 'read',
+  },
+  {
     de: 'Natives Olivenöl extra',
-    en: 'Extra-virgin olive oil — single-ingredient, cold-pressed, widely relied on uncertified. (Not refined/“light”/pomace blends.)',
+    en: 'Extra-virgin olive oil - the ONLY oil any agency clears uncertified (OU, cRc, OK Kosher). Cold-pressed, never refined. Star-K and KLBD do not join. Must be pure - not infused/flavoured.',
     f: 'go',
   },
   {
