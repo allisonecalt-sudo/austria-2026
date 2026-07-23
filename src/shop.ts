@@ -6,7 +6,11 @@
 //   kosher-by-ingredient (clean label). Images live in public/products/.
 // ===========================================================================
 
-type Status = 'cert' | 'ingr';
+// cert  = has a hechsher (authority named in `misrachi`)
+// ingr  = kosher by reading the label, no bishul-akum problem
+// disp  = bishul akum is arguable here (she does NOT rely on bishul-akum leniencies)
+// needs = cooked by them and it counts — needs a hechsher
+type Status = 'cert' | 'ingr' | 'disp' | 'needs';
 interface Product {
   slug: string;
   name: string;
@@ -85,7 +89,7 @@ const PRODUCTS: Product[] = [
     cat: 'Bread',
     status: 'ingr',
     misrachi: '',
-    why: 'Ölz toast line is V-Label vegan',
+    why: 'Baked bread = pas palter, which you accept - V-Label vegan',
     ingredients:
       'Weizenmehl, Wasser, Weizensauerteig, Rapsöl, Hefe, Zucker, Speisesalz, Säureregulator (Natriumacetat), Ascorbinsäure',
   },
@@ -95,7 +99,7 @@ const PRODUCTS: Product[] = [
     cat: 'Crackers',
     status: 'ingr',
     misrachi: '',
-    why: 'Rye + yeast + salt',
+    why: 'Rye + yeast + salt - baked, so pas palter',
     ingredients: 'Vollkornroggenmehl, Hefe, Salz.',
   },
   {
@@ -113,7 +117,7 @@ const PRODUCTS: Product[] = [
     cat: 'Crackers',
     status: 'ingr',
     misrachi: '',
-    why: 'Wheat sticks — read for palm/animal fat',
+    why: 'Baked wheat sticks = pas palter - read for palm/animal fat',
     ingredients: '',
   },
   {
@@ -147,18 +151,18 @@ const PRODUCTS: Product[] = [
     slug: 'kellys-chips',
     name: "Kelly's Chips Classic",
     cat: 'Snacks & chips',
-    status: 'ingr',
+    status: 'disp',
     misrachi: '',
-    why: 'Potato + oil + salt, V-Label',
+    why: 'Potato+oil+salt, but fried by them; leniency = snack, not kings-table - disputed',
     ingredients: 'Kartoffeln, Sonnenblumenöl, Salz',
   },
   {
     slug: 'kellys-popcorn',
     name: "Kelly's Popcorn",
     cat: 'Snacks & chips',
-    status: 'ingr',
+    status: 'disp',
     misrachi: '',
-    why: 'Corn + oil + salt',
+    why: 'Popped by them; same snack-not-kings-table dispute',
     ingredients: '84% Mais, 14% Palmöl, Speisesalz.',
   },
   {
@@ -240,18 +244,18 @@ const PRODUCTS: Product[] = [
     slug: 'rio-mare-tuna',
     name: 'Rio Mare Thunfisch',
     cat: 'Fish & tuna',
-    status: 'ingr',
+    status: 'needs',
     misrachi: '',
-    why: 'Tuna = kosher fish; canned = read it, certified is better',
+    why: 'Cooked in the can by them = bishul akum. You do not rely on that - needs a hechsher',
     ingredients: '',
   },
   {
     slug: 'thunfisch-natur',
     name: 'Thunfisch in water',
     cat: 'Fish & tuna',
-    status: 'ingr',
+    status: 'needs',
     misrachi: '',
-    why: 'Tuna in water; canned fish — read it, certified is better',
+    why: 'Cooked fish in the can = bishul akum - needs a hechsher',
     ingredients: '',
   },
   {
@@ -285,9 +289,9 @@ const PRODUCTS: Product[] = [
     slug: 'mccain-frites',
     name: 'McCain 1·2·3 Frites',
     cat: 'Frozen',
-    status: 'ingr',
+    status: 'disp',
     misrachi: '',
-    why: 'Potato + sunflower oil, vegan',
+    why: 'Par-fried at the factory, you finish it at home - bishul akum arguable',
     ingredients: 'Kartoffeln (96%), Sonnenblumenöl (4%).',
   },
   {
@@ -312,11 +316,15 @@ for (const p of PRODUCTS) {
   byCat.get(p.cat)?.push(p);
 }
 
+const TAG_LABEL: Record<Status, string> = {
+  cert: 'Certified ✡️',
+  ingr: 'By ingredient',
+  disp: 'Bishul akum — disputed',
+  needs: 'Needs a hechsher',
+};
+
 function card(p: Product): string {
-  const tag =
-    p.status === 'cert'
-      ? '<span class="tag cert">Certified ✡️</span>'
-      : '<span class="tag ingr">By ingredient</span>';
+  const tag = `<span class="tag ${p.status}">${TAG_LABEL[p.status]}</span>`;
   const misr = p.misrachi
     ? `<div class="misr">✓ Misrachi Austria — <b>${esc(p.misrachi)}</b></div>`
     : '';

@@ -21,6 +21,12 @@
   --green: #2f7d4f;
   --green-soft: #e7f2ea;
   --green-line: #bfe0cb;
+  --amber: #a9711a;
+  --amber-soft: #f8efd9;
+  --amber-line: #ecd9a8;
+  --red: #b23a34;
+  --red-soft: #f6e6e3;
+  --red-line: #e8c4be;
   --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --radius: 14px;
@@ -221,6 +227,22 @@ h1 {
   color: var(--green);
   background: var(--green-soft);
   border-color: var(--green-line);
+}
+.prod .tag.disp {
+  color: var(--amber);
+  background: var(--amber-soft);
+  border-color: var(--amber-line);
+}
+.prod .tag.needs {
+  color: var(--red);
+  background: var(--red-soft);
+  border-color: var(--red-line);
+}
+.pip.disp {
+  background: var(--amber);
+}
+.pip.needs {
+  background: var(--red);
 }
 .prod .why {
   font-size: 12.5px;
