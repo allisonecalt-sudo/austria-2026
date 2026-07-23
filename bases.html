@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E⭐%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🏔%3C/text%3E%3C/svg%3E"
     />
-    <title>Rank it — must-dos + best sunsets · Austria 2026</title>
+    <title>From tonight's bed — top 10 near each base · Austria 2026</title>
     <meta
       name="description"
-      content="Allison and Avital each rank the must-do candidates and sunset spots — hearts save live, the combined order decides the trip."
+      content="The Austria trip sliced by where you sleep: a ranked top 10 within about 1.5 hours' drive of each of the four bases, with verified drive times."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,21 +19,22 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/src/plan.css" />
+    <link rel="stylesheet" href="/src/bases.css" />
   </head>
   <body>
     <nav class="plan-nav" aria-label="Pages">
       <a href="index.html">Brochure</a>
       <a href="plan.html">The Plan</a>
-      <a href="bases.html">From your bed 🛏</a>
-      <a href="rank.html" class="active">Rank it ⭐</a>
+      <a href="bases.html" class="active">From your bed 🛏</a>
+      <a href="rank.html">Rank it ⭐</a>
       <a href="claude.html">Claude's pick 💙</a>
     </nav>
 
-    <!-- Rendered from src/plan-data.ts by src/rank.ts; votes live in Supabase. -->
-    <main id="rank"></main>
+    <!-- Rendered entirely from src/bases.ts (+ plan-data.ts) — no hardcoded facts. -->
+    <main id="bases"></main>
 
-    <footer class="foot" id="rank-foot"></footer>
+    <footer class="foot" id="bases-foot"></footer>
 
-    <script type="module" src="/src/rank.ts"></script>
+    <script type="module" src="/src/bases.ts"></script>
   </body>
 </html>

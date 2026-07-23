@@ -2,7 +2,7 @@
 // trip.ts — THE single data module for the Austria 2026 brochure.
 //
 // What this is: every fact the brochure renders — trip meta, bases, days,
-//   the open decision, practical notes, costs. Zero facts are hardcoded in
+//   practical notes, costs. Zero facts are hardcoded in
 //   index.html or main.ts; they all flow from here (spec rule A7).
 // Why it exists: the contradicting-numbers problem (4 vs 5 bases, 3 "current
 //   picks") was the trust-killer in the old site. ONE source of truth per fact.
@@ -158,14 +158,6 @@ export interface KitGroup {
   places: KitPlace[];
 }
 
-export interface OpenDecision {
-  /** Ask-framed headline (spec rule A9). */
-  ask: string;
-  leaning: string;
-  options: { name: string; note: string; recommended: boolean }[];
-  freshness: string;
-}
-
 export interface PracticalNote {
   label: string;
   body: string;
@@ -182,7 +174,6 @@ export interface TripData {
   meta: TripMeta;
   bases: Base[];
   days: Day[];
-  openDecision: OpenDecision;
   practical: PracticalNote[];
   costs: Costs;
   /** Every place of the trip, grouped by base — the On-trip kit (DELTA 2). */
@@ -243,22 +234,22 @@ export const TRIP: TripData = {
     travelers: 'Allison + Avital',
     nights: 7,
     baseCount: 4,
-    basesBooked: 3,
-    statusLine: '3 of 4 bases booked · first leg still to pick',
+    basesBooked: 4,
+    statusLine: 'All 4 bases booked · Fri Jul 24 – Fri Jul 31',
     heroPhoto: P.gosausee,
   },
 
   bases: [
     {
       id: 'first-leg',
-      name: 'First-leg apartment',
-      town: 'leaning Bad Goisern (Salzkammergut)',
+      name: 'Ferienwohnung Glücksmomente',
+      town: 'Bad Goisern (Salzkammergut)',
       nights: 2,
       dateLabel: 'Fri Jul 24 – Sun Jul 26',
-      status: 'open',
-      chips: ['Shabbat base', 'leaning Glücksmomente', '3 free-cancel options'],
+      status: 'booked',
+      chips: ['Shabbat base', 'Cookable kitchenette', 'Physical-key entry'],
       blurb:
-        'The first-leg / Shabbat stay — the trip’s one open decision. Leaning Glücksmomente in Bad Goisern (cookable kitchenette, physical-key entry, Shabbat-safe). Two other free-cancel options held in Salzburg.',
+        'The first-leg / Shabbat stay — booked. Ferienwohnung Glücksmomente in Bad Goisern, deep in the Salzkammergut (not Salzburg). Cookable kitchenette and physical-key entry (Shabbat-safe), ~65 min from the airport and close to Hallstatt + Gosau.',
       photo: P.hallstattLake,
       ribbonLabel: 'Shabbat base',
       links: { query: 'Glücksmomente Bad Goisern Salzkammergut' },
@@ -325,29 +316,29 @@ export const TRIP: TripData = {
       dateLabel: 'Fri Jul 24',
       dayOfWeek: 'Friday',
       title: 'Land at Salzburg, settle in for Shabbat',
-      logistics: 'Land SZG 07:50 · airport → base ~15–65 min',
+      logistics: 'Land SZG 07:50 · airport → base ~1h05',
       photo: P.salzburgRiver,
-      tldr: 'Land 07:50 on LY5193, pick up the rental car, drop bags at the first-leg apartment, Spar run for Shabbat groceries, nap. The whole day is built around being settled before candle-lighting at 20:35.',
+      tldr: 'Land 07:50 on LY5193, pick up the rental car, drive into the Salzkammergut to the Bad Goisern apartment, Spar run for Shabbat groceries, nap. The whole day is built around being settled before candle-lighting at 20:35.',
       blocks: [
         { icon: 'time', line: 'Land SZG 07:50 (LY5193) → collect rental car' },
         {
           icon: 'drive',
-          line: 'Drive to the first-leg base',
-          driveFromBase: '15–65 min from airport',
+          line: 'Drive to Bad Goisern (Glücksmomente)',
+          driveFromBase: '~1h05 from airport',
           detail:
-            'If the Salzburg city option is picked: ~15 min, apartment on Linzergasse, Chabad a 3-minute walk. If Glücksmomente (Bad Goisern): ~65 min into the Salzkammergut.',
+            '~65 minutes from the airport into the Salzkammergut to Ferienwohnung Glücksmomente in Bad Goisern — cookable kitchenette, physical-key entry (Shabbat-safe). Not Salzburg city; Salzburg is only the airport.',
         },
         {
           icon: 'food',
           line: 'Spar groceries done by ~11:00, then nap',
-          detail: 'Stock the Shabbat food before the shops close early on Friday. Nearest Spar/Eurospar to the chosen base.',
+          detail: 'Stock the Shabbat food before the shops close early on Friday. Nearest Spar/Eurospar to the Bad Goisern base.',
           place: { name: 'Spar supermarket (nearest the base)', links: { query: 'Spar supermarket Bad Goisern' } },
         },
         {
           icon: 'sunset',
           line: 'Candle-lighting 20:35 · settled and unwound',
           detail:
-            'Plan B if jet lag is mild: skip the nap, slow walk into the Altstadt for coffee in a square before Shabbat prep.',
+            'Plan B if jet lag is mild: skip the nap, slow walk around the village or down to the Traun before Shabbat prep.',
         },
       ],
       baseId: 'first-leg',
@@ -358,27 +349,26 @@ export const TRIP: TripData = {
       dayOfWeek: 'Saturday',
       title: 'Shabbat — walking only',
       logistics: 'No driving · on foot all day',
-      photo: P.salzburgFortress,
-      tldr: 'Shul, a long kiddush lunch, a deep nap, then a late-afternoon walk. Sunset on the river, Havdalah at 21:49. A slow, recover-from-the-flight day.',
+      photo: P.alpineSunset,
+      tldr: 'A slow, self-catered Shabbat in Bad Goisern — daven, a long lunch from the frozen-food stash, a deep nap, then a riverside walk along the Traun. Valley sunset, Havdalah at 21:49. The recover-from-the-flight day.',
       blocks: [
         {
           icon: 'time',
-          line: 'Shacharit at Chabad ~09:30, long lunch, nap',
-          detail: 'Chabad of Salzburg (Linzergasse) if the city option wins — WhatsApp Chani in advance for meals. On foot only.',
-          place: { name: 'Chabad of Salzburg', links: { query: 'Chabad Salzburg Linzergasse', website: 'https://www.chabadsalzburg.com/' } },
+          line: 'Daven, long lunch from the frozen-food stash, deep nap',
+          detail: 'Self-catered Shabbat in Bad Goisern — frozen mains brought from home, your own quiet setup, nothing to drive to. On foot only.',
         },
         {
           icon: 'activity',
           line: 'Late-afternoon walk (Shabbat-legal)',
           driveFromBase: 'on foot from base',
           detail:
-            'If in Salzburg: walk up the Mönchsberg via the stone stairs (no money, no lift), ridge walk along the top of the old town. Plan B: stay close — Mirabell Gardens bench, river walk both ways.',
-          place: { name: 'Mönchsberg ridge walk, Salzburg', links: { query: 'Mönchsberg Salzburg' } },
+            'A flat, shaded riverside walk along the Traun — walking-distance from the apartment, no driving. Bad Goisern is green and quiet; go as far as feels good and turn back.',
+          place: { name: 'Traun riverside path, Bad Goisern', links: { query: 'Bad Goisern Traun river path' } },
         },
         {
           icon: 'sunset',
-          line: 'Sunset from the Salzach river bank · 20:54',
-          place: { name: 'Salzach riverbank (Elisabethkai)', links: { query: 'Elisabethkai Salzburg' } },
+          line: 'Valley sunset from the village edge · 20:54',
+          place: { name: 'Bad Goisern valley', links: { query: 'Bad Goisern Salzkammergut' } },
         },
         { icon: 'time', line: 'Havdalah 21:49' },
       ],
@@ -713,35 +703,24 @@ export const TRIP: TripData = {
       title: 'Fly home',
       logistics: 'Departure day · ~10 min to SZG',
       photo: P.alpineSunset,
-      tldr: 'Early wake, drive the ~5 km to Salzburg airport, drop the rental car at 06:30. Board LY5194 at 08:55, land TLV 13:25 — a full Friday afternoon to settle before Shabbat.',
+      tldr: 'Early wake, drive the ~5 km to Salzburg airport, drop the rental car at 06:30. Board LY5194 at 09:55, land TLV 13:25 — a full Friday afternoon to settle before Shabbat.',
       blocks: [
         { icon: 'time', line: 'Wake 05:30 · drive to SZG + drop car 06:30', driveFromBase: '~10 min from base' },
-        { icon: 'time', line: 'Depart SZG 08:55 (LY5194)' },
+        { icon: 'time', line: 'Depart SZG 09:55 (LY5194)' },
         { icon: 'time', line: 'Land TLV 13:25 — home before Shabbat' },
       ],
       baseId: 'airport',
     },
   ],
 
-  openDecision: {
-    ask: 'Still to pick: Base 1 — the first-leg / Shabbat stay',
-    leaning: 'Leaning Glücksmomente (Bad Goisern) — cookable kitchenette, physical-key entry (Shabbat-safe), ~65 min from the airport, near Hallstatt + Gosau.',
-    options: [
-      { name: 'Glücksmomente — Bad Goisern', note: 'Salzkammergut, not Salzburg · stovetop + microwave · physical key · 2 nights', recommended: true },
-      { name: 'Amedeo Zotti Residence — Salzburg', note: 'Schallmoos · stovetop · physical-key entry · ~26 min to Chabad', recommended: false },
-      { name: 'Master Linzergasse — Salzburg', note: 'Old-town edge · ~3 min to Chabad · no-cooking policy (fridge + kettle only)', recommended: false },
-    ],
-    freshness: 'All three are free-cancel — pick one and cancel the other two before the cancellation windows. Re-verify before booking.',
-  },
-
   practical: [
     {
       label: 'Kosher / Shabbat',
-      body: 'Shabbat is spent at the first-leg base (Fri–Sun). Chabad Salzburg on Linzergasse if the city option wins; WhatsApp Chani in advance. Two of the four bases have a cookable kitchen — Gosau has a full oven, Zell a stovetop kitchenette (no oven). Candle-lighting Fri 20:35, Havdalah Sat 21:49.',
+      body: 'Shabbat is spent in Bad Goisern (Fri–Sun) — self-catered, frozen mains brought from home, everything walking-distance, no driving. Two of the four bases have a full cookable kitchen — Gosau has an oven, Zell a stovetop kitchenette (no oven) — and the Bad Goisern apartment has a cookable kitchenette. Candle-lighting Fri 20:35, Havdalah Sat 21:49.',
     },
     {
       label: 'Flights',
-      body: 'Out: LY5193 lands SZG Fri Jul 24 at 07:50. Home: LY5194 departs SZG Fri Jul 31 at 08:55, lands TLV 13:25. Booked — details on file.',
+      body: 'Out: LY5193 lands SZG Fri Jul 24 at 07:50. Home: LY5194 departs SZG Fri Jul 31 at 09:55, lands TLV 13:25. Booked — details on file.',
     },
     {
       label: 'Car',
@@ -756,7 +735,7 @@ export const TRIP: TripData = {
   costs: {
     headline: '₪16,023 all-in',
     approx: '≈ €4,036 · 7 nights · 2 people',
-    basis: 'Based on the current first-leg lean (Glücksmomente). Three of four bases booked; the total shifts a little if another first-leg option is picked.',
+    basis: 'All four stays are booked (Bad Goisern → Zell am See → Gosau → Wals). Covers 7 nights, flights, the rental car, food, and fuel for two.',
     perPerson: [
       { who: 'Allison', amount: '₪7,644', note: 'net of the $50 baggage settle' },
       { who: 'Avital', amount: '~₪8,379', note: 'estimated — finalizes with her flight share' },
@@ -768,13 +747,11 @@ export const TRIP: TripData = {
   // omitted only where no trustworthy URL exists (public spaces / viewpoints).
   kit: [
     {
-      base: 'Base 1 — Shabbat (leaning Bad Goisern)',
+      base: 'Base 1 — Bad Goisern (Shabbat)',
       places: [
-        { name: 'Glücksmomente apartment (leaning pick)', links: { query: 'Glücksmomente Bad Goisern Salzkammergut' } },
+        { name: 'Ferienwohnung Glücksmomente', links: { query: 'Glücksmomente Bad Goisern Salzkammergut' } },
         { name: 'Spar supermarket (nearest the base)', links: { query: 'Spar supermarket Bad Goisern' } },
-        { name: 'Chabad of Salzburg', links: { query: 'Chabad Salzburg Linzergasse', website: 'https://www.chabadsalzburg.com/' } },
-        { name: 'Mönchsberg ridge walk, Salzburg', links: { query: 'Mönchsberg Salzburg' } },
-        { name: 'Salzach riverbank (Elisabethkai)', links: { query: 'Elisabethkai Salzburg' } },
+        { name: 'Traun riverside path, Bad Goisern', links: { query: 'Bad Goisern Traun river path' } },
       ],
     },
     {

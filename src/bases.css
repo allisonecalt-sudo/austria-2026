@@ -1,0 +1,238 @@
+/* ==========================================================================
+   bases.css — styles for bases.html ("From tonight's bed").
+   Loaded AFTER plan.css, which supplies the palette, nav, fonts and body.
+   Deliberately small: this page is a scannable list, not a brochure.
+   ========================================================================== */
+
+.bwrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 22px 16px 64px;
+}
+
+/* ---- intro ---- */
+.bintro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.bintro h1 {
+  font-size: 30px;
+  line-height: 1.15;
+}
+.bintro p {
+  margin: 0;
+  color: var(--sub);
+}
+.bkick {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ---- caveat block ---- */
+.bcaveat {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+.bcaveat > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sub);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.bcaveat > summary::-webkit-details-marker {
+  display: none;
+}
+.bcaveat[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+.bcaveat[open] > summary span {
+  transform: rotate(45deg);
+}
+.bcaveat > summary span {
+  color: var(--gold);
+  transition: transform 0.15s ease;
+}
+.bcaveat-body {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bcaveat-body p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--sub);
+}
+.bcaveat-body b {
+  color: var(--ink);
+}
+
+/* ---- base section ---- */
+.bbase {
+  margin-bottom: 40px;
+}
+.bbase-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--green);
+}
+.bbase-num {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+.bbase-ht h2 {
+  font-size: 22px;
+}
+.bbase-lodging {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--sub);
+}
+.bbase-reality {
+  margin: 12px 0 4px;
+  font-size: 14px;
+  color: var(--sub);
+  font-style: italic;
+}
+
+/* ---- picks ---- */
+.bpicks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bp {
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  gap: 2px 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.bp:last-child {
+  border-bottom: none;
+}
+.bp-rank {
+  grid-row: 1 / span 3;
+  font-size: 14px;
+  color: var(--sub);
+  font-variant-numeric: tabular-nums;
+  padding-top: 2px;
+}
+.bp-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+}
+.bp-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.bp-name:hover,
+.bp-name:focus-visible {
+  color: var(--blue);
+  border-bottom-color: var(--blue);
+}
+.bp-drive {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 500;
+}
+.bp-near {
+  background: #e7f0e8;
+  color: #2f5d3f;
+}
+.bp-mid {
+  background: #f6eeda;
+  color: #7d5c14;
+}
+.bp-far {
+  background: #f4e4de;
+  color: #8d3c2b;
+}
+.bp-why {
+  grid-column: 2 / span 2;
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--sub);
+}
+.bp-links {
+  grid-column: 2 / span 2;
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+
+/* ---- tags ---- */
+.bp-tags {
+  display: inline-flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.bt {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.bt-star {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.bt-water {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+.bt-sunset {
+  color: var(--rose);
+  border-color: var(--rose);
+}
+.bt-mean {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+@media (max-width: 480px) {
+  .bp {
+    grid-template-columns: 22px 1fr;
+  }
+  .bp-drive {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 4px;
+  }
+}

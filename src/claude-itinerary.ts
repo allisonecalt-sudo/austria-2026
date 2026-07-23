@@ -148,7 +148,7 @@ const WEEK: CDay[] = [
     steps: [
       { t: '05:30', text: 'Wake. Checkout works from 06:00.' },
       { t: '06:30', text: 'Key-drop the car (photograph it first).' },
-      { t: '08:55', text: 'LY5194 → TLV 13:25. Home with the afternoon to reset for Shabbat.' },
+      { t: '09:55', text: 'LY5194 → TLV 13:25. Home with the afternoon to reset for Shabbat.' },
     ],
     sunset: 'At home, in Jerusalem. 💙',
     swap: 'None. Set two alarms.',

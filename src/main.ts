@@ -306,36 +306,13 @@ function renderSleep(): HTMLElement {
 }
 
 // =========================================================================
-// 5. OPEN DECISIONS + PRACTICAL
+// 5. PRACTICAL — costs, essentials, on-trip kit
 // =========================================================================
 function renderPractical(): HTMLElement {
   const sec = el('section', 'section');
   sec.id = 'practical';
-  sec.appendChild(el('p', 'section-eyebrow', 'Open decisions + practical'));
-  sec.appendChild(el('h2', 'section-title', 'One thing left to decide'));
-
-  const dec = TRIP.openDecision;
-  const decBox = el('div', 'decision');
-  decBox.innerHTML = `
-    <p class="decision__ask">${esc(dec.ask)}</p>
-    <p class="decision__lean">${esc(dec.leaning)}</p>
-    <ul class="decision__opts">
-      ${dec.options
-        .map(
-          (o) => `
-        <li class="decision__opt${o.recommended ? ' decision__opt--rec' : ''}">
-          <span class="decision__opt-mark" aria-hidden="true">${o.recommended ? '★' : '○'}</span>
-          <span>
-            <span class="decision__opt-name">${esc(o.name)}</span>
-            <span class="decision__opt-note">${esc(o.note)}</span>
-          </span>
-        </li>`,
-        )
-        .join('')}
-    </ul>
-    <p class="decision__fresh">${esc(dec.freshness)}</p>
-  `;
-  sec.appendChild(decBox);
+  sec.appendChild(el('p', 'section-eyebrow', 'The essentials'));
+  sec.appendChild(el('h2', 'section-title', 'Everything’s booked'));
 
   // Costs — one headline number, no dashboard (spec).
   const c = TRIP.costs;

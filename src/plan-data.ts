@@ -714,7 +714,7 @@ export const DAYS: PlanDay[] = [
     id: 'fri31',
     date: 'Fri Jul 31',
     title: 'Home 🛫',
-    kicker: 'wake 05:30 · drop car 06:30 · LY5194 08:55 → TLV 13:25',
+    kicker: 'wake 05:30 · drop car 06:30 · LY5194 09:55 → TLV 13:25',
     photo: P('El%20Al%20B787-9%20%284X-EDH%29%20%40%20SFO%2C%20Nov%202019.jpg'),
     intro:
       'Checkout works from 06:00; key-drop for the car (photos first — counter opens 08:00). Home with the whole Friday afternoon to reset before Shabbat.',
