@@ -182,17 +182,17 @@ const GLOSS: GlossTerm[] = [
   },
   {
     de: 'Molke · Molkenpulver · Süßmolke',
-    en: 'Whey - dairy. Your rav: fine if you rely on chalav stam; its cheese origin is not a separate problem.',
+    en: 'Whey - dairy. Gil: fine if you rely on chalav stam; its cheese origin is not a separate problem.',
     f: 'go',
   },
   {
     de: 'Milcheiweiß · Magermilchpulver · Milchpulver',
-    en: 'Milk protein / milk powder - dairy, fine under chalav stam (your rav confirmed).',
+    en: 'Milk protein / milk powder - dairy, fine under chalav stam (Gil confirmed).',
     f: 'go',
   },
   {
     de: 'Aroma · Natürliches Aroma',
-    en: 'Flavoring - the black box; the source is not disclosed. Your rav did not know the term, so it was re-asked. Treat as unknown for now.',
+    en: 'Flavoring - the black box; the source is not disclosed. Gil did not know the term, so it was re-asked. Treat as unknown for now.',
     f: 'read',
   },
   {
@@ -253,7 +253,7 @@ const GLOSS: GlossTerm[] = [
   },
   {
     de: 'Kann Spuren von … enthalten',
-    en: 'May contain traces of ... - your rav: an allergy warning, not a kashrut issue, as long as milk is not an actual ingredient. Stop reading these.',
+    en: 'May contain traces of ... - Gil: an allergy warning, not a kashrut issue, as long as milk is not an actual ingredient. Stop reading these.',
     f: 'go',
   },
   {
@@ -1479,7 +1479,7 @@ const SOURCES: Source[] = [
   {
     rule: '“May contain traces” is not a kashrut issue',
     who: 'OU Kosher — “Kashrus and Allergens”',
-    why: 'Such disclaimers “typically have no bearing on a food’s kosher or pareve status.” Your rav said the same.',
+    why: 'Such disclaimers “typically have no bearing on a food’s kosher or pareve status.” Gil said the same.',
     url: 'https://oukosher.org/blog/consumer-kosher/kashrus-and-allergens/',
   },
   {
