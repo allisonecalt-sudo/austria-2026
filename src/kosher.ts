@@ -197,7 +197,7 @@ const GLOSS: GlossTerm[] = [
   },
   {
     de: 'Mono- und Diglyceride (E471) · Ester (E472a–f)',
-    en: 'Emulsifiers - your rav: likely similar logic to gelatin, and possibly more lenient since they may be plant based. A V-Label VEGAN mark settles it.',
+    en: 'Emulsifiers - EU law does NOT require the origin to be declared, so the label will never tell you. Only a V-Label vegan mark or an explicit pflanzlichen Ursprungs statement resolves it. E570/E572/E491-495 are the weaker cases.',
     f: 'read',
   },
   {
@@ -264,7 +264,7 @@ const GLOSS: GlossTerm[] = [
   { de: 'Zutaten', en: '“Ingredients” — the label heading to find and read.', f: 'go' },
   {
     de: 'vegan · V-Label (Vegan)',
-    en: 'The V-Label vegan mark is audited: zero animal ingredients — the biggest shortcut. (Still NOT kosher: says nothing about dairy equipment, bishul or grape.)',
+    en: 'The V-Label VEGAN mark is audited and explicitly covers additives, carriers, aromas, enzymes and processing aids - the single most useful mark on a pack. A bare vegan text claim has no EU legal definition, so prefer the V-Label.',
     f: 'go',
   },
   {
