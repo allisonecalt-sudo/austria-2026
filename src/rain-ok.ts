@@ -217,6 +217,108 @@ export const RAIN_OK: Record<string, RainCall> = {
     basis: 'inferred',
     why: 'A flat mirror-lake loop, and silence is the point. Rain only makes it emptier.',
   },
+
+  // ---- added 2026-07-23 with the research sweep ---------------------------
+  'frost-rafting': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'You are getting wet anyway. Only a storm stops it — ring them, not the forecast.',
+  },
+  'taxenbach-rafting': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Same: rain is irrelevant on a raft. High water can change the grade, so ask.',
+  },
+  'out2-rafting': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Rain does not matter in a wetsuit, and the office is a walk away in Zell.',
+  },
+  'lofer-basecamp': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Rafting in the rain is just rafting. Motion next door is shut Mondays; this is not.',
+  },
+  'pathfinder-kayak': {
+    ok: 'needs-clear',
+    basis: 'inferred',
+    why: 'An open kayak or a SUP board in rain is miserable, and there is no shelter on the lake.',
+  },
+  'hallstattersee-boat': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'A scheduled boat with cover. Grey lake, warm inside — one of the better wet-day moves.',
+  },
+  'strandbad-untersee': {
+    ok: 'needs-clear',
+    basis: 'inferred',
+    why: 'A lakeside lido. The diving tower is no fun in the rain.',
+  },
+  'parkbad-goisern': {
+    ok: 'needs-clear',
+    basis: 'inferred',
+    why: 'An outdoor village pool — it stays open, but you would not want to be in it wet and cold.',
+  },
+  liechtensteinklamm: {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'A gorge. More water is the whole attraction, and the walkway is the walkway.',
+  },
+  kitzlochklamm: {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Better in rain, not worse — that is what a klamm is for.',
+  },
+  seisenbergklamm: {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Wooden walkway over green water; rain suits it. Steps get slick, so take care.',
+  },
+  'dachstein-icecave': {
+    ok: 'dry',
+    basis: 'inferred',
+    why: 'You are inside a mountain. Completely weatherproof — though the cable car can shut in storms.',
+  },
+  'salzwelten-altaussee': {
+    ok: 'dry',
+    basis: 'inferred',
+    why: 'Underground, flat and warm-coated. The classic Salzkammergut wet-day answer.',
+  },
+  'pinzgauer-bahn': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'You are in a dry carriage watching a valley. Rain costs you a little of the view, not the day.',
+  },
+  taurachbahn: {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'A covered steam train. Rain is atmospheric here rather than ruinous.',
+  },
+  'hallstatt-by-train': {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Train and ferry are both covered, and rain is what finally empties Hallstatt.',
+  },
+  'attersee-bahn-schiff': {
+    ok: 'needs-clear',
+    basis: 'researched',
+    why: 'Verified: sailings are cancelled for weather, and the day’s timetable only goes up at 17:00 the night before.',
+  },
+  hohensalzburg: {
+    ok: 'wet-ok',
+    basis: 'inferred',
+    why: 'Plenty of indoor rooms and a funicular. You lose the panorama, you keep the fortress.',
+  },
+  kaiservilla: {
+    ok: 'dry',
+    basis: 'inferred',
+    why: 'Entry is a 45-minute indoor guided tour — the best wet-weather insurance near bed one.',
+  },
+  'eurothermen-ischl': {
+    ok: 'dry',
+    basis: 'inferred',
+    why: 'Thermal pools open to midnight. Rain is the reason to go.',
+  },
 };
 
 const LABELS: Record<RainVerdict, { icon: string; short: string }> = {

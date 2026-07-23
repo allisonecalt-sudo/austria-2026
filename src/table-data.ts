@@ -85,11 +85,11 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'Flat, free and self-paced — the meaningful option on a day with no energy for a drive.',
     near: [
       {
-        id: 'moenchsberg',
+        id: 'hohensalzburg',
         km: 0.6,
       },
       {
-        id: 'mirabell',
+        id: 'moenchsberg',
         km: 0.6,
       },
     ],
@@ -101,12 +101,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'An hour of meaning attached to a stop you are making anyway for groceries.',
     near: [
       {
-        id: 'katrin',
-        km: 1.8,
+        id: 'kaiservilla',
+        km: 0.3,
       },
       {
-        id: 'hallstatt-sup',
-        km: 13.8,
+        id: 'eurothermen-ischl',
+        km: 0.3,
       },
     ],
   },
@@ -152,12 +152,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'When you want the panorama but not the glacier day, this is the 36-euro version.',
     near: [
       {
-        id: 'zell-cruise',
-        km: 2,
+        id: 'out2-rafting',
+        km: 1.9,
       },
       {
-        id: 'strandbad-zell',
-        km: 2.1,
+        id: 'pinzgauer-bahn',
+        km: 1.9,
       },
     ],
   },
@@ -184,12 +184,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'Your Montenegro boat-evening, Austrian edition — the likeliest lifetime memory of the week.',
     near: [
       {
-        id: 'strandbad-zell',
-        km: 0.7,
+        id: 'pinzgauer-bahn',
+        km: 0.1,
       },
       {
-        id: 'schmittenhoehe',
-        km: 2,
+        id: 'out2-rafting',
+        km: 0.6,
       },
     ],
   },
@@ -200,12 +200,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'The cheapest good hour of the trip, and the reason to keep a suit in the day bag.',
     near: [
       {
-        id: 'zell-cruise',
-        km: 0.7,
+        id: 'out2-rafting',
+        km: 0.2,
       },
       {
-        id: 'schmittenhoehe',
-        km: 2.1,
+        id: 'pinzgauer-bahn',
+        km: 0.7,
       },
     ],
   },
@@ -296,12 +296,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'The most dramatic photo of the week — but only book it on a clear morning.',
     near: [
       {
-        id: 'hallstatt',
-        km: 4.5,
+        id: 'dachstein-icecave',
+        km: 1.8,
       },
       {
-        id: 'hallstatt-sup',
-        km: 6,
+        id: 'hallstatt',
+        km: 4.5,
       },
     ],
   },
@@ -316,8 +316,8 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 3.2,
       },
       {
-        id: 'krippenstein',
-        km: 4.5,
+        id: 'pathfinder-kayak',
+        km: 3.2,
       },
     ],
   },
@@ -348,8 +348,8 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 7.2,
       },
       {
-        id: 'jewish-ischl',
-        km: 14.3,
+        id: 'kaiservilla',
+        km: 14.1,
       },
     ],
   },
@@ -396,8 +396,8 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 1.8,
       },
       {
-        id: 'hallstatt-sup',
-        km: 12.6,
+        id: 'eurothermen-ischl',
+        km: 2,
       },
     ],
   },
@@ -444,8 +444,8 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 11,
       },
       {
-        id: 'eagles-nest',
-        km: 14.3,
+        id: 'lofer-basecamp',
+        km: 11.4,
       },
     ],
   },
@@ -456,12 +456,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'The gentlest big day — but it needs a whole day, so only if one frees up.',
     near: [
       {
-        id: 'hintersee-ramsau',
-        km: 46.1,
+        id: 'lofer-basecamp',
+        km: 37.6,
       },
       {
-        id: 'moenchsberg',
-        km: 50.7,
+        id: 'hintersee-ramsau',
+        km: 46.1,
       },
     ],
   },
@@ -491,12 +491,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'Sitting the whole way, 25 minutes from the first bed, and almost nobody knows it.',
     near: [
       {
-        id: 'krippenstein',
-        km: 12.6,
+        id: 'salzwelten-altaussee',
+        km: 7.5,
       },
       {
-        id: 'hallstatt-sup',
-        km: 13.7,
+        id: 'krippenstein',
+        km: 12.6,
       },
     ],
   },
@@ -542,12 +542,12 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'Your May postcard-dream, nine minutes from the first bed — mornings are glass.',
     near: [
       {
-        id: 'hallstatt',
-        km: 3.2,
+        id: 'pathfinder-kayak',
+        km: 0,
       },
       {
-        id: 'krippenstein',
-        km: 6,
+        id: 'hallstattersee-boat',
+        km: 2.1,
       },
     ],
   },
@@ -562,8 +562,8 @@ export const TABLE_ROWS: Record<string, TableRow> = {
         km: 4.3,
       },
       {
-        id: 'moenchsberg',
-        km: 8.2,
+        id: 'hohensalzburg',
+        km: 7.7,
       },
     ],
   },
@@ -574,11 +574,11 @@ export const TABLE_ROWS: Record<string, TableRow> = {
     why: 'The laugh-out-loud stop — shaded, silly, and 13 minutes from the last bed.',
     near: [
       {
-        id: 'untersberg',
-        km: 4.3,
+        id: 'hohensalzburg',
+        km: 3.8,
       },
       {
-        id: 'salzburg-jewish-walk',
+        id: 'untersberg',
         km: 4.3,
       },
     ],
@@ -628,6 +628,326 @@ export const TABLE_ROWS: Record<string, TableRow> = {
       {
         id: 'eagles-nest',
         km: 8,
+      },
+    ],
+  },
+  'frost-rafting': {
+    id: 'frost-rafting',
+    fromBase: [95, 11, 77, 65],
+    unique: ['45 minutes on the water, grade 2+ max', 'A guide steers; you just sit in it'],
+    why: 'The rafting box ticked without it becoming a workout — 11 minutes from the Zell bed.',
+    near: [
+      {
+        id: 'zell-cruise',
+        km: 6.3,
+      },
+      {
+        id: 'pinzgauer-bahn',
+        km: 6.4,
+      },
+    ],
+  },
+  'taxenbach-rafting': {
+    id: 'taxenbach-rafting',
+    fromBase: [88, 19, 69, 57],
+    unique: ['The bigger grade 3/4 Salzach run', 'Four departures a day, book direct'],
+    why: 'If the family float is too tame, this is the real one and still beginner-run.',
+    near: [
+      {
+        id: 'kitzlochklamm',
+        km: 0.7,
+      },
+      {
+        id: 'frost-rafting',
+        km: 8.1,
+      },
+    ],
+  },
+  'out2-rafting': {
+    id: 'out2-rafting',
+    fromBase: [106, 1, 87, 71],
+    unique: ['Starts from Zell town centre', '11 km of grade 3–4'],
+    why: 'No drive at all — walk from the apartment to the office and go.',
+    near: [
+      {
+        id: 'strandbad-zell',
+        km: 0.2,
+      },
+      {
+        id: 'pinzgauer-bahn',
+        km: 0.6,
+      },
+    ],
+  },
+  'lofer-basecamp': {
+    id: 'lofer-basecamp',
+    fromBase: [98, 36, 81, 34],
+    unique: ['Crosses into Bavaria mid-river', 'Grade II, from age 6'],
+    why: 'The gentlest raft in the Lofer cluster — and it runs on Mondays when Motion does not.',
+    near: [
+      {
+        id: 'seisenbergklamm',
+        km: 10.3,
+      },
+      {
+        id: 'hintersee-ramsau',
+        km: 11.4,
+      },
+    ],
+  },
+  'pathfinder-kayak': {
+    id: 'pathfinder-kayak',
+    fromBase: [9, 96, 11, 61],
+    unique: ['The boat is delivered to the car park', 'SUP €25, kayak €30 for a half day'],
+    why: 'Your own boat on the quiet end of the Hallstatt lake, nine minutes from bed one.',
+    near: [
+      {
+        id: 'hallstatt-sup',
+        km: 0,
+      },
+      {
+        id: 'hallstattersee-boat',
+        km: 2.1,
+      },
+    ],
+  },
+  'hallstattersee-boat': {
+    id: 'hallstattersee-boat',
+    fromBase: [8, 104, 19, 69],
+    unique: ['Calls at Bad Goisern’s own lakefront', 'Only runs 18 Jul – 16 Aug'],
+    why: 'A scheduled boat on the lake you are sleeping beside, and your week lands inside its season.',
+    near: [
+      {
+        id: 'strandbad-untersee',
+        km: 0,
+      },
+      {
+        id: 'hallstatt-sup',
+        km: 2.1,
+      },
+    ],
+  },
+  'strandbad-untersee': {
+    id: 'strandbad-untersee',
+    fromBase: [8, 104, 19, 69],
+    unique: ['3 m diving tower + floating trampoline', 'Free entry'],
+    why: 'The proper swimming afternoon from bed one — five minutes away.',
+    near: [
+      {
+        id: 'hallstattersee-boat',
+        km: 0,
+      },
+      {
+        id: 'hallstatt-sup',
+        km: 2.1,
+      },
+    ],
+  },
+  'parkbad-goisern': {
+    id: 'parkbad-goisern',
+    fromBase: [2, 106, 21, 67],
+    unique: ['A 500 m walk — no car needed', 'The swim marathon is walkable the same day'],
+    why: 'The only thing on the whole list that works on Shabbat, when you cannot drive.',
+    near: [
+      {
+        id: 'hallstatt-by-train',
+        km: 0.3,
+      },
+      {
+        id: 'hallstattersee-boat',
+        km: 4.4,
+      },
+    ],
+  },
+  liechtensteinklamm: {
+    id: 'liechtensteinklamm',
+    fromBase: [80, 44, 62, 50],
+    unique: ['A walkway pinned to sheer rock', 'Sits directly on the Tuesday drive'],
+    why: 'The region is famous for gorges and you had none — and this one costs no extra driving.',
+    near: [
+      {
+        id: 'kitzlochklamm',
+        km: 16.4,
+      },
+      {
+        id: 'taxenbach-rafting',
+        km: 16.8,
+      },
+    ],
+  },
+  kitzlochklamm: {
+    id: 'kitzlochklamm',
+    fromBase: [91, 22, 72, 60],
+    unique: ['Boardwalks, tunnels and spray', '20 minutes from the Zell bed'],
+    why: 'A ninety-minute gorge that fits in any half-day, and rain improves it.',
+    near: [
+      {
+        id: 'taxenbach-rafting',
+        km: 0.7,
+      },
+      {
+        id: 'frost-rafting',
+        km: 8.6,
+      },
+    ],
+  },
+  seisenbergklamm: {
+    id: 'seisenbergklamm',
+    fromBase: [112, 27, 96, 48],
+    unique: ['The cheapest gorge at €9', 'About an hour end to end'],
+    why: 'Easy and short — but roughly 300 steps, so “gentle” oversells it.',
+    near: [
+      {
+        id: 'lofer-basecamp',
+        km: 10.3,
+      },
+      {
+        id: 'hintersee-ramsau',
+        km: 11.7,
+      },
+    ],
+  },
+  'dachstein-icecave': {
+    id: 'dachstein-icecave',
+    fromBase: [37, 124, 39, 89],
+    unique: ['Real ice underground in July', 'Two caves plus the cable car on one ticket'],
+    why: 'The answer to the closed Hallstatt salt mine, and completely weatherproof.',
+    near: [
+      {
+        id: 'krippenstein',
+        km: 1.8,
+      },
+      {
+        id: 'hallstatt',
+        km: 6,
+      },
+    ],
+  },
+  'salzwelten-altaussee': {
+    id: 'salzwelten-altaussee',
+    fromBase: [26, 124, 39, 89],
+    unique: ['The Monuments Men art chambers', 'Flat inside, wooden slides'],
+    why: 'The salt mine that is actually open — 26 minutes away and ideal on a wet day.',
+    near: [
+      {
+        id: 'grundlsee-3lakes',
+        km: 7.5,
+      },
+      {
+        id: 'hallstattersee-boat',
+        km: 8.5,
+      },
+    ],
+  },
+  'pinzgauer-bahn': {
+    id: 'pinzgauer-bahn',
+    fromBase: [104, 1, 86, 72],
+    unique: ['Narrow gauge, hourly at :02', '€25 weekend ticket covers three people'],
+    why: 'Avital’s train, leaving from a platform you can walk to in Zell.',
+    near: [
+      {
+        id: 'zell-cruise',
+        km: 0.1,
+      },
+      {
+        id: 'out2-rafting',
+        km: 0.6,
+      },
+    ],
+  },
+  taurachbahn: {
+    id: 'taurachbahn',
+    fromBase: [100, 95, 81, 82],
+    unique: ['A genuine steam locomotive', 'Runs Fri, Sat and Sun — no Thursday clash'],
+    why: 'The real steam train, if you want one beyond the Schafberg cog railway.',
+    near: [
+      {
+        id: 'liechtensteinklamm',
+        km: 42.5,
+      },
+      {
+        id: 'dachstein-icecave',
+        km: 45,
+      },
+    ],
+  },
+  'hallstatt-by-train': {
+    id: 'hallstatt-by-train',
+    fromBase: [1, 106, 21, 68],
+    unique: ['12 minutes by train, then the ferry', 'Arrives at the postcard end'],
+    why: 'Hallstatt without the parking war — and the ferry meets every train.',
+    near: [
+      {
+        id: 'parkbad-goisern',
+        km: 0.3,
+      },
+      {
+        id: 'hallstattersee-boat',
+        km: 4.2,
+      },
+    ],
+  },
+  'attersee-bahn-schiff': {
+    id: 'attersee-bahn-schiff',
+    fromBase: [65, 119, 82, 52],
+    unique: ['Little railway plus a lake cruise', 'One combined ticket'],
+    why: 'Train and boat in a single day on Austria’s biggest lake — Avital’s two asks at once.',
+    near: [
+      {
+        id: 'langbathsee',
+        km: 23.1,
+      },
+      {
+        id: 'wolfgangsee-eboat',
+        km: 27.4,
+      },
+    ],
+  },
+  hohensalzburg: {
+    id: 'hohensalzburg',
+    fromBase: [66, 80, 55, 15],
+    unique: ['Funicular to the ramparts', 'The whole city laid out below'],
+    why: 'The one Salzburg thing everyone assumes you have seen, 15 minutes from the last bed.',
+    near: [
+      {
+        id: 'salzburg-jewish-walk',
+        km: 0.6,
+      },
+      {
+        id: 'moenchsberg',
+        km: 0.8,
+      },
+    ],
+  },
+  kaiservilla: {
+    id: 'kaiservilla',
+    fromBase: [12, 114, 29, 59],
+    unique: ['The emperor’s summer villa', 'Entry only by 45-minute guided tour'],
+    why: 'Twelve minutes from bed one, and the best wet-weather insurance of that half.',
+    near: [
+      {
+        id: 'jewish-ischl',
+        km: 0.3,
+      },
+      {
+        id: 'eurothermen-ischl',
+        km: 0.4,
+      },
+    ],
+  },
+  'eurothermen-ischl': {
+    id: 'eurothermen-ischl',
+    fromBase: [12, 114, 29, 59],
+    unique: ['Thermal pools open until midnight', 'Pool hall is swimsuit, not textile-free'],
+    why: 'The only genuinely late option in the Salzkammergut — warm water after a long day.',
+    near: [
+      {
+        id: 'jewish-ischl',
+        km: 0.3,
+      },
+      {
+        id: 'kaiservilla',
+        km: 0.4,
       },
     ],
   },
