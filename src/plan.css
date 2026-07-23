@@ -709,3 +709,61 @@ button.fav.on {
   line-height: 1.5;
   color: #6b5a2a;
 }
+
+/* ---------------------------------------------------------------------------
+   Three bullets per card — Avital, 23 Jul: "the useful information is like
+   last... just give three bullet points of what it is, so I don't read an
+   endless story." Fixed order: what it is · what would wreck it · time+cost.
+--------------------------------------------------------------------------- */
+.act .bul {
+  list-style: none;
+  margin: 6px 0 8px;
+  padding: 0;
+}
+
+.act .bul li {
+  position: relative;
+  padding-left: 15px;
+  margin: 3px 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.act .bul li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #c9c2b4;
+}
+
+.act .bul-what {
+  color: var(--ink);
+}
+
+.act .bul-know {
+  color: var(--rose);
+  font-weight: 500;
+}
+
+.act .bul-know::before {
+  background: var(--rose) !important;
+}
+
+.act .bul-time {
+  color: var(--sub);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The prose is now optional depth, labelled as such. */
+.act .more .more-lead {
+  margin: 0 0 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a9288;
+}

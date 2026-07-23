@@ -41,6 +41,7 @@ const ITEMS: NavItem[] = [
   {
     label: 'Trip',
     children: [
+      { href: 'overview.html', label: '🧭 Where you are — the whole shape' },
       { href: 'plan.html', label: '🗺 The Plan — all the options' },
       { href: 'favorites.html', label: '❤️ Our picks — what you chose' },
       { href: 'bases.html', label: '🛏 From your bed' },

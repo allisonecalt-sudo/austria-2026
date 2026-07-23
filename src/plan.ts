@@ -13,6 +13,7 @@ import { insertNote } from './supabase.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
 import { rainCall, rainLabel, worksInRain } from './rain-ok.js';
+import { bulletsFor } from './bullets.js';
 import { SHABBAT_RULE, shabbatCheck } from './shabbat.js';
 import { mountNav } from './nav.js';
 
@@ -53,7 +54,16 @@ function actCard(a: Activity): HTMLElement {
 
   const ct = el('div', 'ct');
   ct.appendChild(el('h3', undefined, `${a.emoji} ${esc(a.name)}`));
-  ct.appendChild(el('p', 'what', esc(a.what)));
+
+  // Three bullets, useful thing first — Avital's ask. The prose still exists,
+  // but it now sits behind the tap instead of being the first thing read.
+  const b = bulletsFor(a);
+  const bl = el('ul', 'bul');
+  bl.appendChild(el('li', 'bul-what', esc(b.what)));
+  bl.appendChild(el('li', 'bul-know', esc(b.know)));
+  bl.appendChild(el('li', 'bul-time', esc(b.time)));
+  ct.appendChild(bl);
+
   ct.appendChild(el('p', 'drive', esc(a.drive)));
 
   const chips = el('div', 'chips');
@@ -84,6 +94,7 @@ function actCard(a: Activity): HTMLElement {
   if (shab) card.setAttribute('data-shabbat', shab.ok ? 'ok' : 'no');
 
   const more = el('div', 'more');
+  more.appendChild(el('p', 'more-lead', 'The detail'));
   more.appendChild(el('p', undefined, esc(a.more)));
   if (rain) {
     const lab = rainLabel(rain.ok);
@@ -124,7 +135,7 @@ function actCard(a: Activity): HTMLElement {
 
   more.appendChild(row);
   ct.appendChild(more);
-  ct.appendChild(el('p', 'hint', 'tap card for logistics ▾'));
+  ct.appendChild(el('p', 'hint', 'tap for the detail ▾'));
   card.appendChild(ct);
 
   card.addEventListener('click', () => {
@@ -133,7 +144,7 @@ function actCard(a: Activity): HTMLElement {
     if (hint)
       hint.textContent = card.classList.contains('open')
         ? 'tap to close ▴'
-        : 'tap card for logistics ▾';
+        : 'tap for the detail ▾';
   });
   return card;
 }

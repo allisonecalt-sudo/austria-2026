@@ -71,6 +71,8 @@ export default defineConfig(({ command }) => ({
         // 2026-07-23: private booking details behind a login. Content is
         // encrypted at rest in Supabase — nothing sensitive ships in the repo.
         info: resolve(__dirname, 'info.html'),
+        // 2026-07-23: the orientation page — three regions, not four.
+        overview: resolve(__dirname, 'overview.html'),
       },
     },
   },

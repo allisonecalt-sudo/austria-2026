@@ -73,6 +73,12 @@ const GROUPS: Group[] = [
     title: 'Today',
     tiles: [
       {
+        href: 'overview.html',
+        emoji: '🧭',
+        title: 'Where you are',
+        what: 'The whole shape — what is near what',
+      },
+      {
         href: 'plan.html',
         emoji: '🗺',
         title: 'The Plan',
@@ -306,15 +312,20 @@ function render(): void {
 
   const beds = el('div', 'bedlist');
   for (const n of NIGHTS) {
-    const row = el('div', 'bedrow' + (n.date === todayISO() ? ' istonight' : ''));
+    // Each night is a LINK straight to that day on The Plan — her ask, so the
+    // shortcut actually shortcuts instead of dumping you at a second link.
+    const row = el('a', 'bedrow' + (n.date === todayISO() ? ' istonight' : ''));
+    row.href = `plan.html#${n.dayId}`;
     const d = new Date(`${n.date}T12:00:00`).toLocaleDateString('en-GB', {
       weekday: 'short',
       day: 'numeric',
     });
-    row.innerHTML = `<span class="bedrow-d">${d}</span><span class="bedrow-b">${esc(n.bed)}</span>`;
+    row.innerHTML =
+      `<span class="bedrow-d">${d}</span><span class="bedrow-b">${esc(n.bed)}</span>` +
+      `<span class="bedrow-go">›</span>`;
     beds.appendChild(row);
   }
-  const detail = el('a', 'bedlist-more', 'Addresses, check-in times, the car →');
+  const detail = el('a', 'bedlist-more', '🔑 Addresses, check-in times, the car →');
   detail.href = 'info.html';
   beds.appendChild(detail);
 

@@ -559,3 +559,26 @@ button.tile {
 .urgent {
   margin-top: 26px;
 }
+
+/* Each night in the drop-down is a link to that day — Avital, 23 Jul:
+   "make those clickable so that it redirects and I don't have to go to the
+   redirect at the bottom." */
+a.bedrow {
+  text-decoration: none;
+  color: inherit;
+  min-height: 46px;
+  align-items: center;
+}
+
+a.bedrow:hover,
+a.bedrow:focus-visible {
+  background: #f2efe8;
+  border-radius: 8px;
+}
+
+.bedrow-go {
+  flex: 0 0 auto;
+  color: #b9b1a4;
+  font-size: 17px;
+  padding-left: 6px;
+}
