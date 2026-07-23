@@ -16,6 +16,7 @@
 
 import { BUILD_STAMP, SITES, byId } from './plan-data.js';
 import { BASES, type Base, type Pick } from './bases-data.js';
+import { TABLE_ROWS } from './table-data.js';
 import { heartButton, loadFavs, refreshHearts, setSaveStatusSink } from './favs.js';
 import { mountNotes } from './notes.js';
 import { mountNav } from './nav.js';
@@ -51,7 +52,10 @@ function band(min: number): string {
   return 'far';
 }
 
-function pickRow(p: Pick, rank: number): HTMLElement {
+/** bed number (1..4) -> index in the measured fromBase arrays. */
+const BED_INDEX: Record<number, number> = { 1: 0, 2: 1, 3: 2, 4: 3 };
+
+function pickRow(p: Pick, rank: number, bedIdx: number): HTMLElement {
   const a = byId.get(p.id);
   const row = el('li', 'bp');
   if (!a) {
@@ -77,7 +81,12 @@ function pickRow(p: Pick, rank: number): HTMLElement {
   head.appendChild(tags);
   row.appendChild(head);
 
-  const drive = el('span', `bp-drive bp-${band(p.min)}`, `🚗 ${esc(driveLabel(p.min))}`);
+  // AUDIT FIX (23 Jul): 24 of 35 hand-typed minutes disagreed with the
+  // measured table under a footer claiming "nothing is estimated". The
+  // measured number wins; the typed one is only the fallback.
+  const measured = TABLE_ROWS[p.id]?.fromBase?.[bedIdx];
+  const minutes = typeof measured === 'number' ? measured : p.min;
+  const drive = el('span', `bp-drive bp-${band(minutes)}`, `🚗 ${esc(driveLabel(minutes))}`);
   row.appendChild(drive);
 
   row.appendChild(el('p', 'bp-why', esc(p.why)));
@@ -114,7 +123,7 @@ function baseSection(b: Base): HTMLElement {
   sec.appendChild(el('p', 'bbase-reality', esc(b.reality)));
 
   const list = el('ol', 'bpicks');
-  b.picks.forEach((p, i) => list.appendChild(pickRow(p, i + 1)));
+  b.picks.forEach((p, i) => list.appendChild(pickRow(p, i + 1, BED_INDEX[b.n] ?? 0)));
   sec.appendChild(list);
 
   return sec;

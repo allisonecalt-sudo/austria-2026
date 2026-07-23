@@ -611,3 +611,29 @@ a.bedrow:focus-visible {
   color: var(--sub);
   line-height: 1.4;
 }
+
+/* The 07:00 sentence — what today IS, one tap to the full loop. */
+.todayline {
+  display: block;
+  margin: 8px 0 0;
+  padding: 11px 14px;
+  background: #eaf1ec;
+  border: 1px solid #cfdfd4;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #2f4a3c;
+  text-decoration: none;
+}
+
+/* Landing-day cash strip — one day only, then gone. */
+.urgent-landing {
+  margin: 16px 0 0;
+  padding: 11px 13px;
+  background: #fdf4f1;
+  border: 1px solid #f0d8d1;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #7a4a3d;
+}

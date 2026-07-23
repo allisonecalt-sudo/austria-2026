@@ -26,7 +26,13 @@
 //      is cool."                  → those four kept exactly as they were.
 // ===========================================================================
 
+// Side-effect import: nav.ts registers the service worker at module load.
+// The hub deliberately has no nav bar (the page IS the nav), which meant
+// the page she installs was the one page with NO offline support. Found
+// by the design audit, 23 Jul.
+import './nav.js';
 import { DAYS } from './plan-data.js';
+import { DAY_ROUTES } from './routes-data.js';
 import { ageLabel, dayFor, describe, getWeather, verdict } from './weather.js';
 import { allFavIds, loadFavs } from './favs.js';
 import { listGroceries } from './supabase.js';
@@ -277,7 +283,16 @@ function tileNode(t: Tile, slim: boolean): HTMLElement {
 }
 
 function renderUrgent(root: HTMLElement): void {
-  if (todayISO() >= '2026-07-24') return; // after take-off this is noise
+  // Landing day: the booking deadlines are gone, but the cash reminder is at
+  // its MOST urgent at 07:50 in the arrivals hall. One slim line, one day.
+  if (todayISO() === '2026-07-24') {
+    const strip = el('p', 'urgent-landing');
+    strip.textContent =
+      '💶 Landing today — draw euro NOTES AND COINS at the airport. The Hallstatt ferry, Kitzlochklamm and the lake boat are cash-only.';
+    root.appendChild(strip);
+    return;
+  }
+  if (todayISO() > '2026-07-24') return; // mid-trip: this panel is noise
 
   const box = el('section', 'urgent');
   box.appendChild(el('h2', 'urgent-h', '⏰ Before you fly'));
@@ -312,9 +327,15 @@ function render(): void {
   const bar = el('button', 'bedbar');
   bar.type = 'button';
   bar.setAttribute('aria-expanded', 'false');
+  // Before the trip: the outbound flight. During: tonight's bed. On the way
+  // home: the RETURN flight — the audit caught the bar showing last week's
+  // outbound on departure morning.
+  const homeDay = todayISO() >= '2026-07-31';
   bar.innerHTML = now
     ? `<span class="bedbar-k">Tonight</span><span class="bedbar-v">🛏 ${esc(now.bed)}</span><span class="bedbar-c">▾</span>`
-    : `<span class="bedbar-k">Fri 24</span><span class="bedbar-v">🛫 05:00 → Salzburg 07:50</span><span class="bedbar-c">▾</span>`;
+    : homeDay
+      ? `<span class="bedbar-k">Fri 31</span><span class="bedbar-v">🛫 LY5194 09:55 → TLV 13:25</span><span class="bedbar-c">▾</span>`
+      : `<span class="bedbar-k">Fri 24</span><span class="bedbar-v">🛫 05:00 → Salzburg 07:50</span><span class="bedbar-c">▾</span>`;
 
   const beds = el('div', 'bedlist');
   for (const n of NIGHTS) {
@@ -343,6 +364,19 @@ function render(): void {
 
   wrap.appendChild(bar);
   wrap.appendChild(beds);
+
+  // The 07:00 sentence — the hub answered "where do we sleep" but never
+  // "what is today". One line from The Week, only during the trip.
+  const night = NIGHTS.find((n) => n.date === todayISO());
+  if (night) {
+    const dr = DAY_ROUTES.find((d) => d.dayId === night.dayId);
+    if (dr) {
+      const today = el('a', 'todayline');
+      today.href = 'routes.html';
+      today.innerHTML = `<b>Today</b> · ${esc(dr.title)} — ${esc(dr.headline)} →`;
+      wrap.appendChild(today);
+    }
+  }
 
   // ---- the tiles, immediately. Nothing to scroll past. --------------------
   for (const g of GROUPS) {
@@ -410,6 +444,10 @@ async function loadWeather(): Promise<void> {
   }
 
   const today = todayISO();
+  if (today >= '2026-07-31') {
+    mount.textContent = 'Fly-home day — 05:30 alarm, car back 06:30, LY5194 at 09:55.';
+    return;
+  }
   const night = NIGHTS.find((n) => n.date === today);
   const target = night ?? NIGHTS[0];
   const fc =

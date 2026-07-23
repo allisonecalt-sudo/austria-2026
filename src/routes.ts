@@ -410,6 +410,12 @@ async function main(): Promise<void> {
 
     // If nothing matched (pre-trip), open the first day so the page shows its shape.
     if (!root.querySelector('.rday.open')) root.querySelector('.rday')?.classList.add('open');
+
+    // By Wednesday, today sits below five days already lived — bring it up.
+    requestAnimationFrame(() => {
+      const openDay = root.querySelector('.rday.open');
+      if (openDay && DAY_DATE[openDay.id] === today) openDay.scrollIntoView({ block: 'start' });
+    });
   }
 
   await loadFavs().catch(() => undefined);

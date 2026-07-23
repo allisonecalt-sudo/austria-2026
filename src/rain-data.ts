@@ -111,7 +111,7 @@ export const RAIN_BASES: RainBase[] = [
         id: 'kitzsteinhorn',
         min: 15,
         dryness: 'dry',
-        why: 'Only worth it if the cloud base is BELOW the summit — then you ride up through the weather into sun, and the ice grotto, cinema lounge and summit galleries are all indoors. Check the webcam first: if it is socked in at the top, the view is the entire point, so save it.',
+        why: 'Gondolas and the summit restaurant are covered — but in low cloud you see the inside of a cloud at 3,029 m. WEBCAM FIRST; only go if the top is clear above the weather.',
       },
     ],
   },

@@ -60,6 +60,13 @@ function queueSave(dayId: string, onStatus?: (msg: string) => void): void {
 
 /** Add or remove one place on one day. Returns true if it is now IN the plan. */
 export function toggleInDay(dayId: string, id: string, onStatus?: (msg: string) => void): boolean {
+  // Same wipe-class as favs: a tap before this day's plan has loaded would
+  // save a one-entry list over the real one. Load it first, then apply.
+  if (!cache.has(dayId)) {
+    onStatus?.('loading that day — tap again in a second');
+    void getDayPlan(dayId);
+    return false;
+  }
   const list = cache.get(dayId) ?? [];
   const i = list.indexOf(id);
   if (i >= 0) {

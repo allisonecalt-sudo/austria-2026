@@ -58,7 +58,7 @@ const REGIONS: Region[] = [
       'The Hallstättersee and the Dachstein. Everything here is a lake, a lift onto the Dachstein, or something underground.',
     mustSee: ['krippenstein', 'gosausee', 'hallstatt-by-train', 'hallstattersee-boat'],
     catch:
-      'Bad Goisern and Gosau share almost the same list — nine things sit within fifteen minutes of both. Do not save something for Gosau that you could have done from Goisern; save the GOSAUSEE for Gosau, because that is the one thing Gosau genuinely owns.',
+      'Bad Goisern and Gosau share most of one list — the beds are 20 minutes apart. Do not save something for Gosau that you could have done from Goisern; save the GOSAUSEE for Gosau, because that is the one thing Gosau genuinely owns.',
   },
   {
     key: 'pinzgau',
@@ -236,7 +236,7 @@ function render(): void {
 
   const keyfact = el('div', 'ovkey');
   keyfact.innerHTML =
-    '<b>Bad Goisern and Gosau are 20 minutes apart.</b> Same region, two beds — nine things sit within a quarter of an hour of both. ' +
+    '<b>Bad Goisern and Gosau are 20 minutes apart.</b> Same region, two beds, largely one list. ' +
     'Zell is the odd one out: 1h45 from Goisern, and you make that hop twice. ' +
     'So the week is <b>Salzkammergut → a high-alpine pocket → Salzkammergut again → the city</b>.';
   wrap.appendChild(keyfact);

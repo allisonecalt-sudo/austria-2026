@@ -167,7 +167,7 @@ export const DAY_ROUTES: DayRoute[] = [
         id: 'frost-rafting',
         time: '13:00 slot',
         legMin: 12,
-        note: 'BOOKED AHEAD (on request, 24h notice). Wetsuits on, rain irrelevant. FROST runs Mondays; Motion Lofer does not. (Leg ≈ Taxenbach→Bruck, short hop.)',
+        note: 'BOOK AHEAD — email info@frostrafting.at; on request only, 24h notice, NOT confirmed until they reply. Wetsuits on, rain irrelevant. FROST runs Mondays; Motion Lofer does not. (Leg ≈ Taxenbach→Bruck, short hop.)',
       },
       {
         id: 'tauern-spa',

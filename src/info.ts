@@ -182,7 +182,14 @@ async function deriveKey(password: string, login: string, iterations: number): P
 }
 
 async function unseal(login: string, password: string): Promise<TripInfo> {
-  const sealed = await getState<SealedPayload>(STATE_KEY);
+  let sealed: SealedPayload | null;
+  try {
+    sealed = await getState<SealedPayload>(STATE_KEY);
+  } catch {
+    // No signal is not a wrong password. Say which it is. (Audit, 23 Jul —
+    // the old path also WIPED saved credentials on a dead connection.)
+    throw new Error('NETWORK');
+  }
   if (!sealed) {
     throw new Error(
       'Nothing has been saved to this page yet — the trip info has not been sealed into the database.',
@@ -289,12 +296,19 @@ async function attempt(login: string, password: string, remember: boolean): Prom
     renderInfo(data);
     return true;
   } catch (err) {
+    if (err instanceof Error && err.message === 'NETWORK') {
+      setError(
+        'No signal right now — nothing is wrong with the password. Try again when you have bars.',
+      );
+      return false;
+    }
     // A decryption failure and a wrong password are the same thing here.
     const msg =
       err instanceof Error && err.message.includes('not been sealed')
         ? err.message
         : "That login and password didn't unlock it. Check both and try again.";
     setError(msg);
+    if (err instanceof Error && !err.message.includes('not been sealed')) forgetCreds();
     return false;
   } finally {
     if (btn) {
@@ -312,9 +326,8 @@ async function main(): Promise<void> {
   const saved = readSaved();
   if (saved) {
     if (await attempt(saved.login, saved.password, false)) return;
-    // Stored credentials no longer open it — the password was changed. Clear
-    // them and ask again, rather than silently failing every visit.
-    forgetCreds();
+    // attempt() itself now clears credentials ONLY on a real decrypt failure
+    // (password changed). A network failure keeps them for the next visit.
   }
 
   const form = document.getElementById('i-form');

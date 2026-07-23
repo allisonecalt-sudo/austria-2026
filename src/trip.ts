@@ -323,7 +323,7 @@ export const TRIP: TripData = {
       title: 'Land at Salzburg, settle in for Shabbat',
       logistics: 'Land SZG 07:50 · airport → base ~1h05',
       photo: P.salzburgRiver,
-      tldr: 'Land 07:50 on LY5193, pick up the rental car, drive into the Salzkammergut to the Bad Goisern apartment, Spar run for Shabbat groceries, nap. The whole day is built around being settled before candle-lighting at 20:35.',
+      tldr: 'Land 07:50 on LY5193, pick up the rental car, drive into the Salzkammergut to the Bad Goisern apartment, Spar run for Shabbat groceries, nap. The whole day is built around being settled before candle-lighting at 20:32.',
       blocks: [
         { icon: 'time', line: 'Land SZG 07:50 (LY5193) → collect rental car' },
         {
@@ -345,7 +345,7 @@ export const TRIP: TripData = {
         },
         {
           icon: 'sunset',
-          line: 'Candle-lighting 20:35 · settled and unwound',
+          line: 'Candle-lighting 20:32 · settled and unwound',
           detail:
             'Plan B if jet lag is mild: skip the nap, slow walk around the village or down to the Traun before Shabbat prep.',
         },
@@ -359,7 +359,7 @@ export const TRIP: TripData = {
       title: 'Shabbat — walking only',
       logistics: 'No driving · on foot all day',
       photo: P.alpineSunset,
-      tldr: 'A slow, self-catered Shabbat in Bad Goisern — daven, a long lunch from the frozen-food stash, a deep nap, then a riverside walk along the Traun. Valley sunset, Havdalah at 21:49. The recover-from-the-flight day.',
+      tldr: 'A slow, self-catered Shabbat in Bad Goisern — daven, a long lunch from the frozen-food stash, a deep nap, then a riverside walk along the Traun. Valley sunset, Havdalah at ~21:45. The recover-from-the-flight day.',
       blocks: [
         {
           icon: 'time',
@@ -383,7 +383,7 @@ export const TRIP: TripData = {
           line: 'Valley sunset from the village edge · 20:54',
           place: { name: 'Bad Goisern valley', links: { query: 'Bad Goisern Salzkammergut' } },
         },
-        { icon: 'time', line: 'Havdalah 21:49' },
+        { icon: 'time', line: 'Havdalah ~21:45' },
       ],
       baseId: 'first-leg',
     },
@@ -825,7 +825,7 @@ export const TRIP: TripData = {
   practical: [
     {
       label: 'Kosher / Shabbat',
-      body: 'Shabbat is spent in Bad Goisern (Fri–Sun) — self-catered, frozen mains brought from home, everything walking-distance, no driving. Two of the four bases have a full cookable kitchen — Gosau has an oven, Zell a stovetop kitchenette (no oven) — and the Bad Goisern apartment has a cookable kitchenette. Candle-lighting Fri 20:35, Havdalah Sat 21:49.',
+      body: 'Shabbat is spent in Bad Goisern (Fri–Sun) — self-catered, frozen mains brought from home, everything walking-distance, no driving. Two of the four bases have a full cookable kitchen — Gosau has an oven, Zell a stovetop kitchenette (no oven) — and the Bad Goisern apartment has a cookable kitchenette. Candle-lighting Fri 20:32, Havdalah Sat ~21:45.',
     },
     {
       label: 'Flights',

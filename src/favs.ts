@@ -107,6 +107,14 @@ function queueSave(): void {
  *  alone (that page owns it) — so the heart honestly stays lit and the row
  *  stays on Our picks. Clear it on the rank page if that is what you meant. */
 export function toggleFav(id: string): boolean {
+  // AUDIT FIX (23 Jul): a tap in the window before loadFavs resolves used to
+  // save a one-entry map over fav_shared — silently wiping every heart both
+  // of them had ever tapped. Refuse to mutate until the load has succeeded;
+  // the status line says why, and the tap costs one retry a second later.
+  if (!state.loaded) {
+    onSaveStatus?.('still loading your picks — tap again in a second');
+    return isFav(id);
+  }
   if (state.fav[id]) {
     delete state.fav[id];
     queueSave();

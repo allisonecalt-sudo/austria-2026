@@ -21,11 +21,15 @@
 // VERSION must be bumped on every deploy or phones keep the old shell.
 // ===========================================================================
 
-const VERSION = 'austria-v5-2026-07-23-2225';
+const VERSION = 'austria-v6-2026-07-23-2310';
 const SHELL = `shell-${VERSION}`;
 const ASSETS = `assets-${VERSION}`;
-const PHOTOS = `photos-${VERSION}`;
-const DATA = `data-${VERSION}`;
+// STABLE names, deliberately NOT tied to VERSION. Five deploys happened
+// today alone; versioned names meant every deploy deleted the last-seen
+// grocery list, the sealed trip-info row and every cached map tile —
+// exactly the data offline support exists to keep. (Audit, 23 Jul.)
+const PHOTOS = 'photos-v1';
+const DATA = 'data-v1';
 
 const BASE = self.registration.scope; // .../austria-2026/
 
@@ -72,7 +76,8 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
       const keys = await caches.keys();
-      await Promise.all(keys.filter((k) => !k.endsWith(VERSION)).map((k) => caches.delete(k)));
+      const keep = new Set([SHELL, ASSETS, PHOTOS, DATA]);
+      await Promise.all(keys.filter((k) => !keep.has(k)).map((k) => caches.delete(k)));
       await self.clients.claim();
     })(),
   );

@@ -978,7 +978,7 @@ export const DAYS: PlanDay[] = [
     kicker: 'full day · check-in der Sonnberg 17:00–18:00 · Esplanade sunset 20:53',
     photo: P('Wolfgangsee%20mit%20St.%20Wolfgang.jpg'),
     intro:
-      'A full incredible day that happens to end at a new base. Three big shapes: the Grossglockner glacier drive (ends right by Zell), the Schafberg steam train + Wolfgangsee swim, or 5 Fingers at opening before the crowds + a lake afternoon. Quiet fallbacks if weather turns: Ebensee memorial, Jewish Ischl walk, Langbathsee.',
+      'Transfer day, Goisern to Zell — pick one big shape: the Grossglockner glacier drive (ends right by Zell), the Schafberg steam train + Wolfgangsee swim, or 5 Fingers at opening before the crowds + a lake afternoon. Quiet fallbacks if weather turns: Ebensee memorial, Jewish Ischl walk, Langbathsee.',
     activityIds: [
       'grossglockner',
       'schafberg',
@@ -994,7 +994,7 @@ export const DAYS: PlanDay[] = [
       'parkbad-goisern',
       'fortress-concert',
     ],
-    note: 'If Schafberg is your Sunday pick — RESERVE the train online a few days ahead; July seats genuinely sell out. Grossglockner and Krippenstein are clear-weather picks: check the forecast/webcams that morning and swap freely.',
+    note: 'If Schafberg is your Sunday pick — book it online BEFORE Sunday; July seats genuinely sell out. Grossglockner and Krippenstein are clear-weather picks: check the forecast/webcams that morning and swap freely.',
   },
   {
     id: 'mon27',
@@ -1209,4 +1209,4 @@ export const SUNSETS: SunsetSpot[] = [
   },
 ];
 
-export const BUILD_STAMP = '2026-07-17 19:45';
+export const BUILD_STAMP = '2026-07-23 23:10';
