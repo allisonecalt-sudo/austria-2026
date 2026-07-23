@@ -182,22 +182,22 @@ const GLOSS: GlossTerm[] = [
   },
   {
     de: 'Molke · Molkenpulver · Süßmolke',
-    en: 'Whey — dairy, and a cheese byproduct (can trace to non-kosher rennet). Kosher-sensitive.',
-    f: 'stop',
+    en: 'Whey - dairy. Your rav: fine if you rely on chalav stam; its cheese origin is not a separate problem.',
+    f: 'go',
   },
   {
     de: 'Milcheiweiß · Magermilchpulver · Milchpulver',
-    en: 'Milk protein / milk powder — dairy (fine under chalav stam; a stop if you require chalav yisrael).',
-    f: 'stop',
+    en: 'Milk protein / milk powder - dairy, fine under chalav stam (your rav confirmed).',
+    f: 'go',
   },
   {
     de: 'Aroma · Natürliches Aroma',
-    en: 'Flavoring — the black box. Can carry non-kosher, dairy or grape. The main judgment call; stricter readers avoid.',
+    en: 'Flavoring - the black box; the source is not disclosed. Your rav did not know the term, so it was re-asked. Treat as unknown for now.',
     f: 'read',
   },
   {
     de: 'Mono- und Diglyceride (E471) · Ester (E472a–f)',
-    en: "Emulsifiers — plant OR animal fat. The disputed zone: strict agencies want a hechsher; lenient EU practice leans on today's palm/soy majority.",
+    en: 'Emulsifiers - your rav: likely similar logic to gelatin, and possibly more lenient since they may be plant based. A V-Label VEGAN mark settles it.',
     f: 'read',
   },
   {
@@ -253,8 +253,8 @@ const GLOSS: GlossTerm[] = [
   },
   {
     de: 'Kann Spuren von … enthalten',
-    en: "“May contain traces of …” — an allergen cross-contact warning, NOT an ingredient. Mainstream kashrut doesn't treat traces as non-kosher.",
-    f: 'read',
+    en: 'May contain traces of ... - your rav: an allergy warning, not a kashrut issue, as long as milk is not an actual ingredient. Stop reading these.',
+    f: 'go',
   },
   {
     de: 'Bio',
