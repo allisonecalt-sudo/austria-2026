@@ -959,7 +959,7 @@ export const DAYS: PlanDay[] = [
     intro:
       'One meaningful anchor before Shabbat. Pick by energy after the night flight — A is the biggest, C the softest. Every route ends with the MANDATORY grocery stop (Spar Bad Ischl ~40 min — shops close Sat AND Sun) and hours of margin before candle-lighting in Bad Goisern.',
     activityIds: ['mauthausen', 'ebensee', 'salzburg-jewish-walk', 'jewish-ischl'],
-    note: 'Bringing frozen food from home → confirm the Goisern apartment has a FREEZER. Combo route: short Salzburg walk + Ebensee on the drive east (~40 min extra driving).',
+    note: 'Combo route: short Salzburg walk + Ebensee on the drive east (~40 min extra driving).',
   },
   {
     id: 'shabbat',

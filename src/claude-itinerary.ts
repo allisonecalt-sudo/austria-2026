@@ -49,7 +49,7 @@ const WEEK: CDay[] = [
         t: '16:15',
         text: 'Spar Bad Ischl: fresh basics (~40 min). Shops are CLOSED Sat + Sun — this stop is sacred.',
       },
-      { t: '17:15', text: 'Bad Goisern: unpack, freezer-load, shower, breathe.' },
+      { t: '17:15', text: 'Bad Goisern: unpack, shower, breathe.' },
       { t: '20:32', text: '🕯️ Candle-lighting. Quietest Shabbat of your year begins.' },
     ],
     sunset:
@@ -362,7 +362,7 @@ function render(): void {
 
   const outro = el('p', 'day-note');
   outro.innerHTML =
-    'Before Friday: ① reserve the Schafberg train (by Wed) · ② one WhatsApp to Avital re: exact El Al times · ③ ask the Goisern host about the freezer · ④ I check the weather Wednesday and re-point the clear-day picks. Everything else is walk-up. 💙';
+    'Before Friday: ① reserve the Schafberg train (by Wed) · ② one WhatsApp to Avital re: exact El Al times · ③ I check the weather Wednesday and re-point the clear-day picks. Everything else is walk-up. 💙';
   wrap.appendChild(outro);
 
   root.appendChild(wrap);
