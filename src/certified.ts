@@ -551,7 +551,7 @@ const CERTS: Cert[] = [
     cat: 'Ice cream',
     brand: 'Snickers',
     name: 'Ice Cream',
-    auth: 'KLBD - Chalav Stam ICE CREAM',
+    auth: 'KLBD - Chalav Stam',
     stamp: true,
     store: 'Billa plus, Penny Markt',
     page: 0,
