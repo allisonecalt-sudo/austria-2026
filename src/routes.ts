@@ -65,7 +65,9 @@ function stopRow(s: DayRoute['stops'][number], onFoot: boolean): HTMLElement {
   const body = el('div', 'rstop-body');
   const a = s.id ? byId.get(s.id) : undefined;
   if (a && s.id) {
-    const link = el('a', 'rstop-name', `${a.emoji} ${a.name}`);
+    // ⭐ = a lifetime pick. On a trailhead, deciding, this is the one
+    // signal that must survive a two-second glance.
+    const link = el('a', 'rstop-name', `${a.star ? '⭐ ' : ''}${a.emoji} ${a.name}`);
     link.href = `plan.html#${s.id}`;
     body.appendChild(link);
   } else {
@@ -406,6 +408,17 @@ async function main(): Promise<void> {
       const sec = daySection(day);
       if (DAY_DATE[day.dayId] === today) sec.classList.add('open');
       root.appendChild(sec);
+    }
+
+    // A day named in the URL (from the Don't-miss strip) opens and wins.
+    const wanted = window.location.hash.slice(1);
+    if (wanted) {
+      const target = document.getElementById(wanted);
+      if (target && target.classList.contains('rday')) {
+        root.querySelectorAll('.rday.open').forEach((d) => d.classList.remove('open'));
+        target.classList.add('open');
+        requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+      }
     }
 
     // If nothing matched (pre-trip), open the first day so the page shows its shape.

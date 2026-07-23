@@ -74,6 +74,47 @@ const NIGHTS: { date: string; bed: string; dayId: string }[] = [
   { date: '2026-07-30', bed: 'Wals (by the airport)', dayId: 'thu30' },
 ];
 
+// ---------------------------------------------------------------------------
+// DON'T MISS — her brief: "imagine me and avital out in the mountains trying
+// to plan our epic day... super important that we easily see the must-sees
+// and the things you know we would want to do and not miss."
+// The seven moments, each pinned to its day. One tap = that day's loop.
+// ---------------------------------------------------------------------------
+const MUST_SEE: { emoji: string; what: string; day: string; dayId: string }[] = [
+  { emoji: '🚤', what: 'Königssee silent boat + the Obersee mirror', day: 'Thu', dayId: 'thu30' },
+  {
+    emoji: '🌅',
+    what: 'Gosausee evening — e-boat, then the sunset from the shore',
+    day: 'Wed',
+    dayId: 'wed29',
+  },
+  {
+    emoji: '🖐',
+    what: '5 Fingers over the 400 m drop (clear morning)',
+    day: 'Wed',
+    dayId: 'wed29',
+  },
+  {
+    emoji: '⛵',
+    what: 'Zeller See sunset cruise — the Montenegro evening, if the sky breaks',
+    day: 'Mon',
+    dayId: 'mon27',
+  },
+  {
+    emoji: '🧊',
+    what: 'Eisriesenwelt — the largest ice cave on Earth, on the drive',
+    day: 'Sun',
+    dayId: 'sun26',
+  },
+  { emoji: '🕯️', what: 'Mauthausen — the remembrance anchor', day: 'Fri', dayId: 'fri24' },
+  {
+    emoji: '🏘',
+    what: 'Hallstatt at dusk, supper on the lakefront, buses gone',
+    day: 'Tue',
+    dayId: 'tue28',
+  },
+];
+
 const GROUPS: Group[] = [
   {
     title: 'Today',
@@ -377,6 +418,27 @@ function render(): void {
       wrap.appendChild(today);
     }
   }
+
+  // ---- DON'T MISS — visible before anything else asks for a decision ------
+  const ms = el('section', 'mustsee');
+  const msHead = el('button', 'mustsee-h');
+  msHead.type = 'button';
+  msHead.setAttribute('aria-expanded', 'false');
+  msHead.innerHTML = `<span>⭐ Don't miss</span><span class="mustsee-sub">the 7 moments this week is built around</span><span class="mustsee-c">▾</span>`;
+  const msList = el('div', 'mustsee-list');
+  for (const m of MUST_SEE) {
+    const a = el('a', 'mustsee-row');
+    a.href = `routes.html#${m.dayId}`;
+    a.innerHTML = `<span class="ms-emoji">${m.emoji}</span><span class="ms-what">${esc(m.what)}</span><span class="ms-day">${m.day}</span>`;
+    msList.appendChild(a);
+  }
+  msHead.addEventListener('click', () => {
+    const open = ms.classList.toggle('open');
+    msHead.setAttribute('aria-expanded', String(open));
+  });
+  ms.appendChild(msHead);
+  ms.appendChild(msList);
+  wrap.appendChild(ms);
 
   // ---- the tiles, immediately. Nothing to scroll past. --------------------
   for (const g of GROUPS) {

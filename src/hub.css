@@ -637,3 +637,93 @@ a.bedrow:focus-visible {
   line-height: 1.55;
   color: #7a4a3d;
 }
+
+/* DON'T MISS — the seven moments. A thin bar (her pattern), opens to rows. */
+.mustsee {
+  margin-top: 8px;
+  border: 1px solid #e2cf9f;
+  background: #fdf8ee;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mustsee-h {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  color: #6b5a2a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.mustsee-sub {
+  flex: 1 1 auto;
+  font-size: 11px;
+  font-weight: 500;
+  color: #9a854f;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mustsee-c {
+  transition: transform 0.15s ease;
+  font-size: 11px;
+}
+
+.mustsee.open .mustsee-c {
+  transform: rotate(180deg);
+}
+
+.mustsee-list {
+  display: none;
+  padding: 0 8px 8px;
+}
+
+.mustsee.open .mustsee-list {
+  display: block;
+}
+
+.mustsee-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 4px 8px;
+  border-radius: 9px;
+  text-decoration: none;
+}
+
+.mustsee-row:hover {
+  background: #f7efdc;
+}
+
+.ms-emoji {
+  flex: 0 0 auto;
+  font-size: 17px;
+}
+
+.ms-what {
+  flex: 1 1 auto;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #4a3f24;
+}
+
+.ms-day {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: #b98a2f;
+  border-radius: 99px;
+  padding: 3px 9px;
+}

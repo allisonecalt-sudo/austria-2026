@@ -147,8 +147,8 @@ export const DAY_ROUTES: DayRoute[] = [
     sunset:
       'Zeller See Esplanade 20:53 — two minutes from the door, umbrella, something hot. Grey is fine; it is your first night on this lake.',
     weatherSwap:
-      'If Sunday somehow clears: the ice cave is still worth it (it is 0°C inside regardless) — or swap it for the Schmittenhöhe lift and a first swim. If 700 steps is a no today, the Sigmund-Thun gorge boardwalk (€3.50, an hour) is the gentle stand-in.',
-    slow: 'Straight to the Tauern Spa and stay all afternoon — pools to 21:00, no clock. The walk is the Esplanade after check-in; the activity is doing absolutely nothing in warm water while it rains.',
+      'If Sunday somehow clears: the ice cave is still worth it (0°C inside regardless) — or trade it for the Schafberg steam train + a Wolfgangsee swim (book the train online FIRST, you pick your downhill slot). If 700 steps is a no today, the Sigmund-Thun gorge boardwalk (€3.50, an hour) is the gentle stand-in.',
+    slow: 'The lake boat from YOUR OWN shore instead: it calls at Untersee (8 min away) at 10:40 — cash only, only runs until 16 Aug — then straight to the Tauern Spa and stay all afternoon, pools to 21:00. A boat and hot water; the Esplanade after check-in is the walk.',
   },
   {
     dayId: 'mon27',
@@ -185,7 +185,7 @@ export const DAY_ROUTES: DayRoute[] = [
     sunset:
       'ON the Zeller See from the boat if it sails; the Esplanade at 20:53 if not. Decide at 18:00, not before.',
     weatherSwap:
-      'If Monday CLEARS (check at 07:00 in bed): Kitzsteinhorn up at 09:30 instead of the gorge — 12 min away, no reservation — keep the raft, and book the cruise the moment the sky looks right.',
+      'If Monday CLEARS (check at 07:00 in bed): swap the gorge for ONE big-sky thing — Kitzsteinhorn glacier (12 min, no reservation), the Grossglockner road (25 min to the toll gate, €45/car), or Krimml Falls (1h) — keep the raft, and book the cruise the moment the sky looks right.',
     slow: 'Raft at 13:00 and nothing else: slow morning on the Esplanade, the river, then hours at the spa. The cruise decision at 18:00 still stands.',
   },
   {
