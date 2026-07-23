@@ -76,7 +76,7 @@ const PRODUCTS: Product[] = [
     cat: 'Yogurt',
     status: 'ingr',
     misrachi: '',
-    why: 'Plant yogurt, no milk. NOT on the list - Misrachi lists only Soja Joghurt Heidelbeere + Limette Zitrone (KLBD)',
+    why: 'Plant, no milk. BUT has natuerliches Aroma + ascorbyl palmitate (E304) - check the tub for a VEGAN MARK, which settles both',
     ingredients:
       'Wasser, geschälte SOJABOHNEN (10,7%), Calcium (Tricalciumcitrat), Stabilisator (Pektine), Säureregulatoren (Natriumcitrate, Citronensäure), natürliches Aroma, Meersalz, Antioxidationsmittel (stark tocopherolhaltige Extrakte, Fettsäureester der Ascorbinsäure), Vitamine (B12, B6, D2), Joghurtkulturen (S. thermophilus, L. bulgaricus). Kann SPUREN VON SCHALENFRÜCHTEN enthalten.',
     leniency: 'None needed - plant, no milk.',
