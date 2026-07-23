@@ -143,7 +143,7 @@ const PAIRS: { a: string; b: string; why: string }[] = [
 const FAR: { id: string; why: string }[] = [
   {
     id: 'mauthausen',
-    why: 'Nearest bed is 1h43 away, and it needs three hours on site plus a quiet drive afterwards. It wants a whole day this week does not have. Ebensee — 25 minutes from Bad Goisern, and you walk into the tunnel itself — is the version that fits.',
+    why: 'Too far from every BED — but it is the Friday ARRIVAL anchor, driven from the airport on the way in (1h45), which is exactly how it fits. It only fails as a mid-week outing; The Week has it where it belongs.',
   },
   {
     id: 'taurachbahn',

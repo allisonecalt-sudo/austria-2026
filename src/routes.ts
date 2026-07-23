@@ -23,6 +23,7 @@ import { byId } from './plan-data.js';
 import { BASE_ORDER, TABLE_ROWS } from './table-data.js';
 import { DAY_ROUTES, totalDrive, type DayRoute } from './routes-data.js';
 import { allFavIds, isFav, loadFavs } from './favs.js';
+import { getDayPlan, loadAllDayPlans, toggleInDay } from './dayplan.js';
 import { mountNav } from './nav.js';
 import { mountNotes } from './notes.js';
 
@@ -102,7 +103,15 @@ function daySection(day: DayRoute): HTMLElement {
   for (const s of day.stops) list.appendChild(stopRow(s, Boolean(day.onFoot)));
   body.appendChild(list);
 
+  // Her ask: every day carries its own way back to the FULL menu — the route
+  // is a suggestion, the options are the pool it came from.
+  const more = el('a', 'rmore');
+  more.href = `plan.html#${day.dayId}`;
+  more.textContent = `➕ All the options for ${day.date} — swap anything`;
+  body.appendChild(more);
+
   body.appendChild(el('p', 'rsunset', `🌅 ${day.sunset}`));
+  if (day.slow) body.appendChild(el('p', 'rslow', `🐢 The slow version: ${day.slow}`));
   if (day.weatherSwap)
     body.appendChild(el('p', 'rswap', `⛅ If the weather flips: ${day.weatherSwap}`));
   sec.appendChild(body);
@@ -146,6 +155,11 @@ const builder = {
   day: DAY_BEDS[0],
   chosen: new Set<string>(),
 };
+
+function rbStatus(msg: string): void {
+  const n = document.getElementById('rb-status');
+  if (n) n.textContent = msg;
+}
 
 function orderStops(chosen: Chosen[]): Chosen[] {
   // Nearest-neighbour from the start bed; end bed pulls the tail into shape.
@@ -263,32 +277,50 @@ function renderBuilderResult(): void {
   }
 }
 
-function renderBuilder(): void {
+async function renderBuilder(): Promise<void> {
   const root = document.getElementById('rb');
   if (!root) return;
   root.innerHTML = '';
 
-  root.appendChild(el('h2', 'rb-h', 'Build your own day'));
+  root.appendChild(el('h2', 'rb-h', 'Make a day'));
   root.appendChild(
     el(
       'p',
       'rb-sub',
-      'Pick the day, tick what you want, and it gets ordered into a loop from that morning’s bed to that night’s bed. Your ❤️ picks are pre-ticked.',
+      'Pick the day, tick places — the list SAVES as you go, shared to both phones. It orders itself into a loop from that morning’s bed to that night’s bed. You can also add from the map: tap any dot, pick the day.',
     ),
   );
+  const status = el('p', 'save-note');
+  status.id = 'rb-status';
+  root.appendChild(status);
 
-  // Day selector.
+  // Day selector — switching loads that day's SAVED plan.
   const daysBar = el('div', 'rb-days');
   for (const d of DAY_BEDS) {
     const b = el('button', 'rb-day' + (builder.day.dayId === d.dayId ? ' on' : ''), d.label);
     b.type = 'button';
     b.addEventListener('click', () => {
       builder.day = d;
-      renderBuilder();
+      void renderBuilder();
     });
     daysBar.appendChild(b);
   }
   root.appendChild(daysBar);
+
+  // The saved plan for this day. Hearts only pre-fill a day nobody touched yet
+  // (and without saving), so a deliberate empty stays empty.
+  const saved = await getDayPlan(builder.day.dayId);
+  builder.chosen = new Set(saved);
+  if (saved.length === 0) {
+    for (const id of allFavIds()) if (byId.has(id) && isFav(id)) builder.chosen.add(id);
+    rbStatus(
+      saved.length === 0 && builder.chosen.size > 0
+        ? 'started from your ❤️ picks — tick anything to save it as this day'
+        : '',
+    );
+  } else {
+    rbStatus('this day is saved — both phones see it');
+  }
 
   // Choices, sorted by distance from the day's start bed. First 12 visible.
   const startIdx = builder.day.start;
@@ -305,6 +337,9 @@ function renderBuilder(): void {
     cb.addEventListener('change', () => {
       if (cb.checked) builder.chosen.add(r.id);
       else builder.chosen.delete(r.id);
+      // Every tick SAVES to the shared day plan — both phones, and Claude,
+      // see the same Tuesday. This is the "make a day" she asked for.
+      toggleInDay(builder.day.dayId, r.id, rbStatus);
       renderBuilderResult();
     });
     lab.appendChild(cb);
@@ -379,9 +414,14 @@ async function main(): Promise<void> {
   }
 
   await loadFavs().catch(() => undefined);
-  // Pre-tick the hearts so the builder starts from what they already chose.
-  for (const id of allFavIds()) if (byId.has(id) && isFav(id)) builder.chosen.add(id);
-  renderBuilder();
+  await loadAllDayPlans().catch(() => undefined);
+  // Hearts seed the CURRENT day only when it has no saved plan yet — a
+  // starting point, not an overwrite. Nothing saves until someone ticks.
+  const saved = await getDayPlan(builder.day.dayId);
+  if (saved.length === 0) {
+    for (const id of allFavIds()) if (byId.has(id) && isFav(id)) builder.chosen.add(id);
+  }
+  await renderBuilder();
 
   const foot = document.getElementById('routes-foot');
   if (foot) {

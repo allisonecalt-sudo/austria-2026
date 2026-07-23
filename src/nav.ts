@@ -10,11 +10,12 @@
 //   big ball with everything... and then groceries and shopping list you can
 //   just put it as a simple thing."
 //
-// So: TWO levels, three things.
-//   🏔 Austria  →  the hub (home)
-//   Trip ▾      →  everything about where you go
-//   Kosher ▾    →  everything about what you can eat
-//   🛒 Shopping →  flat, no menu, because it is one screen
+// Reorganised 23 Jul 22:50 on her ask ("think about navigation — how much in
+// each bar"): FIVE top items. The two everyday-on-the-trip pages are flat
+// (🏔 home, 🔁 Week — plus 🛒, one screen). Everything else lives in two
+// menus: Trip (9 rows, ordered by how often they will actually be opened)
+// and Food (the kosher trio). Icon-only labels for home and shopping keep
+// all five inside 412px without scrolling.
 //
 // It also removes a real duplication: the nav used to be hand-copied into
 // twelve HTML files, which is how three different versions of it ended up
@@ -37,31 +38,31 @@ interface NavItem {
 }
 
 const ITEMS: NavItem[] = [
-  { href: 'hub.html', label: '🏔 Austria' },
+  { href: 'hub.html', label: '🏔' },
+  { href: 'routes.html', label: '🔁 Week' },
   {
     label: 'Trip',
     children: [
-      { href: 'routes.html', label: '🔁 The Week — each day door to door' },
-      { href: 'overview.html', label: '🧭 Where you are — the whole shape' },
       { href: 'plan.html', label: '🗺 The Plan — all the options' },
       { href: 'favorites.html', label: '❤️ Our picks — what you chose' },
+      { href: 'overview.html', label: '🧭 Where you are — the map' },
       { href: 'bases.html', label: '🛏 From your bed' },
       { href: 'rain.html', label: '☂ Rainy day' },
       { href: 'rank.html', label: '⭐ Rank it' },
-      { href: 'claude.html', label: "💙 Claude's pick" },
-      { href: 'index.html', label: '📖 The brochure' },
       { href: 'info.html', label: '🔑 Trip info — bookings, car, flights' },
+      { href: 'index.html', label: '📖 The brochure' },
+      { href: 'claude.html', label: '📦 Archive — the pre-forecast week' },
     ],
   },
   {
-    label: 'Kosher',
+    label: 'Food',
     children: [
       { href: 'certified.html', label: '✅ Certified — the easy path' },
       { href: 'kosher.html', label: '✡️ Field guide — reading a label' },
       { href: 'shop.html', label: '🔍 By ingredient — photo grid' },
     ],
   },
-  { href: 'groceries.html', label: '🛒 Shopping' },
+  { href: 'groceries.html', label: '🛒' },
 ];
 
 function currentPage(): string {

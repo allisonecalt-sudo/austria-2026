@@ -26,6 +26,7 @@ import 'leaflet/dist/leaflet.css';
 import { byId } from './plan-data.js';
 import { BASE_ORDER, TABLE_ROWS } from './table-data.js';
 import { isFav, loadFavs, toggleFav } from './favs.js';
+import { PLAN_DAYS, isInDay, loadAllDayPlans, toggleInDay } from './dayplan.js';
 
 /** Bed colours, matching the three-region colouring on the overview page.
  *  Goisern and Gosau share a family because they ARE the same region. */
@@ -73,6 +74,7 @@ export function mountMap(hostId: string): void {
   }
 
   void loadFavs().catch(() => undefined); // hearts in popups; fine if late
+  void loadAllDayPlans().catch(() => undefined); // day chips in popups too
 
   const map = L.map(host, {
     scrollWheelZoom: false, // never hijack the page scroll on a phone
@@ -121,6 +123,10 @@ export function mountMap(hostId: string): void {
         `<span class="mp-what">${esc(a.what)}</span><br>` +
         `<button type="button" class="mp-fav${on ? ' on' : ''}" data-fav="${esc(r.id)}">` +
         `${on ? '❤️ In your picks — tap to remove' : '🤍 Add to Our picks'}</button>` +
+        `<span class="mp-days">${PLAN_DAYS.map(
+          (d) =>
+            `<button type="button" class="mp-day${isInDay(d.dayId, r.id) ? ' on' : ''}" data-day="${d.dayId}" data-id="${esc(r.id)}">${d.short}</button>`,
+        ).join('')}</span>` +
         `<a href="plan.html#${esc(r.id)}">Open the card →</a>`
       );
     });
@@ -139,6 +145,16 @@ export function mountMap(hostId: string): void {
       const on = toggleFav(id);
       btn.className = on ? 'mp-fav on' : 'mp-fav';
       btn.textContent = on ? '❤️ In your picks — tap to remove' : '🤍 Add to Our picks';
+    });
+    // The day chips: tap Tue on a dot and it joins Tuesday's shared plan.
+    node?.querySelectorAll<HTMLButtonElement>('button.mp-day').forEach((db) => {
+      db.addEventListener('click', () => {
+        const dayId = db.getAttribute('data-day');
+        const id = db.getAttribute('data-id');
+        if (!dayId || !id) return;
+        const nowIn = toggleInDay(dayId, id);
+        db.classList.toggle('on', nowIn);
+      });
     });
   });
   // ---- the beds themselves, numbered, drawn last so they sit on top -------

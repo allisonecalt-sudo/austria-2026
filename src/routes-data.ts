@@ -43,6 +43,8 @@ export interface DayRoute {
   weatherSwap?: string;
   /** True when the day has no car at all. */
   onFoot?: boolean;
+  /** The linger version: one place for hours + an easy walk + an activity. */
+  slow?: string;
 }
 
 const P = (f: string): string =>
@@ -52,26 +54,26 @@ export const DAY_ROUTES: DayRoute[] = [
   {
     dayId: 'fri24',
     date: 'Fri 24',
-    title: 'Land soft',
-    headline: 'One stop on the drive in, the big shop, then nothing.',
-    photo: P('Bad%20Goisern%20-%20Ortsansicht%20%28a%29.JPG'),
+    title: 'Mauthausen, then home',
+    headline: 'The remembrance day — three hours at the memorial, the big shop, candles at 20:32.',
+    photo: P('Wiener%20Graben%20quarry%20by%20Stefanie%20J%20Steindl%20012.jpg'),
     stops: [
       { label: 'Salzburg airport — land 07:50, car 08:30', emoji: '🛬', legMin: 0 },
       {
-        id: 'jewish-ischl',
-        time: '~10:00',
-        legMin: 58,
-        note: 'Flat, free, ~1h. The one meaningful stop, done before the tiredness lands.',
+        id: 'mauthausen',
+        time: '~10:15 — open Fri 09:00–17:30',
+        legMin: 105,
+        note: 'Free entry, audio guides, ~3 hours: the quarry, the Stairs of Death, the Room of Names. The heaviest visit of the trip, done first, with the whole quiet drive after it.',
       },
       {
         label: 'The BIG shop — Spar Bad Ischl',
         emoji: '🛒',
-        time: 'before 16:00',
-        legMin: 0,
-        note: 'Same town, no extra drive. This shop covers tonight, all of Shabbat AND Sunday — shops are shut both days.',
+        time: '~15:00',
+        legMin: 90,
+        note: 'This shop covers tonight, all of Shabbat AND Sunday — shops are shut both days. Check-in runs to 23:59, so there is no clock pressure before candles.',
       },
       {
-        label: 'Ferienwohnung Glücksmomente — check in from 16:00',
+        label: 'Ferienwohnung Glücksmomente — check in (16:00–23:59)',
         emoji: '🛏',
         legMin: 12,
         note: 'Unpack, shower, cook. Candles 20:32.',
@@ -79,7 +81,8 @@ export const DAY_ROUTES: DayRoute[] = [
     ],
     sunset: 'Bad Goisern valley on foot, ~20:50 — after candles, so it has to be walkable. It is.',
     weatherSwap:
-      'None needed — this day works in any weather. If check-in can happen early, nap first and shop after.',
+      'The low-energy swap, if the night flight wins: the Pins of Remembrance walk in Bad Ischl instead (58 min from the airport, flat, ~1h) — shop in the same town, home by noon, nap. Ebensee (25 min from the apartment) can carry the remembrance weight on Sunday morning instead.',
+    slow: 'Skip the long drive: Ebensee memorial (25 min from the apartment, you walk into the tunnel itself), the flat Langbathsee shore loop with a swim, shop in Bad Ischl, home early. Remembrance kept, half the driving.',
   },
   {
     dayId: 'shabbat',
@@ -111,61 +114,79 @@ export const DAY_ROUTES: DayRoute[] = [
   {
     dayId: 'sun26',
     date: 'Sun 26',
-    title: 'Wet transfer, hot water',
-    headline: 'A waterfall in the rain, then a spa instead of a waiting room.',
+    title: 'Wet transfer — the ICE CAVE day',
+    headline: 'A waterfall, the largest ice cave on Earth, then hours of hot water.',
     photo: P('Wolfgangsee%20mit%20St.%20Wolfgang.jpg'),
     stops: [
-      { label: 'Leave Bad Goisern ~10:30, car packed last night', emoji: '🛏', legMin: 0 },
+      { label: 'Leave Bad Goisern ~09:30, car packed last night', emoji: '🛏', legMin: 0 },
       {
         id: 'golling',
-        time: '~11:30',
+        time: '~10:30',
         legMin: 56,
-        note: '15 min of forest path; a waterfall runs harder in rain. Back in the car by 12:15.',
+        note: '15 min of forest path; a waterfall runs harder in rain.',
+      },
+      {
+        label: 'Eisriesenwelt, Werfen — the largest ice cave on Earth',
+        emoji: '🧊',
+        time: 'book a ~12:00 slot online tonight — saves €4 and holds your place',
+        legMin: 15,
+        note: 'THE BIG ONE, and it is weatherproof: 42 km of ice inside a mountain, right off the road you are driving anyway. Honest cost: ~3.5h door to door with a steep 20-min path, a cable car, and ~700 steps inside at 0°C — the one real climb of the week. Wear the warm layer. If that is not today, skip freely: the spa below is the recovery either way.',
       },
       {
         id: 'tauern-spa',
-        time: '14:00–17:00',
-        legMin: 67,
-        note: 'The trick of the day: the spa IS the waiting room for the 17:00 check-in. Take passports into the locker, not a loaded car. The detour costs ~29 min over driving direct — and turns the dead hours into the restful ones.',
+        time: 'from ~16:00 until you are done — pools to 21:00',
+        legMin: 50,
+        note: 'No booking, no clock — the recovery after the ice. Take passports into the locker, not a loaded car. Self check-in at der Sonnberg means arriving at 21:00 is fine.',
       },
       {
-        label: 'der Sonnberg — check in 17:00–18:00',
+        label: 'der Sonnberg — self check-in, whenever you arrive',
         emoji: '🛏',
         legMin: 11,
-        note: 'Cook, early night.',
       },
     ],
     sunset:
       'Zeller See Esplanade 20:53 — two minutes from the door, umbrella, something hot. Grey is fine; it is your first night on this lake.',
     weatherSwap:
-      'If Sunday somehow clears, keep the spa anyway — it is not there for the weather, it is there for the check-in gap.',
+      'If Sunday somehow clears: the ice cave is still worth it (it is 0°C inside regardless) — or swap it for the Schmittenhöhe lift and a first swim. If 700 steps is a no today, the Sigmund-Thun gorge boardwalk (€3.50, an hour) is the gentle stand-in.',
+    slow: 'Straight to the Tauern Spa and stay all afternoon — pools to 21:00, no clock. The walk is the Esplanade after check-in; the activity is doing absolutely nothing in warm water while it rains.',
   },
   {
     dayId: 'mon27',
     date: 'Mon 27',
     title: 'Wettest day — get wetter',
-    headline: 'The one plan an 89%-rain day cannot spoil: a river.',
+    headline: 'Gorge, river, boat. A full day the rain cannot touch.',
     photo: P('Kitzsteinhorn3.jpg'),
     stops: [
-      { label: 'Slow Zell morning', emoji: '☕', legMin: 0 },
+      {
+        id: 'kitzlochklamm',
+        time: '10:00 — €11 CASH',
+        legMin: 22,
+        note: 'Boardwalks, tunnels and spray for about 90 minutes — a gorge is BETTER in rain.',
+      },
       {
         id: 'frost-rafting',
-        time: 'late morning / 13:00 slot',
-        legMin: 11,
-        note: 'BOOKED AHEAD (on request, 24h notice). Once you are in the river, rain stops mattering. FROST runs Mondays; Motion Lofer does not.',
+        time: '13:00 slot',
+        legMin: 12,
+        note: 'BOOKED AHEAD (on request, 24h notice). Wetsuits on, rain irrelevant. FROST runs Mondays; Motion Lofer does not. (Leg ≈ Taxenbach→Bruck, short hop.)',
       },
-      { label: 'Back to Zell — hot shower, nap', emoji: '🛏', legMin: 11 },
+      {
+        id: 'tauern-spa',
+        time: 'after the river — warm up as long as you like',
+        legMin: 8,
+        note: 'Eleven minutes from the bed on the way back; pools to 21:00 if the cruise does not sail.',
+      },
       {
         id: 'zell-cruise',
         time: 'decide at 18:00, board ~20:00',
-        legMin: 0,
-        note: 'A 3-minute walk, so walking away costs nothing. If the sky breaks, this is the Montenegro evening — it only runs tonight.',
+        legMin: 11,
+        note: 'A 3-minute walk from the apartment, so walking away costs nothing. If the sky breaks, this is the Montenegro evening — it only runs tonight.',
       },
     ],
     sunset:
       'ON the Zeller See from the boat if it sails; the Esplanade at 20:53 if not. Decide at 18:00, not before.',
     weatherSwap:
-      'If Monday CLEARS (check at 07:00 in bed): drop the raft, go up Kitzsteinhorn instead — 12 min away, no reservation, decided from bed. And book the cruise the moment the sky looks right.',
+      'If Monday CLEARS (check at 07:00 in bed): Kitzsteinhorn up at 09:30 instead of the gorge — 12 min away, no reservation — keep the raft, and book the cruise the moment the sky looks right.',
+    slow: 'Raft at 13:00 and nothing else: slow morning on the Esplanade, the river, then hours at the spa. The cruise decision at 18:00 still stands.',
   },
   {
     dayId: 'tue28',
@@ -202,50 +223,58 @@ export const DAY_ROUTES: DayRoute[] = [
     ],
     sunset: 'Hallstatt lakefront ~20:50 — or the Gosau valley from the door if you are flat.',
     weatherSwap: 'The gorge is BETTER in rain. This day does not care about the forecast.',
+    slow: 'Only the gorge: long Zell morning with a swim, Liechtensteinklamm at 14:45, then Gosau and stay put — the valley walk from the door, supper on the balcony, early candles-free night.',
   },
   {
     dayId: 'wed29',
     date: 'Wed 29',
-    title: 'The clear day',
-    headline: 'One summit in the morning, one lake all evening. The blank middle is deliberate.',
+    title: 'The clear day — mountain, ice, lake',
+    headline: 'One mountain does double duty, then the mirror lake until the light goes.',
     photo: P('A-Krippenstein-5fingers.jpg'),
     stops: [
       {
         id: 'krippenstein',
-        time: 'leave 09:30, home by 13:00',
+        time: 'webcam check 07:30 · leave 09:00',
         legMin: 24,
-        note: 'Check the webcam at 07:30 first. Two cable cars, ~2h up top, the platform over the 400 m drop — on the one day forecast clear.',
+        note: 'Two cable cars, ~2h up top, the platform over the 400 m drop — on the one day forecast clear.',
       },
       {
-        label: 'Gosau — lunch and NOTHING, 13:00–16:00',
-        emoji: '😴',
-        legMin: 24,
-        note: 'The blank is the plan. Do not fill it.',
+        id: 'dachstein-icecave',
+        time: 'early afternoon',
+        legMin: 0,
+        note: 'Same mountain, same lift system — 1.8 km from 5 Fingers. Real ice underground in July, cold, bring the layer you already have.',
+      },
+      {
+        id: 'hallstatt',
+        time: 'late lunch below',
+        legMin: 21,
+        note: 'You are at its lake anyway — eat on the lakefront while the day crowd starts thinning. (Leg from Obertraun, measured from Goisern side.)',
       },
       {
         id: 'gosausee-boats',
-        time: 'on the water by 16:30',
-        legMin: 15,
-        note: 'Last hire 18:00 — 16:30, not later. E-boat or SUP inside the Dachstein reflection.',
+        time: 'on the water by 16:30 — last hire 18:00',
+        legMin: 36,
+        note: 'E-boat or SUP inside the Dachstein reflection.',
       },
       {
-        label: 'Stay on the shore — swim, picnic dinner',
+        label: 'Stay on the shore — swim, picnic dinner, the light show',
         emoji: '🌅',
         legMin: 0,
         note: 'Do not get back in the car between the boat and the sunset.',
       },
-      { label: 'Home', emoji: '🛏', legMin: 15 },
+      { label: 'Home — 15 min, whenever it is over', emoji: '🛏', legMin: 15 },
     ],
     sunset:
       'Vorderer Gosausee ~20:51, from the shore you are already sitting on. The trip’s postcard, empty after the buses.',
     weatherSwap:
-      'If the webcam shows the top socked in: flip the morning to SUP on glassy Hallstättersee water, keep the evening exactly as planned.',
+      'If the webcam shows the top socked in: Salzwelten Altaussee (the open salt mine) + SUP on glassy Hallstättersee water, keep the whole evening exactly as planned.',
+    slow: 'Krippenstein in the morning, then the WHOLE afternoon at the Gosausee: the flat one-hour lake loop is the walk, the e-boat is the activity, the picnic on the shore is the staying-for-a-while. One mountain, one lake, nothing else.',
   },
   {
     dayId: 'thu30',
     date: 'Thu 30',
-    title: 'Königssee → the city',
-    headline: 'The one early alarm of the week, spent on the best thing on the list.',
+    title: 'Königssee → Salzburg at night',
+    headline: 'The signature boat, the stillest lake, then the old city until you are done.',
     photo: P('K%C3%B6nigssee%20St.%20Bartholom%C3%A4%2002.jpg'),
     stops: [
       { label: 'Out of Gosau 07:10 — bags in the car', emoji: '🛏', legMin: 0 },
@@ -253,32 +282,39 @@ export const DAY_ROUTES: DayRoute[] = [
         id: 'koenigssee',
         time: 'dock ~08:20, boat by 10:30 latest',
         legMin: 68,
-        note: 'Silent boat, echo trumpet, the flat walk to the Obersee mirror. ASK AT THE WINDOW for the last Salet return boat before you board — that number decides your afternoon. Car by ~14:30.',
+        note: 'Silent boat, echo trumpet, the flat walk to the Obersee mirror. ASK AT THE WINDOW for the last Salet return boat before you board.',
       },
       {
         id: 'hintersee-ramsau',
-        time: 'optional, if ahead of schedule',
+        time: 'mid-afternoon',
         legMin: 22,
-        note: 'The stillest water of the trip, 22 min off the route home. Skip without guilt.',
+        note: 'The stillest water of the trip — rowboats ~€10, the mossy Zauberwald path, 22 min off the route.',
       },
       {
-        label: 'Best Western Wals — check in, FUEL the car, pack for the flight',
+        label: 'Best Western Wals — drop bags, FUEL the car, pack for the flight',
         emoji: '🛏',
         legMin: 37,
-        note: 'Bags done BEFORE going back out. Friday must contain no thinking.',
+        note: 'Bags done BEFORE going back out — then the evening is free and Friday contains no thinking.',
+      },
+      {
+        id: 'salzburg-jewish-walk',
+        time: '~19:00',
+        legMin: 19,
+        note: 'Judengasse, the Feingold bridge, the Stolpersteine — flat, free, at dusk pace.',
       },
       {
         id: 'moenchsberg',
         time: 'sunset 20:47',
-        legMin: 21,
-        note: 'Or the fortress concert at 20:00 (15 min) — one or the other, and a 05:30 alarm outranks both if you are flat.',
+        legMin: 0,
+        note: 'Same old town, 600 m on foot from the walk. OR the 20:00 Golden Hall concert in the fortress above you — one or the other.',
       },
-      { label: 'Hotel by ~21:30', emoji: '🛏', legMin: 21 },
+      { label: 'Back to Wals — as late as you like', emoji: '🛏', legMin: 21 },
     ],
     sunset:
-      'Mönchsberg over the old city, 20:47 — or trade it for the 20:00 Golden Hall concert. Not both.',
+      'Mönchsberg over the old city, 20:47 — or trade it for the 20:00 fortress concert. The 05:30 alarm is your call, not the plan’s.',
     weatherSwap:
-      'Thursday is forecast the second-clearest day. If it flips wet, the boat still runs — the cliffs stay dramatic and the crowds halve.',
+      'If Thursday flips wet: the boat still runs — cliffs stay dramatic, crowds halve — and the evening moves indoors to the concert.',
+    slow: 'Königssee only — no Hintersee, no double evening. Check in, then Mirabell gardens at dusk (free, flat, 45 min) and a slow dinner in the old town. One boat, one garden, done.',
   },
   {
     dayId: 'fri31',
